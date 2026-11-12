@@ -101,3 +101,23 @@ follows what was ticked, never health; own picture stays on the device.
   labelled as the reader's arithmetic, not a finding.
 - **Home-screen widgets (Android / iPhone)** need a native wrapper; a website cannot supply
   them. Not built.
+
+## 2026-11-12, Phase 8 (live site on the real Supabase project)
+
+- **Hosted database was already up to date.** `supabase db push --remote --dry-run --include-seed`
+  returned `upToDate: true`, no migrations and no seeds pending; `supabase migration list --remote`
+  shows all four migrations. Reason it looked like it failed: on Supabase CLI 3.x, `db push`
+  without `--remote` targets local Docker. The seed was checked first: it only upserts into
+  `papers`, `paper_content`, `paper_feature_content` and `protocol_steps`; no user tables.
+  `docs/HANDOFF.md` corrected to use `--remote`.
+- **Leftover `package.json` / `package-lock.json` discarded, not committed.** They were
+  byte-identical to `origin/main` (Vercel's analytics merge, `5ed9983`); `git diff origin/main`
+  was empty. Restored, then `git pull --ff-only`.
+- **`docs/ARCHITECTURE.md` and `docs/HANDOFF.md` committed** (`b17470e`) after a scan for
+  secret-looking strings found none.
+- **Stray `~/package-lock.json` moved to `~/_to_delete/`.** It was an empty npm lockfile
+  (83 bytes, no packages, no `package.json` beside it). A lockfile above the repo can make
+  Next.js choose the wrong workspace root. `npm run build` afterwards: no lockfile warning.
+  `turbopack.root` deliberately not set.
+- **Target for database tests is 177 assertions** (the figure in ARCHITECTURE.md), not 161.
+- `npm audit` deferred until after the Phase 8 gate (owner's call).
