@@ -31,7 +31,10 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       `docs/evidence/phase8-gate.txt`.
 - [x] HANDOFF section 7 renumbered to the master prompt's phases; `docs/MASTER-PROMPT.md` saved;
       Resume prompt added to HANDOFF section 8.
-- [ ] ⏸ **Waiting for the owner's go-ahead for Step 1.**
+- [x] Master prompt copy checked against the owner's original with `diff` (identical); the
+      live-site browser amendment corrected; HANDOFF Phase 9 and 10 reduced to pointers.
+- [ ] ⏸ **Stopped at the owner's instruction. Step 1 starts in a fresh session** (Resume prompt:
+      `docs/HANDOFF.md`, section 8).
 
 ## Step 1: skills (no stop)
 

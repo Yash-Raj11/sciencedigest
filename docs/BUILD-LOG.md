@@ -416,3 +416,17 @@ session. No bug. Output in `docs/evidence/pre3-live-409.txt`.
 - **`docs/MASTER-PROMPT.md`.** The owner's prompt saved word for word, with every later change
   listed under "Amendments", so a session with no chat history can continue from it and
   `PROGRESS.md`. The Resume prompt is in `HANDOFF.md`, section 8.
+
+## 2026-11-13, the master prompt copy and the live-site browser rule, corrected
+
+- **Verbatim check.** The prompt section of `docs/MASTER-PROMPT.md` was compared with the
+  owner's original file. `diff -u` showed one difference: the original has no newline after its
+  last line. The words matched byte for byte (17,067 bytes; `cmp` identical once the fence's
+  own line break is left out). The section was then rewritten from the original file itself.
+- **Browsers on the live site.** The first wording of the amendment banned every automated
+  browser there. That was wider than the owner meant: Turnstile only runs at the first write.
+  Playwright may load live pages as a visitor who has not tapped anything; whatever needs a
+  signed-in user goes through the owner's manual run or `scripts/gate-rls-live.mts`; the CAPTCHA
+  is never worked around. HANDOFF and the Resume prompt say the same.
+- **HANDOFF section 7, Phases 9 and 10** now only point to the master prompt, so there is one
+  place to change the steps.

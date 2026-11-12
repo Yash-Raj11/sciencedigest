@@ -62,11 +62,14 @@ Totals on 2026-11-13: 162 unit tests, 6 HTTP tests, 5 browser tests; 177 databas
 - Hosted Supabase project `takhienzcshgkytbvaii`: all migrations to
   `20261114000100_set_step_amount.sql` and the seed applied; anonymous sign-ins on; CAPTCHA
   (Turnstile) on. `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is set in Vercel and `.env.local`.
-- **Cloudflare refuses automated browsers on the live site** (Turnstile error 600010). Do not
-  try to get around it. Live checks are done with `curl`, with read-only
-  `supabase db query --remote --read-only` counts (no ids), by the owner by hand in an incognito
-  window, or with `scripts/gate-rls-live.mts` (two test users through the auth admin API; the
-  owner runs it in their own Terminal with the service role key typed at a prompt).
+- **Browsers on the live site.** Turnstile runs only at a visitor's first write (the anonymous
+  sign-in) and refuses an automated browser there (error 600010). Playwright may load live
+  pages as a visitor who has not tapped anything (screens, screenshots, status codes, page
+  content). Anything that needs a signed-in user is done by the owner by hand in an incognito
+  window, or server-side with `scripts/gate-rls-live.mts` (the owner runs it in their own
+  Terminal with the service role key typed at a prompt), with read-only
+  `supabase db query --remote --read-only` counts (no ids) as evidence. Never work around the
+  CAPTCHA. Local builds may use Playwright for everything.
 - The current work list is `docs/PROGRESS.md`; the instructions it follows are in
   `docs/MASTER-PROMPT.md` (the prompt word for word, then the owner's amendments).
 
@@ -206,28 +209,13 @@ free user; all database tests green against the live schema.
 
 ### Phase 9: readable reads
 
-Full instructions: `docs/MASTER-PROMPT.md`, Step 2 (2A to 2E).
+Instructions: `docs/MASTER-PROMPT.md`, Step 2 (2A to 2E). They are not repeated here.
 
-1. Rules H9 (plain words before the technical name), H10 (three layers: mechanism, protocol,
-   audit) and H11 (short sentences, active voice) in `CLAUDE.md` and `lib/pipeline/lint.ts`;
-   H7 amended so a number may also come from a gated context source.
-2. Context sources: parallel studies (gated like papers, may carry numbers) and background
-   concepts (no numbers, approved by the owner). Neither becomes a protocol step or changes a weight.
-3. Figures drawn in code as React SVG, held to the widget guard.
-4. The article page rebuilt around the three layers.
-5. The three starter papers and the draft prompt rewritten to the new shape.
-
-**Gate:** the owner has reviewed the design, approved the concepts and read all three reads on
-their phone. Phase 9 is not done until they say so.
+**Gate:** the stops written in Step 2. Phase 9 is not done until the owner says so.
 
 ### Phase 10: first live run of the paper pipeline
 
-Full instructions: `docs/MASTER-PROMPT.md`, Step 3.
-
-1. `npm run retractions` once (first real clone of the Retraction Watch data).
-2. Pick one CC-BY paper; run `fetch`, `extract`, `draft`. Fix whatever breaks on first contact
-   with Europe PMC and the model API (all of it has unit tests, none of it has run live).
-3. Owner reads the draft against the paper and approves. Then `content:build` and release.
+Instructions: `docs/MASTER-PROMPT.md`, Step 3 (3A and 3B). They are not repeated here.
 
 **Gate:** a fourth paper is live, went through every stage, and the gate or lint refused at
 least one thing along the way that was then fixed in the JSON, not by loosening a rule.
@@ -331,9 +319,10 @@ prompt, then its Amendments, which win where they disagree), docs/PROGRESS.md,
 docs/ARCHITECTURE.md, docs/HANDOFF.md and the latest docs/BUILD-LOG.md entries. Continue from
 the first unchecked item in docs/PROGRESS.md, following docs/MASTER-PROMPT.md exactly,
 including every ⏸ stop and the "ASK FIRST" list. The repository is the source of truth: if
-anything there disagrees with the prompt, stop and tell me which is wrong. Never drive an
-automated browser against the live site and never work around the CAPTCHA. Before doing
-anything, tell me in two lines which item you are starting and what the last BUILD-LOG entry says.
+anything there disagrees with the prompt, stop and tell me which is wrong. On the live site a
+browser may only load pages as a visitor who has not tapped anything; never work around the
+CAPTCHA. Before doing anything, tell me in two lines which item you are starting and what the
+last BUILD-LOG entry says.
 ```
 
 ---

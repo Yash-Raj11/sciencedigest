@@ -3,7 +3,8 @@
 The owner's instructions for the current run of work, saved on 2026-11-13 so that a session with
 no chat history can continue. Read this file and `docs/PROGRESS.md` (the checklist, with what is
 done). **The Amendments section at the end changes parts of the prompt; where they disagree,
-the amendment wins.** The prompt itself is kept word for word below.
+the amendment wins.** The prompt itself is kept word for word below, checked against the
+owner's original file with `diff` on 2026-11-13 (no differences).
 
 ---
 
@@ -323,13 +324,23 @@ as a permanent refusal outside the held list), it is dropped, the refusal is sho
 a queued write, and the writes held behind it are released. Only "wait for a fix" codes keep a
 write held.
 
-### 2026-11-13: Step 0, no browser on the live site
+### 2026-11-13: what a browser may do on the live site (corrected the same day)
 
-Cloudflare Turnstile refuses Playwright on the live site (error 600010). **Do not run any check
-through an automated browser on the live site, and do not try to get around the CAPTCHA.** This
-replaces "Prove the gate on the LIVE site with Playwright" in Step 0, and it limits "Playwright
-for screens" in HOW TO WORK to local builds. Live checks use `curl`, read-only
-`supabase db query --remote --read-only` counts with no ids, the owner by hand, or:
+Cloudflare Turnstile runs only at a visitor's first write, the anonymous sign-in, and it refuses
+an automated browser there (error 600010). So, on the LIVE site:
+
+- **Playwright may load pages as a visitor who has not tapped anything:** screens, screenshots,
+  status codes, page content, the search-the-build check.
+- **Anything that needs a signed-in user** uses the owner's manual incognito run, or the
+  server-side method of `scripts/gate-rls-live.mts` (the owner runs it with the key in their
+  own Terminal).
+- **Never work around the CAPTCHA.**
+
+Local builds may use Playwright for everything, as before. (An earlier wording of this amendment
+said no automated browser on the live site at all; that was wider than the owner meant.)
+
+This replaces "Prove the gate on the LIVE site with Playwright, using two fresh browser
+contexts" in Step 0, whose checks all needed a signed-in user:
 
 - (a) is covered by the owner's manual run plus the count query.
 - (b) and (c) are done server-side by `scripts/gate-rls-live.mts`: two test users created with
