@@ -36,12 +36,27 @@ All checks passed.
     Cleanup checked separately, read-only: users in auth.users created between 19:18:00 and
     19:19:00 UTC: 0.
 
-    After this run the owner asked for two checks to be tightened, and the committed script has
-    them: "reading all of paper_content" also needs HTTP 200 and at least 1 row; "B cannot write
-    a tick in A's name" also needs A to still have exactly 1 tick. The tightened script has NOT
-    been run on production; the output above is from the version before. On that output both
-    tightened conditions would hold for the first (HTTP status not printed then, 2 rows); the
-    second (A's tick count after the forged write) was not measured.
+    After this run the owner asked for two checks to be tightened: "reading all of
+    paper_content" also needs HTTP 200 and at least 1 row; "B cannot write a tick in A's name"
+    also needs A to still have exactly 1 tick.
+
+    Second run, by the owner, with the tightened script (commit 7fb4ace). Output as pasted:
+
+Created 2 test users at 2026-11-12T19:24:59.633896Z and 2026-11-12T19:24:59.989245Z (no ids shown).
+PASS  setup: A adds a habit and ticks it: HTTP 201 and 201
+PASS  setup: A reads their own tick: 1 row(s)
+PASS  (b) B reads step_checkins with no filter: HTTP 200, 0 row(s), 0 belonging to someone else
+PASS  (b) B asks for A's rows by A's user id: HTTP 200, 0 row(s)
+PASS  (b) B asks for A's rows by A's habit id: HTTP 200, 0 row(s)
+PASS  (b) B cannot write a tick in A's name: HTTP 403; A still has 1 tick(s)
+PASS  (c) setup: A is on the free tier: tier free
+PASS  (c) setup: hiit-body-composition is listed and is members-only: access_tier premium
+PASS  (c) a free user gets no paper_content row for hiit-body-composition: HTTP 200, 0 row(s)
+PASS  (c) control: the same question for the free paper daytime-caffeine-sleep returns its row: 1 row(s)
+PASS  (c) reading all of paper_content returns free papers only: HTTP 200, 2 row(s), 0 not free
+PASS  cleanup: both test users deleted, none of their rows left: 2 of 2 deleted, 0 row(s) left
+
+All checks passed.
 
 (d) curl -sI https://sciencedigest-a4ms.vercel.app/papers/does-not-exist
     HTTP/2 404

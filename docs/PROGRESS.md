@@ -1,7 +1,8 @@
 # Progress
 
-The checklist for the current master prompt: Phase 8 close-out, skills, Phase 9 (9A–9E, the
-prompt's steps 2A–2E), Phase 10, Phase 11, then stop. Phase 12 is not to be started.
+The checklist for `docs/MASTER-PROMPT.md` (the owner's prompt, word for word, plus amendments):
+Phase 8 close-out, skills, Phase 9 (9A–9E, the prompt's steps 2A–2E), Phase 10, Phase 11, then
+stop. Phase 12 (the native app) is not to be started.
 Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklist.
 ⏸ = stop and wait for the owner. Continue from the first unchecked item.
 
@@ -26,7 +27,11 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
 - [x] Both test users deleted (script, and a separate read-only count: 0 left).
 - [x] (d) `curl -sI` the live `/papers/does-not-exist`: `HTTP/2 404`.
 - [x] "Where it stands" in `docs/HANDOFF.md` updated; Phase 8 marked done.
-- [ ] ⏸ Stop with the gate results. Evidence: `docs/evidence/phase8-gate.txt`. **Waiting for the owner.**
+- [x] ⏸ Stopped with the gate results; the owner re-ran the tightened script (all PASS). Evidence:
+      `docs/evidence/phase8-gate.txt`.
+- [x] HANDOFF section 7 renumbered to the master prompt's phases; `docs/MASTER-PROMPT.md` saved;
+      Resume prompt added to HANDOFF section 8.
+- [ ] ⏸ **Waiting for the owner's go-ahead for Step 1.**
 
 ## Step 1: skills (no stop)
 

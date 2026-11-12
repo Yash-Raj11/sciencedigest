@@ -67,9 +67,8 @@ Totals on 2026-11-13: 162 unit tests, 6 HTTP tests, 5 browser tests; 177 databas
   `supabase db query --remote --read-only` counts (no ids), by the owner by hand in an incognito
   window, or with `scripts/gate-rls-live.mts` (two test users through the auth admin API; the
   owner runs it in their own Terminal with the service role key typed at a prompt).
-- The current work list is `docs/PROGRESS.md`. Its phase numbers follow the owner's current
-  master prompt (9 = readable reads, 10 = first live pipeline run, 11 = Instagram carousels,
-  12 = the native app), which is one later than the numbering in section 7 below from Phase 9 on.
+- The current work list is `docs/PROGRESS.md`; the instructions it follows are in
+  `docs/MASTER-PROMPT.md` (the prompt word for word, then the owner's amendments).
 
 ### Not built
 
@@ -205,7 +204,25 @@ as the record of what was done.
 row in `step_checkins`; a second browser cannot read it; the members' read stays locked for a
 free user; all database tests green against the live schema.
 
-### Phase 9: first live run of the paper pipeline
+### Phase 9: readable reads
+
+Full instructions: `docs/MASTER-PROMPT.md`, Step 2 (2A to 2E).
+
+1. Rules H9 (plain words before the technical name), H10 (three layers: mechanism, protocol,
+   audit) and H11 (short sentences, active voice) in `CLAUDE.md` and `lib/pipeline/lint.ts`;
+   H7 amended so a number may also come from a gated context source.
+2. Context sources: parallel studies (gated like papers, may carry numbers) and background
+   concepts (no numbers, approved by the owner). Neither becomes a protocol step or changes a weight.
+3. Figures drawn in code as React SVG, held to the widget guard.
+4. The article page rebuilt around the three layers.
+5. The three starter papers and the draft prompt rewritten to the new shape.
+
+**Gate:** the owner has reviewed the design, approved the concepts and read all three reads on
+their phone. Phase 9 is not done until they say so.
+
+### Phase 10: first live run of the paper pipeline
+
+Full instructions: `docs/MASTER-PROMPT.md`, Step 3.
 
 1. `npm run retractions` once (first real clone of the Retraction Watch data).
 2. Pick one CC-BY paper; run `fetch`, `extract`, `draft`. Fix whatever breaks on first contact
@@ -215,7 +232,10 @@ free user; all database tests green against the live schema.
 **Gate:** a fourth paper is live, went through every stage, and the gate or lint refused at
 least one thing along the way that was then fixed in the JSON, not by loosening a rule.
 
-### Phase 10: Instagram slide images
+### Phase 11: Instagram carousels with their own art
+
+Full instructions: `docs/MASTER-PROMPT.md`, Step 4 (a new deck shape of seven slide kinds and a
+poster-style art kit in `lib/carousel/art/`, on top of what follows).
 
 The owner has the 12 carousel Studio files (`lib/carousel/*`, `SlideRenderer.tsx`, export
 route, `verify-parity.mts`, etc.). Copy them in, then map `content/generated/carousels.json` to
@@ -224,9 +244,10 @@ and inline styles only; fonts must be `.woff`, not `.woff2`; `≤` and `✓` ren
 linter fails closed on unverified characters; 1080×1350, at most 10 slides. Put the export
 route behind a check so it is not a free image-rendering service on the internet.
 
-**Gate:** `verify-parity.mts` passes; an approved deck exports to PNGs with no missing glyphs.
+**Gate:** `verify-parity.mts` passes; one deck per published paper exports to PNGs with no missing
+glyphs, saved in `docs/evidence/carousel/`. The owner approves decks in `/admin/queue`.
 
-### Phase 11: native app and home-screen widgets
+### Phase 12: native app and home-screen widgets
 
 The owner wants Today's widgets on the Android and iPhone home screen, small and opening into
 the full view, like the in-app tiles.
@@ -257,7 +278,7 @@ the full view, like the in-app tiles.
 **Gate:** on a real Android phone, a widget shows today's count, `+1` changes it, and the app
 shows the same number after opening. Then the same on iPhone.
 
-### Phase 12: payments
+### Phase 13: payments
 
 Stripe Checkout; a server route (Vercel function) verifies Stripe's webhook signature and sets
 `user_profiles.subscription_tier` using the **service role key** (server only). The browser can
@@ -268,7 +289,7 @@ Decide the real members' feature list (the `features` table has two placeholders
 **Gate:** a test-mode payment unlocks the members' read on a second device; a test-mode
 cancellation locks it again and the streak is untouched.
 
-### Phase 13: scale (only when needed)
+### Phase 14: scale (only when needed)
 
 - **Reads on demand.** Free reads are bundled into the app download (~15–20 KB each). Past
   roughly 50 papers, load each read with its page instead.
@@ -302,10 +323,25 @@ paper; streak protection ("rest day") rules; sharing a finished day as an image.
 
 ---
 
+### Resume prompt (paste this to start a fresh session)
+
+```text
+You are continuing Science Digest. Read, in this order: CLAUDE.md, docs/MASTER-PROMPT.md (the
+prompt, then its Amendments, which win where they disagree), docs/PROGRESS.md,
+docs/ARCHITECTURE.md, docs/HANDOFF.md and the latest docs/BUILD-LOG.md entries. Continue from
+the first unchecked item in docs/PROGRESS.md, following docs/MASTER-PROMPT.md exactly,
+including every ⏸ stop and the "ASK FIRST" list. The repository is the source of truth: if
+anything there disagrees with the prompt, stop and tell me which is wrong. Never drive an
+automated browser against the live site and never work around the CAPTCHA. Before doing
+anything, tell me in two lines which item you are starting and what the last BUILD-LOG entry says.
+```
+
+---
+
 ## 9. Open questions for the owner
 
-1. Phase 11 step 3: may a widget tap wait until the app is opened to reach the server?
-2. Phase 11 step 1: should the native app load the live site, or a bundled copy?
+1. Phase 12 step 3: may a widget tap wait until the app is opened to reach the server?
+2. Phase 12 step 1: should the native app load the live site, or a bundled copy?
 3. What exactly does membership include? This decides what the server-side gated functions return.
 4. Should the companion picture follow the user across devices? That means uploading and
    hosting user images (Supabase Storage), which was deliberately avoided.

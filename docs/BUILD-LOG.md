@@ -405,6 +405,14 @@ session. No bug. Output in `docs/evidence/pre3-live-409.txt`.
   the owner's request after that run (an empty answer can no longer pass "free papers only";
   the forged-tick check also counts A's ticks). The tightened version has not been run on
   production yet.
-- **Phase numbers.** `HANDOFF.md` section 7 calls the pipeline run Phase 9 and the native app
-  Phase 11; the owner's current master prompt inserts "readable reads" as Phase 9 and moves the
-  rest one later. `PROGRESS.md` follows the master prompt; HANDOFF now says so.
+- **Phase numbers.** `HANDOFF.md` section 7 used to call the pipeline run the ninth phase and the
+  native app the eleventh; the owner's master prompt inserts "readable reads" as Phase 9 and
+  moves the rest one later. The owner had section 7 renumbered to match the same day:
+  9 readable reads, 10 first live pipeline run, 11 Instagram carousels, 12 native app and
+  widgets, 13 payments, 14 scale.
+- **Second run.** The owner re-ran the script with the two tightened checks: all PASS, A still
+  had 1 tick after the forged write (HTTP 403), `paper_content` answered HTTP 200 with 2 rows,
+  0 not free. Both runs are in `docs/evidence/phase8-gate.txt`.
+- **`docs/MASTER-PROMPT.md`.** The owner's prompt saved word for word, with every later change
+  listed under "Amendments", so a session with no chat history can continue from it and
+  `PROGRESS.md`. The Resume prompt is in `HANDOFF.md`, section 8.
