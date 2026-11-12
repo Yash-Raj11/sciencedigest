@@ -210,3 +210,18 @@ Within the hour the live site created its first anonymous user.
   token line removed, "sends the Turnstile token as captchaToken when one is present" failed
   (`Received: []`); restored, 8 of 8 pass. Unit tests in all: 127.
 - MANUAL part 3.1 also now uses `supabase db push --remote --include-seed`.
+
+## 2026-11-12, Phase 8 step 6: real 404 for unknown papers; unused fonts removed
+
+- **Cause:** with `cacheComponents` + `partialPrefetching`, Next.js 16.3+ answers an unlisted
+  `/papers/<slug>` with the prerendered App Shell and `200` (`x-nextjs-postponed: 1`) before the
+  page runs, so `notFound()` only added `noindex`. Fix, per the Next 16 docs (ISR with Cache
+  Components; `ensureStatic`): `export const ensureStatic = "navigation"` on the paper page, so
+  the request waits for the complete page and `notFound()` runs before the response starts.
+  `dynamicParams = false` is not allowed with Cache Components.
+- **Test:** `tests/http/papers-status.test.ts`, run by `npm run test:http` after `npm run build`
+  (needs `next start`, so it is not in `npm test`). Before the fix: `expected 200 to be 404`
+  for `/papers/does-not-exist` and a near-miss slug. After: 5 of 5 (both 404, the three papers 200).
+- **`@fontsource/newsreader` and `@fontsource/ibm-plex-mono` uninstalled**: grep found no import
+  (only HANDOFF.md mentions them). The variable Newsreader font (`@fontsource-variable/newsreader`)
+  stays. Gate: lint, typecheck, 127 unit tests, build with no lockfile warning, test:http 5 of 5.
