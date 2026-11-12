@@ -61,6 +61,33 @@ describe("getCaptchaToken()", () => {
     expect(api.reset).toHaveBeenCalledWith("widget-1");
   });
 
+  it("a token from the visible check is used once by the next sign-in, without touching the invisible widget", async () => {
+    const api = { render: vi.fn(() => "widget-1"), execute: vi.fn(), reset: vi.fn() };
+    fakePage(api);
+    const { acceptCheckToken, getCaptchaToken } = await load("site-key-abc");
+
+    acceptCheckToken("visible-token");
+    await expect(getCaptchaToken()).resolves.toBe("visible-token");
+    expect(api.render).not.toHaveBeenCalled();
+    expect(api.execute).not.toHaveBeenCalled();
+  });
+
+  it("the visible check renders an interactive widget and resolves its token", async () => {
+    const api = {
+      render: vi.fn((_el: unknown, options: { appearance: string; execution: string; callback: (t: string) => void }) => {
+        options.callback("person-token");
+        return "visible-1";
+      }),
+      execute: vi.fn(),
+      reset: vi.fn(),
+    };
+    fakePage(api);
+    const { renderVisibleCheck } = await load("site-key-abc");
+
+    await expect(renderVisibleCheck({} as HTMLElement)).resolves.toBe("person-token");
+    expect(api.render.mock.calls[0]?.[1]).toMatchObject({ appearance: "always", execution: "render" });
+  });
+
   it("with a site key but a failed challenge: returns undefined instead of hanging", async () => {
     let onError: (() => void) | undefined;
     const api = {

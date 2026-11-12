@@ -1,14 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CompanionFigure, useAvatar } from "@/components/game/Companion";
 import { GradeChip, Notice } from "@/components/protocol/primitives";
+import { Sheet } from "@/components/shell/Sheet";
+import { acceptCheckToken, renderVisibleCheck } from "@/lib/captcha/turnstile";
 import { clearAvatar, saveAvatar } from "@/lib/companion/avatar";
 import { EVIDENCE_GRADES } from "@/lib/evidence";
 import { DORMANCY_DAYS } from "@/lib/score";
 import { useStore } from "@/lib/store";
-import { linkEmail } from "@/lib/store/sync";
+import { flush, linkEmail } from "@/lib/store/sync";
 import { isDemo } from "@/lib/supabase/client";
 import { applyThemeChoice, readThemeChoice, type ThemeChoice } from "@/lib/theme";
 
@@ -85,6 +87,69 @@ const SYNC_TEXT = {
   error: "Could not reach the server. Trying again shortly.",
 } as const;
 
+const CHECK_TITLE = "Confirm you\u2019re a person to back up your progress";
+
+/**
+ * The visible CAPTCHA, only after the invisible one failed twice. It opens by
+ * itself once ("needed"), on this tab only, never over Today. Closing it is
+ * fine: ticks stay on the device and sync keeps retrying quietly; a short line
+ * lets the visitor open it again when they choose.
+ */
+function HumanCheck() {
+  const state = useStore((s) => s.humanCheck);
+  if (state === "none" || state === "done") return null;
+  return (
+    <>
+      {state === "dismissed" && (
+        <p className="mt-2 text-sm leading-snug text-muted">
+          Your progress is not backed up yet.{" "}
+          <button type="button" onClick={() => useStore.setState({ humanCheck: "needed" })} className="font-semibold text-ink underline underline-offset-2">
+            Confirm you&rsquo;re a person
+          </button>
+        </p>
+      )}
+      <Sheet open={state === "needed"} onClose={() => useStore.setState({ humanCheck: "dismissed" })} title={CHECK_TITLE}>
+        <VisibleCheck />
+      </Sheet>
+    </>
+  );
+}
+
+function VisibleCheck() {
+  const box = useRef<HTMLDivElement>(null);
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    const container = box.current;
+    if (!container) return;
+    let cancelled = false;
+    void renderVisibleCheck(container).then((token) => {
+      if (cancelled) return;
+      if (!token) return setFailed(true);
+      acceptCheckToken(token);
+      useStore.setState({ humanCheck: "done" });
+      void flush();
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return (
+    <div className="space-y-3">
+      <p className="leading-snug">
+        Everything you have ticked is safe on this device. This one-time check lets us keep a copy on the server too.
+      </p>
+      <div ref={box} className="min-h-[70px]" />
+      {failed && (
+        <p className="text-sm leading-snug text-muted" role="status">
+          The check could not load right now. Your ticks stay here, and you can try again later from this page.
+        </p>
+      )}
+    </div>
+  );
+}
+
 function Account() {
   const session = useStore((s) => s.session);
   const sync = useStore((s) => s.sync);
@@ -113,6 +178,7 @@ function Account() {
         {SYNC_TEXT[sync.status]}{waiting > 0 ? ` ${waiting} waiting to send.` : ""}
       </p>
       {sync.lastError && sync.status === "error" && <p className="mt-1 text-sm text-muted">Last problem: {sync.lastError}</p>}
+      <HumanCheck />
 
       {session.email ? (
         <p className="mt-3 leading-snug">Signed in as <strong>{session.email}</strong>. Your progress follows you to any device.</p>

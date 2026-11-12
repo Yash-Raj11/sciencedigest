@@ -29,6 +29,13 @@ interface State {
   queue: Write[];
   sync: { status: SyncStatus; lastError: string | null; lastSyncedAt: string | null };
   session: { userId: string | null; anonymous: boolean; email: string | null; tier: Tier };
+  /**
+   * The visible "are you a person" check on Me. "needed" after the invisible
+   * check failed twice; "dismissed" once the visitor closed it (it is not shown
+   * again by itself); "done" once a token was handed over. Not saved: it
+   * describes this visit, not what the user did.
+   */
+  humanCheck: "none" | "needed" | "dismissed" | "done";
   /** Demo mode only: lets you look at the app as a premium member without a database. */
   demoTier: Tier;
 
@@ -57,6 +64,7 @@ export const useStore = create<State>()(
       queue: [],
       sync: { status: "local", lastError: null, lastSyncedAt: null },
       session: { userId: null, anonymous: true, email: null, tier: "free" },
+      humanCheck: "none",
       demoTier: "free",
 
       dispatch: (write) => set((s) => ({ data: applyWrite(s.data, write), queue: enqueue(s.queue, write) })),

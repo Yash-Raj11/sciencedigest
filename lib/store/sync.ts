@@ -13,7 +13,7 @@
  *   - After a pull, unsent writes are replayed on top of the server's copy.
  */
 
-import { getCaptchaToken } from "../captcha/turnstile";
+import { CaptchaUnavailable, captchaEnabled, getCaptchaToken } from "../captcha/turnstile";
 import { localToday } from "../dates";
 import { RejectedWrite, fetchProfile, pull, push } from "../supabase/remote";
 import { isDemo, supabase } from "../supabase/client";
@@ -24,6 +24,9 @@ let flushing = false;
 let retryTimer: ReturnType<typeof setTimeout> | null = null;
 let retryDelay = 2000;
 const MAX_DELAY = 60000;
+/** Invisible CAPTCHA failures in a row; at 2 the Me tab offers the visible check once. */
+let captchaFailures = 0;
+const VISIBLE_CHECK_AFTER = 2;
 
 /**
  * Returns the signed-in user's id, signing in anonymously on the first write.
@@ -37,10 +40,14 @@ export async function ensureUser(): Promise<string | null> {
   // CAPTCHA: with NEXT_PUBLIC_TURNSTILE_SITE_KEY set, the invisible Turnstile
   // widget supplies a token and Supabase checks it (when CAPTCHA protection is
   // on in its dashboard). With no site key, the token is undefined and sign-in
-  // works as before. Tested in sync.test.ts.
+  // works as before. If the check cannot run, nothing is sent: the caller keeps
+  // the queue and retries. Tested in sync.test.ts.
   const captchaToken = await getCaptchaToken();
+  if (captchaEnabled && !captchaToken) throw new CaptchaUnavailable();
   const { data, error } = await db.auth.signInAnonymously(captchaToken ? { options: { captchaToken } } : undefined);
+  if (error && /captcha/i.test(error.message)) throw new CaptchaUnavailable(error.message);
   if (error || !data.user) throw new Error(error?.message ?? "anonymous sign-in failed");
+  captchaFailures = 0;
   return data.user.id;
 }
 
@@ -93,7 +100,17 @@ export async function flush(): Promise<void> {
     retryDelay = 2000;
     setSync({ status: "idle", lastSyncedAt: new Date().toISOString() });
   } catch (error) {
-    setSync({ status: typeof navigator !== "undefined" && !navigator.onLine ? "offline" : "error", lastError: (error as Error).message });
+    // A CAPTCHA that could not run is treated like a lost connection: the ticks
+    // are safe on the device, nothing to alarm anyone about, try again later.
+    const captcha = error instanceof CaptchaUnavailable;
+    if (captcha) {
+      captchaFailures += 1;
+      if (captchaFailures >= VISIBLE_CHECK_AFTER && store.getState().humanCheck === "none") {
+        store.setState({ humanCheck: "needed" });
+      }
+    }
+    const offline = captcha || (typeof navigator !== "undefined" && !navigator.onLine);
+    setSync({ status: offline ? "offline" : "error", lastError: (error as Error).message });
     if (retryTimer) clearTimeout(retryTimer);
     retryTimer = setTimeout(() => void flush(), retryDelay);
     retryDelay = Math.min(retryDelay * 2, MAX_DELAY);

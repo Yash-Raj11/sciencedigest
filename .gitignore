@@ -43,3 +43,10 @@ next-env.d.ts
 
 # downloaded data (retraction list) and local Supabase state
 /.cache/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/.next-browser/

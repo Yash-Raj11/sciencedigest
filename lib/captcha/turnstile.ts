@@ -9,11 +9,13 @@
  * key is deployed (docs/MANUAL.md, part 10).
  *
  * With a site key: Cloudflare's script is loaded the first time a token is
- * needed, one invisible widget is rendered into a hidden element, and each
- * later token comes from resetting that same widget (tokens are single-use).
- * If the script cannot load or the challenge fails, this resolves undefined
- * rather than hanging; Supabase then refuses the sign-in with its own message,
- * which the Me tab shows, and the sync queue retries.
+ * needed, which is the first sync of someone with no session (never on page
+ * load, never on a tap, never for someone already signed in). One invisible
+ * widget is rendered into a hidden element, and each later token comes from
+ * resetting that same widget (tokens are single-use). If the script cannot load
+ * or the challenge fails, this resolves undefined rather than hanging; sync then
+ * raises CaptchaUnavailable, keeps the queue, shows "offline" and retries. After
+ * two such failures the Me tab offers the visible check once (renderVisibleCheck).
  *
  * No npm package: the script is loaded straight from Cloudflare.
  */
@@ -47,9 +49,53 @@ declare global {
 /** True when a site key was built into this deployment. */
 export const captchaEnabled = SITE_KEY !== undefined;
 
+/**
+ * The check that protects sign-in could not run (script blocked, challenge
+ * failed, or Supabase refused the token). Nothing is lost: the sync queue keeps
+ * every write, reports "offline" and retries with its normal backoff.
+ */
+export class CaptchaUnavailable extends Error {
+  constructor(message = "The check that protects sign-in could not run yet.") {
+    super(message);
+    this.name = "CaptchaUnavailable";
+  }
+}
+
 let scriptLoading: Promise<TurnstileApi> | null = null;
 let widgetId: string | null = null;
 let pending: ((token: string | undefined) => void) | null = null;
+/** A token from the visible check on Me, used by the next sign-in. */
+let handedToken: string | undefined;
+
+/** The visible check on Me passes its token here; the next getCaptchaToken() returns it. */
+export function acceptCheckToken(token: string): void {
+  handedToken = token;
+}
+
+/**
+ * The visible (interactive) check, rendered into a container the Me sheet
+ * owns. Only used after the invisible check failed twice. Resolves the token,
+ * or undefined if Cloudflare could not be reached or the check failed.
+ */
+export async function renderVisibleCheck(container: HTMLElement): Promise<string | undefined> {
+  if (!SITE_KEY || typeof window === "undefined") return undefined;
+  try {
+    const api = await loadScript();
+    return await new Promise<string | undefined>((resolve) => {
+      api.render(container, {
+        sitekey: SITE_KEY,
+        execution: "render",
+        appearance: "always",
+        callback: (token) => resolve(token),
+        "error-callback": () => resolve(undefined),
+        "expired-callback": () => resolve(undefined),
+        "timeout-callback": () => resolve(undefined),
+      });
+    });
+  } catch {
+    return undefined;
+  }
+}
 
 function settle(token: string | undefined) {
   const resolve = pending;
@@ -99,6 +145,11 @@ function widget(api: TurnstileApi, siteKey: string): string {
  */
 export async function getCaptchaToken(): Promise<string | undefined> {
   if (!SITE_KEY || typeof window === "undefined") return undefined;
+  if (handedToken) {
+    const token = handedToken;
+    handedToken = undefined; // single-use
+    return token;
+  }
   try {
     const api = await loadScript();
     const firstRender = widgetId === null;

@@ -64,11 +64,19 @@ Run these before you call any change finished. Each must end without errors.
 |---|---|---|
 | `npm run lint` | Code style, and the widget guard (part 4.6) | *lint* |
 | `npm run typecheck` | That pieces of code fit together | *TypeScript* |
-| `npm test` | The scoring, store, companion and pipeline logic (108 small tests) | *unit test* |
+| `npm test` | The scoring, store, sync, CAPTCHA, companion and pipeline logic (132 small tests) | *unit test* |
 | `npm run build` | That every paper passes the content rules, then builds the real app | *build* |
 | `npm run db:test` | The database's access rules (177 checks) | *pgTAP* |
 
-`npm run db:test` needs Docker Desktop running. Without Docker, part 8 shows the alternative.
+`npm run db:test` needs Docker Desktop running. Without Docker, `npm run db:test:local` runs the
+same 177 checks twice (with and without the seed and other people's data) on a local Postgres.
+
+Two more, for changes to pages or sign-in:
+
+| Command | What it checks |
+|---|---|
+| `npm run test:http` | After `npm run build`: a missing paper answers 404, every real paper 200 |
+| `npm run test:browser` | In a real browser, with the CAPTCHA script blocked: ticking still works, the queue keeps the ticks, Me says "offline". Builds its own copy with a fake database address, so it never touches the real project. Needs `npx playwright install chromium` once |
 
 ---
 

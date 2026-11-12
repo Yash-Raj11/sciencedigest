@@ -225,3 +225,34 @@ Within the hour the live site created its first anonymous user.
 - **`@fontsource/newsreader` and `@fontsource/ibm-plex-mono` uninstalled**: grep found no import
   (only HANDOFF.md mentions them). The variable Newsreader font (`@fontsource-variable/newsreader`)
   stays. Gate: lint, typecheck, 127 unit tests, build with no lockfile warning, test:http 5 of 5.
+
+## 2026-11-12, Phase 8 step 5 (continued): CAPTCHA never blocks or slows the user
+
+Owner's rules, and how each holds:
+
+- **Token only when the first sync needs it.** Only `ensureUser()` asks for one: the first sync of
+  someone with no session (400 ms after their first tap, in the background). Never on page
+  load, never on the tap itself; ticks apply to the screen immediately as before.
+- **Ticking always works; a failed check keeps the queue, shows "offline", retries.** With a site
+  key and no token, `ensureUser()` raises `CaptchaUnavailable` without calling Supabase; a
+  Supabase "captcha" refusal raises it too. `flush()` treats it like a lost connection: the
+  queue is untouched, status `offline`, normal 2 s → 60 s backoff.
+- **After two failed invisible checks, the visible check once, on Me.** `humanCheck` in the store
+  (not saved on the device) goes to `"needed"`; Me opens a sheet "Confirm you're a person to
+  back up your progress". Closing it sets `"dismissed"`: it does not reopen by itself, and a
+  quiet line on Me offers it. A token from it is used once by the next sign-in.
+- **No script once there is a session.** `ensureUser()` returns before any CAPTCHA code runs.
+- **Tests.** Unit: 13 for CAPTCHA (132 in all). The offline rule, broken on purpose, failed the two
+  `flush()` tests (`expected 'error' to be 'offline'`). The first version of that test passed
+  even when broken, because Node's global `navigator` has no `onLine`; it now stubs the device
+  as online. Browser (`npm run test:browser`, `tests/browser/captcha-blocked.spec.ts`):
+  Turnstile blocked, three boxes ticked; checks they stay ticked, sit in the saved queue, no
+  sign-in is sent, nothing covers Today (the "Today is complete" moment is the app's own), Me
+  says offline with "3 waiting to send", and the sheet shows once. Broken rule: failed with
+  `Received: "…Could not reach the server…"`; restored: passed.
+- **New dev dependency `@playwright/test` 1.65.0**, for the browser test the owner asked for.
+  Its Chromium was downloaded by the owner (`npx playwright install chromium`, ~290 MB in
+  `~/Library/Caches/ms-playwright`). The test builds and serves its own copy in `.next-browser/`
+  (`NEXT_DIST_DIR` in `next.config.ts`, set only by `playwright.config.ts`), because a running
+  `next dev` blocks a second one and the test must not use `.env.local`'s real Supabase. Next.js
+  added that folder's type paths to `tsconfig.json`; they are committed so the file stays put.
