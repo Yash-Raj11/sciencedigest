@@ -126,8 +126,9 @@ tap ─▶ dispatch ─▶ applyWrite (screen updates) ─▶ queue ─▶ 400 m
                           (with a Turnstile token as captchaToken when a site key is set)
   send writes oldest-first through remote.ts
      ├─ accepted        → remove from queue
-     ├─ refused forever → drop, record lastError        (e.g. step retired)
-     └─ network failure → stop; retry at 2 s, 4 s … max 60 s; or on the "online" event
+     ├─ refused forever → drop, status "error" with the reason  (e.g. step retired)
+     └─ anything else   → stop, keep it; retry at 2 s, 4 s … max 60 s; or on "online"
+                          (network failure, a 409, a function the database lacks yet)
   pull()                  server copy of the last 400 days
   reconcile(server, queue) replay still-unsent writes on top → new local data
 ```
@@ -149,7 +150,7 @@ A target habit "Drink 3 L of water", 12 glasses, currently 11 logged today.
 | 3 | `reduce.ts` | Sets `amounts[today][id] = 12`; since 12 ≥ 12, also applies `{op:"tick"}` |
 | 4 | `useGame()` | Recomputes: consistency 1 of 3 → 2 of 3 |
 | 5 | `Companion.tsx` | `moodOf({done:2,total:3})` = `lively`; the cat hops once |
-| 6 | `sync.ts` | 400 ms later, `remote.ts` upserts `step_amounts (…, amount 12)` |
+| 6 | `sync.ts` | 400 ms later, `remote.ts` calls `set_step_amount(id, today, 12)`: one upsert on `step_amounts` |
 | 7 | Postgres | `amount_guard` checks owner, kind, date window; `amount_sync_tick` inserts the `step_checkins` row |
 | 8 | `pull` + `reconcile` | Server copy now has the amount **and** the tick; matches the device |
 
@@ -261,6 +262,7 @@ Four migrations, applied in order:
 | `20261112000200_scoring` | `compute_adherence()`, `compute_streak()` |
 | `20261112000300_premium` | `has_feature()`, `paper_feature_content`, `regimen_analysis()` |
 | `20261113000100_habit_kinds` | `habit_kind / unit / daily_target`, `step_amounts`, amount guard, amount→tick trigger |
+| `20261114000100_set_step_amount` | `set_step_amount()`: the amount upsert (no table or grant change) |
 
 Every tick goes through `step_checkins`, guarded so that only a live `action` step, on your own
 habit or an equipped paper, within a week back / a day ahead, can be ticked. A user can update

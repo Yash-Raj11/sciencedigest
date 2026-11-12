@@ -87,6 +87,13 @@ All additive, all nullable or defaulted, so each can be dropped without touching
 reads an amount**. Only a user's own habit can be a target or a count; kind, unit and target
 cannot be updated after creation. Tested in `06_habit_kinds`.
 
+The app writes an amount through `set_step_amount(step_id, local_date, amount)`: one upsert
+on the key `(user_id, step_id, local_date)` that sets only `amount`, with the user taken from
+`auth.uid()`. It runs as the caller (`security invoker`), so row level security, the guard and
+the tick trigger apply as for a direct write. It exists because a client upsert would also set
+the key columns, which the `update (amount, updated_at)` grant forbids on purpose (an amount
+must never move to another day or habit). Tested in `07_set_step_amount`.
+
 ## Scoring (§7), as built
 
 `lib/score.ts` and `compute_adherence(p_user, p_date)` return the same JSON:
@@ -131,6 +138,8 @@ Three decisions worth knowing:
 | `03_guards` | Ticks on derived, retired, un-equipped or out-of-window steps are refused; withdrawal works |
 | `04_scoring` | Worked examples of the score and the streak |
 | `05_premium` | Feature content and the regimen analysis are locked for free users |
+| `06_habit_kinds` | Amounts are private, only on your own target or count habit; the tick follows the amount |
+| `07_set_step_amount` | A second amount for the same habit and day replaces the first (no conflict); guards still apply |
 | `90_parity.generated` | SQL scoring equals TypeScript scoring, 80 assertions |
 
 `npm run db:mutation` breaks one rule at a time in a copy of the migrations and checks that the

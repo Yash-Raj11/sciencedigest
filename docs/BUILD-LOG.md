@@ -256,3 +256,50 @@ Owner's rules, and how each holds:
   (`NEXT_DIST_DIR` in `next.config.ts`, set only by `playwright.config.ts`), because a running
   `next dev` blocks a second one and the test must not use `.env.local`'s real Supabase. Next.js
   added that folder's type paths to `tsconfig.json`; they are committed so the file stays put.
+
+## 2026-11-12, Phase 8: the 409 on +1, and no write is ever dropped silently
+
+**What the owner saw.** On the live site, `+1` on a target habit logged
+`POST /rest/v1/step_amounts 409 (Conflict)`, `23505 … step_amounts_pkey`.
+
+**Cause.** `remote.ts` sent an amount as a plain insert, and on `23505` followed it with an
+update of `amount`. The first tap of the day inserts; every later tap, and any replay of a write
+whose reply was lost, hits the existing row, so each one cost a failing request (the 409) before
+the update that actually saved it. The live rows show the amounts did save. The real risk was
+in `flush()`: a `23…` or `42…` error counted as "refused forever", so the write was dropped, and
+the run still ended `idle`, which Me shows as "Everything is saved." `lastError` is only shown
+when the status is `error`, so the drop was silent.
+
+**Why not `.upsert()` in the browser.** Checked against local Postgres as `authenticated`: the
+statement PostgREST builds for an upsert sets every column sent, the key columns too, and is
+refused with `42501 permission denied for table step_amounts`, because the habit_kinds
+migration grants `update (amount, updated_at)` only. That grant is deliberate (a direct update
+must never move an amount to another day or habit; the tick trigger would not follow). Switching
+to `.upsert()` alone would have turned every amount write into a dropped one. An upsert that
+sets only `amount` is accepted.
+
+**Decision (owner chose it, over widening the grant or a client-side update-then-insert).** New
+migration `20261114000100_set_step_amount.sql`: `set_step_amount(step_id, local_date, amount)`,
+one `insert … on conflict (user_id, step_id, local_date) do update set amount = excluded.amount`,
+user from `auth.uid()`, `security invoker` (row level security, the column grant, the guard and
+the tick trigger all still apply), execute for `authenticated` only. No table, column, grant or
+policy changes; no stored history touched. `remote.ts` calls it with `db.rpc`.
+
+**No silent drops.** `remote.ts` now never classes as "refused forever": `23505` (where it is not
+already tolerated as "already saved"), or a missing function or table (`42883`, `42P01`,
+`PGRST2xx`), which means the app deployed before its migration. Those keep the write queued and
+retry with the normal backoff. A write refused on its merits (bad value, broken check, guard) is
+still taken off the queue (or it would block everything behind it), but `flush()` ends with
+status `error` and "The server did not accept a change, so it was not saved (…)" instead of
+"Everything is saved."
+
+**Order of release.** `supabase db push` first, then the app. If the app lands first, amount
+writes wait in the queue (PGRST202 is retryable) until the function exists; nothing is lost.
+
+**Tests.** Unit (`lib/supabase/remote.test.ts`, a fake database with the real key, grant and
+trigger rules; `lib/store/sync.test.ts`). On the old code, 5 failed: two writes for one habit
+and day gave `insert step_amounts 409`; the replay after reconcile gave two 409s; `23505` and
+`PGRST202` were `RejectedWrite`; a refused write ended `idle`. After the fix they pass.
+Database: `07_set_step_amount` (14 assertions; 191 per pass, unseeded and seeded). Two new
+mutations, both killed: `do nothing` instead of the update (caught by "one row … holding the
+latest amount") and `security definer` (caught by "runs as the caller"). 18 killed, 0 survived.

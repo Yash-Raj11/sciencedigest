@@ -14,14 +14,25 @@ import type { Data, Write } from "../store/reduce";
 /** Thrown for a write the server will never accept, so retrying is pointless. */
 export class RejectedWrite extends Error {}
 
-const PERMANENT = /^(22|23|42|P0|PGRST1|PGRST2)/;
+/** The write itself breaks a rule: a bad value (22), a broken constraint (23), a guard (42, P0), a malformed request (PGRST1). */
+const PERMANENT = /^(22|23|42|P0|PGRST1)/;
+/**
+ * Never refused forever, so never dropped. A conflict (23505, HTTP 409) means
+ * the row is already there: where that counts as saved it is tolerated below,
+ * anywhere else it is a fault in how we write, and the write waits for a fix.
+ * A missing function or table (42883, 42P01, PGRST2xx) means the app is newer
+ * than the database (deployed before its migration); the write waits for it.
+ */
+const RETRY = /^(23505|42883|42P01|PGRST2)/;
 const UNIQUE_VIOLATION = "23505";
 
 function check(error: { code?: string; message: string } | null, tolerate: string[] = []): void {
   if (!error) return;
   if (error.code && tolerate.includes(error.code)) return;
-  if (error.code && PERMANENT.test(error.code)) throw new RejectedWrite(`${error.code}: ${error.message}`);
-  throw new Error(error.message);
+  if (error.code && !RETRY.test(error.code) && PERMANENT.test(error.code)) {
+    throw new RejectedWrite(`${error.code}: ${error.message}`);
+  }
+  throw new Error(error.code ? `${error.code}: ${error.message}` : error.message);
 }
 
 export async function push(db: SupabaseClient, userId: string, write: Write): Promise<void> {
@@ -61,14 +72,14 @@ export async function push(db: SupabaseClient, userId: string, write: Write): Pr
       return check(error);
     }
     case "amount": {
-      // The database keeps the tick in step with the amount (see the habit_kinds migration).
-      const row = { user_id: userId, step_id: write.stepId, local_date: write.localDate, amount: write.amount };
-      const { error } = await db.from("step_amounts").insert(row);
-      if (error?.code === UNIQUE_VIOLATION) {
-        const again = await db.from("step_amounts").update({ amount: write.amount })
-          .eq("user_id", userId).eq("step_id", write.stepId).eq("local_date", write.localDate);
-        return check(again.error);
-      }
+      // One upsert on the real key (user_id, step_id, local_date), so a second
+      // +1 on the same day, or a replay, never conflicts. A function because
+      // the column grant forbids the upsert PostgREST would build; the user is
+      // auth.uid() inside it. The database keeps the tick in step with the
+      // amount. See 20261114000100_set_step_amount.sql.
+      const { error } = await db.rpc("set_step_amount", {
+        p_step_id: write.stepId, p_local_date: write.localDate, p_amount: write.amount,
+      });
       return check(error);
     }
     case "habit_add": {

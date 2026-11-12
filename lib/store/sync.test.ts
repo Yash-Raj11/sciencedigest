@@ -171,3 +171,47 @@ describe("flush() when the CAPTCHA cannot run", () => {
     expect(store.getState().sync.status).toBe("offline");
   });
 });
+
+describe("flush() never drops a write silently", () => {
+  const amount = (n: number) => ({ op: "amount" as const, stepId: "water", localDate: "2026-11-12", amount: n, needed: 12 });
+
+  beforeEach(() => {
+    vi.useFakeTimers();
+    vi.stubGlobal("navigator", { onLine: true });
+    h.db = supabaseWith({ session: { user: { id: "user-1" } } });
+    store.setState({
+      queue: [amount(1), { op: "tick" as const, stepId: "walk", localDate: "2026-11-12" }],
+      sync: { status: "local", lastError: null, lastSyncedAt: null },
+      session: { userId: "user-1", anonymous: true, email: null, tier: "free" },
+    });
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.unstubAllGlobals();
+  });
+
+  it("a write that fails for a reason that can pass later (a 409, a server not updated yet) stays queued", async () => {
+    const { flush } = await import("./sync");
+    h.push.mockRejectedValueOnce(new Error("duplicate key value violates unique constraint"));
+
+    await flush();
+    expect(store.getState().queue).toHaveLength(2);
+    expect(store.getState().sync.status).toBe("error");
+    expect(h.push).toHaveBeenCalledTimes(1); // the queue waits behind it, in order
+  });
+
+  it("a write the server refuses for good is reported: the status is an error, never 'Everything is saved'", async () => {
+    const { flush } = await import("./sync");
+    const { RejectedWrite } = await import("../supabase/remote");
+    h.push.mockRejectedValueOnce(new RejectedWrite("23514: step is a tick-off habit and takes no amount"));
+    h.push.mockResolvedValueOnce(undefined);
+
+    await flush();
+    expect(h.push).toHaveBeenCalledTimes(2); // the refusal does not hold up the writes behind it
+    expect(store.getState().queue).toHaveLength(0);
+    expect(store.getState().sync.status).not.toBe("idle");
+    expect(store.getState().sync.status).toBe("error");
+    expect(store.getState().sync.lastError).toContain("tick-off habit");
+  });
+});

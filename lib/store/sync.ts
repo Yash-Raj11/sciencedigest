@@ -9,7 +9,8 @@
  *     id from the first tap, so their rows exist from day zero and "sign up"
  *     later is just attaching an email to the same user. Nothing to merge.
  *   - Writes are sent oldest first. One the server will never accept is
- *     dropped and reported; a network failure pauses the queue and retries.
+ *     dropped and reported as an error (never silently); anything else, a
+ *     network failure or a 409 included, pauses the queue and retries.
  *   - After a pull, unsent writes are replayed on top of the server's copy.
  */
 
@@ -86,19 +87,25 @@ export async function flush(): Promise<void> {
     if (!userId || !db) return;
     if (store.getState().session.userId !== userId) await refreshSession();
 
+    // A write the server refuses for good is taken off the queue (or it would
+    // hold up everything behind it), but never silently: the run ends as an
+    // error with the reason, not "Everything is saved". Anything else, a 409
+    // included, stops the run with the write still queued (remote.ts decides).
+    let refused: string | null = null;
     while (store.getState().queue.length > 0) {
       const next = store.getState().queue[0];
       try {
         await push(db, userId, next);
       } catch (error) {
         if (!(error instanceof RejectedWrite)) throw error;
-        setSync({ lastError: error.message });
+        refused = `The server did not accept a change, so it was not saved (${error.message}).`;
       }
       // Drop exactly the write that was sent; newer writes may have been added meanwhile.
       store.setState((s) => ({ queue: s.queue.filter((w) => w !== next) }));
     }
     retryDelay = 2000;
-    setSync({ status: "idle", lastSyncedAt: new Date().toISOString() });
+    if (refused) setSync({ status: "error", lastError: refused });
+    else setSync({ status: "idle", lastSyncedAt: new Date().toISOString() });
   } catch (error) {
     // A CAPTCHA that could not run is treated like a lost connection: the ticks
     // are safe on the device, nothing to alarm anyone about, try again later.

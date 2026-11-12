@@ -19,6 +19,7 @@ trap 'rm -rf "$WORK"' EXIT
 CORE="20261112000100_core.sql"
 SCORING="20261112000200_scoring.sql"
 PREMIUM="20261112000300_premium.sql"
+AMOUNT="20261114000100_set_step_amount.sql"
 
 survived=0
 killed=0
@@ -138,6 +139,16 @@ mutate "regimen analysis handed to free users" "$PREMIUM" \
   "if uid is null or not private\.has_feature\('regimen_analysis'\) then" \
   "if uid is null then" \
   'a free user gets a locked response'
+
+mutate "a second amount on the same day is lost (upsert does nothing)" "$AMOUNT" \
+  "do update set amount = excluded\.amount" \
+  "do nothing" \
+  'one row for the habit and day, holding the latest amount'
+
+mutate "set_step_amount runs as its owner, past row level security" "$AMOUNT" \
+  "security invoker" \
+  "security definer" \
+  'runs as the caller (SECURITY INVOKER)'
 
 echo
 echo "# Mutations killed: $killed, survived: $survived"
