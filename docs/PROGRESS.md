@@ -14,7 +14,7 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
 - [x] PRE-2. `/privacy` (a draft for the owner; not reviewed by a lawyer), linked from Me and
       `/upgrade`. Live 200 check: see the commit that ticks this file.
 - [x] PRE-3. Live check of the 409 fix: owner's manual run + read-only count, one row.
-      `docs/evidence/pre3-live-409.txt`. Open question: server amount 4, owner saw 5.
+      `docs/evidence/pre3-live-409.txt`. Re-test with dbee0e3 live: server 5, screen 5.
 
 ## Step 0: Phase 8 close-out (changed by the owner 2026-11-13: no browser on the live site)
 

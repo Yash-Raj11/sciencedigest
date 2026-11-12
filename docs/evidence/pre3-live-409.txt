@@ -20,3 +20,16 @@ Run 2026-11-12 19:01 UTC (2026-11-13 local).
    (The 15:09 user's 3 rows are 3 different habit-days; the key allows one row per habit per day.)
 
    Open: the row holds amount 4; the owner saw 5 on screen. Not explained yet.
+
+4. Re-test by the owner with dbee0e3 live, fresh incognito window opened about 00:40 IST on
+   13 Nov (19:10 UTC, 12 Nov). Owner's report: Me said "Everything is saved", the count after
+   reload was 5 of 12, no 4xx rows.
+   supabase db query --remote --read-only, run 19:12 UTC, newest anonymous users, no ids:
+
+   user_created_ist   user_created_utc   habits   amount_rows   amounts
+   11-13 00:40:23     11-12 19:10:23     1        1             5 on 2026-11-13, updated 19:10:30 UTC
+   11-13 00:04:00     11-12 18:34:00     1        1             4 on 2026-11-13, updated 18:53:22 UTC
+
+   The user created at 00:40:23 IST has exactly 1 step_amounts row, amount 5: the same number
+   the owner saw on screen after the reload. Nothing was lost; the open point above is closed
+   (the 18:34 user was an earlier session, not the one the owner described).

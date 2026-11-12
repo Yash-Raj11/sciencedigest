@@ -327,6 +327,42 @@ describe("a write the server keeps refusing for now is set aside, never lost", (
     expect(store.getState().held).toEqual([]);
   });
 
+  it("a held write the server refuses for good is dropped and reported, and the writes behind it are released", async () => {
+    const { retryHeld } = await import("./sync");
+    const { RejectedWrite } = await import("../supabase/remote");
+    const rename = { op: "habit_update" as const, id: "h1", label: "x".repeat(500) };
+    const tickIt = tick("h1");
+    const since = "2026-11-13T08:00:00.000Z";
+    store.setState({ held: [rename, tickIt].map((write) => ({ write, code: "PGRST202", since })) });
+    h.push.mockImplementation(async (_db: unknown, _user: unknown, write: unknown) => {
+      if (write === rename) throw new RejectedWrite("23514: label is too long");
+    });
+
+    await retryHeld();
+    // The later write for the same habit is not blocked for ever behind it.
+    expect(h.push.mock.calls.map((call) => call[2])).toEqual([rename, tickIt]);
+    expect(store.getState().held).toEqual([]);
+    // Never silently: Me shows the refusal, as it does for a queued write.
+    expect(store.getState().sync.status).toBe("error");
+    expect(store.getState().sync.lastError).toContain("The server did not accept a change, so it was not saved");
+    expect(store.getState().sync.lastError).toContain("label is too long");
+  });
+
+  it("a held write still refused 'for now' keeps the writes behind it waiting", async () => {
+    const { retryHeld } = await import("./sync");
+    const rename = { op: "habit_update" as const, id: "h1", label: "Read" };
+    const tickIt = tick("h1");
+    store.setState({ held: [rename, tickIt].map((write) => ({ write, code: "PGRST202", since: "2026-11-13T08:00:00.000Z" })) });
+    const refusal = await missing();
+    h.push.mockImplementation(async (_db: unknown, _user: unknown, write: unknown) => {
+      if (write === rename) throw refusal;
+    });
+
+    await retryHeld();
+    expect(h.push.mock.calls.map((call) => call[2])).toEqual([rename]);
+    expect(store.getState().held.map((held) => held.write)).toEqual([rename, tickIt]);
+  });
+
   it("retryHeld() with no connection leaves every held write where it is", async () => {
     const { retryHeld } = await import("./sync");
     const held = [{ write: amount(6), code: "PGRST202", since: "2026-11-13T08:00:00.000Z" }];

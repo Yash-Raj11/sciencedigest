@@ -147,8 +147,9 @@ export function enqueue(queue: Write[], write: Write): Write[] {
 /**
  * A write the server keeps refusing for now (see StuckWrite in remote.ts), set
  * aside so the rest of the queue can go. Kept on the device until the server
- * takes it; nothing else removes it, except a newer write that replaces it
- * under the same last-write-wins rule as the queue.
+ * takes it, or refuses it for good on a retry (then it is dropped and
+ * reported, like a queued write). Nothing else removes it, except a newer
+ * write that replaces it under the same last-write-wins rule as the queue.
  *
  * `code` and `since` are the one thing saved on the device that is not "what
  * the user did": the server's error code and when the write was set aside.

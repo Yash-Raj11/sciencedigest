@@ -14,7 +14,8 @@
  *   - A write the server has refused "for now" (StuckWrite: a 409, or a
  *     function the database does not have yet) HOLD_AFTER times in a row is
  *     set aside on the held list, with every queued write about the same
- *     thing, and the queue goes on. Held writes are never deleted. They are
+ *     thing, and the queue goes on. A held write leaves the list only when
+ *     the server takes it or refuses it for good (reported on Me). They are
  *     tried again when the app opens, when the tab is looked at again, after
  *     every successful sync, once an hour, and on "Try again" (Me).
  *   - After a pull, unsent writes (held and queued) are replayed on top of
@@ -155,9 +156,11 @@ let retrying = false;
 
 /**
  * Offers the held writes to the server again, oldest first. One it takes
- * leaves the list. One it refuses stays, with the new reason, and everything
- * behind it about the same thing is skipped this time, so order is kept. If
- * the server cannot be reached at all, the list is left exactly as it is.
+ * leaves the list. One it refuses "for now" stays, with the new reason, and
+ * everything behind it about the same thing is skipped this time, so order is
+ * kept. One it refuses for good (on its merits) is dropped and reported, like
+ * a queued write, and the writes behind it go on. If the server cannot be
+ * reached at all, the list is left exactly as it is.
  */
 export async function retryHeld(): Promise<void> {
   if (retrying || isDemo || store.getState().held.length === 0) return;
@@ -177,9 +180,18 @@ export async function retryHeld(): Promise<void> {
         await push(db, userId, entry.write);
         store.setState((s) => ({ held: s.held.filter((h) => h.write !== entry.write) }));
       } catch (error) {
-        if (!(error instanceof StuckWrite) && !(error instanceof RejectedWrite)) return;
+        if (error instanceof RejectedWrite) {
+          // Refused on its merits: retrying is pointless, exactly as for a
+          // queued write. It is dropped, never silently (Me shows the reason),
+          // and the writes held behind it are free to go.
+          const lastError = `The server did not accept a change, so it was not saved (${error.message}).`;
+          store.setState((s) => ({ held: s.held.filter((h) => h.write !== entry.write), sync: { ...s.sync, status: "error", lastError } }));
+          continue;
+        }
+        if (!(error instanceof StuckWrite)) return; // no connection: leave the list as it is
+        // Still "wait for a fix": it stays, and so does everything behind it about the same thing.
         refused.push(entry.write);
-        const code = error instanceof StuckWrite ? error.code : (/^\w+/.exec(error.message)?.[0] ?? entry.code);
+        const { code } = error;
         store.setState((s) => ({ held: s.held.map((h) => (h.write === entry.write ? { ...h, code } : h)) }));
       }
     }

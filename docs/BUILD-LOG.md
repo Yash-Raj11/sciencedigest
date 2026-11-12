@@ -316,9 +316,15 @@ of the queue and retried without end, so one bad write held every later one.
 2. After `HOLD_AFTER` = 3 such answers in a row (about six seconds with the 2 s, 4 s backoff) the
    write moves to a `held` list saved on the device. No hours threshold: holding loses nothing
    and undoes itself, so waiting longer would only keep the queue blocked longer.
-3. Nothing removes a held write except the server taking it, or a newer write replacing it under
-   the queue's own last-write-wins rule. A held write the server later refuses on its merits
-   also stays held, with the new code, and is not dropped.
+3. A held write leaves the list when the server takes it, when a newer write replaces it under
+   the queue's own last-write-wins rule, or (**changed by the owner later on 2026-11-13**) when
+   a retry is refused on its merits: the same permanent codes as for a queued write. Then it
+   is dropped, Me shows "The server did not accept a change, so it was not saved (…)", and
+   the writes held behind it are released. Only "wait for a fix" codes keep a write held.
+   The first version (dbee0e3) kept such a write held for ever, which blocked every later write
+   for the same habit. Test: "a held write the server refuses for good is dropped and reported,
+   and the writes behind it are released"; on dbee0e3 it failed with the tick never sent
+   (`expected [ rename ] to deeply equal [ rename, tick ]`).
 4. Order: a write about the same habit or step (any day), or the same paper, as a held write goes
    behind it on the held list, not to the server. So an older amount cannot land after a newer
    one, and a tick is never sent ahead of the held "add habit" it depends on (the server would
@@ -378,5 +384,8 @@ not worked around. The owner did the taps by hand in a fresh incognito window an
 "count 5 of 12 after reload, no red or 4xx rows, rpc/set_step_amount returned 204 three times".
 Read-only query on production for the newest anonymous user (no ids): created 2026-11-12 18:34
 UTC, **1 `step_amounts` row**, 1 distinct habit and day, amount **4**, last updated 18:53 UTC.
-One row, as the fix intends. **Open:** the server holds 4 where the owner saw 5; raised with the
-owner, not explained yet. Output in `docs/evidence/pre3-live-409.txt`.
+One row, as the fix intends, but 4 where the owner saw 5. **Settled by a re-test** with dbee0e3
+live: fresh incognito window at about 00:40 IST on 13 Nov, Me said "Everything is saved", 5 of 12
+after the reload. The anonymous user created at 00:40:23 IST has 1 `step_amounts` row, amount
+**5**, updated seven seconds later. The server matches the screen; the 18:34 user was an earlier
+session. No bug. Output in `docs/evidence/pre3-live-409.txt`.
