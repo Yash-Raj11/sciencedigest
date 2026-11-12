@@ -1,0 +1,68 @@
+# Science Digest: rules for anyone (or any model) changing this code
+
+Read this first. `docs/MANUAL.md` explains how to do things; this file says what must stay true.
+`docs/BUILD-LOG.md` records decisions already made. `docs/data-model.md` is the database.
+
+## What this is
+
+Clinical papers turned into five-minute reads, each with a simulator and a protocol the reader
+can add to a daily tracker ("Life Game"). The tracker shows **evidence-weighted adherence**.
+The interactive part is the product; the text is what justifies it.
+
+Stack: Next.js 16 (App Router), Tailwind 4, TypeScript, Supabase (Postgres, anonymous auth,
+row level security), Zustand. Next.js 16 differs from older versions: read
+`node_modules/next/dist/docs/` before using an API from memory (see `AGENTS.md`).
+
+## Before you say a change is done
+
+```
+npm run lint && npm run typecheck && npm test && npm run build
+npm run db:test        # needs Docker;  or: npm run db:test:local  (plain Postgres + pgTAP)
+```
+
+Show the output. A schema change ships with database test output; a pure function ships with
+unit test output. Add a test that **fails when the rule is broken**, not only one that passes
+when it is kept (`npm run db:mutation` does this for the database).
+
+## Rules that are enforced by code. Do not weaken the code to get past them
+
+| Rule | Where it lives |
+|---|---|
+| Banned hype words, causal verbs without a randomized design, relative risk without absolute, missing limitation, unsourced numbers | `lib/pipeline/lint.ts` |
+| A quote that is not in the paper voids the extraction; evidence grades are derived, never model-supplied | `lib/pipeline/gate.ts`, `lib/pipeline/grade.ts` |
+| Only CC-BY, CC-BY-SA, CC0 papers | `lib/pipeline/license.ts` |
+| A per-paper component cannot import the database, the store, or compute a percentage | `eslint.config.mjs` (the widget guard) |
+| A user cannot change their own tier; cannot read another user's ticks; cannot tick a derived step | `supabase/migrations/`, tested in `supabase/tests/database/` |
+| TypeScript scoring and SQL scoring return identical results | `scripts/gen-parity.mts` + `90_parity.generated.test.sql` |
+
+## Rules that need your judgment
+
+1. **Scores are derived, never stored.** No `score`, `points`, `streak` or `percentage` column,
+   ever. Change the rule in `lib/score.ts` **and** `compute_adherence()` in SQL, then
+   `npm run parity:gen`.
+2. **Evidence weights live in two places only:** `lib/evidence.ts` and `evidence_weight()` in SQL.
+3. **No second points currency.** No XP, coins, gems, levels or bonus points. The only numbers
+   are evidence-weighted adherence, plain consistency (boxes ticked today) and the streak.
+4. **No health outcome is ever inferred from ticks.** A tick records an action. Never write copy
+   like "your sleep improved". Show what the study found, on the study's population.
+5. **The device stores what the user did, and nothing else** (`lib/store/reduce.ts`): ids and
+   dates. Labels, weights and estimates are looked up, so a correction reaches every user.
+6. **Ticks reference step ids.** Steps are retired (`retired: true`), never deleted, and a
+   step's `key` is never renamed: its id is derived from it.
+7. **Premium is decided on the server.** Never ship members' content to the browser and hide it
+   with an `if`. Gate with row level security or a database function.
+8. **Tracking is always free.** A lapsed member keeps ticking, their streak and their history.
+9. **Nothing posts to Instagram by itself.** The pipeline stops at `/admin/queue`, where a person
+   approves each deck. Do not add auto-publishing.
+10. **`lib/content/generated.ts`, `content/generated/*` and `supabase/seed.sql` are generated.**
+    Edit `content/papers/<slug>/` and run `npm run content:build`.
+11. **Ask before changing** the database shape, scoring meaning, or anything that touches stored
+    user history. These are expensive to undo.
+
+## Style
+
+- Opinionated, small, production-ready. No new dependency without a reason in the commit body.
+- All colours come from the tokens in `app/globals.css`. Black + orange (dark), white + orange (light).
+- Interface copy is plain language, sentence case, no jargon. Errors say what happened and what to do.
+- Pure logic (`lib/score.ts`, `lib/dates.ts`, `lib/store/reduce.ts`, `lib/pipeline/*`) imports
+  nothing from React, Next or Supabase, so a future native app can reuse it unchanged.

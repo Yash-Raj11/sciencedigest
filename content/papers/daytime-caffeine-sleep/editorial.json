@@ -1,0 +1,174 @@
+{
+  "slug": "daytime-caffeine-sleep",
+  "category": "Sleep",
+  "accessTier": "free",
+  "publishedAt": "2026-11-12T00:00:00Z",
+  "title": "Caffeine three times a day, the last dose 8 hours before bed: what the sleep lab recorded [dose, recording]",
+  "teaser": "Twenty young men who drink caffeine every day took 150 mg three times a day, the last dose 8 hours before bed. [sample, dose, recording] Their measured sleep did not differ from their placebo nights. [sleep_same] One thing in the brain recordings did. [sigma]",
+  "hook": "The usual advice is to stop caffeine by noon. [-] A sleep laboratory tested something closer to how people actually take it: morning, midday and mid-afternoon, every day. [schedule]",
+  "populationTerms": [
+    "men",
+    "volunteers",
+    "participants"
+  ],
+  "populationPanel": "Who was studied: twenty healthy men aged 18 to 35 who already had 300 to 600 mg of caffeine a day and slept well. [sample, who, good_sleepers] Each man went through all three conditions in random order without knowing which capsules he was taking. [blind] The result describes men like these. [lim_male] It says nothing yet about women, older adults or people who rarely have caffeine. [lim_male, lim_young, not_after_abstinence]",
+  "primaryEstimate": "sleep_same",
+  "sections": [
+    {
+      "id": "did",
+      "heading": "What they did",
+      "paragraphs": [
+        "For 10 days at a time the men swallowed a capsule three times a day: 45, 255 and 475 minutes after waking. [schedule] In one condition every capsule held 150 mg of caffeine. [dose] In another, all were placebo. [dose] In a third, caffeine was swapped for placebo near the end, to see what stopping does. [dose]",
+        "After 9 days they slept in the laboratory wired to an EEG, with bedtime falling 8 hours after the last caffeine capsule. [recording]"
+      ]
+    },
+    {
+      "id": "found",
+      "heading": "What they found",
+      "paragraphs": [
+        "Total sleep time, the time taken to fall asleep and the share of each sleep stage did not differ between the caffeine nights and the placebo nights. [sleep_same] The men's own ratings of how they slept did not differ either. [quality_same] The researchers had expected to see less deep sleep on caffeine and did not find it. [no_depth_change]"
+      ]
+    },
+    {
+      "id": "lower-bound",
+      "heading": "How sure is that?",
+      "paragraphs": [
+        "Here the paper gives less than we would like. [-] Its text reports these comparisons only as not statistically significant, with p above 0.05, and gives no effect size and no confidence interval. [sleep_same] With twenty people, a real difference of a few minutes could sit inside that result unnoticed. [sample, lim_n] Read it as: no large disruption was detected in this group. [sleep_same] It is not proof that there is none. [-]"
+      ]
+    },
+    {
+      "id": "missed",
+      "heading": "What most summaries miss",
+      "paragraphs": [
+        "One measure did change. [-] During non-REM sleep, brain activity in the sigma band was lower on caffeine nights than on placebo nights. [sigma] The authors read this as an early sign of withdrawal, already present 8 hours after the last dose. [sigma_meaning] In other words, a daily habit may mean beginning a small withdrawal every night and undoing it with the first cup every morning. [daily_reverse]",
+        "A second detail comes from the nights at home: on caffeine, the men went to bed about 25 minutes later than on placebo. [later_bed]"
+      ]
+    },
+    {
+      "id": "parallel",
+      "heading": "A related idea",
+      "paragraphs": [
+        "Tolerance ties this together. [-] The authors cite earlier work in which a week of regular caffeine blunted its effect on sleep, even at high evening doses. [tolerance] They also warn that the same morning cup could still disturb sleep in someone coming off several days without any. [not_after_abstinence] The habit, not just the cup, shapes the night. [-]"
+      ]
+    }
+  ],
+  "limitations": [
+    "Only men took part, so the result may not hold for women. [lim_male]",
+    "All were aged 18 to 35. [who] The authors note that middle-aged people are more vulnerable to what caffeine does to sleep. [lim_young]",
+    "Twenty participants is a small trial, and the text gives no effect sizes to show how small a difference it could have missed. [sample, lim_n]"
+  ],
+  "takeaways": [
+    "The schedule tested was three doses, the last one 475 minutes after waking, which fell 8 hours before bed. [schedule, recording]",
+    "The finding covers a steady daily habit. [who] The authors caution that it may not hold after several days without caffeine. [not_after_abstinence]",
+    "Bedtime at home drifted about 25 minutes later on caffeine, so watch the clock as well as the cup. [later_bed]"
+  ],
+  "choices": [],
+  "steps": [
+    {
+      "key": "last-caffeine-8h",
+      "label": "Last caffeine at least 8 hours before bed",
+      "detail": "The gap this trial tested. It did not test anything shorter.",
+      "kind": "action",
+      "refs": [
+        "recording"
+      ],
+      "evidenceRef": "sleep_same"
+    },
+    {
+      "key": "regular-bedtime",
+      "label": "In bed within 30 minutes of my usual time",
+      "detail": "Participants were asked to keep to this at home. The trial did not test it, so it carries no weight.",
+      "kind": "action",
+      "refs": [
+        "regular"
+      ]
+    }
+  ],
+  "simulator": {
+    "kind": "caffeine-timeline",
+    "params": {
+      "doseMinutes": [
+        {
+          "n": 45,
+          "ref": "schedule"
+        },
+        {
+          "n": 255,
+          "ref": "schedule"
+        },
+        {
+          "n": 475,
+          "ref": "schedule"
+        }
+      ],
+      "doseMg": {
+        "n": 150,
+        "ref": "dose"
+      },
+      "testedGapHours": {
+        "n": 8,
+        "ref": "recording"
+      },
+      "withdrawalGapHours": {
+        "n": 15,
+        "ref": "recording"
+      },
+      "hoursInBed": {
+        "n": 8,
+        "ref": "regular"
+      },
+      "bedtimeDriftMinutes": {
+        "n": 25,
+        "ref": "later_bed"
+      },
+      "findings": [
+        "fact:sleep_same",
+        "fact:quality_same",
+        "fact:sigma"
+      ],
+      "outside": "fact:evening",
+      "caveat": "fact:not_after_abstinence"
+    }
+  },
+  "carousel": {
+    "slides": [
+      {
+        "kind": "hook",
+        "heading": "Caffeine 3 times a day, last dose 8 hours before bed. What did the sleep lab record? [dose, recording]"
+      },
+      {
+        "kind": "finding",
+        "heading": "Sleep looked the same [-]",
+        "body": "Total sleep time, time to fall asleep and sleep stages did not differ between caffeine nights and placebo nights. [sleep_same]"
+      },
+      {
+        "kind": "population",
+        "heading": "Who this describes [-]",
+        "body": "Twenty healthy men aged 18 to 35 who already had 300 to 600 mg of caffeine a day. [sample, who] Not women, not older adults, not occasional drinkers. [lim_male, lim_young]"
+      },
+      {
+        "kind": "nuance",
+        "heading": "One thing did change [-]",
+        "body": "Sigma-band brain activity in non-REM sleep was lower on caffeine nights. [sigma] The authors read it as withdrawal beginning 8 hours after the last dose. [sigma_meaning]"
+      },
+      {
+        "kind": "limitation",
+        "heading": "How sure? [-]",
+        "body": "A small trial. [lim_n] The text gives no effect sizes or confidence intervals, only that the differences were not statistically significant. [sleep_same]"
+      },
+      {
+        "kind": "cta",
+        "heading": "Check your own timing [-]",
+        "body": "Set your wake time and your last coffee in the simulator to see whether you are inside the window this trial tested. [-]"
+      }
+    ],
+    "caption": "A double-blind crossover trial in twenty young men: caffeine three times a day, ending 8 hours before bed, did not change measured sleep structure compared with placebo. [blind, sample, recording, sleep_same] A small trial in men aged 18 to 35, with no effect sizes reported. [lim_n, who] Simulator at the link in bio. [-]",
+    "hashtags": [
+      "sleep",
+      "caffeine",
+      "coffee",
+      "sleepscience",
+      "evidencebased"
+    ]
+  }
+}

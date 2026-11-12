@@ -1,26 +1,159 @@
+/* Fonts ship with the app (pinned npm packages): nothing is fetched from a CDN. */
+@import "@fontsource-variable/archivo/wdth.css";
+@import "@fontsource-variable/newsreader/opsz.css";
+@import "@fontsource-variable/newsreader/opsz-italic.css";
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * THE THEME. Every colour in the app comes from the ten tokens below.
+ * To restyle the app, change these values and nothing else.
+ *
+ *   light: white + orange        dark: black + orange
+ *
+ * --accent       fills (buttons, bars, ticks). Always paired with --accent-ink text.
+ * --accent-text  orange that is readable as TEXT on the page background.
+ */
+:root,
+[data-theme="light"] {
+  --bg: #ffffff;
+  --surface: #f3f3f1;
+  --raised: #ffffff;
+  --line: #dcdcda;
+  --ink: #0a0a0a;
+  --muted: #5c5c5c;
+  --accent: #ff6a00;
+  --accent-ink: #000000;
+  --accent-text: #b84a00;
+  --accent-soft: #fff0e5;
+  color-scheme: light;
 }
 
+[data-theme="dark"] {
+  --bg: #000000;
+  --surface: #141414;
+  --raised: #1e1e1e;
+  --line: #303030;
+  --ink: #f4f4f4;
+  --muted: #a3a3a3;
+  --accent: #ff6a00;
+  --accent-ink: #000000;
+  --accent-text: #ff8a33;
+  --accent-soft: #2b1500;
+  color-scheme: dark;
+}
+
+/* Makes the tokens available as Tailwind classes: bg-surface, text-muted, border-line... */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-text: var(--accent-text);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: "Archivo Variable", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Newsreader Variable", Georgia, "Times New Roman", serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Screen titles: Archivo, narrowed. */
+.display {
+  font-family: var(--font-sans);
+  font-stretch: 78%;
+  font-weight: 750;
+  letter-spacing: -0.012em;
+  line-height: 1.08;
+}
+
+/* Big numbers: Archivo at its narrowest, so a three-digit score still fits a phone. */
+.figure {
+  font-family: var(--font-sans);
+  font-stretch: 64%;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* The five-minute read: a serif at reading size. */
+.read {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-size: 1.1875rem;
+  line-height: 1.62;
+}
+
+.read-title {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-weight: 560;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+input[type="range"] {
+  accent-color: var(--accent);
+}
+
+@keyframes fill-in {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.fill-in {
+  transform-origin: left;
+  animation: fill-in 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* The companion. One slow tail sway when it is lively, one halo when the day is done. */
+@keyframes tail-sway { from { transform: rotate(-5deg); } to { transform: rotate(7deg); } }
+.companion-tail { transform-origin: 84px 100px; animation: tail-sway 1.6s ease-in-out infinite alternate; }
+
+@keyframes halo { from { opacity: 0.15; transform: scale(0.96); } to { opacity: 0.7; transform: scale(1.03); } }
+.companion-halo { transform-origin: center; transform-box: fill-box; animation: halo 1.8s ease-in-out infinite alternate; }
+
+@keyframes burst { from { transform: scale(0.4); opacity: 0.9; } to { transform: scale(1.5); opacity: 0; } }
+.day-burst::before {
+  content: ""; position: absolute; inset: -0.5rem; border-radius: 9999px;
+  border: 3px solid var(--accent); animation: burst 900ms cubic-bezier(0.2, 0.8, 0.2, 1) 2 both;
+}
+
+/* Bottom sheet: the maximised view of a widget. */
+@keyframes sheet-up { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+dialog.sheet[open] { animation: sheet-up 220ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .companion-tail, .companion-halo, .day-burst::before, dialog.sheet[open] { animation: none; }
+  .fill-in { animation: none; }
+  * {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

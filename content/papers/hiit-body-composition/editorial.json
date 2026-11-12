@@ -1,0 +1,407 @@
+{
+  "slug": "hiit-body-composition",
+  "category": "Body composition",
+  "accessTier": "premium",
+  "publishedAt": "2026-11-12T00:00:00Z",
+  "title": "Interval training's best-supported effect is on lean mass, not fat: thirty-six trials, graded [trials, grade_ffm, grade_bf]",
+  "teaser": "Across thirty-six randomized trials in adults, interval training reduced body fat percentage by 1.53 points and raised fat-free mass by 0.51 kg. [trials, bf_all, ffm_all] The fat result is graded low certainty. [grade_bf] The lean-mass result is graded high, and it hangs on a single trial. [grade_ffm, ffm_loo]",
+  "hook": "Interval training is sold on fat loss. [-] Pool the trials, rate how far each result can be trusted, and the order flips. [grade_ffm, grade_bf]",
+  "populationTerms": [
+    "adults",
+    "trials",
+    "participants"
+  ],
+  "populationPanel": "Who was studied: 1,130 adults with a mean age of 26.27 years, across thirty-six randomized trials lasting 3 to 15 weeks. [sample, trials] Most were inactive and overweight or obese, so the findings describe that group best. [lim_population] Children, teenagers and people with a known disease were left out. [excluded]",
+  "primaryEstimate": "ffm_all",
+  "sections": [
+    {
+      "id": "found",
+      "heading": "What the pooled trials show",
+      "paragraphs": [
+        "Compared with no exercise, interval training in these adults reduced fat mass by 1.86 kg (95% CI 2.55 to 1.18) and body fat percentage by 1.53 points (95% CI 2.13 to 0.92). [fm_all, bf_all] Fat-free mass, the weight of everything in the body that is not fat, went up by 0.51 kg. [ffm_all]",
+        "Then the authors rated how far each result can be trusted, using a system called GRADE. [grade_ffm] Fat-free mass: high. [grade_ffm] Fat mass: moderate. [grade_fm] Body fat percentage: low. [grade_bf] The body-fat trials disagreed with one another heavily; the fat-free-mass trials did not. [heterogeneity_bf, ffm_no_het]"
+      ]
+    },
+    {
+      "id": "lower-bound",
+      "heading": "How sure is the lean-mass number?",
+      "paragraphs": [
+        "The 95% confidence interval for fat-free mass runs from 0.06 kg to 0.95 kg. [ffm_all] At its weak end that is 0.06 kg, an amount no bathroom scale would register. [ffm_all] High certainty here means the trials agree that the average effect is above zero. [grade_ffm, ffm_no_het] It does not mean the effect is big. [-]"
+      ]
+    },
+    {
+      "id": "missed",
+      "heading": "What most summaries miss",
+      "paragraphs": [
+        "Take one trial out of the pool and the lean-mass effect is gone: the estimate becomes 0.46 kg lost, with an interval from 1.38 kg lost to 0.44 kg gained. [ffm_loo] So the result graded most certain also rests on a single study. [ffm_loo, grade_ffm]",
+        "The second surprise is which kind of training did what. [-] Only cycling raised fat-free mass in these trials, by 0.63 kg (95% CI 0.17 to 1.09). [ffm_cycling] Running did not. [ffm_only_cycling] Overground running showed the widest drop in body fat percentage, 2.80 points (95% CI 3.89 to 1.71), but that is the low-certainty outcome. [bf_overground, grade_bf] Treadmill running did not clearly change fat mass at all: its interval runs from 2.82 kg lost to 0.62 kg gained. [fm_treadmill]"
+      ]
+    },
+    {
+      "id": "pattern",
+      "heading": "The pattern in the programmes",
+      "paragraphs": [
+        "Across outcomes the same settings kept landing on the favourable side: more than 8 weeks, three sessions a week, work bursts under 60 seconds, rests of 90 seconds or less, and moving during the rest. [recipe] These come from comparing subgroups of trials, not from testing one setting directly against another, so treat them as leads. [subgroups]"
+      ]
+    },
+    {
+      "id": "parallel",
+      "heading": "A related idea",
+      "paragraphs": [
+        "The authors note an earlier pooled analysis that found no clear effect of cycling on fat mass in overweight and obese adults. [wewege] They also raise a practical point: heavier bodies load the joints differently when running, which is one reason cycling may suit some people better whatever the averages say. [joints]"
+      ]
+    }
+  ],
+  "limitations": [
+    "Most trials enrolled inactive adults who were overweight or obese. [lim_population] The results may not carry over to people who already train. [lim_population]",
+    "The trials disagreed with each other, most of all on body fat percentage, which is why that result is graded low. [lim_heterogeneity, grade_bf]",
+    "Body composition was measured with different tools from trial to trial, from skinfold calipers to DEXA scans. [lim_methods]",
+    "The fat-free-mass result disappears when a single trial is removed. [lim_loo]"
+  ],
+  "takeaways": [
+    "If lean mass is the aim, the supported combination in these trials was cycling intervals, three sessions a week, for more than 8 weeks. [ffm_cycling, ffm_3wk, ffm_over8]",
+    "Keep work bursts to 60 seconds or less: longer bursts showed no clear gain in fat-free mass, with an interval from 2.28 kg lost to 0.57 kg gained. [ffm_le60, ffm_gt60]",
+    "Keep moving during the rest. [ffm_active] Standing still between bursts showed no clear gain in fat-free mass. [ffm_passive]",
+    "Two sessions a week did not clearly change body fat percentage; three did. [bf_2wk, bf_3wk]"
+  ],
+  "choices": [
+    {
+      "key": "lean",
+      "label": "Lean-mass track",
+      "help": "Cycling intervals. Evidence graded high.",
+      "kind": "toggle",
+      "default": "on",
+      "options": [
+        {
+          "value": "on",
+          "label": "On"
+        }
+      ]
+    },
+    {
+      "key": "fat",
+      "label": "Body-fat track",
+      "help": "Overground running intervals. Evidence graded low.",
+      "kind": "toggle",
+      "default": null,
+      "options": [
+        {
+          "value": "on",
+          "label": "On"
+        }
+      ]
+    },
+    {
+      "key": "modality",
+      "label": "How I do my intervals",
+      "help": "One session cannot be both.",
+      "kind": "single",
+      "default": "cycling",
+      "options": [
+        {
+          "value": "cycling",
+          "label": "Cycling"
+        },
+        {
+          "value": "running",
+          "label": "Overground running"
+        }
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "key": "log-session",
+      "label": "Did an interval session today",
+      "detail": "Tick on training days. A log, not a daily requirement.",
+      "kind": "action"
+    },
+    {
+      "key": "lean-three-sessions",
+      "label": "3 sessions this week",
+      "detail": "Lean-mass track",
+      "kind": "weekly_target",
+      "targetPerWeek": 3,
+      "countsKey": "log-session",
+      "evidenceRef": "ffm_3wk",
+      "appliesWhen": {
+        "lean": "on"
+      }
+    },
+    {
+      "key": "lean-cycling",
+      "label": "Intervals done on a bike",
+      "detail": "Lean-mass track",
+      "kind": "condition",
+      "conditionKey": "modality_is",
+      "conditionValue": {
+        "modality": "cycling"
+      },
+      "evidenceRef": "ffm_cycling",
+      "appliesWhen": {
+        "lean": "on"
+      }
+    },
+    {
+      "key": "lean-eight-weeks",
+      "label": "More than 8 weeks into the block",
+      "detail": "Lean-mass track",
+      "kind": "condition",
+      "conditionKey": "block_weeks_gte",
+      "conditionValue": {
+        "weeks": 8
+      },
+      "evidenceRef": "ffm_over8",
+      "appliesWhen": {
+        "lean": "on"
+      }
+    },
+    {
+      "key": "fat-three-sessions",
+      "label": "3 sessions this week",
+      "detail": "Body-fat track",
+      "kind": "weekly_target",
+      "targetPerWeek": 3,
+      "countsKey": "log-session",
+      "refs": [
+        "fm_3wk"
+      ],
+      "evidenceRef": "bf_3wk",
+      "appliesWhen": {
+        "fat": "on"
+      }
+    },
+    {
+      "key": "fat-running",
+      "label": "Intervals done as overground running",
+      "detail": "Body-fat track",
+      "kind": "condition",
+      "conditionKey": "modality_is",
+      "conditionValue": {
+        "modality": "running"
+      },
+      "evidenceRef": "bf_overground",
+      "appliesWhen": {
+        "fat": "on"
+      }
+    },
+    {
+      "key": "fat-eight-weeks",
+      "label": "More than 8 weeks into the block",
+      "detail": "Body-fat track",
+      "kind": "condition",
+      "conditionKey": "block_weeks_gte",
+      "conditionValue": {
+        "weeks": 8
+      },
+      "evidenceRef": "bf_over8",
+      "appliesWhen": {
+        "fat": "on"
+      }
+    }
+  ],
+  "simulator": {
+    "kind": "hiit-forest",
+    "params": {
+      "outcomes": [
+        {
+          "id": "ffm",
+          "label": "Fat-free mass",
+          "better": "up",
+          "grade": "fact:grade_ffm",
+          "overall": "fact:ffm_all"
+        },
+        {
+          "id": "fm",
+          "label": "Fat mass",
+          "better": "down",
+          "grade": "fact:grade_fm",
+          "overall": "fact:fm_all"
+        },
+        {
+          "id": "bf",
+          "label": "Body fat percentage",
+          "better": "down",
+          "grade": "fact:grade_bf",
+          "overall": "fact:bf_all"
+        }
+      ],
+      "settings": [
+        {
+          "id": "modality",
+          "label": "Type of interval",
+          "options": [
+            {
+              "id": "cycling",
+              "label": "Cycling",
+              "ffm": "fact:ffm_cycling",
+              "fm": "fact:fm_cycling",
+              "bf": null
+            },
+            {
+              "id": "overground",
+              "label": "Overground running",
+              "ffm": null,
+              "fm": "fact:fm_overground",
+              "bf": "fact:bf_overground"
+            },
+            {
+              "id": "treadmill",
+              "label": "Treadmill running",
+              "ffm": null,
+              "fm": "fact:fm_treadmill",
+              "bf": null
+            }
+          ]
+        },
+        {
+          "id": "weeks",
+          "label": "Programme length",
+          "options": [
+            {
+              "id": "over8",
+              "label": "More than 8 weeks",
+              "ffm": "fact:ffm_over8",
+              "fm": "fact:fm_over8",
+              "bf": "fact:bf_over8"
+            },
+            {
+              "id": "upto8",
+              "label": "8 weeks or less",
+              "ffm": null,
+              "fm": null,
+              "bf": null
+            }
+          ]
+        },
+        {
+          "id": "frequency",
+          "label": "Sessions a week",
+          "options": [
+            {
+              "id": "three",
+              "label": "Three",
+              "ffm": "fact:ffm_3wk",
+              "fm": "fact:fm_3wk",
+              "bf": "fact:bf_3wk"
+            },
+            {
+              "id": "two",
+              "label": "Two",
+              "ffm": null,
+              "fm": "fact:fm_2wk",
+              "bf": "fact:bf_2wk"
+            }
+          ]
+        },
+        {
+          "id": "work",
+          "label": "Each work burst",
+          "options": [
+            {
+              "id": "short",
+              "label": "60 seconds or less",
+              "ffm": "fact:ffm_le60",
+              "fm": "fact:fm_le60",
+              "bf": "fact:bf_le60"
+            },
+            {
+              "id": "long",
+              "label": "More than 60 seconds",
+              "ffm": "fact:ffm_gt60",
+              "fm": "fact:fm_gt60",
+              "bf": "fact:bf_gt60"
+            }
+          ]
+        },
+        {
+          "id": "rest",
+          "label": "Rest between bursts",
+          "options": [
+            {
+              "id": "short",
+              "label": "90 seconds or less",
+              "ffm": "fact:ffm_rest_le90",
+              "fm": "fact:fm_rest_le90",
+              "bf": "fact:bf_rest_le90"
+            },
+            {
+              "id": "long",
+              "label": "More than 90 seconds",
+              "ffm": "fact:ffm_rest_gt90",
+              "fm": "fact:fm_rest_gt90",
+              "bf": "fact:bf_rest_gt90"
+            }
+          ]
+        },
+        {
+          "id": "restType",
+          "label": "During the rest",
+          "options": [
+            {
+              "id": "active",
+              "label": "Keep moving",
+              "ffm": "fact:ffm_active",
+              "fm": "fact:fm_active",
+              "bf": "fact:bf_active"
+            },
+            {
+              "id": "passive",
+              "label": "Stand still",
+              "ffm": "fact:ffm_passive",
+              "fm": "fact:fm_passive",
+              "bf": "fact:bf_passive"
+            }
+          ]
+        }
+      ],
+      "leaveOneOut": "fact:ffm_loo"
+    }
+  },
+  "carousel": {
+    "slides": [
+      {
+        "kind": "hook",
+        "heading": "Intervals are sold on fat loss. Thirty-six trials, graded, tell it differently. [trials, grade_bf, grade_ffm]"
+      },
+      {
+        "kind": "finding",
+        "heading": "What changed [-]",
+        "body": "In adults, interval training reduced body fat percentage by 1.53 points and raised fat-free mass by 0.51 kg, compared with no exercise. [bf_all, ffm_all]"
+      },
+      {
+        "kind": "nuance",
+        "heading": "The grades run backwards [-]",
+        "body": "Certainty for the lean-mass result: high. [grade_ffm] For body fat percentage: low. [grade_bf] The claim that gets the attention has the weaker evidence. [grade_bf, grade_ffm]"
+      },
+      {
+        "kind": "nuance",
+        "heading": "And the strong one is fragile [-]",
+        "body": "Remove a single trial and the lean-mass gain becomes 0.46 kg lost, with an interval from 1.38 kg lost to 0.44 kg gained. [ffm_loo]"
+      },
+      {
+        "kind": "population",
+        "heading": "Who this describes [-]",
+        "body": "1,130 adults in trials of 3 to 15 weeks, most of them inactive and overweight or obese. [sample, trials, lim_population]"
+      },
+      {
+        "kind": "limitation",
+        "heading": "What to hold loosely [-]",
+        "body": "The trials disagreed with each other on body fat, and measured it with different tools. [lim_heterogeneity, lim_methods]"
+      },
+      {
+        "kind": "cta",
+        "heading": "Build the programme, see the evidence [-]",
+        "body": "Pick a type of interval, burst length and rest in the simulator. Each choice shows its estimate and how far it can be trusted. [-]"
+      }
+    ],
+    "caption": "Thirty-six randomized trials of interval training in adults, pooled and graded. [trials] Body fat percentage fell by 1.53 points, at low certainty. [bf_all, grade_bf] Fat-free mass rose by 0.51 kg, at high certainty, though the result depends on one trial. [ffm_all, grade_ffm, ffm_loo] Full read and simulator at the link in bio. [-]",
+    "hashtags": [
+      "hiit",
+      "intervaltraining",
+      "bodycomposition",
+      "exercisescience",
+      "evidencebased"
+    ]
+  }
+}

@@ -1,0 +1,120 @@
+
+ RUN  v5.1.0 /home/claude/sciencedigest
+
+ ✓ lib/pipeline/pipeline.test.ts > the three starter papers > steps passes the gate and the lint 14ms
+ ✓ lib/pipeline/pipeline.test.ts > the three starter papers > hiit passes the gate and the lint 8ms
+ ✓ lib/pipeline/pipeline.test.ts > the three starter papers > caffeine passes the gate and the lint 9ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a number that is not in the quoted passage 4ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a quote that is not in the source 2ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a value with no quote: a value the model cannot point at is void 2ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > accepts not_reported, and rejects not_reported that still carries a quote 3ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a paraphrase passed off as a verbatim phrase 2ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects licences outside the allowlist, even open-access ones 4ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a design the quoted passage does not support 2ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > requires a species (H4) and at least one limitation (H6) 4ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a sample size the passage does not state 2ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a grade reference that is not a verified grade 2ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects output that does not match the schema 1ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > finds a quote despite different dashes, quote marks and line breaks 1ms
+ ✓ lib/pipeline/pipeline.test.ts > derived tiers: the model never grades > uses the paper's own GRADE rating when it reports one 1ms
+ ✓ lib/pipeline/pipeline.test.ts > derived tiers: the model never grades > grades by design otherwise 3ms
+ ✓ lib/pipeline/pipeline.test.ts > derived tiers: the model never grades > never gives weight to non-human evidence, whatever else is claimed (H4) 0ms
+ ✓ lib/pipeline/pipeline.test.ts > derived tiers: the model never grades > licenses causal verbs for randomized human evidence only (H3) 3ms
+ ✓ lib/pipeline/pipeline.test.ts > derived tiers: the model never grades > ignores a grade smuggled into the editorial: the step's grade comes from its evidence 2ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H1: banned vocabulary 5ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H3: a causal verb in an observational study 7ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H3: a causal verb in a trial is allowed only alongside the studied population 11ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H5: an absolute difference written as a percentage 5ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H5: relative wording with no absolute figure cited 6ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H5: statistical significance dressed up as size 6ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H5: the interval of the headline estimate must be spelled out 6ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H5: a result with no interval must say so in words 6ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H6: a limitation that cites no limitation from the paper 6ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > orphans: a number with no citation, a number not in the cited passage, an unknown fact 15ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > markup: text with no citation marker at all 5ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H7: step numbers and step evidence must trace to the paper 11ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H7: a bare or untraceable number in simulator data 14ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > steps: a weekly target must count an action that exists 6ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > carousel: population slide, limitation slide, closing slide, slide count 24ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > carousel: a character the slide fonts may not carry 7ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > copy: prose lifted from the paper 7ms
+ ✓ lib/pipeline/pipeline.test.ts > assemble > derives stable ids: same slug and key, same id, every time 0ms
+ ✓ lib/pipeline/pipeline.test.ts > assemble > writes the source line from the estimate, not from the editorial 0ms
+ ✓ lib/pipeline/pipeline.test.ts > assemble > links a weekly target to the step it counts 0ms
+ ✓ lib/pipeline/pipeline.test.ts > assemble > resolves simulator references into the verified estimates 0ms
+ ✓ lib/pipeline/pipeline.test.ts > assemble > ships only the facts a reader can reach 1ms
+ ✓ lib/pipeline/pipeline.test.ts > helpers > reads numbers the way a person would 0ms
+ ✓ lib/pipeline/pipeline.test.ts > helpers > parses editorial markup and refuses unmarked text 1ms
+ ✓ lib/pipeline/pipeline.test.ts > helpers > formats estimates with their intervals 0ms
+ ✓ lib/pipeline/pipeline.test.ts > helpers > canonicalises licences 0ms
+ ✓ lib/pipeline/pipeline.test.ts > helpers > measures copying in runs of seven words 0ms
+ ✓ lib/pipeline/pipeline.test.ts > helpers > reads the Retraction Watch file and joins it against live papers 1ms
+ ✓ lib/companion/mood.test.ts > moodOf > is asleep with nothing ticked and no streak 1ms
+ ✓ lib/companion/mood.test.ts > moodOf > is awake and waiting when a streak is alive but today is empty 0ms
+ ✓ lib/companion/mood.test.ts > moodOf > perks up on the first tick 0ms
+ ✓ lib/companion/mood.test.ts > moodOf > is lively from half way 0ms
+ ✓ lib/companion/mood.test.ts > moodOf > glows only when every daily box is ticked 0ms
+ ✓ lib/companion/mood.test.ts > moodOf > a new user with nothing to tick is asleep, not glowing (0 of 0 is not 'all done') 0ms
+ ✓ lib/companion/mood.test.ts > moodOf > a long streak alone never makes it glow 0ms
+ ✓ lib/companion/mood.test.ts > lineFor > never makes a claim about health or the body 1ms
+ ✓ lib/companion/mood.test.ts > lineFor > states the counts it was given 0ms
+ ✓ scripts/parity.test.ts > the committed SQL parity test matches what lib/score.ts produces today 11ms
+ ✓ lib/score.test.ts > score: the hand-worked example > earns 1.8 of a possible 2.2, which rounds to 82% 1ms
+ ✓ lib/score.test.ts > score: the hand-worked example > scores each paper on its own 1ms
+ ✓ lib/score.test.ts > score: the hand-worked example > leaves the weekly target unmet at 2 of 3: Sunday belongs to last week 0ms
+ ✓ lib/score.test.ts > score: the hand-worked example > does not count a step that does not apply to the user's choices 0ms
+ ✓ lib/score.test.ts > score: the hand-worked example > counts consistency over daily boxes only: 2 of 3 0ms
+ ✓ lib/score.test.ts > score: rules that must fire > an everyday habit never moves the evidence-weighted score 0ms
+ ✓ lib/score.test.ts > score: rules that must fire > a third session this week satisfies the weekly target 0ms
+ ✓ lib/score.test.ts > score: rules that must fire > the eight-week condition is unmet at 55 days and met at 56 0ms
+ ✓ lib/score.test.ts > score: rules that must fire > a condition with no block start date is unmet, not an error 0ms
+ ✓ lib/score.test.ts > score: rules that must fire > 7 idle days is still active; 8 is dormant and leaves the denominator 0ms
+ ✓ lib/score.test.ts > score: rules that must fire > a tick on a different day does not satisfy today's action 0ms
+ ✓ lib/score.test.ts > score: rules that must fire > nothing equipped and no habits scores 0 of 0 without dividing by zero 1ms
+ ✓ lib/score.test.ts > score: rules that must fire > a high-grade step outweighs a low-grade one by 2.5 to 1 0ms
+ ✓ lib/score.test.ts > streak > counts back from today 0ms
+ ✓ lib/score.test.ts > streak > still reads yesterday's streak before today's first tick 0ms
+ ✓ lib/score.test.ts > streak > is 0 after two empty days 0ms
+ ✓ lib/score.test.ts > streak > is 0 with no ticks at all 0ms
+ ✓ lib/score.test.ts > protocolProgress > counts requirements, not weight: paper one is 1 of 3 = 33% 0ms
+ ✓ lib/score.test.ts > protocolProgress > skips steps that do not apply: paper two is 2 of 2 = 100% 0ms
+ ✓ lib/score.test.ts > findConflicts > flags two applicable steps that demand different modalities 0ms
+ ✓ lib/score.test.ts > findConflicts > stays quiet when only one track is on 0ms
+ ✓ lib/score.test.ts > dates and evidence helpers > ISO weeks start on Monday 0ms
+ ✓ lib/score.test.ts > dates and evidence helpers > crosses month, year and leap-day boundaries 0ms
+ ✓ lib/score.test.ts > dates and evidence helpers > rejects strings that are not real dates 0ms
+ ✓ lib/score.test.ts > dates and evidence helpers > rounds half up in whole numbers 0ms
+ ✓ lib/score.test.ts > dates and evidence helpers > weights are 1.0 / 0.7 / 0.4 / 0 0ms
+ ✓ lib/store/reduce.test.ts > applyWrite > ticks once, however many times it is asked 2ms
+ ✓ lib/store/reduce.test.ts > applyWrite > removes the day when its last tick is undone 0ms
+ ✓ lib/store/reduce.test.ts > applyWrite > re-equipping moves the start date instead of adding a second entry 0ms
+ ✓ lib/store/reduce.test.ts > applyWrite > un-equipping keeps the ticks: history is never thrown away 1ms
+ ✓ lib/store/reduce.test.ts > applyWrite > retires a habit rather than deleting it 0ms
+ ✓ lib/store/reduce.test.ts > applyWrite > never mutates its input 1ms
+ ✓ lib/store/reduce.test.ts > the queue > last write wins per step and day 0ms
+ ✓ lib/store/reduce.test.ts > the queue > keeps writes for the same step on different days 1ms
+ ✓ lib/store/reduce.test.ts > the queue > keeps only the newest programme setting per paper 1ms
+ ✓ lib/store/reduce.test.ts > reconcile > replays unsent writes on top of the server's copy 0ms
+ ✓ lib/store/reduce.test.ts > reconcile > with nothing queued, the server's copy is the truth 0ms
+ ✓ lib/store/reduce.test.ts > helpers > flattens and prunes ticks 0ms
+ ✓ lib/store/reduce.test.ts > amounts (target and count habits) > below the target: the amount is kept and there is no tick 0ms
+ ✓ lib/store/reduce.test.ts > amounts (target and count habits) > reaching the target adds the tick; passing it does not add a second 0ms
+ ✓ lib/store/reduce.test.ts > amounts (target and count habits) > falling back below the target removes the tick 0ms
+ ✓ lib/store/reduce.test.ts > amounts (target and count habits) > a count habit is done at 1 and undone at 0 0ms
+ ✓ lib/store/reduce.test.ts > amounts (target and count habits) > clamps nonsense: negative becomes 0, fractions round 0ms
+ ✓ lib/store/reduce.test.ts > amounts (target and count habits) > six quick taps while offline send one write, the last 1ms
+ ✓ lib/store/reduce.test.ts > amounts (target and count habits) > replaying a queued amount on top of the server's copy gives the same tick 0ms
+ ✓ lib/pipeline/europepmc.test.ts > xmlToText > decodes entities, including numeric ones 2ms
+ ✓ lib/pipeline/europepmc.test.ts > xmlToText > drops the reference list and citation markers 0ms
+ ✓ lib/pipeline/europepmc.test.ts > xmlToText > keeps table cells on one line, so a quoted cell can be found again 0ms
+ ✓ lib/pipeline/europepmc.test.ts > readSearchRecord > maps the fields the pipeline needs 1ms
+ ✓ lib/pipeline/europepmc.test.ts > readSearchRecord > its licence string passes the allowlist only when the licence does 1ms
+
+ Test Files  6 passed (6)
+      Tests  108 passed (108)
+   Start at  12:35:42
+   Duration  1.13s (tests 50%, import 33%, transform 13%, worker 4%)
+
+    Isolate  6 workers spawned · ~89ms startup each (spawn + environment, per file)
+             at least ~446ms faster with isolate: false — reuses workers across files instead of one per file
+

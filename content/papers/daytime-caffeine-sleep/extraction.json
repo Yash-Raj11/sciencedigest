@@ -1,0 +1,181 @@
+{
+  "identifiers": {
+    "doi": "10.1038/s41598-021-84088-x",
+    "pmid": "33633278",
+    "pmcid": "PMC7907384",
+    "title": "The impact of daily caffeine intake on nighttime sleep in young adult men",
+    "authors": "Weibel J, Lin YS, Landolt HP, Kistler J, Rehm S, Rentsch KM, Slawik H, Borgwardt S, Cajochen C, Reichert CF",
+    "journal": "Scientific Reports",
+    "year": 2021,
+    "citation": "Weibel J, Lin YS, Landolt HP, et al. The impact of daily caffeine intake on nighttime sleep in young adult men. Sci Rep. 2021;11(1):4668."
+  },
+  "license": "CC BY 4.0",
+  "design": {
+    "value": "rct",
+    "quote": "We employed a double-blind, randomized, crossover study including a caffeine, a withdrawal, and a placebo condition."
+  },
+  "species": {
+    "value": "human",
+    "quote": "Twenty male volunteers were recruited into the present study through online advertisements and flyers distributed in public areas."
+  },
+  "population": {
+    "value": "healthy men aged 18 to 35 who habitually consume 300 to 600 mg of caffeine a day and sleep well",
+    "quote": "Interested individuals aged between 18 and 35 years old (mean age ± SD: 26.4 ± 4 years) and reporting a daily caffeine consumption between 300 and 600 mg (mean intake ± SD: 478.1 ± 102.8 mg) were included."
+  },
+  "sampleSize": {
+    "value": "20",
+    "quote": "Twenty male volunteers were recruited into the present study through online advertisements and flyers distributed in public areas."
+  },
+  "facts": [
+    {
+      "id": "sample",
+      "kind": "context",
+      "label": "Number and sex of participants",
+      "value": "Twenty male volunteers",
+      "quote": "Twenty male volunteers were recruited into the present study through online advertisements and flyers distributed in public areas."
+    },
+    {
+      "id": "who",
+      "kind": "context",
+      "label": "Age range and habitual caffeine intake",
+      "value": "aged between 18 and 35 years old",
+      "quote": "Interested individuals aged between 18 and 35 years old (mean age ± SD: 26.4 ± 4 years) and reporting a daily caffeine consumption between 300 and 600 mg (mean intake ± SD: 478.1 ± 102.8 mg) were included."
+    },
+    {
+      "id": "good_sleepers",
+      "kind": "context",
+      "label": "Participants were good sleepers",
+      "value": "good sleep quality",
+      "quote": "all volunteers reported good sleep quality assessed with the Pittsburgh Sleep Quality Index (PSQI; score ≤ 5)"
+    },
+    {
+      "id": "blind",
+      "kind": "context",
+      "label": "Trial design",
+      "value": "double-blind, randomized, crossover study",
+      "quote": "We employed a double-blind, randomized, crossover study including a caffeine, a withdrawal, and a placebo condition."
+    },
+    {
+      "id": "dose",
+      "kind": "context",
+      "label": "The three conditions and the dose",
+      "value": "3 × 150 mg caffeine daily",
+      "quote": "caffeine (3 × 150 mg caffeine daily), withdrawal (3 × 150 mg caffeine for 8 days, then switch to placebo), and placebo (3 × placebo daily)"
+    },
+    {
+      "id": "schedule",
+      "kind": "context",
+      "label": "When the capsules were taken",
+      "value": "45 min, 255 min, and 475 min after awakening",
+      "quote": "three times daily, scheduled at 45 min, 255 min, and 475 min after awakening, for a duration of 10 days"
+    },
+    {
+      "id": "recording",
+      "kind": "context",
+      "label": "When sleep was recorded relative to the last caffeine dose",
+      "value": "starting 8 (caffeine condition) and 15 h (withdrawal condition) after the last caffeine intake",
+      "quote": "After 9 days of continuous treatment, electroencephalographically (EEG)-derived sleep structure and intensity were recorded during a scheduled 8-h nighttime sleep episode starting 8 (caffeine condition) and 15 h (withdrawal condition) after the last caffeine intake."
+    },
+    {
+      "id": "regular",
+      "kind": "context",
+      "label": "Sleep schedule participants were asked to keep at home",
+      "value": "± 30 min of self-selected bedtime",
+      "quote": "volunteers were asked to maintain a regular sleep-wake rhythm (± 30 min of self-selected bedtime/wake-up time, 8 h in bed, no daytime napping)"
+    },
+    {
+      "id": "sleep_same",
+      "kind": "finding",
+      "label": "no significant difference from placebo (p > 0.05); the text reports no effect size",
+      "value": "did not reveal significant differences in total sleep time",
+      "quote": "the analyses of the polysomnography (PSG) did not reveal significant differences in total sleep time (TST), sleep efficiency (SE), sleep latencies, or the relative amount of sleep stages among the three conditions (> 0.05)",
+      "outcome": "Total sleep time, time to fall asleep and sleep stages"
+    },
+    {
+      "id": "quality_same",
+      "kind": "finding",
+      "label": "no significant difference between conditions (p > 0.05)",
+      "value": "did not reveal significant differences among the three conditions",
+      "quote": "Analyses of subjective sleep quality assessed with the Leeds Sleep Evaluation Questionnaire (LSEQ) did not reveal significant differences among the three conditions in any of the four domains of sleep quality (> 0.05)",
+      "outcome": "Self-rated sleep quality"
+    },
+    {
+      "id": "no_depth_change",
+      "kind": "statement",
+      "label": "The predicted loss of deep sleep was not found",
+      "value": "could not confirm our assumption of a caffeine-induced reduction of sleep depth",
+      "quote": "Taken together, we could not confirm our assumption of a caffeine-induced reduction of sleep depth, neither in terms of shorter SWS nor in terms of reduced SWA in the caffeine compared to the placebo condition."
+    },
+    {
+      "id": "sigma",
+      "kind": "finding",
+      "label": "lower than placebo in both the caffeine and withdrawal conditions (p < 0.05)",
+      "value": "power density was significantly reduced compared to placebo in the sigma range",
+      "quote": "power density was significantly reduced compared to placebo in the sigma range during both withdrawal",
+      "outcome": "Sigma-band brain activity during non-REM sleep"
+    },
+    {
+      "id": "sigma_meaning",
+      "kind": "statement",
+      "label": "Authors' interpretation of the sigma change",
+      "value": "early signs of caffeine withdrawal",
+      "quote": "These subtle alterations point to early signs of caffeine withdrawal in the homeostatic aspect of sleep-wake regulation which are already present as early as 8 h after the last caffeine intake."
+    },
+    {
+      "id": "daily_reverse",
+      "kind": "statement",
+      "label": "Habitual consumers may reverse overnight withdrawal with the first dose each day",
+      "value": "chronic consumers reverse daily by the first caffeine dose",
+      "quote": "This reduction might reflect withdrawal symptoms which chronic consumers reverse daily by the first caffeine dose."
+    },
+    {
+      "id": "later_bed",
+      "kind": "statement",
+      "label": "Bedtime at home was later on caffeine",
+      "value": "on average around 25 min later",
+      "quote": "the ambulatory sleep episodes were on average around 25 min later as compared to placebo"
+    },
+    {
+      "id": "evening",
+      "kind": "context",
+      "label": "What earlier work reports for caffeine taken in the evening",
+      "value": "prolongs sleep latency",
+      "quote": "caffeine consumed in the evening hours prolongs sleep latency, reduces total sleep time (TST), shortens deep sleep"
+    },
+    {
+      "id": "not_after_abstinence",
+      "kind": "statement",
+      "label": "The result may not hold after several days without caffeine",
+      "value": "do not preclude potential impairments of nighttime sleep after morning caffeine intake",
+      "quote": "Importantly, our findings do not preclude potential impairments of nighttime sleep after morning caffeine intake, if preceded by several days of abstinence from the stimulant."
+    },
+    {
+      "id": "tolerance",
+      "kind": "context",
+      "label": "Earlier work on tolerance, cited by the authors",
+      "value": "a 1-week treatment of caffeine reduced the sleep disrupting effects",
+      "quote": "Accordingly, a 1-week treatment of caffeine reduced the sleep disrupting effects, even under conditions of high evening dosages."
+    },
+    {
+      "id": "lim_young",
+      "kind": "limitation",
+      "label": "Only young adults",
+      "value": "cannot be generalized to other age groups",
+      "quote": "Thus, the present results cannot be generalized to other age groups such as to middle-aged consumers which are more vulnerable to the caffeine-induced effects on sleep."
+    },
+    {
+      "id": "lim_n",
+      "kind": "limitation",
+      "label": "Small sample",
+      "value": "only a limited number of participants were studied",
+      "quote": "Second, only a limited number of participants were studied."
+    },
+    {
+      "id": "lim_male",
+      "kind": "limitation",
+      "label": "Men only",
+      "value": "only male volunteers were included",
+      "quote": "only male volunteers were included which clearly reduces the generalizability of the findings"
+    }
+  ]
+}

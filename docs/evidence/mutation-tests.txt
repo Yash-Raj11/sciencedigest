@@ -1,0 +1,44 @@
+killed   premium papers hidden from the public list
+           not ok 1 - 1. anon sees all rows in papers, premium included
+           not ok 4 - 4. a premium user sees all paper_content
+           not ok 21 - a premium user can equip a premium paper
+killed   paper_content readable by everyone
+           not ok 2 - 2. anon sees paper_content only for free papers
+           not ok 3 - 3. a free authenticated user sees paper_content only for free papers
+killed   is_premium() always false
+           not ok 4 - 4. a premium user sees all paper_content
+           not ok 21 - a premium user can equip a premium paper
+           not ok 5 - a premium user reads premium feature content
+killed   blanket privileges left in place (no revoke)
+           not ok 5 - 5. a user cannot UPDATE their own subscription_tier (42501)
+           not ok 3 - a user cannot set an evidence grade on their own habit (column privilege)
+           not ok 7 - a visitor cannot read user_profiles
+killed   any signed-in user can read every tick
+           not ok 6 - 6. a user cannot read another user's step_checkins
+           not ok 20 - a stranger cannot read another user's streak
+killed   derived steps can be ticked
+           not ok 7 - 7. inserting a checkin for a condition step raises an exception
+killed   ticks no longer move the dormancy clock
+           not ok 9 - 8b. ...and updates last_active_on (it was five days old)
+killed   ungraded steps carry weight
+           not ok 10 - 9. evidence_weight('none') returns 0.0
+           not ok 1 - earned weight is 1.8
+           not ok 2 - possible weight is 2.2
+killed   a grade no longer needs a source estimate
+           not ok 11 - 10. a step with null source_estimate and grade 'high' violates its CHECK
+killed   an everyday habit may carry an evidence grade
+           not ok 13 - not even the database owner can give a habit an evidence grade (CHECK)
+killed   ticks accepted without equipping the protocol
+           not ok 9 - a step cannot be ticked before its protocol is equipped
+killed   dormancy window widened from 7 to 8 days (SQL only)
+           not ok 12 - a protocol idle for 8 days goes dormant
+           not ok 13 - a dormant protocol leaves the denominator: only paper one's 0.8 remains
+           not ok 14 - with one protocol dormant and the other un-equipped, nothing is possible and pct is 0, not an error
+killed   rounding changed from half-up to floor (SQL only)
+           not ok 3 - 1.8 of 2.2 rounds to 82%
+           not ok 7 - consistency is 2 of 3 daily boxes = 67%
+           not ok 3 - scenario 2: adherence matches lib/score.ts (71%)
+killed   regimen analysis handed to free users
+           not ok 4 - a free user gets a locked response and no analysis
+
+# Mutations killed: 14, survived: 0
