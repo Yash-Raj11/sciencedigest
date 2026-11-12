@@ -189,3 +189,24 @@ both faults. Corrected by the owner in Vercel (Production) and `.env.local`, the
 Checked afterwards: URL 40 characters ending in `.supabase.co` with no path; key 46 characters
 starting `sb_publishable_`; an anonymous `GET /rest/v1/papers` returned HTTP 200 with 3 rows.
 Within the hour the live site created its first anonymous user.
+
+## 2026-11-12, Phase 8 step 5: CAPTCHA (Cloudflare Turnstile) on the anonymous sign-in
+
+- **`lib/captcha/turnstile.ts`**, no npm package: Cloudflare's script is loaded the first time a
+  token is needed (`?render=explicit`), one invisible widget (`execution: "execute"`,
+  `appearance: "interaction-only"`) is rendered into a hidden element, and later tokens come
+  from `reset()` on the same widget, since tokens are single-use. A failed challenge, a blocked
+  script or 15 s without a token resolves `undefined` instead of hanging.
+- **`ensureUser()` in `lib/store/sync.ts`** asks for a token only when it is about to sign in.
+  Someone with a session never sees a CAPTCHA, and demo mode never asks. With no
+  `NEXT_PUBLIC_TURNSTILE_SITE_KEY` the token is `undefined` and sign-in is exactly as before.
+- **Why no-key must still work:** local dev and demo mode, and the gap between deploying the
+  code and the owner creating the Turnstile site. Supabase only demands a token once CAPTCHA
+  protection is on in its dashboard.
+- **Order of the manual steps** (MANUAL part 3.1): Turnstile site → site key in Vercel and
+  redeploy → only then CAPTCHA protection in Supabase with the secret key. The other order
+  locks out every new visitor until the redeploy lands. The secret key lives only in Supabase.
+- **Tests:** `lib/store/sync.test.ts` (5) and `lib/captcha/turnstile.test.ts` (3). With the
+  token line removed, "sends the Turnstile token as captchaToken when one is present" failed
+  (`Received: []`); restored, 8 of 8 pass. Unit tests in all: 127.
+- MANUAL part 3.1 also now uses `supabase db push --remote --include-seed`.

@@ -123,6 +123,7 @@ tap ─▶ dispatch ─▶ applyWrite (screen updates) ─▶ queue ─▶ 400 m
           ┌────────────────────────────────────────────────────────────────────┘
           ▼
   ensureUser()            first write ever: signInAnonymously() → a real auth.uid()
+                          (with a Turnstile token as captchaToken when a site key is set)
   send writes oldest-first through remote.ts
      ├─ accepted        → remove from queue
      ├─ refused forever → drop, record lastError        (e.g. step retired)
@@ -396,7 +397,6 @@ Run against a local Postgres and a headless browser, **not** against the live Su
 |---|---|
 | Home-screen widgets (Android, iPhone) | A native wrapper (Capacitor) first; a website cannot place them |
 | Payments | Stripe and a server route that sets `subscription_tier` |
-| CAPTCHA token on anonymous sign-in | A Turnstile/hCaptcha key, passed in `ensureUser()` |
 | Instagram slide images | The 12 carousel Studio files, which are not in the repository |
 | Reads loaded on demand | Free reads are bundled (~15–20 KB each); move to per-page loading past ~50 papers |
 | Incremental sync | `pull()` re-reads 400 days on each open; fetch only changes at scale |

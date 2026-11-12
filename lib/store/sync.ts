@@ -13,6 +13,7 @@
  *   - After a pull, unsent writes are replayed on top of the server's copy.
  */
 
+import { getCaptchaToken } from "../captcha/turnstile";
 import { localToday } from "../dates";
 import { RejectedWrite, fetchProfile, pull, push } from "../supabase/remote";
 import { isDemo, supabase } from "../supabase/client";
@@ -24,14 +25,21 @@ let retryTimer: ReturnType<typeof setTimeout> | null = null;
 let retryDelay = 2000;
 const MAX_DELAY = 60000;
 
-async function ensureUser(): Promise<string | null> {
+/**
+ * Returns the signed-in user's id, signing in anonymously on the first write.
+ * Demo mode: null. Someone already signed in never sees a CAPTCHA.
+ */
+export async function ensureUser(): Promise<string | null> {
   const db = supabase();
   if (!db) return null;
   const existing = (await db.auth.getSession()).data.session?.user;
   if (existing) return existing.id;
-  // If CAPTCHA protection is on in Supabase (it should be, before launch), pass
-  // the widget's token here: signInAnonymously({ options: { captchaToken } }).
-  const { data, error } = await db.auth.signInAnonymously();
+  // CAPTCHA: with NEXT_PUBLIC_TURNSTILE_SITE_KEY set, the invisible Turnstile
+  // widget supplies a token and Supabase checks it (when CAPTCHA protection is
+  // on in its dashboard). With no site key, the token is undefined and sign-in
+  // works as before. Tested in sync.test.ts.
+  const captchaToken = await getCaptchaToken();
+  const { data, error } = await db.auth.signInAnonymously(captchaToken ? { options: { captchaToken } } : undefined);
   if (error || !data.user) throw new Error(error?.message ?? "anonymous sign-in failed");
   return data.user.id;
 }

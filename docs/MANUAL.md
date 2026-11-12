@@ -85,18 +85,37 @@ files (`lib/supabase/client.ts`, `lib/supabase/remote.ts`) and any host that run
    brew install supabase/tap/supabase
    supabase login
    supabase link --project-ref <your-reference-id>
-   supabase db push --include-seed
+   supabase db push --remote --dry-run --include-seed   # shows what would change
+   supabase db push --remote --include-seed
    ```
-   The last command creates every table and loads the three starter papers.
+   The last command creates every table and loads the three starter papers. On Supabase CLI 3.x,
+   leaving out `--remote` targets a local Docker database, not your project.
 3. In the Supabase dashboard: **Authentication → Sign In / Providers → turn on "Allow anonymous
    sign-ins"**. This is what lets a visitor start ticking without making an account.
 4. Copy `.env.example` to `.env.local` and fill in the first two lines from **Project Settings →
    API** (the project URL and the *publishable key*).
 5. `npm run dev` again. The Me tab now shows "Everything is saved" instead of "Demo mode".
 
-**Before real visitors arrive, turn on CAPTCHA** (Authentication → Attack Protection). Anonymous
-sign-in without it lets a script create unlimited users. This needs one piece of code that is not
-written yet: see part 10.
+**Before real visitors arrive, turn on CAPTCHA.** Anonymous sign-in without it lets a script
+create unlimited users. The code is in place (`lib/captcha/turnstile.ts`, used by `ensureUser()`
+in `lib/store/sync.ts`); with no site key it does nothing. Do these **in this order**:
+
+1. **Create a Turnstile site.** Cloudflare dashboard → **Turnstile** → **Add widget**. Hostnames:
+   your live domain(s), e.g. `sciencedigest-a4ms.vercel.app` and any custom domain, plus
+   `localhost` if you want to try it under `npm run dev`. Widget mode: **Invisible**. Cloudflare
+   shows a **site key** (public) and a **secret key** (private).
+2. **Give the site the site key.** In the host (Vercel → Settings → Environment Variables) add
+   `NEXT_PUBLIC_TURNSTILE_SITE_KEY` = the site key, then **redeploy** (variables starting
+   `NEXT_PUBLIC_` are built into the site, so a redeploy is needed). Optional: the same line in
+   `.env.local`.
+3. **Only then switch Supabase on.** Supabase → **Authentication → Attack Protection** → enable
+   **CAPTCHA protection**, provider **Turnstile by Cloudflare**, paste the **secret key**, save.
+
+Doing 3 before 2 is live breaks every *new* visitor: Supabase rejects any sign-in without a token,
+and the deployed site does not send one yet, so a first tap never reaches the server (the Me tab
+shows the error; ticks stay on the device and retry). People already signed in are not affected,
+because they never sign in again. The secret key goes only into Supabase, never into the
+repository, `.env.local` or Vercel.
 
 ### 3.2 The website: a host
 
@@ -356,7 +375,6 @@ Stated plainly so nothing surprises you.
 | Not built | What it needs |
 |---|---|
 | **Payments.** The Membership page says joining is not open | A Stripe account; a small server route that sets `subscription_tier` when Stripe confirms a payment |
-| **CAPTCHA on anonymous sign-in** | A Turnstile or hCaptcha key; pass its token in `ensureUser()` in `lib/store/sync.ts` (the line is marked) |
 | **Instagram slide images** | The twelve carousel files. Copy them in, then map `content/generated/carousels.json` to their deck format |
 | **Posting to Instagram** | Deliberately manual. The queue stops at "ready to post" |
 | **A store app** | Part 9 |
@@ -446,6 +464,6 @@ Ask for the output of the five checks every time. "It should work" is not eviden
 | `parity` test fails | Scoring was changed on one side only | Change the other side, then `npm run parity:gen` |
 | Lint error mentioning "Per-paper components" | A simulator or widget broke the widget guard | Get the value from `useProtocol()` instead (part 4.6) |
 | Me tab says "Demo mode" on the live site | The two Supabase variables are missing on the host | Add them in the host's dashboard, redeploy |
-| "Could not reach the server" on the Me tab | Anonymous sign-in is off, or CAPTCHA is on without the code for it | Part 3.1 step 3; part 10 |
+| "Could not reach the server" or "captcha verification process failed" on the Me tab | Anonymous sign-in is off; or CAPTCHA is on in Supabase but the site key is not deployed, or this hostname is not on the Turnstile site | Part 3.1 step 3; the CAPTCHA steps under part 3.1 |
 | A change does not appear on a phone | The installed app is showing its saved copy | Close and reopen it; pages are fetched fresh whenever there is a connection |
 | `quote not found in the source` | The model paraphrased instead of copying | Fix the quote in `extraction.json` by copying from `source.txt`, or run `extract` again |
