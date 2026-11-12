@@ -8,6 +8,7 @@
  * Slices
  *   data      what the user did (see reduce.ts): equipped, ticks, program, habits
  *   queue     writes not yet sent to the server
+ *   held      writes the server keeps refusing for now, set aside so the queue can go
  *   sync      where the queue stands
  *   session   who is signed in and their tier
  *
@@ -18,7 +19,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { addDays, localToday } from "../dates";
-import { EMPTY_DATA, HABIT_LABEL_MAX, MAX_AMOUNT, MAX_HABITS, UNIT_MAX, applyWrite, enqueue, neededFor, pruneTicks, type Data, type HabitKind, type Write } from "./reduce";
+import { EMPTY_DATA, HABIT_LABEL_MAX, MAX_AMOUNT, MAX_HABITS, SAVED_VERSION, UNIT_MAX, applyWrite, enqueuePending, migrateSaved, neededFor, pruneTicks, type Data, type HabitKind, type HeldWrite, type Write } from "./reduce";
 
 export type SyncStatus = "local" | "idle" | "syncing" | "offline" | "error";
 export type Tier = "free" | "premium";
@@ -27,6 +28,8 @@ interface State {
   hydrated: boolean;
   data: Data;
   queue: Write[];
+  /** Kept until the server takes them. See HeldWrite in reduce.ts. */
+  held: HeldWrite[];
   sync: { status: SyncStatus; lastError: string | null; lastSyncedAt: string | null };
   session: { userId: string | null; anonymous: boolean; email: string | null; tier: Tier };
   /**
@@ -62,12 +65,13 @@ export const useStore = create<State>()(
       hydrated: false,
       data: EMPTY_DATA,
       queue: [],
+      held: [],
       sync: { status: "local", lastError: null, lastSyncedAt: null },
       session: { userId: null, anonymous: true, email: null, tier: "free" },
       humanCheck: "none",
       demoTier: "free",
 
-      dispatch: (write) => set((s) => ({ data: applyWrite(s.data, write), queue: enqueue(s.queue, write) })),
+      dispatch: (write) => set((s) => ({ data: applyWrite(s.data, write), ...enqueuePending({ queue: s.queue, held: s.held }, write, new Date().toISOString()) })),
 
       toggleTick: (stepId, localDate = localToday()) => {
         const ticked = get().data.ticks[localDate]?.includes(stepId) ?? false;
@@ -122,16 +126,8 @@ export const useStore = create<State>()(
     }),
     {
       name: STORAGE_KEY,
-      version: 2,
-      // v1 had no amounts and no habit kinds. Fill them in; nothing is lost.
-      migrate: (saved) => {
-        const state = saved as { data?: Partial<Data> };
-        if (state.data) {
-          state.data.amounts ??= {};
-          state.data.habits = (state.data.habits ?? []).map((h) => ({ ...h, kind: h.kind ?? "check", unit: h.unit ?? null, target: h.target ?? null }));
-        }
-        return state as never;
-      },
+      version: SAVED_VERSION,
+      migrate: (saved) => migrateSaved(saved) as never,
       storage: createJSONStorage(() => localStorage),
       // Rehydration is started by <StoreBoot/> after first paint, so the first
       // client render matches the server's HTML.
@@ -143,6 +139,7 @@ export const useStore = create<State>()(
           amounts: pruneTicks(s.data.amounts, addDays(localToday(), -KEEP_DAYS)),
         },
         queue: s.queue,
+        held: s.held,
         demoTier: s.demoTier,
       }),
     },

@@ -10,7 +10,7 @@ import { clearAvatar, saveAvatar } from "@/lib/companion/avatar";
 import { EVIDENCE_GRADES } from "@/lib/evidence";
 import { DORMANCY_DAYS } from "@/lib/score";
 import { useStore } from "@/lib/store";
-import { flush, linkEmail } from "@/lib/store/sync";
+import { flush, linkEmail, retryHeld } from "@/lib/store/sync";
 import { isDemo } from "@/lib/supabase/client";
 import { applyThemeChoice, readThemeChoice, type ThemeChoice } from "@/lib/theme";
 
@@ -87,6 +87,40 @@ const SYNC_TEXT = {
   error: "Could not reach the server. Trying again shortly.",
 } as const;
 
+/** Why the server would not take a change, in plain words. The code follows in brackets for whoever fixes it. */
+function heldReason(code: string): string {
+  if (code === "42883" || code === "42P01" || code.startsWith("PGRST2")) return "the server is not up to date with this version of the app yet";
+  if (code === "23505") return "the server already has a different copy";
+  return "the server did not take them";
+}
+
+/**
+ * Changes the server keeps refusing for now. They are safe on the device and
+ * no longer hold anything else up; this says so, and offers to try again.
+ */
+function HeldChanges() {
+  const held = useStore((s) => s.held);
+  const [busy, setBusy] = useState(false);
+  if (held.length === 0) return null;
+  const code = held[0]!.code;
+  return (
+    <div className="mt-2 rounded-xl border border-line bg-bg p-3" role="status" aria-label="Changes waiting">
+      <p className="text-sm leading-snug">
+        <strong>{held.length === 1 ? "1 change is waiting." : `${held.length} changes are waiting.`}</strong>{" "}
+        {held.length === 1 ? "It could not be saved yet" : "They could not be saved yet"} because {heldReason(code)} ({code}).{" "}
+        {held.length === 1 ? "It is" : "They are"} kept on this device and sent again by itself. Nothing is lost.
+      </p>
+      <button
+        type="button" disabled={busy}
+        onClick={async () => { setBusy(true); await retryHeld(); setBusy(false); }}
+        className="mt-2 h-11 rounded-lg border border-line px-4 text-sm font-semibold disabled:opacity-40"
+      >
+        {busy ? "Trying" : "Try again"}
+      </button>
+    </div>
+  );
+}
+
 const CHECK_TITLE = "Confirm you\u2019re a person to back up your progress";
 
 /**
@@ -154,6 +188,7 @@ function Account() {
   const session = useStore((s) => s.session);
   const sync = useStore((s) => s.sync);
   const waiting = useStore((s) => s.queue.length);
+  const held = useStore((s) => s.held.length);
   const [email, setEmail] = useState("");
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<{ ok: boolean; message: string } | null>(null);
@@ -167,6 +202,9 @@ function Account() {
             <strong>Demo mode.</strong> This copy of the app is not connected to a database, so everything you tick is kept on this device only. The operations manual (docs/MANUAL.md, part 3) shows how to connect one.
           </Notice>
         </div>
+        <p className="mt-3 text-sm leading-snug text-muted">
+          <Link href="/privacy" className="font-semibold text-ink underline underline-offset-2">What we keep about you</Link>
+        </p>
       </section>
     );
   }
@@ -175,9 +213,10 @@ function Account() {
     <section aria-label="Account" className="rounded-2xl border border-line bg-surface p-4">
       <h2 className="display text-xl">Account</h2>
       <p className="mt-1 text-sm leading-snug text-muted">
-        {SYNC_TEXT[sync.status]}{waiting > 0 ? ` ${waiting} waiting to send.` : ""}
+        {held > 0 && sync.status === "idle" ? "Everything else is saved." : SYNC_TEXT[sync.status]}{waiting > 0 ? ` ${waiting} waiting to send.` : ""}
       </p>
       {sync.lastError && sync.status === "error" && <p className="mt-1 text-sm text-muted">Last problem: {sync.lastError}</p>}
+      <HeldChanges />
       <HumanCheck />
 
       {session.email ? (
@@ -209,6 +248,9 @@ function Account() {
           {result && <p className="mt-2 text-sm leading-snug" role="status">{result.message}</p>}
         </form>
       )}
+      <p className="mt-3 text-sm leading-snug text-muted">
+        <Link href="/privacy" className="font-semibold text-ink underline underline-offset-2">What we keep about you</Link>
+      </p>
     </section>
   );
 }

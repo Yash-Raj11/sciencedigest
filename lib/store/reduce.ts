@@ -144,9 +144,100 @@ export function enqueue(queue: Write[], write: Write): Write[] {
   return [...queue.filter((earlier) => !supersedes(write, earlier)), write];
 }
 
-/** After a pull: the server's copy, with everything still waiting to be sent replayed on top. */
-export function reconcile(server: Data, queue: Write[]): Data {
-  return queue.reduce(applyWrite, server);
+/**
+ * A write the server keeps refusing for now (see StuckWrite in remote.ts), set
+ * aside so the rest of the queue can go. Kept on the device until the server
+ * takes it; nothing else removes it, except a newer write that replaces it
+ * under the same last-write-wins rule as the queue.
+ *
+ * `code` and `since` are the one thing saved on the device that is not "what
+ * the user did": the server's error code and when the write was set aside.
+ * They describe the write, not the person (BUILD-LOG, 2026-11-13).
+ */
+export interface HeldWrite {
+  write: Write;
+  /** The server's error code, e.g. "PGRST202". Shown on Me as the reason. */
+  code: string;
+  /** ISO time the write was set aside. */
+  since: string;
+}
+
+/** Server refusals in a row before a write is set aside. With the 2 s, 4 s backoff: about six seconds. */
+export const HOLD_AFTER = 3;
+
+/** What a write is about. Writes about the same thing must reach the server in the order they were made. */
+function subject(write: Write): string {
+  switch (write.op) {
+    case "tick": case "untick": case "amount": return `step:${write.stepId}`;
+    case "habit_add": case "habit_update": return `step:${write.id}`;
+    case "equip": case "unequip": case "program": return `paper:${write.paperId}`;
+  }
+}
+
+/** Same habit or step (on any day), or same paper. */
+export function related(a: Write, b: Write): boolean {
+  return subject(a) === subject(b);
+}
+
+interface Pending { queue: Write[]; held: HeldWrite[] }
+
+function behind(held: HeldWrite[], write: Write, code: string, since: string): HeldWrite[] {
+  return [...held.filter((earlier) => !supersedes(write, earlier.write)), { write, code, since }];
+}
+
+/**
+ * Sets `write` aside, and with it every queued write about the same thing, in
+ * their original order, so none of them can reach the server ahead of it.
+ * If `write` is no longer queued (a newer one replaced it meanwhile), nothing changes.
+ */
+export function hold(pending: Pending, write: Write, code: string, since: string): Pending {
+  if (!pending.queue.includes(write)) return pending;
+  let held = pending.held;
+  const queue: Write[] = [];
+  for (const queued of pending.queue) {
+    if (queued === write || related(queued, write)) held = behind(held, queued, code, since);
+    else queue.push(queued);
+  }
+  return { queue, held };
+}
+
+/**
+ * Where a new write goes. Normally the queue. If a held write is about the
+ * same thing, it goes behind that one on the held list instead: sent first, it
+ * could be overwritten later by the older held write, or refused because the
+ * thing it depends on (a held "add habit") is not on the server yet.
+ */
+export function enqueuePending(pending: Pending, write: Write, now: string): Pending {
+  const ahead = pending.held.find((earlier) => related(earlier.write, write));
+  if (!ahead) return { queue: enqueue(pending.queue, write), held: pending.held };
+  return { queue: pending.queue, held: behind(pending.held, write, ahead.code, now) };
+}
+
+/**
+ * After a pull: the server's copy, with everything not yet on the server
+ * replayed on top. Held writes first: the queue never holds a write about the
+ * same thing as a held one, so the two lists cannot disagree.
+ */
+export function reconcile(server: Data, queue: Write[], held: HeldWrite[] = []): Data {
+  return [...held.map((h) => h.write), ...queue].reduce(applyWrite, server);
+}
+
+/** The version of the saved state. 3 added `held`. */
+export const SAVED_VERSION = 3;
+
+/**
+ * Brings an older saved state up to date. Nothing is ever removed.
+ *   v1 -> v2: amounts and habit kinds did not exist; fill them in.
+ *   v2 -> v3: the held list did not exist; it starts empty.
+ */
+export function migrateSaved(saved: unknown): unknown {
+  const state = (saved ?? {}) as { data?: Partial<Data>; held?: HeldWrite[] };
+  if (state.data) {
+    state.data.amounts ??= {};
+    state.data.habits = (state.data.habits ?? []).map((h) => ({ ...h, kind: h.kind ?? "check", unit: h.unit ?? null, target: h.target ?? null }));
+  }
+  state.held ??= [];
+  return state;
 }
 
 /** Flattens ticks into the rows the scoring function wants. */

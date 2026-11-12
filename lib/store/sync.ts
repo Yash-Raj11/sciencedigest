@@ -11,14 +11,21 @@
  *   - Writes are sent oldest first. One the server will never accept is
  *     dropped and reported as an error (never silently); anything else, a
  *     network failure or a 409 included, pauses the queue and retries.
- *   - After a pull, unsent writes are replayed on top of the server's copy.
+ *   - A write the server has refused "for now" (StuckWrite: a 409, or a
+ *     function the database does not have yet) HOLD_AFTER times in a row is
+ *     set aside on the held list, with every queued write about the same
+ *     thing, and the queue goes on. Held writes are never deleted. They are
+ *     tried again when the app opens, when the tab is looked at again, after
+ *     every successful sync, once an hour, and on "Try again" (Me).
+ *   - After a pull, unsent writes (held and queued) are replayed on top of
+ *     the server's copy.
  */
 
 import { CaptchaUnavailable, captchaEnabled, getCaptchaToken } from "../captcha/turnstile";
 import { localToday } from "../dates";
-import { RejectedWrite, fetchProfile, pull, push } from "../supabase/remote";
+import { RejectedWrite, StuckWrite, fetchProfile, pull, push } from "../supabase/remote";
 import { isDemo, supabase } from "../supabase/client";
-import { reconcile } from "./reduce";
+import { HOLD_AFTER, hold, reconcile, related, type Write } from "./reduce";
 import { store } from "./index";
 
 let flushing = false;
@@ -28,6 +35,9 @@ const MAX_DELAY = 60000;
 /** Invisible CAPTCHA failures in a row; at 2 the Me tab offers the visible check once. */
 let captchaFailures = 0;
 const VISIBLE_CHECK_AFTER = 2;
+/** The write at the head of the queue that the server last refused "for now", and how many times in a row. */
+let stuck: { write: Write | null; times: number } = { write: null, times: 0 };
+const HELD_RETRY_MS = 60 * 60 * 1000;
 
 /**
  * Returns the signed-in user's id, signing in anonymously on the first write.
@@ -92,11 +102,23 @@ export async function flush(): Promise<void> {
     // error with the reason, not "Everything is saved". Anything else, a 409
     // included, stops the run with the write still queued (remote.ts decides).
     let refused: string | null = null;
+    let setAside = false;
     while (store.getState().queue.length > 0) {
       const next = store.getState().queue[0];
       try {
         await push(db, userId, next);
       } catch (error) {
+        if (error instanceof StuckWrite) {
+          // Only an answer from the server about this very write counts. No
+          // network, a failed CAPTCHA or a sign-in problem never get here.
+          stuck = { write: next, times: stuck.write === next ? stuck.times + 1 : 1 };
+          if (stuck.times < HOLD_AFTER) throw error; // pause and retry, as before
+          stuck = { write: null, times: 0 };
+          setAside = true;
+          const { code } = error;
+          store.setState((s) => hold({ queue: s.queue, held: s.held }, next, code, new Date().toISOString()));
+          continue; // the queue goes on without it
+        }
         if (!(error instanceof RejectedWrite)) throw error;
         refused = `The server did not accept a change, so it was not saved (${error.message}).`;
       }
@@ -106,6 +128,9 @@ export async function flush(): Promise<void> {
     retryDelay = 2000;
     if (refused) setSync({ status: "error", lastError: refused });
     else setSync({ status: "idle", lastSyncedAt: new Date().toISOString() });
+    // The server just took writes: a good moment to offer it the held ones
+    // again (not in the run that set one aside; it was refused a moment ago).
+    if (!setAside && store.getState().held.length > 0) void retryHeld();
   } catch (error) {
     // A CAPTCHA that could not run is treated like a lost connection: the ticks
     // are safe on the device, nothing to alarm anyone about, try again later.
@@ -126,6 +151,45 @@ export async function flush(): Promise<void> {
   }
 }
 
+let retrying = false;
+
+/**
+ * Offers the held writes to the server again, oldest first. One it takes
+ * leaves the list. One it refuses stays, with the new reason, and everything
+ * behind it about the same thing is skipped this time, so order is kept. If
+ * the server cannot be reached at all, the list is left exactly as it is.
+ */
+export async function retryHeld(): Promise<void> {
+  if (retrying || isDemo || store.getState().held.length === 0) return;
+  retrying = true;
+  try {
+    const userId = await ensureUser();
+    const db = supabase();
+    if (!userId || !db) return;
+    const tried = new Set<Write>();
+    const refused: Write[] = [];
+    for (;;) {
+      // Read the list afresh each time: a tap during a send may have added to it.
+      const entry = store.getState().held.find((h) => !tried.has(h.write) && !refused.some((r) => related(r, h.write)));
+      if (!entry) break;
+      tried.add(entry.write);
+      try {
+        await push(db, userId, entry.write);
+        store.setState((s) => ({ held: s.held.filter((h) => h.write !== entry.write) }));
+      } catch (error) {
+        if (!(error instanceof StuckWrite) && !(error instanceof RejectedWrite)) return;
+        refused.push(entry.write);
+        const code = error instanceof StuckWrite ? error.code : (/^\w+/.exec(error.message)?.[0] ?? entry.code);
+        store.setState((s) => ({ held: s.held.map((h) => (h.write === entry.write ? { ...h, code } : h)) }));
+      }
+    }
+  } catch {
+    // Sign-in or the CAPTCHA could not run: nothing was sent, nothing changes.
+  } finally {
+    retrying = false;
+  }
+}
+
 /** Reads the server's copy and replays unsent writes on top of it. */
 export async function refresh(): Promise<void> {
   const db = supabase();
@@ -134,8 +198,9 @@ export async function refresh(): Promise<void> {
     const userId = await refreshSession();
     if (!userId) return;
     await flush();
+    await retryHeld();
     const server = await pull(db, userId, localToday());
-    store.setState((s) => ({ data: reconcile(server, s.queue) }));
+    store.setState((s) => ({ data: reconcile(server, s.queue, s.held) }));
   } catch (error) {
     store.setState((s) => ({ sync: { ...s.sync, status: "error", lastError: (error as Error).message } }));
   }
@@ -156,9 +221,13 @@ export function startSync(): () => void {
   });
 
   const onOnline = () => void flush();
+  // Coming back to the tab reads the server's copy, which also retries the held writes.
   const onVisible = () => { if (document.visibilityState === "visible") void refresh(); };
+  const onFocus = () => void retryHeld();
   window.addEventListener("online", onOnline);
+  window.addEventListener("focus", onFocus);
   document.addEventListener("visibilitychange", onVisible);
+  const hourly = setInterval(() => void retryHeld(), HELD_RETRY_MS);
 
   const auth = supabase()?.auth.onAuthStateChange((event) => {
     if (event === "SIGNED_IN" || event === "USER_UPDATED" || event === "SIGNED_OUT") void refreshSession();
@@ -169,6 +238,8 @@ export function startSync(): () => void {
   return () => {
     unsubscribe();
     window.removeEventListener("online", onOnline);
+    window.removeEventListener("focus", onFocus);
+    clearInterval(hourly);
     document.removeEventListener("visibilitychange", onVisible);
     auth?.data.subscription.unsubscribe();
     started = false;

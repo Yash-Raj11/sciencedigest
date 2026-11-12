@@ -78,4 +78,8 @@ describe("paper pages on the production server", () => {
   it.each(papers.map((p) => [p.slug, p.accessTier]))("the published paper %s (%s) answers 200", async (slug) => {
     expect(await status(`/papers/${slug}`)).toBe(200);
   });
+
+  it("the privacy page answers 200", async () => {
+    expect(await status("/privacy")).toBe(200);
+  });
 });

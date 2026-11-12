@@ -14,6 +14,18 @@ import type { Data, Write } from "../store/reduce";
 /** Thrown for a write the server will never accept, so retrying is pointless. */
 export class RejectedWrite extends Error {}
 
+/**
+ * Thrown when the server answered this one write with a "wait for a fix" code
+ * (see RETRY). It is never dropped. sync.ts counts these answers and, after a
+ * few in a row, sets the write aside so it cannot hold up the rest.
+ */
+export class StuckWrite extends Error {
+  constructor(readonly code: string, message: string) {
+    super(`${code}: ${message}`);
+    this.name = "StuckWrite";
+  }
+}
+
 /** The write itself breaks a rule: a bad value (22), a broken constraint (23), a guard (42, P0), a malformed request (PGRST1). */
 const PERMANENT = /^(22|23|42|P0|PGRST1)/;
 /**
@@ -22,6 +34,8 @@ const PERMANENT = /^(22|23|42|P0|PGRST1)/;
  * anywhere else it is a fault in how we write, and the write waits for a fix.
  * A missing function or table (42883, 42P01, PGRST2xx) means the app is newer
  * than the database (deployed before its migration); the write waits for it.
+ * These are thrown as StuckWrite, so the queue can tell "the server refused
+ * this write for now" from "the server could not be reached".
  */
 const RETRY = /^(23505|42883|42P01|PGRST2)/;
 const UNIQUE_VIOLATION = "23505";
@@ -29,9 +43,8 @@ const UNIQUE_VIOLATION = "23505";
 function check(error: { code?: string; message: string } | null, tolerate: string[] = []): void {
   if (!error) return;
   if (error.code && tolerate.includes(error.code)) return;
-  if (error.code && !RETRY.test(error.code) && PERMANENT.test(error.code)) {
-    throw new RejectedWrite(`${error.code}: ${error.message}`);
-  }
+  if (error.code && RETRY.test(error.code)) throw new StuckWrite(error.code, error.message);
+  if (error.code && PERMANENT.test(error.code)) throw new RejectedWrite(`${error.code}: ${error.message}`);
   throw new Error(error.code ? `${error.code}: ${error.message}` : error.message);
 }
 

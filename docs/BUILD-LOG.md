@@ -303,3 +303,80 @@ and day gave `insert step_amounts 409`; the replay after reconcile gave two 409s
 Database: `07_set_step_amount` (14 assertions; 191 per pass, unseeded and seeded). Two new
 mutations, both killed: `do nothing` instead of the update (caught by "one row … holding the
 latest amount") and `security definer` (caught by "runs as the caller"). 18 killed, 0 survived.
+
+## 2026-11-13, Step 0-pre: a write that cannot succeed no longer blocks the queue
+
+**The gap left by 4aee19f.** A `23505`, `42883`, `42P01` or `PGRST2xx` kept the write at the head
+of the queue and retried without end, so one bad write held every later one.
+
+**The rule (owner approved it, with the two extra retry moments).**
+
+1. Only an answer from the server about that one write, in that class, counts (`StuckWrite` in
+   `remote.ts`). No network, a failed CAPTCHA, a sign-in problem never count.
+2. After `HOLD_AFTER` = 3 such answers in a row (about six seconds with the 2 s, 4 s backoff) the
+   write moves to a `held` list saved on the device. No hours threshold: holding loses nothing
+   and undoes itself, so waiting longer would only keep the queue blocked longer.
+3. Nothing removes a held write except the server taking it, or a newer write replacing it under
+   the queue's own last-write-wins rule. A held write the server later refuses on its merits
+   also stays held, with the new code, and is not dropped.
+4. Order: a write about the same habit or step (any day), or the same paper, as a held write goes
+   behind it on the held list, not to the server. So an older amount cannot land after a newer
+   one, and a tick is never sent ahead of the held "add habit" it depends on (the server would
+   refuse and drop it). The queue never holds a write related to a held one.
+5. Held writes are offered again, oldest first, straight from the held list (they do not go back
+   into the queue, so they cannot block it again): when the app opens, when the tab is shown
+   or focused again, after every successful sync, once an hour, and on "Try again". One still
+   refused keeps the writes behind it about the same thing waiting.
+6. After a pull, held writes are replayed over the server's copy with the queue, so what the user
+   did stays on screen. Me says how many are waiting and why, in plain words with the code,
+   and "Everything is saved." becomes "Everything else is saved." while any are held.
+
+**Narrow exception to decision 6 / CLAUDE.md rule 5** ("the device stores what the user did and
+nothing else"), allowed by the owner: beside each held write the device keeps the server's error
+code and the time it was set aside. This is diagnostic data about a write, not data about the
+user; it leaves the device never, and goes when the write is saved.
+
+**Out of scope, unchanged:** a write refused on its merits from the queue (bad value, guard) is
+still taken off and reported as an error.
+
+**Saved state** goes from version 2 to 3 (`migrateSaved` in `reduce.ts`): `held` starts empty,
+nothing else is touched. No database change, so no database tests were needed.
+
+**Tests, each seen failing with its rule broken, then passing** (160 unit, 5 browser):
+
+| Rule broken on purpose | What failed |
+|---|---|
+| A refused write is never set aside | "the queue unblocks…", "writes about the same habit go with it…" |
+| A lost connection counts as a refusal | "a lost connection never counts…" (`expected [] to have a length of 2`) |
+| The held list is not saved | "held writes are saved with the queue, so a reload cannot lose them" |
+| New writes ignore the held list | 3 tests, e.g. "a newer amount … replaces the held one, so the older can never overwrite it" |
+| Holding leaves related writes queued | "holding a write takes the queued writes about the same thing with it…" + 1 |
+| Retry sends related writes after a refusal | "retryHeld() sends held writes oldest first…" |
+| Migration forgets `held` | "version 2 loads as version 3 with nothing lost…" + the v1 test |
+| No retry after a successful sync / on focus / hourly / on open | the matching test in "when held writes are tried again…" |
+| Me does not show the notice | `tests/browser/held-writes.spec.ts` (`element(s) not found`) |
+
+## 2026-11-13, Step 0-pre: the privacy page (a draft; not reviewed by a lawyer)
+
+- `/privacy`, words in `lib/privacy.ts` so `lib/privacy.test.ts` can hold them to H1 (banned
+  terms) and H11 (20 words a sentence at most, a working value until H11 is in the linter).
+  Linked from Me (Account, demo mode too) and the bottom of `/upgrade`.
+- Turnstile Privacy Addendum: `https://www.cloudflare.com/turnstile-privacy-policy/`, the address
+  linked from `developers.cloudflare.com/turnstile/`. It answers 200 with no redirect.
+- **IP address, checked before writing the line.** No table of ours has an address column and no
+  code reads one. But Supabase's own `auth.sessions` keeps `ip` and `user_agent` per session
+  (all 4 sessions on production had both), so the page says that instead of "we do not store it".
+- Also listed, because the code does it: the time zone on the profile, and the error code kept
+  beside a held write.
+- Contact for questions and deletion: the address the owner gave (`PRIVACY_CONTACT`).
+
+## 2026-11-13, Step 0-pre: live check of the 409 fix (PRE-3)
+
+Playwright cannot do this on the live site: Cloudflare refuses the invisible check in an
+automated browser (Turnstile error 600010), headless or not. That is the CAPTCHA working; it was
+not worked around. The owner did the taps by hand in a fresh incognito window and reported:
+"count 5 of 12 after reload, no red or 4xx rows, rpc/set_step_amount returned 204 three times".
+Read-only query on production for the newest anonymous user (no ids): created 2026-11-12 18:34
+UTC, **1 `step_amounts` row**, 1 distinct habit and day, amount **4**, last updated 18:53 UTC.
+One row, as the fix intends. **Open:** the server holds 4 where the owner saw 5; raised with the
+owner, not explained yet. Output in `docs/evidence/pre3-live-409.txt`.

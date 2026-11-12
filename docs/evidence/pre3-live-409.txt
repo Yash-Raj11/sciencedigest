@@ -1,0 +1,22 @@
+PRE-3, live check of the 409 fix (commit 4aee19f, migration 20261114000100_set_step_amount.sql)
+Run 2026-11-12 19:01 UTC (2026-11-13 local).
+
+1. Automated attempt (Playwright, fresh context, https://sciencedigest-a4ms.vercel.app):
+   Cloudflare refused the invisible check: "[Cloudflare Turnstile] Error: 600010."
+   No sign-in, 0 requests to /rest/v1/, nothing written. Not worked around.
+
+2. Owner's manual run, fresh incognito window, as reported by the owner:
+   "count 5 of 12 after reload, no red or 4xx rows, rpc/set_step_amount returned 204 three times"
+
+3. supabase db query --remote --read-only (production), five newest anonymous users, no ids:
+
+   user_created_utc   step_amounts_rows   amount   amount_updated_utc   local_date
+   11-12 18:34:00     1                   4        11-12 18:53:22       2026-11-13
+   11-12 18:21:11     1                   2        11-12 18:21:11       2026-11-12
+   11-12 18:12:50     1                   4        11-12 18:20:56       2026-11-12
+   11-12 15:09:22     3                   20       11-12 18:33:38       2026-11-13
+
+   Newest anonymous user: exactly 1 step_amounts row (1 distinct habit and day).
+   (The 15:09 user's 3 rows are 3 different habit-days; the key allows one row per habit per day.)
+
+   Open: the row holds amount 4; the owner saw 5 on screen. Not explained yet.

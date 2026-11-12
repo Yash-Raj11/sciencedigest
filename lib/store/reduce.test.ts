@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { EMPTY_DATA, applyWrite, checkinsOf, enqueue, pruneTicks, reconcile, type Data, type Write } from "./reduce";
+import { EMPTY_DATA, SAVED_VERSION, applyWrite, checkinsOf, enqueue, enqueuePending, hold, migrateSaved, pruneTicks, reconcile, type Data, type HeldWrite, type Write } from "./reduce";
 
 const tick = (stepId: string, localDate = "2026-11-12"): Write => ({ op: "tick", stepId, localDate });
 const untick = (stepId: string, localDate = "2026-11-12"): Write => ({ op: "untick", stepId, localDate });
@@ -109,5 +109,80 @@ describe("amounts (target and count habits)", () => {
     const merged = reconcile(server, [{ op: "amount", stepId: "h1", localDate: day, amount: 20, needed: 20 }]);
     expect(merged.amounts[day].h1).toBe(20);
     expect(merged.ticks[day]).toEqual(["h1"]);
+  });
+});
+
+describe("held writes keep their order", () => {
+  const day = "2026-11-13";
+  const amount = (n: number, localDate = day): Write => ({ op: "amount", stepId: "water", localDate, amount: n, needed: 12 });
+  const since = "2026-11-13T08:00:00.000Z";
+  const later = "2026-11-13T09:00:00.000Z";
+  const heldAmount = (n: number): HeldWrite => ({ write: amount(n), code: "PGRST202", since });
+
+  it("a newer amount for the same habit and day replaces the held one, so the older can never overwrite it", () => {
+    const next = enqueuePending({ queue: [], held: [heldAmount(2)] }, amount(5), later);
+    expect(next.queue).toEqual([]); // it does not go to the server ahead of the held one
+    expect(next.held.map((h) => h.write)).toEqual([amount(5)]);
+    // Whatever order the server answers in, the last amount to arrive is the newest.
+    expect(reconcile(EMPTY_DATA, next.queue, next.held).amounts[day]).toEqual({ water: 5 });
+  });
+
+  it("a write about the same habit on another day waits behind the held one, in order", () => {
+    const next = enqueuePending({ queue: [], held: [heldAmount(2)] }, amount(1, "2026-11-14"), later);
+    expect(next.queue).toEqual([]);
+    expect(next.held.map((h) => h.write)).toEqual([amount(2), amount(1, "2026-11-14")]);
+    expect(next.held[1]).toMatchObject({ code: "PGRST202", since: later });
+  });
+
+  it("a write about something else goes to the queue as usual", () => {
+    const next = enqueuePending({ queue: [], held: [heldAmount(2)] }, tick("walk"), later);
+    expect(next.queue).toEqual([tick("walk")]);
+    expect(next.held).toEqual([heldAmount(2)]);
+  });
+
+  it("holding a write takes the queued writes about the same thing with it and leaves the rest", () => {
+    const add: Write = { op: "habit_add", id: "h1", label: "Read", position: 1 };
+    const rename: Write = { op: "habit_update", id: "h1", label: "Read 20 pages" };
+    const queue = [add, tick("walk"), tick("h1"), rename];
+    const next = hold({ queue, held: [] }, add, "PGRST202", since);
+    expect(next.queue).toEqual([tick("walk")]);
+    expect(next.held.map((h) => h.write)).toEqual([add, tick("h1"), rename]);
+  });
+
+  it("a write that a newer one already replaced in the queue is not held", () => {
+    const stale = amount(1);
+    const pending = { queue: [amount(2)], held: [] };
+    expect(hold(pending, stale, "PGRST202", since)).toBe(pending);
+  });
+
+  it("held writes still show on screen after a pull", () => {
+    expect(reconcile(EMPTY_DATA, [tick("walk", day)], [heldAmount(12)]).ticks[day]?.sort()).toEqual(["walk", "water"]);
+  });
+});
+
+describe("the saved state from an older version", () => {
+  it("version 2 loads as version 3 with nothing lost and an empty held list", () => {
+    expect(SAVED_VERSION).toBe(3);
+    const v2 = {
+      data: {
+        equipped: [{ paperId: "p1", since: "2026-11-01" }],
+        ticks: { "2026-11-12": ["a", "b"] },
+        program: { p1: { blockStartedAt: "2026-11-02", choices: { days: "3" } } },
+        habits: [{ id: "h1", label: "Drink 3 L of water", position: 1, retired: false, kind: "target", unit: "glasses", target: 12 }],
+        amounts: { "2026-11-12": { h1: 5 } },
+      },
+      queue: [{ op: "tick", stepId: "a", localDate: "2026-11-13" }],
+      demoTier: "free",
+    };
+    const before = structuredClone(v2);
+    expect(migrateSaved(v2)).toEqual({ ...before, held: [] });
+  });
+
+  it("version 1 (no amounts, no habit kinds) is filled in, not reset", () => {
+    const v1 = { data: { equipped: [], ticks: { "2026-11-01": ["a"] }, program: {}, habits: [{ id: "h1", label: "Stretch", position: 1, retired: false }] }, queue: [] };
+    expect(migrateSaved(v1)).toEqual({
+      data: { equipped: [], ticks: { "2026-11-01": ["a"] }, program: {}, amounts: {}, habits: [{ id: "h1", label: "Stretch", position: 1, retired: false, kind: "check", unit: null, target: null }] },
+      queue: [], held: [],
+    });
   });
 });

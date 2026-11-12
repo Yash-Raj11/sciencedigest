@@ -41,7 +41,7 @@ test("a blocked Turnstile script never blocks ticking; sync shows offline", asyn
       if (localStorage.getItem(key as string)) return;
       localStorage.setItem(
         key as string,
-        JSON.stringify({ state: { data: { equipped: [], ticks: {}, program: {}, habits, amounts: {} }, queue: [], demoTier: "free" }, version: 2 }),
+        JSON.stringify({ state: { data: { equipped: [], ticks: {}, program: {}, habits, amounts: {} }, queue: [], demoTier: "free" }, version: 3 }),
       );
     },
     [STORAGE_KEY, HABITS] as const,

@@ -49,6 +49,10 @@ export default function UpgradePage() {
       <p className="rounded-2xl border border-accent bg-accent-soft p-4 text-[0.9375rem] leading-relaxed">
         <strong>Joining is not open yet.</strong> Payments have not been switched on in this version.
       </p>
+
+      <p className="text-sm leading-snug text-muted">
+        <Link href="/privacy" className="font-semibold text-ink underline underline-offset-2">Privacy</Link>: what we keep about you and where.
+      </p>
     </div>
   );
 }
