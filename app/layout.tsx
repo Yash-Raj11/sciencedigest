@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Suspense } from "react";
+import { Analytics } from "@vercel/analytics/next";
 import { StoreBoot } from "@/components/shell/StoreBoot";
 import { TabBar } from "@/components/shell/TabBar";
 import { THEME_BOOT_SCRIPT } from "@/lib/theme";
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Suspense fallback={null}>
           <TabBar />
         </Suspense>
+        <Analytics />
       </body>
     </html>
   );
