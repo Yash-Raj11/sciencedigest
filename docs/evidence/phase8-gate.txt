@@ -1,0 +1,49 @@
+Phase 8 gate, live site https://sciencedigest-a4ms.vercel.app, 2026-11-12 19:10-19:30 UTC (13 Nov IST)
+
+No browser automation on the live site: Cloudflare Turnstile refuses it (error 600010), and it
+was not worked around. Method agreed with the owner.
+
+(a) A real visitor signs in with CAPTCHA on, and the write reaches the server.
+    Owner, by hand, fresh incognito window at about 00:40 IST: Me said "Everything is saved",
+    5 of 12 after a reload, no 4xx rows.
+    supabase db query --remote --read-only (no ids):
+      anonymous user created 11-13 00:40:23 IST: 1 habit, 1 step_amounts row, amount 5,
+      updated 7 s after the user was created.
+    Full output: docs/evidence/pre3-live-409.txt
+    Note: this visitor logged an amount below the habit's target, so the row is in step_amounts
+    and no step_checkins row is expected. A step_checkins row written and read back by its
+    owner is shown in (b), "setup".
+
+(b) and (c): scripts/gate-rls-live.mts, run by the owner in their own Terminal with the service
+    role key typed at a prompt (never written, committed or printed). Output as pasted:
+
+Created 2 test users at 2026-11-12T19:18:22.801129Z and 2026-11-12T19:18:23.344064Z (no ids shown).
+PASS  setup: A adds a habit and ticks it: HTTP 201 and 201
+PASS  setup: A reads their own tick: 1 row(s)
+PASS  (b) B reads step_checkins with no filter: HTTP 200, 0 row(s), 0 belonging to someone else
+PASS  (b) B asks for A's rows by A's user id: HTTP 200, 0 row(s)
+PASS  (b) B asks for A's rows by A's habit id: HTTP 200, 0 row(s)
+PASS  (b) B cannot write a tick in A's name: HTTP 403
+PASS  (c) setup: A is on the free tier: tier free
+PASS  (c) setup: hiit-body-composition is listed and is members-only: access_tier premium
+PASS  (c) a free user gets no paper_content row for hiit-body-composition: HTTP 200, 0 row(s)
+PASS  (c) control: the same question for the free paper daytime-caffeine-sleep returns its row: 1 row(s)
+PASS  (c) reading all of paper_content returns free papers only: 2 row(s), all free
+PASS  cleanup: both test users deleted, none of their rows left: 2 of 2 deleted, 0 row(s) left
+
+All checks passed.
+
+    Cleanup checked separately, read-only: users in auth.users created between 19:18:00 and
+    19:19:00 UTC: 0.
+
+    After this run the owner asked for two checks to be tightened, and the committed script has
+    them: "reading all of paper_content" also needs HTTP 200 and at least 1 row; "B cannot write
+    a tick in A's name" also needs A to still have exactly 1 tick. The tightened script has NOT
+    been run on production; the output above is from the version before. On that output both
+    tightened conditions would hold for the first (HTTP status not printed then, 2 rows); the
+    second (A's tick count after the forged write) was not measured.
+
+(d) curl -sI https://sciencedigest-a4ms.vercel.app/papers/does-not-exist
+    HTTP/2 404
+
+Also: curl -sI https://sciencedigest-a4ms.vercel.app/privacy  ->  HTTP/2 200

@@ -389,3 +389,22 @@ live: fresh incognito window at about 00:40 IST on 13 Nov, Me said "Everything i
 after the reload. The anonymous user created at 00:40:23 IST has 1 `step_amounts` row, amount
 **5**, updated seven seconds later. The server matches the screen; the 18:34 user was an earlier
 session. No bug. Output in `docs/evidence/pre3-live-409.txt`.
+
+## 2026-11-13, Phase 8 gate: passed, without a browser on the live site
+
+- **Why not Playwright.** The gate as first written used two browser contexts on the live site.
+  Cloudflare refuses automated browsers there (600010). The owner changed the method rather than
+  have the CAPTCHA worked around: (a) by hand plus a read-only count; (b) and (c) server-side.
+- **`scripts/gate-rls-live.mts`.** Two test users through the auth admin API, signed in with a
+  one-time admin link (a password sign-in would need a CAPTCHA token), then plain REST calls
+  with each user's own token, so row level security is what answers. It deletes only the ids it
+  created, held in memory; it never selects users by address or time. It needs the service
+  role key from the environment and prints no id, token or key. The owner runs it; an assistant
+  session never holds the key.
+- **Result.** All 12 lines PASS; `docs/evidence/phase8-gate.txt`. Two checks were tightened at
+  the owner's request after that run (an empty answer can no longer pass "free papers only";
+  the forged-tick check also counts A's ticks). The tightened version has not been run on
+  production yet.
+- **Phase numbers.** `HANDOFF.md` section 7 calls the pipeline run Phase 9 and the native app
+  Phase 11; the owner's current master prompt inserts "readable reads" as Phase 9 and moves the
+  rest one later. `PROGRESS.md` follows the master prompt; HANDOFF now says so.

@@ -46,25 +46,35 @@ The interactive part is the product; the text is what justifies it.
 | Pipeline commands (`npm run paper -- fetch / extract / draft / approve`) | Written | **Never run live** |
 | Instagram review queue (`/admin/queue`, local only) | Built | Browser and API tests |
 | Installable to the home screen, opens offline | Built | Manifest and service worker served |
+| Live site on real data (Phase 8): Supabase connected, anonymous sign-in behind Cloudflare Turnstile (invisible), real 404s | **Live, gate passed 2026-11-13** | `docs/evidence/phase8-gate.txt` |
+| Amounts saved by one upsert (`set_step_amount`); no 409 | Live | `docs/evidence/pre3-live-409.txt` |
+| A write the server keeps refusing is set aside (held list), never lost; retried by itself and from Me | Built | 162 unit tests, browser test |
+| `/privacy` (a draft the owner still has to review; not seen by a lawyer) | Live | HTTP and browser tests |
 | Documents: `CLAUDE.md`, `docs/MANUAL.md`, `ARCHITECTURE.md`, `data-model.md`, `BUILD-LOG.md` | Written | — |
 
-Totals at handoff: 108 unit tests, 177 database assertions, 14 of 14 mutations caught. Outputs
-are in `docs/evidence/`. All of this ran against a **local** Postgres and a headless browser.
+Totals on 2026-11-13: 162 unit tests, 6 HTTP tests, 5 browser tests; 177 database assertions and
+16 of 16 mutations (unchanged since the last SQL change). Outputs are in `docs/evidence/`.
 
-### Deployment state (checked on the owner's Mac)
+### Deployment state (2026-11-13)
 
-- The app was committed and pushed (`45aa11f`). Vercel then added and merged a "Web Analytics"
-  change on GitHub (`<Analytics />` in `app/layout.tsx`). **The Mac is 2 commits behind.**
-- The Mac has uncommitted: `package.json` / `package-lock.json` (the same analytics package) and
-  `docs/ARCHITECTURE.md`. A `git pull` merges cleanly; there is no conflict.
-- `.env.local` has the Supabase URL and anon key. Whether the same two values are set in Vercel,
-  whether `supabase db push --include-seed` has been run, and whether anonymous sign-in is on in
-  the Supabase dashboard **have not been confirmed**.
+- Live at `https://sciencedigest-a4ms.vercel.app`, deployed by Vercel from `main`. The Mac and
+  GitHub are level.
+- Hosted Supabase project `takhienzcshgkytbvaii`: all migrations to
+  `20261114000100_set_step_amount.sql` and the seed applied; anonymous sign-ins on; CAPTCHA
+  (Turnstile) on. `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is set in Vercel and `.env.local`.
+- **Cloudflare refuses automated browsers on the live site** (Turnstile error 600010). Do not
+  try to get around it. Live checks are done with `curl`, with read-only
+  `supabase db query --remote --read-only` counts (no ids), by the owner by hand in an incognito
+  window, or with `scripts/gate-rls-live.mts` (two test users through the auth admin API; the
+  owner runs it in their own Terminal with the service role key typed at a prompt).
+- The current work list is `docs/PROGRESS.md`. Its phase numbers follow the owner's current
+  master prompt (9 = readable reads, 10 = first live pipeline run, 11 = Instagram carousels,
+  12 = the native app), which is one later than the numbering in section 7 below from Phase 9 on.
 
 ### Not built
 
-Home-screen widgets on phones; the native app wrapper; payments; CAPTCHA token on sign-in;
-Instagram slide images (the 12 carousel Studio files are not in the repository); reads loaded on
+Home-screen widgets on phones; the native app wrapper; payments; a way for a user to delete
+their own data (the privacy page gives an address to write to); Instagram slide images (the 12 carousel Studio files are not in the repository); reads loaded on
 demand; incremental sync. Phases below.
 
 ---
@@ -163,7 +173,13 @@ that must be found in the paper, or the extraction is rejected.
 
 Each phase ends with a gate. Do not start the next until it passes and the output has been shown.
 
-### Phase 8: make the live site real (first, small)
+### Phase 8: make the live site real (first, small). DONE 2026-11-13
+
+**Gate passed** (`docs/evidence/phase8-gate.txt`): a real visitor signed in with CAPTCHA on and
+their write reached the server; a second user cannot read or forge the first one's ticks; a free
+user gets no `paper_content` row for the members' paper; an unknown paper answers 404; database
+tests were green against the live schema on 2026-11-12 (177 of 177). The steps are kept below
+as the record of what was done.
 
 1. On the Mac: `git pull`, commit the 3 leftover files, push.
 2. Confirm in Vercel: `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` are set

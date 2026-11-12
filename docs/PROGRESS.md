@@ -18,17 +18,15 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
 
 ## Step 0: Phase 8 close-out (changed by the owner 2026-11-13: no browser on the live site)
 
-- [ ] (a) A real visitor signs in with CAPTCHA and the write reaches the server: covered by the
-      owner's manual PRE-3 run and the same count query.
-- [ ] (b) User B cannot read user A's `step_checkins`: server-side, two test users made with the
-      auth admin API (service role key exported by the owner in their own Terminal, never
-      written, committed or printed), REST calls with each user's token. ⏸ Ask before creating
-      anything on production.
-- [ ] (c) A free user gets no `paper_content` row for `hiit-body-composition` (same two users).
-- [ ] Delete both test users.
-- [ ] (d) `curl -sI` the live `/papers/does-not-exist` returns 404.
-- [ ] Update "Where it stands" in `docs/HANDOFF.md`; mark Phase 8 done.
-- [ ] ⏸ Stop with the gate results (include the PRE-3 evidence).
+- [x] (a) A real visitor signs in with CAPTCHA and the write reaches the server: the owner's manual
+      run and the read-only count (amount 5 on screen and on the server).
+- [x] (b) User B cannot read or forge user A's `step_checkins`: `scripts/gate-rls-live.mts`, run by
+      the owner, all PASS.
+- [x] (c) A free user gets no `paper_content` row for `hiit-body-composition`: same run, PASS.
+- [x] Both test users deleted (script, and a separate read-only count: 0 left).
+- [x] (d) `curl -sI` the live `/papers/does-not-exist`: `HTTP/2 404`.
+- [x] "Where it stands" in `docs/HANDOFF.md` updated; Phase 8 marked done.
+- [ ] ⏸ Stop with the gate results. Evidence: `docs/evidence/phase8-gate.txt`. **Waiting for the owner.**
 
 ## Step 1: skills (no stop)
 
