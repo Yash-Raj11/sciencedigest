@@ -173,8 +173,12 @@ Each phase ends with a gate. Do not start the next until it passes and the outpu
    *Note:* on Supabase CLI 3.x, leaving out `--remote` targets the local Docker database, not
    the hosted project. On 2026-11-12 the dry run showed the hosted project
    (`takhienzcshgkytbvaii`) already up to date: all four migrations and the seed applied.
-4. Run the database tests **against the linked project**, not only locally: `supabase test db`
-   needs Docker; otherwise point `npm run db:test:local` at a Supabase branch database.
+4. Run the database tests **against the linked project**, not only locally. `supabase test db
+   --remote` needs Docker on CLI 3.1.0. Without Docker: install pgTAP for the run
+   (`create extension if not exists pgtap with schema extensions`), run the test files through
+   `psql` (password typed at its prompt), then `drop extension pgtap`. **Never point
+   `npm run db:test:local` at a Supabase database**: its shim creates, and its cleanup drops,
+   the `anon`, `authenticated` and `service_role` roles. Done 2026-11-12: 177 of 177.
 5. Turn on CAPTCHA (Cloudflare Turnstile is free) and pass the token in `ensureUser()` in
    `lib/store/sync.ts`; the line is marked.
 6. Make unknown paper addresses return a real 404 status (they show the not-found page today

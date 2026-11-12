@@ -121,3 +121,71 @@ follows what was ticked, never health; own picture stays on the device.
   `turbopack.root` deliberately not set.
 - **Target for database tests is 177 assertions** (the figure in ARCHITECTURE.md), not 161.
 - `npm audit` deferred until after the Phase 8 gate (owner's call).
+
+## 2026-11-12, Phase 8 step 4: database tests against the hosted project
+
+**Result: 177 of 177 on the hosted project** (`takhienzcshgkytbvaii`), 0 `not ok`, run at
+21:07 local. Plans: 01 `1..11`, 02 `1..15`, 03 `1..24`, 04 `1..20`, 05 `1..11`, 06 `1..16`,
+90 `1..80`. The 80 parity assertions passed, so TypeScript and SQL scoring agree on the live
+database. Locally (`npm run db:test:local`): `unseeded: 7 files, 177 assertions, 0 failed` and
+`seeded: 7 files, 177 assertions, 0 failed`. `npm run db:mutation`: `killed: 16, survived: 0`.
+
+- **Why the earlier 177 passed and the first hosted run did not (172 of 177).** The 177 in
+  ARCHITECTURE.md was measured on an *unseeded* plain Postgres. Five tests compared whole
+  tables against their own fixtures (`select slug from public.papers` must equal exactly
+  `free-paper, premium-paper`), so the three real starter papers on the hosted project made
+  them fail (`have: (daytime-caffeine-sleep) want: (free-paper)`). The rules themselves held:
+  an anonymous REST read of the live project returned all 3 papers, content only for the two
+  free ones, `[]` for feature content, and `42501` for `step_checkins` and `user_profiles`.
+- **Second hosted run: 176 of 177.** `03_guards` test 5 counted every row of `user_profiles`
+  (`have: 4 want: 3`). The extra row was the owner's own anonymous account, created at 15:09
+  UTC from the live site after the Vercel fix below. Same class of fault, in a table the seed
+  never fills.
+- **Rewritten tests** (plans unchanged, total still 177): `01_contract` 1 to 4 and `03_guards` 5
+  are now rules that hold whatever data exists. The owner counts what each rule says must be
+  visible (published papers; reads of papers that are published and not withdrawn) before
+  switching role, and the role compares against that count; "content not belonging to a free
+  paper" must be 0 for visitors and free users; "users without a profile" must be 0. Exact-row
+  comparisons remain only on fixture rows (`05_premium` 5).
+- **Seeded pass added to `db:test:local`.** It builds a second database with
+  `supabase/seed.sql` plus `supabase/tests/local/background_users.sql` (one anonymous free user
+  and one member with equipped papers, ticks, a target habit and an amount, inserted through
+  the real guards). With the old tests it failed as the hosted project did
+  (`seeded: 7 files, 172 assertions, 2 failed`; then `176, 1 failed` for test 5).
+- **Background users can never reach the hosted project.** `config.toml` seeds only
+  `./seed.sql`. `scripts/seed-safety.test.ts` (in `npm test`) fails if `seed.sql` writes to
+  `auth.users`, `user_profiles`, `step_checkins`, `step_amounts`, `equipped_protocols` or
+  `user_program_state`, mentions `subscription_tier`, includes another file, or if the seed
+  paths change. Shown failing on a scratch copy with one `step_checkins` insert, then passing.
+- **Two new mutations (16 in all).** "withdrawn reads shown to members" (the content policy
+  ignores `withdrawn_at`) is caught by `01` test 4, through a new fixture: a published, premium,
+  withdrawn paper with a read; and by `03` "a withdrawn paper's read is hidden from everyone".
+  "new users no longer get a profile" (trigger removed) is caught by `03` test 5. Only one
+  mutation is caught by the rewritten tests alone: "paper_content readable by everyone".
+  `db:mutation` now prints every distinct failing test, not the first three.
+- **pgTAP on the hosted project is installed only for a run and dropped afterwards**
+  (`select * from pg_extension where extname = 'pgtap'` returns no rows). No migration creates
+  it. `supabase test db --remote` needs Docker on CLI 3.1.0 (`DockerRunError`), so the files
+  run through `psql` in the owner's Terminal; the password is typed at psql's prompt and never
+  stored. Every test file is `begin ... rollback`; row counts were the same before and after.
+- **Never point `db:test:local` at a Supabase database** (corrects HANDOFF.md Phase 8 step 4):
+  its shim creates and its cleanup drops the `anon`, `authenticated` and `service_role` roles.
+- **pgTAP for the local Postgres** (Homebrew PostgreSQL 18.4 has no pgTAP formula): built from
+  the v1.3.3 release, `https://github.com/theory/pgtap/archive/refs/tags/v1.3.3.tar.gz`,
+  sha256 `325ea79d0d2515bce96bce43f6823dcd3effbd6c54cb2a4d6c2384fffa3a14c7`, installed with
+  `make PG_CONFIG=/opt/homebrew/bin/pg_config install` (run by the owner). Same version as the
+  hosted project offers.
+- **`--remote` on Supabase CLI 3.x**: `db push`, `db query`, `migration list` and `test db` all
+  target local Docker unless `--remote` is given. There is no `--linked`. Writes to the hosted
+  project also need `--yes`; `db query --read-only` does not.
+
+## 2026-11-12, Phase 8: broken Supabase settings in `.env.local` and Vercel
+
+Both had `NEXT_PUBLIC_SUPABASE_URL` ending in `/rest/v1/` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+set to the placeholder `ey...`, a space, then the real `sb_publishable_` key. Supabase answered
+`{"message":"Invalid API key"}` (HTTP 401). Found while checking the live access rules by hand:
+the first anonymous REST call failed, and printing the file's shape with values masked showed
+both faults. Corrected by the owner in Vercel (Production) and `.env.local`, then redeployed.
+Checked afterwards: URL 40 characters ending in `.supabase.co` with no path; key 46 characters
+starting `sb_publishable_`; an anonymous `GET /rest/v1/papers` returned HTTP 200 with 3 rows.
+Within the hour the live site created its first anonymous user.

@@ -77,8 +77,11 @@ select is(
 
 set local request.jwt.claims to '{"sub": "00000000-0000-4000-a000-000000000002", "role": "authenticated"}';
 
+-- Exact comparison on the fixture row only: other papers' feature content
+-- (the seed, or real rows on the hosted project) is also visible here, correctly.
 select results_eq(
-  $$ select payload from public.paper_feature_content $$,
+  $$ select payload from public.paper_feature_content
+     where paper_id = '10000000-0000-4000-a000-000000000001' and feature_key = 'key_takeaways' $$,
   $$ values ('{"notes": ["premium only"]}'::jsonb) $$,
   'a premium user reads premium feature content'
 );

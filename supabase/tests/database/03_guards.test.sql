@@ -61,9 +61,17 @@ select throws_ok(
   'a step with history cannot be deleted (steps are retired, never deleted)'
 );
 
-select is(
-  (select count(*) from public.user_profiles),
-  3::bigint,
+-- A rule that holds whatever other accounts exist (real users on the hosted
+-- project, background users locally): no auth user is without a profile, and
+-- this file's three fixture users each got one.
+select results_eq(
+  $$ select (select count(*) from auth.users u
+              where not exists (select 1 from public.user_profiles p where p.id = u.id))::int,
+            (select count(*) from public.user_profiles
+              where id in ('00000000-0000-4000-a000-000000000001',
+                           '00000000-0000-4000-a000-000000000002',
+                           '00000000-0000-4000-a000-000000000003'))::int $$,
+  $$ values (0, 3) $$,
   'every new auth user gets a profile row automatically'
 );
 

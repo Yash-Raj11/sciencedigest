@@ -49,7 +49,8 @@ PY
     survived=$((survived + 1))
   elif printf '%s\n' "$out" | grep -E '^not ok|^# FAILED|migration failed|ERROR' | grep -qF "$expect"; then
     echo "killed   $label"
-    printf '%s\n' "$out" | grep -E '^not ok' | head -3 | sed 's/^/           /'
+    # Every distinct failing test, both passes (same line in both passes prints once).
+    printf '%s\n' "$out" | grep -E '^not ok' | sort -u | sed 's/^/           /'
     killed=$((killed + 1))
   else
     echo "killed?  $label (suite failed, but not on the expected test: \"$expect\")"
@@ -72,6 +73,16 @@ mutate "is_premium() always false" "$CORE" \
   "and subscription_tier = 'premium'\n  \)" \
   "and subscription_tier = 'premium' and false\n  )" \
   '4. a premium user sees all paper_content'
+
+mutate "withdrawn reads shown to members (content policy ignores withdrawn_at)" "$CORE" \
+  "and p\.withdrawn_at is null\n        and \(p\.access_tier = 'free' or \(select private\.is_premium\(\)\)\)\n    \)\n  \);\n\ncreate policy \"steps" \
+  "and (p.access_tier = 'free' or (select private.is_premium()))\n    )\n  );\n\ncreate policy \"steps" \
+  '4. a premium user sees all paper_content'
+
+mutate "new users no longer get a profile (trigger removed)" "$CORE" \
+  'create trigger on_auth_user_created\n  after insert on auth\.users\n  for each row execute function private\.handle_new_user\(\);' \
+  '-- (on_auth_user_created trigger removed)' \
+  'every new auth user gets a profile row automatically'
 
 mutate "blanket privileges left in place (no revoke)" "$CORE" \
   'revoke all on all tables in schema public from anon, authenticated;' \
