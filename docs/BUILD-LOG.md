@@ -580,3 +580,28 @@ Generated files are unchanged. `content/context/` and `content/concepts/` hold o
   scratch folders (`scripts/context-build.test.ts`); nothing touches the network or a database.
   `retractions-sync` got test-only flags (`--csv`, `--context`, `--papers`); with `--csv` it
   never opens a database connection.
+
+## 2026-11-13: a fourth paper as a draft, to check Phase 9 end to end (owner's request)
+
+`turmeric-pepper-breakfast` (PMC11016436, doi:10.1002/fsn3.3965), free tier, **not approved**:
+`publishedAt` is null, so it is in no generated file and not in the app.
+
+- **Licence and retraction first.** Europe PMC says `cc by`; 67,834 Retraction Watch records
+  checked, no hit. `npm run retractions` was run for the first time on this machine (`.cache/`).
+- **`extract` and `draft` were not run.** They call the model and `.env.local` has no
+  `AI_API_KEY`. The extraction and the editorial were written by hand in the session and put
+  through the same gate and lint by `npm run content:build`. Reason: the checks are what
+  matter, and they ran unchanged.
+- **The paper's text has no effect size for glucose**, only p-values and a figure. So the read
+  has findings and no estimate, says so in the audit, and the simulator draws no glucose curve.
+- **One background concept**, `glucagon-like-peptide`, unreviewed. Its reference (Holst 2007,
+  doi:10.1152/physrev.00034.2006) was checked against the Europe PMC record. No parallel study.
+- **A new simulator kind, `breakfast-meals`** (`components/papers/turmeric-pepper-breakfast/`):
+  pick one of the four meals, see what the trial recorded. Reason: the generic simulator needs
+  estimates with intervals and this paper has none.
+- **`Article.tsx` now draws a three-layer read.** It only drew the old `sections`, so a layered
+  read showed no body text at all. This is a plain interim layout (limitations in bold, never
+  behind a tap; "Full receipts" behind one; a glossary with its source line); step 2D replaces
+  it. No test was added for it: there is no published layered read to test against yet, and
+  2D's walkthrough spec is where that belongs.
+- No figure: 2C and 2D are not done.

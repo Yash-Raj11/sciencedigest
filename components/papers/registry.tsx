@@ -18,6 +18,7 @@ import HiitSimulator from "./hiit-body-composition/Simulator";
 import HiitWidget from "./hiit-body-composition/Widget";
 import StepsSimulator from "./steps-days-per-week/Simulator";
 import StepsWidget from "./steps-days-per-week/Widget";
+import BreakfastSimulator from "./turmeric-pepper-breakfast/Simulator";
 
 export interface WidgetProps { variant: "article" | "card" }
 export interface SimulatorProps { params: Record<string, unknown> }
@@ -34,6 +35,7 @@ const SIMULATORS: Record<string, ComponentType<SimulatorProps>> = {
   "steps-days": StepsSimulator,
   "caffeine-timeline": CaffeineSimulator,
   "hiit-forest": HiitSimulator,
+  "breakfast-meals": BreakfastSimulator,
 };
 
 export function WidgetFor({ slug, variant }: { slug: string } & WidgetProps) {

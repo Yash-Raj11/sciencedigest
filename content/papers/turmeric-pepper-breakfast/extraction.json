@@ -1,0 +1,333 @@
+{
+  "identifiers": {
+    "doi": "10.1002/fsn3.3965",
+    "pmid": "38628217",
+    "pmcid": "PMC11016436",
+    "title": "The effect of turmeric and black pepper powder incorporated in breakfast on postprandial glycemia, appetite, palatability, and gastrointestinal well-being in normal-weight adults",
+    "authors": "Khan S, Arif M, Laraib H, Naqvi SN, Shah OA, Farooq U, Sami-Ullah M, Khan GA",
+    "journal": "Food Science & Nutrition",
+    "year": 2024,
+    "citation": "Khan S, Arif M, Laraib H, et al. The effect of turmeric and black pepper powder incorporated in breakfast on postprandial glycemia, appetite, palatability, and gastrointestinal well-being in normal-weight adults. Food Sci Nutr. 2024;12(4):2846-2854."
+  },
+  "license": "CC BY 4.0",
+  "design": {
+    "value": "rct",
+    "quote": "The study made use of a randomized crossover design; all the subjects were provided with 04 test foods, all have 50 g carbohydrate content."
+  },
+  "species": {
+    "value": "human",
+    "quote": "For this study, a total of 20 healthy individuals comprising 10 males and 10 females, were enrolled through direct personal communication."
+  },
+  "population": {
+    "value": "healthy adults aged 18 to 60 with a body mass index of 18.5 to 24.9 and no chronic disease",
+    "quote": "Inclusion criteria were: free from chronic diseases, aged 18–60 years, and healthy individual with body mass index (BMI) (18.5–24.9 kg/m2) medically healthy."
+  },
+  "sampleSize": {
+    "value": "20",
+    "quote": "For this study, a total of 20 healthy individuals comprising 10 males and 10 females, were enrolled through direct personal communication."
+  },
+  "facts": [
+    {
+      "id": "sample",
+      "kind": "context",
+      "label": "Number and sex of participants",
+      "value": "20 healthy individuals comprising 10 males and 10 females",
+      "quote": "For this study, a total of 20 healthy individuals comprising 10 males and 10 females, were enrolled through direct personal communication."
+    },
+    {
+      "id": "criteria",
+      "kind": "context",
+      "label": "Who could take part: age, body mass index, no chronic disease",
+      "value": "aged 18–60 years",
+      "quote": "Inclusion criteria were: free from chronic diseases, aged 18–60 years, and healthy individual with body mass index (BMI) (18.5–24.9 kg/m2) medically healthy."
+    },
+    {
+      "id": "ages",
+      "kind": "context",
+      "label": "Average age, body mass index and fasting blood glucose of the people who actually took part",
+      "value": "The mean age of female students was 21.4 ± 0.72 years",
+      "quote": "The mean age of female students was 21.4 ± 0.72 years with a mean BMI of 23.5 ± 3.9 and fasting blood glucose of 73.5 ± 9.05 mg/dL. For boys the mean age was 21.9 ± 0.84, BMI was 23.22 ± 5.7, and fasting blood glucose was 77.35 ± 9.57 mg/dL."
+    },
+    {
+      "id": "crossover",
+      "kind": "context",
+      "label": "Design: randomized crossover, four test meals, each with 50 g of carbohydrate",
+      "value": "randomized crossover design",
+      "quote": "The study made use of a randomized crossover design; all the subjects were provided with 04 test foods, all have 50 g carbohydrate content."
+    },
+    {
+      "id": "washout",
+      "kind": "context",
+      "label": "Each person ate all four meals, one per visit, a week apart",
+      "value": "four sessions with 1 week washout period",
+      "quote": "Every subject attended four sessions with 1 week washout period between the trials."
+    },
+    {
+      "id": "fast",
+      "kind": "context",
+      "label": "Overnight fast before each visit",
+      "value": "they were asked to fast",
+      "quote": "Selected personnel were instructed to take their twilight meal up to 10:00 p.m. following which they were asked to fast"
+    },
+    {
+      "id": "meals",
+      "kind": "context",
+      "label": "The four test meals and the spice doses",
+      "value": "+1 g black pepper (BP)",
+      "quote": "Test foods were: (1) bread toast and egg (control diet), (2) bread toast and egg +1 g black pepper (BP), (3) bread toast and egg +1 g turmeric (TR), and (4) bread toast and egg +1 g black pepper +1 g turmeric (BP + TR), all meals were served with tea."
+    },
+    {
+      "id": "in_egg",
+      "kind": "context",
+      "label": "How the spice was given: powder mixed into the fried egg",
+      "value": "were added to the egg",
+      "quote": "In test meals black pepper (1 g) and turmeric powder (1 g) were added to the egg."
+    },
+    {
+      "id": "plate",
+      "kind": "context",
+      "label": "What else was on the plate: two toasts and a cup of sweet milk tea",
+      "value": "2 standard bread toasts",
+      "quote": "The fried egg was served with 2 standard bread toasts and a cup of black tea (250 mL) having 200 mL milk, 50 mL water, 1 teaspoon black tea (5 g), and 1 tablespoon sugar (8 g)."
+    },
+    {
+      "id": "eaten_in",
+      "kind": "context",
+      "label": "Meal eaten within 10 minutes",
+      "value": "were ingested in 10 min",
+      "quote": "Next, the test meals, supplying 50 g of accessible carbohydrates, were ingested in 10 min."
+    },
+    {
+      "id": "timepoints",
+      "kind": "context",
+      "label": "When blood glucose was measured",
+      "value": "blood glucose levels were recorded at 0, 30, 60, 120, and 180 min",
+      "quote": "blood glucose levels were recorded at 0, 30, 60, 120, and 180 min"
+    },
+    {
+      "id": "finger_prick",
+      "kind": "context",
+      "label": "Blood glucose measured with a glucometer from a finger prick",
+      "value": "samples were collected via finger prick",
+      "quote": "was employed to compute the blood glucose, and samples were collected via finger prick"
+    },
+    {
+      "id": "nothing_else",
+      "kind": "context",
+      "label": "No other food or drink for the 3 hours",
+      "value": "during the period of 3 h was precluded",
+      "quote": "The ingestion of any kind of food or beverage during the period of 3 h was precluded"
+    },
+    {
+      "id": "glucose_30",
+      "kind": "finding",
+      "label": "differed from the control meal 30 minutes after eating, for the pepper meal and the pepper-plus-turmeric meal (p = .023); the text gives no size for the difference",
+      "value": "show a significant effect for blood glucose level at the time point 30 min",
+      "quote": "So test meals (BP and BP + TR) show a significant effect for blood glucose level at the time point 30 min as compared to reference meal (C) (p = .023).",
+      "outcome": "Blood glucose 30 minutes after the meal"
+    },
+    {
+      "id": "glucose_lower",
+      "kind": "finding",
+      "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal (p < .05); direction stated in the abstract, no size given",
+      "value": "resulted in lower blood glycemia",
+      "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
+      "outcome": "Blood glucose after the meal"
+    },
+    {
+      "id": "glucose_total",
+      "kind": "finding",
+      "label": "no significant difference between the four meals over the whole 3 hours",
+      "value": "shows a non-significant effect",
+      "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
+      "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)"
+    },
+    {
+      "id": "turmeric_none",
+      "kind": "finding",
+      "label": "turmeric alone: no effect on blood glucose compared with the control meal",
+      "value": "no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed",
+      "quote": "Contradictory to the assumption of this current approach, no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed.",
+      "outcome": "Blood glucose after the turmeric-only meal"
+    },
+    {
+      "id": "turmeric_dose",
+      "kind": "statement",
+      "label": "Authors' guess at why turmeric alone did nothing: the dose was low",
+      "value": "the use of low dose of turmeric powder",
+      "quote": "A possible rationale for this may be the use of low dose of turmeric powder in this study."
+    },
+    {
+      "id": "appetite",
+      "kind": "finding",
+      "label": "less hunger and less perceived eating ability, more satiety, after the pepper meal and the pepper-plus-turmeric meal; no sizes given",
+      "value": "A decrease in perceived eating ability and hunger, and an increase in satiety after BP + TR and BP meal was observed",
+      "quote": "A decrease in perceived eating ability and hunger, and an increase in satiety after BP + TR and BP meal was observed.",
+      "outcome": "Self-rated hunger, satiety and how much they felt they could eat"
+    },
+    {
+      "id": "fullness_ns",
+      "kind": "finding",
+      "label": "no significant difference between meals",
+      "value": "the effect of treatment on fullness is not statistically significant",
+      "quote": "However, in our study, the effect of treatment on fullness is not statistically significant but both of these meals (BP and BP + TR) have increased fullness as compared to TR and control meal.",
+      "outcome": "Self-rated fullness"
+    },
+    {
+      "id": "appetite_scale",
+      "kind": "context",
+      "label": "Appetite was rated by the participants on 100 mm lines",
+      "value": "Appetite was assessed by using VAS",
+      "quote": "Appetite was assessed by using VAS (Flint et al., ). The VAS consisted of four scales, each of 100 mm length, which was used to determine the participant's hunger from 0 to 100 mm"
+    },
+    {
+      "id": "gut",
+      "kind": "finding",
+      "label": "no significant difference between meals or over time (p > .05)",
+      "value": "There was no significant (p > .05) effect of time, treatment, and time × treatment on postprandial responses of gastrointestinal symptoms",
+      "quote": "There was no significant (p > .05) effect of time, treatment, and time × treatment on postprandial responses of gastrointestinal symptoms.",
+      "outcome": "Self-rated stomach and gut symptoms"
+    },
+    {
+      "id": "gut_scale",
+      "kind": "context",
+      "label": "Gut symptoms were rated by the participants on a 4-point scale",
+      "value": "assessed using a 4‐point Likert scale",
+      "quote": "Gastrointestinal symptoms such as swelling of stomach, uneasy feelings, flatulence, loose stools, diarrhea, constipation, cramping, and grumbling were assessed using a 4‐point Likert scale."
+    },
+    {
+      "id": "taste_scale",
+      "kind": "context",
+      "label": "Taste was rated on a 9-point scale from dislike extremely to like extremely",
+      "value": "A 9‐point hedonic calibration",
+      "quote": "A 9‐point hedonic calibration was exploited with dislike extremely on one end and like extremely on the other end."
+    },
+    {
+      "id": "taste_rank",
+      "kind": "finding",
+      "label": "the control meal and the combined meal were rated higher than the pepper-only and turmeric-only meals (p < .05)",
+      "value": "the control meal and combined meal have significantly (p < .05) higher acceptability than (BP and TR) meal",
+      "quote": "Post hoc pair‐wise comparison shows that the control meal and combined meal have significantly (p < .05) higher acceptability than (BP and TR) meal in comparison of general appearance, consistency, smell, taste, and whole pleasantness.",
+      "outcome": "Palatability (appearance, texture, smell, taste, overall pleasantness)"
+    },
+    {
+      "id": "taste_c",
+      "kind": "statement",
+      "label": "Table 3, control meal: appearance, texture, smell, taste, overall pleasantness (mean ± SD, 9-point scale). Overall: 6.5",
+      "value": "6.5 ± 0.39ab",
+      "quote": "C | 6.3 ± 0.48b | 6.4 ± 0.46b | 5.5 ± 0.51a | 6.7 ± 0.48b | 6.5 ± 0.39ab"
+    },
+    {
+      "id": "taste_bp",
+      "kind": "statement",
+      "label": "Table 3, black pepper meal. Overall pleasantness: 6.2",
+      "value": "6.2 ± 0.50a",
+      "quote": "BP | 5.9 ± 0.55a | 5.35 ± 0.61a | 6.05 ± 0.58ab | 5.9 ± 0.55a | 6.2 ± 0.50a"
+    },
+    {
+      "id": "taste_tr",
+      "kind": "statement",
+      "label": "Table 3, turmeric meal. Overall pleasantness: 6.1",
+      "value": "6.1 ± 0.40a",
+      "quote": "TR | 5.7 ± 0.48a | 5.5 ± 0.47a | 5.6 ± 0.533a | 5.9 ± 0.47a | 6.1 ± 0.40a"
+    },
+    {
+      "id": "taste_both",
+      "kind": "statement",
+      "label": "Table 3, pepper-plus-turmeric meal. Overall pleasantness: 6.6",
+      "value": "6.6 ± 0.42b",
+      "quote": "BP + TR | 6.5 ± 0.49b | 6.2 ± 0.52b | 6.2 ± 0.46b | 6.5 ± 0.44b | 6.6 ± 0.42b"
+    },
+    {
+      "id": "sugar_row",
+      "kind": "context",
+      "label": "Table 1 lists 10 g of sugar for the combined meal and 8 g for the other three",
+      "value": "Sugar (g) | 08 | 08 | 08 | 10 |",
+      "quote": "Sugar (g) | 08 | 08 | 08 | 10 |"
+    },
+    {
+      "id": "carb_row",
+      "kind": "context",
+      "label": "Table 1 gives all four meals the same carbohydrate total",
+      "value": "Average CHO (g) | 50 | 50 | 50 | 50 |",
+      "quote": "Average CHO (g) | 50 | 50 | 50 | 50 |"
+    },
+    {
+      "id": "piperine",
+      "kind": "context",
+      "label": "Black pepper's main active ingredient is piperine",
+      "value": "with the main active ingredient piperine",
+      "quote": "Black pepper (Piper nigrum) family piperaceae, with the main active ingredient piperine, has a hypoglycaemic effect (Panda & Kar, )."
+    },
+    {
+      "id": "trpv1",
+      "kind": "statement",
+      "label": "Authors' proposed mechanism: pepper compounds might act on the TRPV1 receptor",
+      "value": "which might act on receptor TRPV1",
+      "quote": "It was found that these effects are owing to the bio‐active profile of black pepper, such as isopiperine, isochavicine, piperine, piperanine, piperolein A and B, which might act on receptor TRPV1"
+    },
+    {
+      "id": "trpv1_mouth",
+      "kind": "statement",
+      "label": "TRPV1 is in the mouth; the authors say its activation is known to affect glucose control and appetite",
+      "value": "TRPV1 is present in the oral cavity",
+      "quote": "TRPV1 is present in the oral cavity and its activation is widely known to improve glucose homeostasis, potentially affect appetite responses as well as increase energy metabolism."
+    },
+    {
+      "id": "glp1",
+      "kind": "statement",
+      "label": "TRPV1 activation raises GLP-1 in the lower small intestine and the blood (earlier work the authors cite)",
+      "value": "TRPV1 activation increases GLP‐1",
+      "quote": "Furthermore, TRPV1 activation increases GLP‐1; glucagon‐like peptide‐1 levels in the ileum and plasma."
+    },
+    {
+      "id": "animals_before",
+      "kind": "context",
+      "label": "Earlier work on the two spices together was in animals only",
+      "value": "conducted only on animals not on humans",
+      "quote": "Previously such types of investigations were conducted only on animals not on humans."
+    },
+    {
+      "id": "single_meal",
+      "kind": "context",
+      "label": "The authors call this an acute intervention (one meal per condition)",
+      "value": "in this acute intervention",
+      "quote": "The decrease in hunger and perceived eating ability and increase in satiety and fullness after BP + TR and BP meal in this acute intervention"
+    },
+    {
+      "id": "lim_stated",
+      "kind": "limitation",
+      "label": "The authors' own stated limitation: the glycemic index of the meals was not measured",
+      "value": "The glycemic index of the test meals was not noted",
+      "quote": "This study has some deficiencies. The glycemic index of the test meals was not noted and it necessitates the need to be explored in future research studies."
+    },
+    {
+      "id": "lim_hormones",
+      "kind": "limitation",
+      "label": "The proposed mechanism was not measured: no hormones were examined",
+      "value": "hormones involved in the regulation of satiety were not examined",
+      "quote": "However, hormones involved in the regulation of satiety were not examined in this intervention."
+    },
+    {
+      "id": "lim_taste",
+      "kind": "limitation",
+      "label": "The drop in hunger may be a taste effect: the spiced meals were liked less",
+      "value": "might be because of decreased palatability",
+      "quote": "The reported reduction in hunger after BP and BP + TR meal consumption might be because of decreased palatability since different scientific approaches have revealed an enormous effect of palatability on appetite"
+    },
+    {
+      "id": "lim_mechanism",
+      "kind": "limitation",
+      "label": "The authors say the mechanisms still need investigating",
+      "value": "actual physiological mechanisms involved in these effects need further investigation",
+      "quote": "The potential components of turmeric and black pepper and actual physiological mechanisms involved in these effects need further investigation."
+    },
+    {
+      "id": "lim_long_term",
+      "kind": "limitation",
+      "label": "No long-term data: the authors call for long-term studies",
+      "value": "Future long‐term studies",
+      "quote": "Future long‐term studies with increased dosage of turmeric and black pepper are considered necessary to understand the advantages of long‐term utilization of turmeric and black pepper supplemented breakfast"
+    }
+  ]
+}

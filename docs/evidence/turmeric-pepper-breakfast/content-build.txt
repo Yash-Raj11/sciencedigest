@@ -1,0 +1,42 @@
+
+> sciencedigest@0.1.0 content:build
+> tsx scripts/content-build.mts
+
+
+background concepts (content/concepts/)
+  glucagon-like-peptide: ok, NOT REVIEWED (drafts only; npm run paper -- approve-concept glucagon-like-peptide)
+
+daytime-caffeine-sleep
+  gate   ok: 21 facts verified against the source, licence CC-BY, design rct
+    warning: no estimate with a confidence interval was extracted; the read must say the paper reports none (H5)
+  shape  old flat shape, on the temporary allowlist (scripts/legacy-shape.ts): rewrite in step 2E
+  lint   ok: 486 words
+    warning: [H5] primaryEstimate: the headline result has no confidence interval; check the read says what that leaves unknown
+  steps  last-caffeine-8h=low, regular-bedtime=none
+
+hiit-body-composition
+  gate   ok: 52 facts verified against the source, licence CC-BY, design meta_analysis_rct
+  shape  old flat shape, on the temporary allowlist (scripts/legacy-shape.ts): rewrite in step 2E
+  lint   ok: 510 words
+  steps  log-session=none, lean-three-sessions=high, lean-cycling=high, lean-eight-weeks=high, fat-three-sessions=low, fat-running=low, fat-eight-weeks=low
+
+steps-days-per-week
+  gate   ok: 34 facts verified against the source, licence CC-BY, design cohort
+  shape  old flat shape, on the temporary allowlist (scripts/legacy-shape.ts): rewrite in step 2E
+  lint   ok: 510 words
+  steps  log-8000-day=none, one-day=low, three-days=low
+
+turmeric-pepper-breakfast (draft, not in the app)
+  gate   ok: 42 facts verified against the source, licence CC-BY, design rct
+    warning: no estimate with a confidence interval was extracted; the read must say the paper reports none (H5)
+  lint   ok: 600 words
+    mechanism 166 words, 16 sentences, average 10.4, longest 20
+    protocol   88 words, 8 sentences, average 11, longest 15
+    audit     237 words, 20 sentences, average 11.9, longest 19
+    context   0 other studies, 1 background concept (glucagon-like-peptide)
+    warning: [H5] primaryEstimate: the headline result has no confidence interval; check the read says what that leaves unknown
+    warning: [H11] populationPanel: possibly passive ("was tested"); say who did it if you can: "Who this was tested in: 20 healthy adults, 10 men and 10 women."
+    warning: [context] concept:glucagon-like-peptide: the concept "glucagon-like-peptide" has not been reviewed by the owner (npm run paper -- approve-concept glucagon-like-peptide); this draft cannot be approved until it is
+  skipped: publishedAt is null (not approved yet)
+
+content build wrote 3 papers (2 free, 1 premium)

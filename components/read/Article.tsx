@@ -15,7 +15,7 @@ import { SimulatorFor, WidgetFor } from "@/components/papers/registry";
 import { GradeChip, Notice } from "@/components/protocol/primitives";
 import { DESIGN_LABEL, freeContent } from "@/lib/content";
 import { loadRead, type Gated } from "@/lib/content/gated";
-import { factSourceLine } from "@/lib/content/source-line";
+import { BACKGROUND, FROM_THE_PAPER, conceptReference, contextSourceList, factSourceLine } from "@/lib/content/source-line";
 import type { PaperContent, PaperMeta, ResolvedFact, Sentence } from "@/lib/content/types";
 import { formatEstimate } from "@/lib/pipeline/format";
 import { useStore } from "@/lib/store";
@@ -32,6 +32,11 @@ type Context = PaperContent["context"];
 function Para({ sentences, facts, context, className = "read" }: { sentences: Sentence[]; facts: Facts; context?: Context; className?: string }) {
   const [open, setOpen] = useState<number | null>(null);
   const shown = open === null ? [] : sentences[open].refs.map((id) => facts[id]).filter(Boolean);
+  // A sentence may also rest on a background concept, cited as "concept:<slug>".
+  const background = open === null ? [] : sentences[open].refs
+    .filter((id) => id.startsWith("concept:"))
+    .map((id) => context?.concepts.find((c) => c.slug === id.slice(8)))
+    .filter((c) => c !== undefined);
 
   return (
     <div>
@@ -59,8 +64,16 @@ function Para({ sentences, facts, context, className = "read" }: { sentences: Se
           );
         })}
       </p>
-      {shown.length > 0 && (
+      {shown.length + background.length > 0 && (
         <aside className="mt-2 space-y-3 rounded-lg border-l-4 border-accent bg-surface px-3.5 py-3">
+          {background.map((concept) => (
+            <div key={concept.slug}>
+              <p className="text-xs font-semibold text-muted">{BACKGROUND}, not from this paper</p>
+              <p className="mt-1 text-sm font-semibold leading-snug">{concept.term}</p>
+              <p className="mt-0.5 text-[0.9375rem] leading-snug text-muted">{concept.plain}</p>
+              <p className="mt-1 text-xs leading-snug text-muted">{conceptReference(concept)}</p>
+            </div>
+          ))}
           {shown.map((fact) => (
             <div key={fact.id}>
               <p className="text-xs font-semibold text-muted">{factSourceLine(fact, { context })}, word for word</p>
@@ -77,6 +90,93 @@ function Para({ sentences, facts, context, className = "read" }: { sentences: Se
         </aside>
       )}
     </div>
+  );
+}
+
+/**
+ * The three layers of a read (H10), drawn plainly: why it happens, what was
+ * tested, and the receipts. The limitations sit in bold and are never behind a
+ * tap (H6). Step 2D of the master prompt replaces this layout; until then a
+ * three-layer read must still show all of its text.
+ */
+function Layers({ paper, content }: { paper: PaperMeta; content: PaperContent }) {
+  const layers = content.layers;
+  if (!layers) return null;
+  const { facts, context } = content;
+  const { mechanism, protocol, audit } = layers;
+  const sources = contextSourceList(content);
+
+  return (
+    <>
+      <section aria-label="Why it happens" className="space-y-3">
+        <h2 className="read-title text-[1.625rem]">Why it happens</h2>
+        {mechanism.paragraphs.map((paragraph, i) => <Para key={i} sentences={paragraph} facts={facts} context={context} />)}
+      </section>
+
+      <section aria-label="What was tested" className="space-y-3">
+        <h2 className="read-title text-[1.625rem]">What was tested</h2>
+        {protocol.paragraphs.map((paragraph, i) => <Para key={i} sentences={paragraph} facts={facts} context={context} />)}
+      </section>
+
+      <section aria-label="The receipts" className="space-y-3 rounded-2xl border border-accent bg-accent-soft p-4">
+        <h2 className="display text-xl">The receipts</h2>
+        <p className="text-sm leading-snug text-muted">
+          {DESIGN_LABEL[paper.design] ?? paper.design}
+          {paper.sampleSize !== null && <>, <span className="num">{paper.sampleSize.toLocaleString("en")}</span> participants</>}.
+        </p>
+        <div>
+          <h3 className="text-sm font-semibold text-muted">The size of the effect</h3>
+          <Para sentences={audit.effect} facts={facts} context={context} className="text-base leading-relaxed" />
+        </div>
+        <div>
+          <h3 className="text-sm font-semibold text-muted">How weak it could be</h3>
+          <Para sentences={audit.weakEnd} facts={facts} context={context} className="text-base leading-relaxed" />
+        </div>
+        <div>
+          <h3 className="text-sm font-semibold text-muted">What to hold loosely</h3>
+          <ul className="mt-1 space-y-3">
+            {audit.limitations.map((limitation, i) => (
+              <li key={i} className="flex gap-3">
+                <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
+                <div className="min-w-0 flex-1"><Para sentences={limitation} facts={facts} context={context} className="text-base font-bold leading-relaxed" /></div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3 className="text-sm font-semibold text-muted">What summaries leave out</h3>
+          <Para sentences={audit.missed} facts={facts} context={context} className="text-base leading-relaxed" />
+        </div>
+        {audit.more.length + sources.length > 0 && (
+          <details className="border-t border-line pt-3">
+            <summary className="cursor-pointer font-semibold">Full receipts</summary>
+            <div className="mt-3 space-y-3">
+              {audit.more.map((paragraph, i) => <Para key={i} sentences={paragraph} facts={facts} context={context} className="text-base leading-relaxed" />)}
+              {sources.map((source) => (
+                <p key={source.id} className="text-sm leading-snug text-muted">
+                  <span className="font-semibold">{source.label}.</span> {source.citation} ({source.id}){source.grade ? `, ${source.grade.toLowerCase()}` : ""}
+                </p>
+              ))}
+            </div>
+          </details>
+        )}
+      </section>
+
+      {(content.glossary ?? []).length > 0 && (
+        <section aria-label="Words used here" className="rounded-2xl border border-line p-4">
+          <h2 className="display text-xl">Words used here</h2>
+          <dl className="mt-3 space-y-3 text-[0.9375rem] leading-relaxed">
+            {(content.glossary ?? []).map((entry) => (
+              <div key={entry.term}>
+                <dt className="font-semibold">{entry.term}</dt>
+                <dd className="text-muted">{entry.plain}</dd>
+                <dd className="text-xs font-semibold text-muted">{entry.concept ? BACKGROUND : FROM_THE_PAPER}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )}
+    </>
   );
 }
 
@@ -105,6 +205,8 @@ function ReadBody({ paper, content }: { paper: PaperMeta; content: PaperContent 
         </p>
       </section>
 
+      <Layers paper={paper} content={content} />
+
       {content.sections.map((section) => (
         <section key={section.id} aria-label={section.heading} className="space-y-3">
           <h2 className="read-title text-[1.625rem]">{section.heading}</h2>
@@ -112,7 +214,7 @@ function ReadBody({ paper, content }: { paper: PaperMeta; content: PaperContent 
         </section>
       ))}
 
-      <section aria-label="Limitations" className="rounded-2xl border border-accent bg-accent-soft p-4">
+      {!content.layers && <section aria-label="Limitations" className="rounded-2xl border border-accent bg-accent-soft p-4">
         <h2 className="display text-xl">What to hold loosely</h2>
         <p className="mt-1 text-sm leading-snug text-muted">One study never settles a question. These are the weak points of this one.</p>
         <ul className="mt-3 space-y-3">
@@ -123,7 +225,7 @@ function ReadBody({ paper, content }: { paper: PaperMeta; content: PaperContent 
             </li>
           ))}
         </ul>
-      </section>
+      </section>}
 
       <details className="rounded-2xl border border-line p-4">
         <summary className="cursor-pointer font-semibold">New to reading studies? Three terms</summary>

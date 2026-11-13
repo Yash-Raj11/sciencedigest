@@ -1,0 +1,10 @@
+{
+  "term": "glucagon-like peptide",
+  "plain": "A hormone the gut releases after a meal. It helps hold down the rise in blood sugar after eating, slows the gut and curbs appetite.",
+  "model": "The gut's message that food has arrived: deal with the sugar, slow the conveyor, stop asking for more.",
+  "reference": {
+    "doi": "10.1152/physrev.00034.2006",
+    "title": "The physiology of glucagon-like peptide 1"
+  },
+  "reviewed_by_owner": false
+}
