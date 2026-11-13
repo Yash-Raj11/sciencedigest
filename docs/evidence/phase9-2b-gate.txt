@@ -34,3 +34,12 @@ Phase 9, step 2B gate, 2026-11-13. Local runs; nothing here touched the hosted p
 
 Each rule broken on purpose and caught: docs/evidence/phase9-2b-rules-broken.txt (20 of 20).
 Totals: 272 unit tests, 6 HTTP tests, 6 browser tests, all passing (docs/evidence/unit-tests.txt, browser-tests.txt).
+
+Live site after the push (3ea2085), https://sciencedigest-a4ms.vercel.app, no browser taps:
+  200  /    200  /library    200  /privacy
+  200  /papers/daytime-caffeine-sleep    200  /papers/steps-days-per-week    200  /papers/hiit-body-composition
+  404  /papers/does-not-exist
+  The served read-page script carries the new source line (`...,{context:n}),", word for word"`) and no
+  longer the old fixed heading (0 matches for "From the paper, word for word" as one literal).
+  The members' read is still absent from the public HTML of /papers/hiit-body-composition (0 matches
+  for a heading only that read contains).
