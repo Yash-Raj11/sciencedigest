@@ -4,13 +4,16 @@
  */
 
 import { createHash } from "node:crypto";
-import type { BuiltPaper, ContentStep, FigureRef, PaperContent, ResolvedFact, Sentence } from "../content/types";
+import type { BuiltPaper, ContentStep, ContextConcept, ContextStudy, FigureRef, GlossaryEntry, PaperContent, ResolvedFact, Sentence } from "../content/types";
 import type { EvidenceGrade } from "../evidence";
 import { WEIGHT_TENTHS } from "../evidence";
 import { Editorial, LegacyEditorial, editorialShape, type FigureRef as FigureDef } from "./editorial";
 import { formatEstimate } from "./format";
-import type { Validated } from "./gate";
+import type { Validated, ValidatedFact } from "./gate";
+import { deriveTier } from "./grade";
+import type { LintContext } from "./lint";
 import { parseMarkup, plain } from "./markup";
+import { conceptRef, parseRef } from "./refs";
 import { words } from "./text";
 
 const NAMESPACE = "sciencedigest:v1:";
@@ -28,7 +31,19 @@ export function stableId(name: string): string {
 
 const WORDS_PER_MINUTE = 200;
 
-export function assemble(validated: Validated, editorialInput: unknown): BuiltPaper {
+/** "Inoue et al., JAMA Network Open 2023": enough to recognise a study in one line. */
+export function shortCite(id: Validated["identifiers"]): string {
+  const authors = id.authors.split(",").map((a) => a.trim()).filter(Boolean);
+  const surname = (authors[0] ?? id.authors).replace(/\s+[A-Z]{1,3}$/, "");
+  return `${surname}${authors.length > 1 ? " et al." : ""}, ${id.journal} ${id.year}`;
+}
+
+/**
+ * `context` holds the gated studies and the concept files (the same object the
+ * lint was given). The lint has already refused every reference that cannot be
+ * used; a bad one here is a bug, so it throws.
+ */
+export function assemble(validated: Validated, editorialInput: unknown, context: LintContext = { studies: {}, concepts: {} }): BuiltPaper {
   // The lint has already decided whether this shape is allowed; assemble only builds.
   const ed = editorialShape(editorialInput) === "legacy" ? LegacyEditorial.parse(editorialInput) : Editorial.parse(editorialInput);
   const paperId = stableId(`paper:${ed.slug}`);
@@ -91,7 +106,16 @@ export function assemble(validated: Validated, editorialInput: unknown): BuiltPa
           figure: figure(ed.layers.audit.figure),
         },
       },
-      glossary: ed.glossary,
+      glossary: ed.glossary.map((entry): GlossaryEntry => {
+        if (entry.concept === null) {
+          for (const ref of entry.refs) used.add(ref);
+          return { term: entry.term, plain: entry.plain ?? "", refs: entry.refs, concept: null };
+        }
+        used.add(conceptRef(entry.concept));
+        const concept = context.concepts[entry.concept];
+        if (!concept?.ok) throw new Error(`unknown concept "${entry.concept}" (the lint should have caught this)`);
+        return { term: entry.term, plain: concept.concept.plain, refs: [], concept: entry.concept };
+      }),
       primaryEstimate: ed.primaryEstimate,
       simulator: { kind: ed.simulator.kind, params: {} },
     }
@@ -105,11 +129,20 @@ export function assemble(validated: Validated, editorialInput: unknown): BuiltPa
     };
   used.add(ed.primaryEstimate);
 
+  /** The study a context reference points into. Throws on anything the lint would have refused. */
+  const studyOf = (source: string): Validated => {
+    const study = context.studies[source];
+    if (!study?.ok || study.withdrawn) throw new Error(`context source "${source}" is not usable (the lint should have caught this)`);
+    return study.validated;
+  };
+
   const resolve = (id: string): ResolvedFact => {
-    const fact = validated.facts[id];
+    const ref = parseRef(id);
+    const fact: ValidatedFact | undefined = ref.kind === "study" ? studyOf(ref.source).facts[ref.fact] : validated.facts[id];
     if (!fact) throw new Error(`unknown fact "${id}" (the lint should have caught this)`);
     return {
       id, kind: fact.kind, label: fact.label, quote: fact.quote,
+      ...(ref.kind === "study" ? { source: ref.source } : {}),
       ...(fact.estimate ? {
         estimate: {
           outcome: fact.estimate.outcome, measure: fact.estimate.measure, point: fact.estimate.point,
@@ -134,7 +167,36 @@ export function assemble(validated: Validated, editorialInput: unknown): BuiltPa
 
   const takeaways = ed.takeaways.map(sentences);
   const facts: Record<string, ResolvedFact> = {};
-  for (const id of [...used].sort()) if (validated.facts[id]) facts[id] = resolve(id);
+  const studies = new Map<string, ContextStudy>();
+  const concepts = new Map<string, ContextConcept>();
+  for (const id of [...used].sort()) {
+    const ref = parseRef(id);
+    if (ref.kind === "paper") {
+      if (validated.facts[id]) facts[id] = resolve(id);
+    } else if (ref.kind === "study") {
+      facts[id] = resolve(id);
+      const study = studyOf(ref.source);
+      studies.set(ref.source, {
+        slug: ref.source,
+        citation: study.identifiers.citation,
+        shortCite: shortCite(study.identifiers),
+        doi: study.identifiers.doi,
+        design: study.design,
+        sampleSize: study.sampleSize,
+        license: study.license,
+        // The study's own grade, from its own design. Shown beside what it says; never scored.
+        tier: deriveTier({ design: study.design, species: study.species, sampleSize: study.sampleSize, reportedGrade: null }),
+      });
+    } else {
+      const concept = context.concepts[ref.slug];
+      if (!concept?.ok) throw new Error(`unknown concept "${ref.slug}" (the lint should have caught this)`);
+      const { term, plain: plainText, model, reference } = concept.concept;
+      concepts.set(ref.slug, { slug: ref.slug, term, plain: plainText, model, reference });
+    }
+  }
+  const usedContext = studies.size + concepts.size > 0
+    ? { context: { studies: [...studies.values()], concepts: [...concepts.values()] } }
+    : {};
 
   const layered = content.layers
     ? [
@@ -188,7 +250,7 @@ export function assemble(validated: Validated, editorialInput: unknown): BuiltPa
     },
     steps,
     choices: ed.choices,
-    content: { ...content, facts },
+    content: { ...content, facts, ...usedContext },
     takeaways,
     carousel: {
       slug: ed.slug,

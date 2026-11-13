@@ -515,3 +515,68 @@ No reader sees a change yet: the three papers build to byte-identical generated 
   abbreviation rule passed, because every test case had a lower-case word after "e.g." and the
   capital-letter rule alone kept those in one piece. Three cases with a capital or a bracket
   after the stop were added; second run 19 of 19.
+
+## 2026-11-13, Phase 9, step 2B: context sources (parallel studies and background concepts)
+
+No reader sees a change yet except one line: the passage under a tapped dot is now headed by its
+source line ("From the paper, word for word"; the same words as before for every current read).
+Generated files are unchanged. `content/context/` and `content/concepts/` hold only a README.
+
+- **Checked first: `paper_content` needs no migration.** `content_json` is `jsonb not null` with
+  no check on its shape (`20261112000100_core.sql`, line 72), and row level security decides by
+  `paper_id`, not by what is inside. So the build embeds everything a read cites, the other
+  study's facts with their quotes, the study's citation, DOI and grade, and each concept, in
+  that read's own JSON (`content.facts[...].source`, `content.context`). A members' read carries
+  its context through the same gate as the rest of it. The cost is not a migration but a seed
+  push when a members' read changes (a write to the hosted project: ask first).
+- **How a read cites.** `[fact_id]` the paper; `[<slug>/<fact_id>]` another study, which is the
+  prompt's `{source, fact}`; `[concept:<slug>]` a concept (`lib/pipeline/refs.ts`).
+- **The gate with role "context"** is the same gate: same schema, licence allowlist, verbatim
+  quotes, numbers inside their quotes, derived tiers. The role is recorded on the result. Nothing
+  was relaxed for context, including the requirement of a limitation, so a context extraction is
+  held to exactly what a paper's is. What makes it "context" is what is refused around it: an
+  `editorial.json` in a context folder fails that source; `draft` and `approve` refuse
+  `--role context`.
+- **The citation gate lives in the lint** (rule name `context`), because that is where a read's
+  references are resolved: a missing fact, a source that is not there, a source that failed the
+  gate, and a withdrawn source each fail. A caller that passes no context at all gets a failure
+  on every context reference, never a pass.
+- **Never a step, never a weight.** A step whose `refs` or `evidenceRef` is a context reference
+  fails; so does a simulator parameter, and the headline result. A limitation must still cite a
+  limitation of the paper itself. H3 got one addition: a causal verb fails if any study the
+  sentence cites is not randomized human evidence, whatever the read's own paper is. A test
+  compares the assembled steps and grades with and without a context citation: identical.
+  `git diff --stat` for `lib/score.ts`, `lib/evidence.ts` and `supabase/migrations`: no change.
+- **Grades for context studies** come from `deriveTier()` in `grade.ts` (the study's design,
+  species and size). The source line uses the fact's own tier when the study graded that
+  outcome itself. It is shown as words ("low certainty"), never as a weight: the existing
+  `GradeChip` prints "×0.4", which would be a lie beside a study that weighs nothing.
+- **Concepts.** `{ term, plain, model, reference { doi | isbn, title }, reviewed_by_owner }`.
+  Any digit in term, plain or model fails; so do banned words, throat-clearing, a sentence over
+  30 words, and a listed technical word other than the concept's own name.
+- **"Only I approve" is enforced two ways.** `approve-concept` refuses unless both ends are a
+  terminal, shows the whole concept, and asks for the slug to be typed back. And it writes a
+  fingerprint of the wording (`reviewed: { at, fingerprint }`): `reviewed_by_owner: true` typed
+  by hand, or a concept reworded after its review, counts as unreviewed. The second part is an
+  addition to the shape the owner gave, on the model of the Instagram queue's approvals.
+- **Unreviewed concepts.** A draft may use one (a warning), so the owner can read the read and
+  its concepts together. A published read cannot: the lint fails, so `content:build` fails; and
+  `paper approve` refuses while any is unreviewed.
+- **Every glossary entry now has a source** (a change to 2A's `{term, plain}`): either
+  `{ term, plain, refs }`, resting on cited facts, or `{ term, concept }`, which takes the
+  concept's reviewed wording. Without one there would be nothing to put on the source line.
+- **Retractions.** `npm run retractions` screens published papers and context studies in one
+  pass (`screenSources`). A retracted context study has no database row and no weight, so
+  "withdrawn" means: `content/context/<slug>/withdrawn.json` is written, the reads citing it
+  are named, exit code 1, and from then on the build fails on every citation of it. Fail closed:
+  the read has to be edited by a person, because dropping the citation by itself would leave a
+  sentence with nothing under it.
+- **Source lines** are one pure module, `lib/content/source-line.ts`: "From the paper",
+  "From another study: <short cite>, <grade>", "Background", and the list for the audit (each
+  source with its DOI or ISBN). The read page uses it under a tapped dot now; the audit list is
+  drawn in 2D.
+- **Evidence.** 20 deliberate breaks, each caught: `docs/evidence/phase9-2b-rules-broken.txt`.
+  The end-to-end tests run the real `content-build`, `retractions-sync` and `paper` scripts on
+  scratch folders (`scripts/context-build.test.ts`); nothing touches the network or a database.
+  `retractions-sync` got test-only flags (`--csv`, `--context`, `--papers`); with `--csv` it
+  never opens a database connection.

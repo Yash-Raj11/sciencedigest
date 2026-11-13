@@ -296,6 +296,30 @@ and its longest one. Sentences over 22 words and likely passives are warnings: r
 decide. The full shape and two worked examples are in `.claude/skills/science-content/SKILL.md`.
 | approve | either of the two above fails |
 
+**Another study beside the paper.** A read may cite a second study (`content/context/<slug>/`).
+It goes through the same download and the same gate, and stops there: no read of its own, no
+protocol, no weight.
+
+```
+npm run paper -- fetch PMC1234567 other-slug --role context
+npm run paper -- extract other-slug --role context
+```
+
+The read cites one of its facts as `[other-slug/fact_id]`; the page shows "From another study",
+the citation and that study's own grade, and the receipts list it with its DOI.
+
+**Background concepts.** Textbook knowledge the paper does not state ("what adenosine does")
+goes in `content/concepts/<slug>.json`: a term, a plain explanation, a mental model and a
+reference (DOI or ISBN). **No numbers**: a digit fails. A draft may use a concept you have not
+reviewed; a published read may not, and `approve` refuses. To review one, in your own Terminal:
+
+```
+npm run paper -- approve-concept adenosine      # shows it, asks you to type the slug back
+```
+
+It will not run from a script or an assistant. If a concept's wording changes later, it needs
+approving again.
+
 **Reading a draft before you approve it.** A draft has `"publishedAt": null` and is not in the
 app. To preview it, temporarily put a date in that field, run `npm run content:build`, look at
 it in `npm run dev`, then either approve it or set the field back to `null`. Read the whole
@@ -337,7 +361,9 @@ npm run retractions
 ```
 
 Downloads the Retraction Watch list (free, updated every working day) and checks every paper
-you have published against it. This catches a paper retracted **after** you wrote about it,
+you have published, and every context study in `content/context/`, against it. A retracted
+context study gets a `withdrawn.json` in its folder; from then on `npm run content:build` fails
+on any read that still cites it, naming the sentence to remove. This catches a paper retracted **after** you wrote about it,
 which no summary account does. If one is found, the command says which, exits with an error,
 and (when `SUPABASE_SERVICE_ROLE_KEY` is set) hides the read and drops its protocol's weight to
 zero in the database. Then run the two commands it prints.

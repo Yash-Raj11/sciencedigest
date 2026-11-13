@@ -9,10 +9,11 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { assemble } from "./assemble";
+import { approved, checkConcept } from "./concepts";
 import { Editorial, editorialShape } from "./editorial";
 import { gate } from "./gate";
 import { JARGON, glossaryCovers, jargonIn } from "./jargon";
-import { CAVEAT_TERMS, LAYER_WORDS, SENTENCE_WORDS, THROAT_CLEARING, lint } from "./lint";
+import { BANNED_TERMS, CAVEAT_TERMS, LAYER_WORDS, SENTENCE_WORDS, THROAT_CLEARING, lint, type LintContext } from "./lint";
 import { splitSentences, wordCount } from "./sentences";
 
 const dir = new URL("../../content/papers/daytime-caffeine-sleep/", import.meta.url);
@@ -27,6 +28,15 @@ const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
 /** A copy of an object without some of its keys. */
 const without = (value: Record<string, unknown>, keys: string[]) => Object.fromEntries(Object.entries(clone(value)).filter(([key]) => !keys.includes(key)));
 
+/** The fixture's one concept, reviewed, as the build would hand it to the lint. */
+const context: LintContext = {
+  studies: {},
+  concepts: {
+    "non-rem-sleep": checkConcept(approved(fixture.concepts["non-rem-sleep"], "2026-11-13T00:00:00Z"),
+      { banned: BANNED_TERMS, throatClearing: THROAT_CLEARING, maxSentenceWords: SENTENCE_WORDS.fail }),
+  },
+};
+
 /** The passing three-layer read. */
 function layered(): any {
   return { ...without(oldShape, ["sections", "limitations", "layers", "glossary"]), layers: clone(fixture.layers), glossary: clone(fixture.glossary) };
@@ -34,7 +44,7 @@ function layered(): any {
 function run(mutate: (editorial: any) => void = () => {}) {
   const editorial = layered();
   mutate(editorial);
-  const report = lint(validated, editorial, source);
+  const report = lint(validated, editorial, source, { context });
   return {
     report,
     errors: report.errors.map((e) => `${e.rule} ${e.where}: ${e.message}`),
@@ -73,7 +83,9 @@ describe("check 1, schema: layers { mechanism, protocol, audit } and a glossary"
   });
   it("refuses a read with no glossary, and a glossary entry with no plain text", () => {
     expect(run((e) => { delete e.glossary; }).errors).toEqual([expect.stringContaining("schema glossary")]);
-    expect(run((e) => { e.glossary[0] = { term: "placebo" }; }).errors).toEqual([expect.stringContaining("schema glossary.0.plain")]);
+    expect(run((e) => { e.glossary[2] = { term: "placebo" }; }).errors)
+      .toEqual([expect.stringContaining("schema glossary.2.plain: give plain text with refs, or a concept (one of them)")]);
+    expect(run((e) => { e.glossary[0].plain = "Sleep without dreams."; }).errors).toEqual([expect.stringContaining("schema glossary.0.plain")]);
   });
   it("keeps the audit's own rules: the effect cites the headline result (H5), limitations cite a limitation (H6)", () => {
     expect(run((e) => { e.layers.audit.effect = "Sleep looked the same. [quality_same]"; }).errors)
@@ -122,27 +134,27 @@ describe("check 2, jargon (H9)", () => {
   it("passes once the glossary says what the thing does", () => {
     expect(run((e) => {
       addTo("mechanism", "The lock has a name: the adenosine receptor. [-]")(e);
-      e.glossary.push({ term: "adenosine receptor", plain: "The lock on a brain cell that the sleepiness chemical fits." });
+      e.glossary.push({ term: "adenosine receptor", plain: "The lock on a brain cell that the sleepiness chemical fits.", refs: ["tolerance"] });
     }).errors).toEqual([]);
     expect(glossaryCovers("adenosine receptor", "adenosine")).toBe(true);
     expect(glossaryCovers("adenosine receptor", "receptor")).toBe(true);
     expect(glossaryCovers("sigma band", "receptor")).toBe(false);
   });
   it("fails a glossary entry whose plain text uses a listed word", () => {
-    expect(run((e) => { e.glossary[0].plain = "Sleep outside REM, set by the circadian clock."; }).errors)
-      .toEqual([expect.stringContaining('H9 glossary[0]: the plain text for "non-REM sleep" uses a technical word (circadian, REM)')]);
+    expect(run((e) => { e.glossary[1].plain = "Brain waves outside REM, set by the circadian clock."; }).errors)
+      .toEqual([expect.stringContaining('H9 glossary[1]: the plain text for "sigma band" uses a technical word (circadian, REM)')]);
   });
   it("fails a mechanism that opens with the name instead of the picture, glossary entry or not", () => {
     expect(run((e) => {
       e.layers.mechanism.paragraphs[0] = `Caffeine blocks the adenosine lock. [-] ${e.layers.mechanism.paragraphs[0]}`;
-      e.glossary.push({ term: "adenosine", plain: "A chemical that piles up while you are awake." });
+      e.glossary.push({ term: "adenosine", plain: "A chemical that piles up while you are awake.", refs: ["tolerance"] });
     }).errors).toEqual([expect.stringContaining("H9 layers.mechanism[0]: the mechanism opens with a technical word (adenosine)")]);
   });
   it("fails a glossary entry with a number, a banned word or a duplicate", () => {
     expect(run((e) => { e.glossary[1].plain = "Brain waves of 12 to 15 cycles a second."; }).errors)
-      .toEqual([expect.stringContaining("H7 glossary[1]")]);
+      .toEqual([expect.stringContaining('H7 glossary[1]: the plain text for "sigma band" carries a number (12, 15) that is not in the fact(s) it cites')]);
     expect(run((e) => { e.glossary[1].plain = "The secret rhythm of sleep."; }).errors).toEqual([expect.stringContaining('H1 glossary[1]: banned term "secret"')]);
-    expect(run((e) => { e.glossary.push({ term: "Placebo", plain: "A dummy capsule." }); }).errors)
+    expect(run((e) => { e.glossary.push({ term: "Placebo", plain: "A dummy capsule.", refs: ["dose"] }); }).errors)
       .toEqual([expect.stringContaining('glossary glossary[3]: "Placebo" is defined twice')]);
   });
 });
@@ -285,13 +297,17 @@ describe("check 7, word budget (H10)", () => {
 
 describe("assemble: the three-layer read reaches the app", () => {
   it("carries the layers and the glossary, with every cited fact", () => {
-    const paper = assemble(validated, layered());
+    const paper = assemble(validated, layered(), context);
     expect(Object.keys(paper.content.layers!)).toEqual(["mechanism", "protocol", "audit"]);
     expect(paper.content.layers!.mechanism.paragraphs[1][1]).toEqual({
       text: "During non-REM sleep, brain activity in the sigma band was lower on caffeine nights than on placebo nights.", refs: ["sigma"],
     });
     expect(paper.content.layers!.audit.limitations).toHaveLength(3);
-    expect(paper.content.glossary).toEqual(fixture.glossary);
+    expect(paper.content.glossary).toEqual([
+      { term: "non-REM sleep", plain: "The stages of sleep without vivid dreams, deep sleep included.", refs: [], concept: "non-rem-sleep" },
+      { term: "sigma band", plain: "A range of brain-wave speeds that shows up during sleep.", refs: ["sigma"], concept: null },
+      { term: "placebo", plain: "A capsule with nothing active in it, used for comparison.", refs: ["dose"], concept: null },
+    ]);
     expect(paper.content.sections).toEqual([]);
     expect(Object.keys(paper.content.facts)).toEqual(expect.arrayContaining(["sigma", "tolerance", "lim_male", "not_after_abstinence"]));
     expect(paper.meta.readMinutes).toBe(2);
@@ -299,7 +315,7 @@ describe("assemble: the three-layer read reaches the app", () => {
   it("resolves a figure's caption and alt text", () => {
     const editorial = layered();
     editorial.layers.mechanism.figure = { figure: "loan", caption: "The loan comes due 8 hours after the last dose. [sigma_meaning]", alt: "A loan coming due each night. [-]" };
-    const paper = assemble(validated, editorial);
+    const paper = assemble(validated, editorial, context);
     expect(paper.content.layers!.mechanism.figure).toEqual({
       figure: "loan",
       caption: [{ text: "The loan comes due 8 hours after the last dose.", refs: ["sigma_meaning"] }],

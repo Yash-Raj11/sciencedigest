@@ -37,7 +37,17 @@ export interface ValidatedFact {
   finding?: { outcome: string; tier: EvidenceGrade };
 }
 
+/**
+ * What an extraction is for.
+ *   paper    the study a read is about: it gets an editorial, a protocol, weight.
+ *   context  another study a read may cite beside it (content/context/<slug>/).
+ *            Same licence rule, same verbatim-quote rule, same derived tiers.
+ *            It never gets an editorial or a protocol, and never carries weight.
+ */
+export type GateRole = "paper" | "context";
+
 export interface Validated {
+  role: GateRole;
   identifiers: RawExtraction["identifiers"];
   license: AllowedLicense;
   design: Design;
@@ -75,7 +85,8 @@ export function locate(source: string, quote: string): Span | null {
 const hasAny = (haystack: string, needles: string[]) =>
   needles.some((n) => new RegExp(`(^|[^a-z])${n.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")}([^a-z]|$)`).test(haystack));
 
-export function gate(input: unknown, source: string): GateResult {
+export function gate(input: unknown, source: string, options: { role?: GateRole } = {}): GateResult {
+  const role = options.role ?? "paper";
   const parsed = RawExtraction.safeParse(input);
   if (!parsed.success) {
     return { ok: false, errors: parsed.error.issues.map((i) => `schema: ${i.path.join(".")}: ${i.message}`) };
@@ -225,6 +236,7 @@ export function gate(input: unknown, source: string): GateResult {
     ok: true,
     warnings,
     validated: {
+      role,
       identifiers: raw.identifiers,
       license: license.license,
       design,

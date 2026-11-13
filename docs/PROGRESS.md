@@ -54,9 +54,11 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       Done: 224 unit tests; 19 of 19 deliberate breaks caught
       (`docs/evidence/phase9-2a-rules-broken.txt`). For the owner to confirm: the reading of
       "before its glossary entry" (BUILD-LOG 2026-11-13, step 2A).
-- [ ] 2B. Context sources: parallel studies (`content/context/`, gated, graded, retraction check)
+- [x] 2B. Context sources: parallel studies (`content/context/`, gated, graded, retraction check)
       and background concepts (`content/concepts/`, no digits, owner approval command). Source
       lines. Check `paper_content` JSON first. No change to scoring files or migrations.
+      Done: 272 unit, 6 HTTP, 6 browser tests; 20 of 20 deliberate breaks caught. Gate:
+      `docs/evidence/phase9-2b-gate.txt`.
 - [ ] ⏸ Stop with the 2B gate.
 - [ ] 2C. Figures as React SVG: ten primitives, widget guard extended (two failing fixtures),
       title/desc/alt, reduced motion, 360 px; one mechanism figure per starter paper;

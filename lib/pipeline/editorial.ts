@@ -119,11 +119,22 @@ const Layers = z.object({
   }),
 });
 
+/**
+ * A word the reader can tap. Every entry says where its explanation comes from:
+ *   { term, plain, refs }   written here, resting on the cited fact(s);
+ *   { term, concept }       the reviewed wording of content/concepts/<concept>.json.
+ */
 const GlossaryEntry = z.object({
   /** The word as it appears in the read. */
   term: z.string().min(1).max(60),
-  /** What it physically does, in plain words. No listed jargon, no numbers. */
-  plain: z.string().min(1).max(240),
+  /** What it physically does, in plain words. No listed jargon. */
+  plain: z.string().min(1).max(240).optional(),
+  /** The fact(s) the plain text rests on. */
+  refs: z.array(z.string().min(1)).default([]),
+  /** A background concept, by slug. Its plain text is used; do not also write one here. */
+  concept: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/).nullable().default(null),
+}).refine((g) => (g.plain === undefined) !== (g.concept === null), {
+  path: ["plain"], message: "give plain text with refs, or a concept (one of them)",
 });
 
 /** The read every published paper must have. */

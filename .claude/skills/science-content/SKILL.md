@@ -67,9 +67,14 @@ No caveats inside the mechanism layer. The audit stays visible without a tap (H6
       "more": ["..."]            // the rest, behind "Full receipts"
     }
   },
-  "glossary": [{ "term": "adenosine", "plain": "a chemical that piles up while you are awake" }]
+  "glossary": [
+    { "term": "placebo", "plain": "A capsule with nothing active in it.", "refs": ["dose"] },
+    { "term": "adenosine", "concept": "adenosine" }     // wording comes from the concept file
+  ]
 }
 ```
+
+Every glossary entry has a source: `plain` with the `refs` it rests on, or a `concept`.
 
 Markup is unchanged: every sentence ends with `[fact_id, ...]` or `[-]`. A `[-]` sentence may
 carry no number and no causal verb. Design and sample size in the receipts come from the gate,
@@ -92,6 +97,29 @@ What the lint checks on the layers (`npm run content:build` prints all of it):
 - The audit's `effect` must cite `primaryEstimate`; `weakEnd` must give both ends of its 95%
   range, or say in so many words that the paper reports "no confidence interval".
 - A figure's caption and alt text are markup too: a number in either cites its fact.
+
+## Context: other studies and background concepts
+
+A read may rest on two things besides its own paper. **Neither ever becomes a protocol step,
+feeds a simulator, or changes an evidence weight.**
+
+| | Lives in | May carry numbers | Cited as | Page says |
+|---|---|---|---|---|
+| Another study | `content/context/<slug>/` (`source.txt`, `extraction.json`; no editorial) | yes, from its gated facts | `[<slug>/<fact_id>]` | "From another study: <cite>, <grade>" |
+| Background concept | `content/concepts/<slug>.json` | **no: any digit fails** | `[concept:<slug>]`, or a glossary entry's `"concept"` | "Background" |
+
+- A context study goes through fetch → extract → the gate with `--role context`: same licence
+  rule, same retraction check, same verbatim quotes. Its grade comes from `grade.ts`.
+- The lint refuses a citation of a fact that does not exist, of a source that failed the gate
+  or is not there, and of a study `npm run retractions` has withdrawn.
+- A causal verb may not rest on an observational context study, whatever the read's own paper is.
+- A concept is `{ term, plain, model, reference { doi | isbn, title }, reviewed_by_owner }`.
+  Write new ones with `"reviewed_by_owner": false` and list them for the owner. **Never set it
+  to true and never run `approve-concept`: that is the owner's review**, and the command
+  refuses to run without a person at a terminal. A published read cannot use an unreviewed
+  concept; changing a concept's wording voids its review.
+- Check a concept's reference against the source before writing it. Never from memory.
+- Do not add a context study on your own: propose its DOI and say why.
 
 ## Workflow
 

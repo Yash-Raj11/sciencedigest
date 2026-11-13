@@ -11,10 +11,12 @@
  */
 
 import { Editorial, LAYERS, LegacyEditorial, OLD_SHAPE_MESSAGE, editorialShape, type Layer } from "./editorial";
-import type { Validated } from "./gate";
+import type { ConceptState } from "./concepts";
+import type { Validated, ValidatedFact } from "./gate";
 import { NON_HUMAN_DISCLAIMER } from "./grade";
 import { glossaryCovers, jargonIn } from "./jargon";
 import { parseMarkup, type Sentence } from "./markup";
+import { isContextRef, parseRef } from "./refs";
 import { splitSentences, wordCount as countWords } from "./sentences";
 import { normalize, numbersIn, sharedShingles, words } from "./text";
 
@@ -38,6 +40,19 @@ export interface LintReport {
   wordCount: number;
   /** Three-layer reads only: the size and sentence length of each layer (H10, H11). */
   layers?: Record<Layer, LayerStats>;
+  /** The context sources the read cites, and which concepts the owner has not reviewed yet. */
+  context?: { studies: string[]; concepts: string[]; unreviewed: string[] };
+}
+
+/** One folder of content/context/, after the gate (role "context") and the retraction check. */
+export type ContextStudyState =
+  | { ok: true; validated: Validated; withdrawn: { nature: string; date: string | null; reason: string } | null }
+  | { ok: false; errors: string[] };
+
+/** Everything a read may cite besides its own paper. Built by scripts/context-load.ts. */
+export interface LintContext {
+  studies: Record<string, ContextStudyState>;
+  concepts: Record<string, ConceptState>;
 }
 
 export interface LintOptions {
@@ -46,6 +61,8 @@ export interface LintOptions {
    * this, and only for a slug on the temporary allowlist (scripts/legacy-shape.ts).
    */
   allowLegacyShape?: boolean;
+  /** The gated context studies and the concept files. Without it, any context reference fails. */
+  context?: LintContext;
 }
 
 // H1 ---------------------------------------------------------------------------
@@ -165,6 +182,59 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   const layers = "layers" in ed ? ed.layers : null;
   const facts = validated.facts;
 
+  // Context: other studies and background concepts ------------------------------
+  const context: LintContext = options.context ?? { studies: {}, concepts: {} };
+  const usedStudies = new Set<string>();
+  const usedConcepts = new Set<string>();
+  const unreviewed = new Set<string>();
+  const complained = new Set<string>();
+  const once = (rule: string, where: string, message: string) => {
+    const key = `${rule}|${where}|${message}`;
+    if (!complained.has(key)) { complained.add(key); fail(rule, where, message); }
+  };
+
+  /** The fact a reference points at, from the paper or from a gated context study. Silent. */
+  function factOf(ref: string): { fact: ValidatedFact; from: Validated } | null {
+    const parsedRef = parseRef(ref);
+    if (parsedRef.kind === "paper") return facts[ref] ? { fact: facts[ref], from: validated } : null;
+    if (parsedRef.kind !== "study") return null;
+    const study = context.studies[parsedRef.source];
+    if (!study || !study.ok || study.withdrawn) return null;
+    const fact = study.validated.facts[parsedRef.fact];
+    return fact ? { fact, from: study.validated } : null;
+  }
+
+  /** Checks that a reference can be used here, and says why not. This is the gate on context citations. */
+  function checkRef(ref: string, where: string): void {
+    const parsedRef = parseRef(ref);
+    if (parsedRef.kind === "paper") {
+      if (!facts[ref]) once("orphan", where, `refers to "${ref}", which is not in the validated extraction`);
+      return;
+    }
+    if (parsedRef.kind === "study") {
+      const study = context.studies[parsedRef.source];
+      if (!study) {
+        once("context", where, `cites "${ref}", but there is no gated source content/context/${parsedRef.source}/`);
+      } else if (!study.ok) {
+        once("context", where, `cites "${ref}", but the source "${parsedRef.source}" did not pass the gate (${study.errors[0] ?? "rejected"})`);
+      } else if (study.withdrawn) {
+        once("context", where, `cites "${ref}", but the source "${parsedRef.source}" has been withdrawn (${study.withdrawn.nature}${study.withdrawn.date ? `, ${study.withdrawn.date}` : ""}); remove the citation`);
+      } else if (!study.validated.facts[parsedRef.fact]) {
+        once("context", where, `cites "${ref}", but the source "${parsedRef.source}" has no verified fact "${parsedRef.fact}"`);
+      } else usedStudies.add(parsedRef.source);
+      return;
+    }
+    const concept = context.concepts[parsedRef.slug];
+    if (!concept) {
+      once("context", where, `cites "${ref}", but there is no content/concepts/${parsedRef.slug}.json`);
+    } else if (!concept.ok) {
+      once("context", where, `cites "${ref}", but that concept fails its own checks (${concept.errors[0]})`);
+    } else {
+      usedConcepts.add(parsedRef.slug);
+      if (!concept.reviewed) unreviewed.add(parsedRef.slug);
+    }
+  }
+
   // Collect every sentence a reader could see ----------------------------------
   const all: Located[] = [];
   const read: Located[] = [];
@@ -239,7 +309,7 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   const allowedNumbers = (refs: string[]): number[] => {
     const out: number[] = [];
     for (const ref of refs) {
-      const fact = facts[ref];
+      const fact = factOf(ref)?.fact;
       if (!fact) continue;
       out.push(...numbersIn(fact.quote));
       if (fact.estimate) {
@@ -263,9 +333,7 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
       if (pattern.test(text)) fail("H1", where, `banned term "${term}": "${text}"`);
     }
 
-    for (const ref of sentence.refs) {
-      if (!facts[ref]) fail("orphan", where, `refers to "${ref}", which is not in the validated extraction`);
-    }
+    for (const ref of sentence.refs) checkRef(ref, where);
 
     const causal = CAUSAL_VERB.exec(text);
     if (sentence.refs.length === 0) {
@@ -279,14 +347,18 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
     }
 
     if (causal) {
+      // A causal verb needs randomized human evidence behind every study the sentence rests on.
+      const weakest = sentence.refs.map((r) => factOf(r)?.from).find((from) => from && from !== validated && !from.causalLanguagePermitted);
       if (!validated.causalLanguagePermitted) {
         fail("H3", where, `causal verb "${causal[0]}" in a ${validated.design} study; use "associated with": "${text}"`);
+      } else if (weakest) {
+        fail("H3", where, `causal verb "${causal[0]}" resting on another study that is a ${weakest.design} study; use "associated with": "${text}"`);
       } else if (!ed.populationTerms.some((term) => normalize(text).includes(normalize(term)))) {
         fail("H3", where, `causal verb "${causal[0]}" without the studied population (${ed.populationTerms.join(" / ")}): "${text}"`);
       }
     }
 
-    const cited = sentence.refs.map((r) => facts[r]?.estimate).filter((e) => e !== undefined);
+    const cited = sentence.refs.map((r) => factOf(r)?.fact.estimate).filter((e) => e !== undefined);
     if (RELATIVE_WORDING.test(text) && !cited.some((e) => e.absolute)) {
       fail("H5", where, `relative wording with no absolute figure cited alongside: "${text}"`);
     }
@@ -412,21 +484,44 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
       const key = entry.term.toLowerCase();
       if (seenTerms.has(key)) fail("glossary", where, `"${entry.term}" is defined twice`);
       seenTerms.add(key);
-      const inside = jargonIn(entry.plain);
+      if (!readLower.includes(key)) warn("glossary", where, `"${entry.term}" is defined but never used in the read`);
+
+      // From a concept file: the reviewed wording is used as it stands (its own checks ran when it was loaded).
+      if (entry.concept !== null) {
+        checkRef(`concept:${entry.concept}`, where);
+        return;
+      }
+      // Written here: it must say which fact(s) it rests on, so the reader can be shown a source line.
+      const plainText = entry.plain ?? "";
+      if (entry.refs.length === 0) {
+        fail("context", where, `the plain text for "${entry.term}" has no source: cite the fact(s) it rests on in "refs", or point "concept" at a concept file`);
+      }
+      for (const ref of entry.refs) {
+        if (parseRef(ref).kind === "concept") fail("context", where, `to take a definition from a concept file, set "concept" on the entry instead of citing "${ref}" in refs`);
+        else checkRef(ref, where);
+      }
+      const inside = jargonIn(plainText);
       if (inside.length > 0) fail("H9", where, `the plain text for "${entry.term}" uses a technical word (${inside.join(", ")}); say what it physically does instead`);
-      if (/\d/.test(entry.plain)) fail("H7", where, `the plain text for "${entry.term}" carries a number; a glossary entry cannot cite a fact, so it carries none`);
+      const loose = unsupportedNumbers(plainText, entry.refs);
+      if (loose.length > 0) fail("H7", where, `the plain text for "${entry.term}" carries a number (${loose.join(", ")}) that is not in the fact(s) it cites`);
       for (const [term, pattern] of BANNED_TERMS) {
-        if (pattern.test(entry.plain)) fail("H1", where, `banned term "${term}"`);
+        if (pattern.test(plainText)) fail("H1", where, `banned term "${term}"`);
       }
       for (const [phrase, pattern] of THROAT_CLEARING) {
-        if (pattern.test(entry.plain)) fail("H11", where, `throat-clearing "${phrase}"`);
+        if (pattern.test(plainText)) fail("H11", where, `throat-clearing "${phrase}"`);
       }
-      for (const one of splitSentences(entry.plain)) {
+      for (const one of splitSentences(plainText)) {
         const n = countWords(one);
         if (n > SENTENCE_WORDS.fail) fail("H11", where, `a sentence of ${n} words; the limit is ${SENTENCE_WORDS.fail}`);
       }
-      if (!readLower.includes(key)) warn("glossary", where, `"${entry.term}" is defined but never used in the read`);
     });
+  }
+
+  // Context: an unreviewed concept may sit in a draft, never in a published read.
+  for (const slug of unreviewed) {
+    const message = `the concept "${slug}" has not been reviewed by the owner (npm run paper -- approve-concept ${slug})`;
+    if (ed.publishedAt !== null) fail("context", `concept:${slug}`, `${message}; a published read cannot use it`);
+    else warn("context", `concept:${slug}`, `${message}; this draft cannot be approved until it is`);
   }
 
   // H7 / H8: steps and simulator numbers trace to the paper ---------------------
@@ -438,6 +533,12 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
       if (pattern.test(`${step.label} ${step.detail ?? ""}`)) fail("H1", where, `banned term "${term}"`);
     }
     if (CAUSAL_VERB.test(`${step.label} ${step.detail ?? ""}`)) fail("H3", where, "a step is an action, not a causal claim");
+    // Another study or a background concept can sit beside a read. It can never be a reason to do something.
+    const outside = [...step.refs, ...(step.evidenceRef ? [step.evidenceRef] : [])].filter(isContextRef);
+    if (outside.length > 0) {
+      fail("context", where, `a protocol step rests only on the paper itself; "${outside.join('", "')}" is a context source and can never back a step or give it weight`);
+      continue;
+    }
     if (step.evidenceRef !== null && !facts[step.evidenceRef]?.estimate && !facts[step.evidenceRef]?.finding) {
       fail("H7", where, `evidenceRef "${step.evidenceRef}" is not a verified estimate or finding`);
     }
@@ -462,7 +563,8 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
     if (typeof node === "number") {
       fail("H7", path, "a bare number in simulator params; use \"fact:<id>\" or { n, ref } so it traces to the paper");
     } else if (typeof node === "string" && node.startsWith("fact:")) {
-      if (!facts[node.slice(5)]) fail("H7", path, `"${node}" is not in the validated extraction`);
+      if (isContextRef(node.slice(5))) fail("context", path, `"${node}" is a context source; a simulator draws only the paper's own facts`);
+      else if (!facts[node.slice(5)]) fail("H7", path, `"${node}" is not in the validated extraction`);
     } else if (Array.isArray(node)) {
       node.forEach((child, i) => walk(child, `${path}[${i}]`));
     } else if (node !== null && typeof node === "object") {
@@ -509,5 +611,8 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
     if (caption.length > CAROUSEL_LIMITS.caption) fail("carousel", "carousel.caption", `${caption.length} characters; Instagram allows ${CAROUSEL_LIMITS.caption}`);
   } catch { /* already reported as a markup error */ }
 
-  return { errors, warnings, wordCount, ...(layerStats ? { layers: layerStats } : {}) };
+  const cites = usedStudies.size + usedConcepts.size > 0
+    ? { context: { studies: [...usedStudies].sort(), concepts: [...usedConcepts].sort(), unreviewed: [...unreviewed].sort() } }
+    : {};
+  return { errors, warnings, wordCount, ...(layerStats ? { layers: layerStats } : {}), ...cites };
 }

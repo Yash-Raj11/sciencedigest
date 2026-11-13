@@ -50,10 +50,14 @@ The interactive part is the product; the text is what justifies it.
 | Amounts saved by one upsert (`set_step_amount`); no 409 | Live | `docs/evidence/pre3-live-409.txt` |
 | A write the server keeps refusing is set aside (held list), never lost; retried by itself and from Me | Built | 162 unit tests, browser test |
 | `/privacy` (a draft the owner still has to review; not seen by a lawyer) | Live | HTTP and browser tests |
+| Three project skills: `science-content`, `db-change`, `phase-handoff` (`.claude/skills/`) | Written 2026-11-13 | — |
+| Phase 9, 2A: reads in three layers (mechanism, protocol, audit) with a glossary; H9–H11 in the lint. The three starter papers still build in the old shape through a temporary allowlist, removed in 2E | Built, no reader-visible change yet | `docs/evidence/phase9-2a-rules-broken.txt` (19 of 19) |
+| Phase 9, 2B: context sources. A read may cite another gated study (`content/context/`) and owner-reviewed background concepts (`content/concepts/`); neither can back a step or a weight; retraction check covers context | Built; both folders are empty | `docs/evidence/phase9-2b-gate.txt` (20 of 20) |
 | Documents: `CLAUDE.md`, `docs/MANUAL.md`, `ARCHITECTURE.md`, `data-model.md`, `BUILD-LOG.md` | Written | — |
 
-Totals on 2026-11-13: 162 unit tests, 6 HTTP tests, 5 browser tests; 177 database assertions and
-16 of 16 mutations (unchanged since the last SQL change). Outputs are in `docs/evidence/`.
+Totals on 2026-11-13 (after Phase 9 step 2B): 272 unit tests, 6 HTTP tests, 6 browser tests;
+191 database assertions per pass and 16 of 16 mutations (unchanged since the last SQL change:
+Phase 9 has touched no SQL). Outputs are in `docs/evidence/`.
 
 ### Deployment state (2026-11-13)
 

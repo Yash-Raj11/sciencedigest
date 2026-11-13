@@ -1,5 +1,5 @@
 {
-  "_": "TEST FIXTURE, not a published read. The three-layer part of a read about content/papers/daytime-caffeine-sleep, written only from that paper's extraction.json. lib/pipeline/layers.test.ts lays it over the paper's editorial.json and breaks one thing at a time.",
+  "_": "TEST FIXTURE, not a published read. The three-layer part of a read about content/papers/daytime-caffeine-sleep, written only from that paper's extraction.json, plus one background concept for the tests (its reference is that same paper). lib/pipeline/layers.test.ts and context.test.ts lay it over the paper's editorial.json and break one thing at a time.",
   "layers": {
     "mechanism": {
       "paragraphs": [
@@ -33,8 +33,35 @@
     }
   },
   "glossary": [
-    { "term": "non-REM sleep", "plain": "The stages of sleep without vivid dreams, deep sleep included." },
-    { "term": "sigma band", "plain": "A range of brain-wave speeds that shows up during sleep." },
-    { "term": "placebo", "plain": "A capsule with nothing active in it, used for comparison." }
-  ]
+    {
+      "term": "non-REM sleep",
+      "concept": "non-rem-sleep"
+    },
+    {
+      "term": "sigma band",
+      "plain": "A range of brain-wave speeds that shows up during sleep.",
+      "refs": [
+        "sigma"
+      ]
+    },
+    {
+      "term": "placebo",
+      "plain": "A capsule with nothing active in it, used for comparison.",
+      "refs": [
+        "dose"
+      ]
+    }
+  ],
+  "concepts": {
+    "non-rem-sleep": {
+      "term": "non-REM sleep",
+      "plain": "The stages of sleep without vivid dreams, deep sleep included.",
+      "model": "The quiet stretch of the night, when the brain idles in slow waves.",
+      "reference": {
+        "doi": "10.1038/s41598-021-84088-x",
+        "title": "The impact of daily caffeine intake on nighttime sleep in young adult men"
+      },
+      "reviewed_by_owner": false
+    }
+  }
 }

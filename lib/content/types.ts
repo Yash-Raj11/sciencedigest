@@ -31,6 +31,31 @@ export interface ResolvedFact {
   quote: string;
   estimate?: ResolvedEstimate;
   finding?: { outcome: string; tier: EvidenceGrade };
+  /** Set when the fact comes from another study: the slug of a ContextStudy. Absent: the paper itself. */
+  source?: string;
+}
+
+/** Another study a read cites beside its own paper. It never carries weight in the tracker. */
+export interface ContextStudy {
+  slug: string;
+  citation: string;
+  /** "Inoue et al., JAMA Netw Open 2023" */
+  shortCite: string;
+  doi: string;
+  design: string;
+  sampleSize: number | null;
+  license: string;
+  /** Derived from the study's own design by lib/pipeline/grade.ts. Shown, never scored. */
+  tier: EvidenceGrade;
+}
+
+/** Background knowledge the owner has reviewed. Carries no numbers. */
+export interface ContextConcept {
+  slug: string;
+  term: string;
+  plain: string;
+  model: string;
+  reference: { doi?: string; isbn?: string; title: string };
 }
 
 export interface ContentStep extends Step {
@@ -114,6 +139,10 @@ export interface ReadLayers {
 export interface GlossaryEntry {
   term: string;
   plain: string;
+  /** The facts the plain text rests on; empty when it comes from a concept. */
+  refs: string[];
+  /** The slug of a ContextConcept, or null. */
+  concept: string | null;
 }
 
 /** Gated: this is what lives in paper_content.content_json. */
@@ -126,6 +155,8 @@ export interface PaperContent {
   /** The three-layer read (H10). Absent only on the old flat shape. */
   layers?: ReadLayers;
   glossary?: GlossaryEntry[];
+  /** Every source the read uses besides its own paper. Absent when there is none. */
+  context?: { studies: ContextStudy[]; concepts: ContextConcept[] };
   primaryEstimate: string;
   facts: Record<string, ResolvedFact>;
   simulator: { kind: string; params: Record<string, unknown> };

@@ -1,0 +1,9 @@
+
+  ✓  3 [chromium] › tests/browser/source-line.spec.ts:14:1 › tapping a dot shows the passage with its source line (616ms)
+  ✓  2 [chromium] › tests/browser/privacy.spec.ts:38:3 › the privacy page renders in dark (713ms)
+  ✓  4 [chromium] › tests/browser/held-writes.spec.ts:16:1 › Me shows the held changes, with the reason and Try again; a reload keeps them (791ms)
+  ✓  5 [chromium] › tests/browser/privacy.spec.ts:38:3 › the privacy page renders in light (316ms)
+  ✓  6 [chromium] › tests/browser/privacy.spec.ts:57:1 › Me and Membership both link to the privacy page (427ms)
+  ✓  1 [chromium] › tests/browser/captcha-blocked.spec.ts:26:1 › a blocked Turnstile script never blocks ticking; sync shows offline (3.9s)
+
+  6 passed (8.4s)

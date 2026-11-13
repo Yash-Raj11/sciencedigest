@@ -1,0 +1,97 @@
+Step 2B. Each rule broken on purpose, one at a time. Tests run: lib/pipeline/context.test.ts, scripts/context-build.test.ts, lib/pipeline/layers.test.ts
+
+BROKEN  GATE: a citation of a fact the other study does not have is let through
+        Tests  1 failed | 103 passed (104)
+        × GATE: fails on a missing fact
+
+BROKEN  GATE: a citation of a source that failed the gate is let through
+        Tests  2 failed | 102 passed (104)
+        × GATE: fails on a source that did not pass the gate
+        × refuses a context folder that holds an editorial: a context study has no read and no protocol
+
+BROKEN  GATE: a citation of a source that is not in content/context/ is let through
+        Tests  2 failed | 102 passed (104)
+        × GATE: fails on a source that is not in content/context/
+        × GATE: fails with no context at all (a caller that forgets to load it cannot let a citation through)
+
+BROKEN  GATE: the context gate skips the licence rule
+        Tests  1 failed | 103 passed (104)
+        × applies the same licence rule
+
+BROKEN  a withdrawn (retracted) context study may still be cited
+        Tests  2 failed | 102 passed (104)
+        × a retracted context study is withdrawn: every citation of it fails
+        × withdraws a retracted context study, and the build then refuses the read that cites it
+
+BROKEN  npm run retractions no longer looks at content/context/
+        Tests  1 failed | 103 passed (104)
+        × withdraws a retracted context study, and the build then refuses the read that cites it
+
+BROKEN  a retraction hit on a context study no longer writes withdrawn.json
+        Tests  1 failed | 103 passed (104)
+        × withdraws a retracted context study, and the build then refuses the read that cites it
+
+BROKEN  LINT: a digit in a concept is allowed
+        Tests  4 failed | 100 passed (104)
+        × GATE: a read cannot cite a concept that does not exist or fails its checks
+        × LINT: any digit in the model fails
+        × LINT: any digit in the plain fails
+        × LINT: any digit in the term fails
+
+BROKEN  a concept needs no reference
+        Tests  1 failed | 103 passed (104)
+        × needs a reference with a title and exactly one of doi or isbn
+
+BROKEN  BUILD: a published read may use an unreviewed concept
+        Tests  3 failed | 101 passed (104)
+        × BUILD: a published read that uses an unreviewed concept is refused
+        × a concept reworded after the review counts as unreviewed again
+        × refuses a published read that uses an unreviewed concept
+
+BROKEN  the review no longer checks the fingerprint (reviewed_by_owner: true typed by hand counts)
+        Tests  2 failed | 102 passed (104)
+        × a concept reworded after the review counts as unreviewed again
+        × setting reviewed_by_owner by hand is not a review: it needs the fingerprint the command writes
+
+BROKEN  approve-concept can be run by a script
+        Tests  1 failed | 103 passed (104)
+        × approve-concept refuses to run without a person at a terminal, and changes nothing
+
+BROKEN  a protocol step may cite a context source
+        Tests  2 failed | 102 passed (104)
+        × fails a step that cites another study
+        × fails a step whose weight would come from another study, or from a concept
+
+BROKEN  a simulator may draw a context fact
+        Tests  1 failed | 103 passed (104)
+        × fails a simulator that draws a context fact, and a headline result that is one
+
+BROKEN  a causal verb may rest on an observational context study
+        Tests  1 failed | 103 passed (104)
+        × H3: no causal verb on the strength of an observational context study, even in a trial's read
+
+BROKEN  a glossary entry needs no source
+        Tests  1 failed | 103 passed (104)
+        × GATE: a glossary entry written in the read must say which fact it rests on
+
+BROKEN  a context folder may hold an editorial
+        Tests  1 failed | 103 passed (104)
+        × refuses a context folder that holds an editorial: a context study has no read and no protocol
+
+BROKEN  a draft or an approval is allowed for a context study
+        Tests  1 failed | 103 passed (104)
+        × never drafts or publishes a context study
+
+BROKEN  every fact is labelled "From the paper", whatever its source
+        Tests  2 failed | 102 passed (104)
+        × refuses to make up a source line for a fact whose study the read does not carry
+        × says where each thing comes from: "From the paper", "From another study: <cite>, <grade>", "Background"
+
+BROKEN  the grade is dropped from the other-study source line
+        Tests  1 failed | 103 passed (104)
+        × says where each thing comes from: "From the paper", "From another study: <cite>, <grade>", "Background"
+
+RESTORED  every file put back
+        Tests  104 passed (104)
+
+caught: 20, not caught: 0

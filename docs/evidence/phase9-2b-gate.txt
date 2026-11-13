@@ -1,0 +1,36 @@
+Phase 9, step 2B gate, 2026-11-13. Local runs; nothing here touched the hosted project.
+
+1. A missing context fact fails            lib/pipeline/context.test.ts  "GATE: fails on a missing fact"
+   context layers.audit.more[2]: cites "inoue-2023-steps/no_such_fact", but the source
+   "inoue-2023-steps" has no verified fact "no_such_fact"
+   (also: a source not in content/context/, a source that failed the gate, no context loaded)
+
+2. A digit in a concept fails              lib/pipeline/context.test.ts  "LINT: any digit in the term / plain / model fails"
+   plain: a concept carries no numbers; a number needs a gated fact: "Stage 3 of the night"
+
+3. An unreviewed concept blocks the build  scripts/context-build.test.ts "refuses a published read that uses an unreviewed concept"
+   real script, scratch folder, exit code 1:
+     non-rem-sleep: ok, NOT REVIEWED (drafts only; npm run paper -- approve-concept non-rem-sleep)
+     LINT FAILED (1)
+       - [context] concept:non-rem-sleep: the concept "non-rem-sleep" has not been reviewed by the
+         owner (npm run paper -- approve-concept non-rem-sleep); a published read cannot use it
+     content build failed: fix the problems above. Nothing was written.
+   approve-concept run by a script: exit 1, "has to be run by a person in a terminal", file unchanged.
+
+4. A retracted context DOI is withdrawn    scripts/context-build.test.ts "withdraws a retracted context study, and the build then refuses the read that cites it"
+   real scripts, scratch folders:
+     npm run retractions (--csv fixture): "checked against 3 published papers and 1 context study",
+       "RETRACTED CONTEXT STUDY: inoue-2023-steps (10.5555/sd-test-context-study)",
+       "cited by: daytime-caffeine-sleep", exit code 1, withdrawn.json written
+     content-build afterwards: "inoue-2023-steps: WITHDRAWN (Retraction, 2026-11-01); no read may cite it",
+       'the source "inoue-2023-steps" has been withdrawn (Retraction, 2026-11-01); remove the citation', exit code 1
+
+5. Scoring files are untouched
+   $ git diff --stat 5150121 -- lib/score.ts lib/evidence.ts supabase/migrations supabase/seed.sql lib/content/generated.ts content/generated
+   (no output: no change)
+
+6. paper_content: content_json is `jsonb not null` with no shape check; row level security decides by
+   paper_id. Context facts, studies and concepts ride inside each read's own JSON. No migration.
+
+Each rule broken on purpose and caught: docs/evidence/phase9-2b-rules-broken.txt (20 of 20).
+Totals: 272 unit tests, 6 HTTP tests, 6 browser tests, all passing (docs/evidence/unit-tests.txt, browser-tests.txt).

@@ -1,76 +1,38 @@
 
  RUN  v5.1.0 /Users/yash/Game/sciencedigest
 
- ✓ lib/store/reduce.test.ts > applyWrite > ticks once, however many times it is asked 2ms
- ✓ lib/store/reduce.test.ts > applyWrite > removes the day when its last tick is undone 0ms
- ✓ lib/store/reduce.test.ts > applyWrite > re-equipping moves the start date instead of adding a second entry 0ms
- ✓ lib/store/reduce.test.ts > applyWrite > un-equipping keeps the ticks: history is never thrown away 1ms
- ✓ lib/store/reduce.test.ts > applyWrite > retires a habit rather than deleting it 0ms
- ✓ lib/store/reduce.test.ts > applyWrite > never mutates its input 0ms
- ✓ lib/store/reduce.test.ts > the queue > last write wins per step and day 0ms
- ✓ lib/store/reduce.test.ts > the queue > keeps writes for the same step on different days 0ms
- ✓ lib/store/reduce.test.ts > the queue > keeps only the newest programme setting per paper 0ms
- ✓ lib/store/reduce.test.ts > reconcile > replays unsent writes on top of the server's copy 0ms
- ✓ lib/store/reduce.test.ts > reconcile > with nothing queued, the server's copy is the truth 0ms
- ✓ lib/store/reduce.test.ts > helpers > flattens and prunes ticks 0ms
- ✓ lib/store/reduce.test.ts > amounts (target and count habits) > below the target: the amount is kept and there is no tick 0ms
- ✓ lib/store/reduce.test.ts > amounts (target and count habits) > reaching the target adds the tick; passing it does not add a second 0ms
- ✓ lib/store/reduce.test.ts > amounts (target and count habits) > falling back below the target removes the tick 0ms
- ✓ lib/store/reduce.test.ts > amounts (target and count habits) > a count habit is done at 1 and undone at 0 0ms
- ✓ lib/store/reduce.test.ts > amounts (target and count habits) > clamps nonsense: negative becomes 0, fractions round 0ms
- ✓ lib/store/reduce.test.ts > amounts (target and count habits) > six quick taps while offline send one write, the last 0ms
- ✓ lib/store/reduce.test.ts > amounts (target and count habits) > replaying a queued amount on top of the server's copy gives the same tick 0ms
- ✓ lib/store/reduce.test.ts > held writes keep their order > a newer amount for the same habit and day replaces the held one, so the older can never overwrite it 0ms
- ✓ lib/store/reduce.test.ts > held writes keep their order > a write about the same habit on another day waits behind the held one, in order 0ms
- ✓ lib/store/reduce.test.ts > held writes keep their order > a write about something else goes to the queue as usual 0ms
- ✓ lib/store/reduce.test.ts > held writes keep their order > holding a write takes the queued writes about the same thing with it and leaves the rest 0ms
- ✓ lib/store/reduce.test.ts > held writes keep their order > a write that a newer one already replaced in the queue is not held 0ms
- ✓ lib/store/reduce.test.ts > held writes keep their order > held writes still show on screen after a pull 0ms
- ✓ lib/store/reduce.test.ts > the saved state from an older version > version 2 loads as version 3 with nothing lost and an empty held list 0ms
- ✓ lib/store/reduce.test.ts > the saved state from an older version > version 1 (no amounts, no habit kinds) is filled in, not reset 0ms
- ✓ lib/store/index.test.ts > what is saved on the device > held writes are saved with the queue, so a reload cannot lose them 16ms
+ ✓ lib/store/index.test.ts > what is saved on the device > held writes are saved with the queue, so a reload cannot lose them 20ms
  ✓ lib/store/index.test.ts > what is saved on the device > a tap on a habit with a held write joins the held list, not the queue 1ms
- ✓ scripts/parity.test.ts > the committed SQL parity test matches what lib/score.ts produces today 11ms
- ✓ lib/captcha/turnstile.test.ts > getCaptchaToken() > with no site key: returns undefined and touches nothing in the page 6ms
- ✓ lib/captcha/turnstile.test.ts > getCaptchaToken() > with a site key: renders one invisible widget, and resets it for the next token 1ms
- ✓ lib/captcha/turnstile.test.ts > getCaptchaToken() > a token from the visible check is used once by the next sign-in, without touching the invisible widget 0ms
- ✓ lib/captcha/turnstile.test.ts > getCaptchaToken() > the visible check renders an interactive widget and resolves its token 0ms
- ✓ lib/captcha/turnstile.test.ts > getCaptchaToken() > with a site key but a failed challenge: returns undefined instead of hanging 0ms
- ✓ lib/supabase/remote.test.ts > push() for an amount > two amount writes for the same habit and day: one upsert each, no 409, the second amount wins 2ms
- ✓ lib/supabase/remote.test.ts > push() for an amount > a replay after reconcile: the same write sent again is accepted, and the newer one still wins 2ms
- ✓ lib/supabase/remote.test.ts > push() never treats a conflict as refused forever > a 409 (23505) on an amount keeps the write: the error is retryable, never RejectedWrite 1ms
- ✓ lib/supabase/remote.test.ts > push() never treats a conflict as refused forever > a function the server does not have yet (PGRST202: the app deployed before the migration) is retryable 0ms
- ✓ lib/supabase/remote.test.ts > push() never treats a conflict as refused forever > a write the database refuses on its merits (23514: a tick-off habit takes no amount) is RejectedWrite 0ms
- ✓ lib/store/sync.test.ts > ensureUser() > sends the Turnstile token as captchaToken when one is present 2ms
+ ✓ lib/store/sync.test.ts > ensureUser() > sends the Turnstile token as captchaToken when one is present 4ms
  ✓ lib/store/sync.test.ts > ensureUser() > no site key (local dev): still signs in, with no captchaToken 1ms
- ✓ lib/store/sync.test.ts > ensureUser() > demo mode (no Supabase): no sign-in and no CAPTCHA 0ms
- ✓ lib/store/sync.test.ts > ensureUser() > already signed in: returns that user and never asks for a CAPTCHA (no script is loaded) 0ms
- ✓ lib/store/sync.test.ts > ensureUser() > site key set but the check could not run: raises CaptchaUnavailable and sends nothing 0ms
- ✓ lib/store/sync.test.ts > ensureUser() > Supabase refusing the CAPTCHA is CaptchaUnavailable, with Supabase's own message 1ms
+ ✓ lib/store/sync.test.ts > ensureUser() > demo mode (no Supabase): no sign-in and no CAPTCHA 1ms
+ ✓ lib/store/sync.test.ts > ensureUser() > already signed in: returns that user and never asks for a CAPTCHA (no script is loaded) 2ms
+ ✓ lib/store/sync.test.ts > ensureUser() > site key set but the check could not run: raises CaptchaUnavailable and sends nothing 1ms
+ ✓ lib/store/sync.test.ts > ensureUser() > Supabase refusing the CAPTCHA is CaptchaUnavailable, with Supabase's own message 0ms
  ✓ lib/store/sync.test.ts > flush() when the CAPTCHA cannot run > keeps every write, shows offline (not an error), and offers the visible check after two failures 3ms
  ✓ lib/store/sync.test.ts > flush() when the CAPTCHA cannot run > a dismissed check is not offered again by itself 1ms
- ✓ lib/store/sync.test.ts > flush() never drops a write silently > a write that fails for a reason that can pass later (a 409, a server not updated yet) stays queued 1ms
+ ✓ lib/store/sync.test.ts > flush() never drops a write silently > a write that fails for a reason that can pass later (a 409, a server not updated yet) stays queued 2ms
  ✓ lib/store/sync.test.ts > flush() never drops a write silently > a write the server refuses for good is reported: the status is an error, never 'Everything is saved' 2ms
  ✓ lib/store/sync.test.ts > a write the server keeps refusing for now is set aside, never lost > the queue unblocks: after HOLD_AFTER refusals the write is held and the ones behind it are sent 3ms
  ✓ lib/store/sync.test.ts > a write the server keeps refusing for now is set aside, never lost > a lost connection never counts: the write stays at the head of the queue however often it fails 1ms
- ✓ lib/store/sync.test.ts > a write the server keeps refusing for now is set aside, never lost > writes about the same habit go with it, in order; unrelated ones are sent 2ms
- ✓ lib/store/sync.test.ts > a write the server keeps refusing for now is set aside, never lost > retryHeld() sends held writes oldest first and removes only what the server took 1ms
- ✓ lib/store/sync.test.ts > a write the server keeps refusing for now is set aside, never lost > a held write the server refuses for good is dropped and reported, and the writes behind it are released 1ms
+ ✓ lib/store/sync.test.ts > a write the server keeps refusing for now is set aside, never lost > writes about the same habit go with it, in order; unrelated ones are sent 1ms
+ ✓ lib/store/sync.test.ts > a write the server keeps refusing for now is set aside, never lost > retryHeld() sends held writes oldest first and removes only what the server took 0ms
+ ✓ lib/store/sync.test.ts > a write the server keeps refusing for now is set aside, never lost > a held write the server refuses for good is dropped and reported, and the writes behind it are released 0ms
  ✓ lib/store/sync.test.ts > a write the server keeps refusing for now is set aside, never lost > a held write still refused 'for now' keeps the writes behind it waiting 1ms
- ✓ lib/store/sync.test.ts > a write the server keeps refusing for now is set aside, never lost > retryHeld() with no connection leaves every held write where it is 0ms
+ ✓ lib/store/sync.test.ts > a write the server keeps refusing for now is set aside, never lost > retryHeld() with no connection leaves every held write where it is 1ms
  ✓ lib/store/sync.test.ts > a write the server keeps refusing for now is set aside, never lost > held writes are tried again after a successful sync 52ms
- ✓ lib/score.test.ts > score: the hand-worked example > earns 1.8 of a possible 2.2, which rounds to 82% 1ms
- ✓ lib/score.test.ts > score: the hand-worked example > scores each paper on its own 0ms
+ ✓ lib/score.test.ts > score: the hand-worked example > earns 1.8 of a possible 2.2, which rounds to 82% 2ms
+ ✓ lib/score.test.ts > score: the hand-worked example > scores each paper on its own 1ms
  ✓ lib/score.test.ts > score: the hand-worked example > leaves the weekly target unmet at 2 of 3: Sunday belongs to last week 0ms
  ✓ lib/score.test.ts > score: the hand-worked example > does not count a step that does not apply to the user's choices 0ms
  ✓ lib/score.test.ts > score: the hand-worked example > counts consistency over daily boxes only: 2 of 3 0ms
- ✓ lib/score.test.ts > score: rules that must fire > an everyday habit never moves the evidence-weighted score 1ms
+ ✓ lib/score.test.ts > score: rules that must fire > an everyday habit never moves the evidence-weighted score 0ms
  ✓ lib/score.test.ts > score: rules that must fire > a third session this week satisfies the weekly target 0ms
  ✓ lib/score.test.ts > score: rules that must fire > the eight-week condition is unmet at 55 days and met at 56 0ms
- ✓ lib/score.test.ts > score: rules that must fire > a condition with no block start date is unmet, not an error 1ms
+ ✓ lib/score.test.ts > score: rules that must fire > a condition with no block start date is unmet, not an error 0ms
  ✓ lib/score.test.ts > score: rules that must fire > 7 idle days is still active; 8 is dormant and leaves the denominator 0ms
  ✓ lib/score.test.ts > score: rules that must fire > a tick on a different day does not satisfy today's action 0ms
- ✓ lib/score.test.ts > score: rules that must fire > nothing equipped and no habits scores 0 of 0 without dividing by zero 1ms
+ ✓ lib/score.test.ts > score: rules that must fire > nothing equipped and no habits scores 0 of 0 without dividing by zero 0ms
  ✓ lib/score.test.ts > score: rules that must fire > a high-grade step outweighs a low-grade one by 2.5 to 1 0ms
  ✓ lib/score.test.ts > streak > counts back from today 0ms
  ✓ lib/score.test.ts > streak > still reads yesterday's streak before today's first tick 0ms
@@ -85,92 +47,134 @@
  ✓ lib/score.test.ts > dates and evidence helpers > rejects strings that are not real dates 0ms
  ✓ lib/score.test.ts > dates and evidence helpers > rounds half up in whole numbers 0ms
  ✓ lib/score.test.ts > dates and evidence helpers > weights are 1.0 / 0.7 / 0.4 / 0 0ms
- ✓ lib/pipeline/layers.test.ts > the three-layer fixture > passes every rule 20ms
- ✓ lib/pipeline/layers.test.ts > check 1, schema: layers { mechanism, protocol, audit } and a glossary > refuses the old flat shape 0ms
- ✓ lib/pipeline/layers.test.ts > check 1, schema: layers { mechanism, protocol, audit } and a glossary > accepts the old flat shape only when the caller vouches for it (the temporary allowlist) 4ms
+ ✓ lib/pipeline/layers.test.ts > the three-layer fixture > passes every rule 21ms
+ ✓ lib/pipeline/layers.test.ts > check 1, schema: layers { mechanism, protocol, audit } and a glossary > refuses the old flat shape 1ms
+ ✓ lib/pipeline/layers.test.ts > check 1, schema: layers { mechanism, protocol, audit } and a glossary > accepts the old flat shape only when the caller vouches for it (the temporary allowlist) 8ms
  ✓ lib/pipeline/layers.test.ts > check 1, schema: layers { mechanism, protocol, audit } and a glossary > zod rejects the old flat shape outright 1ms
  ✓ lib/pipeline/layers.test.ts > check 1, schema: layers { mechanism, protocol, audit } and a glossary > refuses a read that carries both shapes 0ms
  ✓ lib/pipeline/layers.test.ts > check 1, schema: layers { mechanism, protocol, audit } and a glossary > refuses a read with no mechanism layer 0ms
- ✓ lib/pipeline/layers.test.ts > check 1, schema: layers { mechanism, protocol, audit } and a glossary > refuses a read with no protocol layer 0ms
- ✓ lib/pipeline/layers.test.ts > check 1, schema: layers { mechanism, protocol, audit } and a glossary > refuses a read with no audit layer 0ms
- ✓ lib/pipeline/layers.test.ts > check 1, schema: layers { mechanism, protocol, audit } and a glossary > refuses a read with no glossary, and a glossary entry with no plain text 1ms
- ✓ lib/pipeline/layers.test.ts > check 1, schema: layers { mechanism, protocol, audit } and a glossary > keeps the audit's own rules: the effect cites the headline result (H5), limitations cite a limitation (H6) 10ms
+ ✓ lib/pipeline/layers.test.ts > check 1, schema: layers { mechanism, protocol, audit } and a glossary > refuses a read with no protocol layer 1ms
+ ✓ lib/pipeline/layers.test.ts > check 1, schema: layers { mechanism, protocol, audit } and a glossary > refuses a read with no audit layer 1ms
+ ✓ lib/pipeline/layers.test.ts > check 1, schema: layers { mechanism, protocol, audit } and a glossary > refuses a read with no glossary, and a glossary entry with no plain text 4ms
+ ✓ lib/pipeline/layers.test.ts > check 1, schema: layers { mechanism, protocol, audit } and a glossary > keeps the audit's own rules: the effect cites the headline result (H5), limitations cite a limitation (H6) 16ms
  ✓ lib/pipeline/layers.test.ts > check 2, jargon (H9) > has the list the owner gave, word for word 0ms
  ✓ lib/pipeline/layers.test.ts > check 2, jargon (H9) > finds every listed word in the forms a writer would use 0ms
  ✓ lib/pipeline/layers.test.ts > check 2, jargon (H9) > fails a listed word in the mechanism that has no glossary entry 3ms
  ✓ lib/pipeline/layers.test.ts > check 2, jargon (H9) > fails a listed word in the protocol that has no glossary entry 3ms
  ✓ lib/pipeline/layers.test.ts > check 2, jargon (H9) > fails when the entry that was covering a word is removed 3ms
  ✓ lib/pipeline/layers.test.ts > check 2, jargon (H9) > passes once the glossary says what the thing does 3ms
- ✓ lib/pipeline/layers.test.ts > check 2, jargon (H9) > fails a glossary entry whose plain text uses a listed word 4ms
+ ✓ lib/pipeline/layers.test.ts > check 2, jargon (H9) > fails a glossary entry whose plain text uses a listed word 3ms
  ✓ lib/pipeline/layers.test.ts > check 2, jargon (H9) > fails a mechanism that opens with the name instead of the picture, glossary entry or not 3ms
- ✓ lib/pipeline/layers.test.ts > check 2, jargon (H9) > fails a glossary entry with a number, a banned word or a duplicate 9ms
+ ✓ lib/pipeline/layers.test.ts > check 2, jargon (H9) > fails a glossary entry with a number, a banned word or a duplicate 10ms
  ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > covers every term on the list 0ms
- ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "limitation" in mechanism text 3ms
- ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "confound" in mechanism text 4ms
+ ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "limitation" in mechanism text 7ms
+ ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "confound" in mechanism text 5ms
  ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "self-reported" in mechanism text 3ms
- ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "p =" in mechanism text 2ms
- ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "p<" in mechanism text 4ms
- ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "95%" in mechanism text 2ms
- ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "CI" in mechanism text 2ms
- ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "sample size" in mechanism text 4ms
- ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "dropout" in mechanism text 3ms
- ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "funded" in mechanism text 2ms
- ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > allows the same sentence in the audit, where caveats belong 4ms
- ✓ lib/pipeline/pipeline.test.ts > the three starter papers > steps passes the gate and the lint 14ms
- ✓ lib/pipeline/pipeline.test.ts > the three starter papers > hiit passes the gate and the lint 6ms
+ ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "p =" in mechanism text 3ms
+ ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "p<" in mechanism text 3ms
+ ✓ lib/pipeline/pipeline.test.ts > the three starter papers > steps passes the gate and the lint 10ms
+ ✓ lib/pipeline/pipeline.test.ts > the three starter papers > hiit passes the gate and the lint 7ms
  ✓ lib/pipeline/pipeline.test.ts > the three starter papers > caffeine passes the gate and the lint 6ms
- ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a number that is not in the quoted passage 2ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a number that is not in the quoted passage 1ms
  ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a quote that is not in the source 1ms
  ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a value with no quote: a value the model cannot point at is void 1ms
- ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > accepts not_reported, and rejects not_reported that still carries a quote 4ms
- ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a paraphrase passed off as a verbatim phrase 3ms
- ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects licences outside the allowlist, even open-access ones 2ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > accepts not_reported, and rejects not_reported that still carries a quote 2ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a paraphrase passed off as a verbatim phrase 1ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects licences outside the allowlist, even open-access ones 3ms
  ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a design the quoted passage does not support 1ms
  ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > requires a species (H4) and at least one limitation (H6) 2ms
- ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a sample size the passage does not state 1ms
- ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a grade reference that is not a verified grade 1ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a sample size the passage does not state 2ms
+ ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects a grade reference that is not a verified grade 3ms
  ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > rejects output that does not match the schema 1ms
  ✓ lib/pipeline/pipeline.test.ts > gate (stage 2) > finds a quote despite different dashes, quote marks and line breaks 0ms
  ✓ lib/pipeline/pipeline.test.ts > derived tiers: the model never grades > uses the paper's own GRADE rating when it reports one 1ms
- ✓ lib/pipeline/pipeline.test.ts > derived tiers: the model never grades > grades by design otherwise 2ms
+ ✓ lib/pipeline/pipeline.test.ts > derived tiers: the model never grades > grades by design otherwise 3ms
  ✓ lib/pipeline/pipeline.test.ts > derived tiers: the model never grades > never gives weight to non-human evidence, whatever else is claimed (H4) 0ms
- ✓ lib/pipeline/pipeline.test.ts > derived tiers: the model never grades > licenses causal verbs for randomized human evidence only (H3) 1ms
- ✓ lib/pipeline/pipeline.test.ts > derived tiers: the model never grades > ignores a grade smuggled into the editorial: the step's grade comes from its evidence 1ms
- ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H1: banned vocabulary 3ms
- ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H3: a causal verb in an observational study 4ms
- ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H3: a causal verb in a trial is allowed only alongside the studied population 9ms
+ ✓ lib/pipeline/pipeline.test.ts > derived tiers: the model never grades > licenses causal verbs for randomized human evidence only (H3) 2ms
+ ✓ lib/pipeline/pipeline.test.ts > derived tiers: the model never grades > ignores a grade smuggled into the editorial: the step's grade comes from its evidence 3ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H1: banned vocabulary 6ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H3: a causal verb in an observational study 6ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H3: a causal verb in a trial is allowed only alongside the studied population 8ms
  ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H5: an absolute difference written as a percentage 3ms
- ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H5: relative wording with no absolute figure cited 4ms
- ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H5: statistical significance dressed up as size 3ms
- ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H5: the interval of the headline estimate must be spelled out 4ms
- ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H5: a result with no interval must say so in words 3ms
- ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H6: a limitation that cites no limitation from the paper 4ms
- ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > orphans: a number with no citation, a number not in the cited passage, an unknown fact 11ms
- ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > markup: text with no citation marker at all 4ms
- ✓ lib/store/sync.test.ts > when held writes are tried again without being asked > when the tab regains focus, and once an hour while it stays open 65ms
- ✓ lib/store/sync.test.ts > when held writes are tried again without being asked > when the app opens 51ms
- ✓ scripts/seed-safety.test.ts > seed file (supabase/seed.sql) > writes no user data: auth.users, profiles, ticks, amounts, protocols, program state 6ms
- ✓ scripts/seed-safety.test.ts > seed file (supabase/seed.sql) > never mentions subscription_tier, so it cannot make anyone a member 1ms
- ✓ scripts/seed-safety.test.ts > seed file (supabase/seed.sql) > includes no other file (no \i or \ir) 0ms
- ✓ scripts/seed-safety.test.ts > the check itself > catches insert into auth.users (id) values ('x'); 5ms
- ✓ scripts/seed-safety.test.ts > the check itself > catches insert into public.step_checkins (user_id) values ('x'); 0ms
- ✓ scripts/seed-safety.test.ts > the check itself > catches INSERT INTO step_amounts (user_id) values ('x'); 0ms
- ✓ scripts/seed-safety.test.ts > the check itself > catches update "public"."user_profiles" set timezone = 'UTC'; 0ms
- ✓ scripts/seed-safety.test.ts > the check itself > catches delete from public.equipped_protocols; 0ms
- ✓ scripts/seed-safety.test.ts > the check itself > catches insert into public.user_program_state (user_id) values ('x'); 1ms
- ✓ scripts/seed-safety.test.ts > the check itself > does not flag reference content or a commented-out line 0ms
- ✓ scripts/seed-safety.test.ts > seed paths in supabase/config.toml > are exactly ./seed.sql, so background_users.sql can never be pushed 1ms
- ✓ lib/pipeline/europepmc.test.ts > xmlToText > decodes entities, including numeric ones 1ms
- ✓ lib/pipeline/europepmc.test.ts > xmlToText > drops the reference list and citation markers 0ms
- ✓ lib/pipeline/europepmc.test.ts > xmlToText > keeps table cells on one line, so a quoted cell can be found again 0ms
- ✓ lib/pipeline/europepmc.test.ts > readSearchRecord > maps the fields the pipeline needs 0ms
- ✓ lib/pipeline/europepmc.test.ts > readSearchRecord > its licence string passes the allowlist only when the licence does 0ms
- ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H7: step numbers and step evidence must trace to the paper 10ms
- ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H7: a bare or untraceable number in simulator data 9ms
- ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > steps: a weekly target must count an action that exists 3ms
- ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > carousel: population slide, limitation slide, closing slide, slide count 20ms
- ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > carousel: a character the slide fonts may not carry 9ms
- ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > copy: prose lifted from the paper 8ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H5: relative wording with no absolute figure cited 10ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H5: statistical significance dressed up as size 6ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H5: the interval of the headline estimate must be spelled out 5ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H5: a result with no interval must say so in words 6ms
+ ✓ lib/pipeline/context.test.ts > references > tells the paper, another study and a concept apart 1ms
+ ✓ lib/pipeline/context.test.ts > parallel studies: the gate, role context > runs the same gate and marks the result as context 1ms
+ ✓ lib/pipeline/context.test.ts > parallel studies: the gate, role context > applies the same licence rule 2ms
+ ✓ lib/pipeline/context.test.ts > parallel studies: the gate, role context > applies the same verbatim-quote rule 1ms
+ ✓ lib/pipeline/context.test.ts > a read cites { source, fact } > passes when the source is gated and the fact exists 4ms
+ ✓ lib/pipeline/context.test.ts > a read cites { source, fact } > GATE: fails on a missing fact 7ms
+ ✓ lib/pipeline/context.test.ts > a read cites { source, fact } > GATE: fails on a source that is not in content/context/ 7ms
+ ✓ lib/pipeline/context.test.ts > a read cites { source, fact } > GATE: fails on a source that did not pass the gate 11ms
+ ✓ lib/pipeline/context.test.ts > a read cites { source, fact } > GATE: fails with no context at all (a caller that forgets to load it cannot let a citation through) 8ms
+ ✓ lib/pipeline/context.test.ts > a read cites { source, fact } > holds a number to the cited passage of the other study 8ms
+ ✓ lib/pipeline/context.test.ts > a read cites { source, fact } > H3: no causal verb on the strength of an observational context study, even in a trial's read 4ms
+ ✓ lib/pipeline/context.test.ts > a read cites { source, fact } > a retracted context study is withdrawn: every citation of it fails 8ms
+ ✓ lib/pipeline/context.test.ts > a context source never becomes a protocol step or changes a weight > fails a step that cites another study 4ms
+ ✓ lib/pipeline/context.test.ts > a context source never becomes a protocol step or changes a weight > fails a step whose weight would come from another study, or from a concept 10ms
+ ✓ lib/pipeline/context.test.ts > a context source never becomes a protocol step or changes a weight > fails a simulator that draws a context fact, and a headline result that is one 11ms
+ ✓ lib/pipeline/context.test.ts > a context source never becomes a protocol step or changes a weight > fails a limitation that rests only on the other study's limitation (H6 is about this paper) 4ms
+ ✓ lib/pipeline/context.test.ts > a context source never becomes a protocol step or changes a weight > leaves every step's grade and the paper's grades exactly as they were 6ms
+ ✓ lib/pipeline/context.test.ts > what reaches the page > carries the context fact with its source, and the study with its DOI and its own grade 0ms
+ ✓ lib/pipeline/context.test.ts > what reaches the page > carries the concept a glossary entry uses, with its reference 0ms
+ ✓ lib/pipeline/context.test.ts > what reaches the page > says where each thing comes from: "From the paper", "From another study: <cite>, <grade>", "Background" 0ms
+ ✓ lib/pipeline/context.test.ts > what reaches the page > refuses to make up a source line for a fact whose study the read does not carry 0ms
+ ✓ lib/pipeline/context.test.ts > what reaches the page > lists every context source for the audit, each with its DOI 1ms
+ ✓ lib/pipeline/context.test.ts > what reaches the page > adds nothing to a read that cites no context (the old papers' files do not change) 0ms
+ ✓ lib/store/sync.test.ts > when held writes are tried again without being asked > when the tab regains focus, and once an hour while it stays open 70ms
+ ✓ lib/store/sync.test.ts > when held writes are tried again without being asked > when the app opens 53ms
+ ✓ lib/pipeline/context.test.ts > background concepts > accepts the fixture concept 2ms
+ ✓ lib/pipeline/context.test.ts > background concepts > LINT: any digit in the term fails 0ms
+ ✓ lib/pipeline/context.test.ts > background concepts > LINT: any digit in the plain fails 0ms
+ ✓ lib/pipeline/context.test.ts > background concepts > LINT: any digit in the model fails 0ms
+ ✓ lib/pipeline/context.test.ts > background concepts > allows digits only where they belong: the DOI or ISBN of the reference 0ms
+ ✓ lib/pipeline/context.test.ts > background concepts > needs a reference with a title and exactly one of doi or isbn 1ms
+ ✓ lib/pipeline/context.test.ts > background concepts > holds the wording to H1, H9 and H11 0ms
+ ✓ lib/pipeline/context.test.ts > background concepts > lets a concept's own name appear in its text, but no other listed word 0ms
+ ✓ lib/pipeline/context.test.ts > background concepts > needs reviewed_by_owner to be stated 0ms
+ ✓ lib/pipeline/context.test.ts > background concepts > GATE: a read cannot cite a concept that does not exist or fails its checks 10ms
+ ✓ lib/pipeline/context.test.ts > background concepts > GATE: a glossary entry written in the read must say which fact it rests on 12ms
+ ✓ lib/pipeline/context.test.ts > background concepts > a sentence may rest on a concept, but a concept backs no number 14ms
+ ✓ lib/pipeline/context.test.ts > background concepts > the owner's review > BUILD: a published read that uses an unreviewed concept is refused 3ms
+ ✓ lib/pipeline/context.test.ts > background concepts > the owner's review > a draft may use it, with a warning, so the owner can read the two together 4ms
+ ✓ lib/pipeline/context.test.ts > background concepts > the owner's review > passes once the owner has approved it 10ms
+ ✓ lib/pipeline/context.test.ts > background concepts > the owner's review > setting reviewed_by_owner by hand is not a review: it needs the fingerprint the command writes 1ms
+ ✓ lib/pipeline/context.test.ts > background concepts > the owner's review > a concept reworded after the review counts as unreviewed again 12ms
+ ✓ lib/pipeline/context.test.ts > retractions cover context studies > screens papers and context studies in one pass, and only a retraction or a concern counts 1ms
+ ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "95%" in mechanism text 2ms
+ ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "CI" in mechanism text 4ms
+ ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "sample size" in mechanism text 3ms
+ ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "dropout" in mechanism text 2ms
+ ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > fails "funded" in mechanism text 4ms
+ ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > allows the same sentence in the audit, where caveats belong 5ms
+ ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > also reads the caption of a mechanism figure 3ms
+ ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > covers every phrase on the list 0ms
+ ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > fails "it is worth noting" 11ms
+ ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > fails "it should be noted" 2ms
+ ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > fails "it is important to note" 2ms
+ ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > fails "interestingly" 4ms
+ ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > fails "notably" 3ms
+ ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > fails "the authors observed that" 3ms
+ ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > fails "the results suggest that it may" 5ms
+ ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > is checked outside the layers too: hook, audit, carousel 10ms
+ ✓ lib/pipeline/layers.test.ts > check 5, sentence length (H11) > splits sentences without tripping on abbreviations, initials or decimals 1ms
+ ✓ lib/pipeline/layers.test.ts > check 5, sentence length (H11) > counts words the way a reader would 0ms
+ ✓ lib/pipeline/layers.test.ts > check 5, sentence length (H11) > fails a sentence over 30 words 5ms
+ ✓ lib/pipeline/layers.test.ts > check 5, sentence length (H11) > counts two sentences behind one marker separately 3ms
+ ✓ lib/pipeline/layers.test.ts > check 5, sentence length (H11) > passes at 30 words and warns over 22 14ms
+ ✓ lib/pipeline/layers.test.ts > check 5, sentence length (H11) > reports words, sentences, the average and the longest sentence for each layer 6ms
+ ✓ lib/pipeline/layers.test.ts > check 6, passive voice (H11): a warning, never an error > warns and still passes 9ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H6: a limitation that cites no limitation from the paper 5ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > orphans: a number with no citation, a number not in the cited passage, an unknown fact 16ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > markup: text with no citation marker at all 3ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H7: step numbers and step evidence must trace to the paper 11ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > H7: a bare or untraceable number in simulator data 13ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > steps: a weekly target must count an action that exists 6ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > carousel: population slide, limitation slide, closing slide, slide count 26ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > carousel: a character the slide fonts may not carry 7ms
+ ✓ lib/pipeline/pipeline.test.ts > lint (stage 4) > copy: prose lifted from the paper 9ms
  ✓ lib/pipeline/pipeline.test.ts > assemble > derives stable ids: same slug and key, same id, every time 0ms
  ✓ lib/pipeline/pipeline.test.ts > assemble > writes the source line from the estimate, not from the editorial 0ms
  ✓ lib/pipeline/pipeline.test.ts > assemble > links a weekly target to the step it counts 0ms
@@ -182,52 +186,96 @@
  ✓ lib/pipeline/pipeline.test.ts > helpers > canonicalises licences 0ms
  ✓ lib/pipeline/pipeline.test.ts > helpers > measures copying in runs of seven words 0ms
  ✓ lib/pipeline/pipeline.test.ts > helpers > reads the Retraction Watch file and joins it against live papers 1ms
- ✓ lib/privacy.test.ts > the privacy page's words > use no banned term (H1) 9ms
- ✓ lib/privacy.test.ts > the privacy page's words > keep every sentence to 20 words or fewer (H11) 1ms
- ✓ lib/privacy.test.ts > the privacy page's words > cover the device, the server, analytics and the bot check, with Cloudflare's addendum linked 1ms
- ✓ scripts/content-build.test.ts > content-build and the old flat shape > stops the build for a published paper in the old shape that is not on the allowlist 279ms
- ✓ lib/pipeline/layers.test.ts > check 3, caveat leakage: no caveats in the mechanism layer (H10) > also reads the caption of a mechanism figure 5ms
- ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > covers every phrase on the list 0ms
- ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > fails "it is worth noting" 12ms
- ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > fails "it should be noted" 7ms
- ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > fails "it is important to note" 5ms
- ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > fails "interestingly" 7ms
- ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > fails "notably" 5ms
- ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > fails "the authors observed that" 7ms
- ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > fails "the results suggest that it may" 4ms
- ✓ lib/pipeline/layers.test.ts > check 4, throat-clearing (H11) > is checked outside the layers too: hook, audit, carousel 14ms
- ✓ lib/pipeline/layers.test.ts > check 5, sentence length (H11) > splits sentences without tripping on abbreviations, initials or decimals 0ms
- ✓ lib/pipeline/layers.test.ts > check 5, sentence length (H11) > counts words the way a reader would 0ms
- ✓ lib/pipeline/layers.test.ts > check 5, sentence length (H11) > fails a sentence over 30 words 3ms
- ✓ lib/pipeline/layers.test.ts > check 5, sentence length (H11) > counts two sentences behind one marker separately 3ms
- ✓ lib/pipeline/layers.test.ts > check 5, sentence length (H11) > passes at 30 words and warns over 22 8ms
- ✓ lib/pipeline/layers.test.ts > check 5, sentence length (H11) > reports words, sentences, the average and the longest sentence for each layer 3ms
- ✓ lib/pipeline/layers.test.ts > check 6, passive voice (H11): a warning, never an error > warns and still passes 4ms
- ✓ lib/pipeline/layers.test.ts > check 6, passive voice (H11): a warning, never an error > does not warn on an active sentence 4ms
- ✓ lib/pipeline/layers.test.ts > check 7, word budget (H10) > is one constant 0ms
- ✓ lib/pipeline/layers.test.ts > check 7, word budget (H10) > fails a mechanism layer over 350 words 3ms
- ✓ lib/pipeline/layers.test.ts > check 7, word budget (H10) > fails a protocol layer over 150 words 3ms
- ✓ lib/pipeline/layers.test.ts > check 7, word budget (H10) > fails an audit layer over 250 words 4ms
- ✓ lib/pipeline/layers.test.ts > check 7, word budget (H10) > passes a layer filled exactly to its budget 6ms
- ✓ lib/pipeline/layers.test.ts > assemble: the three-layer read reaches the app > carries the layers and the glossary, with every cited fact 1ms
- ✓ lib/pipeline/layers.test.ts > assemble: the three-layer read reaches the app > resolves a figure's caption and alt text 0ms
- ✓ lib/companion/mood.test.ts > moodOf > is asleep with nothing ticked and no streak 1ms
+ ✓ scripts/parity.test.ts > the committed SQL parity test matches what lib/score.ts produces today 12ms
+ ✓ lib/pipeline/layers.test.ts > check 6, passive voice (H11): a warning, never an error > does not warn on an active sentence 6ms
+ ✓ lib/pipeline/layers.test.ts > check 7, word budget (H10) > is one constant 2ms
+ ✓ lib/pipeline/layers.test.ts > check 7, word budget (H10) > fails a mechanism layer over 350 words 5ms
+ ✓ lib/pipeline/layers.test.ts > check 7, word budget (H10) > fails a protocol layer over 150 words 4ms
+ ✓ lib/pipeline/layers.test.ts > check 7, word budget (H10) > fails an audit layer over 250 words 3ms
+ ✓ lib/pipeline/layers.test.ts > check 7, word budget (H10) > passes a layer filled exactly to its budget 8ms
+ ✓ lib/pipeline/layers.test.ts > assemble: the three-layer read reaches the app > carries the layers and the glossary, with every cited fact 3ms
+ ✓ lib/pipeline/layers.test.ts > assemble: the three-layer read reaches the app > resolves a figure's caption and alt text 4ms
+ ✓ scripts/content-build.test.ts > content-build and the old flat shape > stops the build for a published paper in the old shape that is not on the allowlist 344ms
+ ✓ scripts/context-build.test.ts > content-build and context sources > refuses a published read that uses an unreviewed concept 321ms
+ ✓ scripts/seed-safety.test.ts > seed file (supabase/seed.sql) > writes no user data: auth.users, profiles, ticks, amounts, protocols, program state 2ms
+ ✓ scripts/seed-safety.test.ts > seed file (supabase/seed.sql) > never mentions subscription_tier, so it cannot make anyone a member 0ms
+ ✓ scripts/seed-safety.test.ts > seed file (supabase/seed.sql) > includes no other file (no \i or \ir) 0ms
+ ✓ scripts/seed-safety.test.ts > the check itself > catches insert into auth.users (id) values ('x'); 1ms
+ ✓ scripts/seed-safety.test.ts > the check itself > catches insert into public.step_checkins (user_id) values ('x'); 0ms
+ ✓ scripts/seed-safety.test.ts > the check itself > catches INSERT INTO step_amounts (user_id) values ('x'); 0ms
+ ✓ scripts/seed-safety.test.ts > the check itself > catches update "public"."user_profiles" set timezone = 'UTC'; 0ms
+ ✓ scripts/seed-safety.test.ts > the check itself > catches delete from public.equipped_protocols; 0ms
+ ✓ scripts/seed-safety.test.ts > the check itself > catches insert into public.user_program_state (user_id) values ('x'); 0ms
+ ✓ scripts/seed-safety.test.ts > the check itself > does not flag reference content or a commented-out line 0ms
+ ✓ scripts/seed-safety.test.ts > seed paths in supabase/config.toml > are exactly ./seed.sql, so background_users.sql can never be pushed 0ms
+ ✓ lib/store/reduce.test.ts > applyWrite > ticks once, however many times it is asked 1ms
+ ✓ lib/store/reduce.test.ts > applyWrite > removes the day when its last tick is undone 0ms
+ ✓ lib/store/reduce.test.ts > applyWrite > re-equipping moves the start date instead of adding a second entry 0ms
+ ✓ lib/store/reduce.test.ts > applyWrite > un-equipping keeps the ticks: history is never thrown away 0ms
+ ✓ lib/store/reduce.test.ts > applyWrite > retires a habit rather than deleting it 0ms
+ ✓ lib/store/reduce.test.ts > applyWrite > never mutates its input 0ms
+ ✓ lib/store/reduce.test.ts > the queue > last write wins per step and day 0ms
+ ✓ lib/store/reduce.test.ts > the queue > keeps writes for the same step on different days 0ms
+ ✓ lib/store/reduce.test.ts > the queue > keeps only the newest programme setting per paper 1ms
+ ✓ lib/store/reduce.test.ts > reconcile > replays unsent writes on top of the server's copy 0ms
+ ✓ lib/store/reduce.test.ts > reconcile > with nothing queued, the server's copy is the truth 0ms
+ ✓ lib/store/reduce.test.ts > helpers > flattens and prunes ticks 0ms
+ ✓ lib/store/reduce.test.ts > amounts (target and count habits) > below the target: the amount is kept and there is no tick 0ms
+ ✓ lib/store/reduce.test.ts > amounts (target and count habits) > reaching the target adds the tick; passing it does not add a second 0ms
+ ✓ lib/store/reduce.test.ts > amounts (target and count habits) > falling back below the target removes the tick 0ms
+ ✓ lib/store/reduce.test.ts > amounts (target and count habits) > a count habit is done at 1 and undone at 0 0ms
+ ✓ lib/store/reduce.test.ts > amounts (target and count habits) > clamps nonsense: negative becomes 0, fractions round 0ms
+ ✓ lib/store/reduce.test.ts > amounts (target and count habits) > six quick taps while offline send one write, the last 1ms
+ ✓ lib/store/reduce.test.ts > amounts (target and count habits) > replaying a queued amount on top of the server's copy gives the same tick 0ms
+ ✓ lib/store/reduce.test.ts > held writes keep their order > a newer amount for the same habit and day replaces the held one, so the older can never overwrite it 0ms
+ ✓ lib/store/reduce.test.ts > held writes keep their order > a write about the same habit on another day waits behind the held one, in order 0ms
+ ✓ lib/store/reduce.test.ts > held writes keep their order > a write about something else goes to the queue as usual 0ms
+ ✓ lib/store/reduce.test.ts > held writes keep their order > holding a write takes the queued writes about the same thing with it and leaves the rest 0ms
+ ✓ lib/store/reduce.test.ts > held writes keep their order > a write that a newer one already replaced in the queue is not held 0ms
+ ✓ lib/store/reduce.test.ts > held writes keep their order > held writes still show on screen after a pull 0ms
+ ✓ lib/store/reduce.test.ts > the saved state from an older version > version 2 loads as version 3 with nothing lost and an empty held list 0ms
+ ✓ lib/store/reduce.test.ts > the saved state from an older version > version 1 (no amounts, no habit kinds) is filled in, not reset 0ms
+ ✓ lib/privacy.test.ts > the privacy page's words > use no banned term (H1) 6ms
+ ✓ lib/privacy.test.ts > the privacy page's words > keep every sentence to 20 words or fewer (H11) 0ms
+ ✓ lib/privacy.test.ts > the privacy page's words > cover the device, the server, analytics and the bot check, with Cloudflare's addendum linked 0ms
+ ✓ lib/captcha/turnstile.test.ts > getCaptchaToken() > with no site key: returns undefined and touches nothing in the page 4ms
+ ✓ lib/captcha/turnstile.test.ts > getCaptchaToken() > with a site key: renders one invisible widget, and resets it for the next token 1ms
+ ✓ lib/captcha/turnstile.test.ts > getCaptchaToken() > a token from the visible check is used once by the next sign-in, without touching the invisible widget 0ms
+ ✓ lib/captcha/turnstile.test.ts > getCaptchaToken() > the visible check renders an interactive widget and resolves its token 0ms
+ ✓ lib/captcha/turnstile.test.ts > getCaptchaToken() > with a site key but a failed challenge: returns undefined instead of hanging 0ms
+ ✓ lib/supabase/remote.test.ts > push() for an amount > two amount writes for the same habit and day: one upsert each, no 409, the second amount wins 2ms
+ ✓ lib/supabase/remote.test.ts > push() for an amount > a replay after reconcile: the same write sent again is accepted, and the newer one still wins 1ms
+ ✓ lib/supabase/remote.test.ts > push() never treats a conflict as refused forever > a 409 (23505) on an amount keeps the write: the error is retryable, never RejectedWrite 1ms
+ ✓ lib/supabase/remote.test.ts > push() never treats a conflict as refused forever > a function the server does not have yet (PGRST202: the app deployed before the migration) is retryable 0ms
+ ✓ lib/supabase/remote.test.ts > push() never treats a conflict as refused forever > a write the database refuses on its merits (23514: a tick-off habit takes no amount) is RejectedWrite 0ms
+ ✓ lib/companion/mood.test.ts > moodOf > is asleep with nothing ticked and no streak 2ms
  ✓ lib/companion/mood.test.ts > moodOf > is awake and waiting when a streak is alive but today is empty 0ms
  ✓ lib/companion/mood.test.ts > moodOf > perks up on the first tick 0ms
  ✓ lib/companion/mood.test.ts > moodOf > is lively from half way 0ms
  ✓ lib/companion/mood.test.ts > moodOf > glows only when every daily box is ticked 0ms
- ✓ lib/companion/mood.test.ts > moodOf > a new user with nothing to tick is asleep, not glowing (0 of 0 is not 'all done') 0ms
+ ✓ lib/companion/mood.test.ts > moodOf > a new user with nothing to tick is asleep, not glowing (0 of 0 is not 'all done') 1ms
  ✓ lib/companion/mood.test.ts > moodOf > a long streak alone never makes it glow 0ms
- ✓ lib/companion/mood.test.ts > lineFor > never makes a claim about health or the body 0ms
+ ✓ lib/companion/mood.test.ts > lineFor > never makes a claim about health or the body 1ms
  ✓ lib/companion/mood.test.ts > lineFor > states the counts it was given 0ms
+ ✓ lib/pipeline/europepmc.test.ts > xmlToText > decodes entities, including numeric ones 1ms
+ ✓ lib/pipeline/europepmc.test.ts > xmlToText > drops the reference list and citation markers 0ms
+ ✓ lib/pipeline/europepmc.test.ts > xmlToText > keeps table cells on one line, so a quoted cell can be found again 0ms
+ ✓ lib/pipeline/europepmc.test.ts > readSearchRecord > maps the fields the pipeline needs 1ms
+ ✓ lib/pipeline/europepmc.test.ts > readSearchRecord > its licence string passes the allowlist only when the licence does 0ms
  ✓ scripts/legacy-shape.test.ts > the temporary old-shape allowlist > names only the three starter papers 1ms
  ✓ scripts/legacy-shape.test.ts > the temporary old-shape allowlist > names only papers that exist and are still in the old flat shape 0ms
  ✓ scripts/legacy-shape.test.ts > the temporary old-shape allowlist > is empty once step 2E is ticked in docs/PROGRESS.md 0ms
- ✓ scripts/content-build.test.ts > content-build and the old flat shape > reports a draft in the old shape and does not build it 168ms
- ✓ scripts/content-build.test.ts > content-build and the old flat shape > still builds the real papers 177ms
+ ✓ scripts/content-build.test.ts > content-build and the old flat shape > reports a draft in the old shape and does not build it 227ms
+ ✓ scripts/context-build.test.ts > content-build and context sources > builds the same read once the concept is approved, and names the context it used 242ms
+ ✓ scripts/content-build.test.ts > content-build and the old flat shape > still builds the real papers 206ms
+ ✓ scripts/context-build.test.ts > content-build and context sources > refuses a context folder that holds an editorial: a context study has no read and no protocol 200ms
+ ✓ scripts/context-build.test.ts > npm run retractions covers content/context/ > withdraws a retracted context study, and the build then refuses the read that cites it 613ms
+ ✓ scripts/context-build.test.ts > npm run retractions covers content/context/ > leaves a context study alone when it is not in the list, or only corrected 392ms
+ ✓ scripts/context-build.test.ts > the paper command and context > approve-concept refuses to run without a person at a terminal, and changes nothing 169ms
+ ✓ scripts/context-build.test.ts > the paper command and context > never drafts or publishes a context study 490ms
 
- Test Files  15 passed (15)
-      Tests  224 passed (224)
-   Start at  13:02:11
-   Duration  731ms (tests 72%, import 19%, transform 6%, worker 2%)
+ Test Files  17 passed (17)
+      Tests  272 passed (272)
+   Start at  13:16:29
+   Duration  2.58s (tests 85%, import 11%, transform 3%, worker 1%)
 

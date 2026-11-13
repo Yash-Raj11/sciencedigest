@@ -15,6 +15,7 @@ import { SimulatorFor, WidgetFor } from "@/components/papers/registry";
 import { GradeChip, Notice } from "@/components/protocol/primitives";
 import { DESIGN_LABEL, freeContent } from "@/lib/content";
 import { loadRead, type Gated } from "@/lib/content/gated";
+import { factSourceLine } from "@/lib/content/source-line";
 import type { PaperContent, PaperMeta, ResolvedFact, Sentence } from "@/lib/content/types";
 import { formatEstimate } from "@/lib/pipeline/format";
 import { useStore } from "@/lib/store";
@@ -22,9 +23,13 @@ import { isDemo } from "@/lib/supabase/client";
 import { MemberExtras } from "./MemberExtras";
 
 type Facts = Record<string, ResolvedFact>;
+type Context = PaperContent["context"];
 
-/** One paragraph. Sentences that rest on the paper carry a dot; tap it to see the passage. */
-function Para({ sentences, facts, className = "read" }: { sentences: Sentence[]; facts: Facts; className?: string }) {
+/**
+ * One paragraph. Sentences that rest on a source carry a dot; tap it to see the
+ * passage, with a line saying whether it is from the paper or from another study.
+ */
+function Para({ sentences, facts, context, className = "read" }: { sentences: Sentence[]; facts: Facts; context?: Context; className?: string }) {
   const [open, setOpen] = useState<number | null>(null);
   const shown = open === null ? [] : sentences[open].refs.map((id) => facts[id]).filter(Boolean);
 
@@ -56,10 +61,10 @@ function Para({ sentences, facts, className = "read" }: { sentences: Sentence[];
       </p>
       {shown.length > 0 && (
         <aside className="mt-2 space-y-3 rounded-lg border-l-4 border-accent bg-surface px-3.5 py-3">
-          <p className="text-xs font-semibold text-muted">From the paper, word for word</p>
           {shown.map((fact) => (
             <div key={fact.id}>
-              <p className="text-sm font-semibold leading-snug">{fact.label}</p>
+              <p className="text-xs font-semibold text-muted">{factSourceLine(fact, { context })}, word for word</p>
+              <p className="mt-1 text-sm font-semibold leading-snug">{fact.label}</p>
               <p className="mt-0.5 font-serif text-[0.9375rem] italic leading-snug text-muted">&ldquo;{fact.quote}&rdquo;</p>
               {fact.estimate && (
                 <p className="num mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
@@ -81,7 +86,7 @@ function ReadBody({ paper, content }: { paper: PaperMeta; content: PaperContent 
 
   return (
     <>
-      <Para sentences={content.hook} facts={facts} className="read text-[1.3125rem] leading-[1.45]" />
+      <Para sentences={content.hook} facts={facts} context={content.context} className="read text-[1.3125rem] leading-[1.45]" />
 
       <p className="flex items-center gap-2 text-sm text-muted">
         <span aria-hidden className="h-2.5 w-2.5 shrink-0 rounded-full border-2 border-accent" />
@@ -91,7 +96,7 @@ function ReadBody({ paper, content }: { paper: PaperMeta; content: PaperContent 
       <section aria-label="Who was studied" className="rounded-2xl border-2 border-ink p-4">
         <h2 className="display text-xl">Who this describes</h2>
         <div className="mt-2">
-          <Para sentences={content.populationPanel} facts={facts} className="text-base leading-relaxed" />
+          <Para sentences={content.populationPanel} facts={facts} context={content.context} className="text-base leading-relaxed" />
         </div>
         <p className="mt-2 text-sm leading-snug text-muted">
           {observational
@@ -103,7 +108,7 @@ function ReadBody({ paper, content }: { paper: PaperMeta; content: PaperContent 
       {content.sections.map((section) => (
         <section key={section.id} aria-label={section.heading} className="space-y-3">
           <h2 className="read-title text-[1.625rem]">{section.heading}</h2>
-          {section.paragraphs.map((paragraph, i) => <Para key={i} sentences={paragraph} facts={facts} />)}
+          {section.paragraphs.map((paragraph, i) => <Para key={i} sentences={paragraph} facts={facts} context={content.context} />)}
         </section>
       ))}
 
@@ -114,7 +119,7 @@ function ReadBody({ paper, content }: { paper: PaperMeta; content: PaperContent 
           {content.limitations.map((limitation, i) => (
             <li key={i} className="flex gap-3">
               <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
-              <div className="min-w-0 flex-1"><Para sentences={limitation} facts={facts} className="text-base leading-relaxed" /></div>
+              <div className="min-w-0 flex-1"><Para sentences={limitation} facts={facts} context={content.context} className="text-base leading-relaxed" /></div>
             </li>
           ))}
         </ul>

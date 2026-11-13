@@ -4,8 +4,14 @@
  *   npm run content:build      validate every paper, then write the generated files
  *   npm run content:check      validate, and fail if the generated files are stale
  *
- * For tests only: `--papers <dir>` reads another folder of papers and
- * `--report-only` validates and prints, writing and comparing nothing.
+ * A read may also cite other gated studies (content/context/<slug>/) and
+ * background concepts (content/concepts/<slug>.json). Neither ever becomes a
+ * protocol step or changes a weight. A published read that cites a source which
+ * failed the gate, was withdrawn, or is an unreviewed concept stops the build.
+ *
+ * For tests only: `--papers <dir>`, `--context <dir>` and `--concepts <dir>`
+ * read other folders, and `--report-only` validates and prints, writing and
+ * comparing nothing.
  *
  * Each paper folder holds three files:
  *   source.txt        the paper's text, as retrieved (what every quote is checked against)
@@ -29,11 +35,17 @@ import { assemble } from "../lib/pipeline/assemble";
 import { editorialShape } from "../lib/pipeline/editorial";
 import { gate } from "../lib/pipeline/gate";
 import { lint } from "../lib/pipeline/lint";
+import { loadContext } from "./context-load";
 import { LEGACY_SHAPE_ALLOWLIST } from "./legacy-shape";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
-const papersArg = process.argv.indexOf("--papers");
-const PAPERS_DIR = papersArg > 0 ? process.argv[papersArg + 1] : `${ROOT}content/papers`;
+const flag = (name: string, fallback: string) => {
+  const at = process.argv.indexOf(name);
+  return at > 0 ? process.argv[at + 1] : fallback;
+};
+const PAPERS_DIR = flag("--papers", `${ROOT}content/papers`);
+const CONTEXT_DIR = flag("--context", `${ROOT}content/context`);
+const CONCEPTS_DIR = flag("--concepts", `${ROOT}content/concepts`);
 const check = process.argv.includes("--check");
 const quiet = process.argv.includes("--quiet");
 const reportOnly = process.argv.includes("--report-only");
@@ -42,6 +54,10 @@ const built: BuiltPaper[] = [];
 let failed = false;
 const reportLines: string[] = [];
 const say = (line: string) => { reportLines.push(line); if (!quiet) console.log(line); };
+
+// Context sources are gated first: a read can only cite what passed.
+const loaded = loadContext(CONTEXT_DIR, CONCEPTS_DIR);
+for (const line of loaded.report) say(line);
 
 for (const slug of readdirSync(PAPERS_DIR).sort()) {
   const dir = `${PAPERS_DIR}/${slug}`;
@@ -71,7 +87,7 @@ for (const slug of readdirSync(PAPERS_DIR).sort()) {
   const oldShape = editorialShape(editorial) === "legacy";
   const allowLegacyShape = oldShape && LEGACY_SHAPE_ALLOWLIST.includes(slug);
   if (allowLegacyShape) say("  shape  old flat shape, on the temporary allowlist (scripts/legacy-shape.ts): rewrite in step 2E");
-  const report = lint(gated.validated, editorial, source, { allowLegacyShape });
+  const report = lint(gated.validated, editorial, source, { allowLegacyShape, context: loaded.context });
   if (report.errors.length > 0) {
     if (!isDraft) failed = true;
     say(`  LINT FAILED (${report.errors.length})${isDraft ? ": reported, not built" : ""}`);
@@ -84,9 +100,13 @@ for (const slug of readdirSync(PAPERS_DIR).sort()) {
       say(`    ${layer.padEnd(9)} ${String(stats.words).padStart(3)} words, ${stats.sentences} sentences, average ${stats.average}, longest ${stats.longest}`);
     }
   }
+  if (report.context) {
+    const { studies, concepts } = report.context;
+    say(`    context   ${studies.length} other ${studies.length === 1 ? "study" : "studies"}${studies.length ? ` (${studies.join(", ")})` : ""}, ${concepts.length} background ${concepts.length === 1 ? "concept" : "concepts"}${concepts.length ? ` (${concepts.join(", ")})` : ""}`);
+  }
   for (const w of report.warnings) say(`    warning: [${w.rule}] ${w.where}: ${w.message}`);
 
-  const paper = assemble(gated.validated, editorial);
+  const paper = assemble(gated.validated, editorial, loaded.context);
   if (!paper.meta.publishedAt) { say("  skipped: publishedAt is null (not approved yet)"); continue; }
   const weights = paper.steps.filter((s) => !s.retired).map((s) => `${s.key}=${s.grade}`).join(", ");
   say(`  steps  ${weights}`);

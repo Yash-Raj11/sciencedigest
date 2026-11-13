@@ -242,6 +242,15 @@ a sentence that only that read contains: zero matches). In demo mode a dev-only 
 | 5 Approve | `paper -- approve` (you) | no | stage 2 or 4 fails |
 | Build | `content:build` → `assemble.ts` | no | a *published* paper fails (drafts are reported only) |
 
+**Context sources (Phase 9).** A read may also cite another gated study
+(`content/context/<slug>/`, cited as `[slug/fact]`) and reviewed background concepts
+(`content/concepts/<slug>.json`, cited as `[concept:slug]`, no numbers). The build embeds the
+facts, studies and concepts a read uses inside that read's own JSON (`content.facts[...].source`,
+`content.context`), so a members' read carries its context through `paper_content` and row level
+security with no extra table. Neither kind can back a protocol step, feed a simulator or change a
+weight: the lint refuses it, and `lib/score.ts`, `lib/evidence.ts` and the database know nothing
+about them.
+
 Retracted after publishing: `npm run retractions` runs the DOI join backwards over every live
 paper and calls `withdraw_paper()`, which hides the read and drops its steps to weight 0.
 Because scores are derived, everyone's history recalculates on its own.

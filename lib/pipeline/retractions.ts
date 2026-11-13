@@ -87,3 +87,23 @@ export function findRetracted(liveDois: string[], retractions: Retraction[]): Re
   const live = new Set(liveDois.map(normalizeDoi));
   return retractions.filter((r) => live.has(r.doi) && isBlocking(r));
 }
+
+/** Something this app shows that rests on a published study: a paper with a read, or a context study a read cites. */
+export interface ScreenedSource {
+  slug: string;
+  doi: string;
+  role: "paper" | "context";
+}
+
+/**
+ * The backward join over everything the app rests on: published papers AND
+ * the context studies in content/context/. One hit per source.
+ */
+export function screenSources(sources: ScreenedSource[], retractions: Retraction[]): { source: ScreenedSource; retraction: Retraction }[] {
+  const blocking = new Map<string, Retraction>();
+  for (const r of retractions) if (isBlocking(r) && !blocking.has(r.doi)) blocking.set(r.doi, r);
+  return sources.flatMap((source) => {
+    const retraction = blocking.get(normalizeDoi(source.doi));
+    return retraction ? [{ source, retraction }] : [];
+  });
+}
