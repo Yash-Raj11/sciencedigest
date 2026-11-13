@@ -4,6 +4,9 @@
  *   npm run content:build      validate every paper, then write the generated files
  *   npm run content:check      validate, and fail if the generated files are stale
  *
+ * For tests only: `--papers <dir>` reads another folder of papers and
+ * `--report-only` validates and prints, writing and comparing nothing.
+ *
  * Each paper folder holds three files:
  *   source.txt        the paper's text, as retrieved (what every quote is checked against)
  *   extraction.json   stage 1 output: facts, each with the passage it was read from
@@ -23,13 +26,17 @@ import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import type { BuiltPaper } from "../lib/content/types";
 import { assemble } from "../lib/pipeline/assemble";
+import { editorialShape } from "../lib/pipeline/editorial";
 import { gate } from "../lib/pipeline/gate";
 import { lint } from "../lib/pipeline/lint";
+import { LEGACY_SHAPE_ALLOWLIST } from "./legacy-shape";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
-const PAPERS_DIR = `${ROOT}content/papers`;
+const papersArg = process.argv.indexOf("--papers");
+const PAPERS_DIR = papersArg > 0 ? process.argv[papersArg + 1] : `${ROOT}content/papers`;
 const check = process.argv.includes("--check");
 const quiet = process.argv.includes("--quiet");
+const reportOnly = process.argv.includes("--report-only");
 
 const built: BuiltPaper[] = [];
 let failed = false;
@@ -59,14 +66,24 @@ for (const slug of readdirSync(PAPERS_DIR).sort()) {
   for (const w of gated.warnings) say(`    warning: ${w}`);
 
   if (editorial.slug !== slug) { failed = true; say(`  editorial.slug is "${editorial.slug}" but the folder is "${slug}"`); continue; }
-  const report = lint(gated.validated, editorial, source);
+  // Old flat shape: built only for the slugs on the temporary allowlist. Any
+  // other paper in that shape is refused; a draft is reported and not built.
+  const oldShape = editorialShape(editorial) === "legacy";
+  const allowLegacyShape = oldShape && LEGACY_SHAPE_ALLOWLIST.includes(slug);
+  if (allowLegacyShape) say("  shape  old flat shape, on the temporary allowlist (scripts/legacy-shape.ts): rewrite in step 2E");
+  const report = lint(gated.validated, editorial, source, { allowLegacyShape });
   if (report.errors.length > 0) {
     if (!isDraft) failed = true;
-    say(`  LINT FAILED (${report.errors.length})`);
+    say(`  LINT FAILED (${report.errors.length})${isDraft ? ": reported, not built" : ""}`);
     for (const e of report.errors) say(`    - [${e.rule}] ${e.where}: ${e.message}`);
     continue;
   }
   say(`  lint   ok: ${report.wordCount} words`);
+  if (report.layers) {
+    for (const [layer, stats] of Object.entries(report.layers)) {
+      say(`    ${layer.padEnd(9)} ${String(stats.words).padStart(3)} words, ${stats.sentences} sentences, average ${stats.average}, longest ${stats.longest}`);
+    }
+  }
   for (const w of report.warnings) say(`    warning: [${w.rule}] ${w.where}: ${w.message}`);
 
   const paper = assemble(gated.validated, editorial);
@@ -163,7 +180,9 @@ const outputs: [string, string][] = [
   [`${ROOT}supabase/seed.sql`, seedSql],
 ];
 
-if (check) {
+if (reportOnly) {
+  say(`\ncontent report: ${built.length} papers would be built (${built.map((p) => p.meta.slug).join(", ") || "none"}). Nothing was written.`);
+} else if (check) {
   const stale = outputs.filter(([path, text]) => !existsSync(path) || readFileSync(path, "utf8") !== text).map(([path]) => path.replace(ROOT, ""));
   if (stale.length > 0) {
     console.error(`\ngenerated files are out of date: ${stale.join(", ")}\nrun \`npm run content:build\` and commit the result.`);

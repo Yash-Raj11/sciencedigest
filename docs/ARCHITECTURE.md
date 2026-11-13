@@ -238,7 +238,7 @@ a sentence that only that read contains: zero matches). In demo mode a dev-only 
 | 1 Extract | `paper -- extract` → `lib/ai/provider.ts`, `prompts.ts` | yes | — |
 | 2 Gate | `gate.ts`, `grade.ts` | no | a quote is not in `source.txt`; a number is not in its quote |
 | 3 Draft | `paper -- draft` | yes, **sees only the validated facts** | — |
-| 4 Lint | `lint.ts` | no | banned words, causal verbs without RCT, relative without absolute, orphan numbers, no limitation |
+| 4 Lint | `lint.ts`, `editorial.ts`, `jargon.ts`, `sentences.ts` | no | banned words, causal verbs without RCT, relative without absolute, orphan numbers, no limitation; since Phase 9 also: no three layers (H10), jargon without a glossary entry (H9), a caveat in the mechanism, throat-clearing, a sentence over 30 words, a layer over its word budget (H11) |
 | 5 Approve | `paper -- approve` (you) | no | stage 2 or 4 fails |
 | Build | `content:build` → `assemble.ts` | no | a *published* paper fails (drafts are reported only) |
 

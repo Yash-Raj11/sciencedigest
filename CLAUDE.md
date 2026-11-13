@@ -29,6 +29,7 @@ when it is kept (`npm run db:mutation` does this for the database).
 | Rule | Where it lives |
 |---|---|
 | Banned hype words, causal verbs without a randomized design, relative risk without absolute, missing limitation, unsourced numbers | `lib/pipeline/lint.ts` |
+| A read without the three layers; jargon with no glossary entry; a caveat in the mechanism layer; throat-clearing; a sentence over 30 words; a layer over its word budget | `lib/pipeline/editorial.ts`, `lint.ts`, `jargon.ts`, `sentences.ts` |
 | A quote that is not in the paper voids the extraction; evidence grades are derived, never model-supplied | `lib/pipeline/gate.ts`, `lib/pipeline/grade.ts` |
 | Only CC-BY, CC-BY-SA, CC0 papers | `lib/pipeline/license.ts` |
 | A per-paper component cannot import the database, the store, or compute a percentage | `eslint.config.mjs` (the widget guard) |
@@ -58,6 +59,18 @@ when it is kept (`npm run db:mutation` does this for the database).
     Edit `content/papers/<slug>/` and run `npm run content:build`.
 11. **Ask before changing** the database shape, scoring meaning, or anything that touches stored
     user history. These are expensive to undo.
+
+## Content rules H9–H11 (H1–H8: `docs/HANDOFF.md` section 5 and the `science-content` skill)
+
+- **H9 Feynman layer.** Never use a technical term without immediately saying what it physically
+  does in plain English. Give the mental model first, then the name of the pathway.
+- **H10 Progressive disclosure.** Every read has three separate layers: mechanism (why it
+  happens), protocol (what the data supports), audit (design, sample size, raw effect size, the
+  mandatory limitation). No caveats inside the mechanism layer. The audit stays visible without
+  a tap (H6).
+- **H11 Voice.** Short sentences, active voice, no academic throat-clearing.
+- **H7 (amended).** Every number shown to a reader traces to a gated fact, from the paper or
+  from a gated context source. The UI says which.
 
 ## Skills: load the one that matches before you start
 

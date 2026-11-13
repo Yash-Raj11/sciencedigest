@@ -286,6 +286,14 @@ Find the `PMC...` id on the paper's page at europepmc.org or pmc.ncbi.nlm.nih.go
 | fetch | the licence is not CC-BY, CC-BY-SA or CC0; the paper is in the retraction list |
 | the gate | any quoted passage is not found in `source.txt`; a number is not inside its quote; the design or species is not supported by its quote |
 | the lint | a banned hype word; a causal verb for a non-randomized study; a relative figure with no absolute one; a number that no cited fact contains; no limitation; too close to the paper's own wording |
+| the lint, on the three layers | a read still in the old flat shape; a technical word (`lib/pipeline/jargon.ts`) in the mechanism or protocol with no glossary entry, or in the mechanism's opening sentence; a glossary entry explained with another technical word; a caveat in the mechanism (limitation, confound, self-reported, p-values, 95%, CI, sample size, dropout, funded); throat-clearing ("it is worth noting", "interestingly" …); a sentence over 30 words; a layer over its budget (mechanism 350, protocol 150, audit 250 words) |
+
+**The three layers.** `editorial.json` holds the read as `layers.mechanism` (why it happens: the
+picture first, then the name), `layers.protocol` (what was tested) and `layers.audit` (the raw
+effect size, what the weak end of the range means, the limitations, what summaries miss), plus a
+`glossary` of `{ term, plain }`. The build prints each layer's word count, its average sentence
+and its longest one. Sentences over 22 words and likely passives are warnings: read them, then
+decide. The full shape and two worked examples are in `.claude/skills/science-content/SKILL.md`.
 | approve | either of the two above fails |
 
 **Reading a draft before you approve it.** A draft has `"publishedAt": null` and is not in the

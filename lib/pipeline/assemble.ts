@@ -4,10 +4,10 @@
  */
 
 import { createHash } from "node:crypto";
-import type { BuiltPaper, ContentStep, PaperContent, ResolvedFact, Sentence } from "../content/types";
+import type { BuiltPaper, ContentStep, FigureRef, PaperContent, ResolvedFact, Sentence } from "../content/types";
 import type { EvidenceGrade } from "../evidence";
 import { WEIGHT_TENTHS } from "../evidence";
-import { Editorial } from "./editorial";
+import { Editorial, LegacyEditorial, editorialShape, type FigureRef as FigureDef } from "./editorial";
 import { formatEstimate } from "./format";
 import type { Validated } from "./gate";
 import { parseMarkup, plain } from "./markup";
@@ -29,7 +29,8 @@ export function stableId(name: string): string {
 const WORDS_PER_MINUTE = 200;
 
 export function assemble(validated: Validated, editorialInput: unknown): BuiltPaper {
-  const ed = Editorial.parse(editorialInput);
+  // The lint has already decided whether this shape is allowed; assemble only builds.
+  const ed = editorialShape(editorialInput) === "legacy" ? LegacyEditorial.parse(editorialInput) : Editorial.parse(editorialInput);
   const paperId = stableId(`paper:${ed.slug}`);
   const stepId = (key: string) => stableId(`step:${ed.slug}:${key}`);
 
@@ -68,14 +69,40 @@ export function assemble(validated: Validated, editorialInput: unknown): BuiltPa
     };
   });
 
-  const content: Omit<PaperContent, "facts"> = {
-    hook: sentences(ed.hook),
-    populationPanel: sentences(ed.populationPanel),
-    sections: ed.sections.map((s) => ({ id: s.id, heading: s.heading, paragraphs: s.paragraphs.map(sentences) })),
-    limitations: ed.limitations.map(sentences),
-    primaryEstimate: ed.primaryEstimate,
-    simulator: { kind: ed.simulator.kind, params: {} },
-  };
+  const figure = (def: FigureDef | null): FigureRef | null =>
+    def ? { figure: def.figure, caption: sentences(def.caption), alt: plain(sentences(def.alt)) } : null;
+
+  // Key order is kept as it was for the old flat shape, so its generated files do not change.
+  const content: Omit<PaperContent, "facts"> = "layers" in ed
+    ? {
+      hook: sentences(ed.hook),
+      populationPanel: sentences(ed.populationPanel),
+      sections: [],
+      limitations: [],
+      layers: {
+        mechanism: { paragraphs: ed.layers.mechanism.paragraphs.map(sentences), figure: figure(ed.layers.mechanism.figure) },
+        protocol: { paragraphs: ed.layers.protocol.paragraphs.map(sentences), figure: figure(ed.layers.protocol.figure) },
+        audit: {
+          effect: sentences(ed.layers.audit.effect),
+          weakEnd: sentences(ed.layers.audit.weakEnd),
+          limitations: ed.layers.audit.limitations.map(sentences),
+          missed: sentences(ed.layers.audit.missed),
+          more: ed.layers.audit.more.map(sentences),
+          figure: figure(ed.layers.audit.figure),
+        },
+      },
+      glossary: ed.glossary,
+      primaryEstimate: ed.primaryEstimate,
+      simulator: { kind: ed.simulator.kind, params: {} },
+    }
+    : {
+      hook: sentences(ed.hook),
+      populationPanel: sentences(ed.populationPanel),
+      sections: ed.sections.map((s) => ({ id: s.id, heading: s.heading, paragraphs: s.paragraphs.map(sentences) })),
+      limitations: ed.limitations.map(sentences),
+      primaryEstimate: ed.primaryEstimate,
+      simulator: { kind: ed.simulator.kind, params: {} },
+    };
   used.add(ed.primaryEstimate);
 
   const resolve = (id: string): ResolvedFact => {
@@ -109,8 +136,15 @@ export function assemble(validated: Validated, editorialInput: unknown): BuiltPa
   const facts: Record<string, ResolvedFact> = {};
   for (const id of [...used].sort()) if (validated.facts[id]) facts[id] = resolve(id);
 
+  const layered = content.layers
+    ? [
+      ...content.layers.mechanism.paragraphs, ...content.layers.protocol.paragraphs,
+      content.layers.audit.effect, content.layers.audit.weakEnd, ...content.layers.audit.limitations,
+      content.layers.audit.missed, ...content.layers.audit.more,
+    ]
+    : [];
   const readWords = words(
-    [content.hook, content.populationPanel, ...content.sections.flatMap((s) => s.paragraphs), ...content.limitations]
+    [content.hook, content.populationPanel, ...content.sections.flatMap((s) => s.paragraphs), ...content.limitations, ...layered]
       .map(plain).join(" "),
   ).length;
 

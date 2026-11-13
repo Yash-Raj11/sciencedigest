@@ -1,7 +1,8 @@
 /**
  * Stage 4: the lint. Deterministic code; no model. Blocks publication.
  *
- * Every rule here is one of the content heuristics (H1-H8 in the brief) turned
+ * Every rule here is one of the content heuristics (H1-H11, listed in the
+ * science-content skill) turned
  * into something a machine can check. A heuristic that lives only in a prompt
  * is a wish; these cannot be talked out of it.
  *
@@ -9,10 +10,12 @@
  * approval queue shows the same report).
  */
 
-import { Editorial } from "./editorial";
+import { Editorial, LAYERS, LegacyEditorial, OLD_SHAPE_MESSAGE, editorialShape, type Layer } from "./editorial";
 import type { Validated } from "./gate";
 import { NON_HUMAN_DISCLAIMER } from "./grade";
+import { glossaryCovers, jargonIn } from "./jargon";
 import { parseMarkup, type Sentence } from "./markup";
+import { splitSentences, wordCount as countWords } from "./sentences";
 import { normalize, numbersIn, sharedShingles, words } from "./text";
 
 export interface LintIssue {
@@ -21,10 +24,28 @@ export interface LintIssue {
   message: string;
 }
 
+export interface LayerStats {
+  words: number;
+  sentences: number;
+  /** Average words per sentence, one decimal. */
+  average: number;
+  longest: number;
+}
+
 export interface LintReport {
   errors: LintIssue[];
   warnings: LintIssue[];
   wordCount: number;
+  /** Three-layer reads only: the size and sentence length of each layer (H10, H11). */
+  layers?: Record<Layer, LayerStats>;
+}
+
+export interface LintOptions {
+  /**
+   * Accept the old flat shape. Only content-build and the paper command pass
+   * this, and only for a slug on the temporary allowlist (scripts/legacy-shape.ts).
+   */
+  allowLegacyShape?: boolean;
 }
 
 // H1 ---------------------------------------------------------------------------
@@ -70,33 +91,88 @@ const SAFE_GLYPHS = /^[\x20-\x7e -ÿ–—‘’“”−×]*$/;
 export const MAX_SHARED_SHINGLES = 2;
 export const READ_WORDS = { min: 350, max: 1000 };
 
+// H10 ---------------------------------------------------------------------------
+/** The word budget of each layer. Working values; this is the one place they live. */
+export const LAYER_WORDS: Record<Layer, number> = { mechanism: 350, protocol: 150, audit: 250 };
+
+/** Caveats belong in the audit. None of these may appear in mechanism text. */
+export const CAVEAT_TERMS: [string, RegExp][] = [
+  ["limitation", /\blimitations?\b/i],
+  ["confound", /\bconfound/i],
+  ["self-reported", /\bself[- ]report(ed|s|ing)?\b/i],
+  ["p =", /\bp\s?=/i],
+  ["p<", /\bp\s?</i],
+  ["95%", /\b95\s?%/],
+  ["CI", /\bCIs?\b/],
+  ["sample size", /\bsample sizes?\b/i],
+  ["dropout", /\bdrop-?outs?\b|\bdropped out\b/i],
+  ["funded", /\bfund(ed|ing)\b/i],
+];
+
+// H11 ---------------------------------------------------------------------------
+export const SENTENCE_WORDS = { fail: 30, warn: 22 };
+
+export const THROAT_CLEARING: [string, RegExp][] = [
+  ["it is worth noting", /\bit is worth noting\b/i],
+  ["it should be noted", /\bit should be noted\b/i],
+  ["it is important to note", /\bit is important to note\b/i],
+  ["interestingly", /\binterestingly\b/i],
+  ["notably", /\bnotably\b/i],
+  ["the authors observed that", /\bthe authors observed that\b/i],
+  ["the results suggest that it may", /\bthe results suggest that it may\b/i],
+];
+
+/**
+ * A form of "to be" followed by a past participle. A hint, not a parser: it
+ * also fires on "was tired", and a passive is sometimes the honest way to say
+ * who did what ("sleep was recorded"). So this only ever warns.
+ */
+const IRREGULAR_PARTICIPLES =
+  "built|done|found|given|made|seen|shown|taken|told|kept|held|put|set|sent|known|drawn|chosen|written|led|left|lost|paid|sold|thought|brought|bought|caught|taught|worn|begun";
+export const PASSIVE_VOICE = new RegExp(
+  `\\b(am|is|are|was|were|be|been|being)\\s+(?:not\\s+)?(?:\\w+ly\\s+)?((?!(?:need|indeed|bed|hundred|speed|red|tired)\\b)\\w{3,}ed|${IRREGULAR_PARTICIPLES})\\b`, "i");
+
 interface Located {
   where: string;
   sentence: Sentence;
   headline: boolean;
+  /** Set for text inside one of the three layers. */
+  layer?: Layer;
 }
 
-export function lint(validated: Validated, editorialInput: unknown, source: string): LintReport {
+export function lint(validated: Validated, editorialInput: unknown, source: string, options: LintOptions = {}): LintReport {
   const errors: LintIssue[] = [];
   const warnings: LintIssue[] = [];
   const fail = (rule: string, where: string, message: string) => errors.push({ rule, where, message });
+  const warn = (rule: string, where: string, message: string) => warnings.push({ rule, where, message });
 
-  const parsed = Editorial.safeParse(editorialInput);
+  // Which shape? The old flat one is refused unless the caller vouches for it.
+  const shape = editorialShape(editorialInput);
+  if (shape === "mixed") {
+    fail("schema", "layers", "this read carries both shapes: remove sections and the top-level limitations once layers is written");
+    return { errors, warnings, wordCount: 0 };
+  }
+  if (shape === "legacy" && !options.allowLegacyShape) {
+    fail("schema", "layers", OLD_SHAPE_MESSAGE);
+    return { errors, warnings, wordCount: 0 };
+  }
+  const parsed = shape === "legacy" ? LegacyEditorial.safeParse(editorialInput) : Editorial.safeParse(editorialInput);
   if (!parsed.success) {
     for (const issue of parsed.error.issues) fail("schema", issue.path.join("."), issue.message);
     return { errors, warnings, wordCount: 0 };
   }
   const ed = parsed.data;
+  const layers = "layers" in ed ? ed.layers : null;
   const facts = validated.facts;
 
   // Collect every sentence a reader could see ----------------------------------
   const all: Located[] = [];
   const read: Located[] = [];
-  function take(where: string, markup: string, opts: { headline?: boolean; inRead?: boolean } = {}): Sentence[] {
+  function take(where: string, markup: string, opts: { headline?: boolean; inRead?: boolean; layer?: Layer } = {}): Sentence[] {
     try {
       const sentences = parseMarkup(markup);
       for (const sentence of sentences) {
-        const item = { where, sentence, headline: opts.headline ?? false };
+        const item: Located = { where, sentence, headline: opts.headline ?? false, layer: opts.layer };
         all.push(item);
         if (opts.inRead) read.push(item);
       }
@@ -111,13 +187,48 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   take("teaser", ed.teaser, { headline: true });
   take("hook", ed.hook, { headline: true, inRead: true });
   take("populationPanel", ed.populationPanel, { inRead: true });
+
+  /** Where the weak end of the headline range must be spelled out (H5), and the sentences found there. */
+  let weakEndWhere = "sections.lower-bound";
+  let weakEnd: Sentence[] = [];
+  let limitationSentences: Sentence[][] = [];
+  let limitationsWhere = "limitations";
   const bySection = new Map<string, Sentence[]>();
-  for (const section of ed.sections) {
-    const collected: Sentence[] = [];
-    section.paragraphs.forEach((p, i) => collected.push(...take(`sections.${section.id}[${i}]`, p, { inRead: true })));
-    bySection.set(section.id, collected);
+
+  if (layers) {
+    for (const layer of LAYERS) {
+      const body = layers[layer];
+      if ("paragraphs" in body) {
+        body.paragraphs.forEach((p, i) => take(`layers.${layer}[${i}]`, p, { inRead: true, layer }));
+      }
+      if (body.figure) {
+        take(`layers.${layer}.figure.caption`, body.figure.caption, { inRead: true, layer });
+        // Alt text is read aloud, not shown: held to every rule, but outside the word budget.
+        take(`layers.${layer}.figure.alt`, body.figure.alt);
+      }
+    }
+    const audit = layers.audit;
+    const effect = take("layers.audit.effect", audit.effect, { inRead: true, layer: "audit" });
+    if (!effect.some((s) => s.refs.includes(ed.primaryEstimate))) {
+      fail("H5", "layers.audit.effect", `the raw effect size must cite the headline result "${ed.primaryEstimate}"`);
+    }
+    weakEndWhere = "layers.audit.weakEnd";
+    weakEnd = take(weakEndWhere, audit.weakEnd, { inRead: true, layer: "audit" });
+    limitationsWhere = "layers.audit.limitations";
+    limitationSentences = audit.limitations.map((l, i) => take(`${limitationsWhere}[${i}]`, l, { inRead: true, layer: "audit" }));
+    take("layers.audit.missed", audit.missed, { inRead: true, layer: "audit" });
+    audit.more.forEach((p, i) => take(`layers.audit.more[${i}]`, p, { inRead: true, layer: "audit" }));
+  } else {
+    const legacy = ed as LegacyEditorial;
+    for (const section of legacy.sections) {
+      const collected: Sentence[] = [];
+      section.paragraphs.forEach((p, i) => collected.push(...take(`sections.${section.id}[${i}]`, p, { inRead: true })));
+      bySection.set(section.id, collected);
+    }
+    weakEnd = bySection.get("lower-bound") ?? [];
+    limitationSentences = legacy.limitations.map((l, i) => take(`limitations[${i}]`, l, { inRead: true }));
   }
-  const limitationSentences = ed.limitations.map((l, i) => take(`limitations[${i}]`, l, { inRead: true }));
+
   ed.takeaways.forEach((t, i) => take(`takeaways[${i}]`, t));
   ed.carousel.slides.forEach((slide, i) => {
     take(`carousel.slides[${i}].heading`, slide.heading, { headline: true });
@@ -205,35 +316,118 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   // H5: the interval of the headline result must be spelled out, or its absence stated
   const primaryFact = facts[ed.primaryEstimate];
   const primary = primaryFact?.estimate;
-  const lowerBound = bySection.get("lower-bound") ?? [];
   if (!primaryFact || (!primary && !primaryFact.finding)) {
     fail("H5", "primaryEstimate", `"${ed.primaryEstimate}" is not a verified estimate or finding`);
   } else if (primary && primary.ciLow !== null && primary.ciHigh !== null) {
-    const explained = lowerBound.some((s) => {
+    const explained = weakEnd.some((s) => {
       const have = numbersIn(s.text).map(Math.abs);
       return s.refs.includes(ed.primaryEstimate)
         && have.includes(Math.abs(primary.ciLow!)) && have.includes(Math.abs(primary.ciHigh!));
     });
     if (!explained) {
-      fail("H5", "sections.lower-bound", `must state both ends of the interval for "${ed.primaryEstimate}" and say what the weaker end means`);
+      fail("H5", weakEndWhere, `must state both ends of the interval for "${ed.primaryEstimate}" and say what the weaker end means`);
     }
   } else {
-    const disclosed = lowerBound.some((s) =>
+    const disclosed = weakEnd.some((s) =>
       s.refs.includes(ed.primaryEstimate) && /\bno\b[^.]*\bconfidence interval\b/i.test(s.text));
     if (!disclosed) {
-      fail("H5", "sections.lower-bound", `"${ed.primaryEstimate}" has no interval: a sentence citing it must say there is "no ... confidence interval"`);
+      fail("H5", weakEndWhere, `"${ed.primaryEstimate}" has no interval: a sentence citing it must say there is "no ... confidence interval"`);
     }
-    warnings.push({ rule: "H5", where: "primaryEstimate", message: "the headline result has no confidence interval; check the read says what that leaves unknown" });
+    warn("H5", "primaryEstimate", "the headline result has no confidence interval; check the read says what that leaves unknown");
   }
-  for (const id of ["lower-bound", "missed"]) {
-    if (!bySection.has(id)) fail("structure", "sections", `a section with id "${id}" is required`);
+  if (!layers) {
+    for (const id of ["lower-bound", "missed"]) {
+      if (!bySection.has(id)) fail("structure", "sections", `a section with id "${id}" is required`);
+    }
   }
 
   // H6: limitations ---------------------------------------------------------------
   limitationSentences.forEach((sentences, i) => {
     const cites = sentences.flatMap((s) => s.refs).some((r) => facts[r]?.kind === "limitation");
-    if (!cites) fail("H6", `limitations[${i}]`, "must cite a limitation extracted from the paper");
+    if (!cites) fail("H6", `${limitationsWhere}[${i}]`, "must cite a limitation extracted from the paper");
   });
+
+  // H9, H10, H11: the three-layer read --------------------------------------------
+  let layerStats: Record<Layer, LayerStats> | undefined;
+  if (layers) {
+    const glossary = "glossary" in ed ? ed.glossary : [];
+
+    // H11: voice. Every sentence a reader sees.
+    for (const { where, sentence } of all) {
+      for (const [phrase, pattern] of THROAT_CLEARING) {
+        if (pattern.test(sentence.text)) fail("H11", where, `throat-clearing "${phrase}": say the thing: "${sentence.text}"`);
+      }
+      for (const one of splitSentences(sentence.text)) {
+        const n = countWords(one);
+        if (n > SENTENCE_WORDS.fail) fail("H11", where, `a sentence of ${n} words; the limit is ${SENTENCE_WORDS.fail}: "${one}"`);
+        else if (n > SENTENCE_WORDS.warn) warn("H11", where, `a sentence of ${n} words; aim for ${SENTENCE_WORDS.warn} or fewer: "${one}"`);
+        if (PASSIVE_VOICE.test(one)) warn("H11", where, `possibly passive ("${PASSIVE_VOICE.exec(one)![0]}"); say who did it if you can: "${one}"`);
+      }
+    }
+
+    // H10: no caveats inside the mechanism layer.
+    for (const { where, sentence, layer } of all) {
+      if (layer !== "mechanism") continue;
+      for (const [term, pattern] of CAVEAT_TERMS) {
+        if (pattern.test(sentence.text)) fail("H10", where, `a caveat ("${term}") in the mechanism layer; it belongs in the audit: "${sentence.text}"`);
+      }
+    }
+
+    // H10: word budget and sentence length of each layer.
+    layerStats = {} as Record<Layer, LayerStats>;
+    for (const layer of LAYERS) {
+      const lengths = all.filter((a) => a.layer === layer).flatMap((a) => splitSentences(a.sentence.text)).map(countWords);
+      const total = lengths.reduce((sum, n) => sum + n, 0);
+      layerStats[layer] = {
+        words: total,
+        sentences: lengths.length,
+        average: lengths.length === 0 ? 0 : Math.round((total / lengths.length) * 10) / 10,
+        longest: Math.max(0, ...lengths),
+      };
+      if (total > LAYER_WORDS[layer]) fail("H10", `layers.${layer}`, `${total} words; the ${layer} layer has a budget of ${LAYER_WORDS[layer]}`);
+    }
+
+    // H9: a technical word needs its glossary entry, and the picture comes before the name.
+    const plainRead = all.filter((a) => a.layer === "mechanism" || a.layer === "protocol" || a.where === "hook" || a.where === "populationPanel");
+    const reported = new Set<string>();
+    for (const { where, sentence } of plainRead) {
+      for (const term of jargonIn(sentence.text)) {
+        if (reported.has(term) || glossary.some((g) => glossaryCovers(g.term, term))) continue;
+        reported.add(term);
+        fail("H9", where, `"${term}" is used with no glossary entry saying what it physically does: "${sentence.text}"`);
+      }
+    }
+    const opening = all.find((a) => a.layer === "mechanism");
+    if (opening) {
+      const first = splitSentences(opening.sentence.text)[0] ?? "";
+      const named = jargonIn(first);
+      if (named.length > 0) {
+        fail("H9", opening.where, `the mechanism opens with a technical word (${named.join(", ")}); give the mental model first, then the name: "${first}"`);
+      }
+    }
+    const seenTerms = new Set<string>();
+    const readLower = read.map((r) => r.sentence.text).join(" ").toLowerCase();
+    glossary.forEach((entry, i) => {
+      const where = `glossary[${i}]`;
+      const key = entry.term.toLowerCase();
+      if (seenTerms.has(key)) fail("glossary", where, `"${entry.term}" is defined twice`);
+      seenTerms.add(key);
+      const inside = jargonIn(entry.plain);
+      if (inside.length > 0) fail("H9", where, `the plain text for "${entry.term}" uses a technical word (${inside.join(", ")}); say what it physically does instead`);
+      if (/\d/.test(entry.plain)) fail("H7", where, `the plain text for "${entry.term}" carries a number; a glossary entry cannot cite a fact, so it carries none`);
+      for (const [term, pattern] of BANNED_TERMS) {
+        if (pattern.test(entry.plain)) fail("H1", where, `banned term "${term}"`);
+      }
+      for (const [phrase, pattern] of THROAT_CLEARING) {
+        if (pattern.test(entry.plain)) fail("H11", where, `throat-clearing "${phrase}"`);
+      }
+      for (const one of splitSentences(entry.plain)) {
+        const n = countWords(one);
+        if (n > SENTENCE_WORDS.fail) fail("H11", where, `a sentence of ${n} words; the limit is ${SENTENCE_WORDS.fail}`);
+      }
+      if (!readLower.includes(key)) warn("glossary", where, `"${entry.term}" is defined but never used in the read`);
+    });
+  }
 
   // H7 / H8: steps and simulator numbers trace to the paper ---------------------
   const keys = new Map(ed.steps.map((s) => [s.key, s]));
@@ -315,5 +509,5 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
     if (caption.length > CAROUSEL_LIMITS.caption) fail("carousel", "carousel.caption", `${caption.length} characters; Instagram allows ${CAROUSEL_LIMITS.caption}`);
   } catch { /* already reported as a markup error */ }
 
-  return { errors, warnings, wordCount };
+  return { errors, warnings, wordCount, ...(layerStats ? { layers: layerStats } : {}) };
 }

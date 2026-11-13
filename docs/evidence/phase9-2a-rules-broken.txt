@@ -1,0 +1,135 @@
+Each rule broken on purpose, one at a time. Tests run: lib/pipeline/layers.test.ts, scripts/content-build.test.ts, scripts/legacy-shape.test.ts
+
+BROKEN  check 1: the old flat shape is no longer refused by the lint
+        Tests  3 failed | 59 passed (62)
+        × refuses the old flat shape
+        × reports a draft in the old shape and does not build it
+        × stops the build for a published paper in the old shape that is not on the allowlist
+
+BROKEN  check 1: the schema no longer requires layers and a glossary
+        Tests  2 failed | 60 passed (62)
+        × refuses a read with no glossary, and a glossary entry with no plain text
+        × zod rejects the old flat shape outright
+
+BROKEN  check 1: a layer may be left out (audit made optional)
+        Tests  1 failed | 61 passed (62)
+        × refuses a read with no audit layer
+
+BROKEN  check 1: the audit's effect need not cite the headline result
+        Tests  1 failed | 61 passed (62)
+        × keeps the audit's own rules: the effect cites the headline result (H5), limitations cite a limitation (H6)
+
+BROKEN  check 2: a listed word no longer needs a glossary entry
+        Tests  3 failed | 59 passed (62)
+        × fails a listed word in the mechanism that has no glossary entry
+        × fails a listed word in the protocol that has no glossary entry
+        × fails when the entry that was covering a word is removed
+
+BROKEN  check 2: a glossary entry may use a listed word
+        Tests  1 failed | 61 passed (62)
+        × fails a glossary entry whose plain text uses a listed word
+
+BROKEN  check 2: the mechanism may open with the technical name
+        Tests  1 failed | 61 passed (62)
+        × fails a mechanism that opens with the name instead of the picture, glossary entry or not
+
+BROKEN  check 3: caveats are allowed in the mechanism layer
+        Tests  11 failed | 51 passed (62)
+        × also reads the caption of a mechanism figure
+        × fails "95%" in mechanism text
+        × fails "CI" in mechanism text
+        × fails "confound" in mechanism text
+        × fails "dropout" in mechanism text
+        × fails "funded" in mechanism text
+        × fails "limitation" in mechanism text
+        × fails "p =" in mechanism text
+        × fails "p<" in mechanism text
+        × fails "sample size" in mechanism text
+        × fails "self-reported" in mechanism text
+
+BROKEN  check 4: throat-clearing is allowed
+        Tests  8 failed | 54 passed (62)
+        × fails "interestingly"
+        × fails "it is important to note"
+        × fails "it is worth noting"
+        × fails "it should be noted"
+        × fails "notably"
+        × fails "the authors observed that"
+        × fails "the results suggest that it may"
+        × is checked outside the layers too: hook, audit, carousel
+
+BROKEN  check 5: no sentence is too long
+        Tests  1 failed | 61 passed (62)
+        × fails a sentence over 30 words
+
+BROKEN  check 5: the limit is raised from 30 to 40 words
+        Tests  1 failed | 61 passed (62)
+        × fails a sentence over 40 words
+
+BROKEN  check 5: the splitter forgets abbreviations (e.g., et al., vs.)
+        Tests  1 failed | 61 passed (62)
+        × splits sentences without tripping on abbreviations, initials or decimals
+
+BROKEN  check 5: the splitter splits inside decimals
+        Tests  1 failed | 61 passed (62)
+        × splits sentences without tripping on abbreviations, initials or decimals
+
+BROKEN  check 6: passive voice becomes an error
+        Tests  27 failed | 35 passed (62)
+        × allows the same sentence in the audit, where caveats belong
+        × also reads the caption of a mechanism figure
+        × counts two sentences behind one marker separately
+        × fails "interestingly"
+        × fails "it is important to note"
+        × fails "it is worth noting"
+        × fails "it should be noted"
+        × fails "notably"
+        × fails "the authors observed that"
+        × fails "the results suggest that it may"
+        × fails a glossary entry whose plain text uses a listed word
+        × fails a glossary entry with a number, a banned word or a duplicate
+        × fails a listed word in the mechanism that has no glossary entry
+        × fails a listed word in the protocol that has no glossary entry
+        × fails a mechanism layer over 350 words
+        × fails a mechanism that opens with the name instead of the picture, glossary entry or not
+        × fails a protocol layer over 150 words
+        × fails a sentence over 30 words
+        × fails an audit layer over 250 words
+        × fails when the entry that was covering a word is removed
+        × is checked outside the layers too: hook, audit, carousel
+        × keeps the audit's own rules: the effect cites the headline result (H5), limitations cite a limitation (H6)
+        × passes a layer filled exactly to its budget
+        × passes at 30 words and warns over 22
+        × passes every rule
+        × passes once the glossary says what the thing does
+        × warns and still passes
+
+BROKEN  check 6: passive voice is not reported at all
+        Tests  1 failed | 61 passed (62)
+        × warns and still passes
+
+BROKEN  check 7: no layer has a word budget
+        Tests  3 failed | 59 passed (62)
+        × fails a mechanism layer over 350 words
+        × fails a protocol layer over 150 words
+        × fails an audit layer over 250 words
+
+BROKEN  check 7: the mechanism budget is raised from 350 to 500
+        Tests  2 failed | 60 passed (62)
+        × fails a mechanism layer over 350 words
+        × is one constant
+
+BROKEN  allowlist: a fourth paper is added to it
+        Tests  3 failed | 59 passed (62)
+        × names only papers that exist and are still in the old flat shape
+        × names only the three starter papers
+        × stops the build for a published paper in the old shape that is not on the allowlist
+
+BROKEN  allowlist: 2E is ticked in (a copy of) docs/PROGRESS.md while the allowlist still has entries
+        Tests  1 failed | 61 passed (62)
+        × is empty once step 2E is ticked in docs/PROGRESS.md
+
+RESTORED  every file put back
+        Tests  62 passed (62)
+
+caught: 19, not caught: 0

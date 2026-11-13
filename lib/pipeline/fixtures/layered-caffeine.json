@@ -1,0 +1,40 @@
+{
+  "_": "TEST FIXTURE, not a published read. The three-layer part of a read about content/papers/daytime-caffeine-sleep, written only from that paper's extraction.json. lib/pipeline/layers.test.ts lays it over the paper's editorial.json and breaks one thing at a time.",
+  "layers": {
+    "mechanism": {
+      "paragraphs": [
+        "Think of a daily caffeine habit as a loan the body learns to expect. [-] The authors cite earlier work in which a week of regular caffeine blunted its effect on sleep, even at high evening doses. [tolerance] The researchers expected less deep sleep on caffeine and did not find it. [no_depth_change]",
+        "One signal did move. [-] During non-REM sleep, brain activity in the sigma band was lower on caffeine nights than on placebo nights. [sigma] The authors read this as an early sign of withdrawal, already present 8 hours after the last dose. [sigma_meaning]",
+        "So the loan comes due every night. [-] A daily habit may mean starting a small withdrawal each night and undoing it with the first cup each morning. [daily_reverse]"
+      ],
+      "figure": null
+    },
+    "protocol": {
+      "paragraphs": [
+        "The trial tested one schedule: a capsule 45, 255 and 475 minutes after waking, for 10 days. [schedule] Each capsule held 150 mg of caffeine. [dose]",
+        "Bedtime in the laboratory fell 8 hours after the last capsule. [recording] The trial did not test a shorter gap. [-] At home, the men went to bed about 25 minutes later on caffeine than on placebo. [later_bed]"
+      ],
+      "figure": null
+    },
+    "audit": {
+      "effect": "The paper's text gives no effect size for sleep. [sleep_same] It says only that total sleep time, time to fall asleep and sleep stages did not differ significantly from placebo. [sleep_same]",
+      "weakEnd": "The paper reports these comparisons with no confidence interval, only as not statistically significant. [sleep_same] With twenty men, a real difference of a few minutes could sit inside that result unnoticed. [sample, lim_n] Read it as no large disruption detected in this group, not as proof of none. [sleep_same]",
+      "limitations": [
+        "Only men took part, so the result may not hold for women. [lim_male]",
+        "All were aged 18 to 35, and the authors say middle-aged people are more vulnerable to what caffeine does to sleep. [who, lim_young]",
+        "Twenty participants is a small trial. [sample, lim_n]"
+      ],
+      "missed": "Most summaries stop at the sleep result. [-] They leave out a warning from the authors. [not_after_abstinence] After several days without caffeine, the same morning cup could still disturb sleep. [not_after_abstinence]",
+      "more": [
+        "The men did not know which capsules they were taking, and each went through all three conditions in random order. [blind]",
+        "Their own ratings of how they slept did not differ between conditions either. [quality_same]"
+      ],
+      "figure": null
+    }
+  },
+  "glossary": [
+    { "term": "non-REM sleep", "plain": "The stages of sleep without vivid dreams, deep sleep included." },
+    { "term": "sigma band", "plain": "A range of brain-wave speeds that shows up during sleep." },
+    { "term": "placebo", "plain": "A capsule with nothing active in it, used for comparison." }
+  ]
+}

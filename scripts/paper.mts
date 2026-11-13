@@ -23,6 +23,7 @@ import { checkLicense } from "../lib/pipeline/license";
 import { lint } from "../lib/pipeline/lint";
 import { EDITORIAL_SYSTEM, EXTRACT_SYSTEM, editorialPrompt, extractPrompt } from "../lib/pipeline/prompts";
 import { findRetracted, parseRetractionWatch } from "../lib/pipeline/retractions";
+import { LEGACY_SHAPE_ALLOWLIST } from "./legacy-shape";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const PAPERS = `${ROOT}content/papers`;
@@ -58,7 +59,8 @@ function runGate(slug: string) {
 }
 
 function runLint(slug: string, validated: NonNullable<ReturnType<typeof runGate>>): boolean {
-  const report = lint(validated, readJson(`${dirOf(slug)}/editorial.json`), readFileSync(`${dirOf(slug)}/source.txt`, "utf8"));
+  const report = lint(validated, readJson(`${dirOf(slug)}/editorial.json`), readFileSync(`${dirOf(slug)}/source.txt`, "utf8"),
+    { allowLegacyShape: LEGACY_SHAPE_ALLOWLIST.includes(slug) });
   for (const issue of report.errors) console.log(`  - [${issue.rule}] ${issue.where}: ${issue.message}`);
   for (const issue of report.warnings) console.log(`  warning: [${issue.rule}] ${issue.where}: ${issue.message}`);
   console.log(report.errors.length === 0 ? `lint ok: ${report.wordCount} words` : `LINT FAILED (${report.errors.length})`);

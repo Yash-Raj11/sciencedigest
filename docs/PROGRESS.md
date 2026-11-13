@@ -47,10 +47,13 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
 
 ## Step 2: Phase 9, readable reads
 
-- [ ] 2A. H9–H11 and amended H7 in CLAUDE.md and `lib/pipeline/lint.ts`: (1) layered schema +
+- [x] 2A. H9–H11 and amended H7 in CLAUDE.md and `lib/pipeline/lint.ts`: (1) layered schema +
       glossary, (2) jargon list, (3) caveat leakage, (4) throat-clearing, (5) sentence length
       and own splitter, (6) passive voice warning, (7) word budget. Each with a failing fixture.
       Temporary allowlist for the three papers, with a test that fails if it outlives 2E.
+      Done: 224 unit tests; 19 of 19 deliberate breaks caught
+      (`docs/evidence/phase9-2a-rules-broken.txt`). For the owner to confirm: the reading of
+      "before its glossary entry" (BUILD-LOG 2026-11-13, step 2A).
 - [ ] 2B. Context sources: parallel studies (`content/context/`, gated, graded, retraction check)
       and background concepts (`content/concepts/`, no digits, owner approval command). Source
       lines. Check `paper_content` JSON first. No change to scoring files or migrations.

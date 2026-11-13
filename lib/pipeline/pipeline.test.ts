@@ -28,6 +28,14 @@ const load = (slug: string) => {
 };
 const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
 
+/**
+ * The starter papers are still in the old flat shape, which the lint accepts only
+ * for a slug on the temporary allowlist (scripts/legacy-shape.ts). Step 2E
+ * rewrites them and removes this option; lib/pipeline/layers.test.ts covers the
+ * three-layer shape.
+ */
+const LEGACY = { allowLegacyShape: true };
+
 const steps = load("steps-days-per-week");
 const hiit = load("hiit-body-composition");
 const caffeine = load("daytime-caffeine-sleep");
@@ -50,14 +58,14 @@ function gateErrors(mutate: (extraction: any) => void, source = steps.source): s
 function lintErrors(paper: typeof steps, mutate: (editorial: any) => void): string[] {
   const editorial = clone(paper.editorial);
   mutate(editorial);
-  return lint(validated(paper), editorial, paper.source).errors.map((e) => `${e.rule} ${e.where}: ${e.message}`);
+  return lint(validated(paper), editorial, paper.source, LEGACY).errors.map((e) => `${e.rule} ${e.where}: ${e.message}`);
 }
 const fact = (extraction: any, id: string) => extraction.facts.find((f: any) => f.id === id);
 
 describe("the three starter papers", () => {
   it.each([["steps", steps], ["hiit", hiit], ["caffeine", caffeine]])("%s passes the gate and the lint", (_name, paper) => {
     const v = validated(paper);
-    expect(lint(v, paper.editorial, paper.source).errors).toEqual([]);
+    expect(lint(v, paper.editorial, paper.source, LEGACY).errors).toEqual([]);
   });
 });
 

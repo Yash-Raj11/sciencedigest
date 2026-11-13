@@ -138,6 +138,12 @@ Streak: consecutive days with a tick, counted to yesterday if today has none yet
 | H6 | At least one limitation, shown prominently | lint |
 | H7 | Every number in a widget traces to a fact in the paper | build fails on bare numbers |
 | H8 | No score claims to measure the body. A tick means an action was taken | scoring design, companion test |
+| H9 | Feynman layer. Never use a technical term without immediately saying what it physically does in plain English. Give the mental model first, then the name of the pathway | lint + `lib/pipeline/jargon.ts` |
+| H10 | Progressive disclosure. Every read has three separate layers: mechanism (why it happens), protocol (what the data supports), audit (design, sample size, raw effect size, the mandatory limitation). No caveats inside the mechanism layer. The audit stays visible without a tap (H6) | schema (`lib/pipeline/editorial.ts`) + lint |
+| H11 | Voice. Short sentences, active voice, no academic throat-clearing | lint + `lib/pipeline/sentences.ts` |
+
+H7 was amended on 2026-11-13: every number shown to a reader traces to a gated fact, from the
+paper or from a gated context source, and the UI says which.
 
 Licences accepted: **CC-BY, CC-BY-SA, CC0 only.** Every extracted fact carries a verbatim quote
 that must be found in the paper, or the extraction is rejected.

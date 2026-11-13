@@ -450,3 +450,68 @@ session. No bug. Output in `docs/evidence/pre3-live-409.txt`.
 - **Anthropic's frontend-design skill is not available in this Claude Code** (it is not in the
   session's skill list, and nothing was installed). 2C, 2D and Phase 11 are designed by hand
   against the ten colour tokens and the two fonts.
+
+## 2026-11-13, Phase 9, step 2A: H9–H11 in code
+
+No reader sees a change yet: the three papers build to byte-identical generated files
+(`git status` after `npm run content:build` shows none of them changed).
+
+- **The shape (check 1).** `lib/pipeline/editorial.ts` now has two schemas. `Editorial`
+  (required for every paper): the old top-level fields plus `layers.mechanism { paragraphs,
+  figure }`, `layers.protocol { paragraphs, figure }`, `layers.audit { effect, weakEnd,
+  limitations, missed, more, figure }` and `glossary [{ term, plain }]`. `LegacyEditorial` is the
+  old flat shape. The lint refuses the old shape ("this read is in the old flat shape …") unless
+  its caller passes `allowLegacyShape`; a read with both `layers` and `sections` is refused too.
+- **Nothing was loosened in the move.** The old shape's required sections became required audit
+  fields: "lower-bound" is `audit.weakEnd` (same H5 check: both ends of the range, or the words
+  "no … confidence interval"), "missed" is `audit.missed`, the limitations are
+  `audit.limitations` (same H6 check). New: `audit.effect` must cite `primaryEstimate`, so the
+  raw effect size is always in the receipts. Design and sample size are not in the editorial at
+  all: the page takes them from the gate's output, so a model cannot restate them wrongly.
+- **Jargon (check 2), and how "before its glossary entry" was read.** The glossary is a list
+  beside the text, so "before" has no position to compare. Implemented as two rules: (a) a
+  listed word in the hook, the population panel, the mechanism or the protocol with no glossary
+  entry fails; (b) a listed word in the mechanism's opening sentence fails even with an entry,
+  which is H9's "the mental model first, then the name". (b) is this session's reading, not
+  the owner's wording: **for the owner to confirm or drop.** A glossary entry's plain text
+  fails on a listed word, a number (it has no way to cite a fact; background with a source
+  arrives with concepts in 2B) or a banned word. The list is the owner's 21 words, in
+  `lib/pipeline/jargon.ts`, each with the written forms that count ("randomised",
+  "up-regulates", "VO₂max", "non-REM"). `REM` matches capitals only.
+- **Caveat leakage (check 3).** The owner's ten terms, on mechanism text and on the caption of a
+  mechanism figure. Two are matched a little wider than written: "funded" also catches
+  "funding", "dropout" also catches "drop-out" and "dropped out".
+- **Sentences (check 5).** `lib/pipeline/sentences.ts`, no dependency. When unsure it does not
+  split, so two sentences read as one count as a longer sentence: the rule errs strict. A stop
+  ends a sentence only before white space and then a capital, digit, quote or bracket; never
+  after `e.g. i.e. et al. vs. etc. cf. approx. ca. fig. Dr. Mr. Mrs. Ms. Prof.` or a single
+  initial. Words are counted as a reader counts them ("8-hour" is one). Over 30 fails, over 22
+  warns, and both run on every sentence a reader sees in a three-layer read (title, teaser,
+  takeaways and carousel included), not only the layers.
+- **Passive voice warns, never fails (check 6).** The check is a pattern ("was" + a participle),
+  not a parser. It fires on adjectives ("was tired") and misses passives with irregular verbs
+  outside its list. And a passive is sometimes the accurate sentence: "sleep was recorded" says
+  what the paper says without inventing who held the electrodes. A rule that is wrong that
+  often would have to be worked around, which is how rules get loosened; as a warning it is
+  read by a person at the draft.
+- **Word budget (check 7).** `LAYER_WORDS` in `lib/pipeline/lint.ts`: mechanism 350, protocol
+  150, audit 250. Working values. A figure's caption counts toward its layer; its alt text is
+  held to every rule but not counted. The population panel sits inside the protocol layer on
+  the page but is not counted in the protocol's 150 (it has its own H3 job); it still counts
+  toward the whole read's 1000-word limit.
+- **The temporary allowlist** is `scripts/legacy-shape.ts` (its own file so a test can import
+  it without running the build), used by `content-build.mts` and `paper.mts`. Guard,
+  `scripts/legacy-shape.test.ts`: only the three starter slugs; each must still be in the old
+  shape (rewrite one and its entry must go); and the list must be empty once the 2E line in
+  `docs/PROGRESS.md` is ticked. In 2E the file and the option are deleted.
+- **A draft in the old shape is reported, not built**; a published one stops the build
+  (`scripts/content-build.test.ts`, which runs the real script on a scratch folder through two
+  new test-only flags, `--papers <dir>` and `--report-only`).
+- **Fixture.** `lib/pipeline/fixtures/layered-caffeine.json` is a three-layer read of the
+  caffeine paper written only from its `extraction.json`. It is a test fixture, not the 2E
+  rewrite: it has no concepts and no figure.
+- **Evidence.** 19 deliberate breaks, one at a time, each caught by a named test:
+  `docs/evidence/phase9-2a-rules-broken.txt`. The first run caught 18: removing the splitter's
+  abbreviation rule passed, because every test case had a lower-case word after "e.g." and the
+  capital-letter rule alone kept those in one piece. Three cases with a capital or a bracket
+  after the stop were added; second run 19 of 19.

@@ -87,12 +87,45 @@ export interface ReadSection {
   paragraphs: Sentence[][];
 }
 
+/** A picture drawn in code, named in the paper's figure registry. */
+export interface FigureRef {
+  figure: string;
+  caption: Sentence[];
+  alt: string;
+}
+
+/** H10: the three layers of a read. */
+export interface ReadLayers {
+  /** Why it happens. */
+  mechanism: { paragraphs: Sentence[][]; figure: FigureRef | null };
+  /** What the data supports. */
+  protocol: { paragraphs: Sentence[][]; figure: FigureRef | null };
+  /** The receipts. Design and sample size come from PaperMeta. */
+  audit: {
+    effect: Sentence[];
+    weakEnd: Sentence[];
+    limitations: Sentence[][];
+    missed: Sentence[];
+    more: Sentence[][];
+    figure: FigureRef | null;
+  };
+}
+
+export interface GlossaryEntry {
+  term: string;
+  plain: string;
+}
+
 /** Gated: this is what lives in paper_content.content_json. */
 export interface PaperContent {
   hook: Sentence[];
   populationPanel: Sentence[];
+  /** Old flat shape. Empty for a three-layer read; removed with the allowlist in step 2E. */
   sections: ReadSection[];
   limitations: Sentence[][];
+  /** The three-layer read (H10). Absent only on the old flat shape. */
+  layers?: ReadLayers;
+  glossary?: GlossaryEntry[];
   primaryEstimate: string;
   facts: Record<string, ResolvedFact>;
   simulator: { kind: string; params: Record<string, unknown> };

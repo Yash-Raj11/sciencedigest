@@ -54,7 +54,7 @@ No caveats inside the mechanism layer. The audit stays visible without a tap (H6
   "layers": {
     "mechanism": {               // why it happens. At most 350 words. No caveats (H10).
       "paragraphs": ["..."],     // model first, then the name (H9)
-      "figure": { "figure": "id", "caption": "...", "alt": "..." }   // or null
+      "figure": { "figure": "id", "caption": "...", "alt": "..." }   // or null; any layer may have one
     },
     "protocol": {                // what the data supports. At most 150 words.
       "paragraphs": ["..."]      // the tested parameters
@@ -77,15 +77,21 @@ never from the editorial.
 
 What the lint checks on the layers (`npm run content:build` prints all of it):
 
-- A word on the jargon list (`lib/pipeline/jargon.ts`) in mechanism or protocol text needs a
-  glossary entry, and may not sit in the opening sentence of the mechanism. A glossary entry's
-  plain text may not use a listed word.
+- A word on the jargon list (`lib/pipeline/jargon.ts`) in the hook, the population panel, the
+  mechanism or the protocol needs a glossary entry, and may not sit in the opening sentence of
+  the mechanism. A glossary entry's plain text may not use a listed word, a number or a banned
+  word.
 - Mechanism text may not contain: limitation, confound, self-reported, "p =", "p<", 95%, CI,
   sample size, dropout, funded.
 - No throat-clearing: "it is worth noting", "it should be noted", "it is important to note",
   "interestingly", "notably", "the authors observed that", "the results suggest that it may".
-- A sentence over 30 words fails; over 22 warns. Passive voice warns.
-- Word budgets: mechanism 350, protocol 150, audit 250.
+- A sentence over 30 words fails; over 22 warns. Passive voice warns. Both are checked on every
+  sentence a reader sees, the carousel included.
+- Word budgets: mechanism 350, protocol 150, audit 250. The build prints each layer's words,
+  average sentence and longest sentence.
+- The audit's `effect` must cite `primaryEstimate`; `weakEnd` must give both ends of its 95%
+  range, or say in so many words that the paper reports "no confidence interval".
+- A figure's caption and alt text are markup too: a number in either cites its fact.
 
 ## Workflow
 
