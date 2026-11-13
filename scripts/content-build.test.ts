@@ -53,7 +53,11 @@ describe("content-build and the old flat shape", () => {
 
   it("still builds the real papers", () => {
     const { status, output } = build("content/papers");
-    expect(output).toContain("3 papers would be built (daytime-caffeine-sleep, hiit-body-composition, steps-days-per-week)");
+    // Whatever is published today: the three starter papers at least, and any approved since.
+    expect(output).toMatch(/\b([3-9]|\d{2,}) papers would be built \(/);
+    for (const slug of ["daytime-caffeine-sleep", "hiit-body-composition", "steps-days-per-week"]) {
+      expect(output).toMatch(new RegExp(`papers would be built \\([^)]*\\b${slug}\\b`));
+    }
     expect(status).toBe(0);
   }, 30000);
 });

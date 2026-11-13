@@ -605,3 +605,24 @@ Generated files are unchanged. `content/context/` and `content/concepts/` hold o
   it. No test was added for it: there is no published layered read to test against yet, and
   2D's walkthrough spec is where that belongs.
 - No figure: 2C and 2D are not done.
+
+## 2026-11-13: paper pages raised a Next.js error in dev (all four papers, not only the new one)
+
+- **Symptom.** `next dev` showed "Route "/papers/[slug]": Next.js encountered URL data during
+  prerendering or a navigation", and at times "Invariant: ... did not produce a static shell",
+  on every paper page. Pages still answered 200 and `npm run build` passed.
+- **Cause.** `app/papers/[slug]/page.tsx` awaited `params` at the top of the page, outside
+  `<Suspense>`. With Cache Components, Next 16 checks in development that a route has something
+  to show before the address is known. Nothing in `Article.tsx`, the interim three-layer layout
+  or the Background card reads cookies, headers, search params, a session or the clock on the
+  server; the three old papers failed the same way, and the slug was in `generateStaticParams`.
+- **Fix.** The slug is read in a child component inside `<Suspense>` (the "stream" fix from
+  `node_modules/next/dist/docs/.../instant.md`). `instant = false` would only have hidden it.
+  `ensureStatic = "navigation"` stays, so an unknown slug still answers 404 (test:http).
+- **Test.** `tests/browser/paper-routes-dev.spec.ts` starts its own `next dev`
+  (`.next-browser-dev/`) and opens every published paper. It uses no `page.route()`:
+  intercepting requests makes the browser fetch the page in a way that skips these dev checks,
+  and the first version of the test passed with the bug present because of that.
+- **Also.** Two unit tests hard-coded "3 papers" and would have failed the moment a fourth
+  paper is approved; they now accept any count of three or more.
+- Evidence: `docs/evidence/paper-route-dev-error.txt`.

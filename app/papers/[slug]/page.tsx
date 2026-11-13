@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { Article } from "@/components/read/Article";
 import { getPaper, papers } from "@/lib/content";
 
@@ -25,7 +26,24 @@ export async function generateMetadata({ params }: PageProps<"/papers/[slug]">):
   return { title: paper.title, description: paper.teaser };
 }
 
-export default async function PaperPage({ params }: PageProps<"/papers/[slug]">) {
+/**
+ * The slug is read inside <Suspense>, never at the top of the page. Reading
+ * `params` outside a boundary leaves the route with nothing to show until the
+ * address is known: `next dev` then reports "encountered URL data during
+ * prerendering or a navigation" on every paper, and at times "did not produce
+ * a static shell". Every listed slug is still pre-built in full, and
+ * ensureStatic above still makes an unknown one answer 404.
+ * Tested by tests/browser/paper-routes-dev.spec.ts.
+ */
+export default function PaperPage({ params }: PageProps<"/papers/[slug]">) {
+  return (
+    <Suspense fallback={<div aria-busy className="h-40 rounded-2xl bg-surface" />}>
+      <PaperRead params={params} />
+    </Suspense>
+  );
+}
+
+async function PaperRead({ params }: Pick<PageProps<"/papers/[slug]">, "params">) {
   const paper = getPaper((await params).slug);
   if (!paper) notFound();
   return <Article paper={paper} />;

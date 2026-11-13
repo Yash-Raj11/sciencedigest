@@ -113,7 +113,8 @@ describe("npm run retractions covers content/context/", () => {
     expect(build(t).status).toBe(0);
 
     const { status, output } = sync(t, csvFor(t.root, OTHER_DOI.toUpperCase()));
-    expect(output).toContain("checked against 3 published papers and 1 context study");
+    // The number of published papers grows; the one context study is this test's own.
+    expect(output).toMatch(/checked against \d+ published papers and 1 context study/);
     expect(output).toContain(`RETRACTED CONTEXT STUDY: ${OTHER} (${OTHER_DOI})`);
     expect(output).toContain("cited by: daytime-caffeine-sleep");
     expect(status).toBe(1);

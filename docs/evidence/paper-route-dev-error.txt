@@ -1,0 +1,84 @@
+BEFORE the fix (paper published locally with a temporary date): npx playwright test tests/browser/paper-routes-dev.spec.ts
+
+
+Running 4 tests using 1 worker
+
+  ✘  1 [chromium] › tests/browser/paper-routes-dev.spec.ts:64:3 › /papers/turmeric-pepper-breakfast opens in dev with no route error (4.1s)
+  ✘  2 [chromium] › tests/browser/paper-routes-dev.spec.ts:64:3 › /papers/steps-days-per-week opens in dev with no route error (4.1s)
+  ✘  3 [chromium] › tests/browser/paper-routes-dev.spec.ts:64:3 › /papers/daytime-caffeine-sleep opens in dev with no route error (3.9s)
+  ✘  4 [chromium] › tests/browser/paper-routes-dev.spec.ts:64:3 › /papers/hiit-body-composition opens in dev with no route error (3.9s)
+
+
+  1) [chromium] › tests/browser/paper-routes-dev.spec.ts:64:3 › /papers/turmeric-pepper-breakfast opens in dev with no route error 
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "Error: Route \"/papers/[slug]\": Next.js encountered URL data during prerendering or a navigation.",
+    + ]
+
+      90 |     // The dev checks report a moment after the page has loaded.
+      91 |     await page.waitForTimeout(2500);
+    > 92 |     expect(seen.filter((line) => ROUTE_ERROR.test(line)).map((line) => line.split("\n")[0])).toEqual([]);
+         |                                                                                              ^
+      93 |     expect(serverLog.slice(logFrom).split("\n").filter((line) => ROUTE_ERROR.test(line))).toEqual([]);
+      94 |   });
+      95 | }
+
+    Error Context: test-results/paper-routes-dev--papers-t-0f28c--in-dev-with-no-route-error-chromium/error-context.md
+
+    Error Context: test-results/paper-routes-dev--papers-t-0f28c--in-dev-with-no-route-error-chromium/error-context.md
+
+  2) [chromium] › tests/browser/paper-routes-dev.spec.ts:64:3 › /papers/steps-days-per-week opens in dev with no route error 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 3
+
+    - Array []
+    + Array [
+    +   "Error: Route \"/papers/[slug]\": Next.js encountered URL data during prerendering or a navigation.",
+    + ]
+
+      90 |     // The dev checks report a moment after the page has loaded.
+
+Server log, before, one of each:
+Error [InvariantError]: Invariant: Route "/papers/[slug]" did not produce a static shell and Next.js was unable to determine a reason. This is a bug in Next.js.
+    at ignore-listed frames
+ GET /papers/turmeric-pepper-breakfast 200 in 45ms (next.js: 1.0ms, generate-params: 1.8ms, application-code: 42ms)
+Error: Route "/papers/[slug]": Next.js encountered URL data during prerendering or a navigation.
+
+`params` or `searchParams` accessed outside of `<Suspense>` may prevent the navigation from being instant, leading to a slower user experience.
+
+Ways to fix this:
+  - [stream] Provide a placeholder with `<Suspense fallback={...}>` around the data access
+  - [block] Set `export const instant = false` to allow a blocking route
+
+Learn more: https://nextjs.org/docs/messages/instant-shell-url-data
+    at PaperPage (app/papers/[slug]/page.tsx:29:33)
+Error: Route "/papers/[slug]": Next.js encountered URL data during prerendering or a navigation.
+
+`params` or `searchParams` accessed outside of `<Suspense>` may prevent the navigation from being instant, leading to a slower user experience.
+
+Ways to fix this:
+  - [stream] Provide a placeholder with `<Suspense fallback={...}>` around the data access
+  - [block] Set `export const instant = false` to allow a blocking route
+
+Learn more: https://nextjs.org/docs/messages/instant-shell-url-data
+    at PaperPage (app/papers/[slug]/page.tsx:29:33)
+  27 |
+  28 | export default async function PaperPage({ params }: PageProps<"/papers/[slug]">) {
+> 29 |   const paper = getPaper((await params).slug);
+     |                                 ^
+  30 |   if (!paper) notFound();
+  31 |   return <Article paper={paper} />;
+  32 | }
+
+AFTER the fix, same state (4 papers):
+  4 passed: turmeric-pepper-breakfast, steps-days-per-week, daytime-caffeine-sleep, hiit-body-composition
+  npm run build: exit 0; test:http 7 passed (unknown slug still 404); browser suite 10 passed; unit 272 passed
+AFTER, as committed (paper back to draft, 3 papers): unit 272, test:http 6, browser 9, all passed

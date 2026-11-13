@@ -41,6 +41,7 @@ const eslintConfig = defineConfig([
   globalIgnores([
     ".next/**",
     ".next-browser/**", // the browser test's own build (playwright.config.ts)
+    ".next-browser-dev/**", // the dev server of tests/browser/paper-routes-dev.spec.ts
     "test-results/**",
     "playwright-report/**",
     "out/**",
