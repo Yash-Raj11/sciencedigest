@@ -430,3 +430,23 @@ session. No bug. Output in `docs/evidence/pre3-live-409.txt`.
   is never worked around. HANDOFF and the Resume prompt say the same.
 - **HANDOFF section 7, Phases 9 and 10** now only point to the master prompt, so there is one
   place to change the steps.
+
+## 2026-11-13, Step 1: three project skills
+
+- **`.claude/skills/science-content`, `db-change`, `phase-handoff`**, each with a description
+  that says when to load it. `CLAUDE.md` stays the always-on contract: the rules table is
+  unchanged and one line per skill was added (68 lines before, 74 after).
+- **Where H1–H8 were copied from.** The master prompt says "copied word for word from
+  CLAUDE.md", but `CLAUDE.md` has never listed H1–H8; it has the condensed rules table. The only
+  place they are written out is `docs/HANDOFF.md`, section 5, so the skill copies that table
+  word for word and says so. The prompt named the wrong file; no wording had to be guessed.
+  H9–H11 and the amended H7 are copied from the master prompt, Step 2A.
+- **The three-layer shape in the skill** is the one Step 2A builds (`layers.mechanism`,
+  `layers.protocol`, `layers.audit`, `glossary`). The skill is corrected in the same commit as
+  any later change to `lib/pipeline/editorial.ts`.
+- **The hosted test "psql wrapper"** was never a file in the repository (it was typed in the
+  owner's Terminal on 2026-11-12). The skill writes it out as a four-line loop over
+  `supabase/tests/database/*.test.sql`.
+- **Anthropic's frontend-design skill is not available in this Claude Code** (it is not in the
+  session's skill list, and nothing was installed). 2C, 2D and Phase 11 are designed by hand
+  against the ten colour tokens and the two fonts.

@@ -33,16 +33,17 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       Resume prompt added to HANDOFF section 8.
 - [x] Master prompt copy checked against the owner's original with `diff` (identical); the
       live-site browser amendment corrected; HANDOFF Phase 9 and 10 reduced to pointers.
-- [ ] ⏸ **Stopped at the owner's instruction. Step 1 starts in a fresh session** (Resume prompt:
-      `docs/HANDOFF.md`, section 8).
+- [x] ⏸ **Stopped at the owner's instruction. Step 1 starts in a fresh session** (Resume prompt:
+      `docs/HANDOFF.md`, section 8). Fresh session started 2026-11-13.
 
 ## Step 1: skills (no stop)
 
-- [ ] `.claude/skills/science-content/SKILL.md`
-- [ ] `.claude/skills/db-change/SKILL.md`
-- [ ] `.claude/skills/phase-handoff/SKILL.md`
-- [ ] CLAUDE.md: one line per skill; line count before and after (about +10 at most).
-- [ ] Note whether Anthropic's frontend-design skill is available (use in 2C, 2D, 4; do not install).
+- [x] `.claude/skills/science-content/SKILL.md`
+- [x] `.claude/skills/db-change/SKILL.md`
+- [x] `.claude/skills/phase-handoff/SKILL.md`
+- [x] CLAUDE.md: one line per skill; line count before and after (about +10 at most). 68 → 74.
+- [x] Note whether Anthropic's frontend-design skill is available (use in 2C, 2D, 4; do not install).
+      Not available in this Claude Code; nothing installed (BUILD-LOG 2026-11-13).
 
 ## Step 2: Phase 9, readable reads
 

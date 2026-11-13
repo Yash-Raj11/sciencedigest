@@ -59,6 +59,12 @@ when it is kept (`npm run db:mutation` does this for the database).
 11. **Ask before changing** the database shape, scoring meaning, or anything that touches stored
     user history. These are expensive to undo.
 
+## Skills: load the one that matches before you start
+
+- `science-content`: before editing `content/**`, `lib/pipeline/prompts.ts`, carousel text, or any wording a reader sees.
+- `db-change`: before editing `supabase/**`, `lib/score.ts`, `lib/evidence.ts`, or anything that calls the database.
+- `phase-handoff`: when the owner types `/phase-handoff`, and at the end of each phase.
+
 ## Style
 
 - Opinionated, small, production-ready. No new dependency without a reason in the commit body.
