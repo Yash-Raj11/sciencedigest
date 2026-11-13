@@ -6,6 +6,7 @@
  * is a rule nobody has seen work.
  */
 
+import { FIGURE_KEYS } from "../content/figures";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { assemble, stableId } from "./assemble";
@@ -34,7 +35,8 @@ const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
  * rewrites them and removes this option; lib/pipeline/layers.test.ts covers the
  * three-layer shape.
  */
-const LEGACY = { allowLegacyShape: true };
+// The real papers each carry a figure now, so the lint needs the list of figures the app can draw.
+const LEGACY = { allowLegacyShape: true, figures: FIGURE_KEYS };
 
 const steps = load("steps-days-per-week");
 const hiit = load("hiit-body-composition");

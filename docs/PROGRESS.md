@@ -59,8 +59,8 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       lines. Check `paper_content` JSON first. No change to scoring files or migrations.
       Done: 272 unit, 6 HTTP, 6 browser tests; 20 of 20 deliberate breaks caught. Gate:
       `docs/evidence/phase9-2b-gate.txt`.
-- [ ] ⏸ Stop with the 2B gate.
-- [ ] 2C. Figures as React SVG: ten primitives, widget guard extended (two failing fixtures),
+- [x] ⏸ Stop with the 2B gate. (Owner gave the go-ahead for 2C on 2026-11-13.)
+- [x] 2C. Figures as React SVG: ten primitives, widget guard extended (two failing fixtures),
       title/desc/alt, reduced motion, 360 px; one mechanism figure per starter paper;
       screenshots in `docs/evidence/figures/`.
 - [ ] 2D. Rebuild `components/read/Article.tsx` (hook, mechanism, pull-number, protocol,

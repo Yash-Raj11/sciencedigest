@@ -1,0 +1,34 @@
+caught       an unknown figure is accepted
+               × is refused when the figure is not in lib/content/figures.ts 6ms
+caught       empty alt text is accepted
+               × is refused when the alt text is empty 5ms
+caught       a bare number in figure params is accepted
+               × refuses a bare number in the params 4ms
+caught       a number not in the cited passage is accepted
+               × refuses a number that is not in the cited passage 14ms
+caught       text with a digit is accepted in figure params
+               × refuses text with a digit unless it is { text, ref } found in the passage 4ms
+caught       { text, ref } is not checked against the passage
+               × refuses text with a digit unless it is { text, ref } found in the passage 16ms
+caught       measured may cite a discussion sentence
+               × refuses something drawn as measured that cites a discussion sentence 4ms
+caught       proposed may cite a result
+               × refuses something drawn as proposed that cites a result 5ms
+caught       a measured or proposed element needs no fact
+               × refuses a measured or proposed element with no fact, and any other kind 3ms
+caught       a context source is accepted in a figure
+               × refuses a context source inside a figure 5ms
+caught       a primitive draws a mismatch
+               × a primitive refuses to draw a mismatch 3ms
+caught       guard: digits typed into figure text
+               × refuses a digit typed into a figure's text 12ms
+caught       guard: numeric literal outside a geometry prop
+               × refuses a numeric literal outside a geometry prop 10ms
+caught       guard: digits inside a figure's own strings
+               × refuses a digit inside one of a figure's own strings 12ms
+caught       guard: store and Supabase imports in figure primitives
+               × refuses a shared primitive that imports the store 16ms
+caught       guard: store and Supabase imports in a paper's figure
+               × refuses a figure that imports the store 19ms
+
+2C rules broken on purpose: caught: 16, not caught: 0

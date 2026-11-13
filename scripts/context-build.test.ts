@@ -43,7 +43,7 @@ function tree(options: { conceptReviewed: boolean; citeStudy: boolean }) {
   cpSync("content/papers/daytime-caffeine-sleep", join(papers, "daytime-caffeine-sleep"), { recursive: true });
   const editorialPath = join(papers, "daytime-caffeine-sleep", "editorial.json");
   const old = JSON.parse(readFileSync(editorialPath, "utf8"));
-  const base = Object.fromEntries(Object.entries(old).filter(([key]) => !["sections", "limitations", "layers", "glossary"].includes(key)));
+  const base = Object.fromEntries(Object.entries(old).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary"].includes(key)));
   const layers = JSON.parse(JSON.stringify(fixture.layers));
   if (options.citeStudy) layers.audit.more.push(`Another study counted the steps of 3101 adults. [${OTHER}/sample]`);
   writeFileSync(editorialPath, JSON.stringify({ ...base, publishedAt: "2026-11-13T00:00:00Z", layers, glossary: fixture.glossary }, null, 2));

@@ -32,6 +32,7 @@ import { fileURLToPath } from "node:url";
 import { complete, parseJsonReply } from "../lib/ai/provider";
 import { CONCEPT_SLUG, approved } from "../lib/pipeline/concepts";
 import { readSearchRecord, xmlToText } from "../lib/pipeline/europepmc";
+import { FIGURE_KEYS } from "../lib/content/figures";
 import { gate } from "../lib/pipeline/gate";
 import { checkLicense } from "../lib/pipeline/license";
 import { lint } from "../lib/pipeline/lint";
@@ -88,7 +89,7 @@ function runGate(slug: string) {
 function runLint(slug: string, validated: NonNullable<ReturnType<typeof runGate>>): { ok: boolean; unreviewed: string[] } {
   const { context } = loadContext(CONTEXT, CONCEPTS);
   const report = lint(validated, readJson(`${dirOf(slug)}/editorial.json`), readFileSync(`${dirOf(slug)}/source.txt`, "utf8"),
-    { allowLegacyShape: LEGACY_SHAPE_ALLOWLIST.includes(slug), context });
+    { allowLegacyShape: LEGACY_SHAPE_ALLOWLIST.includes(slug), context, figures: FIGURE_KEYS });
   for (const issue of report.errors) console.log(`  - [${issue.rule}] ${issue.where}: ${issue.message}`);
   for (const issue of report.warnings) console.log(`  warning: [${issue.rule}] ${issue.where}: ${issue.message}`);
   console.log(report.errors.length === 0 ? `lint ok: ${report.wordCount} words` : `LINT FAILED (${report.errors.length})`);

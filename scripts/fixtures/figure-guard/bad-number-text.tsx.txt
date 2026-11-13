@@ -1,0 +1,10 @@
+import { Figure } from "@/components/figures/Figure";
+import { Label } from "@/components/figures/primitives";
+
+export default function Bad({ alt }: { alt: string }) {
+  return (
+    <Figure title="A typed-in number" desc={alt} height={60}>
+      <Label x={8} y={20}>Lower after 30 minutes</Label>
+    </Figure>
+  );
+}

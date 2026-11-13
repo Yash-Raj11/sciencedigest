@@ -626,3 +626,43 @@ Generated files are unchanged. `content/context/` and `content/concepts/` hold o
 - **Also.** Two unit tests hard-coded "3 papers" and would have failed the moment a fourth
   paper is approved; they now accept any count of three or more.
 - Evidence: `docs/evidence/paper-route-dev-error.txt`.
+
+## 2026-11-13: Phase 9 step 2C, figures
+
+- **Ten primitives** in `components/figures/primitives/` (Arrow, Label, Bracket, Timeline,
+  DoseCurve, BarPair, Gauge, LockKey, Cell, Flow) and one frame, `Figure.tsx`, that carries
+  `<title>`, `<desc>` and the single entrance animation. Colours are the tokens only.
+- **Measured against proposed is one rule, in one place** (`lib/content/figures.ts`): solid and
+  filled means this paper measured it and must cite an estimate or a finding; dashed and
+  outlined means the authors propose it and must cite the sentence where they do, never a
+  result. It is checked twice: the content build refuses a mismatch in a figure's params, and
+  the primitive throws rather than draw one. Reason for both: the build catches it early with a
+  clear message; the primitive means no figure file can route around the build.
+- **A figure's `params`** (new on `{figure, caption, alt}`) are walked like a simulator's, and
+  held tighter: no bare number, no text with a digit unless it is `{ text, ref }` found word for
+  word in the cited passage, no context source. `{ text, ref }` exists because the paper prints
+  "p = .023" and `.023` is not a number the `{ n, ref }` check can match.
+- **The list of figures** is `FIGURE_KEYS` in `lib/content/figures.ts`. The build fails on a
+  figure not listed; the typecheck fails when a listed figure has no component in the registry.
+- **The figure guard** (`eslint.config.mjs`): no numeric literal outside a geometry prop, no
+  digit in JSX text or in a figure's own strings. The import guard now also covers
+  `components/figures/`. Seven fixtures in `scripts/fixtures/figure-guard/`.
+- **The old flat shape may carry one `figure`** until 2E moves it into `layers.mechanism`.
+  Reason: the three starter papers are not rewritten until 2E and the owner asked to see their
+  figures now.
+- **One fact added to the caffeine extraction**, `adenosine_block`, quoted from the paper's
+  introduction. The lock-and-key figure needs the paper to say that caffeine blocks adenosine
+  receptors, and no existing fact did. It is drawn as proposed.
+- **The steps figure has no arrow**, and the browser test fails if an observational paper's
+  figure ever contains one.
+- **Turmeric has two figures**: the doorbell in the mechanism layer (every arrow dashed; only
+  the last box, lower blood glucose, is filled) and the five readings in the protocol layer (no
+  curve, no y-axis). The paper is still a draft.
+- **Shown now** in the interim article layout, after the first paragraph of the layer (old
+  shape: of the first section). 2D places them properly.
+- **Evidence.** 16 rules broken on purpose, each caught by a unit test
+  (`docs/evidence/phase9-2c-rules-broken.txt`); 5 browser-visible breaks
+  (`phase9-2c-browser-rules-broken.txt`), one of which only failed once the break really
+  overflowed a 360 px screen. Screenshots: `docs/evidence/figures/`.
+- `supabase/seed.sql` changed (generated): the members' read now carries its figure. The hosted
+  database has not been touched; the live members' read shows no figure until a seed push.

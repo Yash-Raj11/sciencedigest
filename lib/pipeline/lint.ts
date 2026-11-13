@@ -15,6 +15,7 @@ import type { ConceptState } from "./concepts";
 import type { Validated, ValidatedFact } from "./gate";
 import { NON_HUMAN_DISCLAIMER } from "./grade";
 import { glossaryCovers, jargonIn } from "./jargon";
+import { EVIDENCE_KINDS, evidenceKindProblem, figureKey, type EvidenceKind } from "../content/figures";
 import { parseMarkup, type Sentence } from "./markup";
 import { isContextRef, parseRef } from "./refs";
 import { splitSentences, wordCount as countWords } from "./sentences";
@@ -63,6 +64,8 @@ export interface LintOptions {
   allowLegacyShape?: boolean;
   /** The gated context studies and the concept files. Without it, any context reference fails. */
   context?: LintContext;
+  /** Every figure the app can draw, as "<slug>/<figure>" (lib/content/figures.ts). Without it, any figure fails. */
+  figures?: readonly string[];
 }
 
 // H1 ---------------------------------------------------------------------------
@@ -297,6 +300,10 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
     }
     weakEnd = bySection.get("lower-bound") ?? [];
     limitationSentences = legacy.limitations.map((l, i) => take(`limitations[${i}]`, l, { inRead: true }));
+    if (legacy.figure) {
+      take("figure.caption", legacy.figure.caption, { inRead: true });
+      take("figure.alt", legacy.figure.alt);
+    }
   }
 
   ed.takeaways.forEach((t, i) => take(`takeaways[${i}]`, t));
@@ -559,17 +566,29 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
     }
   }
 
-  (function walk(node: unknown, path: string) {
+  /**
+   * Everything a simulator or a figure shows comes through its params, so no
+   * value in them may be loose: a number is { n, ref }, a fact is "fact:<id>".
+   * A figure is held tighter still: text with a digit in it must be
+   * { text, ref } and appear word for word in the cited passage, and anything
+   * drawn as measured or proposed must cite a fact of the right kind.
+   */
+  function walkParams(node: unknown, path: string, what: "simulator" | "figure"): void {
     if (typeof node === "number") {
-      fail("H7", path, "a bare number in simulator params; use \"fact:<id>\" or { n, ref } so it traces to the paper");
+      fail("H7", path, `a bare number in ${what} params; use "fact:<id>" or { n, ref } so it traces to the paper`);
     } else if (typeof node === "string" && node.startsWith("fact:")) {
-      if (isContextRef(node.slice(5))) fail("context", path, `"${node}" is a context source; a simulator draws only the paper's own facts`);
+      if (isContextRef(node.slice(5))) fail("context", path, `"${node}" is a context source; a ${what} draws only the paper's own facts`);
       else if (!facts[node.slice(5)]) fail("H7", path, `"${node}" is not in the validated extraction`);
+    } else if (typeof node === "string") {
+      if (what === "figure" && /\d/.test(node)) {
+        fail("H7", path, `"${node}" carries a number; in a figure use { n, ref } or { text, ref } so it traces to the paper`);
+      }
     } else if (Array.isArray(node)) {
-      node.forEach((child, i) => walk(child, `${path}[${i}]`));
+      node.forEach((child, i) => walkParams(child, `${path}[${i}]`, what));
     } else if (node !== null && typeof node === "object") {
       const record = node as Record<string, unknown>;
-      if (typeof record.n === "number" && typeof record.ref === "string" && Object.keys(record).length === 2) {
+      const keys = Object.keys(record);
+      if (typeof record.n === "number" && typeof record.ref === "string" && keys.length === 2) {
         const fact = facts[record.ref];
         if (!fact) fail("H7", path, `ref "${record.ref}" is not in the validated extraction`);
         else if (!numbersIn(fact.quote).map(Math.abs).includes(Math.abs(record.n))) {
@@ -577,9 +596,45 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
         }
         return;
       }
-      for (const [key, child] of Object.entries(record)) walk(child, `${path}.${key}`);
+      if (what === "figure" && typeof record.text === "string" && typeof record.ref === "string" && keys.length === 2) {
+        const fact = facts[record.ref];
+        if (!fact) fail("H7", path, `ref "${record.ref}" is not in the validated extraction`);
+        else if (!normalize(fact.quote).includes(normalize(record.text))) {
+          fail("H7", path, `"${record.text}" does not appear in the passage for "${record.ref}"`);
+        }
+        return;
+      }
+      if (what === "figure" && "kind" in record) {
+        const kind = record.kind;
+        if (!(EVIDENCE_KINDS as readonly unknown[]).includes(kind)) {
+          fail("figure", path, `kind must be "measured" or "proposed", not ${JSON.stringify(kind)}`);
+        } else if (typeof record.fact !== "string" || !record.fact.startsWith("fact:")) {
+          fail("figure", path, `a "${kind}" element must cite the fact it rests on, as fact: "fact:<id>"`);
+        } else {
+          const cited = facts[record.fact.slice(5)];
+          const problem = cited ? evidenceKindProblem(kind as EvidenceKind, cited) : null;
+          if (problem) fail("figure", path, `drawn as ${kind}, but ${problem}`);
+        }
+      }
+      for (const [key, child] of Object.entries(record)) walkParams(child, `${path}.${key}`, what);
     }
-  })(ed.simulator.params, "simulator.params");
+  }
+  walkParams(ed.simulator.params, "simulator.params", "simulator");
+
+  // Figures: known to the app, described for people who cannot see them, and drawn only from facts.
+  const figureDefs: [string, { figure: string; alt: string; params: Record<string, unknown> }][] = layers
+    ? LAYERS.flatMap((layer) => (layers[layer].figure ? [[`layers.${layer}.figure`, layers[layer].figure!] as [string, typeof layers.mechanism.figure & object]] : []))
+    : ((ed as LegacyEditorial).figure ? [["figure", (ed as LegacyEditorial).figure!]] : []);
+  for (const [where, def] of figureDefs) {
+    const key = figureKey(ed.slug, def.figure);
+    if (!(options.figures ?? []).includes(key)) {
+      fail("figure", where, `unknown figure "${key}"; it is not listed in lib/content/figures.ts`);
+    }
+    let altWords = 0;
+    try { altWords = countWords(parseMarkup(def.alt).map((s) => s.text).join(" ")); } catch { /* reported as markup above */ }
+    if (altWords < 4) fail("figure", `${where}.alt`, "empty alt text: describe in a sentence what the picture shows, for a reader who cannot see it");
+    walkParams(def.params, `${where}.params`, "figure");
+  }
 
   // Copying from the source ---------------------------------------------------------
   const readText = read.map((r) => r.sentence.text).join(" ");

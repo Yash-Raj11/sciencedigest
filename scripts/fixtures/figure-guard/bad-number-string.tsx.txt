@@ -1,0 +1,10 @@
+import { Figure } from "@/components/figures/Figure";
+import { Bracket } from "@/components/figures/primitives";
+
+export default function Bad({ alt }: { alt: string }) {
+  return (
+    <Figure title="A number inside a string" desc={alt} height={60}>
+      <Bracket x1={8} x2={300} y={30} lines={["differed (p = .023)"]} />
+    </Figure>
+  );
+}

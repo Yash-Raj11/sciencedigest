@@ -1,0 +1,7 @@
+import { createClient } from "@supabase/supabase-js";
+import { Figure } from "@/components/figures/Figure";
+
+export default function Bad({ alt }: { alt: string }) {
+  void createClient;
+  return <Figure title="Talks to the database" desc={alt} height={60}>{null}</Figure>;
+}

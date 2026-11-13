@@ -58,6 +58,30 @@
     "Body composition was measured with different tools from trial to trial, from skinfold calipers to DEXA scans. [lim_methods]",
     "The fat-free-mass result disappears when a single trial is removed. [lim_loo]"
   ],
+  "figure": {
+    "figure": "what-was-measured",
+    "caption": "The three pooled results, each with its range. [ffm_all, fm_all, bf_all]",
+    "alt": "Three lines, each with a mark for no change. [-] Fat-free mass: 0.51 kg more. [ffm_all] Fat mass: 1.86 kg less. [fm_all] Body fat percentage: 1.53 points less. [bf_all]",
+    "params": {
+      "rows": [
+        {
+          "label": "Fat-free mass",
+          "kind": "measured",
+          "fact": "fact:ffm_all"
+        },
+        {
+          "label": "Fat mass",
+          "kind": "measured",
+          "fact": "fact:fm_all"
+        },
+        {
+          "label": "Body fat percentage",
+          "kind": "measured",
+          "fact": "fact:bf_all"
+        }
+      ]
+    }
+  },
   "takeaways": [
     "If lean mass is the aim, the supported combination in these trials was cycling intervals, three sessions a week, for more than 8 weeks. [ffm_cycling, ffm_3wk, ffm_over8]",
     "Keep work bursts to 60 seconds or less: longer bursts showed no clear gain in fat-free mass, with an interval from 2.28 kg lost to 0.57 kg gained. [ffm_le60, ffm_gt60]",

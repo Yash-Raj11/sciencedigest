@@ -21,7 +21,58 @@
         "That chain fits what the trial saw. [-] After the pepper breakfast, blood glucose was lower than after the plain one. [glucose_lower] The gap showed at the 30-minute reading. [glucose_30] Hunger was lower too. [appetite]",
         "Turmeric did not follow the script. [-] On its own, 1 g did nothing to blood glucose. [turmeric_none] The authors' explanation is the dose: they call it low. [turmeric_dose]"
       ],
-      "figure": null
+      "figure": {
+        "figure": "doorbell",
+        "caption": "The authors' explanation, step by step. [trpv1, glp1] A dashed arrow is a step the trial did not measure. [lim_hormones]",
+        "alt": "Four boxes, top to bottom, joined by dashed arrows. [-] Pepper touches the mouth. [-] A sensor there fires. [-] The gut sends its food-has-arrived message. [-] Blood sugar rises less. [-] Only the last box is filled. [-]",
+        "params": {
+          "nodes": [
+            {
+              "lines": [
+                "Pepper touches the mouth"
+              ],
+              "kind": "proposed",
+              "fact": "fact:trpv1"
+            },
+            {
+              "lines": [
+                "A sensor there fires"
+              ],
+              "kind": "proposed",
+              "fact": "fact:trpv1_mouth"
+            },
+            {
+              "lines": [
+                "The gut sends its",
+                "“food has arrived” message"
+              ],
+              "kind": "proposed",
+              "fact": "fact:glp1"
+            },
+            {
+              "lines": [
+                "Blood sugar rises less"
+              ],
+              "kind": "measured",
+              "fact": "fact:glucose_lower"
+            }
+          ],
+          "links": [
+            {
+              "kind": "proposed",
+              "fact": "fact:trpv1"
+            },
+            {
+              "kind": "proposed",
+              "fact": "fact:glp1"
+            },
+            {
+              "kind": "proposed",
+              "fact": "fact:trpv1_mouth"
+            }
+          ]
+        }
+      }
     },
     "protocol": {
       "paragraphs": [
@@ -29,7 +80,80 @@
         "A second version added 1 g of turmeric to the pepper. [meals] It showed the same early glucose difference, and tasters liked it more than pepper alone. [glucose_30, taste_rank] Turmeric without pepper showed no glucose effect. [turmeric_none]",
         "Each version was eaten once. [single_meal, washout] The trial did not test a daily habit. [lim_long_term]"
       ],
-      "figure": null
+      "figure": {
+        "figure": "five-readings",
+        "caption": "Each dot is one reading. [timepoints] Orange marks the readings that differed from the plain meal. [glucose_30]",
+        "alt": "Four rows of five dots, one row for each meal. [-] The readings were at 0, 30, 60, 120 and 180 minutes. [timepoints] At 30 minutes, the pepper meal and the both-spices meal are marked as differing from the plain meal. [glucose_30] A bracket over all five readings says the total showed no difference. [glucose_total]",
+        "params": {
+          "times": [
+            {
+              "n": 0,
+              "ref": "timepoints"
+            },
+            {
+              "n": 30,
+              "ref": "timepoints"
+            },
+            {
+              "n": 60,
+              "ref": "timepoints"
+            },
+            {
+              "n": 120,
+              "ref": "timepoints"
+            },
+            {
+              "n": 180,
+              "ref": "timepoints"
+            }
+          ],
+          "unit": "min",
+          "meals": [
+            {
+              "label": "Plain",
+              "differed": []
+            },
+            {
+              "label": "Pepper",
+              "differed": [
+                {
+                  "n": 30,
+                  "ref": "glucose_30"
+                }
+              ]
+            },
+            {
+              "label": "Turmeric",
+              "differed": []
+            },
+            {
+              "label": "Both spices",
+              "differed": [
+                {
+                  "n": 30,
+                  "ref": "glucose_30"
+                }
+              ]
+            }
+          ],
+          "pValue": {
+            "text": ".023",
+            "ref": "glucose_30"
+          },
+          "early": {
+            "kind": "measured",
+            "fact": "fact:glucose_30",
+            "at": {
+              "n": 30,
+              "ref": "glucose_30"
+            }
+          },
+          "total": {
+            "kind": "measured",
+            "fact": "fact:glucose_total"
+          }
+        }
+      }
     },
     "audit": {
       "effect": "The paper's text gives no size for the glucose difference. [glucose_30] It says only that the two pepper meals differed from the plain meal at 30 minutes, with p = .023. [glucose_30]",

@@ -52,6 +52,45 @@
     "This is an observational study. [cohort] People in poor health walk less and are more likely to die, and no adjustment removes that completely. [confounding]",
     "Wearing a tracker can make people more active for that week, which would place some usually inactive people in the wrong group. [hawthorne]"
   ],
+  "figure": {
+    "figure": "seen-together",
+    "caption": "The gap in deaths that went with days at 8,000 steps. [threshold, ard_1_2, ard_3_7] The study watched people and assigned nothing, so this figure has no arrow. [-]",
+    "alt": "Two bars and a bracket. [-] For people with 1 to 2 step days a week, the risk of death was 14.9 points lower. [threshold, ard_1_2] For people with 3 to 7 step days, it was 16.5 points lower. [threshold, ard_3_7] The bracket under both bars says they were seen together. [-]",
+    "params": {
+      "threshold": {
+        "n": 8000,
+        "ref": "threshold"
+      },
+      "years": {
+        "n": 10,
+        "ref": "followup"
+      },
+      "few": {
+        "kind": "measured",
+        "fact": "fact:ard_1_2",
+        "from": {
+          "n": 1,
+          "ref": "threshold"
+        },
+        "to": {
+          "n": 2,
+          "ref": "threshold"
+        }
+      },
+      "many": {
+        "kind": "measured",
+        "fact": "fact:ard_3_7",
+        "from": {
+          "n": 3,
+          "ref": "threshold"
+        },
+        "to": {
+          "n": 7,
+          "ref": "threshold"
+        }
+      }
+    }
+  },
   "takeaways": [
     "If a daily target keeps failing, the study's lowest active group is a reasonable place to start: 8,000 steps on 1 to 2 days a week. [threshold, ard_1_2]",
     "Past 3 to 4 such days the association flattened, so a missed day is no reason to write off the week. [plateau]",

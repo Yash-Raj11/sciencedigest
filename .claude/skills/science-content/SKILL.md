@@ -121,6 +121,35 @@ feeds a simulator, or changes an evidence weight.**
 - Check a concept's reference against the source before writing it. Never from memory.
 - Do not add a context study on your own: propose its DOI and say why.
 
+## Figures
+
+A figure is React SVG drawn in code: `components/papers/<slug>/figures/`, built from the
+primitives in `components/figures/primitives/`, listed in `lib/content/figures.ts` and registered
+in `components/papers/registry.tsx`. A layer references one:
+
+```jsonc
+"figure": {
+  "figure": "five-readings",
+  "caption": "Each dot is one reading. [timepoints]",      // markup: a number cites its fact
+  "alt": "Four rows of five dots, one row for each meal. [-]",  // markup too; never empty
+  "params": {                                             // everything the picture shows
+    "times": [{ "n": 30, "ref": "timepoints" }],          // a number: { n, ref }
+    "pValue": { "text": ".023", "ref": "glucose_30" },    // text with a digit: { text, ref }
+    "early": { "kind": "measured", "fact": "fact:glucose_30" }
+  }
+}
+```
+
+- **Solid lines and filled shapes are what this paper measured. Dashed lines and outlined shapes
+  are the authors' explanation.** `kind: "measured"` must cite an estimate or a finding;
+  `kind: "proposed"` must cite the sentence where the authors propose it, never a result. The
+  build refuses a mismatch, and the primitive refuses to draw one.
+- A figure file holds no number of its own outside a geometry prop (x, y, width, r ...), and no
+  digit in its text. Sums and formatting live in `components/figures/format.ts`.
+- An observational study gets no arrow. Draw the association with a bracket.
+- Never draw a curve, a height or an axis value the paper does not print.
+- A figure uses only its own paper's facts: no context study, no concept.
+
 ## Workflow
 
 1. Edit the source JSON: `content/papers/<slug>/editorial.json` (or a file in `content/context/`

@@ -622,6 +622,57 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         }
       ]
     ],
+    "figure": {
+      "figure": "lock-and-key",
+      "caption": [
+        {
+          "text": "How caffeine acts, as the paper describes it.",
+          "refs": [
+            "adenosine_block"
+          ]
+        },
+        {
+          "text": "The filled box is what the sleep laboratory recorded.",
+          "refs": [
+            "sleep_same"
+          ]
+        }
+      ],
+      "alt": "A lock with its own key in it, labelled adenosine. Below it, the same lock holds a blank key, labelled caffeine. The real key waits outside. Two boxes follow. The first, outlined, says the authors expected lighter sleep. The second, filled, says the sleep laboratory found no difference from placebo nights.",
+      "params": {
+        "lock": {
+          "kind": "proposed",
+          "fact": {
+            "id": "adenosine_block",
+            "kind": "context",
+            "label": "How caffeine acts, as the authors describe it: it blocks adenosine receptors and may hold back sleep pressure",
+            "quote": "Caffeine is an adenosine receptor antagonist, which blocks the Aand Aadenosine receptors in the central nervous system. It may, thus, attenuate the increase in sleep pressure during wakefulness"
+          }
+        },
+        "expected": {
+          "kind": "proposed",
+          "fact": {
+            "id": "no_depth_change",
+            "kind": "statement",
+            "label": "The predicted loss of deep sleep was not found",
+            "quote": "Taken together, we could not confirm our assumption of a caffeine-induced reduction of sleep depth, neither in terms of shorter SWS nor in terms of reduced SWA in the caffeine compared to the placebo condition."
+          }
+        },
+        "found": {
+          "kind": "measured",
+          "fact": {
+            "id": "sleep_same",
+            "kind": "finding",
+            "label": "no significant difference from placebo (p > 0.05); the text reports no effect size",
+            "quote": "the analyses of the polysomnography (PSG) did not reveal significant differences in total sleep time (TST), sleep efficiency (SE), sleep latencies, or the relative amount of sleep stages among the three conditions (> 0.05)",
+            "finding": {
+              "outcome": "Total sleep time, time to fall asleep and sleep stages",
+              "tier": "low"
+            }
+          }
+        }
+      }
+    },
     "primaryEstimate": "sleep_same",
     "simulator": {
       "kind": "caffeine-timeline",
@@ -707,6 +758,12 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       }
     },
     "facts": {
+      "adenosine_block": {
+        "id": "adenosine_block",
+        "kind": "context",
+        "label": "How caffeine acts, as the authors describe it: it blocks adenosine receptors and may hold back sleep pressure",
+        "quote": "Caffeine is an adenosine receptor antagonist, which blocks the Aand Aadenosine receptors in the central nervous system. It may, thus, attenuate the increase in sleep pressure during wakefulness"
+      },
       "blind": {
         "id": "blind",
         "kind": "context",
@@ -1063,6 +1120,88 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         }
       ]
     ],
+    "figure": {
+      "figure": "seen-together",
+      "caption": [
+        {
+          "text": "The gap in deaths that went with days at 8,000 steps.",
+          "refs": [
+            "threshold",
+            "ard_1_2",
+            "ard_3_7"
+          ]
+        },
+        {
+          "text": "The study watched people and assigned nothing, so this figure has no arrow.",
+          "refs": []
+        }
+      ],
+      "alt": "Two bars and a bracket. For people with 1 to 2 step days a week, the risk of death was 14.9 points lower. For people with 3 to 7 step days, it was 16.5 points lower. The bracket under both bars says they were seen together.",
+      "params": {
+        "threshold": {
+          "n": 8000,
+          "ref": "threshold"
+        },
+        "years": {
+          "n": 10,
+          "ref": "followup"
+        },
+        "few": {
+          "kind": "measured",
+          "fact": {
+            "id": "ard_1_2",
+            "kind": "estimate",
+            "label": "Fully adjusted risk difference, 1-2 days vs 0 days, all-cause",
+            "quote": "all-cause mortality risk was lower among those who took 8000 steps or more 1 to 2 days per week (aRD, −14.9%; 95% CI −18.8% to −10.9%)",
+            "estimate": {
+              "outcome": "10-year risk of death from any cause",
+              "measure": "aRD",
+              "point": -14.9,
+              "ciLow": -18.8,
+              "ciHigh": -10.9,
+              "unit": "points",
+              "absolute": true,
+              "tier": "low"
+            }
+          },
+          "from": {
+            "n": 1,
+            "ref": "threshold"
+          },
+          "to": {
+            "n": 2,
+            "ref": "threshold"
+          }
+        },
+        "many": {
+          "kind": "measured",
+          "fact": {
+            "id": "ard_3_7",
+            "kind": "estimate",
+            "label": "Fully adjusted risk difference, 3-7 days vs 0 days, all-cause",
+            "quote": "3 to 7 days per week (aRD, −16.5%; 95% CI, −20.4% to −12.5%)",
+            "estimate": {
+              "outcome": "10-year risk of death from any cause",
+              "measure": "aRD",
+              "point": -16.5,
+              "ciLow": -20.4,
+              "ciHigh": -12.5,
+              "unit": "points",
+              "absolute": true,
+              "tier": "low"
+            }
+          },
+          "from": {
+            "n": 3,
+            "ref": "threshold"
+          },
+          "to": {
+            "n": 7,
+            "ref": "threshold"
+          }
+        }
+      }
+    },
     "primaryEstimate": "ard_1_2",
     "simulator": {
       "kind": "steps-days",

@@ -1,0 +1,10 @@
+import { Figure } from "@/components/figures/Figure";
+import { Label } from "@/components/figures/primitives";
+
+export default function Good({ params, alt }: { params: { minutes: { n: number; ref: string } }; alt: string }) {
+  return (
+    <Figure title="A reading" desc={alt} height={60}>
+      <Label x={8} y={20} size={12}>{`A reading after ${params.minutes.n} minutes`}</Label>
+    </Figure>
+  );
+}

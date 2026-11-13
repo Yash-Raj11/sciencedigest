@@ -11,12 +11,12 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { SimulatorFor, WidgetFor } from "@/components/papers/registry";
+import { FigureFor, SimulatorFor, WidgetFor } from "@/components/papers/registry";
 import { GradeChip, Notice } from "@/components/protocol/primitives";
 import { DESIGN_LABEL, freeContent } from "@/lib/content";
 import { loadRead, type Gated } from "@/lib/content/gated";
 import { BACKGROUND, FROM_THE_PAPER, conceptReference, contextSourceList, factSourceLine } from "@/lib/content/source-line";
-import type { PaperContent, PaperMeta, ResolvedFact, Sentence } from "@/lib/content/types";
+import type { FigureRef, PaperContent, PaperMeta, ResolvedFact, Sentence } from "@/lib/content/types";
 import { formatEstimate } from "@/lib/pipeline/format";
 import { useStore } from "@/lib/store";
 import { isDemo } from "@/lib/supabase/client";
@@ -93,6 +93,33 @@ function Para({ sentences, facts, context, className = "read" }: { sentences: Se
   );
 }
 
+/** A figure with its caption. Step 2D decides where figures sit; for now each follows its layer's first paragraph. */
+function Pictured({ slug, figure, facts, context }: { slug: string; figure: FigureRef | null | undefined; facts: Facts; context?: Context }) {
+  if (!figure) return null;
+  return (
+    <figure className="rounded-2xl border border-line p-3">
+      <FigureFor slug={slug} figure={figure} />
+      <figcaption className="mt-2 border-t border-line pt-2">
+        <Para sentences={figure.caption} facts={facts} context={context} className="text-sm leading-snug text-muted" />
+      </figcaption>
+    </figure>
+  );
+}
+
+/** Paragraphs with the layer's figure after the first one. */
+function Paragraphs({ slug, paragraphs, figure, facts, context }: { slug: string; paragraphs: Sentence[][]; figure?: FigureRef | null; facts: Facts; context?: Context }) {
+  return (
+    <>
+      {paragraphs.map((paragraph, i) => (
+        <div key={i} className="space-y-3">
+          <Para sentences={paragraph} facts={facts} context={context} />
+          {i === 0 ? <Pictured slug={slug} figure={figure} facts={facts} context={context} /> : null}
+        </div>
+      ))}
+    </>
+  );
+}
+
 /**
  * The three layers of a read (H10), drawn plainly: why it happens, what was
  * tested, and the receipts. The limitations sit in bold and are never behind a
@@ -110,12 +137,12 @@ function Layers({ paper, content }: { paper: PaperMeta; content: PaperContent })
     <>
       <section aria-label="Why it happens" className="space-y-3">
         <h2 className="read-title text-[1.625rem]">Why it happens</h2>
-        {mechanism.paragraphs.map((paragraph, i) => <Para key={i} sentences={paragraph} facts={facts} context={context} />)}
+        <Paragraphs slug={paper.slug} paragraphs={mechanism.paragraphs} figure={mechanism.figure} facts={facts} context={context} />
       </section>
 
       <section aria-label="What was tested" className="space-y-3">
         <h2 className="read-title text-[1.625rem]">What was tested</h2>
-        {protocol.paragraphs.map((paragraph, i) => <Para key={i} sentences={paragraph} facts={facts} context={context} />)}
+        <Paragraphs slug={paper.slug} paragraphs={protocol.paragraphs} figure={protocol.figure} facts={facts} context={context} />
       </section>
 
       <section aria-label="The receipts" className="space-y-3 rounded-2xl border border-accent bg-accent-soft p-4">
@@ -127,6 +154,7 @@ function Layers({ paper, content }: { paper: PaperMeta; content: PaperContent })
         <div>
           <h3 className="text-sm font-semibold text-muted">The size of the effect</h3>
           <Para sentences={audit.effect} facts={facts} context={context} className="text-base leading-relaxed" />
+          <Pictured slug={paper.slug} figure={audit.figure} facts={facts} context={context} />
         </div>
         <div>
           <h3 className="text-sm font-semibold text-muted">How weak it could be</h3>
@@ -207,10 +235,11 @@ function ReadBody({ paper, content }: { paper: PaperMeta; content: PaperContent 
 
       <Layers paper={paper} content={content} />
 
-      {content.sections.map((section) => (
+      {content.sections.map((section, at) => (
         <section key={section.id} aria-label={section.heading} className="space-y-3">
           <h2 className="read-title text-[1.625rem]">{section.heading}</h2>
-          {section.paragraphs.map((paragraph, i) => <Para key={i} sentences={paragraph} facts={facts} context={content.context} />)}
+          {/* An old-shape read has one figure: after the first paragraph of its first section. */}
+          <Paragraphs slug={paper.slug} paragraphs={section.paragraphs} figure={at === 0 ? content.figure : null} facts={facts} context={content.context} />
         </section>
       ))}
 

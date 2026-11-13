@@ -1,0 +1,7 @@
+import { Figure } from "@/components/figures/Figure";
+import { useStore } from "@/lib/store";
+
+export default function Bad({ alt }: { alt: string }) {
+  const ticks = useStore((s) => s.hydrated);
+  return <Figure title="Reads the store" desc={alt} height={60}>{ticks ? null : null}</Figure>;
+}

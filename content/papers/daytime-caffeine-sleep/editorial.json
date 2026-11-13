@@ -57,6 +57,25 @@
     "All were aged 18 to 35. [who] The authors note that middle-aged people are more vulnerable to what caffeine does to sleep. [lim_young]",
     "Twenty participants is a small trial, and the text gives no effect sizes to show how small a difference it could have missed. [sample, lim_n]"
   ],
+  "figure": {
+    "figure": "lock-and-key",
+    "caption": "How caffeine acts, as the paper describes it. [adenosine_block] The filled box is what the sleep laboratory recorded. [sleep_same]",
+    "alt": "A lock with its own key in it, labelled adenosine. [-] Below it, the same lock holds a blank key, labelled caffeine. [-] The real key waits outside. [-] Two boxes follow. [-] The first, outlined, says the authors expected lighter sleep. [-] The second, filled, says the sleep laboratory found no difference from placebo nights. [-]",
+    "params": {
+      "lock": {
+        "kind": "proposed",
+        "fact": "fact:adenosine_block"
+      },
+      "expected": {
+        "kind": "proposed",
+        "fact": "fact:no_depth_change"
+      },
+      "found": {
+        "kind": "measured",
+        "fact": "fact:sleep_same"
+      }
+    }
+  },
   "takeaways": [
     "The schedule tested was three doses, the last one 475 minutes after waking, which fell 8 hours before bed. [schedule, recording]",
     "The finding covers a steady daily habit. [who] The authors caution that it may not hold after several days without caffeine. [not_after_abstinence]",

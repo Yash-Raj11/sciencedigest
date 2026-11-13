@@ -136,6 +136,13 @@
       "quote": "the ambulatory sleep episodes were on average around 25 min later as compared to placebo"
     },
     {
+      "id": "adenosine_block",
+      "kind": "context",
+      "label": "How caffeine acts, as the authors describe it: it blocks adenosine receptors and may hold back sleep pressure",
+      "value": "blocks the",
+      "quote": "Caffeine is an adenosine receptor antagonist, which blocks the Aand Aadenosine receptors in the central nervous system. It may, thus, attenuate the increase in sleep pressure during wakefulness"
+    },
+    {
       "id": "evening",
       "kind": "context",
       "label": "What earlier work reports for caffeine taken in the evening",

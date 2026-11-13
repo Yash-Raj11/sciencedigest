@@ -8,6 +8,7 @@
 
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { FIGURE_KEYS } from "../content/figures";
 import { assemble } from "./assemble";
 import { approved, checkConcept } from "./concepts";
 import { Editorial, editorialShape } from "./editorial";
@@ -39,12 +40,13 @@ const context: LintContext = {
 
 /** The passing three-layer read. */
 function layered(): any {
-  return { ...without(oldShape, ["sections", "limitations", "layers", "glossary"]), layers: clone(fixture.layers), glossary: clone(fixture.glossary) };
+  return { ...without(oldShape, ["sections", "limitations", "figure", "layers", "glossary"]), layers: clone(fixture.layers), glossary: clone(fixture.glossary) };
 }
 function run(mutate: (editorial: any) => void = () => {}) {
   const editorial = layered();
   mutate(editorial);
-  const report = lint(validated, editorial, source, { context });
+  // "loan" is a figure name these tests make up; the real list is checked in figures.test.ts.
+  const report = lint(validated, editorial, source, { context, figures: [...FIGURE_KEYS, "daytime-caffeine-sleep/loan"] });
   return {
     report,
     errors: report.errors.map((e) => `${e.rule} ${e.where}: ${e.message}`),
@@ -68,7 +70,7 @@ describe("check 1, schema: layers { mechanism, protocol, audit } and a glossary"
   it("accepts the old flat shape only when the caller vouches for it (the temporary allowlist)", () => {
     // After step 2E this paper is itself three-layer, and this option is deleted with the allowlist.
     if (editorialShape(oldShape) !== "legacy") return;
-    expect(lint(validated, oldShape, source, { allowLegacyShape: true }).errors).toEqual([]);
+    expect(lint(validated, oldShape, source, { allowLegacyShape: true, figures: FIGURE_KEYS }).errors).toEqual([]);
   });
   it("zod rejects the old flat shape outright", () => {
     const parsed = Editorial.safeParse({ ...without(layered(), ["layers", "glossary"]), sections: [], limitations: [] });
@@ -320,6 +322,7 @@ describe("assemble: the three-layer read reaches the app", () => {
       figure: "loan",
       caption: [{ text: "The loan comes due 8 hours after the last dose.", refs: ["sigma_meaning"] }],
       alt: "A loan coming due each night.",
+      params: {},
     });
   });
 });

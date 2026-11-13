@@ -1,0 +1,12 @@
+import { Figure } from "@/components/figures/Figure";
+import { Label } from "@/components/figures/primitives";
+
+const DROP = 14.9;
+
+export default function Bad({ alt }: { alt: string }) {
+  return (
+    <Figure title="A number of its own" desc={alt} height={60}>
+      <Label x={8} y={20}>{`${DROP} points lower`}</Label>
+    </Figure>
+  );
+}

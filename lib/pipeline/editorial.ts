@@ -77,11 +77,19 @@ const Base = {
   }),
 };
 
-/** A picture drawn in code (components/papers/<slug>/figures/). Caption and alt are markup: a number in either must cite its fact. */
+/**
+ * A picture drawn in code (components/papers/<slug>/figures/), named in
+ * lib/content/figures.ts. Caption and alt are markup: a number in either must
+ * cite its fact. `params` is everything the picture shows: like a simulator's,
+ * it may hold no bare number and no text with a digit, only "fact:<id>",
+ * { n, ref } or { text, ref }. An element drawn as measured or proposed is
+ * { kind, fact: "fact:<id>" }.
+ */
 const FigureRef = z.object({
   figure: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
   caption: Markup,
   alt: Markup,
+  params: z.record(z.string(), z.unknown()).default({}),
 });
 
 /**
@@ -158,6 +166,8 @@ export const LegacyEditorial = z.object({
     paragraphs: z.array(Markup).min(1),
   })).min(3),
   limitations: z.array(Markup).min(1),
+  /** One figure, shown after the first paragraph. Temporary: it moves into layers.mechanism in step 2E. */
+  figure: FigureRef.nullable().default(null),
 });
 
 export type Editorial = z.infer<typeof Editorial>;
@@ -173,7 +183,8 @@ export function editorialShape(input: unknown): "layered" | "legacy" | "mixed" |
   if (input === null || typeof input !== "object") return "unknown";
   const record = input as Record<string, unknown>;
   const layered = "layers" in record;
-  const legacy = "sections" in record || "limitations" in record;
+  // "figure" at the top level belongs to the old shape too; a layered read keeps its figures in its layers.
+  const legacy = "sections" in record || "limitations" in record || "figure" in record;
   if (layered && legacy) return "mixed";
   if (layered) return "layered";
   return legacy ? "legacy" : "unknown";

@@ -47,7 +47,7 @@ function contextWith(change: Partial<LintContext> = {}): LintContext {
   return { studies: { [OTHER]: study() }, concepts: { "non-rem-sleep": reviewed(conceptFile) }, ...change };
 }
 function layered(): any {
-  const base = Object.fromEntries(Object.entries(clone(oldShape)).filter(([key]) => !["sections", "limitations", "layers", "glossary"].includes(key)));
+  const base = Object.fromEntries(Object.entries(clone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary"].includes(key)));
   return { ...base, layers: clone(fixture.layers), glossary: clone(fixture.glossary) };
 }
 function run(mutate: (editorial: any) => void = () => {}, context: LintContext = contextWith()) {

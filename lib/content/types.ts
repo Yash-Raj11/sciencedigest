@@ -117,6 +117,8 @@ export interface FigureRef {
   figure: string;
   caption: Sentence[];
   alt: string;
+  /** What the picture shows. Every "fact:<id>" has been replaced by the resolved fact. */
+  params: Record<string, unknown>;
 }
 
 /** H10: the three layers of a read. */
@@ -152,6 +154,8 @@ export interface PaperContent {
   /** Old flat shape. Empty for a three-layer read; removed with the allowlist in step 2E. */
   sections: ReadSection[];
   limitations: Sentence[][];
+  /** Old flat shape only: its one figure. Moves into layers.mechanism in step 2E. */
+  figure?: FigureRef;
   /** The three-layer read (H10). Absent only on the old flat shape. */
   layers?: ReadLayers;
   glossary?: GlossaryEntry[];

@@ -1,0 +1,32 @@
+BROKEN: figures still animate under reduced motion
+  ✘  1 [chromium] › tests/browser/paper-routes-dev.spec.ts:168:3 › /papers/daytime-caffeine-sleep: its figures fit a 360 px screen and hold still under reduced motion (1.7s)
+    Error: daytime-caffeine-sleep/lock-and-key: animated elements under reduced motion
+  1 failed
+
+BROKEN: a proposed element is drawn solid
+  ✘  1 [chromium] › tests/browser/paper-routes-dev.spec.ts:123:3 › /papers/daytime-caffeine-sleep draws its figure (1.5s)
+    Error: daytime-caffeine-sleep/lock-and-key: a proposed element (adenosine_block)
+  1 failed
+
+BROKEN: the key is not shown under a mixed figure
+  ✘  1 [chromium] › tests/browser/paper-routes-dev.spec.ts:123:3 › /papers/daytime-caffeine-sleep draws its figure (6.7s)
+    Error: daytime-caffeine-sleep/lock-and-key: the key appears only when both kinds are drawn
+    expect(locator).toHaveCount(expected) failed
+  1 failed
+
+BROKEN: an arrow is drawn in the observational figure
+  ✘  1 [chromium] › tests/browser/paper-routes-dev.spec.ts:123:3 › /papers/steps-days-per-week draws its figure (1.7s)
+    Error: steps-days-per-week/seen-together: arrows in an observational figure
+  1 failed
+
+NOT CAUGHT at first: "max-w-[360px]" changed to "max-w-[400px]"
+  1 passed
+  Why: on the test phone the text column is already narrower than 360 px, so the cap never
+  came into play. The rule that matters is "fits a 360 px screen"; that break follows.
+
+BROKEN: a figure is drawn 380 px wide
+  ✘  1 [chromium] › tests/browser/paper-routes-dev.spec.ts:168:3 › /papers/daytime-caffeine-sleep: its figures fit a 360 px screen and hold still under reduced motion (1.4s)
+    Error: daytime-caffeine-sleep/lock-and-key right edge
+  1 failed
+
+Browser rules broken on purpose: caught 5 (one only after the break was made to bite; see above)

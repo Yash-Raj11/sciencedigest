@@ -33,6 +33,7 @@ import { fileURLToPath } from "node:url";
 import type { BuiltPaper } from "../lib/content/types";
 import { assemble } from "../lib/pipeline/assemble";
 import { editorialShape } from "../lib/pipeline/editorial";
+import { FIGURE_KEYS } from "../lib/content/figures";
 import { gate } from "../lib/pipeline/gate";
 import { lint } from "../lib/pipeline/lint";
 import { loadContext } from "./context-load";
@@ -87,7 +88,7 @@ for (const slug of readdirSync(PAPERS_DIR).sort()) {
   const oldShape = editorialShape(editorial) === "legacy";
   const allowLegacyShape = oldShape && LEGACY_SHAPE_ALLOWLIST.includes(slug);
   if (allowLegacyShape) say("  shape  old flat shape, on the temporary allowlist (scripts/legacy-shape.ts): rewrite in step 2E");
-  const report = lint(gated.validated, editorial, source, { allowLegacyShape, context: loaded.context });
+  const report = lint(gated.validated, editorial, source, { allowLegacyShape, context: loaded.context, figures: FIGURE_KEYS });
   if (report.errors.length > 0) {
     if (!isDraft) failed = true;
     say(`  LINT FAILED (${report.errors.length})${isDraft ? ": reported, not built" : ""}`);

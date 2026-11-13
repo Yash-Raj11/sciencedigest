@@ -84,8 +84,14 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
     };
   });
 
-  const figure = (def: FigureDef | null): FigureRef | null =>
-    def ? { figure: def.figure, caption: sentences(def.caption), alt: plain(sentences(def.alt)) } : null;
+  // Params are filled in further down, once `expand` exists.
+  const drawn: { ref: FigureRef; def: FigureDef }[] = [];
+  const figure = (def: FigureDef | null): FigureRef | null => {
+    if (!def) return null;
+    const ref: FigureRef = { figure: def.figure, caption: sentences(def.caption), alt: plain(sentences(def.alt)), params: {} };
+    drawn.push({ ref, def });
+    return ref;
+  };
 
   // Key order is kept as it was for the old flat shape, so its generated files do not change.
   const content: Omit<PaperContent, "facts"> = "layers" in ed
@@ -124,6 +130,7 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
       populationPanel: sentences(ed.populationPanel),
       sections: ed.sections.map((s) => ({ id: s.id, heading: s.heading, paragraphs: s.paragraphs.map(sentences) })),
       limitations: ed.limitations.map(sentences),
+      ...(ed.figure ? { figure: figure(ed.figure)! } : {}),
       primaryEstimate: ed.primaryEstimate,
       simulator: { kind: ed.simulator.kind, params: {} },
     };
@@ -164,6 +171,7 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
     return node;
   };
   content.simulator.params = expand(ed.simulator.params) as Record<string, unknown>;
+  for (const { ref, def } of drawn) ref.params = expand(def.params) as Record<string, unknown>;
 
   const takeaways = ed.takeaways.map(sentences);
   const facts: Record<string, ResolvedFact> = {};

@@ -256,6 +256,84 @@
           }
         ]
       ],
+      "figure": {
+        "figure": "what-was-measured",
+        "caption": [
+          {
+            "text": "The three pooled results, each with its range.",
+            "refs": [
+              "ffm_all",
+              "fm_all",
+              "bf_all"
+            ]
+          }
+        ],
+        "alt": "Three lines, each with a mark for no change. Fat-free mass: 0.51 kg more. Fat mass: 1.86 kg less. Body fat percentage: 1.53 points less.",
+        "params": {
+          "rows": [
+            {
+              "label": "Fat-free mass",
+              "kind": "measured",
+              "fact": {
+                "id": "ffm_all",
+                "kind": "estimate",
+                "label": "Fat-free mass, all interval training vs control",
+                "quote": "HIIT induced an overall significant improvement in FFM (WMD: 0.51 kg, 95% CI: 0.06 to 0.95",
+                "estimate": {
+                  "outcome": "Fat-free mass",
+                  "measure": "WMD",
+                  "point": 0.51,
+                  "ciLow": 0.06,
+                  "ciHigh": 0.95,
+                  "unit": "kg",
+                  "absolute": true,
+                  "tier": "high"
+                }
+              }
+            },
+            {
+              "label": "Fat mass",
+              "kind": "measured",
+              "fact": {
+                "id": "fm_all",
+                "kind": "estimate",
+                "label": "Fat mass, all interval training vs control",
+                "quote": "HIIT resulted in a significant reduction in FM (WMD: −1.86 kg, 95% CI: −2.55 to −1.18",
+                "estimate": {
+                  "outcome": "Fat mass",
+                  "measure": "WMD",
+                  "point": -1.86,
+                  "ciLow": -2.55,
+                  "ciHigh": -1.18,
+                  "unit": "kg",
+                  "absolute": true,
+                  "tier": "moderate"
+                }
+              }
+            },
+            {
+              "label": "Body fat percentage",
+              "kind": "measured",
+              "fact": {
+                "id": "bf_all",
+                "kind": "estimate",
+                "label": "Body fat percentage, all interval training vs control",
+                "quote": "induced a significant reduction in BF% [weighted mean difference (WMD): −1.53%, 95% CI: −2.13, −0.92",
+                "estimate": {
+                  "outcome": "Body fat percentage",
+                  "measure": "WMD",
+                  "point": -1.53,
+                  "ciLow": -2.13,
+                  "ciHigh": -0.92,
+                  "unit": "points",
+                  "absolute": true,
+                  "tier": "low"
+                }
+              }
+            }
+          ]
+        }
+      },
       "primaryEstimate": "ffm_all",
       "simulator": {
         "kind": "hiit-forest",
