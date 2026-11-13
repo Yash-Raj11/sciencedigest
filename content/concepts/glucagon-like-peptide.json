@@ -6,5 +6,9 @@
     "doi": "10.1152/physrev.00034.2006",
     "title": "The physiology of glucagon-like peptide 1"
   },
-  "reviewed_by_owner": false
+  "reviewed_by_owner": true,
+  "reviewed": {
+    "at": "2026-11-13T12:41:53.985Z",
+    "fingerprint": "7299f47bf53a"
+  }
 }
