@@ -31,7 +31,8 @@
  *   --bg          the page            --surface  a card     --raised  a card on a card
  *   --line        hairlines and borders
  *   --ink         text                --muted    secondary text   --meta  labels, source lines
- *   --ink-routine the ink of daily habits and the Life Game. Monochrome: no orange there
+ *   --ink-routine plain ink in the Life Game. The Life Game, companion and /today also use the
+ *                 pastel orange (their original look); reads, figures and feed cards keep the budget
  *
  * Orange means "this paper's finding". It is never "good", and the words always say the
  * direction. Three roles, in every theme:
@@ -43,7 +44,8 @@
  *   --signal-evidence-pale  a lighter peach (darker in dark themes): a soft band or range behind data
  *   --signal-evidence-soft  a faint tint behind a block of text
  *
- * Budget: one focal orange item per 390 px screen, at most three (tests/browser/readability.spec.ts).
+ * Budget: one focal orange item per 390 px screen, at most three (tests/browser/readability.spec.ts),
+ * for reads, figures and feed cards. Anything inside [data-life-game] is exempt.
  * Contrast (every text token on every surface it sits on, all three themes, at least 4.5:1) is
  * checked by scripts/visual-system.test.ts, which reads this file; the table is
  * docs/evidence/themes/contrast.md. The light orange text #AD5428 is the pastel #FFB38A darkened

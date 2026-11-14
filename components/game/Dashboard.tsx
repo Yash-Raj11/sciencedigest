@@ -48,13 +48,13 @@ function ScoreCard({ game, hydrated }: { game: Game; hydrated: boolean }) {
             <span className={`text-xs font-medium ${day.isToday ? "text-ink" : "text-muted"}`}>{DAY_LETTERS[i]}</span>
             <span
               aria-label={`${day.date}: ${day.active ? "something ticked" : day.future ? "upcoming" : "nothing ticked"}`}
-              className={`h-7 w-7 rounded-full border-2 ${day.active ? "border-ink bg-ink" : day.future ? "border-line" : "border-muted/50"} ${day.isToday ? "outline outline-2 outline-offset-2 outline-ink" : ""}`}
+              className={`h-7 w-7 rounded-full border-2 ${day.active ? "border-signal-evidence-fill bg-signal-evidence-fill" : day.future ? "border-line" : "border-muted/50"} ${day.isToday ? "outline outline-2 outline-offset-2 outline-ink" : ""}`}
             />
           </li>
         ))}
       </ol>
 
-      <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-controls="how-scoring-works" className="mt-4 text-sm font-medium text-ink-routine underline underline-offset-4">
+      <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-controls="how-scoring-works" className="mt-4 text-sm font-medium text-signal-evidence-text underline underline-offset-4">
         {open ? "Hide how scoring works" : "How scoring works"}
       </button>
       {open && <HowScoringWorks />}
@@ -106,11 +106,11 @@ function ProtocolTiles({ game }: { game: Game }) {
           <li key={view.paper.id}>
             <button
               type="button" onClick={() => setOpenSlug(view.paper.slug)}
-              className={`flex h-full w-full flex-col rounded-2xl border p-3 text-left ${view.progress.total > 0 && view.progress.done >= view.progress.total ? "border-ink bg-surface" : "border-line bg-surface"}`}
+              className={`flex h-full w-full flex-col rounded-2xl border p-3 text-left ${view.progress.total > 0 && view.progress.done >= view.progress.total ? "border-signal-evidence-fill bg-signal-evidence-soft" : "border-line bg-surface"}`}
             >
               <span className="flex items-start justify-between gap-2">
                 <span className="line-clamp-2 font-medium leading-snug">{view.paper.category}</span>
-                <ProgressRing pct={view.progress.pct} size={44} label={view.paper.category} />
+                <ProgressRing pct={view.progress.pct} size={44} label={view.paper.category} lifeGame />
               </span>
               <span className="num mt-auto pt-3 text-sm text-muted">
                 {view.dormant ? "Paused. Open to resume." : `${view.progress.done} of ${view.progress.total} in place`}

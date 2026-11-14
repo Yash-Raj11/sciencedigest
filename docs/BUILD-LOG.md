@@ -1607,3 +1607,19 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - Screens: `docs/evidence/figures-v2/turmeric-pepper-breakfast/r1-*`, `r2-*` (one fix loop: the
   two between-row labels collided, the gut header crowded the top row, the vessel was faint on the
   pastel in Dark). Gates: `docs/evidence/figures-v2/turmeric-gates.txt`.
+
+## 2026-11-15: Life Game, companion and Me back to their original look, in pastel orange
+
+- Owner: restore the pre-c19198f colours of the companion cat, the feed's Life Game slot, the
+  /today widgets (life bar, week dots, habit tiles, protocol rings) and the Me controls, with
+  every orange mapped to the pastel tokens (accent → `--signal-evidence-fill`, accent-ink →
+  `--on-signal-evidence-fill`, accent-text → `--signal-evidence-text`, accent-soft →
+  `--signal-evidence-soft`, accent/45 → `--signal-evidence-pale`).
+- "Habits monochrome" and the orange budget are dropped for the Life Game, the companion and
+  /today only (and Me, whose controls are the Life Game's). Reads, figures and feed cards keep
+  both. Mechanism: `data-life-game` on the feed slot and the companion figure is skipped by the
+  budget check; `/today` and `/me` left the budget's screen list; a unit test keeps the marker
+  out of reads and figures.
+- Kept from the readability pass: weights 400/500 and serif headlines (type, not colour); the
+  equal-width life bar and the "How scoring works" explainer (owner rulings, not looks). The tab
+  bar stays ink: it sits on every read, inside the budget.

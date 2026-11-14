@@ -5,7 +5,10 @@
  * screen there is one focal orange item and at most three in all. An item is one element painted
  * with the finding's text colour or its pastel fill; the marks of one chart (one <svg>) or one
  * [data-signal-item] count as one item. The faint tint (--signal-evidence-soft) is a background
- * and does not count. The Life Game and habits are monochrome: no orange at all.
+ * and does not count. The Life Game, the companion and /today are exempt (owner, 2026-11-15,
+ * second pass): they keep their original pastel-orange look, so anything inside [data-life-game]
+ * is not counted, /today is not checked, and neither is Me (its controls are the Life Game's).
+ * Reads, figures and feed cards keep the budget.
  */
 
 import { expect, test, type Page } from "@playwright/test";
@@ -13,7 +16,6 @@ import { expect, test, type Page } from "@playwright/test";
 const THEMES = ["dark", "light", "bedtime"] as const;
 const SCREENS = [
   "/",
-  "/me",
   "/papers/daytime-caffeine-sleep",
   "/papers/steps-days-per-week",
   "/papers/turmeric-pepper-breakfast",
@@ -32,7 +34,7 @@ async function orangeBudget(page: Page) {
     const orange = new Set([rgb(root.getPropertyValue("--signal-evidence-text")), rgb(root.getPropertyValue("--signal-evidence-fill"))]);
     const items = new Map<Element, { top: number; bottom: number; what: string }>();
     for (const el of document.querySelectorAll<HTMLElement | SVGElement>("body *")) {
-      if (el.closest(".sr-only")) continue;
+      if (el.closest(".sr-only") || el.closest("[data-life-game]")) continue;
       const box = el.getBoundingClientRect();
       if (box.width === 0 && box.height === 0) continue;
       const s = getComputedStyle(el);
@@ -86,11 +88,6 @@ for (const theme of THEMES) {
       });
     }
 
-    test("/today: the Life Game is monochrome, no orange at all", async ({ page }) => {
-      await page.goto("/today", { waitUntil: "networkidle" });
-      expect((await orangeBudget(page)).total).toBe(0);
-    });
-
     test("the feed: one focal orange item per card", async ({ page }) => {
       await page.goto("/", { waitUntil: "networkidle" });
       const perCard = await page.locator("[data-post]").evaluateAll((cards) => cards.map((c) => c.querySelectorAll("[data-signal-focal]").length));
@@ -113,7 +110,7 @@ for (const theme of THEMES) {
 
 test("the budget check catches a fourth orange item", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/me", { waitUntil: "networkidle" });
+  await page.goto("/papers/daytime-caffeine-sleep", { waitUntil: "networkidle" });
   const before = (await orangeBudget(page)).max;
   await page.evaluate((n) => {
     for (let i = 0; i < n; i++) {
@@ -125,15 +122,16 @@ test("the budget check catches a fourth orange item", async ({ page }) => {
   expect((await orangeBudget(page)).max).toBe(4);
 });
 
-test("the Life Game check catches one orange number", async ({ page }) => {
-  await page.goto("/today", { waitUntil: "networkidle" });
+test("the Life Game exemption covers only [data-life-game]: an orange number outside it counts", async ({ page }) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+  const before = (await orangeBudget(page)).total;
   await page.evaluate(() => {
     const n = document.createElement("p");
     n.className = "text-signal-evidence-text";
     n.textContent = "71";
     document.body.prepend(n);
   });
-  expect((await orangeBudget(page)).total).toBe(1);
+  expect((await orangeBudget(page)).total).toBe(before + 1);
 });
 
 test.describe("finding cards: plain headline, one supporting line, source line", () => {

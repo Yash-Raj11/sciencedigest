@@ -39,7 +39,7 @@ function Appearance() {
           <button
             key={theme.value} type="button" aria-pressed={choice === theme.value}
             onClick={() => { applyThemeChoice(theme.value); setChoice(theme.value); }}
-            className={`h-11 min-w-0 flex-1 rounded-lg border text-sm font-medium ${choice === theme.value ? "border-ink bg-ink text-bg" : "border-line bg-bg"}`}
+            className={`h-11 min-w-0 flex-1 rounded-lg border text-sm font-medium ${choice === theme.value ? "border-signal-evidence-fill bg-signal-evidence-fill text-on-signal-evidence-fill" : "border-line bg-bg"}`}
           >
             {theme.label}
           </button>
@@ -71,7 +71,7 @@ function StartOn() {
           <button
             key={start.value} type="button" aria-pressed={choice === start.value}
             onClick={() => { saveStartChoice(start.value); setChoice(start.value); }}
-            className={`h-11 min-w-0 flex-1 rounded-lg border text-sm font-medium ${choice === start.value ? "border-ink bg-ink text-bg" : "border-line bg-bg"}`}
+            className={`h-11 min-w-0 flex-1 rounded-lg border text-sm font-medium ${choice === start.value ? "border-signal-evidence-fill bg-signal-evidence-fill text-on-signal-evidence-fill" : "border-line bg-bg"}`}
           >
             {start.label}
           </button>
@@ -96,7 +96,7 @@ function CompanionChoice() {
         </p>
       </div>
       <div className="mt-3 flex gap-2">
-        <label className="flex h-11 flex-1 cursor-pointer items-center justify-center rounded-lg bg-ink font-medium text-bg focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ink">
+        <label className="flex h-11 flex-1 cursor-pointer items-center justify-center rounded-lg bg-signal-evidence-fill font-medium text-on-signal-evidence-fill focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-signal-evidence-text">
           {avatar ? "Change picture" : "Use my own picture"}
           <input
             type="file" accept="image/*" className="sr-only"
@@ -276,7 +276,7 @@ function Account() {
               placeholder="you@example.com"
               className="h-11 min-w-0 flex-1 rounded-lg border border-line bg-bg px-3 text-base text-ink placeholder:text-muted"
             />
-            <button type="submit" disabled={busy} className="h-11 rounded-lg bg-ink px-4 font-medium text-bg disabled:opacity-40">
+            <button type="submit" disabled={busy} className="h-11 rounded-lg bg-signal-evidence-fill px-4 font-medium text-on-signal-evidence-fill disabled:opacity-40">
               {busy ? "Sending" : "Add email"}
             </button>
           </div>
@@ -306,7 +306,7 @@ function Membership() {
             <span className="block font-medium leading-snug">Preview the app as a member</span>
             <span className="block text-sm leading-snug text-muted">Demo mode only. Opens the members&apos; read and extras so you can check them.</span>
           </span>
-          <span aria-hidden className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${tier === "premium" ? "bg-ink" : "bg-line"}`}>
+          <span aria-hidden className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${tier === "premium" ? "bg-signal-evidence-fill" : "bg-line"}`}>
             <span className={`absolute top-1 h-5 w-5 rounded-full bg-bg transition-[left] ${tier === "premium" ? "left-6" : "left-1"}`} />
           </span>
         </button>

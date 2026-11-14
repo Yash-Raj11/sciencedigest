@@ -36,9 +36,9 @@ export function LifeBar({ segments }: { segments: Game["segments"] }) {
             aria-pressed={s.id === activeId}
             aria-label={`${s.label}. ${GRADE_WORDS[s.grade]}. ${s.satisfied ? "Done" : "Not done"}.`}
             style={{ flexGrow: 1, flexBasis: 0 }}
-            className={`relative min-w-2 overflow-hidden rounded-[5px] border-2 ${s.satisfied ? "border-ink" : "border-muted/50"} ${s.id === activeId ? "outline outline-2 outline-offset-2 outline-ink" : ""}`}
+            className={`relative min-w-2 overflow-hidden rounded-[5px] border-2 ${s.satisfied ? "border-signal-evidence-fill" : "border-muted/50"} ${s.id === activeId ? "outline outline-2 outline-offset-2 outline-ink" : ""}`}
           >
-            {s.satisfied && <span key="fill" className="fill-in absolute inset-0 bg-ink" />}
+            {s.satisfied && <span key="fill" className="fill-in absolute inset-0 bg-signal-evidence-fill" />}
           </button>
         ))}
       </div>

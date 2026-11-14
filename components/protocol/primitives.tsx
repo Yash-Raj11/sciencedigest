@@ -48,7 +48,8 @@ export function GradeChip({ grade, why, className = "" }: { grade: EvidenceGrade
 }
 
 /** Percentage of protocol completed, drawn as a ring. `pct` always comes from useProtocol. */
-export function ProgressRing({ pct, size = 56, label }: { pct: number; size?: number; label: string }) {
+/** `lifeGame`: the ring on a Life Game tile, which keeps its pastel orange (owner, 2026-11-15). In a read it stays ink. */
+export function ProgressRing({ pct, size = 56, label, lifeGame = false }: { pct: number; size?: number; label: string; lifeGame?: boolean }) {
   const r = (size - 8) / 2;
   const c = 2 * Math.PI * r;
   return (
@@ -56,7 +57,7 @@ export function ProgressRing({ pct, size = 56, label }: { pct: number; size?: nu
       <svg viewBox={`0 0 ${size} ${size}`} className="h-full w-full -rotate-90">
         <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--line)" strokeWidth="6" />
         <circle
-          cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--ink)" strokeWidth="6" strokeLinecap="butt"
+          cx={size / 2} cy={size / 2} r={r} fill="none" stroke={lifeGame ? "var(--signal-evidence-fill)" : "var(--ink)"} strokeWidth="6" strokeLinecap="butt"
           strokeDasharray={c} strokeDashoffset={c - (c * pct) / 100}
           style={{ transition: "stroke-dashoffset 320ms cubic-bezier(0.2,0.8,0.2,1)" }}
         />

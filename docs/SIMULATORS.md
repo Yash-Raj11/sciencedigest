@@ -350,3 +350,13 @@ not in the kind; both stay in the read's text and receipts.
   points on the 9-point scale; 2026-11-14), so a cell can show each as a band labelled
   "typical spread between people in this study". No
   library or queue path is proposed for glucose: another study's meal would not be this cell.
+
+## Colour scope (owner, 2026-11-15, second pass)
+
+Orange means "this paper's finding" and the orange budget (at most three orange items per 390 px
+screen, one focal) applies to **reads, figures, simulators and feed cards**, unchanged. The Life
+Game (`/today`, its habit tiles, bars and rings), the companion cat and the Me screen's controls
+are **exempt**: they keep their original look, drawn in the pastel tokens (`--signal-evidence-fill`,
+`--signal-evidence-pale`, `--signal-evidence-soft`). The exemption is the `data-life-game` marker
+(and `ProgressRing`'s `lifeGame` prop); `scripts/visual-system.test.ts` fails if it appears in a
+read, figure or feed card. Sketches stay monochrome everywhere.

@@ -124,8 +124,9 @@ describe("weights 400 and 500 only", () => {
 describe("the pastel fill is a surface", () => {
   const MISUSE = /\b(text|border|stroke|outline|decoration)-signal-evidence-fill\b|stroke=\{SIGNAL_FILL\}|color:\s*var\(--signal-evidence-fill\)/;
 
+  // The Life Game keeps its original look: pastel borders and strokes there are allowed (owner, 2026-11-15).
   it("never a text colour or a stroke (a selected chip may take it as its own border)", () => {
-    const offenders = source(["app", "components"]).filter((f) => MISUSE.test(readFileSync(f, "utf8").replace(/border-signal-evidence-fill bg-signal-evidence-fill/g, "")));
+    const offenders = source(["app", "components"]).filter((f) => !f.startsWith("components/game/")).filter((f) => MISUSE.test(readFileSync(f, "utf8").replace(/border-signal-evidence-fill bg-signal-evidence-fill/g, "")));
     expect(offenders).toEqual([]);
   });
 
@@ -149,17 +150,28 @@ describe("tokens named by meaning", () => {
   });
 });
 
-describe("habits and the Life Game are monochrome", () => {
-  const ORANGE = /signal-evidence|SIGNAL_(TEXT|FILL)/;
-  const habitFiles = () => source(["components/game", "app/today"]);
+/*
+ * The Life Game, the companion and /today keep their original look in pastel orange (owner,
+ * 2026-11-15, second pass): they are exempt from "habits monochrome" and the orange budget.
+ * The exemption is the [data-life-game] marker and the ProgressRing `lifeGame` prop, and it must
+ * not leak into reads, figures or feed cards.
+ */
+describe("the Life Game exemption stays in the Life Game", () => {
+  const MARKER = /data-life-game|\blifeGame\b/;
+  const HOME = /^(components\/game\/|app\/today\/|components\/me\/)/;
+  const declares = (f: string) => f === "components/protocol/primitives.tsx";
 
-  it("no orange token in a habit or Life Game widget", () => {
-    expect(habitFiles().length).toBeGreaterThan(3);
-    expect(habitFiles().filter((f) => ORANGE.test(readFileSync(f, "utf8")))).toEqual([]);
+  it("the Life Game widgets do use the pastel orange", () => {
+    expect(source(["components/game"]).some((f) => /signal-evidence/.test(readFileSync(f, "utf8")))).toBe(true);
   });
 
-  it("the check fails on an orange number in the Life Game", () => {
-    expect(ORANGE.test('<p className="figure text-signal-evidence-text">')).toBe(true);
+  it("no read, figure or feed card carries the marker", () => {
+    const leaks = source(["app", "components"]).filter((f) => f.endsWith(".tsx") && !HOME.test(f) && !declares(f) && MARKER.test(readFileSync(f, "utf8")));
+    expect(leaks).toEqual([]);
+  });
+
+  it("the check fails on the marker in a read", () => {
+    expect(!HOME.test("components/read/Hook.tsx") && MARKER.test('<p data-life-game className="figure">')).toBe(true);
   });
 });
 

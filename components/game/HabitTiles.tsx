@@ -51,14 +51,14 @@ function Tile({ habit, game, onOpen }: { habit: Habit; game: Game; onOpen: () =>
   const step = tapSize(habit);
 
   return (
-    <li className={`flex flex-col rounded-2xl border p-3 ${day.done ? "border-ink bg-surface" : "border-line bg-surface"}`}>
+    <li className={`flex flex-col rounded-2xl border p-3 ${day.done ? "border-signal-evidence-fill bg-signal-evidence-soft" : "border-line bg-surface"}`}>
       <button type="button" onClick={onOpen} aria-label={`Open ${habit.label}`} className="flex min-h-[5.25rem] flex-1 flex-col text-left">
         <span className="line-clamp-2 font-medium leading-snug">{habit.label}</span>
         <span className="mt-auto block pt-2">
           {habit.kind === "check" && (
             <span className="flex gap-1" aria-hidden>
               {daysBack(game.today, 7).map((date) => (
-                <span key={date} className={`h-3 flex-1 rounded-sm ${day.doneOn(date) ? "bg-ink" : "bg-line"}`} />
+                <span key={date} className={`h-3 flex-1 rounded-sm ${day.doneOn(date) ? "bg-signal-evidence-fill" : "bg-line"}`} />
               ))}
             </span>
           )}
@@ -66,7 +66,7 @@ function Tile({ habit, game, onOpen }: { habit: Habit; game: Game; onOpen: () =>
             <>
               <span className="num block text-sm"><strong className="text-base">{day.amount}</strong> of {habit.target} {habit.unit}</span>
               <span className="mt-1 block h-2 rounded-full bg-line" aria-hidden>
-                <span className="block h-2 rounded-full bg-ink" style={{ width: `${Math.min(100, (day.amount / neededFor(habit)) * 100)}%`, transition: "width 240ms" }} />
+                <span className="block h-2 rounded-full bg-signal-evidence-fill" style={{ width: `${Math.min(100, (day.amount / neededFor(habit)) * 100)}%`, transition: "width 240ms" }} />
               </span>
             </>
           )}
@@ -79,7 +79,7 @@ function Tile({ habit, game, onOpen }: { habit: Habit; game: Game; onOpen: () =>
       {habit.kind === "check" ? (
         <button
           type="button" role="checkbox" aria-checked={day.done} aria-label={habit.label} onClick={() => toggleTick(habit.id, game.today)}
-          className={`mt-2.5 h-10 rounded-lg text-sm font-medium ${day.done ? "bg-ink text-bg" : "border border-line bg-bg"}`}
+          className={`mt-2.5 h-10 rounded-lg text-sm font-medium ${day.done ? "bg-signal-evidence-fill text-on-signal-evidence-fill" : "border border-line bg-bg"}`}
         >
           {day.done ? "Done" : "Tick"}
         </button>
@@ -111,7 +111,7 @@ function WeekBars({ habit, game }: { habit: Habit; game: Game }) {
           return (
             <li key={date} className="flex h-full min-w-0 flex-1 flex-col justify-end" aria-label={`${date}: ${amount} ${habit.unit}`}>
               <span
-                className={`block rounded-t-md ${day.doneOn(date) && habit.target ? "bg-ink" : amount > 0 ? "bg-muted/50" : "bg-line"}`}
+                className={`block rounded-t-md ${day.doneOn(date) && habit.target ? "bg-signal-evidence-fill" : amount > 0 ? "bg-signal-evidence-pale" : "bg-line"}`}
                 style={{ height: `${Math.max(3, (amount / top) * 100)}%`, transition: "height 240ms" }}
               />
             </li>
@@ -143,7 +143,7 @@ function Detail({ habit, game, onRemoved }: { habit: Habit; game: Game; onRemove
         <>
           <button
             type="button" role="checkbox" aria-checked={day.done} onClick={() => toggleTick(habit.id, game.today)}
-            className={`h-14 w-full rounded-xl text-lg font-medium ${day.done ? "bg-ink text-bg" : "border-2 border-line bg-surface"}`}
+            className={`h-14 w-full rounded-xl text-lg font-medium ${day.done ? "bg-signal-evidence-fill text-on-signal-evidence-fill" : "border-2 border-line bg-surface"}`}
           >
             {day.done ? "Done today" : "Tick today"}
           </button>
@@ -151,7 +151,7 @@ function Detail({ habit, game, onRemoved }: { habit: Habit; game: Game; onRemove
             <ol className="grid grid-cols-14 gap-1" aria-label="The last six weeks, oldest first">
               {sixWeeks.map((date) => (
                 <li key={date} aria-label={`${date}: ${day.doneOn(date) ? "done" : "not done"}`}
-                  className={`aspect-square rounded-[3px] ${day.doneOn(date) ? "bg-ink" : "bg-line"} ${date === game.today ? "outline outline-2 outline-offset-1 outline-ink" : ""}`} />
+                  className={`aspect-square rounded-[3px] ${day.doneOn(date) ? "bg-signal-evidence-fill" : "bg-line"} ${date === game.today ? "outline outline-2 outline-offset-1 outline-ink" : ""}`} />
               ))}
             </ol>
             <p className="num mt-3 text-sm">Done on <strong>{sixWeeks.filter(day.doneOn).length} of the last 42 days</strong>. Every square is a day; today is outlined.</p>
@@ -169,13 +169,13 @@ function Detail({ habit, game, onRemoved }: { habit: Habit; game: Game; onRemove
             {habit.kind === "count" && (
               <ol className="mt-2 flex flex-wrap gap-1.5" aria-hidden>
                 {Array.from({ length: Math.max(8, Math.min(day.amount, 24)) }, (_, i) => (
-                  <li key={i} className={`h-5 w-4 rounded-b-full rounded-t-[40%] ${i < day.amount ? "bg-ink" : "border-2 border-line"}`} />
+                  <li key={i} className={`h-5 w-4 rounded-b-full rounded-t-[40%] ${i < day.amount ? "bg-signal-evidence-fill" : "border-2 border-line"}`} />
                 ))}
               </ol>
             )}
             <div className="mt-3 flex gap-2">
               <button type="button" disabled={day.amount === 0} onClick={() => setAmount(habit.id, day.amount - step, game.today)} aria-label={`Take away ${step}`} className="num h-12 w-16 rounded-xl border border-line bg-bg text-lg font-medium disabled:opacity-30">− {step}</button>
-              <button type="button" onClick={() => setAmount(habit.id, day.amount + step, game.today)} className="num h-12 flex-1 rounded-xl bg-ink text-lg font-medium text-bg">+ {step} {habit.unit}</button>
+              <button type="button" onClick={() => setAmount(habit.id, day.amount + step, game.today)} className="num h-12 flex-1 rounded-xl bg-signal-evidence-fill text-lg font-medium text-on-signal-evidence-fill">+ {step} {habit.unit}</button>
             </div>
             <label className="mt-3 flex items-center justify-between gap-3 text-sm">
               <span className="text-muted">Or set today&apos;s number</span>
@@ -198,7 +198,7 @@ function Detail({ habit, game, onRemoved }: { habit: Habit; game: Game; onRemove
       <button
         type="button"
         onClick={() => { if (confirming) { retireHabit(habit.id); onRemoved(); } else setConfirming(true); }}
-        className={`h-11 w-full rounded-lg border text-sm font-medium ${confirming ? "border-line text-ink" : "border-line text-muted"}`}
+        className={`h-11 w-full rounded-lg border text-sm font-medium ${confirming ? "border-signal-evidence-text text-signal-evidence-text" : "border-line text-muted"}`}
       >
         {confirming ? "Tap again to remove. Your past days are kept." : "Remove this habit"}
       </button>
@@ -237,7 +237,7 @@ function AddHabit({ full, onAdded }: { full: boolean; onAdded: () => void }) {
             ["count", "Log each one as it happens. No target."],
           ] as const).map(([value, help]) => (
             <label key={value} className="flex cursor-pointer items-start gap-3 px-3.5 py-3">
-              <input type="radio" name="habit-kind" checked={kind === value} onChange={() => setKind(value)} className="mt-1 h-5 w-5 accent-[var(--ink)]" />
+              <input type="radio" name="habit-kind" checked={kind === value} onChange={() => setKind(value)} className="mt-1 h-5 w-5 accent-[var(--signal-evidence-fill)]" />
               <span><span className="block font-medium leading-snug">{KIND_NAME[value]}</span><span className="block text-sm leading-snug text-muted">{help}</span></span>
             </label>
           ))}
@@ -263,7 +263,7 @@ function AddHabit({ full, onAdded }: { full: boolean; onAdded: () => void }) {
 
       {kind !== "check" && <p className="text-sm leading-snug text-muted">The way a habit is tracked is fixed once it is made, so your old days always mean the same thing.</p>}
 
-      <button type="submit" disabled={!ready || full} className="h-12 w-full rounded-xl bg-ink text-lg font-medium text-bg disabled:opacity-40">
+      <button type="submit" disabled={!ready || full} className="h-12 w-full rounded-xl bg-signal-evidence-fill text-lg font-medium text-on-signal-evidence-fill disabled:opacity-40">
         {full ? "Habit limit reached" : "Add habit"}
       </button>
     </form>
@@ -283,7 +283,7 @@ export function HabitTiles({ game, ready }: { game: Game; ready: boolean }) {
     <section aria-label="Everyday habits">
       <header className="flex items-baseline justify-between gap-3">
         <h2 className="headline">Everyday</h2>
-        <button type="button" onClick={() => setAdding(true)} className="text-sm font-medium text-ink underline underline-offset-4">Add a habit</button>
+        <button type="button" onClick={() => setAdding(true)} className="text-sm font-medium text-signal-evidence-text underline underline-offset-4">Add a habit</button>
       </header>
 
       {ready && game.habits.length > 0 && (
@@ -301,7 +301,7 @@ export function HabitTiles({ game, ready }: { game: Game; ready: boolean }) {
                 <button type="button" onClick={() => addHabit(s.label, { kind: s.kind, unit: s.unit, target: s.target })}
                   className="flex w-full items-center justify-between gap-3 rounded-xl border border-line bg-surface px-3.5 py-2.5 text-left">
                   <span><span className="block font-medium leading-snug">{s.label}</span><span className="block text-sm text-muted">{s.note}</span></span>
-                  <span aria-hidden className="text-xl font-medium text-ink">+</span>
+                  <span aria-hidden className="text-xl font-medium text-signal-evidence-text">+</span>
                 </button>
               </li>
             ))}

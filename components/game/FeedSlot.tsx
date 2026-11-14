@@ -23,7 +23,7 @@ export function FeedSlot() {
   const steps = !hydrated ? " " : total === 0 ? "No steps yet. Add one from a read." : `${done} of ${total} steps today`;
 
   return (
-    <Link href="/today" data-feed-slot className="flex items-center gap-4 rounded-3xl border border-line bg-surface p-4">
+    <Link href="/today" data-feed-slot data-life-game className="flex items-center gap-4 rounded-3xl border border-line bg-surface p-4">
       <CompanionFigure mood={mood} size="h-16 w-16" />
       <span className="min-w-0 flex-1">
         <span className="flex items-baseline justify-between gap-3">
@@ -35,10 +35,10 @@ export function FeedSlot() {
           role="progressbar" aria-label="Adherence today, weighted by evidence" aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct}
           className="mt-2 block h-2.5 overflow-hidden rounded-full bg-line"
         >
-          <span className="block h-full rounded-full bg-ink" style={{ width: `${pct}%` }} />
+          <span className="block h-full rounded-full bg-signal-evidence-fill" style={{ width: `${pct}%` }} />
         </span>
       </span>
-      <span aria-hidden className="font-medium text-ink">→</span>
+      <span aria-hidden className="font-medium text-signal-evidence-text">→</span>
     </Link>
   );
 }
