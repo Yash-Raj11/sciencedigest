@@ -63,6 +63,9 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
 - [x] 2C. Figures as React SVG: ten primitives, widget guard extended (two failing fixtures),
       title/desc/alt, reduced motion, 360 px; one mechanism figure per starter paper;
       screenshots in `docs/evidence/figures/`.
+- [x] Off-list (owner's request, 2026-11-13): release `turmeric-pepper-breakfast`. Hosted seed
+      written (papers 4, steps 30); `isTimestamp` rule + test; on `main` as `80e1caa`, live 200
+      on 2026-11-14. Hand-written, so it does not count toward the Phase 10 gate.
 - [ ] 2D. Rebuild `components/read/Article.tsx` (hook, mechanism, pull-number, protocol,
       receipts, members' extras); search-the-build check; walkthrough extended; before/after
       screenshots in `docs/evidence/article-redesign/`.

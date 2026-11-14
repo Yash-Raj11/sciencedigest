@@ -52,19 +52,24 @@ The interactive part is the product; the text is what justifies it.
 | `/privacy` (a draft the owner still has to review; not seen by a lawyer) | Live | HTTP and browser tests |
 | Three project skills: `science-content`, `db-change`, `phase-handoff` (`.claude/skills/`) | Written 2026-11-13 | — |
 | Phase 9, 2A: reads in three layers (mechanism, protocol, audit) with a glossary; H9–H11 in the lint. The three starter papers still build in the old shape through a temporary allowlist, removed in 2E | Built, no reader-visible change yet | `docs/evidence/phase9-2a-rules-broken.txt` (19 of 19) |
-| Phase 9, 2B: context sources. A read may cite another gated study (`content/context/`) and owner-reviewed background concepts (`content/concepts/`); neither can back a step or a weight; retraction check covers context | Built; both folders are empty | `docs/evidence/phase9-2b-gate.txt` (20 of 20) |
+| Phase 9, 2B: context sources. A read may cite another gated study (`content/context/`) and owner-reviewed background concepts (`content/concepts/`); neither can back a step or a weight; retraction check covers context | Built; `content/concepts/` holds one reviewed concept (`glucagon-like-peptide`); `content/context/` is empty | `docs/evidence/phase9-2b-gate.txt` (20 of 20) |
+| Phase 9, 2C: figures drawn in code (10 primitives, one mechanism figure per paper; solid = measured, dashed = proposed), figure guard in eslint | Built; shown in the interim article layout | `docs/evidence/phase9-2c-rules-broken.txt` (16), `phase9-2c-browser-rules-broken.txt` (5), `docs/evidence/figures/` |
+| Fourth paper `turmeric-pepper-breakfast` (free, three layers, hand-written: no model run, so it does not count toward the Phase 10 gate) | Approved; on the hosted database and on `main`/Vercel (`80e1caa`) | BUILD-LOG 2026-11-13 and 2026-11-14 |
 | Documents: `CLAUDE.md`, `docs/MANUAL.md`, `ARCHITECTURE.md`, `data-model.md`, `BUILD-LOG.md` | Written | — |
 
-Totals on 2026-11-13 (after Phase 9 step 2B): 272 unit tests, 6 HTTP tests, 6 browser tests;
+Totals on 2026-11-14 (after 2C, the turmeric release and dropping 2A rule (b)): 298 unit tests,
+6 HTTP tests, 18 browser tests;
 191 database assertions per pass and 16 of 16 mutations (unchanged since the last SQL change:
 Phase 9 has touched no SQL). Outputs are in `docs/evidence/`.
 
-### Deployment state (2026-11-13)
+### Deployment state (2026-11-14)
 
-- Live at `https://sciencedigest-a4ms.vercel.app`, deployed by Vercel from `main`. The Mac and
-  GitHub are level.
+- Live at `https://sciencedigest-a4ms.vercel.app`, deployed by Vercel from `main`. The Mac,
+  GitHub and the hosted database are level (four published papers).
 - Hosted Supabase project `takhienzcshgkytbvaii`: all migrations to
-  `20261114000100_set_step_amount.sql` and the seed applied; anonymous sign-ins on; CAPTCHA
+  `20261114000100_set_step_amount.sql`, and the seed as of the turmeric release (applied with
+  `supabase db query --remote -f supabase/seed.sql`; see MANUAL 3.3). **No hosted command
+  without the owner's "go" (2026-11-14).** anonymous sign-ins on; CAPTCHA
   (Turnstile) on. `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is set in Vercel and `.env.local`.
 - **Browsers on the live site.** Turnstile runs only at a visitor's first write (the anonymous
   sign-in) and refuses an automated browser there (error 600010). Playwright may load live
