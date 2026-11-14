@@ -75,7 +75,7 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
   return (
     <Glossary content={content}>
       <div>
-        <Para as="h2" sentences={content.hook} facts={facts} context={context} className="read text-[1.375rem] font-medium leading-[1.4]" />
+        <Para as="h2" sentences={content.hook} facts={facts} context={context} className="read-title text-[1.875rem]" />
         <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
           <span className="num font-semibold" data-read-minutes>{paper.readMinutes} min read</span>
           <span className="flex items-center gap-1.5">
@@ -245,11 +245,11 @@ export function Article({ paper }: { paper: PaperMeta }) {
   return (
     <article className="space-y-7">
       <header className="pt-2">
-        <Link href="/library" className="text-sm font-semibold text-muted underline underline-offset-4">Library</Link>
+        <Link href="/" className="text-sm font-semibold text-muted underline underline-offset-4">All reads</Link>
         <p className="mt-4 flex items-center justify-between gap-3 text-sm text-muted">
           <span>{paper.category}, {(DESIGN_LABEL[paper.design] ?? paper.design).toLowerCase()}</span>
         </p>
-        <h1 className="read-title mt-2 text-[2.125rem]">{paper.title}</h1>
+        <h1 className="mt-2 text-[1.0625rem] font-semibold leading-snug text-muted">{paper.title}</h1>
         <dl className="mt-4 space-y-1.5">
           {paper.grades.map((g) => (
             <div key={g.outcome} className="flex items-center justify-between gap-3 border-t border-line pt-1.5">
