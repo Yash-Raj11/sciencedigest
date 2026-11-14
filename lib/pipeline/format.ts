@@ -22,3 +22,10 @@ export function formatEstimate(e: Pick<ResolvedEstimate, "point" | "ciLow" | "ci
   if (e.ciLow === null || e.ciHigh === null) return point;
   return `${point} (95% CI ${signed(e.ciLow, digits)} to ${signed(e.ciHigh, digits)})`;
 }
+
+/**
+ * A formatted estimate without its interval, for a line outside the Receipts (owner,
+ * 2026-11-14: no CIs outside the Receipts). "Fat-free mass +0.63 kg (95% CI 0.17 to 1.09)"
+ * becomes "Fat-free mass +0.63 kg". The Receipts keep the full form.
+ */
+export const withoutInterval = (text: string): string => text.replace(/\s*\(95% CI [^)]*\)/g, "");

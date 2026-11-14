@@ -224,7 +224,11 @@ describe("lint (stage 4)", () => {
   });
   it("H5: statistical significance dressed up as size", () => {
     expect(lintErrors(steps, (e) => { e.hook = "The difference was highly significant and massive. [ard_1_2]"; }))
-      .toEqual([expect.stringContaining("H5 hook: statistical significance described as magnitude")]);
+      .toEqual([
+        expect.stringContaining("H5 hook: statistical significance described as magnitude"),
+        // And, since 2026-11-14, "significant" outside the Receipts at all.
+        expect.stringContaining('plain hook: "significant" outside the Receipts'),
+      ]);
   });
   it("H5: the interval of the headline estimate must be spelled out", () => {
     expect(lintErrors(steps, (e) => { e.sections = e.sections.filter((s: any) => s.id !== "lower-bound"); }))

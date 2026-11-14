@@ -30,7 +30,7 @@ export default function FiveReadings({ params, alt, interactive = true }: Figure
           x={4} y={62} width={312} labelWidth={0} rowHeight={48} times={times} unit={p.unit}
           rows={p.meals.map((meal) => ({ label: meal.label, flagged: meal.differed.map((time) => time.n) }))}
           span={{ lines: [`total over ${Math.max(...times)} ${p.unit}: no difference`], fact: p.total.fact }}
-          flag={{ time: p.early.at.n, lines: ["differed from plain", `(p = ${p.pValue.text})`], fact: p.early.fact }}
+          flag={{ time: p.early.at.n, lines: ["differed from plain"], fact: p.early.fact }}
           selected={cell} onSelect={interactive ? setCell : undefined} cellLabel={(at) => cellName(p, at)}
         />
       </Figure>

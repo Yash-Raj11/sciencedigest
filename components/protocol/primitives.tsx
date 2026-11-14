@@ -10,6 +10,7 @@ import { useId, useState, type ReactNode } from "react";
 import type { Choice } from "@/lib/content/types";
 import { GRADE_NAME, weightLabel, type EvidenceGrade } from "@/lib/evidence";
 import type { Protocol, ProtocolRow } from "@/lib/protocol/useProtocol";
+import { withoutInterval } from "@/lib/pipeline/format";
 
 const PIPS: Record<EvidenceGrade, number> = { high: 3, moderate: 2, low: 1, none: 0 };
 const SHORT: Record<EvidenceGrade, string> = { high: "High", moderate: "Moderate", low: "Low", none: "No weight" };
@@ -113,7 +114,7 @@ function DerivedRow(props: { met: boolean; label: string; status: string; traili
 
 function Source({ text }: { text: string | null }) {
   if (!text) return null;
-  return <p className="num mt-1 text-xs leading-snug text-muted">From the paper: {text}</p>;
+  return <p className="num mt-1 text-xs leading-snug text-muted">From the paper: {withoutInterval(text)}</p>;
 }
 
 function WeekPips({ count, target }: { count: number; target: number }) {

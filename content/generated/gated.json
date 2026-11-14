@@ -43,7 +43,7 @@
           "paragraphs": [
             [
               {
-                "text": "Compared with no exercise, interval training in these adults reduced fat mass by 1.86 kg (95% CI 2.55 to 1.18) and body fat percentage by 1.53 points (95% CI 2.13 to 0.92).",
+                "text": "Compared with no exercise, interval training in these adults reduced fat mass by 1.86 kg and body fat percentage by 1.53 points.",
                 "refs": [
                   "fm_all",
                   "bf_all"
@@ -206,7 +206,7 @@
                 ]
               },
               {
-                "text": "They also raise a practical point: heavier bodies load the joints differently when running, which is one reason cycling may suit some people better whatever the averages say.",
+                "text": "They also raise a practical point: heavier bodies load the joints differently when running, which is one reason cycling may suit some people whatever the averages say.",
                 "refs": [
                   "joints"
                 ]
@@ -1383,7 +1383,7 @@
     "daytime-caffeine-sleep": [
       [
         {
-          "text": "The schedule tested was three doses, the last one 475 minutes after waking, which fell 8 hours before bed.",
+          "text": "The schedule tested was three doses, the last one 475 minutes after waking, which came 8 hours before bed.",
           "refs": [
             "schedule",
             "recording"
@@ -1507,7 +1507,7 @@
       ],
       [
         {
-          "text": "Turmeric alone, at 1 g, showed no glucose effect.",
+          "text": "Turmeric alone, at 1 g, showed no clear difference in glucose.",
           "refs": [
             "turmeric_none"
           ]

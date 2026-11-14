@@ -144,8 +144,7 @@ export function Para({ sentences, facts, context, className = "read", as: Tag = 
               <p className="mt-1 text-sm font-medium leading-snug">{fact.label}</p>
               <p className="mt-0.5 font-serif text-[0.9375rem] italic leading-snug text-muted">&ldquo;{fact.quote}&rdquo;</p>
               {fact.estimate && (
-                <p className="num mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-                  <span>{formatEstimate(fact.estimate)}</span>
+                <p className="mt-1.5">
                   <GradeChip grade={fact.estimate.tier} />
                 </p>
               )}

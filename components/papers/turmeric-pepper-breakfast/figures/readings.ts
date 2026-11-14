@@ -14,7 +14,6 @@ export interface Params {
   times: Num[];
   unit: string;
   meals: Meal[];
-  pValue: { text: string; ref: string };
   early: Evidence & { at: Num };
   total: Evidence;
 }

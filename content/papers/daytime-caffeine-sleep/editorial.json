@@ -77,7 +77,7 @@
     }
   },
   "takeaways": [
-    "The schedule tested was three doses, the last one 475 minutes after waking, which fell 8 hours before bed. [schedule, recording]",
+    "The schedule tested was three doses, the last one 475 minutes after waking, which came 8 hours before bed. [schedule, recording]",
     "The finding covers a steady daily habit. [who] The authors caution that it may not hold after several days without caffeine. [not_after_abstinence]",
     "Bedtime at home drifted about 25 minutes later on caffeine, so watch the clock as well as the cup. [later_bed]"
   ],
@@ -145,7 +145,7 @@
       {
         "kind": "limitation",
         "heading": "How sure? [-]",
-        "body": "A small trial. [lim_n] The text gives no effect sizes or confidence intervals, only that the differences were not statistically significant. [sleep_same]"
+        "body": "A small trial. [lim_n] The text gives no sizes for the differences: the study could not tell caffeine nights from placebo nights. [sleep_same]"
       },
       {
         "kind": "cta",
@@ -153,7 +153,7 @@
         "body": "Set your wake time and your last coffee in the simulator to see whether you are inside the window this trial tested. [-]"
       }
     ],
-    "caption": "A double-blind crossover trial in twenty young men: caffeine three times a day, ending 8 hours before bed, did not change measured sleep structure compared with placebo. [blind, sample, recording, sleep_same] A small trial in men aged 18 to 35, with no effect sizes reported. [lim_n, who] Simulator at the link in bio. [-]",
+    "caption": "A double-blind crossover trial in twenty young men: caffeine three times a day, ending 8 hours before bed, showed no clear difference in measured sleep from placebo. [blind, sample, recording, sleep_same] A small trial in men aged 18 to 35, and the text gives no sizes for the differences. [lim_n, who, sleep_same] Simulator at the link in bio. [-]",
     "hashtags": [
       "sleep",
       "caffeine",

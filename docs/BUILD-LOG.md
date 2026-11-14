@@ -1208,3 +1208,34 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   added. Three old browser assertions encoded the old type (serif body, limitation at 700) and
   were updated to the owner's rules (Archivo body 15–17 px, serif headline 22 px, limitation at
   500 in the full text colour).
+
+## 2026-11-14, Readability 2: plain-language rules in the lint
+
+- New rule group `plain` in `lib/pipeline/lint.ts`, on every sentence a reader sees:
+  1. `PLAIN_SIGNIFICANT`: "significant(ly)", "non-significant", "statistically significant"
+     outside the Receipts fail, with "say a clear difference / no clear difference".
+  2. `PLAIN_STATS`: p-values, "p-value", "confidence interval", "95% CI", "CI", "effect size"
+     outside the Receipts fail.
+  3. `NULL_OVERCLAIM`: "did not / didn't change", "no (x) effect", "unchanged", "made no
+     difference", "showed / did nothing" fail everywhere, the Receipts included; "no clear
+     effect" and "no effect size" pass.
+  4. `DIRECTION_WORD` (lower, higher, rose, fell, increased, reduced ...): a sentence may use one
+     only if a cited fact states the direction (`statesDirection`: a difference or ratio whose
+     range excludes no difference; the paper's quote saying lower/higher/more/less and not
+     "no significant difference"; or two cited printed levels that differ). The mechanism
+     layer, with its figure's caption and alt, is exempt: it explains, it reports no result.
+- "The Receipts" = the audit layer; in an old-shape read (caffeine, steps, HIIT until 2E), the
+  `lower-bound` and `missed` sections and the limitations. The read page now shows those two
+  old-shape sections inside the Receipts box ("How weak it could be", "What summaries leave
+  out"), so the page matches the rule.
+- Content fixed, never the rule: 18 sentences across the four papers (mostly carousel text; HIIT's
+  "found" lost its two CIs; turmeric's "did nothing", "showed nothing", "no glucose effect" became
+  "no clear difference"; "fell 8 hours before bed" became "came"; turmeric's "Lower at 30
+  minutes" and the doorbell alt now cite `glucose_lower`, the fact that says lower).
+- Interface: turmeric's readings figure no longer prints "(p = .023)" (the `pValue` param is
+  gone); a protocol step's source line drops the interval (`withoutInterval`, the stored
+  `source_estimate` is unchanged, so no seed change for this); the tap-to-open passage shows the
+  verbatim quote and the grade, no longer a formatted CI. The number card's CI moves in item 3.
+- Tests: `lib/pipeline/plain.test.ts` (28). Each rule disabled by hand fails tests
+  (`docs/evidence/readability/plain-rules-broken.txt`). Fixture `layered-caffeine.json` reworded
+  ("fell" → "came"); the H5 significance test now also expects the plain error.

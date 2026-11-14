@@ -33,6 +33,8 @@ import { MemberExtras } from "./MemberExtras";
 import { Glossary, Para, Pictured, PullNumber, type Context, type Facts } from "./parts";
 
 const LAYER = "headline";
+/** An old-shape read's sections that are receipts (until step 2E moves them into the audit layer). */
+const LEGACY_RECEIPTS = new Set(["lower-bound", "missed"]);
 const AUDIT = "text-base leading-relaxed";
 
 /** Paragraphs with the layer's figure after the first one. */
@@ -72,7 +74,8 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
   const { facts, context, layers } = content;
   const hasGlossary = (content.glossary ?? []).length > 0;
   // An old-shape read (until step 2E): its first section stands where the mechanism will.
-  const [first, ...rest] = content.sections;
+  // Its "lower-bound" and "missed" sections are receipts: they show in the Receipts box.
+  const [first, ...rest] = content.sections.filter((section) => !LEGACY_RECEIPTS.has(section.id));
 
   return (
     <Glossary content={content}>
@@ -165,6 +168,9 @@ function Primer() {
 function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent }) {
   const { facts, context } = content;
   const audit = content.layers?.audit;
+  const legacy = (id: string) => (audit ? undefined : content.sections.find((section) => section.id === id));
+  const legacyWeak = legacy("lower-bound");
+  const legacyMissed = legacy("missed");
   const limitations = audit ? audit.limitations : content.limitations;
   const sources = contextSourceList(content);
 
@@ -194,6 +200,11 @@ function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent 
           </Receipt>
         </>
       )}
+      {legacyWeak && (
+        <Receipt title="How weak it could be">
+          {legacyWeak.paragraphs.map((paragraph, i) => <Para key={i} sentences={paragraph} facts={facts} context={context} className={AUDIT} />)}
+        </Receipt>
+      )}
       <Receipt title="What to hold loosely">
         <ul className="mt-1 space-y-3">
           {limitations.map((limitation, i) => (
@@ -210,6 +221,11 @@ function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent 
           {audit && (
             <Receipt title="What summaries leave out">
               <Para sentences={audit.missed} facts={facts} context={context} className={AUDIT} />
+            </Receipt>
+          )}
+          {legacyMissed && (
+            <Receipt title="What summaries leave out">
+              {legacyMissed.paragraphs.map((paragraph, i) => <Para key={i} sentences={paragraph} facts={facts} context={context} className={AUDIT} />)}
             </Receipt>
           )}
           {audit?.more.map((paragraph, i) => <Para key={i} sentences={paragraph} facts={facts} context={context} className={AUDIT} />)}

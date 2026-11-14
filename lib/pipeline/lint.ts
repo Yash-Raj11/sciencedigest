@@ -115,6 +115,51 @@ const SIGNIFICANCE = /\bp\s?[<=>]\s?0?\.\d+|\b(statistically )?significan(t|tly|
 const MAGNITUDE_WORD =
   /\b(huge|massive|dramatic|dramatically|powerful|powerfully|strong|strongly|major|large|largely|substantial|substantially|big|striking|strikingly|remarkable|remarkably|profound|profoundly)\b/i;
 
+// Plain language (owner, 2026-11-14) ---------------------------------------------
+/**
+ * Research words a reader outside a statistics class misreads. Outside the Receipts (the
+ * audit layer; in an old-shape read, its "lower-bound" and "missed" sections and its
+ * limitations) a read says "a clear difference" or "no clear difference" instead.
+ */
+export const PLAIN_SIGNIFICANT = /\b(?:statistically\s+)?(?:non-?\s?|in)?significan(?:t|tly|ce)\b/i;
+export const PLAIN_STATS: [string, RegExp][] = [
+  ["a p-value", /\bp\s?[<=>≤≥]\s?0?\.\d|\bp-?values?\b/i],
+  ["a confidence interval", /\bconfidence intervals?\b|\b95\s?%\s?(?:CI|range|interval)/i],
+  ["a confidence interval", /\bCIs?\b/],
+  ["\"effect size\"", /\beffect sizes?\b/i],
+];
+/**
+ * A result the study could not tell from zero is not "no effect": it is "no clear difference".
+ * These words claim the thing was shown to do nothing, which no study of this size can show.
+ */
+export const NULL_OVERCLAIM =
+  /\b(?:did\s?n[o']?t|didn['’]t|does\s?n[o']?t|doesn['’]t)\s+(?:change|affect|alter|matter|work)\b|\b(?:no|zero)\s+(?!clear\b)(?:[a-z]+\s+)?(?:effect|impact)\b(?!\s+sizes?)|\bunchanged\b|\bmade no difference\b|\b(?:showed|did) nothing\b/i;
+/**
+ * Words that say which way a result went. A sentence may use one only when a fact it cites
+ * states the direction: a difference whose range excludes "no difference", two printed levels
+ * that differ, or the paper's own words saying lower, higher, more or less. Otherwise neutral
+ * wording ("differed"). Background sentences in the mechanism layer are not results.
+ */
+export const DIRECTION_WORD =
+  /\b(?:lower|higher|rose|risen|rises|fell|fallen|falls|dropped|drops|declined|increased|decreased|reduced|elevated|smaller|larger|worse|better)\b/i;
+const QUOTE_DIRECTION =
+  /\b(?:lower|higher|less|more|fewer|greater|decreas\w*|increas\w*|reduc\w*|rose|fell|declin\w*|elevat\w*|improv\w*|wors\w*|better|drop\w*|rais\w*|shorter|longer|smaller|larger)\b/i;
+const RATIO_MEASURES: ReadonlySet<string> = new Set(["RR", "HR", "OR"]);
+const LEVEL_MEASURES: ReadonlySet<string> = new Set(["proportion", "mean"]);
+
+/** Does this fact, on its own, say which way a result went? */
+export function statesDirection(fact: ValidatedFact): boolean {
+  const e = fact.estimate;
+  if (e && !LEVEL_MEASURES.has(e.measure)) {
+    const none = RATIO_MEASURES.has(e.measure) ? 1 : 0;
+    if (e.point === none) return false;
+    if (e.ciLow !== null && e.ciHigh !== null) return e.ciLow > none || e.ciHigh < none;
+    return true;
+  }
+  if (e) return false;
+  return QUOTE_DIRECTION.test(fact.quote) && !/\bno\b[^.;]*\b(?:significant|difference)\b|\bnon-?significant\b|\bnot (?:statistically )?significant\b/i.test(fact.quote);
+}
+
 // Carousel ---------------------------------------------------------------------
 export const CAROUSEL_LIMITS = { slides: 10, heading: 90, body: 280, caption: 2200, hashtags: 30 };
 /** Conservative: basic Latin plus the punctuation the slide fonts are known to carry. */
@@ -170,6 +215,8 @@ interface Located {
   headline: boolean;
   /** Set for text inside one of the three layers. */
   layer?: Layer;
+  /** In the Receipts: the audit layer, or an old-shape read's lower-bound, missed and limitations. */
+  receipts: boolean;
 }
 
 export function lint(validated: Validated, editorialInput: unknown, source: string, options: LintOptions = {}): LintReport {
@@ -255,11 +302,13 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   // Collect every sentence a reader could see ----------------------------------
   const all: Located[] = [];
   const read: Located[] = [];
+  const LEGACY_RECEIPTS = /^(sections\.(lower-bound|missed)\[|limitations\[)/;
   function take(where: string, markup: string, opts: { headline?: boolean; inRead?: boolean; layer?: Layer } = {}): Sentence[] {
     try {
       const sentences = parseMarkup(markup);
       for (const sentence of sentences) {
-        const item: Located = { where, sentence, headline: opts.headline ?? false, layer: opts.layer };
+        const receipts = opts.layer === "audit" || (!layers && LEGACY_RECEIPTS.test(where));
+        const item: Located = { where, sentence, headline: opts.headline ?? false, layer: opts.layer, receipts };
         all.push(item);
         if (opts.inRead) read.push(item);
       }
@@ -393,6 +442,33 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
     }
     if (SIGNIFICANCE.test(text) && MAGNITUDE_WORD.test(text)) {
       fail("H5", where, `statistical significance described as magnitude: "${text}"`);
+    }
+  }
+
+  // Plain language (owner, 2026-11-14): every sentence a reader sees -----------------
+  for (const { where, sentence, layer, receipts } of all) {
+    // The mechanism layer, its figure caption and alt text included, explains; it reports no result.
+    const mechanism = layer === "mechanism" || where.startsWith("layers.mechanism.");
+    const text = sentence.text;
+    if (!receipts) {
+      if (PLAIN_SIGNIFICANT.test(text)) {
+        fail("plain", where, `"significant" outside the Receipts; say "a clear difference" or "no clear difference": "${text}"`);
+      }
+      const stat = PLAIN_STATS.find(([, pattern]) => pattern.test(text));
+      if (stat) fail("plain", where, `${stat[0]} outside the Receipts; keep it there and say it in plain words here: "${text}"`);
+    }
+    if (NULL_OVERCLAIM.test(text)) {
+      fail("plain", where, `"${NULL_OVERCLAIM.exec(text)![0]}" claims the study showed nothing happens; a result it could not tell from zero is "no clear difference": "${text}"`);
+    }
+    const direction = DIRECTION_WORD.exec(text);
+    if (direction && !mechanism) {
+      const cited = sentence.refs.map((r) => factOf(r)?.fact).filter((f) => f !== undefined);
+      const background = sentence.refs.some((r) => parseRef(r).kind === "concept");
+      const levels = cited.map((f) => f.estimate).filter((e) => e && LEVEL_MEASURES.has(e.measure)).map((e) => `${e!.unit}:${e!.point}`);
+      const stated = background || cited.some(statesDirection) || new Set(levels).size >= 2;
+      if (!stated) {
+        fail("plain", where, `"${direction[0]}" says which way it went, but no cited fact states a direction; say "differed", or cite the fact that says it: "${text}"`);
+      }
     }
   }
 

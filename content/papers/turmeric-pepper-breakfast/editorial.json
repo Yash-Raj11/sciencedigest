@@ -19,12 +19,12 @@
         "Think of a doorbell in your mouth. [-] Food presses it, and the rest of the body hears that a meal is on the way. [-] The authors point to a real one: a sensor in the mouth called TRPV1. [trpv1_mouth] Black pepper carries a compound called piperine and several close relatives. [piperine, trpv1] The authors say these might press that sensor. [trpv1]",
         "What happens next is a hormone. [-] When TRPV1 fires, levels of a gut hormone called GLP-1 go up in the lower gut and in the blood. [glp1] GLP-1 is the gut's message that food has arrived. [glp1, concept:glucagon-like-peptide] It helps hold down the rise in blood sugar after eating, slows the gut and curbs appetite. [concept:glucagon-like-peptide]",
         "That chain fits what the trial saw. [-] After the pepper breakfast, blood glucose was lower than after the plain one. [glucose_lower] The gap showed at the 30-minute reading. [glucose_30] Hunger was lower too. [appetite]",
-        "Turmeric did not follow the script. [-] On its own, 1 g did nothing to blood glucose. [turmeric_none] The authors' explanation is the dose: they call it low. [turmeric_dose]"
+        "Turmeric did not follow the script. [-] On its own, 1 g showed no clear difference in blood glucose. [turmeric_none] The authors' explanation is the dose: they call it low. [turmeric_dose]"
       ],
       "figure": {
         "figure": "doorbell",
         "caption": "The authors' explanation, step by step. [trpv1, glp1] A dashed arrow is a step the trial did not measure. [lim_hormones]",
-        "alt": "Four boxes, top to bottom, joined by dashed arrows. [-] Pepper touches the mouth. [-] A sensor there fires. [-] The gut sends its food-has-arrived message. [-] Blood sugar rises less. [-] Only the last box is filled. [-]",
+        "alt": "Four boxes, top to bottom, joined by dashed arrows. [-] Pepper touches the mouth. [-] A sensor there fires. [-] The gut sends its food-has-arrived message. [-] Blood sugar rises less. [glucose_lower] Only the last box is filled. [-]",
         "params": {
           "nodes": [
             {
@@ -77,7 +77,7 @@
     "protocol": {
       "paragraphs": [
         "The trial tested one dose: 1 g of black pepper, mixed into a fried egg. [in_egg] The egg came with 2 slices of toast and a cup of sweet milk tea. [plate] The participants ate after an overnight fast and finished within 10 minutes. [fast, eaten_in]",
-        "A second version added 1 g of turmeric to the pepper. [meals] It showed the same early glucose difference, and tasters liked it more than pepper alone. [glucose_30, taste_rank] Turmeric without pepper showed no glucose effect. [turmeric_none]",
+        "A second version added 1 g of turmeric to the pepper. [meals] It showed the same early glucose difference, and tasters liked it more than pepper alone. [glucose_30, taste_rank] Turmeric without pepper showed no clear difference in glucose. [turmeric_none]",
         "Each version was eaten once. [single_meal, washout] The trial did not test a daily habit. [lim_long_term]"
       ],
       "figure": {
@@ -140,10 +140,6 @@
               "reading": "fact:timepoints"
             }
           ],
-          "pValue": {
-            "text": ".023",
-            "ref": "glucose_30"
-          },
           "early": {
             "kind": "measured",
             "fact": "fact:glucose_30",
@@ -167,7 +163,7 @@
         "Hunger and fullness were self-reported on paper scales. [appetite_scale] The authors say the lower hunger might come from the spiced meals tasting worse. [lim_taste]",
         "One breakfast per version, in 20 young adults: nothing here speaks to long-term use. [single_meal, sample, ages, lim_long_term]"
       ],
-      "missed": "The easy summary: these spices are good for blood sugar. [-] The paper found no glucose effect for turmeric alone. [turmeric_none] The 3-hour total did not differ for any meal. [glucose_total, nothing_else] Only healthy people took part, so the trial cannot speak to diabetes. [criteria, sample]",
+      "missed": "The easy summary: these spices are good for blood sugar. [-] The paper found no clear difference in glucose for turmeric alone. [turmeric_none] The 3-hour total did not differ for any meal. [glucose_total, nothing_else] Only healthy people took part, so the trial cannot speak to diabetes. [criteria, sample]",
       "more": [
         "The paper does not say whether the participants knew which meal they had. [-]",
         "The ingredient table lists 10 g of sugar for the combined meal and 8 g for the others. [sugar_row] It still gives all four the same 50 g of carbohydrate. [carb_row]",
@@ -215,7 +211,7 @@
   "takeaways": [
     "The dose tested was 1 g of black pepper, cooked into the egg of a toast-and-tea breakfast. [in_egg, plate]",
     "The glucose difference showed 30 minutes after eating and not in the 3-hour total. [glucose_30, glucose_total, nothing_else]",
-    "Turmeric alone, at 1 g, showed no glucose effect. [turmeric_none]"
+    "Turmeric alone, at 1 g, showed no clear difference in glucose. [turmeric_none]"
   ],
   "choices": [],
   "steps": [
@@ -371,7 +367,7 @@
       },
       {
         "kind": "finding",
-        "heading": "Lower at 30 minutes [glucose_30]",
+        "heading": "Lower at 30 minutes [glucose_lower, glucose_30]",
         "body": "After the pepper breakfast, blood glucose was lower than after the plain one at the 30-minute reading. [glucose_lower, glucose_30] Added up over 3 hours, the meals did not differ. [glucose_total, nothing_else]"
       },
       {
@@ -381,13 +377,13 @@
       },
       {
         "kind": "nuance",
-        "heading": "Turmeric alone showed nothing [turmeric_none]",
-        "body": "1 g of turmeric without pepper showed no glucose effect. [turmeric_none] The authors think the dose was too low. [turmeric_dose]"
+        "heading": "Turmeric alone: no clear difference [turmeric_none]",
+        "body": "1 g of turmeric without pepper showed no clear difference in glucose. [turmeric_none] The authors think the dose was too low. [turmeric_dose]"
       },
       {
         "kind": "limitation",
         "heading": "How sure? [-]",
-        "body": "A small trial of single meals. [sample, single_meal] The text gives no effect sizes and no confidence intervals. [glucose_30] The trial measured no hormones, so the mechanism is a proposal. [lim_hormones]"
+        "body": "A small trial of single meals. [sample, single_meal] The text does not say how big the differences were. [glucose_30] The trial measured no hormones, so the mechanism is a proposal. [lim_hormones]"
       },
       {
         "kind": "cta",
@@ -395,7 +391,7 @@
         "body": "Pick a meal in the simulator to see what the trial recorded after it. [-]"
       }
     ],
-    "caption": "A crossover trial in 20 healthy young adults tested 1 g of black pepper in a breakfast egg. [crossover, sample, in_egg] Blood glucose was lower at 30 minutes than after the plain meal. [glucose_lower, glucose_30] The 3-hour total did not differ, turmeric alone showed nothing, and the text gives no effect sizes. [glucose_total, nothing_else, turmeric_none] Simulator at the link in bio. [-]",
+    "caption": "A crossover trial in 20 healthy young adults tested 1 g of black pepper in a breakfast egg. [crossover, sample, in_egg] Blood glucose was lower at 30 minutes than after the plain meal. [glucose_lower, glucose_30] Over 3 hours the meals showed no clear difference, nor did turmeric alone. [glucose_total, nothing_else, turmeric_none] The text does not say how big any difference was. [glucose_30] Simulator at the link in bio. [-]",
     "hashtags": [
       "nutrition",
       "blackpepper",

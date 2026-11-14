@@ -1,0 +1,9 @@
+Readability 2: each plain-language rule disabled by hand in lib/pipeline/lint.ts, then
+npx vitest run lib/pipeline/plain.test.ts (27 tests). Every break is caught.
+
+direction rule off (if (!stated) -> if (false))          2 failed | 25 passed
+"significant" rule off                                     4 failed | 23 passed
+p-value / CI / effect size rule off                        5 failed | 22 passed
+"no effect" over-claim rule off                            6 failed | 21 passed
+Receipts exemption off (every sentence treated as outside) 24 failed | 3 passed
+Rules restored: 27 passed.

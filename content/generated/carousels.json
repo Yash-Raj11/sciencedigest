@@ -27,7 +27,7 @@
         {
           "kind": "limitation",
           "heading": "How sure?",
-          "body": "A small trial. The text gives no effect sizes or confidence intervals, only that the differences were not statistically significant."
+          "body": "A small trial. The text gives no sizes for the differences: the study could not tell caffeine nights from placebo nights."
         },
         {
           "kind": "cta",
@@ -35,7 +35,7 @@
           "body": "Set your wake time and your last coffee in the simulator to see whether you are inside the window this trial tested."
         }
       ],
-      "caption": "A double-blind crossover trial in twenty young men: caffeine three times a day, ending 8 hours before bed, did not change measured sleep structure compared with placebo. A small trial in men aged 18 to 35, with no effect sizes reported. Simulator at the link in bio.",
+      "caption": "A double-blind crossover trial in twenty young men: caffeine three times a day, ending 8 hours before bed, showed no clear difference in measured sleep from placebo. A small trial in men aged 18 to 35, and the text gives no sizes for the differences. Simulator at the link in bio.",
       "hashtags": [
         "sleep",
         "caffeine",
@@ -133,7 +133,7 @@
           "body": "Open the simulator to watch the gap change as each adjustment is added, then add the weekly target to your Life Game."
         }
       ],
-      "caption": "A 10-year follow-up of 3,101 US adults: reaching 8,000 steps on 1 to 2 days a week was associated with a risk of death 14.9 points lower than never reaching it (95% CI 18.8 to 10.9). An observational study, and the groups differed in age and health. Source and simulator at the link in bio.",
+      "caption": "A 10-year follow-up of 3,101 US adults: reaching 8,000 steps on 1 to 2 days a week was associated with a risk of death 14.9 points lower than never reaching it. An observational study, and the groups differed in age and health. Source and simulator at the link in bio.",
       "hashtags": [
         "steps",
         "walking",
@@ -163,13 +163,13 @@
         },
         {
           "kind": "nuance",
-          "heading": "Turmeric alone showed nothing",
-          "body": "1 g of turmeric without pepper showed no glucose effect. The authors think the dose was too low."
+          "heading": "Turmeric alone: no clear difference",
+          "body": "1 g of turmeric without pepper showed no clear difference in glucose. The authors think the dose was too low."
         },
         {
           "kind": "limitation",
           "heading": "How sure?",
-          "body": "A small trial of single meals. The text gives no effect sizes and no confidence intervals. The trial measured no hormones, so the mechanism is a proposal."
+          "body": "A small trial of single meals. The text does not say how big the differences were. The trial measured no hormones, so the mechanism is a proposal."
         },
         {
           "kind": "cta",
@@ -177,7 +177,7 @@
           "body": "Pick a meal in the simulator to see what the trial recorded after it."
         }
       ],
-      "caption": "A crossover trial in 20 healthy young adults tested 1 g of black pepper in a breakfast egg. Blood glucose was lower at 30 minutes than after the plain meal. The 3-hour total did not differ, turmeric alone showed nothing, and the text gives no effect sizes. Simulator at the link in bio.",
+      "caption": "A crossover trial in 20 healthy young adults tested 1 g of black pepper in a breakfast egg. Blood glucose was lower at 30 minutes than after the plain meal. Over 3 hours the meals showed no clear difference, nor did turmeric alone. The text does not say how big any difference was. Simulator at the link in bio.",
       "hashtags": [
         "nutrition",
         "blackpepper",

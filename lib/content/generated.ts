@@ -41,7 +41,7 @@ export const PAPERS: PaperMeta[] = [
     "category": "Body composition",
     "accessTier": "premium",
     "publishedAt": "2026-11-12T00:00:00Z",
-    "readMinutes": 3,
+    "readMinutes": 2,
     "doi": "10.3390/jcm12062291",
     "pmid": "36983289",
     "pmcid": "PMC10054577",
@@ -1998,7 +1998,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "refs": []
             },
             {
-              "text": "On its own, 1 g did nothing to blood glucose.",
+              "text": "On its own, 1 g showed no clear difference in blood glucose.",
               "refs": [
                 "turmeric_none"
               ]
@@ -2155,7 +2155,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               ]
             },
             {
-              "text": "Turmeric without pepper showed no glucose effect.",
+              "text": "Turmeric without pepper showed no clear difference in glucose.",
               "refs": [
                 "turmeric_none"
               ]
@@ -2274,10 +2274,6 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 }
               }
             ],
-            "pValue": {
-              "text": ".023",
-              "ref": "glucose_30"
-            },
             "early": {
               "kind": "measured",
               "fact": {
@@ -2395,7 +2391,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
             "refs": []
           },
           {
-            "text": "The paper found no glucose effect for turmeric alone.",
+            "text": "The paper found no clear difference in glucose for turmeric alone.",
             "refs": [
               "turmeric_none"
             ]

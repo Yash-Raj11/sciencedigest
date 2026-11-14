@@ -116,8 +116,9 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
   - [x] 1. Visual system as tokens (palette, pastel bands, orange once, type, contrast table).
         `docs/evidence/readability/contrast.md`; tests `scripts/visual-system.test.ts`,
         `tests/browser/readability.spec.ts`.
-  - [ ] IN PROGRESS: 2. Plain-language lint rules.
-  - [ ] 3. Finding cards: headline → supporting line → source line.
+  - [x] 2. Plain-language lint rules (significant, p/CI/effect size, "no effect", direction words).
+        `lib/pipeline/plain.test.ts`; `docs/evidence/readability/plain-rules-broken.txt` (5 of 5).
+  - [ ] IN PROGRESS: 3. Finding cards.
   - [ ] 4. Source line (design · who · how many/how long) + evidence grade words and meter.
   - [ ] 5. Feed card = the key idea at a glance; "What's inside" rows deep-link to slots.
   - [ ] 6. Hosted seed: dry run, then push on the owner's "go".
