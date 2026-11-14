@@ -71,7 +71,9 @@ export const PAPERS: PaperMeta[] = [
     "hasBlock": true,
     "simulatorKind": "hiit-forest",
     "card": {
-      "hook": "Interval training is sold on fat loss. Pool the trials, rate how far each result can be trusted, and the order flips.",
+      "question": "Does interval training change your fat and your muscle?",
+      "finding": "+0.51 kg more fat-free mass than no exercise, in the trials pooled.",
+      "support": "Fat-free mass is everything in the body that is not fat.",
       "figure": {
         "figure": "what-was-measured",
         "caption": [],

@@ -98,10 +98,10 @@ describe("What's inside", () => {
     expect(rows.map((r) => r.slot)).toEqual([SLOTS.protocol, SLOTS.evidence]);
     expect(rows.some((r) => r.focal)).toBe(false);
   });
-  it("the members' card in the public bundle is its hook and one figure, nothing else: its glance figure", () => {
+  it("the members' card in the public bundle is its question, finding, one sentence and one figure (amendment A, 2026-11-15)", () => {
     const hiit = CARDS.find((c) => c.members)!;
     const paper = PAPERS.find((p) => p.slug === hiit.slug)!;
-    expect(Object.keys(paper.card!).sort()).toEqual(["figure", "hook"]);
+    expect(Object.keys(paper.card!).sort()).toEqual(["figure", "finding", "question", "support"]);
     expect(hiit.view.figure?.figure).toBe("what-was-measured");
     expect(FREE_CONTENT[hiit.slug]).toBeUndefined();
     expect(gated[hiit.slug].glance.figure?.figure).toBe("what-was-measured");

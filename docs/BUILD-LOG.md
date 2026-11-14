@@ -1394,3 +1394,14 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   and the 3-hour result belongs in the finding; "3 hours" cites `nothing_else`, as the hook does).
   HIIT "Does interval training change your fat and your muscle?" / "+0.51 kg more fat-free mass
   than no exercise, in the trials pooled."
+
+## 2026-11-15, Members' card: question, finding headline, one sentence
+
+- Item 3. `PaperMeta.card` is now `{ question, finding, support, figure }` (was `{ hook, figure }`):
+  the owner's answer to the Readability-handoff question. The hook left the card, so the card is
+  exactly what a free card shows above its figure. Amendment A updated in `docs/MASTER-PROMPT.md`.
+- `tests/http/members-content.test.ts`: public facts are now those the card's three sentences cite
+  (plus the figure's); new checks that the card's keys are exactly those four, that its support is
+  one sentence, and that the members' hook is no longer anywhere in the public build. Search-the-
+  build: zero matches (`docs/evidence/themes/gates-item3.txt`).
+- Not changed: the seed (PaperMeta.card is bundle-only), the database, the members' read itself.

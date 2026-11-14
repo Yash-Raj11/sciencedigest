@@ -28,6 +28,7 @@
  *   supabase/seed.sql                 the same content as database rows
  */
 
+import { glanceView } from "../lib/content/glance";
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import type { BuiltPaper, PaperMeta } from "../lib/content/types";
@@ -126,9 +127,10 @@ if (failed) {
 // ---------------------------------------------------------------------------
 
 /**
- * What the feed may show of a members' read (amendment A to step 2D, the owner's
- * decision): its hook and one figure (its glance figure, readability 5), nothing else. A free read needs
- * no card: the whole read is public.
+ * What the feed may show of a members' read (amendment A to step 2D, widened by the owner on
+ * 2026-11-15): the question it answers, its finding headline and one supporting sentence, and
+ * one figure (its glance figure, readability 5), nothing else. A free read needs no card: the
+ * whole read is public.
  */
 function publicMeta(paper: (typeof built)[number]): PaperMeta {
   if (paper.meta.accessTier !== "premium") return paper.meta;
@@ -136,10 +138,13 @@ function publicMeta(paper: (typeof built)[number]): PaperMeta {
   // The card's one figure is the read's glance figure (the lint makes a members' read name one of
   // its own figures), drawn on the feed in its glance view: no numbers.
   const figure = content.glance.figure ?? content.layers?.mechanism.figure ?? content.figure ?? null;
+  const view = glanceView(content);
   return {
     ...paper.meta,
     card: {
-      hook: content.hook.map((sentence) => sentence.text).join(" "),
+      question: view.question,
+      finding: view.headline,
+      support: view.support,
       // The caption stays with the read: the card draws the picture and its description only.
       figure: figure ? { ...figure, caption: [] } : null,
     },

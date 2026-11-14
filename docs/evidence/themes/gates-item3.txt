@@ -1,0 +1,20 @@
+== lint
+exit 0
+== typecheck
+exit 0
+== unit
+ Test Files  35 passed (35)
+      Tests  574 passed (574)
+exit 0
+== build
+exit 0
+== http
+ Test Files  2 passed (2)
+      Tests  15 passed (15)
+exit 0
+== browser
+exit 0
+  89 passed (46.6s)
+== search-the-build
+search-the-build: 37 members-only sentences, 92 public files, 0 matches
+members-only facts: 51 needles, 0 matches

@@ -4,8 +4,9 @@
  * content/generated/gated.json and looks for every sentence in the built pages
  * and scripts (.next/static, and the prerendered .html / .rsc of every route).
  *
- * The one exception is deliberate (amendment A to step 2D): the feed card shows
- * a members' read's hook and its mechanism figure, so those are public.
+ * The one exception is deliberate (amendment A to step 2D, widened by the owner on
+ * 2026-11-15): the feed card shows a members' read's question, its finding headline, one
+ * supporting sentence and one figure, so those are public. Nothing else.
  *
  * Needs a production build: `npm run build && npm run test:http`.
  */
@@ -53,14 +54,16 @@ export function numbersIn(value: unknown): Set<string> {
 }
 
 type Fact = PaperContent["facts"][string];
+type Card = { question: string; finding: string; support: string; figure: unknown };
 
 /**
- * A members' read's facts, split by the owner's decision (amendment A): a fact
- * the hook cites or the card's figure draws is public; every other fact is
- * members-only. `exclusive` holds the numbers only members-only facts carry.
+ * A members' read's facts, split by the owner's decision (amendment A, 2026-11-15): a fact
+ * the card's question, finding or sentence cites, or the card's figure draws, is public;
+ * every other fact is members-only. `exclusive` holds the numbers only members-only facts carry.
  */
-function splitFacts(read: PaperContent, card: { hook: string; figure: unknown }) {
-  const onCard = new Set(read.hook.flatMap((sentence) => sentence.refs));
+function splitFacts(read: PaperContent, card: Card) {
+  const { question, headline, support } = read.finding;
+  const onCard = new Set([...question, ...headline, ...support].flatMap((sentence) => sentence.refs));
   const figureText = JSON.stringify(card.figure ?? null);
   for (const id of Object.keys(read.facts)) if (figureText.includes(`"id":"${id}"`) || figureText.includes(`"ref":"${id}"`) || figureText.includes(`"fact:${id}"`)) onCard.add(id);
   const all = Object.values(read.facts);
@@ -72,7 +75,7 @@ function splitFacts(read: PaperContent, card: { hook: string; figure: unknown })
 }
 
 /** The numbers on a public card that only a members-only fact carries. Must be empty. */
-export function leakedNumbers(read: PaperContent, card: { hook: string; figure: unknown }): string[] {
+export function leakedNumbers(read: PaperContent, card: Card): string[] {
   const { exclusive } = splitFacts(read, card);
   return [...numbersIn(card)].filter((n) => exclusive.has(n));
 }
@@ -109,7 +112,7 @@ describe("the search-the-build check", () => {
 
   it("can find a sentence that IS public (so zero matches below means something)", () => {
     const card = papers.find((p) => p.accessTier === "premium")?.card;
-    const known = needle(card?.hook ?? papers[0].teaser)!;
+    const known = needle(card?.question ?? papers[0].teaser)!;
     expect(haystack.some((file) => file.text.includes(known)), `"${known}" should be in the public build`).toBe(true);
   });
 
@@ -119,11 +122,25 @@ describe("the search-the-build check", () => {
     expect(matches).toEqual([]);
   });
 
-  it("makes public, of a members' read, its hook and one figure and nothing else", () => {
+  it("makes public, of a members' read, its question, finding headline, one sentence and one figure, nothing else", () => {
     for (const paper of papers) {
       if (paper.accessTier !== "premium") { expect(paper.card, paper.slug).toBeUndefined(); continue; }
-      expect(Object.keys(paper.card ?? {}).sort()).toEqual(["figure", "hook"]);
+      expect(Object.keys(paper.card ?? {}).sort()).toEqual(["figure", "finding", "question", "support"]);
       expect(paper.card?.figure?.caption ?? []).toEqual([]);
+      const read = gated.content[paper.slug];
+      const plain = (s: Sentence[]) => s.map((x) => x.text).join(" ");
+      expect(paper.card?.question).toBe(plain(read.finding.question));
+      expect(paper.card?.support, "one sentence").toBe(plain(read.finding.support));
+      expect(read.finding.support.length, "one sentence").toBe(1);
+      expect(paper.card?.finding).toContain(plain(read.finding.headline));
+    }
+  });
+
+  it("the hook of a members' read is no longer public", () => {
+    for (const paper of papers.filter((p) => p.card)) {
+      const hook = needle(gated.content[paper.slug].hook.map((s) => s.text).join(" "));
+      expect(hook).not.toBeNull();
+      expect(haystack.filter((file) => file.text.includes(hook!)).map((file) => file.path), `${paper.slug} hook`).toEqual([]);
     }
   });
 
@@ -143,7 +160,7 @@ describe("the search-the-build check", () => {
     const read = gated.content[paper.slug];
     const { exclusive } = splitFacts(read, paper.card!);
     const secret = [...exclusive].sort((a, b) => b.length - a.length)[0];
-    expect(leakedNumbers(read, { ...paper.card!, hook: `${paper.card!.hook} It was ${secret}.` })).toEqual([secret]);
+    expect(leakedNumbers(read, { ...paper.card!, support: `${paper.card!.support} It was ${secret}.` })).toEqual([secret]);
     expect(leakedNumbers(read, { ...paper.card!, figure: { ...paper.card!.figure, params: { ...paper.card!.figure?.params, extra: { n: Number(secret), ref: "x" } } } })).toEqual([secret]);
   });
 

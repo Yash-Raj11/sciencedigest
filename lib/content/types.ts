@@ -113,10 +113,11 @@ export interface PaperMeta {
   hasBlock: boolean;
   simulatorKind: string;
   /**
-   * A members' read only: the part of it the feed shows to everyone (its hook
-   * and its mechanism figure). Everything else stays behind row level security.
+   * A members' read only: the part of it the feed shows to everyone (amendment A, widened by
+   * the owner 2026-11-15): the question it answers, its finding headline, one supporting
+   * sentence and one figure in its glance view. Everything else stays behind row level security.
    */
-  card?: { hook: string; figure: FigureRef | null };
+  card?: { question: string; finding: string; support: string; figure: FigureRef | null };
 }
 
 /** What the feed card shows at a glance: plain words, one still figure (lib/content/glance.ts). */

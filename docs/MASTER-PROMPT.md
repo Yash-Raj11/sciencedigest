@@ -398,3 +398,17 @@ The prompt is saved here so a session with no chat history can continue from thi
   grid (turmeric) moved onto kinds; POST-RECIPE.md + the sticky slot strip; Life Game widgets
   made more interactive and visual; pipeline prompts.ts proposing figure specs; Related reads
   slot + docs/IDEAS.md (caffeine + L-theanine); then 2E.
+
+### 2026-11-15: owner's rulings and list (they win where they conflict with the text above)
+
+- **2D, A (widened).** A members' card shows its question (the headline), its finding headline
+  and one supporting sentence, plus one figure in its glance view. Its hook is no longer on the
+  card. Everything else of a members' read stays out of the public build (search-the-build: zero
+  matches, `tests/http/members-content.test.ts`).
+- **Headlines.** The headline of a card and of a read is the question the paper answers, with the
+  plain finding directly beneath (lint rule `headline`).
+- **Themes.** Dark and Light are the main themes; the earlier tokens are Bedtime. Orange means
+  "this paper's finding", at most three orange items per 390 px screen; habits are monochrome.
+- **Sketches** (rulings R1, R2 and item 4): where the paper measured something, draw the data;
+  otherwise a sketch (shape only, monochrome and dotted, tagged "Sketch, not data") may rest on
+  a background concept the owner has reviewed. Details: `docs/FIGURE-DESIGN.md`, CLAUDE.md H7/H12.

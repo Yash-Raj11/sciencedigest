@@ -36,9 +36,11 @@ test.describe("the feed", () => {
         await expect(card.locator("[data-glance-support]")).toHaveText(view.support);
         await expect(card.locator("[data-glance-note]")).toHaveText(`* ${view.note}`);
       } else {
-        // A members' read: its hook and one figure, nothing else of it (amendment A).
-        await expect(card.getByRole("heading", { level: 2 })).toHaveText(paper.card!.hook);
-        await expect(card.locator("[data-glance-support], [data-glance-note]")).toHaveCount(0);
+        // A members' read: its question, finding headline, one sentence and one figure (amendment A, 2026-11-15).
+        await expect(card.getByRole("heading", { level: 2 })).toHaveText(paper.card!.question);
+        await expect(card.locator("[data-glance-headline]")).toHaveText(paper.card!.finding);
+        await expect(card.locator("[data-glance-support]")).toHaveText(paper.card!.support);
+        await expect(card.locator("[data-glance-note]")).toHaveCount(0);
       }
       await expect(card.getByText(/^(Early|Decent|Strong) evidence$/).first(), `${paper.slug}: the grade chip`).toBeVisible();
       await expect(card, `${paper.slug}: no weight`).not.toContainText("×");

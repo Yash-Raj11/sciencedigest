@@ -10,8 +10,9 @@
  *   band) with its note, "What's inside" (rows that open the read at a slot; the "Try it" row is
  *   the card's focal orange), and the source line with the grade.
  *
- * A members' read shows only what amendment A makes public: its hook as the headline and one
- * figure (PaperMeta.card), here in its glance view, and lists only the slots everyone can open.
+ * A members' read shows only what amendment A makes public (widened 2026-11-15): its question,
+ * finding headline and one sentence, and one figure (PaperMeta.card), here in its glance view,
+ * and lists only the slots everyone can open.
  * The words come from lib/content/glance.ts.
  *
  * No endless scroll: the published papers, twenty at a time.
@@ -81,7 +82,16 @@ export function PostCard({ paper }: { paper: PaperMeta }) {
             <h2 className="headline" data-glance-question>{view.question}</h2>
             <p className="text-[1.0625rem] font-medium leading-snug text-ink" data-glance-headline>{view.headline}</p>
           </hgroup>
-        ) : <h2 className="headline" data-glance-headline>{paper.card?.hook ?? paper.teaser}</h2>}
+        ) : paper.card ? (
+          // A members' read: its question, finding headline and one sentence (amendment A, 2026-11-15).
+          <>
+            <hgroup className="space-y-1.5">
+              <h2 className="headline" data-glance-question>{paper.card.question}</h2>
+              <p className="text-[1.0625rem] font-medium leading-snug text-ink" data-glance-headline>{paper.card.finding}</p>
+            </hgroup>
+            <p className="text-[0.9375rem] leading-relaxed text-muted" data-glance-support>{paper.card.support}</p>
+          </>
+        ) : <h2 className="headline">{paper.teaser}</h2>}
         {view ? <p className="text-[0.9375rem] leading-relaxed text-muted" data-glance-support>{view.support}</p> : null}
         {view ? (
           <figure className="rounded-2xl bg-bg py-3" data-glance>

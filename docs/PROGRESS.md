@@ -138,7 +138,8 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
         Me setting; scoring explainer. `docs/evidence/themes/` (contrast.md, screenshots, gates).
   - [x] 2. Headlines: the question the paper answers, the plain finding beneath; lint rule
         `headline` (9 failing fixtures, `lib/pipeline/headline.test.ts`). BUILD-LOG 2026-11-15.
-  - [ ] IN PROGRESS: 3. Members' card: finding headline + one sentence; amendment A; search-the-build.
+  - [x] 3. Members' card: question, finding headline, one sentence + figure; amendment A updated;
+        search-the-build 0 matches (`docs/evidence/themes/gates-item3.txt`).
 - [ ] The pipeline proposes the figure kind and the simulator inputs (`prompts.ts`).
 - [ ] Reader inputs stored on the device only (like the theme).
 - [ ] Run the coverage pass on the 4 existing papers, so their checklist rows stop showing

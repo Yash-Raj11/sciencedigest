@@ -265,7 +265,7 @@ export function Article({ paper }: { paper: PaperMeta }) {
   const readState = read?.state ?? null;
   // The headline (owner, 2026-11-15): the question the paper answers, the plain finding beneath.
   const view = bundled ? glanceView(bundled) : null;
-  const headline = view ? { question: view.question, finding: view.headline } : null;
+  const headline = view ? { question: view.question, finding: view.headline } : paper.card ? { question: paper.card.question, finding: paper.card.finding } : null;
 
   // A feed card's row opens the read at a slot (#why, #try, ...). Client navigation does not
   // always land there once the read has rendered, so the read goes to the slot itself, and again
