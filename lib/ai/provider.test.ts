@@ -6,7 +6,7 @@
 import { readFileSync } from "node:fs";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { z } from "zod";
-import { complete, completeJson, zodCheck } from "./provider";
+import { complete, completeJson, forGemini, zodCheck } from "./provider";
 
 const recorded = JSON.parse(readFileSync(new URL("fixtures/groq-chat-completion.json", import.meta.url), "utf8"));
 const withContent = (content: string, finish = "stop") => ({ ...recorded, choices: [{ ...recorded.choices[0], message: { role: "assistant", content }, finish_reason: finish }] });
@@ -114,6 +114,13 @@ describe("Gemini through the openai-compatible endpoint (recorded 2026-11-14, ge
     const calls = fakeFetch([{ json: gemini }]);
     await expect(complete(request)).rejects.toThrow(/AI_THINKING_EXTRACT is "bogus"/);
     expect(calls).toHaveLength(0);
+  });
+
+  it("strips top_k and out-of-range sampling values for Gemini only", () => {
+    const body = { model: "m", top_k: 40, temperature: 3, top_p: 1.5, max_tokens: 10 };
+    expect(forGemini("https://generativelanguage.googleapis.com/v1beta/openai/", body)).toEqual({ model: "m", max_tokens: 10 });
+    expect(forGemini("https://generativelanguage.googleapis.com/v1beta/openai/", { temperature: 0, top_p: 0.9 })).toEqual({ temperature: 0, top_p: 0.9 });
+    expect(forGemini("https://api.groq.com/openai/v1", body)).toEqual(body);
   });
 
   it("asks again without reasoning_effort when a server refuses it (400)", async () => {

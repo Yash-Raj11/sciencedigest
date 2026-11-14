@@ -868,3 +868,42 @@ The owner's answers to the 2D stop. Four groups, one commit each.
   the owner: (1) a prompt fix that defines each kind and says the value is one contiguous copy
   from the quote, then re-run this benchmark on Gemini (free, ~25k tokens); (2) if it still
   fails, the same benchmark on Groq `openai/gpt-oss-120b` (free; needs a Groq key).
+
+## 2026-11-14, Extract prompt fixed; Gemini benchmark round 2 (turmeric): not adopted yet
+
+Owner chose option (a): fix the extract prompt and re-run Gemini. No Groq.
+
+- **`EXTRACT_SYSTEM`** (`lib/pipeline/prompts.ts`, extract only; the draft prompt waits for 2E):
+  the six kinds of the schema, each with a one-line rule and a made-up example (none taken from
+  the benchmark paper, so the benchmark is not coached); "one value = one verbatim passage", with
+  a wrong/right pair; a section-by-section walk and a second "what did I miss?" pass over the
+  results, tables and limitations.
+- **Gate** (`gate.ts`): a `statement` or `context` fact whose quote carries a p-value is refused:
+  it is this study's result. The methods sentence that sets the threshold ("Significances were
+  indicated when (p < .05)") is exempt; round 2 hit exactly that false positive, which is how the
+  exemption was found. Regressions from round 1's real failures in `pipeline.test.ts` (mislabelled
+  result as statement and as context, all results mislabelled, a stitched value, the threshold
+  sentence); breaking the rule or the exemption fails a test. The existing papers and context
+  studies have no fact the rule refuses (checked).
+- **Adapter**: `forGemini()` strips `top_k` and out-of-range temperature/top_p for the Gemini
+  host only (one test). Nothing sends them today.
+
+| | Round 1 | Round 2 |
+|---|---|---|
+| Facts extracted | 23 | 83 (48 finding, 23 context, 6 statement, 6 limitation) |
+| Hand facts found (of 42) | 22 | 33 counting equivalents (28 by strict quote overlap). The 5 equivalents: ages and carb_row via Table 2/the 50 g sentence, crossover via the design field, appetite_scale and taste_scale via other sentences describing the same scales |
+| Missed | 20 | 9: in_egg, plate, nothing_else, **sugar_row** (the 10 g vs 8 g sugar confound), piperine, trpv1, animals_before, single_meal, lim_mechanism |
+| Wrong numbers | 0 | 0 (the gate checks every value inside its quote; table rows checked by eye) |
+| Wrong kind | 8 | 0 by the owner's rule (a table row of this study's data is a finding). Debatable: the low-turmeric-dose sentence is a limitation here, a statement in the hand file |
+| Taste limitation | missed | present as `palatability_hunger_explanation`, but kind **statement**, not limitation |
+| Gate | refused (8) | refused (1) by the new rule's false positive; **passes** after the threshold exemption |
+| Quotes not in the paper | 0 | 0 |
+| JSON retries / chunking | 0 / no | 0 / no |
+| Tokens in / out | 13,635 / 3,819 | 14,122 / 11,842 |
+| Time / rate-limit hits | 82 s / 0 | 182 s / 0 |
+
+- **Verdict.** Targets: 0 wrong (met), gate passes (met), at least 35 of 42 found (**not met**:
+  33), taste limitation included (**half met**: there, but as a statement). Not adopted.
+  Stopped iterating, as instructed. Still failing: meal details stated only once in the methods
+  (in the egg, the plate, nothing else for 3 h), the sugar row of Table 1, two background
+  statements (piperine, TRPV1), and the authors' "mechanisms need investigating" line.

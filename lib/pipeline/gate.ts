@@ -82,6 +82,11 @@ export function locate(source: string, quote: string): Span | null {
   return found ? [found.index, found.index + found[0].length] : null;
 }
 
+/** "p = .023", "p < 0.05", "p > .05" (after normalize(): any spacing). */
+const P_VALUE = /(^|[^a-z])p\s*[<=>≤≥]\s*0?\.\d/i;
+/** The methods sentence that sets the threshold ("Significances were indicated when (p < .05)") reports no result. */
+const P_THRESHOLD = /significan\w*\s+(was|were|is)\s+(set|indicated|defined|accepted|considered)|(level|threshold)\s+of\s+(statistical\s+)?significance|significance\s+(level|threshold)|alpha|α/i;
+
 const hasAny = (haystack: string, needles: string[]) =>
   needles.some((n) => new RegExp(`(^|[^a-z])${n.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")}([^a-z]|$)`).test(haystack));
 
@@ -183,6 +188,12 @@ export function gate(input: unknown, source: string, options: { role?: GateRole 
     } else {
       if (!at.text.includes(normalize(fact.value))) {
         errors.push(`fact ${fact.id}: "${fact.value}" does not appear inside its quote`);
+        continue;
+      }
+      // A p-value is this study's own test: the passage reports a result, so it is a finding or an
+      // estimate, never background. (Benchmark 2026-11-14: a model filed every result as a statement.)
+      if ((fact.kind === "statement" || fact.kind === "context") && P_VALUE.test(at.text) && !P_THRESHOLD.test(at.text)) {
+        errors.push(`fact ${fact.id}: the quote carries a p-value, so it reports a result of this study; use kind "finding" (or "estimate"), not "${fact.kind}"`);
         continue;
       }
       if (fact.kind === "finding" && !fact.outcome) {

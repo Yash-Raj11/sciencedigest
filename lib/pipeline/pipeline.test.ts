@@ -118,6 +118,46 @@ describe("gate (stage 2)", () => {
   });
 });
 
+/**
+ * Regressions from the Gemini extract benchmark on turmeric (2026-11-14, BUILD-LOG): the model
+ * filed every measured result as a "statement" and strung several printed figures into one value.
+ * Each case starts from the hand-checked extraction, which passes, and repeats one real failure.
+ */
+describe("gate: the turmeric benchmark's failures are refused", () => {
+  const turmeric = load("turmeric-pepper-breakfast");
+  const errorsFor = (mutate: (extraction: any) => void) => {
+    const extraction = clone(turmeric.extraction);
+    mutate(extraction);
+    const result = gate(extraction, turmeric.source);
+    return result.ok ? [] : result.errors;
+  };
+  const asStatement = (x: any, id: string) => { const f = fact(x, id); f.kind = "statement"; delete f.outcome; };
+
+  it("the hand-checked extraction passes", () => {
+    expect(errorsFor(() => {})).toEqual([]);
+  });
+  it("refuses a measured result with a p-value filed as a statement or as context", () => {
+    expect(errorsFor((x) => asStatement(x, "glucose_30"))).toEqual(
+      [expect.stringContaining('fact glucose_30: the quote carries a p-value, so it reports a result of this study; use kind "finding"')]);
+    expect(errorsFor((x) => { asStatement(x, "gut"); fact(x, "gut").kind = "context"; })).toEqual(
+      [expect.stringContaining('fact gut: the quote carries a p-value')]);
+  });
+  it("accepts the methods sentence that sets the significance threshold as context", () => {
+    const quote = "Significances were indicated when (p < .05).";
+    expect(locate(turmeric.source, quote)).not.toBeNull();
+    expect(errorsFor((x) => { x.facts.push({ id: "alpha", kind: "context", label: "Significance threshold", value: "p < .05", quote }); })).toEqual([]);
+  });
+  it("refuses an extraction whose results are all mislabelled: no finding left to report", () => {
+    const errors = errorsFor((x) => { for (const f of x.facts) if (f.kind === "finding") asStatement(x, f.id); });
+    expect(errors).toContain("no verified estimate or finding: there is no result to report");
+  });
+  it("refuses a value stitched from several printed figures, even when every figure is in the quote", () => {
+    expect(errorsFor((x) => {
+      x.facts.push({ ...clone(fact(x, "ages")), id: "baseline_female", value: "21.4 ± 0.72 years, BMI 23.5 ± 3.9, fasting blood glucose 73.5 ± 9.05 mg/dL" });
+    })).toEqual([expect.stringContaining("fact baseline_female: \"21.4 ± 0.72 years, BMI 23.5 ± 3.9")]);
+  });
+});
+
 describe("derived tiers: the model never grades", () => {
   it("uses the paper's own GRADE rating when it reports one", () => {
     const v = validated(hiit);

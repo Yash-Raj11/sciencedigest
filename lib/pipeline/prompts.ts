@@ -11,12 +11,20 @@ export const EXTRACT_SYSTEM = `You extract facts from one clinical research pape
 Rules:
 1. Return one JSON object and nothing else, in the same shape as the example.
 2. Every fact has a "quote": a passage copied character for character from the paper. If you cannot point at where you read something, leave the fact out. A quote that is not in the paper voids the whole extraction.
-3. "value" is a short phrase or the printed figures that appear inside that quote.
+3. One value = one verbatim passage. "value" is a short phrase or the printed figures copied as one unbroken run of characters from inside that quote. Never join numbers or phrases from different places. If a result spans two passages, or one sentence holds several results, make one fact for each.
+   Wrong: value "34.2 ± 5.1 years, weight 71.0 ± 9.8 kg" when the paper reads "34.2 ± 5.1 years with a mean weight of 71.0 ± 9.8 kg".
+   Right: one fact with value "34.2 ± 5.1 years", another with value "71.0 ± 9.8 kg".
 4. If the paper does not report something, write "not_reported" for its value and null for its quote. Never guess.
 5. design is one of: meta_analysis_rct, rct, cohort, case_control, cross_sectional, animal, in_vitro. species is one of: human, mouse, rat, other_animal, cell_culture.
-6. For each number worth citing, add a fact of kind "estimate" with measure (WMD, MD, aRD, RD, proportion, RR, HR, OR), point, ciLow, ciHigh (null if not printed) and unit. If the paper prints a relative measure (RR, HR, OR), also extract the absolute figures it prints for the same result.
-7. If the paper itself rates certainty for an outcome (for example GRADE), add a fact of kind "grade" and point the estimate's gradeRef at it. Do not rate anything yourself.
-8. Extract at least two facts of kind "limitation", in the authors' own words.
+6. Every fact has a "kind". Use exactly these six:
+   - "estimate": an effect size from this study's data, with measure (WMD, MD, aRD, RD, proportion, RR, HR, OR), point, ciLow, ciHigh (null if not printed) and unit. Example: "a mean difference of −1.2 kg (95% CI −2.0 to −0.4)". If the paper prints a relative measure (RR, HR, OR), also extract the absolute figures it prints for the same result.
+   - "finding": any other measured result of THIS study: a p-value, a significant or non-significant difference, a direction, a mean ± SD from its own tables. Add "outcome": the endpoint measured, in plain words. Example: "resting heart rate did not differ between groups (p = .41)". A passage with a p-value from this study is always a finding or an estimate.
+   - "grade": the paper's own certainty rating for an outcome (for example GRADE): value high, moderate or low. Point the estimate's gradeRef at it. Do not rate anything yourself.
+   - "limitation": a weakness the authors state, or a part of the question the study did not measure, in the authors' words. Example: "sleep was measured on two nights only". Extract at least two.
+   - "statement": a claim, not a measurement of this study: the authors' explanation or proposed mechanism, or what earlier work found. Example: "this may reflect lower cortisol in the evening".
+   - "context": how the study was run and who was in it: setting, doses, meals, timing, measuring tools, scales, inclusion rules, baseline characteristics. Example: "participants took 400 mg each morning for 8 weeks".
+7. Coverage. Walk the paper section by section: methods, results, every table, discussion, limitations. List every reportable number and every stated limitation, each as its own fact. A table row of this study's results is a finding.
+8. Then a second pass: re-read only the results section, the tables and the limitations (including any limitation sentence in the discussion) and ask "what did I miss?". Add what you missed before you reply.
 9. Fact ids are lower_snake_case and unique.`;
 
 export function extractPrompt(input: { meta: unknown; source: string; exampleExtraction: string }): string {

@@ -78,6 +78,24 @@ export function thinkingFor(stage: CompletionRequest["stage"]): string | null {
   return value;
 }
 
+/**
+ * Gemini's openai-compatible endpoint refuses top_k and sampling values outside its range
+ * (temperature 0–2, top_p 0–1). Nothing sets them today; this keeps a future caller from
+ * breaking every request. Other providers get the body unchanged.
+ */
+export function forGemini(base: string, body: Record<string, unknown>): Record<string, unknown> {
+  if (!/generativelanguage\.googleapis\.com/.test(base)) return body;
+  const out = { ...body };
+  delete out.top_k;
+  const inRange = (key: string, max: number) => {
+    const v = out[key];
+    if (v !== undefined && !(typeof v === "number" && v >= 0 && v <= max)) delete out[key];
+  };
+  inRange("temperature", 2);
+  inRange("top_p", 1);
+  return out;
+}
+
 async function post(url: string, headers: Record<string, string>, body: Record<string, unknown>): Promise<Response> {
   return fetch(url, { method: "POST", headers: { "content-type": "application/json", ...headers }, body: JSON.stringify(body) });
 }
@@ -130,7 +148,7 @@ async function openaiCompatible(request: CompletionRequest, messages: Message[])
   const thinking = thinkingFor(request.stage);
   if (thinking) body.reasoning_effort = thinking;
   const response = await postWithFallback(`${base.replace(/\/$/, "")}/chat/completions`,
-    key ? { authorization: `Bearer ${key}` } : {}, body, ["temperature", "response_format", "reasoning_effort"]);
+    key ? { authorization: `Bearer ${key}` } : {}, forGemini(base, body), ["temperature", "response_format", "reasoning_effort"]);
   const data = (await response.json()) as { choices?: { message?: { content?: string | null }; finish_reason?: string }[] };
   const choice = data.choices?.[0];
   if (choice?.finish_reason === "length") throw new Error("The model ran out of room before finishing. Raise AI_MAX_TOKENS in .env.local.");
