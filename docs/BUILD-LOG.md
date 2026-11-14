@@ -1055,3 +1055,16 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   beats CI; range/iqr labels; no band without a spread; the gate refuses an SD not in the quote,
   an SD written as ends, a CI made up from the SD (4.47–5.83 is not printed), reversed ends, and a
   spread on a non-estimate.
+
+## 2026-11-14, Handoff: simulator plan written; next, build it caffeine first
+
+- `docs/SIMULATORS.md` written to the owner's decisions (principle, five layers, kinds, Related
+  reads, device-only inputs, tier, fact library with publish-first/upgrade-later, spreads, the
+  caffeine worked example, design notes for the four papers). CLAUDE.md points to it.
+- Design-note findings the owner should know: steps needs no new fact (its bands are printed,
+  with CIs, so the label is "range for the study average"); HIIT's routine matches several
+  subgroups and they are never combined; turmeric's glucose values are only in Figure 1, so its
+  grid shows direction and p-values, and its taste values need re-extracting as mean + sd before
+  a cell can show a band.
+- PROGRESS gained eight simulator items before 2E. Still for the owner: the round-2 screenshot
+  verdict; relabelling caffeine and turmeric as crossover (HANDOFF section 9).

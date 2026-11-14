@@ -43,7 +43,13 @@ The interactive part is the product; the text is what justifies it.
 | Day-complete moment | Built | Browser test (shows once a day) |
 | Three papers with simulators + a generic simulator for new papers | Built | Content build passes gate and lint |
 | Content pipeline: gate, lint, licence and retraction checks | Built | Unit tests |
-| Pipeline commands (`npm run paper -- fetch / extract / draft / approve`) | Written | **Never run live** |
+| Pipeline commands (`npm run paper -- fetch / extract / draft / approve`) | `fetch` and `extract` run live 2026-11-14; `draft` never run live | BUILD-LOG 2026-11-14 (three turmeric benchmarks, one context study) |
+| Extract model: Gemini 4 Hydrogen, Gemini API free tier, through the openai-compatible adapter (per-stage thinking level, 429/503 retry); Groq and Ollama are fallbacks | **Adopted for extract** 2026-11-14; editorial not benchmarked (2E) | BUILD-LOG 2026-11-14; `lib/ai/provider.test.ts` |
+| Extract: the six fact kinds, one value per passage, a second "conditions & confounds" pass writing `coverage`; the gate refuses a p-value filed as background | Built | Turmeric round 3: 35/42 strict, 41 with equivalents, 0 wrong numbers; `lib/pipeline/coverage.test.ts` |
+| Coverage checklist per paper in `/admin/queue` (drafts included; ticked only by gated facts) | Built. The four existing papers show the pass items as "not found" (hand-made extractions) | API checked on the dev server 2026-11-14 |
+| Gate: `crossover` design (crossover named + randomisation, negation refused); rct negation guard; spreads (sd, ci95, range, iqr) never converted; measure `mean` | Built | `lib/pipeline/crossover.test.ts`, `lib/models/spread.test.ts` |
+| First context study `caffeine-saliva-half-life` (Wildgrube 2025): crossover, n = 12, grade low; half-life mean 5.15 h, sd 1.21; arm D excluded (`excluded.json`) | Gated, cited by no read yet | `npm run content:build` report |
+| Personal-simulator plan (`docs/SIMULATORS.md`): layers, kinds, fact library, spreads, four design notes | Written; nothing of it built beyond the decay kind | — |
 | Instagram review queue (`/admin/queue`, local only) | Built | Browser and API tests |
 | Installable to the home screen, opens offline | Built | Manifest and service worker served |
 | Live site on real data (Phase 8): Supabase connected, anonymous sign-in behind Cloudflare Turnstile (invisible), real 404s | **Live, gate passed 2026-11-13** | `docs/evidence/phase8-gate.txt` |
@@ -59,9 +65,10 @@ The interactive part is the product; the text is what justifies it.
 | Fourth paper `turmeric-pepper-breakfast` (free, three layers, hand-written: no model run, so it does not count toward the Phase 10 gate) | Approved; on the hosted database and on `main`/Vercel (`80e1caa`) | BUILD-LOG 2026-11-13 and 2026-11-14 |
 | Documents: `CLAUDE.md`, `docs/MANUAL.md`, `ARCHITECTURE.md`, `data-model.md`, `BUILD-LOG.md` | Written | — |
 
-Totals on 2026-11-14 (after Phase 9 step 2D round 2): 330 unit tests, 14 HTTP tests, 34 browser tests;
-191 database assertions per pass and 16 of 16 mutations (unchanged since the last SQL change:
-Phase 9 has touched no SQL). Outputs are in `docs/evidence/`.
+Totals on 2026-11-14 (after the model adoption, crossover and spread work): 397 unit tests
+(`docs/evidence/unit-tests.txt`); 14 HTTP and 34 browser tests (not re-run this session);
+191 database assertions per pass and 16 of 16 mutations (unchanged: no SQL touched since).
+Outputs are in `docs/evidence/`.
 
 ### Deployment state (2026-11-14)
 
@@ -351,6 +358,9 @@ last BUILD-LOG entry says.
 3. What exactly does membership include? This decides what the server-side gated functions return.
 4. Should the companion picture follow the user across devices? That means uploading and
    hosting user images (Supabase Storage), which was deliberately avoided.
+5. `daytime-caffeine-sleep` and `turmeric-pepper-breakfast` are randomised crossovers filed as
+   `rct`. Relabel them `crossover`? (Audit wording changes; grade stays low.) BUILD-LOG 2026-11-14.
+6. The round-2 screenshots verdict (`docs/evidence/article-redesign/round2/`) is still open.
 
 ---
 
