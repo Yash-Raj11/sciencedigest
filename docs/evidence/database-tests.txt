@@ -1,8 +1,15 @@
+
+> sciencedigest@0.1.0 db:test:local
+> bash scripts/db-test-local.sh
+
+
+## pass: unseeded
 # shim
 # migration 20261112000100_core.sql
 # migration 20261112000200_scoring.sql
 # migration 20261112000300_premium.sql
 # migration 20261113000100_habit_kinds.sql
+# migration 20261114000100_set_step_amount.sql
 
 # 01_contract.test.sql
 1..11
@@ -119,6 +126,23 @@ ok 14 - a user cannot read another user's amounts
 ok 15 - a user cannot log an amount on another user's habit
 ok 16 - a user cannot log an amount in another user's name
 
+# 07_set_step_amount.test.sql
+1..14
+ok 1 - set_step_amount runs as the caller (SECURITY INVOKER), so row level security applies
+ok 2 - the first amount of the day is accepted
+ok 3 - a second amount for the same habit and day is accepted (no duplicate key)
+ok 4 - one row for the habit and day, holding the latest amount
+ok 5 - below the target (2 of 3) there is no tick
+ok 6 - reaching the target is accepted
+ok 7 - reaching the target through the upsert adds the tick
+ok 8 - sending the same amount again is harmless
+ok 9 - a replay leaves one row
+ok 10 - the guard still applies: a tick-off habit takes no amount
+ok 11 - the update grant stays narrow: an upsert that sets the key columns is refused
+ok 12 - a user cannot set an amount on another user's habit
+ok 13 - the owner's amount is untouched by the stranger
+ok 14 - a visitor who is not signed in cannot call it
+
 # 90_parity.generated.test.sql
 1..80
 ok 1 - scenario 1: adherence matches lib/score.ts (0%)
@@ -202,4 +226,231 @@ ok 78 - scenario 39: streak matches lib/score.ts (0)
 ok 79 - scenario 40: adherence matches lib/score.ts (0%)
 ok 80 - scenario 40: streak matches lib/score.ts (1)
 
-# Result: PASS (7 files, 177 assertions)
+## pass: seeded
+# shim
+# migration 20261112000100_core.sql
+# migration 20261112000200_scoring.sql
+# migration 20261112000300_premium.sql
+# migration 20261113000100_habit_kinds.sql
+# migration 20261114000100_set_step_amount.sql
+# seed seed.sql
+# background background_users.sql
+
+# 01_contract.test.sql
+1..11
+ok 1 - 1. anon sees all rows in papers, premium included
+ok 2 - 2. anon sees paper_content only for free papers
+ok 3 - 3. a free authenticated user sees paper_content only for free papers
+ok 4 - 4. a premium user sees all paper_content
+ok 5 - 5. a user cannot UPDATE their own subscription_tier (42501)
+ok 6 - 6. a user cannot read another user's step_checkins
+ok 7 - 7. inserting a checkin for a condition step raises an exception
+ok 8 - 8a. inserting a checkin for an action step succeeds
+ok 9 - 8b. ...and updates last_active_on (it was five days old)
+ok 10 - 9. evidence_weight('none') returns 0.0
+ok 11 - 10. a step with null source_estimate and grade 'high' violates its CHECK
+
+# 02_everyday_habits.test.sql
+1..15
+ok 1 - a user can add an everyday habit
+ok 2 - a new habit is a plain action with no evidence grade
+ok 3 - a user cannot set an evidence grade on their own habit (column privilege)
+ok 4 - a user cannot create a habit owned by another user (row level security)
+ok 5 - a user cannot add a step to a paper
+ok 6 - a user's UPDATE cannot touch a paper step
+ok 7 - a user can tick their own habit without equipping anything
+ok 8 - another user cannot see the habit
+ok 9 - another user cannot tick someone else's habit
+ok 10 - a visitor who is not signed in cannot add a habit
+ok 11 - a user can retire their own habit
+ok 12 - a retired habit cannot be ticked
+ok 13 - not even the database owner can give a habit an evidence grade (CHECK)
+ok 14 - a step belongs to a paper or to a user, never both
+ok 15 - a 31st active habit is rejected
+
+# 03_guards.test.sql
+1..24
+ok 1 - a weekly_target needs target_per_week and counts_step_id
+ok 2 - a condition needs condition_key and condition_value
+ok 3 - a weekly_target cannot count a step from another paper
+ok 4 - a step with history cannot be deleted (steps are retired, never deleted)
+ok 5 - every new auth user gets a profile row automatically
+ok 6 - an unpublished paper is invisible to visitors
+ok 7 - a visitor cannot read user_profiles
+ok 8 - a visitor cannot call compute_adherence
+ok 9 - a step cannot be ticked before its protocol is equipped
+ok 10 - a free user cannot equip a premium paper
+ok 11 - a user cannot equip a protocol on someone else's behalf
+ok 12 - a free user can equip a free paper
+ok 13 - a tick dated two days ahead is rejected
+ok 14 - a tick backdated more than a week is rejected
+ok 15 - a user cannot write a tick in another user's name
+ok 16 - a user's DELETE cannot remove another user's tick
+ok 17 - a user cannot write their own stripe_customer_id
+ok 18 - a user can change their own timezone
+ok 19 - a signed-in user cannot read the retractions table
+ok 20 - a signed-in user cannot withdraw a paper
+ok 21 - a premium user can equip a premium paper
+ok 22 - withdraw_paper finds the paper by DOI, ignoring case
+ok 23 - a withdrawn paper's steps lose their evidence grade
+ok 24 - a withdrawn paper's read is hidden from everyone
+
+# 04_scoring.test.sql
+1..20
+ok 1 - earned weight is 1.8
+ok 2 - possible weight is 2.2
+ok 3 - 1.8 of 2.2 rounds to 82%
+ok 4 - paper one: 0.4 of 0.8 = 50%
+ok 5 - paper two: 1.4 of 1.4 = 100% (the cycling-only step is not counted against a runner)
+ok 6 - the weekly target is unmet at 2 of 3 (Sunday's session belongs to last week)
+ok 7 - consistency is 2 of 3 daily boxes = 67%
+ok 8 - nothing is dormant
+ok 9 - a third session this week satisfies the weekly target: 2.2 of 2.2 = 100%
+ok 10 - the eight-week condition is unmet at 55 days
+ok 11 - a protocol idle for exactly 7 days is still counted
+ok 12 - a protocol idle for 8 days goes dormant
+ok 13 - a dormant protocol leaves the denominator: only paper one's 0.8 remains
+ok 14 - with one protocol dormant and the other un-equipped, nothing is possible and pct is 0, not an error
+ok 15 - streak on the 12th is 2 (the 10th was missed)
+ok 16 - no tick yet on the 13th: the streak still reads 2
+ok 17 - two empty days: the streak is 0
+ok 18 - on the 10th (no tick) the streak is the 9th and 8th
+ok 19 - a stranger cannot compute another user's adherence
+ok 20 - a stranger cannot read another user's streak
+
+# 05_premium.test.sql
+1..11
+ok 1 - a visitor cannot read premium feature content
+ok 2 - a visitor cannot call regimen_analysis
+ok 3 - a free user cannot read premium feature content, even for a free paper
+ok 4 - a free user gets a locked response and no analysis
+ok 5 - a premium user reads premium feature content
+ok 6 - a premium user gets the analysis
+ok 7 - the analysis covers eight weeks
+ok 8 - this week: 1 session against a target of 3, counting only the caller's ticks
+ok 9 - two weeks ago: 3 sessions, target met
+ok 10 - one of the eight weeks met the target
+ok 11 - the block is 42 days old
+
+# 06_habit_kinds.test.sql
+1..16
+ok 1 - not even the database owner can turn a paper step into a counter (CHECK)
+ok 2 - a user can add a target habit, a count habit and a tick-off habit
+ok 3 - a target habit must have a daily target
+ok 4 - a target cannot be edited after the fact (it would rewrite what old days mean)
+ok 5 - logging 12 of 20 pages is accepted
+ok 6 - below the target there is no tick
+ok 7 - reaching the target adds the tick
+ok 8 - going past the target still means one tick
+ok 9 - dropping back below the target removes the tick
+ok 10 - one glass ticks the count habit, and consistency sees it without reading amounts
+ok 11 - a tick-off habit takes no amount
+ok 12 - an amount cannot be back-dated a month
+ok 13 - an amount cannot be negative
+ok 14 - a user cannot read another user's amounts
+ok 15 - a user cannot log an amount on another user's habit
+ok 16 - a user cannot log an amount in another user's name
+
+# 07_set_step_amount.test.sql
+1..14
+ok 1 - set_step_amount runs as the caller (SECURITY INVOKER), so row level security applies
+ok 2 - the first amount of the day is accepted
+ok 3 - a second amount for the same habit and day is accepted (no duplicate key)
+ok 4 - one row for the habit and day, holding the latest amount
+ok 5 - below the target (2 of 3) there is no tick
+ok 6 - reaching the target is accepted
+ok 7 - reaching the target through the upsert adds the tick
+ok 8 - sending the same amount again is harmless
+ok 9 - a replay leaves one row
+ok 10 - the guard still applies: a tick-off habit takes no amount
+ok 11 - the update grant stays narrow: an upsert that sets the key columns is refused
+ok 12 - a user cannot set an amount on another user's habit
+ok 13 - the owner's amount is untouched by the stranger
+ok 14 - a visitor who is not signed in cannot call it
+
+# 90_parity.generated.test.sql
+1..80
+ok 1 - scenario 1: adherence matches lib/score.ts (0%)
+ok 2 - scenario 1: streak matches lib/score.ts (0)
+ok 3 - scenario 2: adherence matches lib/score.ts (71%)
+ok 4 - scenario 2: streak matches lib/score.ts (3)
+ok 5 - scenario 3: adherence matches lib/score.ts (0%)
+ok 6 - scenario 3: streak matches lib/score.ts (1)
+ok 7 - scenario 4: adherence matches lib/score.ts (0%)
+ok 8 - scenario 4: streak matches lib/score.ts (14)
+ok 9 - scenario 5: adherence matches lib/score.ts (53%)
+ok 10 - scenario 5: streak matches lib/score.ts (14)
+ok 11 - scenario 6: adherence matches lib/score.ts (0%)
+ok 12 - scenario 6: streak matches lib/score.ts (14)
+ok 13 - scenario 7: adherence matches lib/score.ts (59%)
+ok 14 - scenario 7: streak matches lib/score.ts (4)
+ok 15 - scenario 8: adherence matches lib/score.ts (15%)
+ok 16 - scenario 8: streak matches lib/score.ts (11)
+ok 17 - scenario 9: adherence matches lib/score.ts (0%)
+ok 18 - scenario 9: streak matches lib/score.ts (5)
+ok 19 - scenario 10: adherence matches lib/score.ts (0%)
+ok 20 - scenario 10: streak matches lib/score.ts (2)
+ok 21 - scenario 11: adherence matches lib/score.ts (0%)
+ok 22 - scenario 11: streak matches lib/score.ts (2)
+ok 23 - scenario 12: adherence matches lib/score.ts (100%)
+ok 24 - scenario 12: streak matches lib/score.ts (14)
+ok 25 - scenario 13: adherence matches lib/score.ts (0%)
+ok 26 - scenario 13: streak matches lib/score.ts (0)
+ok 27 - scenario 14: adherence matches lib/score.ts (0%)
+ok 28 - scenario 14: streak matches lib/score.ts (4)
+ok 29 - scenario 15: adherence matches lib/score.ts (0%)
+ok 30 - scenario 15: streak matches lib/score.ts (1)
+ok 31 - scenario 16: adherence matches lib/score.ts (0%)
+ok 32 - scenario 16: streak matches lib/score.ts (14)
+ok 33 - scenario 17: adherence matches lib/score.ts (23%)
+ok 34 - scenario 17: streak matches lib/score.ts (9)
+ok 35 - scenario 18: adherence matches lib/score.ts (0%)
+ok 36 - scenario 18: streak matches lib/score.ts (7)
+ok 37 - scenario 19: adherence matches lib/score.ts (0%)
+ok 38 - scenario 19: streak matches lib/score.ts (3)
+ok 39 - scenario 20: adherence matches lib/score.ts (61%)
+ok 40 - scenario 20: streak matches lib/score.ts (14)
+ok 41 - scenario 21: adherence matches lib/score.ts (100%)
+ok 42 - scenario 21: streak matches lib/score.ts (5)
+ok 43 - scenario 22: adherence matches lib/score.ts (0%)
+ok 44 - scenario 22: streak matches lib/score.ts (14)
+ok 45 - scenario 23: adherence matches lib/score.ts (100%)
+ok 46 - scenario 23: streak matches lib/score.ts (5)
+ok 47 - scenario 24: adherence matches lib/score.ts (0%)
+ok 48 - scenario 24: streak matches lib/score.ts (1)
+ok 49 - scenario 25: adherence matches lib/score.ts (0%)
+ok 50 - scenario 25: streak matches lib/score.ts (1)
+ok 51 - scenario 26: adherence matches lib/score.ts (40%)
+ok 52 - scenario 26: streak matches lib/score.ts (14)
+ok 53 - scenario 27: adherence matches lib/score.ts (0%)
+ok 54 - scenario 27: streak matches lib/score.ts (4)
+ok 55 - scenario 28: adherence matches lib/score.ts (29%)
+ok 56 - scenario 28: streak matches lib/score.ts (2)
+ok 57 - scenario 29: adherence matches lib/score.ts (0%)
+ok 58 - scenario 29: streak matches lib/score.ts (3)
+ok 59 - scenario 30: adherence matches lib/score.ts (0%)
+ok 60 - scenario 30: streak matches lib/score.ts (1)
+ok 61 - scenario 31: adherence matches lib/score.ts (100%)
+ok 62 - scenario 31: streak matches lib/score.ts (5)
+ok 63 - scenario 32: adherence matches lib/score.ts (100%)
+ok 64 - scenario 32: streak matches lib/score.ts (3)
+ok 65 - scenario 33: adherence matches lib/score.ts (0%)
+ok 66 - scenario 33: streak matches lib/score.ts (2)
+ok 67 - scenario 34: adherence matches lib/score.ts (0%)
+ok 68 - scenario 34: streak matches lib/score.ts (14)
+ok 69 - scenario 35: adherence matches lib/score.ts (0%)
+ok 70 - scenario 35: streak matches lib/score.ts (1)
+ok 71 - scenario 36: adherence matches lib/score.ts (41%)
+ok 72 - scenario 36: streak matches lib/score.ts (2)
+ok 73 - scenario 37: adherence matches lib/score.ts (63%)
+ok 74 - scenario 37: streak matches lib/score.ts (7)
+ok 75 - scenario 38: adherence matches lib/score.ts (50%)
+ok 76 - scenario 38: streak matches lib/score.ts (14)
+ok 77 - scenario 39: adherence matches lib/score.ts (0%)
+ok 78 - scenario 39: streak matches lib/score.ts (0)
+ok 79 - scenario 40: adherence matches lib/score.ts (0%)
+ok 80 - scenario 40: streak matches lib/score.ts (1)
+
+# unseeded: 8 files, 191 assertions, 0 failed
+# seeded: 8 files, 191 assertions, 0 failed
+# Result: PASS (both passes)

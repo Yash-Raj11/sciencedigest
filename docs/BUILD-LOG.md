@@ -1149,3 +1149,30 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - Missed in the relabel commit, fixed here: two browser tests still expected `rct` ("Randomized
   trial"; an arrow check listing rct designs by hand, now `RANDOMIZED_DESIGNS`).
 - `scripts/simulator-shots.mts`: shots + measurements per kind (local build, fake Supabase).
+
+## 2026-11-14, Association-curve simulator live on steps
+
+- **Kind:** `association-curve` in `FIGURE_KINDS`: `facts.raw` (list, unit %), `simulator.raw`
+  (list, %), `simulator.adjusted` (list, points, band → H12). Raw shares need no band: they are
+  printed group values, never a personal estimate; the adjusted differences carry their CIs,
+  labelled "range for the study average". `kindParamsProblems` (lint): one group per raw share,
+  one adjusted difference per later group, edges in order with no gap or overlap; group edges and
+  mean ages are `{ n, ref }` params, checked against the passage by the existing params walk.
+- **Steps:** the old `steps-days` simulator (model toggles, cardiovascular outcome) is deleted;
+  the read's text and receipts still carry both. Reader picks 0–7 (8 buttons, 4 × 2, 48 px).
+  Sees: the headline sentence (raw, from `words`), the raw bars with their printed shares, then
+  for 1–7: "14.9 points lower, adjusted, compared with 0 days", the CI band strip with its ends
+  and zero labelled, one sentence, the CI as "range for the study average", "Raw: 14.1% of this
+  group, against 40.7% at 0 days" with why the gaps differ, "not a prediction for you", the
+  source line; then **Who this was tested in** straight under the result (owner), with the
+  group's average age (63.7 / 51.5 / 46.0) and the observational sentence. 0 days says it is
+  the comparison group and shows no adjusted number.
+- Look-then-fix, 2 loops. Loop 1 fixed: crowded group labels (now "0", "1–2", "3–7" under a
+  "days a week" title), a band strip with no scale (ends and 0 labelled), "the 0 days group"
+  wording; headline now "on no day of the week" (was "never ... a day"). Loop 2 fixed: dim bars
+  vanishing in dark, a brown band, a five-line headline. Measured at 390 and 360 px: label 14 px,
+  target 44 px (the radio's label; the hidden input is skipped), chart 100%, no sideways scroll
+  (`docs/evidence/simulators/association-curve-measure.txt`). **Still not right:** the dark band
+  strip still reads brown; the result sits about 400 px under the chart.
+- Tests: `scripts/association-kind.test.ts` (9; removing the band flag fails the H12 test, checked
+  by hand), `tests/browser/simulators.spec.ts` +2.

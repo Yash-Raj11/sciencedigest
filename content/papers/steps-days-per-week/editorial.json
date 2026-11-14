@@ -133,20 +133,31 @@
     }
   ],
   "simulator": {
-    "kind": "steps-days",
+    "kind": "association-curve",
+    "spec": {
+      "kind": "association-curve",
+      "facts": {
+        "raw": [
+          "crude_0",
+          "crude_1_2",
+          "crude_3_7"
+        ]
+      },
+      "simulator": {
+        "raw": [
+          "crude_0",
+          "crude_1_2",
+          "crude_3_7"
+        ],
+        "adjusted": [
+          "ard_1_2",
+          "ard_3_7"
+        ]
+      }
+    },
     "params": {
-      "threshold": {
-        "n": 8000,
-        "ref": "threshold"
-      },
-      "followupYears": {
-        "n": 10,
-        "ref": "followup"
-      },
       "groups": [
         {
-          "id": "g0",
-          "label": "No days",
           "from": {
             "n": 0,
             "ref": "threshold"
@@ -161,8 +172,6 @@
           }
         },
         {
-          "id": "g1",
-          "label": "1 to 2 days",
           "from": {
             "n": 1,
             "ref": "threshold"
@@ -177,8 +186,6 @@
           }
         },
         {
-          "id": "g2",
-          "label": "3 to 7 days",
           "from": {
             "n": 3,
             "ref": "threshold"
@@ -192,68 +199,13 @@
             "ref": "ages"
           }
         }
-      ],
-      "outcomes": [
-        {
-          "id": "all",
-          "label": "Death from any cause",
-          "crude": {
-            "g0": "fact:crude_0",
-            "g1": "fact:crude_1_2",
-            "g2": "fact:crude_3_7"
-          },
-          "models": [
-            {
-              "id": "agesex",
-              "label": "Age and sex",
-              "g1": "fact:ard_1_2_agesex",
-              "g2": "fact:ard_3_7_agesex"
-            },
-            {
-              "id": "m1",
-              "label": "Plus health and lifestyle",
-              "g1": "fact:ard_1_2_m1",
-              "g2": "fact:ard_3_7_m1"
-            },
-            {
-              "id": "m2",
-              "label": "Plus average daily steps",
-              "g1": "fact:ard_1_2",
-              "g2": "fact:ard_3_7"
-            }
-          ]
-        },
-        {
-          "id": "cv",
-          "label": "Cardiovascular death",
-          "crude": {
-            "g0": "fact:cv_crude_0",
-            "g1": "fact:cv_crude_1_2",
-            "g2": "fact:cv_crude_3_7"
-          },
-          "models": [
-            {
-              "id": "agesex",
-              "label": "Age and sex",
-              "g1": "fact:cv_ard_1_2_agesex",
-              "g2": "fact:cv_ard_3_7_agesex"
-            },
-            {
-              "id": "m1",
-              "label": "Plus health and lifestyle",
-              "g1": "fact:cv_ard_1_2_m1",
-              "g2": "fact:cv_ard_3_7_m1"
-            },
-            {
-              "id": "m2",
-              "label": "Plus average daily steps",
-              "g1": "fact:cv_ard_1_2",
-              "g2": "fact:cv_ard_3_7"
-            }
-          ]
-        }
-      ],
-      "modelNote": "fact:models"
+      ]
+    },
+    "words": {
+      "alt": "Three bars, one for each group of days a week at 8,000 steps or more. [threshold] Each bar is the share of that group who died within 10 years, before any adjustment: the bars fall from the first group to the last. [followup, crude_0, crude_1_2, crude_3_7]",
+      "headline": "Before any adjustment, 40.7% of people who reached 8,000 steps on no day of the week died within 10 years. [threshold, followup, crude_0] Among people who did on 3 to 7 days, 5.5% did. [threshold, crude_3_7]",
+      "ask": "On how many days a week do you reach 8,000 steps? [threshold]",
+      "who": "3,101 US adults aged 20 or older wore a step counter for one week in 2005 and 2006, and national death records followed them afterwards. [sample, cohort]"
     }
   },
   "carousel": {

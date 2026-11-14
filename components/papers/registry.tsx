@@ -20,7 +20,6 @@ import WhatWasMeasured from "./hiit-body-composition/figures/WhatWasMeasured";
 import HiitSimulator from "./hiit-body-composition/Simulator";
 import HiitWidget from "./hiit-body-composition/Widget";
 import SeenTogether from "./steps-days-per-week/figures/SeenTogether";
-import StepsSimulator from "./steps-days-per-week/Simulator";
 import StepsWidget from "./steps-days-per-week/Widget";
 import Doorbell from "./turmeric-pepper-breakfast/figures/Doorbell";
 import FiveReadings from "./turmeric-pepper-breakfast/figures/FiveReadings";
@@ -44,7 +43,6 @@ const WIDGETS: Record<string, ComponentType<WidgetProps>> = {
 /** Keyed by the `simulator.kind` written in the paper's editorial.json. */
 const SIMULATORS: Record<string, ComponentType<SimulatorProps>> = {
   "estimate-explorer": GenericSimulator,
-  "steps-days": StepsSimulator,
   "hiit-forest": HiitSimulator,
   "breakfast-meals": BreakfastSimulator,
 };

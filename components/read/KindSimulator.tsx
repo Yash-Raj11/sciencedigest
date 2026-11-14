@@ -8,6 +8,8 @@
  * reader can tap through to the passage.
  */
 
+import type { GroupEdges } from "@/components/figures/association-layout";
+import { AssociationCurve } from "@/components/figures/kinds/AssociationCurve";
 import { Decay } from "@/components/figures/kinds/Decay";
 import { FROM_THE_PAPER, factSourceLine } from "@/lib/content/source-line";
 import type { PaperContent, ResolvedFact } from "@/lib/content/types";
@@ -15,7 +17,7 @@ import { Para } from "./parts";
 
 const one = (value: ResolvedFact | ResolvedFact[] | undefined): ResolvedFact | undefined => (Array.isArray(value) ? undefined : value);
 
-export function KindSimulator({ content }: { content: PaperContent }) {
+export function KindSimulator({ content, observational }: { content: PaperContent; observational: boolean }) {
   const { spec, words = {} } = content.simulator;
   if (!spec) return null;
   const { facts, context } = content;
@@ -37,6 +39,21 @@ export function KindSimulator({ content }: { content: PaperContent }) {
             <p className="mt-1.5 text-sm text-muted">{FROM_THE_PAPER}.</p>
           </>
         ) : null}
+      />
+    );
+  }
+  if (spec.kind === "association-curve") {
+    const many = (value: ResolvedFact | ResolvedFact[] | undefined) => (Array.isArray(value) ? value : []);
+    const raw = many(spec.simulator.raw);
+    const groups = content.simulator.params.groups as GroupEdges[] | undefined;
+    if (!groups) return null;
+    // The first raw share's source line stands for all: every value of this kind is the paper's own.
+    return (
+      <AssociationCurve
+        mode="full" raw={raw} adjusted={many(spec.simulator.adjusted)} groups={groups} alt={alt}
+        sourceLine={raw[0] ? factSourceLine(raw[0], content) : FROM_THE_PAPER} observational={observational}
+        ask={say("ask", "text-lg font-semibold leading-snug")} headline={say("headline", "text-lg font-semibold leading-snug")}
+        who={say("who", "text-base leading-snug")}
       />
     );
   }

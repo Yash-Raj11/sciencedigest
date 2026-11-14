@@ -165,6 +165,13 @@ finding (markup, linted like the read). `components/figures/kinds/Decay.tsx` (fu
 
 ### 2. Steps: association-curve (`steps-days-per-week`, free)
 
+**Built 2026-11-14.** `simulator: { kind: "association-curve", spec: { raw: [crude_0, crude_1_2,
+crude_3_7], adjusted: [ard_1_2, ard_3_7] }, params: { groups } (edges and mean ages as { n, ref }),
+words: { alt, headline, ask, who } }`. `components/figures/kinds/AssociationCurve.tsx`, sums in
+`components/figures/association-layout.ts`; `kindParamsProblems` checks groups line up with the
+spec. The models comparison and the cardiovascular outcome of the old hand-built simulator are
+not in the kind; both stay in the read's text and receipts.
+
 - **Reader enters:** on how many days a week they reach 8,000 steps (0 to 7).
 - **Reader sees:** their band and its printed numbers, with no causal verb. The labels say which
   number is which (owner, 2026-11-14): 14.1% against 40.7% is **raw** (unadjusted: the groups

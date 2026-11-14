@@ -46,12 +46,23 @@ export type FigureSpec = z.infer<typeof FigureSpec>;
 export interface Slot { unit?: RegExp; band?: boolean; many?: boolean }
 
 const HOURS = /^(h|hours?)$/;
+const PERCENT = /^%$/;
+const POINTS = /^(points?|percentage points)$/;
 
 /** What each kind needs: the facts its still view draws, and the facts its simulator works from. */
 export const FIGURE_KINDS = {
   decay: {
     facts: { halfLife: { unit: HOURS } },
     simulator: { halfLife: { unit: HOURS, band: true } },
+  },
+  /**
+   * Groups of a cohort, in order, the first the comparison group. `raw` is each group's printed
+   * share (unadjusted); `adjusted` is each later group's printed adjusted difference from the
+   * first, with its CI (the band). The groups' edges come from params.groups ({ n, ref }).
+   */
+  "association-curve": {
+    facts: { raw: { unit: PERCENT, many: true } },
+    simulator: { raw: { unit: PERCENT, many: true }, adjusted: { unit: POINTS, many: true, band: true } },
   },
 } as const satisfies Record<string, { facts: Record<string, Slot>; simulator: Record<string, Slot> }>;
 
@@ -133,5 +144,35 @@ export function specProblems(raw: unknown, where: string, lookup: (id: string) =
       });
     }
   }
+  return out;
+}
+
+/** A number the read cites: { n, ref } (checked against its passage by the lint's params walk). */
+const Cited = z.object({ n: z.number(), ref: z.string() });
+const Group = z.object({ from: Cited, to: Cited, meanAge: Cited.optional() });
+
+/**
+ * What a kind needs beyond its spec, in the simulator's params, and how the two line up.
+ * association-curve: one group per raw share, each with its edges; one adjusted difference
+ * for every group after the first; edges in order, with no gap and no overlap.
+ */
+export function kindParamsProblems(spec: unknown, params: unknown, where: string): SpecProblem[] {
+  const parsed = FigureSpec.safeParse(spec);
+  if (!parsed.success || parsed.data.kind !== "association-curve") return [];
+  const out: SpecProblem[] = [];
+  const fail = (at: string, message: string) => out.push({ rule: "figure-spec", where: at, message });
+  const raw = parsed.data.simulator?.raw;
+  const adjusted = parsed.data.simulator?.adjusted;
+  const groups = z.array(Group).safeParse((params as Record<string, unknown> | null)?.groups);
+  if (!groups.success) { fail(`${where}.params.groups`, "an association-curve needs params.groups: [{ from: { n, ref }, to: { n, ref } }], one per group, in order"); return out; }
+  if (Array.isArray(raw) && groups.data.length !== raw.length) fail(`${where}.params.groups`, `${groups.data.length} groups, but ${raw.length} raw shares in the spec`);
+  if (Array.isArray(raw) && Array.isArray(adjusted) && adjusted.length !== raw.length - 1) {
+    fail(`${where}.spec.simulator.adjusted`, `one adjusted difference per group after the first (the comparison group): expected ${raw.length - 1}, got ${adjusted.length}`);
+  }
+  groups.data.forEach((group, i) => {
+    if (group.from.n > group.to.n) fail(`${where}.params.groups[${i}]`, "a group's edges are reversed");
+    const before = groups.data[i - 1];
+    if (before && group.from.n !== before.to.n + 1) fail(`${where}.params.groups[${i}]`, "groups must follow on from each other, with no gap and no overlap");
+  });
   return out;
 }

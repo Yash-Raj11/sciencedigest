@@ -165,7 +165,7 @@ export const PAPERS: PaperMeta[] = [
       }
     ],
     "hasBlock": false,
-    "simulatorKind": "steps-days"
+    "simulatorKind": "association-curve"
   },
   {
     "id": "735a2dc7-8f80-59f4-afae-c49e591ae748",
@@ -1410,20 +1410,10 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
     },
     "primaryEstimate": "ard_1_2",
     "simulator": {
-      "kind": "steps-days",
+      "kind": "association-curve",
       "params": {
-        "threshold": {
-          "n": 8000,
-          "ref": "threshold"
-        },
-        "followupYears": {
-          "n": 10,
-          "ref": "followup"
-        },
         "groups": [
           {
-            "id": "g0",
-            "label": "No days",
             "from": {
               "n": 0,
               "ref": "threshold"
@@ -1438,8 +1428,6 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
             }
           },
           {
-            "id": "g1",
-            "label": "1 to 2 days",
             "from": {
               "n": 1,
               "ref": "threshold"
@@ -1454,8 +1442,6 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
             }
           },
           {
-            "id": "g2",
-            "label": "3 to 7 days",
             "from": {
               "n": 3,
               "ref": "threshold"
@@ -1469,343 +1455,201 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "ref": "ages"
             }
           }
-        ],
-        "outcomes": [
-          {
-            "id": "all",
-            "label": "Death from any cause",
-            "crude": {
-              "g0": {
-                "id": "crude_0",
-                "kind": "estimate",
-                "label": "Share of the 0-day group who died within 10 years, unadjusted",
-                "quote": "257/632 (40.7)",
-                "estimate": {
-                  "outcome": "Deaths from any cause within 10 years, unadjusted",
-                  "measure": "proportion",
-                  "point": 40.7,
-                  "ciLow": null,
-                  "ciHigh": null,
-                  "unit": "%",
-                  "absolute": true,
-                  "tier": "low"
-                }
-              },
-              "g1": {
-                "id": "crude_1_2",
-                "kind": "estimate",
-                "label": "Share of the 1-2-day group who died within 10 years, unadjusted",
-                "quote": "75/532 (14.1)",
-                "estimate": {
-                  "outcome": "Deaths from any cause within 10 years, unadjusted",
-                  "measure": "proportion",
-                  "point": 14.1,
-                  "ciLow": null,
-                  "ciHigh": null,
-                  "unit": "%",
-                  "absolute": true,
-                  "tier": "low"
-                }
-              },
-              "g2": {
-                "id": "crude_3_7",
-                "kind": "estimate",
-                "label": "Share of the 3-7-day group who died within 10 years, unadjusted",
-                "quote": "107/1937 (5.5)",
-                "estimate": {
-                  "outcome": "Deaths from any cause within 10 years, unadjusted",
-                  "measure": "proportion",
-                  "point": 5.5,
-                  "ciLow": null,
-                  "ciHigh": null,
-                  "unit": "%",
-                  "absolute": true,
-                  "tier": "low"
-                }
+        ]
+      },
+      "spec": {
+        "kind": "association-curve",
+        "facts": {
+          "raw": [
+            {
+              "id": "crude_0",
+              "kind": "estimate",
+              "label": "Share of the 0-day group who died within 10 years, unadjusted",
+              "quote": "257/632 (40.7)",
+              "estimate": {
+                "outcome": "Deaths from any cause within 10 years, unadjusted",
+                "measure": "proportion",
+                "point": 40.7,
+                "ciLow": null,
+                "ciHigh": null,
+                "unit": "%",
+                "absolute": true,
+                "tier": "low"
               }
             },
-            "models": [
-              {
-                "id": "agesex",
-                "label": "Age and sex",
-                "g1": {
-                  "id": "ard_1_2_agesex",
-                  "kind": "estimate",
-                  "label": "Risk difference adjusted for age and sex only, 1-2 days, all-cause",
-                  "quote": "−18.7 (−23.2 to −14.4)",
-                  "estimate": {
-                    "outcome": "10-year risk of death from any cause",
-                    "measure": "aRD",
-                    "point": -18.7,
-                    "ciLow": -23.2,
-                    "ciHigh": -14.4,
-                    "unit": "points",
-                    "absolute": true,
-                    "tier": "low"
-                  }
-                },
-                "g2": {
-                  "id": "ard_3_7_agesex",
-                  "kind": "estimate",
-                  "label": "Risk difference adjusted for age and sex only, 3-7 days, all-cause",
-                  "quote": "−23.0 (−26.8 to −19.3)",
-                  "estimate": {
-                    "outcome": "10-year risk of death from any cause",
-                    "measure": "aRD",
-                    "point": -23,
-                    "ciLow": -26.8,
-                    "ciHigh": -19.3,
-                    "unit": "points",
-                    "absolute": true,
-                    "tier": "low"
-                  }
-                }
-              },
-              {
-                "id": "m1",
-                "label": "Plus health and lifestyle",
-                "g1": {
-                  "id": "ard_1_2_m1",
-                  "kind": "estimate",
-                  "label": "Risk difference, model 1 (demographics, health, lifestyle), 1-2 days, all-cause",
-                  "quote": "−15.9 (−20.0 to −11.8)",
-                  "estimate": {
-                    "outcome": "10-year risk of death from any cause",
-                    "measure": "aRD",
-                    "point": -15.9,
-                    "ciLow": -20,
-                    "ciHigh": -11.8,
-                    "unit": "points",
-                    "absolute": true,
-                    "tier": "low"
-                  }
-                },
-                "g2": {
-                  "id": "ard_3_7_m1",
-                  "kind": "estimate",
-                  "label": "Risk difference, model 1, 3-7 days, all-cause",
-                  "quote": "−19.4 (−23.0 to −15.8)",
-                  "estimate": {
-                    "outcome": "10-year risk of death from any cause",
-                    "measure": "aRD",
-                    "point": -19.4,
-                    "ciLow": -23,
-                    "ciHigh": -15.8,
-                    "unit": "points",
-                    "absolute": true,
-                    "tier": "low"
-                  }
-                }
-              },
-              {
-                "id": "m2",
-                "label": "Plus average daily steps",
-                "g1": {
-                  "id": "ard_1_2",
-                  "kind": "estimate",
-                  "label": "Fully adjusted risk difference, 1-2 days vs 0 days, all-cause",
-                  "quote": "all-cause mortality risk was lower among those who took 8000 steps or more 1 to 2 days per week (aRD, −14.9%; 95% CI −18.8% to −10.9%)",
-                  "estimate": {
-                    "outcome": "10-year risk of death from any cause",
-                    "measure": "aRD",
-                    "point": -14.9,
-                    "ciLow": -18.8,
-                    "ciHigh": -10.9,
-                    "unit": "points",
-                    "absolute": true,
-                    "tier": "low"
-                  }
-                },
-                "g2": {
-                  "id": "ard_3_7",
-                  "kind": "estimate",
-                  "label": "Fully adjusted risk difference, 3-7 days vs 0 days, all-cause",
-                  "quote": "3 to 7 days per week (aRD, −16.5%; 95% CI, −20.4% to −12.5%)",
-                  "estimate": {
-                    "outcome": "10-year risk of death from any cause",
-                    "measure": "aRD",
-                    "point": -16.5,
-                    "ciLow": -20.4,
-                    "ciHigh": -12.5,
-                    "unit": "points",
-                    "absolute": true,
-                    "tier": "low"
-                  }
-                }
+            {
+              "id": "crude_1_2",
+              "kind": "estimate",
+              "label": "Share of the 1-2-day group who died within 10 years, unadjusted",
+              "quote": "75/532 (14.1)",
+              "estimate": {
+                "outcome": "Deaths from any cause within 10 years, unadjusted",
+                "measure": "proportion",
+                "point": 14.1,
+                "ciLow": null,
+                "ciHigh": null,
+                "unit": "%",
+                "absolute": true,
+                "tier": "low"
               }
+            },
+            {
+              "id": "crude_3_7",
+              "kind": "estimate",
+              "label": "Share of the 3-7-day group who died within 10 years, unadjusted",
+              "quote": "107/1937 (5.5)",
+              "estimate": {
+                "outcome": "Deaths from any cause within 10 years, unadjusted",
+                "measure": "proportion",
+                "point": 5.5,
+                "ciLow": null,
+                "ciHigh": null,
+                "unit": "%",
+                "absolute": true,
+                "tier": "low"
+              }
+            }
+          ]
+        },
+        "simulator": {
+          "raw": [
+            {
+              "id": "crude_0",
+              "kind": "estimate",
+              "label": "Share of the 0-day group who died within 10 years, unadjusted",
+              "quote": "257/632 (40.7)",
+              "estimate": {
+                "outcome": "Deaths from any cause within 10 years, unadjusted",
+                "measure": "proportion",
+                "point": 40.7,
+                "ciLow": null,
+                "ciHigh": null,
+                "unit": "%",
+                "absolute": true,
+                "tier": "low"
+              }
+            },
+            {
+              "id": "crude_1_2",
+              "kind": "estimate",
+              "label": "Share of the 1-2-day group who died within 10 years, unadjusted",
+              "quote": "75/532 (14.1)",
+              "estimate": {
+                "outcome": "Deaths from any cause within 10 years, unadjusted",
+                "measure": "proportion",
+                "point": 14.1,
+                "ciLow": null,
+                "ciHigh": null,
+                "unit": "%",
+                "absolute": true,
+                "tier": "low"
+              }
+            },
+            {
+              "id": "crude_3_7",
+              "kind": "estimate",
+              "label": "Share of the 3-7-day group who died within 10 years, unadjusted",
+              "quote": "107/1937 (5.5)",
+              "estimate": {
+                "outcome": "Deaths from any cause within 10 years, unadjusted",
+                "measure": "proportion",
+                "point": 5.5,
+                "ciLow": null,
+                "ciHigh": null,
+                "unit": "%",
+                "absolute": true,
+                "tier": "low"
+              }
+            }
+          ],
+          "adjusted": [
+            {
+              "id": "ard_1_2",
+              "kind": "estimate",
+              "label": "Fully adjusted risk difference, 1-2 days vs 0 days, all-cause",
+              "quote": "all-cause mortality risk was lower among those who took 8000 steps or more 1 to 2 days per week (aRD, −14.9%; 95% CI −18.8% to −10.9%)",
+              "estimate": {
+                "outcome": "10-year risk of death from any cause",
+                "measure": "aRD",
+                "point": -14.9,
+                "ciLow": -18.8,
+                "ciHigh": -10.9,
+                "unit": "points",
+                "absolute": true,
+                "tier": "low"
+              }
+            },
+            {
+              "id": "ard_3_7",
+              "kind": "estimate",
+              "label": "Fully adjusted risk difference, 3-7 days vs 0 days, all-cause",
+              "quote": "3 to 7 days per week (aRD, −16.5%; 95% CI, −20.4% to −12.5%)",
+              "estimate": {
+                "outcome": "10-year risk of death from any cause",
+                "measure": "aRD",
+                "point": -16.5,
+                "ciLow": -20.4,
+                "ciHigh": -12.5,
+                "unit": "points",
+                "absolute": true,
+                "tier": "low"
+              }
+            }
+          ]
+        }
+      },
+      "words": {
+        "alt": [
+          {
+            "text": "Three bars, one for each group of days a week at 8,000 steps or more.",
+            "refs": [
+              "threshold"
             ]
           },
           {
-            "id": "cv",
-            "label": "Cardiovascular death",
-            "crude": {
-              "g0": {
-                "id": "cv_crude_0",
-                "kind": "estimate",
-                "label": "Share of the 0-day group who died of cardiovascular disease, unadjusted",
-                "quote": "87/462 (18.8)",
-                "estimate": {
-                  "outcome": "Cardiovascular deaths within 10 years, unadjusted",
-                  "measure": "proportion",
-                  "point": 18.8,
-                  "ciLow": null,
-                  "ciHigh": null,
-                  "unit": "%",
-                  "absolute": true,
-                  "tier": "low"
-                }
-              },
-              "g1": {
-                "id": "cv_crude_1_2",
-                "kind": "estimate",
-                "label": "Share of the 1-2-day group who died of cardiovascular disease, unadjusted",
-                "quote": "26/483 (5.4)",
-                "estimate": {
-                  "outcome": "Cardiovascular deaths within 10 years, unadjusted",
-                  "measure": "proportion",
-                  "point": 5.4,
-                  "ciLow": null,
-                  "ciHigh": null,
-                  "unit": "%",
-                  "absolute": true,
-                  "tier": "low"
-                }
-              },
-              "g2": {
-                "id": "cv_crude_3_7",
-                "kind": "estimate",
-                "label": "Share of the 3-7-day group who died of cardiovascular disease, unadjusted",
-                "quote": "35/1865 (1.9)",
-                "estimate": {
-                  "outcome": "Cardiovascular deaths within 10 years, unadjusted",
-                  "measure": "proportion",
-                  "point": 1.9,
-                  "ciLow": null,
-                  "ciHigh": null,
-                  "unit": "%",
-                  "absolute": true,
-                  "tier": "low"
-                }
-              }
-            },
-            "models": [
-              {
-                "id": "agesex",
-                "label": "Age and sex",
-                "g1": {
-                  "id": "cv_ard_1_2_agesex",
-                  "kind": "estimate",
-                  "label": "Risk difference adjusted for age and sex only, 1-2 days, cardiovascular",
-                  "quote": "−9.6 (−12.9 to −6.3)",
-                  "estimate": {
-                    "outcome": "10-year risk of cardiovascular death",
-                    "measure": "aRD",
-                    "point": -9.6,
-                    "ciLow": -12.9,
-                    "ciHigh": -6.3,
-                    "unit": "points",
-                    "absolute": true,
-                    "tier": "low"
-                  }
-                },
-                "g2": {
-                  "id": "cv_ard_3_7_agesex",
-                  "kind": "estimate",
-                  "label": "Risk difference adjusted for age and sex only, 3-7 days, cardiovascular",
-                  "quote": "−11.1 (−14.4 to −7.9)",
-                  "estimate": {
-                    "outcome": "10-year risk of cardiovascular death",
-                    "measure": "aRD",
-                    "point": -11.1,
-                    "ciLow": -14.4,
-                    "ciHigh": -7.9,
-                    "unit": "points",
-                    "absolute": true,
-                    "tier": "low"
-                  }
-                }
-              },
-              {
-                "id": "m1",
-                "label": "Plus health and lifestyle",
-                "g1": {
-                  "id": "cv_ard_1_2_m1",
-                  "kind": "estimate",
-                  "label": "Risk difference, model 1, 1-2 days, cardiovascular",
-                  "quote": "−8.5 (−12.2 to −4.9)",
-                  "estimate": {
-                    "outcome": "10-year risk of cardiovascular death",
-                    "measure": "aRD",
-                    "point": -8.5,
-                    "ciLow": -12.2,
-                    "ciHigh": -4.9,
-                    "unit": "points",
-                    "absolute": true,
-                    "tier": "low"
-                  }
-                },
-                "g2": {
-                  "id": "cv_ard_3_7_m1",
-                  "kind": "estimate",
-                  "label": "Risk difference, model 1, 3-7 days, cardiovascular",
-                  "quote": "−9.8 (−13.4 to −6.2)",
-                  "estimate": {
-                    "outcome": "10-year risk of cardiovascular death",
-                    "measure": "aRD",
-                    "point": -9.8,
-                    "ciLow": -13.4,
-                    "ciHigh": -6.2,
-                    "unit": "points",
-                    "absolute": true,
-                    "tier": "low"
-                  }
-                }
-              },
-              {
-                "id": "m2",
-                "label": "Plus average daily steps",
-                "g1": {
-                  "id": "cv_ard_1_2",
-                  "kind": "estimate",
-                  "label": "Fully adjusted risk difference, 1-2 days, cardiovascular",
-                  "quote": "(aRD, −8.1%; 95% CI, −11.8% to −4.4%)",
-                  "estimate": {
-                    "outcome": "10-year risk of cardiovascular death",
-                    "measure": "aRD",
-                    "point": -8.1,
-                    "ciLow": -11.8,
-                    "ciHigh": -4.4,
-                    "unit": "points",
-                    "absolute": true,
-                    "tier": "low"
-                  }
-                },
-                "g2": {
-                  "id": "cv_ard_3_7",
-                  "kind": "estimate",
-                  "label": "Fully adjusted risk difference, 3-7 days, cardiovascular",
-                  "quote": "(aRD, −8.4%; 95% CI, −12.5% to −4.4%)",
-                  "estimate": {
-                    "outcome": "10-year risk of cardiovascular death",
-                    "measure": "aRD",
-                    "point": -8.4,
-                    "ciLow": -12.5,
-                    "ciHigh": -4.4,
-                    "unit": "points",
-                    "absolute": true,
-                    "tier": "low"
-                  }
-                }
-              }
+            "text": "Each bar is the share of that group who died within 10 years, before any adjustment: the bars fall from the first group to the last.",
+            "refs": [
+              "followup",
+              "crude_0",
+              "crude_1_2",
+              "crude_3_7"
             ]
           }
         ],
-        "modelNote": {
-          "id": "models",
-          "kind": "context",
-          "label": "What each adjustment model added",
-          "quote": "Model 1 included age; sex; race and ethnicity; insurance status; marital status; smoking; body mass index; estimated glomerular filtration rate; statin use; and history of diabetes, hypertension, cardiovascular disease, cancer, and emphysema. Model 2 included average daily step counts in addition to the covariates in model 1."
-        }
+        "headline": [
+          {
+            "text": "Before any adjustment, 40.7% of people who reached 8,000 steps on no day of the week died within 10 years.",
+            "refs": [
+              "threshold",
+              "followup",
+              "crude_0"
+            ]
+          },
+          {
+            "text": "Among people who did on 3 to 7 days, 5.5% did.",
+            "refs": [
+              "threshold",
+              "crude_3_7"
+            ]
+          }
+        ],
+        "ask": [
+          {
+            "text": "On how many days a week do you reach 8,000 steps?",
+            "refs": [
+              "threshold"
+            ]
+          }
+        ],
+        "who": [
+          {
+            "text": "3,101 US adults aged 20 or older wore a step counter for one week in 2005 and 2006, and national death records followed them afterwards.",
+            "refs": [
+              "sample",
+              "cohort"
+            ]
+          }
+        ]
       }
     },
     "facts": {

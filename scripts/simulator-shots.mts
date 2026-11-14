@@ -26,7 +26,7 @@ const USE: Record<string, (page: Page) => Promise<void>> = {
     await section.getByLabel(/Your amount/).fill("95");
   },
   "association-curve": async (page) => {
-    await page.locator('section[aria-label="Simulator"]').getByRole("radio", { name: /^2\b/ }).check();
+    await page.locator('section[aria-label="Simulator"]').getByRole("radio", { name: "2 days" }).check({ force: true });
   },
 };
 
@@ -51,6 +51,8 @@ async function measure(page: Page) {
     let target = Infinity;
     let targetName = "";
     for (const el of section.querySelectorAll("input, button, select, summary, label:has(input[type=radio])")) {
+      // A visually hidden input is reached through its label, which is measured instead.
+      if (el.classList.contains("sr-only")) continue;
       const box = el.getBoundingClientRect();
       if (box.width === 0) continue;
       // A touch area widened by an invisible ::after (the source dots) counts at its full size.

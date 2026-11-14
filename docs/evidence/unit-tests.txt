@@ -2,8 +2,11 @@
  RUN  v5.1.0 /Users/yash/Game/sciencedigest
 
 
- Test Files  29 passed (29)
-      Tests  412 passed (412)
-   Start at  18:40:33
-   Duration  3.03s (tests 82%, import 14%, transform 3%, worker 1%)
+ Test Files  30 passed (30)
+      Tests  421 passed (421)
+   Start at  18:51:06
+   Duration  2.93s (tests 81%, import 15%, transform 3%, worker 1%)
+
+    Isolate  30 workers spawned · ~77ms startup each (spawn + environment, per file)
+             at least ~251ms faster with isolate: false — reuses workers across files instead of one per file
 

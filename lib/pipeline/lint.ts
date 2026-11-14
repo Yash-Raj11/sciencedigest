@@ -16,7 +16,7 @@ import type { Validated, ValidatedFact } from "./gate";
 import { NON_HUMAN_DISCLAIMER } from "./grade";
 import { glossaryCovers, jargonIn } from "./jargon";
 import { simulatorSource } from "../content/fact-library";
-import { isFigureKind, specProblems } from "../content/figure-kinds";
+import { isFigureKind, kindParamsProblems, specProblems } from "../content/figure-kinds";
 import { EVIDENCE_KINDS, evidenceKindProblem, figureKey, type EvidenceKind } from "../content/figures";
 import { parseMarkup, type Sentence } from "./markup";
 import { isContextRef, parseRef } from "./refs";
@@ -667,6 +667,7 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
     const specKind = (sim.spec as { kind?: unknown } | null)?.kind;
     if (specKind !== sim.kind) fail("figure-spec", "simulator.spec.kind", `the spec is a "${String(specKind)}" but the simulator is a "${sim.kind}"; they must match`);
     checkSpec(sim.spec, "simulator.spec");
+    for (const problem of kindParamsProblems(sim.spec, sim.params, "simulator")) fail(problem.rule, problem.where, problem.message);
     let altWords = 0;
     try { altWords = countWords(parseMarkup(sim.words?.alt ?? "").map((x) => x.text).join(" ")); } catch { /* reported as markup above */ }
     if (altWords < 4) fail("figure", "simulator.words.alt", "empty alt text: describe in a sentence what the chart shows, for a reader who cannot see it");
