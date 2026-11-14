@@ -16,6 +16,10 @@
  *                         does not fit is read in chunks, with a warning (lib/pipeline/chunks.ts).
  *   AI_MAX_TOKENS         optional: room for the reply (default 16000 anthropic, 32000 otherwise;
  *                         a reasoning model spends part of it thinking)
+ *   AI_THINKING_EXTRACT   openai-compatible only: how hard the model thinks, sent as reasoning_effort.
+ *   AI_THINKING_EDITORIAL none | minimal | low | medium | high | xhigh, or "off" to send nothing.
+ *                         Defaults: "high" for extract, "medium" for editorial. A server that
+ *                         refuses the setting (400) is asked again without it.
  *
  * Structured extraction is the step where a weak model produces exactly the
  * errors this product exists to avoid. Whatever the model, the gate and the lint
@@ -59,6 +63,19 @@ export function replyTokens(request?: Pick<CompletionRequest, "maxTokens">): num
   if (request?.maxTokens) return request.maxTokens;
   if (process.env.AI_MAX_TOKENS) return Number(process.env.AI_MAX_TOKENS);
   return providerName() === "anthropic" ? 16000 : 32000;
+}
+
+const THINKING_LEVELS = ["none", "minimal", "low", "medium", "high", "xhigh"] as const;
+
+/** The reasoning_effort to send for a stage, or null for "off". An unknown value fails before any request. */
+export function thinkingFor(stage: CompletionRequest["stage"]): string | null {
+  const name = stage === "extract" ? "AI_THINKING_EXTRACT" : "AI_THINKING_EDITORIAL";
+  const value = process.env[name] || (stage === "extract" ? "high" : "medium");
+  if (value === "off") return null;
+  if (!(THINKING_LEVELS as readonly string[]).includes(value)) {
+    throw new Error(`${name} is "${value}"; use one of ${THINKING_LEVELS.join(", ")}, or "off" (see docs/MANUAL.md).`);
+  }
+  return value;
 }
 
 async function post(url: string, headers: Record<string, string>, body: Record<string, unknown>): Promise<Response> {
@@ -110,8 +127,10 @@ async function openaiCompatible(request: CompletionRequest, messages: Message[])
     response_format: { type: "json_object" },
   };
   if (request.stage === "extract") body.temperature = 0;
+  const thinking = thinkingFor(request.stage);
+  if (thinking) body.reasoning_effort = thinking;
   const response = await postWithFallback(`${base.replace(/\/$/, "")}/chat/completions`,
-    key ? { authorization: `Bearer ${key}` } : {}, body, ["temperature", "response_format"]);
+    key ? { authorization: `Bearer ${key}` } : {}, body, ["temperature", "response_format", "reasoning_effort"]);
   const data = (await response.json()) as { choices?: { message?: { content?: string | null }; finish_reason?: string }[] };
   const choice = data.choices?.[0];
   if (choice?.finish_reason === "length") throw new Error("The model ran out of room before finishing. Raise AI_MAX_TOKENS in .env.local.");

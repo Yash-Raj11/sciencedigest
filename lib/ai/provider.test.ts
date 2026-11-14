@@ -75,6 +75,55 @@ describe("openai-compatible provider", () => {
   });
 });
 
+describe("Gemini through the openai-compatible endpoint (recorded 2026-11-14, gemini-4-hydrogen)", () => {
+  const gemini = JSON.parse(readFileSync(new URL("fixtures/gemini-chat-completion.json", import.meta.url), "utf8"));
+  beforeEach(() => {
+    vi.stubEnv("AI_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai/");
+    vi.stubEnv("AI_MODEL_EXTRACT", "gemini-4-hydrogen");
+    vi.stubEnv("AI_MODEL_EDITORIAL", "gemini-4-hydrogen");
+  });
+
+  it("reads Gemini's reply (extra_content beside the text) and strips the trailing slash of the base URL", async () => {
+    const calls = fakeFetch([{ json: gemini }]);
+    expect(await completeJson(request, zodCheck(Shape))).toEqual({ value: { ok: true, facts: ["a"] }, retries: 0 });
+    expect(calls[0].url).toBe("https://generativelanguage.googleapis.com/v1beta/openai/chat/completions");
+  });
+
+  it("sends reasoning_effort: high for extract and medium for editorial by default", async () => {
+    vi.stubEnv("AI_THINKING_EXTRACT", "");
+    vi.stubEnv("AI_THINKING_EDITORIAL", "");
+    const calls = fakeFetch([{ json: gemini }]);
+    await complete(request);
+    await complete({ ...request, stage: "editorial" });
+    expect(calls[0].body.reasoning_effort).toBe("high");
+    expect(calls[1].body.reasoning_effort).toBe("medium");
+  });
+
+  it("takes the level from AI_THINKING_EXTRACT / AI_THINKING_EDITORIAL, and sends nothing for off", async () => {
+    vi.stubEnv("AI_THINKING_EXTRACT", "xhigh");
+    vi.stubEnv("AI_THINKING_EDITORIAL", "off");
+    const calls = fakeFetch([{ json: gemini }]);
+    await complete(request);
+    await complete({ ...request, stage: "editorial" });
+    expect(calls[0].body.reasoning_effort).toBe("xhigh");
+    expect(calls[1].body).not.toHaveProperty("reasoning_effort");
+  });
+
+  it("refuses an unknown level before sending anything", async () => {
+    vi.stubEnv("AI_THINKING_EXTRACT", "bogus");
+    const calls = fakeFetch([{ json: gemini }]);
+    await expect(complete(request)).rejects.toThrow(/AI_THINKING_EXTRACT is "bogus"/);
+    expect(calls).toHaveLength(0);
+  });
+
+  it("asks again without reasoning_effort when a server refuses it (400)", async () => {
+    const calls = fakeFetch([{ status: 400, text: "unknown field reasoning_effort" }, { json: gemini }]);
+    await complete(request);
+    expect(calls[0].body).toHaveProperty("reasoning_effort");
+    expect(calls[1].body).not.toHaveProperty("reasoning_effort");
+  });
+});
+
 describe("completeJson: JSON checked against the schema, one retry with the error, then a loud failure", () => {
   it("returns a valid reply with no retry", async () => {
     fakeFetch([{ json: recorded }]);

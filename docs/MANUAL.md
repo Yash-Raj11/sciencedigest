@@ -276,10 +276,28 @@ editorial.json    the read, the protocol, the simulator settings, the Instagram 
 
 ### Once: set up the model
 
-Two ways, both set in `.env.local`. The gate and the lint judge the output the same way
-whichever model wrote it.
+Set in `.env.local`. The gate and the lint judge the output the same way whichever model
+wrote it.
 
-**Free: an open-weight model on Groq** (no paid API). Make a key at console.groq.com, then:
+**Chosen: Gemini 4 Hydrogen on the Gemini API free tier** (owner, 2026-11-14). No billing, no
+Vertex, no extra package: it goes through the same openai-compatible adapter. The papers are
+CC-BY public text, so Google's free-tier use of the prompts is acceptable. Make a key at
+aistudio.google.com, then:
+
+```
+AI_PROVIDER=openai-compatible
+AI_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai/
+AI_API_KEY=<your Gemini key>
+AI_MODEL_EXTRACT=gemini-4-hydrogen
+AI_MODEL_EDITORIAL=gemini-4-hydrogen
+# AI_THINKING_EXTRACT=high       how hard the model thinks: none, minimal, low, medium, high,
+# AI_THINKING_EDITORIAL=medium   xhigh, or off (sends nothing). These are the defaults.
+```
+
+The free tier has rate limits; if a command stops with `AI request failed (429)`, wait a
+minute and run it again.
+
+**Fallback, free: an open-weight model on Groq.** Make a key at console.groq.com, then:
 
 ```
 AI_PROVIDER=openai-compatible
@@ -294,9 +312,10 @@ AI_MODEL_EDITORIAL=openai/gpt-oss-120b
 The variable is `AI_MODEL_EDITORIAL`, not `AI_MODEL_DRAFT`; the pipeline says so if you use
 the wrong one.
 
-**Offline: Ollama.** Install Ollama, `ollama pull gpt-oss:120b` (or a smaller model your
+**Fallback, offline: Ollama.** Install Ollama, `ollama pull gpt-oss:120b` (or a smaller model your
 machine can hold), then `AI_BASE_URL=http://localhost:11434/v1`, the model names as Ollama
-lists them, and no `AI_API_KEY`. Set `AI_CONTEXT_TOKENS` to the window you gave the model.
+lists them, and no `AI_API_KEY`. Set `AI_CONTEXT_TOKENS` to the window you gave the model. If a server refuses
+`reasoning_effort`, the adapter asks again without it; `AI_THINKING_...=off` stops sending it.
 
 **Paid: Anthropic.** Leave `AI_PROVIDER` unset, set `AI_API_KEY` from console.anthropic.com
 and the two `AI_MODEL_...` lines.

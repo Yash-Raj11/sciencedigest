@@ -1,0 +1,18 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "{\"ok\": true, \"facts\": [\"a\"]}",
+        "extra_content": { "google": { "thought_signature": "Es0CCsoCAWkUfRPGGt2oMxCBH-shortened-in-the-fixture" } },
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1794653947,
+  "id": "6z74apb5IPvA0r4PtN_MUA",
+  "model": "gemini-4-hydrogen",
+  "object": "chat.completion",
+  "usage": { "completion_tokens": 15, "prompt_tokens": 120, "total_tokens": 194 }
+}
