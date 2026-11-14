@@ -907,3 +907,35 @@ Owner chose option (a): fix the extract prompt and re-run Gemini. No Groq.
   Stopped iterating, as instructed. Still failing: meal details stated only once in the methods
   (in the egg, the plate, nothing else for 3 h), the sugar row of Table 1, two background
   statements (piperine, TRPV1), and the authors' "mechanisms need investigating" line.
+
+## 2026-11-14, Caffeine half-life context study: fetched and extracted; gate refuses the design
+
+Owner picked candidate #1: Wildgrube et al. 2025, "A comparison of theacrine and methylliberine
+with caffeine as salivary markers for determining gastric emptying", Int J Pharm X,
+doi:10.1016/j.ijpx.2025.100442, PMC12657313. `content/context/caffeine-saliva-half-life/`.
+
+- **fetch** (`--role context`): CC-BY (Europe PMC), not retracted (Retraction Watch list of
+  2026-11-13). **extract** with Gemini 4 Hydrogen: 83 facts, 0 JSON retries, 123 s.
+- **Gate refused design and species.** Species: the model quoted "human saliva"; changed by
+  hand to the population sentence ("twelve young volunteers"), which passes. Design: the paper
+  never says "randomized"; it says "cross over design" and "Block randomization in blocks of
+  four". The rct evidence words (`grade.ts`) are randomized/randomised, so no passage supports
+  rct, and none supports any other design. **Not changed: that is a gate rule, for the owner.**
+  `grade.ts` gives **low** either way (randomized with n = 12 < 50 is low; anything else is low).
+  `content:build` reports it as rejected, "no read may cite it"; nothing else changes.
+- **Added by hand** (verbatim, located by the gate): `half_life_caffeine` (the body sentence;
+  the model had only the Table 4 row), `matrix_saliva`, `funding`, `conflicts`.
+- **The facts the owner asked for:** half-life, "Caffeine showed a half-life of 5.15 ± 1.21 h
+  after single administration, whereas the half-life of methylliberine was only 1.15 ± 0.12 h
+  and that of theacrine 21.00 ± 7.55 h." (`half_life_caffeine`); dose 25 mg (`arm_a_dose`);
+  saliva (`matrix_saliva`); n = 12 (`sampleSize`); design (`crossover_design`,
+  `randomization_blocks`); ages 22–35 (`population`, `demo_age_median`); "No external funding
+  was received for this research." (`funding`); "The authors declare no conflict of interest."
+  (`conflicts`).
+- **H12 range for the simulator (owner):** mean ± 1 SD, 5.15 ± 1.21 h, so 3.94 to 6.36 h,
+  labelled "typical range in this study". Not wired: the decay figure is next session.
+- **Watch when wiring:** the same paper reports caffeine's half-life at 15.33 ± 10.75 h when
+  given with theacrine and methylliberine (arm D). Only arm A (caffeine alone) applies.
+- **Cross-check only, not a source:** two other CC-BY papers cite "4–6 h" from earlier work
+  (doi:10.3390/nu17233793, "half-life generally ranging from 4 to 6 h"; doi:10.3389/fcvm.2026.1718154,
+  "generally between 4 and 6 h"). Arm A's 3.94–6.36 h agrees with that range.

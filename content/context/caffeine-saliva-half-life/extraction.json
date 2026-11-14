@@ -1,0 +1,686 @@
+{
+  "identifiers": {
+    "doi": "10.1016/j.ijpx.2025.100442",
+    "pmid": "41323841",
+    "pmcid": "PMC12657313",
+    "title": "A comparison of theacrine and methylliberine with caffeine as salivary markers for determining gastric emptying",
+    "authors": "Wildgrube T, Senekowitsch S, Krüger R, Winter F, Grimm M, Weitschies W, Schick P",
+    "journal": "International journal of pharmaceutics: X",
+    "year": 2025,
+    "citation": "Wildgrube T, Senekowitsch S, Krüger R, Winter F, Grimm M, Weitschies W, Schick P. A comparison of theacrine and methylliberine with caffeine as salivary markers for determining gastric emptying. Int J Pharm X. 2025;10:100442."
+  },
+  "license": "CC-BY",
+  "design": {
+    "value": "rct",
+    "quote": "Block randomization in blocks of four was used to ensure complete counterbalancing of the sequence of study days and to minimize systematic bias."
+  },
+  "species": {
+    "value": "human",
+    "quote": "The in vivo study was performed in a cross over design with four different study arms involving twelve young volunteers aged 22–35 years (2 females and 10 males)."
+  },
+  "population": {
+    "value": "twelve young volunteers aged 22–35 years (2 females and 10 males)",
+    "quote": "The in vivo study was performed in a cross over design with four different study arms involving twelve young volunteers aged 22–35 years (2 females and 10 males)."
+  },
+  "sampleSize": {
+    "value": "12",
+    "quote": "Table 3Demographic data of the volunteers (n = 12)."
+  },
+  "facts": [
+    {
+      "id": "study_setting",
+      "kind": "context",
+      "label": "Where the in vivo study was conducted",
+      "value": "Centre of Drug Absorption and Transport (C_DAT) in Greifswald",
+      "quote": "The study was conducted in the premises of the Centre of Drug Absorption and Transport (C_DAT) in Greifswald."
+    },
+    {
+      "id": "crossover_design",
+      "kind": "context",
+      "label": "Crossover study design with four arms",
+      "value": "cross over design with four different study arms",
+      "quote": "The in vivo study was performed in a cross over design with four different study arms involving twelve young volunteers aged 22–35 years (2 females and 10 males)."
+    },
+    {
+      "id": "randomization_blocks",
+      "kind": "context",
+      "label": "Randomization scheme used for study day sequences",
+      "value": "Block randomization in blocks of four",
+      "quote": "Block randomization in blocks of four was used to ensure complete counterbalancing of the sequence of study days and to minimize systematic bias."
+    },
+    {
+      "id": "arm_a_dose",
+      "kind": "context",
+      "label": "Dose and capsule count in study arm A",
+      "value": "25 mg caffeine",
+      "quote": "Then, the ice capsules (study arm A: 25 mg caffeine, study arm B: 100 mg methylliberine, study arm C: 50 mg theacrine, study arm D: combination of 25 mg caffeine, 100 mg methylliberine and 50 mg theacrine) were administered together with 240 mL non‑carbonated water."
+    },
+    {
+      "id": "arm_b_dose",
+      "kind": "context",
+      "label": "Dose in study arm B",
+      "value": "100 mg methylliberine",
+      "quote": "Then, the ice capsules (study arm A: 25 mg caffeine, study arm B: 100 mg methylliberine, study arm C: 50 mg theacrine, study arm D: combination of 25 mg caffeine, 100 mg methylliberine and 50 mg theacrine) were administered together with 240 mL non‑carbonated water."
+    },
+    {
+      "id": "arm_c_dose",
+      "kind": "context",
+      "label": "Dose in study arm C",
+      "value": "50 mg theacrine",
+      "quote": "Then, the ice capsules (study arm A: 25 mg caffeine, study arm B: 100 mg methylliberine, study arm C: 50 mg theacrine, study arm D: combination of 25 mg caffeine, 100 mg methylliberine and 50 mg theacrine) were administered together with 240 mL non‑carbonated water."
+    },
+    {
+      "id": "arm_d_dose",
+      "kind": "context",
+      "label": "Combination doses in study arm D",
+      "value": "combination of 25 mg caffeine, 100 mg methylliberine and 50 mg theacrine",
+      "quote": "Then, the ice capsules (study arm A: 25 mg caffeine, study arm B: 100 mg methylliberine, study arm C: 50 mg theacrine, study arm D: combination of 25 mg caffeine, 100 mg methylliberine and 50 mg theacrine) were administered together with 240 mL non‑carbonated water."
+    },
+    {
+      "id": "capsule_counts_table1",
+      "kind": "context",
+      "label": "Saccharin sodium and water filling per ice capsule",
+      "value": "250 mg saccharin sodium and a filling volume of 0.5 mL",
+      "quote": "For all ice capsules, 250 mg saccharin sodium and a filling volume of 0.5 mL were used."
+    },
+    {
+      "id": "in_vitro_dissolution_conditions",
+      "kind": "context",
+      "label": "Conditions for in vitro dissolution testing",
+      "value": "300 mL medium at 25 °C and a stirring speed of 25 rpm",
+      "quote": "All tests were carried out in 300 mL medium at 25 °C and a stirring speed of 25 rpm. The test medium used was Simulated Gastric Fluid sine pepsin (SGFsp, pH 1.2), which was prepared according to the European Pharmacopoeia (Ph. Eur. 11)."
+    },
+    {
+      "id": "inclusion_exclusion_guidelines",
+      "kind": "context",
+      "label": "Basis for inclusion and exclusion criteria",
+      "value": "EMA and FDA guidelines for bioequivalence studies",
+      "quote": "Inclusion and exclusion criteria were closely based on current EMA and FDA guidelines for bioequivalence studies (; ). Female participants were only allowed to participate if they had a negative pregnancy test. Participants who had difficulty swallowing larger monolithic dosage forms were excluded from the study to avoid problems with swallowing the ice capsules."
+    },
+    {
+      "id": "smoking_coffee_exclusion",
+      "kind": "context",
+      "label": "Exclusion of heavy smokers and habitual coffee/tea consumers",
+      "value": "heavy smokers and habitual tea or coffee consumers were excluded",
+      "quote": "To further minimize the influence of known metabolic modulators, heavy smokers and habitual tea or coffee consumers were excluded, and participants were instructed to document any concomitant medications."
+    },
+    {
+      "id": "caffeine_abstinence",
+      "kind": "context",
+      "label": "Pre-study caffeine abstinence requirement",
+      "value": "at least 72 h",
+      "quote": "Subjects were required to abstain from caffeine-containing products for at least 72 h before ingestion of the ice capsules."
+    },
+    {
+      "id": "fasting_requirements",
+      "kind": "context",
+      "label": "Pre-dose fasting and fluid restriction schedule",
+      "value": "10 h prior to the ice capsules administration, the subjects had to abstain from food",
+      "quote": "10 h prior to the ice capsules administration, the subjects had to abstain from food. The consumption of caloric drinks was allowed until 3 h beforehand. In addition, non-caloric drinks were not permitted from 90 min before intake of the respective ice capsule."
+    },
+    {
+      "id": "saliva_sampling_schedule",
+      "kind": "context",
+      "label": "Saliva sampling time points over 24 hours",
+      "value": "4, 8, 12, 16, 20, 25, 30, 35, 40, 50, 60, 90, 120, 180, 240, 360, 480, 600 and 1440 min",
+      "quote": "Post-administration, subjects collected saliva samples at fixed times (4, 8, 12, 16, 20, 25, 30, 35, 40, 50, 60, 90, 120, 180, 240, 360, 480, 600 and 1440 min) over 24 h."
+    },
+    {
+      "id": "water_and_meal_timing",
+      "kind": "context",
+      "label": "Post-dose water and standard meal timing",
+      "value": "pasta, pesto and Grana Padano and 240 mL of water",
+      "quote": "The study protocol required the subjects to drink further 240 mL of water after 2 h. After 4 h, they were provided with a standard meal consisting of a freely chosen amount of pasta, pesto and Grana Padano and 240 mL of water."
+    },
+    {
+      "id": "calibration_ranges",
+      "kind": "context",
+      "label": "LC-MS/MS calibration ranges for the three analytes",
+      "value": "5–1500 ng/mL for caffeine, 8–2400 ng/mL for methylliberine and 10–3000 ng/mL for theacrine",
+      "quote": "The calibration ranges were 5–1500 ng/mL for caffeine, 8–2400 ng/mL for methylliberine and 10–3000 ng/mL for theacrine."
+    },
+    {
+      "id": "deconvolution_method",
+      "kind": "context",
+      "label": "Pharmacokinetic deconvolution and correlation methods",
+      "value": "two-compartment version of the Loo-Riegelman method",
+      "quote": "The two-compartment version of the Loo-Riegelman method was employed for deconvolution, using the GastroPlus® simulation software (GastroPlus® PBPK & PBBM Modelling and Simulation, Lancaster, Pennsylvania, USA)."
+    },
+    {
+      "id": "baseline_subtraction_rule",
+      "kind": "context",
+      "label": "Handling of detectable baseline caffeine in blank saliva",
+      "value": "in no case did the baseline concentration exceed 35 ng/mL",
+      "quote": "If caffeine was already detectable in the blank saliva of a subject, the concentration of the first saliva sample before ingestion of the ice capsule (t = −5 min) was subtracted from all subsequent values for further analysis (average determination of cmax and tmax, calculation of AUC). This issue occurred only sporadically in a few subjects, and in no case did the baseline concentration exceed 35 ng/mL."
+    },
+    {
+      "id": "demo_sex",
+      "kind": "context",
+      "label": "Sex distribution of volunteers",
+      "value": "m:10, f:2",
+      "quote": "Sex | m:10, f:2 | – |"
+    },
+    {
+      "id": "demo_age_median",
+      "kind": "context",
+      "label": "Median and range of volunteer age",
+      "value": "23 (22–35)",
+      "quote": "Age | 23 (22–35) | 24.2 ± 3.8 |"
+    },
+    {
+      "id": "demo_age_mean",
+      "kind": "context",
+      "label": "Mean and standard deviation of volunteer age",
+      "value": "24.2 ± 3.8",
+      "quote": "Age | 23 (22–35) | 24.2 ± 3.8 |"
+    },
+    {
+      "id": "demo_height_median",
+      "kind": "context",
+      "label": "Median and range of volunteer height in cm",
+      "value": "183 (169–193)",
+      "quote": "Height (cm) | 183 (169–193) | 181.9 ± 8.0 |"
+    },
+    {
+      "id": "demo_height_mean",
+      "kind": "context",
+      "label": "Mean and standard deviation of volunteer height in cm",
+      "value": "181.9 ± 8.0",
+      "quote": "Height (cm) | 183 (169–193) | 181.9 ± 8.0 |"
+    },
+    {
+      "id": "demo_weight_median",
+      "kind": "context",
+      "label": "Median and range of volunteer weight in kg",
+      "value": "72 (55–89)",
+      "quote": "Weight (kg) | 72 (55–89) | 72.1 ± 10.5 |"
+    },
+    {
+      "id": "demo_weight_mean",
+      "kind": "context",
+      "label": "Mean and standard deviation of volunteer weight in kg",
+      "value": "72.1 ± 10.5",
+      "quote": "Weight (kg) | 72 (55–89) | 72.1 ± 10.5 |"
+    },
+    {
+      "id": "demo_bmi_median",
+      "kind": "context",
+      "label": "Median and range of volunteer BMI in kg/m2",
+      "value": "21.6 (18.7–24.4)",
+      "quote": "BMI (kg/m2) | 21.6 (18.7–24.4) | 21.7 ± 2.0 |"
+    },
+    {
+      "id": "demo_bmi_mean",
+      "kind": "context",
+      "label": "Mean and standard deviation of volunteer BMI in kg/m2",
+      "value": "21.7 ± 2.0",
+      "quote": "BMI (kg/m2) | 21.6 (18.7–24.4) | 21.7 ± 2.0 |"
+    },
+    {
+      "id": "in_vitro_release_4min",
+      "kind": "finding",
+      "label": "In vitro release of all ice capsule formulations within 4 minutes",
+      "value": "over 85 % of the substance was achieved within the first 4 min",
+      "quote": "In all cases, a very rapid release of over 85 % of the substance was achieved within the first 4 min.",
+      "outcome": "In vitro dissolution release rate of ice capsules"
+    },
+    {
+      "id": "in_vitro_sd_difference",
+      "kind": "finding",
+      "label": "Comparison of dissolution standard deviations between single and combined capsules",
+      "value": "greater for the release of the individual formulations",
+      "quote": "The standard deviations obtained were greater for the release of the individual formulations than for the ice capsule, which contained a combination of all three substances.",
+      "outcome": "Variability of in vitro dissolution release"
+    },
+    {
+      "id": "completion_and_safety",
+      "kind": "finding",
+      "label": "Study completion, exclusions, and adverse events",
+      "value": "no adverse events or clinically relevant findings observed",
+      "quote": "All inclusion and exclusion criteria were met for the twelve volunteers recruited and no subjects were excluded from the study. All participants successfully completed the study and tolerated the study formulation well, with no adverse events or clinically relevant findings observed.",
+      "outcome": "Participant retention and tolerability/adverse events"
+    },
+    {
+      "id": "no_oral_contamination",
+      "kind": "finding",
+      "label": "Absence of oral cavity contamination from ice capsules",
+      "value": "Noteworthy oral contamination of the oral cavity due to rapid disintegration of the ice capsules was not observed",
+      "quote": "Noteworthy oral contamination of the oral cavity due to rapid disintegration of the ice capsules was not observed in any study participant.",
+      "outcome": "Oral contamination during salivary sampling"
+    },
+    {
+      "id": "non_fasted_caffeine_participants",
+      "kind": "finding",
+      "label": "Participants with detectable baseline caffeine in blank saliva",
+      "value": "Participants 1 (study arm D), 7 (study arm D), 8 (study arm D), and 12 (study arms A and D)",
+      "quote": "Participants 1 (study arm D), 7 (study arm D), 8 (study arm D), and 12 (study arms A and D) have not been completely caffeine-fasted at the beginning of the respective study day, as evident by the measured analyte concentrations in the baseline saliva samples prior to ice capsule intake.",
+      "outcome": "Baseline salivary caffeine detection prior to capsule intake"
+    },
+    {
+      "id": "rapid_tmax_within_30min",
+      "kind": "finding",
+      "label": "Timing of maximum salivary concentrations across all arms",
+      "value": "within the first 30 min",
+      "quote": "In all cases, maximum concentrations were reached within the first 30 min after ice capsule ingestion.",
+      "outcome": "Time to maximum salivary concentration"
+    },
+    {
+      "id": "cmax_caffeine_a",
+      "kind": "finding",
+      "label": "Maximum salivary concentration (cmax) of caffeine in arm A (single)",
+      "value": "728 ± 185[685]",
+      "quote": "cmax (ng/mL) | 728 ± 185[685] | 796 ± 155[783] | 1725 ± 481[1817] | 1692 ± 468[1712] | 1787 ± 242[1800] | 1877 ± 296[1838] |",
+      "outcome": "Maximum salivary concentration (cmax) of caffeine after single administration (ng/mL)"
+    },
+    {
+      "id": "cmax_caffeine_d",
+      "kind": "finding",
+      "label": "Maximum salivary concentration (cmax) of caffeine in arm D (combined)",
+      "value": "796 ± 155[783]",
+      "quote": "cmax (ng/mL) | 728 ± 185[685] | 796 ± 155[783] | 1725 ± 481[1817] | 1692 ± 468[1712] | 1787 ± 242[1800] | 1877 ± 296[1838] |",
+      "outcome": "Maximum salivary concentration (cmax) of caffeine after combined administration (ng/mL)"
+    },
+    {
+      "id": "cmax_methylliberine_b",
+      "kind": "finding",
+      "label": "Maximum salivary concentration (cmax) of methylliberine in arm B (single)",
+      "value": "1725 ± 481[1817]",
+      "quote": "cmax (ng/mL) | 728 ± 185[685] | 796 ± 155[783] | 1725 ± 481[1817] | 1692 ± 468[1712] | 1787 ± 242[1800] | 1877 ± 296[1838] |",
+      "outcome": "Maximum salivary concentration (cmax) of methylliberine after single administration (ng/mL)"
+    },
+    {
+      "id": "cmax_methylliberine_d",
+      "kind": "finding",
+      "label": "Maximum salivary concentration (cmax) of methylliberine in arm D (combined)",
+      "value": "1692 ± 468[1712]",
+      "quote": "cmax (ng/mL) | 728 ± 185[685] | 796 ± 155[783] | 1725 ± 481[1817] | 1692 ± 468[1712] | 1787 ± 242[1800] | 1877 ± 296[1838] |",
+      "outcome": "Maximum salivary concentration (cmax) of methylliberine after combined administration (ng/mL)"
+    },
+    {
+      "id": "cmax_theacrine_c",
+      "kind": "finding",
+      "label": "Maximum salivary concentration (cmax) of theacrine in arm C (single)",
+      "value": "1787 ± 242[1800]",
+      "quote": "cmax (ng/mL) | 728 ± 185[685] | 796 ± 155[783] | 1725 ± 481[1817] | 1692 ± 468[1712] | 1787 ± 242[1800] | 1877 ± 296[1838] |",
+      "outcome": "Maximum salivary concentration (cmax) of theacrine after single administration (ng/mL)"
+    },
+    {
+      "id": "cmax_theacrine_d",
+      "kind": "finding",
+      "label": "Maximum salivary concentration (cmax) of theacrine in arm D (combined)",
+      "value": "1877 ± 296[1838]",
+      "quote": "cmax (ng/mL) | 728 ± 185[685] | 796 ± 155[783] | 1725 ± 481[1817] | 1692 ± 468[1712] | 1787 ± 242[1800] | 1877 ± 296[1838] |",
+      "outcome": "Maximum salivary concentration (cmax) of theacrine after combined administration (ng/mL)"
+    },
+    {
+      "id": "tmax_caffeine_a",
+      "kind": "finding",
+      "label": "Time to maximum concentration (tmax) of caffeine in arm A (single)",
+      "value": "19 ± 6[16]",
+      "quote": "tmax (min) | 19 ± 6[16] | 22 ± 7[20] | 19 ± 6[16] | 19 ± 6[18] | 23 ± 7[20] | 26 ± 13[20] |",
+      "outcome": "Time to maximum salivary concentration (tmax) of caffeine after single administration (min)"
+    },
+    {
+      "id": "tmax_caffeine_d",
+      "kind": "finding",
+      "label": "Time to maximum concentration (tmax) of caffeine in arm D (combined)",
+      "value": "22 ± 7[20]",
+      "quote": "tmax (min) | 19 ± 6[16] | 22 ± 7[20] | 19 ± 6[16] | 19 ± 6[18] | 23 ± 7[20] | 26 ± 13[20] |",
+      "outcome": "Time to maximum salivary concentration (tmax) of caffeine after combined administration (min)"
+    },
+    {
+      "id": "tmax_methylliberine_b",
+      "kind": "finding",
+      "label": "Time to maximum concentration (tmax) of methylliberine in arm B (single)",
+      "value": "19 ± 6[16]",
+      "quote": "tmax (min) | 19 ± 6[16] | 22 ± 7[20] | 19 ± 6[16] | 19 ± 6[18] | 23 ± 7[20] | 26 ± 13[20] |",
+      "outcome": "Time to maximum salivary concentration (tmax) of methylliberine after single administration (min)"
+    },
+    {
+      "id": "tmax_methylliberine_d",
+      "kind": "finding",
+      "label": "Time to maximum concentration (tmax) of methylliberine in arm D (combined)",
+      "value": "19 ± 6[18]",
+      "quote": "tmax (min) | 19 ± 6[16] | 22 ± 7[20] | 19 ± 6[16] | 19 ± 6[18] | 23 ± 7[20] | 26 ± 13[20] |",
+      "outcome": "Time to maximum salivary concentration (tmax) of methylliberine after combined administration (min)"
+    },
+    {
+      "id": "tmax_theacrine_c",
+      "kind": "finding",
+      "label": "Time to maximum concentration (tmax) of theacrine in arm C (single)",
+      "value": "23 ± 7[20]",
+      "quote": "tmax (min) | 19 ± 6[16] | 22 ± 7[20] | 19 ± 6[16] | 19 ± 6[18] | 23 ± 7[20] | 26 ± 13[20] |",
+      "outcome": "Time to maximum salivary concentration (tmax) of theacrine after single administration (min)"
+    },
+    {
+      "id": "tmax_theacrine_d",
+      "kind": "finding",
+      "label": "Time to maximum concentration (tmax) of theacrine in arm D (combined)",
+      "value": "26 ± 13[20]",
+      "quote": "tmax (min) | 19 ± 6[16] | 22 ± 7[20] | 19 ± 6[16] | 19 ± 6[18] | 23 ± 7[20] | 26 ± 13[20] |",
+      "outcome": "Time to maximum salivary concentration (tmax) of theacrine after combined administration (min)"
+    },
+    {
+      "id": "auc_caffeine_a",
+      "kind": "finding",
+      "label": "AUC0-tlast of caffeine in arm A (single)",
+      "value": "3367 ± 1017[3088]",
+      "quote": "AUC0-tlast (ng*min/mL) | 3367 ± 1017[3088] | 6508 ± 1945[6430] | 2496 ± 969[2434] | 2559 ± 1207[2421] | 18,631 ± 4132[18041] | 21,521 ± 4313[20352] |",
+      "outcome": "Area under the salivary concentration-time curve (AUC0-tlast) of caffeine after single administration (ng*min/mL)"
+    },
+    {
+      "id": "auc_caffeine_d",
+      "kind": "finding",
+      "label": "AUC0-tlast of caffeine in arm D (combined)",
+      "value": "6508 ± 1945[6430]",
+      "quote": "AUC0-tlast (ng*min/mL) | 3367 ± 1017[3088] | 6508 ± 1945[6430] | 2496 ± 969[2434] | 2559 ± 1207[2421] | 18,631 ± 4132[18041] | 21,521 ± 4313[20352] |",
+      "outcome": "Area under the salivary concentration-time curve (AUC0-tlast) of caffeine after combined administration (ng*min/mL)"
+    },
+    {
+      "id": "auc_methylliberine_b",
+      "kind": "finding",
+      "label": "AUC0-tlast of methylliberine in arm B (single)",
+      "value": "2496 ± 969[2434]",
+      "quote": "AUC0-tlast (ng*min/mL) | 3367 ± 1017[3088] | 6508 ± 1945[6430] | 2496 ± 969[2434] | 2559 ± 1207[2421] | 18,631 ± 4132[18041] | 21,521 ± 4313[20352] |",
+      "outcome": "Area under the salivary concentration-time curve (AUC0-tlast) of methylliberine after single administration (ng*min/mL)"
+    },
+    {
+      "id": "auc_methylliberine_d",
+      "kind": "finding",
+      "label": "AUC0-tlast of methylliberine in arm D (combined)",
+      "value": "2559 ± 1207[2421]",
+      "quote": "AUC0-tlast (ng*min/mL) | 3367 ± 1017[3088] | 6508 ± 1945[6430] | 2496 ± 969[2434] | 2559 ± 1207[2421] | 18,631 ± 4132[18041] | 21,521 ± 4313[20352] |",
+      "outcome": "Area under the salivary concentration-time curve (AUC0-tlast) of methylliberine after combined administration (ng*min/mL)"
+    },
+    {
+      "id": "auc_theacrine_c",
+      "kind": "finding",
+      "label": "AUC0-tlast of theacrine in arm C (single)",
+      "value": "18,631 ± 4132[18041]",
+      "quote": "AUC0-tlast (ng*min/mL) | 3367 ± 1017[3088] | 6508 ± 1945[6430] | 2496 ± 969[2434] | 2559 ± 1207[2421] | 18,631 ± 4132[18041] | 21,521 ± 4313[20352] |",
+      "outcome": "Area under the salivary concentration-time curve (AUC0-tlast) of theacrine after single administration (ng*min/mL)"
+    },
+    {
+      "id": "auc_theacrine_d",
+      "kind": "finding",
+      "label": "AUC0-tlast of theacrine in arm D (combined)",
+      "value": "21,521 ± 4313[20352]",
+      "quote": "AUC0-tlast (ng*min/mL) | 3367 ± 1017[3088] | 6508 ± 1945[6430] | 2496 ± 969[2434] | 2559 ± 1207[2421] | 18,631 ± 4132[18041] | 21,521 ± 4313[20352] |",
+      "outcome": "Area under the salivary concentration-time curve (AUC0-tlast) of theacrine after combined administration (ng*min/mL)"
+    },
+    {
+      "id": "t12_caffeine_a",
+      "kind": "finding",
+      "label": "Elimination half-life (t1/2) of caffeine in arm A (single)",
+      "value": "5.15 ± 1.21[5.13]",
+      "quote": "t1/2 (h) | 5.15 ± 1.21[5.13] | 15.33 ± 10.75[12.29] | 1.15 ± 0.12[1.16] | 1.27 ± 0.31[1.28] | 21.00 ± 7.55[20.19] | 27.86 ± 9.89[26.42] |",
+      "outcome": "Salivary elimination half-life (t1/2) of caffeine after single administration (h)"
+    },
+    {
+      "id": "t12_caffeine_d",
+      "kind": "finding",
+      "label": "Elimination half-life (t1/2) of caffeine in arm D (combined)",
+      "value": "15.33 ± 10.75[12.29]",
+      "quote": "t1/2 (h) | 5.15 ± 1.21[5.13] | 15.33 ± 10.75[12.29] | 1.15 ± 0.12[1.16] | 1.27 ± 0.31[1.28] | 21.00 ± 7.55[20.19] | 27.86 ± 9.89[26.42] |",
+      "outcome": "Salivary elimination half-life (t1/2) of caffeine after combined administration (h)"
+    },
+    {
+      "id": "t12_methylliberine_b",
+      "kind": "finding",
+      "label": "Elimination half-life (t1/2) of methylliberine in arm B (single)",
+      "value": "1.15 ± 0.12[1.16]",
+      "quote": "t1/2 (h) | 5.15 ± 1.21[5.13] | 15.33 ± 10.75[12.29] | 1.15 ± 0.12[1.16] | 1.27 ± 0.31[1.28] | 21.00 ± 7.55[20.19] | 27.86 ± 9.89[26.42] |",
+      "outcome": "Salivary elimination half-life (t1/2) of methylliberine after single administration (h)"
+    },
+    {
+      "id": "t12_methylliberine_d",
+      "kind": "finding",
+      "label": "Elimination half-life (t1/2) of methylliberine in arm D (combined)",
+      "value": "1.27 ± 0.31[1.28]",
+      "quote": "t1/2 (h) | 5.15 ± 1.21[5.13] | 15.33 ± 10.75[12.29] | 1.15 ± 0.12[1.16] | 1.27 ± 0.31[1.28] | 21.00 ± 7.55[20.19] | 27.86 ± 9.89[26.42] |",
+      "outcome": "Salivary elimination half-life (t1/2) of methylliberine after combined administration (h)"
+    },
+    {
+      "id": "t12_theacrine_c",
+      "kind": "finding",
+      "label": "Elimination half-life (t1/2) of theacrine in arm C (single)",
+      "value": "21.00 ± 7.55[20.19]",
+      "quote": "t1/2 (h) | 5.15 ± 1.21[5.13] | 15.33 ± 10.75[12.29] | 1.15 ± 0.12[1.16] | 1.27 ± 0.31[1.28] | 21.00 ± 7.55[20.19] | 27.86 ± 9.89[26.42] |",
+      "outcome": "Salivary elimination half-life (t1/2) of theacrine after single administration (h)"
+    },
+    {
+      "id": "t12_theacrine_d",
+      "kind": "finding",
+      "label": "Elimination half-life (t1/2) of theacrine in arm D (combined)",
+      "value": "27.86 ± 9.89[26.42]",
+      "quote": "t1/2 (h) | 5.15 ± 1.21[5.13] | 15.33 ± 10.75[12.29] | 1.15 ± 0.12[1.16] | 1.27 ± 0.31[1.28] | 21.00 ± 7.55[20.19] | 27.86 ± 9.89[26.42] |",
+      "outcome": "Salivary elimination half-life (t1/2) of theacrine after combined administration (h)"
+    },
+    {
+      "id": "metabolite_mass_difference",
+      "kind": "finding",
+      "label": "Mass difference of detected methylliberine metabolite",
+      "value": "m/z 14",
+      "quote": "In study arms B and D, we identified one metabolite. This metabolite exhibited a mass number reduced by one methylene group (m/z 14) compared to methylliberine, thereby allowing its successful assignment to this substance.",
+      "outcome": "Detection and mass characterization of methylliberine metabolite in saliva"
+    },
+    {
+      "id": "metabolite_tmax_arm_b",
+      "kind": "finding",
+      "label": "Time to peak salivary level (tmax) of methylliberine metabolite in arm B",
+      "value": "305 ± 110 min",
+      "quote": "The tmax values for this metabolite were 305 ± 110 min in study arm B and 337 ± 138 min in study arm D.",
+      "outcome": "Time to maximum salivary level (tmax) of methylliberine metabolite after single administration"
+    },
+    {
+      "id": "metabolite_tmax_arm_d",
+      "kind": "finding",
+      "label": "Time to peak salivary level (tmax) of methylliberine metabolite in arm D",
+      "value": "337 ± 138 min",
+      "quote": "The tmax values for this metabolite were 305 ± 110 min in study arm B and 337 ± 138 min in study arm D.",
+      "outcome": "Time to maximum salivary level (tmax) of methylliberine metabolite after combined administration"
+    },
+    {
+      "id": "deconvoluted_fa_30min",
+      "kind": "finding",
+      "label": "Absorbed fraction within first 30 min after deconvolution",
+      "value": "nearly 100 % of its absorbed fraction (FA) within the first 30 min",
+      "quote": "It is evident that each substance reaches nearly 100 % of its absorbed fraction (FA) within the first 30 min across all study arms.",
+      "outcome": "Deconvoluted absorbed fraction (FA) over time"
+    },
+    {
+      "id": "pearson_methylliberine_single",
+      "kind": "finding",
+      "label": "Pearson correlation of methylliberine (arm B) with caffeine (arm A) over first 40 min",
+      "value": "r = 0.9973",
+      "quote": "For methylliberine, the correlation coefficients were r = 0.9973 for the single administration (B) and r = 0.9998 for the combined administration (D).",
+      "outcome": "Pearson correlation of deconvoluted absorption profile with caffeine (single administration)"
+    },
+    {
+      "id": "pearson_methylliberine_combined",
+      "kind": "finding",
+      "label": "Pearson correlation of methylliberine with caffeine in combined arm D over first 40 min",
+      "value": "r = 0.9998",
+      "quote": "For methylliberine, the correlation coefficients were r = 0.9973 for the single administration (B) and r = 0.9998 for the combined administration (D).",
+      "outcome": "Pearson correlation of deconvoluted absorption profile with caffeine (combined administration)"
+    },
+    {
+      "id": "pearson_theacrine_single",
+      "kind": "finding",
+      "label": "Pearson correlation of theacrine (arm C) with caffeine (arm A) over first 40 min",
+      "value": "r = 0.9865",
+      "quote": "For theacrine, correlation coefficients of r = 0.9865 for study arm C and r = 0.9977 for study arm D were determined.",
+      "outcome": "Pearson correlation of deconvoluted absorption profile with caffeine (single administration)"
+    },
+    {
+      "id": "pearson_theacrine_combined",
+      "kind": "finding",
+      "label": "Pearson correlation of theacrine with caffeine in combined arm D over first 40 min",
+      "value": "r = 0.9977",
+      "quote": "For theacrine, correlation coefficients of r = 0.9865 for study arm C and r = 0.9977 for study arm D were determined.",
+      "outcome": "Pearson correlation of deconvoluted absorption profile with caffeine (combined administration)"
+    },
+    {
+      "id": "pearson_significance",
+      "kind": "finding",
+      "label": "Statistical significance of absorption profile correlations",
+      "value": "significant at the 0.05 alpha level",
+      "quote": "Consequently, the correlation between caffeine from study arm A with methylliberine and theacrine from study arms B and C, as well as the correlation for the combined administration, was found to be significant at the 0.05 alpha level.",
+      "outcome": "Statistical significance of deconvoluted absorption correlations"
+    },
+    {
+      "id": "stat_tmax_cmax_ns",
+      "kind": "finding",
+      "label": "Statistical comparison of tmax and cmax between single and combined arms",
+      "value": "no statistical differences in tmax or cmax can be observed for any of the three substances",
+      "quote": "As demonstrated in Fig. 5, no statistical differences in tmax or cmax can be observed for any of the three substances.",
+      "outcome": "Difference in tmax and cmax between single and combined administration"
+    },
+    {
+      "id": "stat_caffeine_auc_t12_sig",
+      "kind": "finding",
+      "label": "Effect of co-administration on caffeine AUC and half-life",
+      "value": "significant prolongation of the AUC and t1/2",
+      "quote": "Statistical analysis demonstrated a significant prolongation of the AUC and t1/2 when caffeine was administered concomitantly with methylliberine and theacrine.",
+      "outcome": "Difference in caffeine AUC0-tlast and t1/2 between single and combined administration"
+    },
+    {
+      "id": "stat_methylliberine_auc_t12_ns",
+      "kind": "finding",
+      "label": "Effect of co-administration on methylliberine AUC and half-life",
+      "value": "no statistically significant differences following combined administration",
+      "quote": "Although methylliberine demonstrates no statistically significant differences following combined administration, theacrine displays a significant increase in total exposure.",
+      "outcome": "Difference in methylliberine AUC0-tlast and t1/2 between single and combined administration"
+    },
+    {
+      "id": "stat_theacrine_auc_sig",
+      "kind": "finding",
+      "label": "Effect of co-administration on theacrine total exposure (AUC)",
+      "value": "significant increase in total exposure",
+      "quote": "Although methylliberine demonstrates no statistically significant differences following combined administration, theacrine displays a significant increase in total exposure.",
+      "outcome": "Difference in theacrine AUC0-tlast between single and combined administration"
+    },
+    {
+      "id": "stat_theacrine_t12_pvalue",
+      "kind": "finding",
+      "label": "Effect of co-administration on theacrine half-life (p-value)",
+      "value": "p = 0.0584",
+      "quote": "The observed prolongation of theacrine's half-life approached, but did not reach, statistical significance (p = 0.0584).",
+      "outcome": "Difference in theacrine elimination half-life (t1/2) between single and combined administration"
+    },
+    {
+      "id": "salivary_secretion_demonstrated",
+      "kind": "finding",
+      "label": "Confirmation of methylliberine and theacrine secretion into human saliva",
+      "value": "successfully demonstrated the passage of both methylurates into saliva",
+      "quote": "While the secretion of caffeine into human saliva is well documented, there have been no reports of the secretion of theacrine and methylliberine into saliva until now. This study successfully demonstrated the passage of both methylurates into saliva.",
+      "outcome": "Detection of salivary secretion of methylliberine and theacrine"
+    },
+    {
+      "id": "prior_caffeine_safety",
+      "kind": "statement",
+      "label": "Prior study demonstrating safety of co-administered doses",
+      "value": "no adverse effects",
+      "quote": "For instance, Cintineo et al. investigated the acute co-administration of 150 mg caffeine, 100 mg methylliberine and 50 mg theacrine in healthy adults, reporting no adverse effects ()."
+    },
+    {
+      "id": "prior_plasma_half_lives",
+      "kind": "statement",
+      "label": "Previously reported plasma half-lives of methylliberine and theacrine",
+      "value": "1.5 ± 0.8 h for methylliberine and 30 ± 12 h for theacrine",
+      "quote": "Wang et al. reported similar results, with a plasma half-life of 1.5 ± 0.8 h for methylliberine and 30 ± 12 h for theacrine ()."
+    },
+    {
+      "id": "cyp1a2_interaction_hypothesis",
+      "kind": "statement",
+      "label": "Proposed mechanism for prolonged caffeine half-life during co-administration",
+      "value": "inhibition of CYP1A2",
+      "quote": "The authors hypothesised that this interaction could be explained by methylliberine reducing caffeine's hepatic clearance through the inhibition of CYP1A2, given that caffeine is primarily metabolised by CYP1A2 into paraxanthine."
+    },
+    {
+      "id": "expected_no_motility_effect",
+      "kind": "statement",
+      "label": "Authors' expectation regarding gastric emptying effect of methylliberine and theacrine",
+      "value": "little to no effect on gastric emptying or gastrointestinal function",
+      "quote": "Given the rapid absorption and peak concentration of methylliberine and theacrine observed in this study, we expect these substances, like caffeine, to have little to no effect on gastric emptying or gastrointestinal function."
+    },
+    {
+      "id": "limit_gender_imbalance",
+      "kind": "limitation",
+      "label": "Gender distribution was not balanced in the study design",
+      "value": "Balancing with regard to gender distribution was not included in the study design",
+      "quote": "Balancing with regard to gender distribution was not included in the study design."
+    },
+    {
+      "id": "limit_no_sp_ratio",
+      "kind": "limitation",
+      "label": "No established saliva-to-plasma ratio exists for methylliberine and theacrine",
+      "value": "no established plasma/saliva ratio (s/p ratio) exists yet for methylliberine and theacrine",
+      "quote": "However, it should be noted that no established plasma/saliva ratio (s/p ratio) exists yet for methylliberine and theacrine, which is a prerequisite for drawing definitive conclusions."
+    },
+    {
+      "id": "limit_oral_deconvolution_params",
+      "kind": "limitation",
+      "label": "Deconvolution kinetic parameters derived from oral curves rather than IV data",
+      "value": "obtained them from oral concentration-time curves generated",
+      "quote": "Although the kinetic parameters required for deconvolution are typically derived from intravenous data, this study obtained them from oral concentration-time curves generated. This approach ensured methodological consistency between the pharmacokinetic parameters and the saliva matrix. While this may result in minor uncertainties in the absolute estimates, it provides reliable information on the relative absorption kinetics under the studied conditions."
+    },
+    {
+      "id": "limit_metabolite_no_reference",
+      "kind": "limitation",
+      "label": "Methylliberine metabolite could not be precisely quantified",
+      "value": "absence of a reference substance",
+      "quote": "While a more precise quantification was not conducted due to the absence of a reference substance, further semiquantitative results can be found in Supplementary Fig. S3."
+    },
+    {
+      "id": "limit_metabolite_unsuitable_tmax",
+      "kind": "limitation",
+      "label": "Methylliberine metabolite appeared too slowly to serve as a gastric emptying marker",
+      "value": "unsuitable for determining the rate of gastric emptying",
+      "quote": "However, with a tmax exceeding 6 h in both study arms, this metabolite is deemed unsuitable for determining the rate of gastric emptying, since the appearance of the metabolite in saliva would be dominated by the rate of metabolism rather than the rate of gastric emptying."
+    },
+    {
+      "id": "limit_coadmin_auc_interpretation",
+      "kind": "limitation",
+      "label": "Metabolic interaction during co-administration complicates AUC interpretation",
+      "value": "co-administration of these markers complicates the interpretation of the data obtained using AUCs",
+      "quote": "In particular, the co-administration of these markers complicates the interpretation of the data obtained using AUCs."
+    },
+    {
+      "id": "limit_gi_effects_unconfirmed",
+      "kind": "limitation",
+      "label": "Direct effect of theacrine and methylliberine on gastric emptying remains unconfirmed",
+      "value": "must be confirmed that theacrine and methylliberine do not significantly influence gastric emptying or other relevant gastrointestinal parameters",
+      "quote": "However, for the salivary sampling technique to be applied more widely in biopharmaceutical studies, it must be confirmed that theacrine and methylliberine do not significantly influence gastric emptying or other relevant gastrointestinal parameters."
+    },
+    {
+      "id": "half_life_caffeine",
+      "kind": "finding",
+      "label": "Caffeine half-life in saliva after a single 25 mg dose (arm A), mean ± SD, n = 12",
+      "value": "5.15 ± 1.21 h",
+      "quote": "Caffeine showed a half-life of 5.15 ± 1.21 h after single administration, whereas the half-life of methylliberine was only 1.15 ± 0.12 h and that of theacrine 21.00 ± 7.55 h.",
+      "outcome": "Elimination half-life of caffeine measured in saliva"
+    },
+    {
+      "id": "matrix_saliva",
+      "kind": "context",
+      "label": "What was measured: caffeine in saliva samples collected by the participants over 24 h",
+      "value": "subjects collected saliva samples",
+      "quote": "Post-administration, subjects collected saliva samples at fixed times (4, 8, 12, 16, 20, 25, 30, 35, 40, 50, 60, 90, 120, 180, 240, 360, 480, 600 and 1440 min) over 24 h."
+    },
+    {
+      "id": "funding",
+      "kind": "context",
+      "label": "Funding statement",
+      "value": "No external funding was received for this research.",
+      "quote": "No external funding was received for this research."
+    },
+    {
+      "id": "conflicts",
+      "kind": "context",
+      "label": "Competing-interest statement",
+      "value": "The authors declare no conflict of interest.",
+      "quote": "The authors declare no conflict of interest."
+    }
+  ]
+}
