@@ -51,6 +51,7 @@ next-env.d.ts
 /playwright/.cache/
 /.next-browser/
 /.next-browser-dev/
+/.next-shots/
 
 # Claude Code: this machine's own settings and hooks
 .claude/settings.local.json

@@ -191,6 +191,8 @@ export interface PaperContent {
   figure?: FigureRef;
   /** Old flat shape only: a figure at the top of the receipts, under its title. Moves into layers.audit.figure in step 2E. */
   auditFigure?: { title: Sentence[]; figure: FigureRef };
+  /** Old flat shape only: the "Try it" figure, drawn with the simulator's params. Moves into layers.protocol.figure in step 2E. */
+  protocolFigure?: FigureRef;
   /** The three-layer read (H10). Absent only on the old flat shape. */
   layers?: ReadLayers;
   glossary?: GlossaryEntry[];

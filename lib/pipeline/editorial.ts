@@ -251,6 +251,12 @@ export const LegacyEditorial = z.object({
    * it moves into layers.audit.figure in step 2E.
    */
   auditFigure: FigureRef.extend({ title: Markup }).nullable().default(null),
+  /**
+   * The figure of the "Try it" slot (FIGURE-DESIGN 4B: "what happens to you"), drawn in place of
+   * the simulator, which hands it its params in the read only, so a members' simulator never
+   * reaches the public card. Temporary, like the shape: it moves into layers.protocol.figure in 2E.
+   */
+  protocolFigure: FigureRef.nullable().default(null),
 });
 
 export type Editorial = z.infer<typeof Editorial>;

@@ -93,6 +93,7 @@ const eslintConfig = defineConfig([
     ".next/**",
     ".next-browser/**", // the browser test's own build (playwright.config.ts)
     ".next-browser-dev/**", // the dev server of tests/browser/paper-routes-dev.spec.ts
+    ".next-shots/**", // the demo-mode build scripts/shoot-figures.mts screenshots
     "test-results/**",
     "playwright-report/**",
     "out/**",

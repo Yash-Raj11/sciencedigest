@@ -192,3 +192,31 @@ for (const paper of papers) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth), "sideways scroll").toBe(false);
   });
 }
+
+// FIGURE-DESIGN 4B (HIIT, members): picking a routine adds the paper's subgroup rows under each
+// pooled row, each on its own, never summed; a routine the paper printed nothing for is "Not tested".
+test("/papers/hiit-body-composition: figure 4B shows subgroups for a picked routine, never a combined number", async ({ page }) => {
+  test.setTimeout(120000);
+  const hiit = papers.find((p) => p.slug === "hiit-body-composition")!;
+  await openRead(page, hiit);
+  const figure = page.locator("[data-protocol-figure]");
+  await expect(figure.locator('[data-row="pooled"]')).toHaveCount(3);
+  await expect(figure.locator('[data-row="sensitivity"]')).toHaveCount(1);
+  await expect(figure.locator("[data-subgroup]")).toHaveCount(0);
+  await expect(figure.locator("[data-match]")).toHaveCount(0);
+
+  await figure.locator('[data-pick="weeks:upto8"]').click();
+  await expect(figure.locator("[data-match]")).toHaveText(/^Not tested/);
+  await expect(figure.locator("[data-subgroup]")).toHaveCount(0);
+
+  await figure.locator('[data-pick="weeks:upto8"]').click(); // tap again: cleared
+  await expect(figure.locator("[data-match]")).toHaveCount(0);
+  await figure.locator('[data-pick="modality:cycling"]').click();
+  await figure.locator('[data-pick="modality:treadmill"]').click(); // one option per setting
+  await expect(figure.locator('[data-outcome="fm"] [data-subgroup]')).toHaveCount(1);
+  await expect(figure.locator('[data-outcome="fm"] [data-subgroup] [data-value]')).toHaveText("no clear change in this subgroup");
+  expect((await figure.locator('[data-outcome="ffm"] [data-compare-line]').allTextContents()).join(" ")).toBe("Not reported for this outcome: treadmill running.");
+  await expect(figure.locator("[data-match]")).toHaveText("Your routine matches 1 tested subgroup for fat. Each is shown separately. They cannot be added together.");
+  // The pooled rows stay first and unchanged.
+  await expect(figure.locator('[data-row="pooled"] [data-point]')).toHaveText(["+0.51 kg", "−1.86 kg", "−1.53 points"]);
+});

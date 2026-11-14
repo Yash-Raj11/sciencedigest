@@ -23,9 +23,9 @@
     "span": "3 to 15 weeks each [trials]"
   },
   "glance": {
-    "figure": "what-was-measured",
+    "figure": "order-flips",
     "x": "Change compared with no exercise [-]",
-    "alt": "Three rows, one for each body measure, each with a shaded range and a mark for no change. [ffm_all, fm_all, bf_all]",
+    "alt": "Three rows, surest evidence first: fat-free mass, fat, then body fat share. Beside them, the order it is usually sold in, fat loss first. Each row has its own scale and a line for no change. [ffm_all, fm_all, bf_all, grade_ffm, grade_fm, grade_bf]",
     "note": "Ranges from the pooled trials. Members can try it with their own training inside. [-]",
     "tryIt": "pick your training [-]"
   },
@@ -74,28 +74,52 @@
     "Body composition was measured with different tools from trial to trial, from skinfold calipers to DEXA scans. [lim_methods]",
     "The fat-free-mass result disappears when a single trial is removed. [lim_loo]"
   ],
-  "figure": {
-    "figure": "what-was-measured",
-    "caption": "The three pooled results, each with its range. [ffm_all, fm_all, bf_all]",
-    "alt": "Three lines, each with a mark for no change. [-] Fat-free mass: 0.51 kg more. [ffm_all] Fat mass: 1.86 kg less. [fm_all] Body fat percentage: 1.53 points less. [bf_all]",
+  "figure": null,
+  "protocolFigure": {
+    "figure": "order-flips",
+    "headline": "Sold on fat loss. [-] The surest result is that fat-free mass held up. [ffm_all, grade_ffm]",
+    "caption": "Compared with people who did no training. [ffm_all, fm_all, bf_all] Mostly inactive adults carrying extra weight. [lim_population]",
+    "alt": "Three rows, surest evidence first. [grade_ffm, grade_fm, grade_bf] Fat-free mass: 0.51 kg more, strong evidence. [ffm_all] Fat: 1.86 kg less, decent evidence. [fm_all] Body fat share: 1.53 points less, early evidence. [bf_all] With one trial left out, the fat-free-mass range crosses no change. [ffm_loo, lim_loo]",
     "params": {
+      "title": "What thirty-six trials found, surest first",
+      "pitchTitle": "How it's sold",
+      "after": {
+        "text": "3 to 15 weeks",
+        "ref": "trials"
+      },
       "rows": [
         {
+          "outcome": "ffm",
           "label": "Fat-free mass",
+          "pitch": "lean mass",
           "kind": "measured",
           "fact": "fact:ffm_all"
         },
         {
-          "label": "Fat mass",
+          "outcome": "fm",
+          "label": "Fat",
+          "pitch": "fat loss",
           "kind": "measured",
           "fact": "fact:fm_all"
         },
         {
-          "label": "Body fat percentage",
+          "outcome": "bf",
+          "label": "Body fat share",
+          "pitch": "body fat share",
           "kind": "measured",
           "fact": "fact:bf_all"
         }
-      ]
+      ],
+      "pitch": [
+        "fm",
+        "bf",
+        "ffm"
+      ],
+      "sensitivity": {
+        "outcome": "ffm",
+        "lead": "With one trial left out",
+        "crosses": "and the range crosses no change."
+      }
     }
   },
   "takeaways": [
@@ -276,21 +300,24 @@
               "label": "Cycling",
               "ffm": "fact:ffm_cycling",
               "fm": "fact:fm_cycling",
-              "bf": null
+              "bf": null,
+              "subgroup": "cycling"
             },
             {
               "id": "overground",
               "label": "Overground running",
               "ffm": null,
               "fm": "fact:fm_overground",
-              "bf": "fact:bf_overground"
+              "bf": "fact:bf_overground",
+              "subgroup": "overground running"
             },
             {
               "id": "treadmill",
               "label": "Treadmill running",
               "ffm": null,
               "fm": "fact:fm_treadmill",
-              "bf": null
+              "bf": null,
+              "subgroup": "treadmill running"
             }
           ]
         },
@@ -303,14 +330,16 @@
               "label": "More than 8 weeks",
               "ffm": "fact:ffm_over8",
               "fm": "fact:fm_over8",
-              "bf": "fact:bf_over8"
+              "bf": "fact:bf_over8",
+              "subgroup": "longer than 8 weeks"
             },
             {
               "id": "upto8",
               "label": "8 weeks or less",
               "ffm": null,
               "fm": null,
-              "bf": null
+              "bf": null,
+              "subgroup": "8 weeks or less"
             }
           ]
         },
@@ -323,14 +352,16 @@
               "label": "Three",
               "ffm": "fact:ffm_3wk",
               "fm": "fact:fm_3wk",
-              "bf": "fact:bf_3wk"
+              "bf": "fact:bf_3wk",
+              "subgroup": "3 sessions a week"
             },
             {
               "id": "two",
               "label": "Two",
               "ffm": null,
               "fm": "fact:fm_2wk",
-              "bf": "fact:bf_2wk"
+              "bf": "fact:bf_2wk",
+              "subgroup": "2 sessions a week"
             }
           ]
         },
@@ -343,14 +374,16 @@
               "label": "60 seconds or less",
               "ffm": "fact:ffm_le60",
               "fm": "fact:fm_le60",
-              "bf": "fact:bf_le60"
+              "bf": "fact:bf_le60",
+              "subgroup": "bursts of 60 seconds or less"
             },
             {
               "id": "long",
               "label": "More than 60 seconds",
               "ffm": "fact:ffm_gt60",
               "fm": "fact:fm_gt60",
-              "bf": "fact:bf_gt60"
+              "bf": "fact:bf_gt60",
+              "subgroup": "bursts longer than 60 seconds"
             }
           ]
         },
@@ -363,14 +396,16 @@
               "label": "90 seconds or less",
               "ffm": "fact:ffm_rest_le90",
               "fm": "fact:fm_rest_le90",
-              "bf": "fact:bf_rest_le90"
+              "bf": "fact:bf_rest_le90",
+              "subgroup": "rests of 90 seconds or less"
             },
             {
               "id": "long",
               "label": "More than 90 seconds",
               "ffm": "fact:ffm_rest_gt90",
               "fm": "fact:fm_rest_gt90",
-              "bf": "fact:bf_rest_gt90"
+              "bf": "fact:bf_rest_gt90",
+              "subgroup": "rests longer than 90 seconds"
             }
           ]
         },
@@ -383,14 +418,16 @@
               "label": "Keep moving",
               "ffm": "fact:ffm_active",
               "fm": "fact:fm_active",
-              "bf": "fact:bf_active"
+              "bf": "fact:bf_active",
+              "subgroup": "active rest"
             },
             {
               "id": "passive",
               "label": "Stand still",
               "ffm": "fact:ffm_passive",
               "fm": "fact:fm_passive",
-              "bf": "fact:bf_passive"
+              "bf": "fact:bf_passive",
+              "subgroup": "passive rest"
             }
           ]
         }

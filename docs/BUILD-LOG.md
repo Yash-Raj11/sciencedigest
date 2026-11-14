@@ -1525,3 +1525,32 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - IntervalPlot: the "no difference" tick no longer reaches the row label (band lowered, tick
   shortened). Screens: `docs/evidence/figures-v2/steps-days-per-week/r3-*`.
 - Hosted seed: one dry run + push at the end of the session only (owner).
+
+## 2026-11-15, HIIT 4B "the order flips" (members)
+
+- New legacy slot `protocolFigure` (like `auditFigure`; moves to `layers.protocol.figure` in 2E):
+  the "Try it" slot draws it in place of the simulator. The read passes the simulator's params to
+  it (`FigureProps.simulator`); the feed card never does, and the card's params hold only the three
+  pooled rows, so no subgroup or leave-one-out fact reaches the public card (rule 7; tested in
+  `scripts/glance.test.ts` and `scripts/order-flips.test.ts`).
+- `hiit-body-composition/order-flips` replaces `what-was-measured` (deleted) and the old HTML
+  simulator (deleted: it had transitions). The legacy `figure` slot is empty until 4A.
+- Rows ordered by the derived grade (`surestFirst`), never by hand; each outcome its own scale;
+  an outcome's scale is set from every subgroup it could show (`intervalLayout` option `extent`),
+  so a pick never moves a row. New primitive `CompareRows`: pooled (pastel band, orange point),
+  sensitivity (hollow), subgroup (half-height muted outline), text lines.
+- Simulator: one button group per setting, state starts empty, tap again clears. Under each pooled
+  row: "Subgroup results for your routine", one row per printed subgroup; a range crossing no
+  change says "no clear change in this subgroup" and prints no point; a pick with no subgroup for
+  that outcome is listed "Not reported for this outcome: …"; no match at all is "Not tested". The
+  sentence counts per outcome and says "They cannot be added together"; no combined number.
+- Card (feed): pooled rows with point numbers and grade words, and the "How it's sold" margin
+  (R7, like steps' 3B; every number checked against the pooled facts' printed numbers).
+- Spec differences: (1) title "What thirty-six trials found" in words (the fact prints
+  "Thirty-six"); (2) "subgroup result" is one header line per outcome, not a label on each row
+  (it does not fit 222 units beside the setting); (3) subgroup rows print the point, not the range
+  ends (the range is in each row's `<title>`); (4) no inner scroll with pinned pooled rows: the
+  subgroup rows sit under their own pooled row, so the figure grows (about 1,900 px at 390 px with
+  a full routine); (5) the sensitivity sentence is split over the label and a note line.
+- Screens: `docs/evidence/figures-v2/hiit-body-composition/r1-*`, `r2-*` (two loops: frame padding,
+  range text off the point mark). Gates: `docs/evidence/figures-v2/hiit-gates.txt`.

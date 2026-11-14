@@ -52,7 +52,7 @@ describe("the still figure prints no number, and its shape is the study's", () =
   it("every paper has a card view", () => {
     expect(CARDS.map((c) => c.slug).sort()).toEqual(["daytime-caffeine-sleep", "hiit-body-composition", "steps-days-per-week", "turmeric-pepper-breakfast"]);
   });
-  for (const card of ["daytime-caffeine-sleep", "turmeric-pepper-breakfast", "hiit-body-composition"]) {
+  for (const card of ["daytime-caffeine-sleep", "turmeric-pepper-breakfast"]) {
     it(`${card}: words only, drawn from gated facts`, () => {
       const { html, view } = CARDS.find((c) => c.slug === card)!;
       const text = drawnText(html);
@@ -78,6 +78,25 @@ describe("the still figure prints no number, and its shape is the study's", () =
     expect(text).not.toMatch(/\byou(r)?\b/i);
     expect(html).not.toContain("<button");
     expect(html.match(/data-grid="100"/g)).toHaveLength(2);
+  });
+  // HIIT's still (FIGURE-DESIGN 4B card): the three pooled rows with their point numbers and grade
+  // words. Every number drawn is a printed number of a pooled fact; no subgroup, no sensitivity
+  // result and no input reaches the public card (rule 7: they are members' content).
+  it("hiit-body-composition: figure 4B's still view; only the pooled results' printed numbers, no members' facts", () => {
+    const { html, view } = CARDS.find((c) => c.slug === "hiit-body-composition")!;
+    const text = drawnText(html).join(" ").replace(/&#x?[0-9a-f]+;/gi, "'");
+    const rows = (view.figure!.params.rows as { fact: { id: string; estimate: { point: number; ciLow: number; ciHigh: number } } }[]);
+    expect(rows.map((r) => r.fact.id).sort()).toEqual(["bf_all", "ffm_all", "fm_all"]);
+    const allowed = new Set(rows.flatMap((r) => [r.fact.estimate.point, r.fact.estimate.ciLow, r.fact.estimate.ciHigh].map(Math.abs)));
+    const numbers = [...text.replace(/\b3 to 15 weeks\b/, "").matchAll(/\d+(?:\.\d+)?/g)].map((m) => Number(m[0]));
+    expect(numbers.length).toBeGreaterThan(0);
+    for (const n of numbers) expect(allowed.has(n), `${n} is not a printed number of a pooled result`).toBe(true);
+    expect(text).toContain("+0.51 kg");
+    expect(text).toContain("strong evidence");
+    expect(text).not.toMatch(/\byou(r)?\b/i);
+    expect(html).not.toContain("<button");
+    expect(html).not.toMatch(/data-subgroup|data-row="sensitivity"|ffm_loo|_cycling|_3wk|_over8/);
+    expect(JSON.stringify(view.figure!.params)).not.toMatch(/ffm_loo|_cycling|_3wk|_over8|_le60/);
   });
   it("a range is a peach band: caffeine and HIIT draw one; turmeric has none; steps' raw grids take no pastel (R4)", () => {
     const bands = Object.fromEntries(CARDS.map((c) => [c.slug, (c.html.match(/data-band/g) ?? []).length]));
@@ -119,9 +138,9 @@ describe("What's inside", () => {
     const hiit = CARDS.find((c) => c.members)!;
     const paper = PAPERS.find((p) => p.slug === hiit.slug)!;
     expect(Object.keys(paper.card!).sort()).toEqual(["figure", "finding", "question", "support"]);
-    expect(hiit.view.figure?.figure).toBe("what-was-measured");
+    expect(hiit.view.figure?.figure).toBe("order-flips");
     expect(FREE_CONTENT[hiit.slug]).toBeUndefined();
-    expect(gated[hiit.slug].glance.figure?.figure).toBe("what-was-measured");
+    expect(gated[hiit.slug].glance.figure?.figure).toBe("order-flips");
   });
 });
 

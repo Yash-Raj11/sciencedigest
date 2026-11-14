@@ -168,8 +168,10 @@ export function Para({ sentences, facts, context, className = "read", as: Tag = 
  * draws an interactive figure in its first view and leaves the caption out
  * (the feed card).
  */
-export function Pictured({ slug, figure, facts, context, still = false }: {
+export function Pictured({ slug, figure, facts, context, still = false, simulator }: {
   slug: string; figure: FigureRef | null | undefined; facts?: Facts; context?: Context; still?: boolean;
+  /** A "Try it" figure's simulator params (the read only). */
+  simulator?: Record<string, unknown>;
 }) {
   if (!figure) return null;
   return (
@@ -177,7 +179,7 @@ export function Pictured({ slug, figure, facts, context, still = false }: {
       {figure.headline?.length && !still && facts ? (
         <Para sentences={figure.headline} facts={facts} context={context} className="headline mx-4 mb-2 text-[1.0625rem]" />
       ) : null}
-      <FigureFor slug={slug} figure={figure} interactive={!still} />
+      <FigureFor slug={slug} figure={figure} interactive={!still} simulator={still ? undefined : simulator} />
       {!still && facts && (
         <figcaption className="mx-3 mt-2 border-t border-line pt-2">
           <Para sentences={figure.caption} facts={facts} context={context} className="text-sm leading-snug text-muted" />

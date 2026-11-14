@@ -394,7 +394,7 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   {
     const own = layers
       ? [layers.mechanism.figure, layers.protocol.figure, layers.audit.figure]
-      : ["figure" in ed ? ed.figure : undefined, "auditFigure" in ed ? ed.auditFigure : undefined];
+      : ["figure" in ed ? ed.figure : undefined, "auditFigure" in ed ? ed.auditFigure : undefined, "protocolFigure" in ed ? ed.protocolFigure : undefined];
     const ids = own.filter((f) => f != null).map((f) => f!.figure);
     if (ed.glance.figure === "simulator") {
       if (ed.simulator.spec === undefined) fail("glance", "glance.figure", `"simulator" needs a simulator drawn by kind (simulator.spec); name one of the read's figures instead: ${ids.join(", ") || "none"}`);
@@ -456,6 +456,11 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
       if (legacy.auditFigure.headline) take("auditFigure.headline", legacy.auditFigure.headline, { inRead: true });
       take("auditFigure.caption", legacy.auditFigure.caption, { inRead: true });
       take("auditFigure.alt", legacy.auditFigure.alt);
+    }
+    if (legacy.protocolFigure) {
+      if (legacy.protocolFigure.headline) take("protocolFigure.headline", legacy.protocolFigure.headline, { inRead: true });
+      take("protocolFigure.caption", legacy.protocolFigure.caption, { inRead: true });
+      take("protocolFigure.alt", legacy.protocolFigure.alt);
     }
   }
 
@@ -840,6 +845,7 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
     : [
       ...((ed as LegacyEditorial).figure ? [["figure", (ed as LegacyEditorial).figure!] as [string, LegacyEditorial["figure"] & object]] : []),
       ...((ed as LegacyEditorial).auditFigure ? [["auditFigure", (ed as LegacyEditorial).auditFigure!] as [string, LegacyEditorial["figure"] & object]] : []),
+      ...((ed as LegacyEditorial).protocolFigure ? [["protocolFigure", (ed as LegacyEditorial).protocolFigure!] as [string, LegacyEditorial["figure"] & object]] : []),
     ];
   /**
    * A figure drawn by kind: the spec names facts only, the kind must exist, and a simulator needs a

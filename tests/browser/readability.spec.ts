@@ -195,11 +195,12 @@ test.describe("feed card: the key idea at a glance", () => {
     expect([...order].sort((a, b) => a - b)).toEqual(order);
   });
 
-  // R7 (owner, 2026-11-15): steps' card draws figure 3B's still view, whose printed shares are
-  // checked in scripts/glance.test.ts (every number printed in the paper, none reader-dependent).
-  test("the still figure prints no number on any card but steps' 3B still", async ({ page }) => {
+  // R7 (owner, 2026-11-15): steps' card draws figure 3B's still view and HIIT's figure 4B's, whose
+  // printed numbers are checked in scripts/glance.test.ts (every number printed in the paper, none
+  // reader-dependent, no members' fact).
+  test("the still figure prints no number on any card but steps' 3B and HIIT's 4B stills", async ({ page }) => {
     await page.goto("/", { waitUntil: "networkidle" });
-    const texts = await page.locator('[data-post]:not([data-post="steps-days-per-week"]) [data-glance] svg text').allTextContents();
+    const texts = await page.locator('[data-post]:not([data-post="steps-days-per-week"]):not([data-post="hiit-body-composition"]) [data-glance] svg text').allTextContents();
     expect(texts.length).toBeGreaterThan(0);
     expect(texts.filter((t) => /\p{N}/u.test(t))).toEqual([]);
   });

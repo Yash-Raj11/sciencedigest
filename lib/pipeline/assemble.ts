@@ -136,6 +136,7 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
       limitations: ed.limitations.map(sentences),
       ...(ed.figure ? { figure: figure(ed.figure)! } : {}),
       ...(ed.auditFigure ? { auditFigure: { title: sentences(ed.auditFigure.title), figure: figure(ed.auditFigure)! } } : {}),
+      ...(ed.protocolFigure ? { protocolFigure: figure(ed.protocolFigure)! } : {}),
       primaryEstimate: ed.primaryEstimate,
       finding: { question: sentences(ed.card.question), headline: sentences(ed.card.headline), support: sentences(ed.card.support) },
       simulator: { kind: ed.simulator.kind, params: {} },

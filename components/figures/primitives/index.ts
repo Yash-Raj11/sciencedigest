@@ -13,3 +13,4 @@ export { FrequencyGrid } from "./FrequencyGrid";
 export { IntervalPlot, intervalPlotHeight, type IntervalRowSpec } from "./IntervalPlot";
 export { WeekStrip, weekStripHeight } from "./WeekStrip";
 export { Person } from "./Person";
+export { CompareRows, compareRowsHeight, type CompareRow } from "./CompareRows";

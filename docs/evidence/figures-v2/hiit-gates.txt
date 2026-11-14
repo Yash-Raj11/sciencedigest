@@ -1,0 +1,21 @@
+# HIIT 4B gates, 2026-11-15 02:31
+## npm run lint
+> eslint
+
+## npm run typecheck
+> tsc --noEmit
+
+## npm test
+ Test Files  42 passed (42)
+      Tests  650 passed (650)
+## npm run build
+✓ Compiled successfully in 557ms
+  Generating static pages using 7 workers (0/16) ...
+  Generating static pages using 7 workers (4/16) 
+  Generating static pages using 7 workers (8/16) 
+  Generating static pages using 7 workers (12/16) 
+## npm run test:http
+ Test Files  2 passed (2)
+      Tests  15 passed (15)
+## npm run test:browser
+  91 passed (45.0s)

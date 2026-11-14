@@ -2,6 +2,9 @@
  * Screenshots of the figures of one paper at 390 px, in Dark, Light and Bedtime, for the
  * look-then-fix pass (docs/evidence/figures-v2/). Run against a served build:
  *   npx tsx scripts/shoot-figures.mts <base url> <slug> <round>
+ * A members' read needs a build in demo mode (NEXT_PUBLIC_SUPABASE_URL=""): the script turns on
+ * the Me page's member preview first. Build it into .next-shots (ignored by git and the lint):
+ *   NEXT_DIST_DIR=.next-shots NEXT_PUBLIC_SUPABASE_URL= next build && NEXT_DIST_DIR=.next-shots next start -p 3213
  */
 import { mkdirSync } from "node:fs";
 import { chromium } from "@playwright/test";
@@ -13,10 +16,16 @@ const browser = await chromium.launch();
 for (const theme of ["dark", "light", "bedtime"]) {
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   await page.addInitScript((t) => localStorage.setItem("sd-theme", t), theme);
+  await page.goto(`${base}/me`, { waitUntil: "networkidle" });
+  const member = page.getByRole("switch", { name: /Preview the app as a member/ });
+  if ((await member.count()) && (await member.getAttribute("aria-checked")) !== "true") await member.click();
   await page.goto(`${base}/papers/${slug}`, { waitUntil: "networkidle" });
+  // The fixed tab bar would sit over a tall figure in an element screenshot.
+  await page.addStyleTag({ content: "nav[aria-label=\"Main\"] { visibility: hidden !important; }" });
   const shots: [string, string][] = [
     ["audit-A", "[data-audit-figure]"],
     ["B-full", '[data-figure-kind][data-mode="full"]'],
+    ["B-full", "[data-protocol-figure]"],
   ];
   for (const [name, sel] of shots) {
     const el = page.locator(sel).first();
@@ -27,6 +36,14 @@ for (const theme of ["dark", "light", "bedtime"]) {
   if (await week.count()) {
     await week.nth(0).click(); await week.nth(2).click();
     await page.locator('[data-figure-kind][data-mode="full"]').first().screenshot({ path: `${out}/${round}-B-picked-${theme}.png` });
+  }
+  // A compare-bars figure (4B): a whole routine picked, one option per setting.
+  const picks = ["modality:cycling", "weeks:over8", "frequency:three", "work:short", "rest:short", "restType:active"];
+  if (await page.locator("[data-pick]").count()) {
+    for (const pick of picks) await page.locator(`[data-pick="${pick}"]`).click();
+    await page.locator("[data-protocol-figure]").screenshot({ path: `${out}/${round}-B-picked-${theme}.png` });
+    for (const pick of ["modality:treadmill", "weeks:upto8", "frequency:two"]) await page.locator(`[data-pick="${pick}"]`).click();
+    await page.locator("[data-protocol-figure]").screenshot({ path: `${out}/${round}-B-unclear-${theme}.png` });
   }
   await page.goto(`${base}/`, { waitUntil: "networkidle" });
   const card = page.locator(`[data-post="${slug}"]`).first();

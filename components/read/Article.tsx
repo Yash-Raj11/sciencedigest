@@ -126,7 +126,9 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
         <h2 className="headline">Try it</h2>
         {content.simulator.spec
           ? <KindSimulator content={content} observational={!RANDOMIZED_DESIGNS.has(paper.design as Design)} />
-          : <SimulatorFor kind={content.simulator.kind} params={content.simulator.params} />}
+          : content.protocolFigure
+            ? <div data-protocol-figure><Pictured slug={paper.slug} figure={content.protocolFigure} facts={facts} context={context} simulator={content.simulator.params} /></div>
+            : <SimulatorFor kind={content.simulator.kind} params={content.simulator.params} />}
       </section>
     </Glossary>
   );

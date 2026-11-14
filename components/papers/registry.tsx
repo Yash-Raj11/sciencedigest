@@ -16,8 +16,7 @@ import GenericSimulator from "./_generic/Simulator";
 import GenericWidget from "./_generic/Widget";
 import LockAndKey from "./daytime-caffeine-sleep/figures/LockAndKey";
 import CaffeineWidget from "./daytime-caffeine-sleep/Widget";
-import WhatWasMeasured from "./hiit-body-composition/figures/WhatWasMeasured";
-import HiitSimulator from "./hiit-body-composition/Simulator";
+import OrderFlips from "./hiit-body-composition/figures/OrderFlips";
 import HiitWidget from "./hiit-body-composition/Widget";
 import ThreeCrowds from "./steps-days-per-week/figures/ThreeCrowds";
 import StepsWidget from "./steps-days-per-week/Widget";
@@ -37,6 +36,11 @@ export interface FigureProps {
    * (these), no numeric ticks or values, the gated range as a peach band.
    */
   glance?: { x: string | null; y: string | null };
+  /**
+   * The read's simulator params, for a "Try it" figure (protocolFigure) only, and only in the read:
+   * the feed card never passes them, so a members' simulator stays out of the public card (rule 7).
+   */
+  simulator?: Record<string, unknown>;
 }
 
 const WIDGETS: Record<string, ComponentType<WidgetProps>> = {
@@ -48,7 +52,7 @@ const WIDGETS: Record<string, ComponentType<WidgetProps>> = {
 /** Keyed by the `simulator.kind` written in the paper's editorial.json. */
 const SIMULATORS: Record<string, ComponentType<SimulatorProps>> = {
   "estimate-explorer": GenericSimulator,
-  "hiit-forest": HiitSimulator,
+  // "hiit-forest" has no component: its params feed figure 4B (protocolFigure) in the read.
   "breakfast-meals": BreakfastSimulator,
 };
 
@@ -60,20 +64,20 @@ const SIMULATORS: Record<string, ComponentType<SimulatorProps>> = {
 const FIGURES: Record<FigureKey, ComponentType<FigureProps>> = {
   "daytime-caffeine-sleep/lock-and-key": LockAndKey,
   "steps-days-per-week/three-crowds": ThreeCrowds,
-  "hiit-body-composition/what-was-measured": WhatWasMeasured,
+  "hiit-body-composition/order-flips": OrderFlips,
   "turmeric-pepper-breakfast/doorbell": Doorbell,
   "turmeric-pepper-breakfast/five-readings": FiveReadings,
 };
 
 /** The drawing, and under it the key when the figure mixes measured and proposed. */
-export function FigureFor({ slug, figure, interactive = true, glance }: { slug: string; figure: FigureRef; interactive?: boolean; glance?: FigureProps["glance"] }) {
+export function FigureFor({ slug, figure, interactive = true, glance, simulator }: { slug: string; figure: FigureRef; interactive?: boolean; glance?: FigureProps["glance"]; simulator?: FigureProps["simulator"] }) {
   const key = figureKey(slug, figure.figure);
   if (!isFigureKey(key)) return null;
   const Drawing = FIGURES[key];
   const mixed = evidenceKindsIn(figure.params).length > 1;
   return (
     <div data-figure-key={key}>
-      <Drawing params={figure.params} alt={figure.alt} interactive={glance ? false : interactive} glance={glance} />
+      <Drawing params={figure.params} alt={figure.alt} interactive={glance ? false : interactive} glance={glance} simulator={glance ? undefined : simulator} />
       {mixed && !glance ? <p data-figure-legend className="mt-1 text-center text-xs text-muted">{EVIDENCE_KEY}</p> : null}
     </div>
   );

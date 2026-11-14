@@ -75,13 +75,34 @@ export const PAPERS: PaperMeta[] = [
       "finding": "Fat-free mass +0.51 kg; fat mass −1.86 kg; both vs no exercise, trials pooled.",
       "support": "Fat-free mass is everything in the body that is not fat.",
       "figure": {
-        "figure": "what-was-measured",
+        "figure": "order-flips",
+        "headline": [
+          {
+            "text": "Sold on fat loss.",
+            "refs": []
+          },
+          {
+            "text": "The surest result is that fat-free mass held up.",
+            "refs": [
+              "ffm_all",
+              "grade_ffm"
+            ]
+          }
+        ],
         "caption": [],
-        "alt": "Three rows, one for each body measure, each with a shaded range and a mark for no change.",
+        "alt": "Three rows, surest evidence first: fat-free mass, fat, then body fat share. Beside them, the order it is usually sold in, fat loss first. Each row has its own scale and a line for no change.",
         "params": {
+          "title": "What thirty-six trials found, surest first",
+          "pitchTitle": "How it's sold",
+          "after": {
+            "text": "3 to 15 weeks",
+            "ref": "trials"
+          },
           "rows": [
             {
+              "outcome": "ffm",
               "label": "Fat-free mass",
+              "pitch": "lean mass",
               "kind": "measured",
               "fact": {
                 "id": "ffm_all",
@@ -102,7 +123,9 @@ export const PAPERS: PaperMeta[] = [
               }
             },
             {
-              "label": "Fat mass",
+              "outcome": "fm",
+              "label": "Fat",
+              "pitch": "fat loss",
               "kind": "measured",
               "fact": {
                 "id": "fm_all",
@@ -123,7 +146,9 @@ export const PAPERS: PaperMeta[] = [
               }
             },
             {
-              "label": "Body fat percentage",
+              "outcome": "bf",
+              "label": "Body fat share",
+              "pitch": "body fat share",
               "kind": "measured",
               "fact": {
                 "id": "bf_all",
@@ -143,7 +168,17 @@ export const PAPERS: PaperMeta[] = [
                 }
               }
             }
-          ]
+          ],
+          "pitch": [
+            "fm",
+            "bf",
+            "ffm"
+          ],
+          "sensitivity": {
+            "outcome": "ffm",
+            "lead": "With one trial left out",
+            "crosses": "and the range crosses no change."
+          }
         }
       }
     }

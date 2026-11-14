@@ -256,23 +256,50 @@
           }
         ]
       ],
-      "figure": {
-        "figure": "what-was-measured",
+      "protocolFigure": {
+        "figure": "order-flips",
+        "headline": [
+          {
+            "text": "Sold on fat loss.",
+            "refs": []
+          },
+          {
+            "text": "The surest result is that fat-free mass held up.",
+            "refs": [
+              "ffm_all",
+              "grade_ffm"
+            ]
+          }
+        ],
         "caption": [
           {
-            "text": "The three pooled results, each with its range.",
+            "text": "Compared with people who did no training.",
             "refs": [
               "ffm_all",
               "fm_all",
               "bf_all"
             ]
+          },
+          {
+            "text": "Mostly inactive adults carrying extra weight.",
+            "refs": [
+              "lim_population"
+            ]
           }
         ],
-        "alt": "Three lines, each with a mark for no change. Fat-free mass: 0.51 kg more. Fat mass: 1.86 kg less. Body fat percentage: 1.53 points less.",
+        "alt": "Three rows, surest evidence first. Fat-free mass: 0.51 kg more, strong evidence. Fat: 1.86 kg less, decent evidence. Body fat share: 1.53 points less, early evidence. With one trial left out, the fat-free-mass range crosses no change.",
         "params": {
+          "title": "What thirty-six trials found, surest first",
+          "pitchTitle": "How it's sold",
+          "after": {
+            "text": "3 to 15 weeks",
+            "ref": "trials"
+          },
           "rows": [
             {
+              "outcome": "ffm",
               "label": "Fat-free mass",
+              "pitch": "lean mass",
               "kind": "measured",
               "fact": {
                 "id": "ffm_all",
@@ -293,7 +320,9 @@
               }
             },
             {
-              "label": "Fat mass",
+              "outcome": "fm",
+              "label": "Fat",
+              "pitch": "fat loss",
               "kind": "measured",
               "fact": {
                 "id": "fm_all",
@@ -314,7 +343,9 @@
               }
             },
             {
-              "label": "Body fat percentage",
+              "outcome": "bf",
+              "label": "Body fat share",
+              "pitch": "body fat share",
               "kind": "measured",
               "fact": {
                 "id": "bf_all",
@@ -334,7 +365,17 @@
                 }
               }
             }
-          ]
+          ],
+          "pitch": [
+            "fm",
+            "bf",
+            "ffm"
+          ],
+          "sensitivity": {
+            "outcome": "ffm",
+            "lead": "With one trial left out",
+            "crosses": "and the range crosses no change."
+          }
         }
       },
       "primaryEstimate": "ffm_all",
@@ -507,7 +548,8 @@
                       "tier": "moderate"
                     }
                   },
-                  "bf": null
+                  "bf": null,
+                  "subgroup": "cycling"
                 },
                 {
                   "id": "overground",
@@ -546,7 +588,8 @@
                       "absolute": true,
                       "tier": "low"
                     }
-                  }
+                  },
+                  "subgroup": "overground running"
                 },
                 {
                   "id": "treadmill",
@@ -569,7 +612,8 @@
                       "tier": "moderate"
                     }
                   },
-                  "bf": null
+                  "bf": null,
+                  "subgroup": "treadmill running"
                 }
               ]
             },
@@ -630,14 +674,16 @@
                       "absolute": true,
                       "tier": "low"
                     }
-                  }
+                  },
+                  "subgroup": "longer than 8 weeks"
                 },
                 {
                   "id": "upto8",
                   "label": "8 weeks or less",
                   "ffm": null,
                   "fm": null,
-                  "bf": null
+                  "bf": null,
+                  "subgroup": "8 weeks or less"
                 }
               ]
             },
@@ -698,7 +744,8 @@
                       "absolute": true,
                       "tier": "low"
                     }
-                  }
+                  },
+                  "subgroup": "3 sessions a week"
                 },
                 {
                   "id": "two",
@@ -737,7 +784,8 @@
                       "absolute": true,
                       "tier": "low"
                     }
-                  }
+                  },
+                  "subgroup": "2 sessions a week"
                 }
               ]
             },
@@ -798,7 +846,8 @@
                       "absolute": true,
                       "tier": "low"
                     }
-                  }
+                  },
+                  "subgroup": "bursts of 60 seconds or less"
                 },
                 {
                   "id": "long",
@@ -853,7 +902,8 @@
                       "absolute": true,
                       "tier": "low"
                     }
-                  }
+                  },
+                  "subgroup": "bursts longer than 60 seconds"
                 }
               ]
             },
@@ -914,7 +964,8 @@
                       "absolute": true,
                       "tier": "low"
                     }
-                  }
+                  },
+                  "subgroup": "rests of 90 seconds or less"
                 },
                 {
                   "id": "long",
@@ -969,7 +1020,8 @@
                       "absolute": true,
                       "tier": "low"
                     }
-                  }
+                  },
+                  "subgroup": "rests longer than 90 seconds"
                 }
               ]
             },
@@ -1030,7 +1082,8 @@
                       "absolute": true,
                       "tier": "low"
                     }
-                  }
+                  },
+                  "subgroup": "active rest"
                 },
                 {
                   "id": "passive",
@@ -1085,7 +1138,8 @@
                       "absolute": true,
                       "tier": "low"
                     }
-                  }
+                  },
+                  "subgroup": "passive rest"
                 }
               ]
             }
@@ -1111,13 +1165,34 @@
       },
       "glance": {
         "figure": {
-          "figure": "what-was-measured",
+          "figure": "order-flips",
+          "headline": [
+            {
+              "text": "Sold on fat loss.",
+              "refs": []
+            },
+            {
+              "text": "The surest result is that fat-free mass held up.",
+              "refs": [
+                "ffm_all",
+                "grade_ffm"
+              ]
+            }
+          ],
           "caption": [],
-          "alt": "Three rows, one for each body measure, each with a shaded range and a mark for no change.",
+          "alt": "Three rows, surest evidence first: fat-free mass, fat, then body fat share. Beside them, the order it is usually sold in, fat loss first. Each row has its own scale and a line for no change.",
           "params": {
+            "title": "What thirty-six trials found, surest first",
+            "pitchTitle": "How it's sold",
+            "after": {
+              "text": "3 to 15 weeks",
+              "ref": "trials"
+            },
             "rows": [
               {
+                "outcome": "ffm",
                 "label": "Fat-free mass",
+                "pitch": "lean mass",
                 "kind": "measured",
                 "fact": {
                   "id": "ffm_all",
@@ -1138,7 +1213,9 @@
                 }
               },
               {
-                "label": "Fat mass",
+                "outcome": "fm",
+                "label": "Fat",
+                "pitch": "fat loss",
                 "kind": "measured",
                 "fact": {
                   "id": "fm_all",
@@ -1159,7 +1236,9 @@
                 }
               },
               {
-                "label": "Body fat percentage",
+                "outcome": "bf",
+                "label": "Body fat share",
+                "pitch": "body fat share",
                 "kind": "measured",
                 "fact": {
                   "id": "bf_all",
@@ -1179,7 +1258,17 @@
                   }
                 }
               }
-            ]
+            ],
+            "pitch": [
+              "fm",
+              "bf",
+              "ffm"
+            ],
+            "sensitivity": {
+              "outcome": "ffm",
+              "lead": "With one trial left out",
+              "crosses": "and the range crosses no change."
+            }
           }
         },
         "x": [
@@ -1191,11 +1280,14 @@
         "y": [],
         "alt": [
           {
-            "text": "Three rows, one for each body measure, each with a shaded range and a mark for no change.",
+            "text": "Three rows, surest evidence first: fat-free mass, fat, then body fat share. Beside them, the order it is usually sold in, fat loss first. Each row has its own scale and a line for no change.",
             "refs": [
               "ffm_all",
               "fm_all",
-              "bf_all"
+              "bf_all",
+              "grade_ffm",
+              "grade_fm",
+              "grade_bf"
             ]
           }
         ],

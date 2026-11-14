@@ -51,19 +51,21 @@ export interface PlacedRow {
  * Place every row on one shared scale. All rows of one plot share a unit and a measure; rows
  * of different units are separate plots (FIGURE-DESIGN 4B: rows never share a value axis).
  */
-export function intervalLayout(rows: Interval[], scale: Scale, frame: IntervalFrame, options: { mirror?: boolean; baselineLabel?: string } = {}) {
+export function intervalLayout(rows: Interval[], scale: Scale, frame: IntervalFrame, options: { mirror?: boolean; baselineLabel?: string; extent?: Interval[] } = {}) {
   const base = baselineOf(scale);
   const flip = options.mirror ? -1 : 1;
   const t = (v: number) => (scale === "ratio" ? Math.log(v) : v) * flip;
   const tb = scale === "ratio" ? 0 : base;
-  const values = rows.flatMap((r) => [r.point, r.ciLow ?? r.point, r.ciHigh ?? r.point]).filter((v) => scale !== "ratio" || v > 0);
+  // `extent`: rows that may appear later (a simulator's subgroups) widen the scale now, so a row
+  // already drawn never moves when another is added.
+  const values = [...rows, ...(options.extent ?? [])].flatMap((r) => [r.point, r.ciLow ?? r.point, r.ciHigh ?? r.point]).filter((v) => scale !== "ratio" || v > 0);
   const ts = [tb, ...values.map(t)];
   let lo = Math.min(...ts);
   let hi = Math.max(...ts);
   const pad = (hi - lo || 1) * 0.04;
   lo -= pad; hi += pad;
   // Inset the scale by half the widest end label, so a label centred on an end stays in the frame.
-  const allPlaces = Math.max(...rows.flatMap((r) => [decimals(r.point), decimals(r.ciLow), decimals(r.ciHigh)]), 0);
+  const allPlaces = Math.max(...[...rows, ...(options.extent ?? [])].flatMap((r) => [decimals(r.point), decimals(r.ciLow), decimals(r.ciHigh)]), 0);
   const widest = Math.max(0, ...values.map((v) => textWidth(options.mirror ? printed(Math.abs(v), allPlaces) : signedWords(v, allPlaces), frame.size)));
   const inset = widest / 2 + 1;
   const x = (v: number) => frame.left + inset + ((t(v) - lo) / (hi - lo)) * (frame.width - 2 * inset);
