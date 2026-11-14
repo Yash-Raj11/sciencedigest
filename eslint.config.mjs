@@ -48,7 +48,7 @@ const eslintConfig = defineConfig([
    * Tested by scripts/figure-guard.test.ts.
    */
   {
-    files: ["components/papers/**/figures/**/*.{ts,tsx}"],
+    files: ["components/papers/**/figures/**/*.{ts,tsx}", "components/figures/kinds/**/*.{ts,tsx}"],
     rules: {
       "no-restricted-syntax": ["error",
         {

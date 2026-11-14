@@ -34,6 +34,7 @@ when it is kept (`npm run db:mutation` does this for the database).
 | Only CC-BY, CC-BY-SA, CC0 papers | `lib/pipeline/license.ts` |
 | A per-paper component cannot import the database, the store, or compute a percentage | `eslint.config.mjs` (the widget guard) |
 | A figure holds no number of its own outside a geometry prop, no timer and no animation; solid means measured (cites a result), dashed means proposed (cites the authors' sentence); unknown figure, empty alt text | `eslint.config.mjs` (the figure guard), `lib/content/figures.ts`, `lib/pipeline/lint.ts` |
+| A figure spec holds a literal number, or names an unknown kind or a fact that is not gated; a simulator rests on a fact with no range (H12) | `lib/content/figure-kinds.ts`, `lib/pipeline/lint.ts` |
 | A user cannot change their own tier; cannot read another user's ticks; cannot tick a derived step | `supabase/migrations/`, tested in `supabase/tests/database/` |
 | TypeScript scoring and SQL scoring return identical results | `scripts/gen-parity.mts` + `90_parity.generated.test.sql` |
 
@@ -61,7 +62,7 @@ when it is kept (`npm run db:mutation` does this for the database).
 11. **Ask before changing** the database shape, scoring meaning, or anything that touches stored
     user history. These are expensive to undo.
 
-## Content rules H9–H11 (H1–H8: `docs/HANDOFF.md` section 5 and the `science-content` skill)
+## Content rules H9–H12 (H1–H8: `docs/HANDOFF.md` section 5 and the `science-content` skill)
 
 - **H9 Feynman layer.** Never use a technical term without immediately saying what it physically
   does in plain English. Give the mental model first, then the name of the pathway.
@@ -70,6 +71,9 @@ when it is kept (`npm run db:mutation` does this for the database).
   mandatory limitation). No caveats inside the mechanism layer. The audit stays visible without
   a tap (H6).
 - **H11 Voice.** Short sentences, active voice, no academic throat-clearing.
+- **H12 Personal estimates.** A personal estimate is shown only as a range derived from the
+  gated fact's range, labelled "Estimate from the study's numbers, not medical advice", with
+  its source line. Missing fact: no simulator; never fill it from general knowledge.
 - **H7 (amended).** Every number shown to a reader traces to a gated fact, from the paper or
   from a gated context source. The UI says which.
 

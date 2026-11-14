@@ -102,6 +102,12 @@ const FigureRef = z.object({
   caption: Markup,
   alt: Markup,
   params: z.record(z.string(), z.unknown()).default({}),
+  /**
+   * A figure drawn by kind (lib/content/figure-kinds.ts): { kind, facts: { param: factId }, simulator? }.
+   * Kept as written, so the lint sees a literal number before any schema could drop it; the lint
+   * validates it with the zod schema FigureSpec.
+   */
+  spec: z.unknown().optional(),
 });
 
 /**

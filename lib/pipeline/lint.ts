@@ -15,6 +15,7 @@ import type { ConceptState } from "./concepts";
 import type { Validated, ValidatedFact } from "./gate";
 import { NON_HUMAN_DISCLAIMER } from "./grade";
 import { glossaryCovers, jargonIn } from "./jargon";
+import { specProblems } from "../content/figure-kinds";
 import { EVIDENCE_KINDS, evidenceKindProblem, figureKey, type EvidenceKind } from "../content/figures";
 import { parseMarkup, type Sentence } from "./markup";
 import { isContextRef, parseRef } from "./refs";
@@ -614,12 +615,19 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   walkParams(ed.simulator.params, "simulator.params", "simulator");
 
   // Figures: known to the app, described for people who cannot see them, and drawn only from facts.
-  const figureDefs: [string, { figure: string; alt: string; params: Record<string, unknown> }][] = layers
+  const figureDefs: [string, { figure: string; alt: string; params: Record<string, unknown>; spec?: unknown }][] = layers
     ? LAYERS.flatMap((layer) => (layers[layer].figure ? [[`layers.${layer}.figure`, layers[layer].figure!] as [string, typeof layers.mechanism.figure & object]] : []))
     : ((ed as LegacyEditorial).figure ? [["figure", (ed as LegacyEditorial).figure!]] : []);
   for (const [where, def] of figureDefs) {
     const key = figureKey(ed.slug, def.figure);
-    if (!(options.figures ?? []).includes(key)) {
+    if (def.spec !== undefined) {
+      // Drawn by kind: the spec names facts only, the kind must exist, and a simulator needs a range (H12).
+      const problems = specProblems(def.spec, `${where}.spec`, (id) => {
+        const e = factOf(id)?.fact;
+        return e ? { kind: e.kind, unit: e.estimate?.unit ?? null, point: e.estimate?.point ?? null, ciLow: e.estimate?.ciLow ?? null, ciHigh: e.estimate?.ciHigh ?? null } : undefined;
+      });
+      for (const problem of problems) fail(problem.rule, problem.where, problem.message);
+    } else if (!(options.figures ?? []).includes(key)) {
       fail("figure", where, `unknown figure "${key}"; it is not listed in lib/content/figures.ts`);
     }
     let altWords = 0;

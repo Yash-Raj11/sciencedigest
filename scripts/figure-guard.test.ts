@@ -22,6 +22,13 @@ async function check(name: string, filePath: string): Promise<string[]> {
 const FIGURE = "components/papers/some-paper/figures/Fixture.tsx";
 
 describe("the figure guard", () => {
+  it("covers the shared figure kinds too (components/figures/kinds/)", async () => {
+    const KIND = "components/figures/kinds/Fixture.tsx";
+    expect(await check("good", KIND)).toEqual([]);
+    expect((await check("bad-number-literal", KIND)).length).toBeGreaterThan(0);
+    expect((await check("bad-ambient-motion", KIND)).length).toBeGreaterThan(0);
+  }, 60000);
+
   it("passes a figure whose numbers come from params", async () => {
     expect(await check("good", FIGURE)).toEqual([]);
   }, 60000);
