@@ -8,27 +8,42 @@
 import Link from "next/link";
 import { useId, useState, type ReactNode } from "react";
 import type { Choice } from "@/lib/content/types";
-import { GRADE_NAME, weightLabel, type EvidenceGrade } from "@/lib/evidence";
+import type { EvidenceGrade } from "@/lib/evidence";
+import { GRADE_BARS, GRADE_WORDS } from "@/lib/evidence-words";
 import type { Protocol, ProtocolRow } from "@/lib/protocol/useProtocol";
 import { withoutInterval } from "@/lib/pipeline/format";
 
-const PIPS: Record<EvidenceGrade, number> = { high: 3, moderate: 2, low: 1, none: 0 };
-const SHORT: Record<EvidenceGrade, string> = { high: "High", moderate: "Moderate", low: "Low", none: "No weight" };
-
-/** "High ×1.0" with three pips. The pips carry the grade without relying on colour. */
-export function GradeChip({ grade, className = "" }: { grade: EvidenceGrade; className?: string }) {
-  return (
-    <span
-      title={`${GRADE_NAME[grade]}: counts ${weightLabel(grade)} toward the weighted score`}
-      className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-xs font-medium text-muted ${className}`}
-    >
-      <span aria-hidden className="flex gap-[2px]">
+/**
+ * The evidence grade (owner, 2026-11-14): "Early evidence", "Decent evidence" or "Strong
+ * evidence" beside a three-bar meter. The bars carry the grade without relying on colour.
+ * The weight is never shown. With `why`, the grade is a button: a tap opens one plain sentence
+ * on why. Inside another button (a protocol row) or a link (a feed card), leave `why` out.
+ */
+export function GradeChip({ grade, why, className = "" }: { grade: EvidenceGrade; why?: string; className?: string }) {
+  const [open, setOpen] = useState(false);
+  const meter = (
+    <span className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-xs font-medium text-muted ${className}`} data-grade={grade}>
+      <span aria-hidden className="flex items-end gap-[2px]">
         {[0, 1, 2].map((i) => (
-          <span key={i} className={`h-2.5 w-1.5 rounded-[1px] ${i < PIPS[grade] ? "bg-ink" : "bg-line"}`} />
+          <span key={i} data-bar data-filled={i < GRADE_BARS[grade] ? "" : undefined} className={`w-[3px] rounded-[1px] ${i < GRADE_BARS[grade] ? "bg-ink" : "bg-line"}`} style={{ height: `${6 + i * 3}px` }} />
         ))}
       </span>
-      <span>{SHORT[grade]} <span className="num">{weightLabel(grade)}</span></span>
+      <span>{GRADE_WORDS[grade]}</span>
     </span>
+  );
+  if (!why) return meter;
+  return (
+    <>
+      <button
+        type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open}
+        aria-label={`${GRADE_WORDS[grade]}: why?`}
+        className="relative inline-flex items-center gap-1 rounded after:absolute after:-inset-2.5 after:content-['']"
+      >
+        {meter}
+        <span aria-hidden className="text-xs text-meta">{open ? "–" : "?"}</span>
+      </button>
+      {open ? <span role="note" data-shown data-grade-why className="ui-reveal basis-full text-sm font-normal leading-snug text-muted">{why}</span> : null}
+    </>
   );
 }
 

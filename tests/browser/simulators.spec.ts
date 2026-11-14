@@ -31,7 +31,7 @@ test.describe("caffeine: the decay simulator", () => {
     await expect(sim.locator("[data-spread-label]")).toContainText("3.94 h to 6.36 h, the typical spread between people in this study");
     await expect(sim.locator("[data-source-line]")).toContainText("From another study: Wildgrube et al.");
     await expect(sim.locator("[data-beside]")).toContainText("Their measured sleep did not differ from their placebo nights.");
-    await expect(sim.locator("[data-beside]")).toContainText("From the paper.");
+    await expect(sim.locator("[data-beside-source]")).toHaveText("Twenty healthy young men · randomized crossover trial · 10 days per condition");
   });
 
   test("the half-life study is listed in Full receipts", async ({ page }) => {

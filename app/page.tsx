@@ -13,7 +13,7 @@ export default function FeedPage() {
       <h1 className="sr-only">Science Digest</h1>
       <Feed papers={papers} top={<FeedSlot />} />
       <p className="text-sm leading-snug text-muted">
-        The pips show how far each result can be trusted. Three pips count ×1.0 in your score, two count ×0.7, one counts ×0.4.
+        The bars show how far each result can be trusted: early, decent or strong evidence. Stronger evidence fills more of your Life Game.
       </p>
     </div>
   );

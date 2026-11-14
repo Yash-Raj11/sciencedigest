@@ -7,7 +7,7 @@ import { Figure } from "@/components/figures/Figure";
 import { change, range } from "@/components/figures/format";
 import { Gauge, Label } from "@/components/figures/primitives";
 import type { Evidence } from "@/components/figures/shared";
-import { GRADE_NAME } from "@/lib/evidence";
+import { GRADE_WORDS } from "@/lib/evidence-words";
 import type { FigureProps } from "../../registry";
 
 interface Row extends Evidence { label: string }
@@ -26,7 +26,7 @@ export default function WhatWasMeasured({ params, alt }: FigureProps) {
             key={row.fact.id} x={8} y={46 + i * 62} width={304} min={-3} max={1.5}
             value={estimate.point} low={estimate.ciLow} high={estimate.ciHigh}
             label={row.label} text={spread ? `${change(estimate)}  (${spread})` : change(estimate)}
-            note={GRADE_NAME[estimate.tier].toLowerCase()} kind={row.kind} fact={row.fact}
+            note={GRADE_WORDS[estimate.tier].toLowerCase()} kind={row.kind} fact={row.fact}
           />
         );
       })}

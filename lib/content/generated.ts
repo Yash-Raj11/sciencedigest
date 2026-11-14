@@ -24,10 +24,12 @@ export const PAPERS: PaperMeta[] = [
     "design": "crossover",
     "species": "human",
     "sampleSize": 20,
+    "sourceLine": "Twenty healthy young men · randomized crossover trial · 10 days per condition",
     "grades": [
       {
         "outcome": "Total sleep time, time to fall asleep and sleep stages",
-        "tier": "low"
+        "tier": "low",
+        "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture."
       }
     ],
     "hasBlock": false,
@@ -53,14 +55,17 @@ export const PAPERS: PaperMeta[] = [
     "design": "meta_analysis_rct",
     "species": "human",
     "sampleSize": 1130,
+    "sourceLine": "1,130 adults · pooled randomized trials · 3 to 15 weeks each",
     "grades": [
       {
         "outcome": "Fat-free mass",
-        "tier": "high"
+        "tier": "high",
+        "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high."
       },
       {
         "outcome": "Body fat percentage",
-        "tier": "low"
+        "tier": "low",
+        "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low."
       }
     ],
     "hasBlock": true,
@@ -81,6 +86,7 @@ export const PAPERS: PaperMeta[] = [
                 "kind": "estimate",
                 "label": "Fat-free mass, all interval training vs control",
                 "quote": "HIIT induced an overall significant improvement in FFM (WMD: 0.51 kg, 95% CI: 0.06 to 0.95",
+                "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
                 "estimate": {
                   "outcome": "Fat-free mass",
                   "measure": "WMD",
@@ -101,6 +107,7 @@ export const PAPERS: PaperMeta[] = [
                 "kind": "estimate",
                 "label": "Fat mass, all interval training vs control",
                 "quote": "HIIT resulted in a significant reduction in FM (WMD: −1.86 kg, 95% CI: −2.55 to −1.18",
+                "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
                 "estimate": {
                   "outcome": "Fat mass",
                   "measure": "WMD",
@@ -121,6 +128,7 @@ export const PAPERS: PaperMeta[] = [
                 "kind": "estimate",
                 "label": "Body fat percentage, all interval training vs control",
                 "quote": "induced a significant reduction in BF% [weighted mean difference (WMD): −1.53%, 95% CI: −2.13, −0.92",
+                "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low.",
                 "estimate": {
                   "outcome": "Body fat percentage",
                   "measure": "WMD",
@@ -158,10 +166,12 @@ export const PAPERS: PaperMeta[] = [
     "design": "cohort",
     "species": "human",
     "sampleSize": 3101,
+    "sourceLine": "3,101 US adults · observational cohort · followed for 10 years",
     "grades": [
       {
         "outcome": "10-year risk of death from any cause",
-        "tier": "low"
+        "tier": "low",
+        "why": "The study watched people without assigning anything, so other differences between them could explain the result."
       }
     ],
     "hasBlock": false,
@@ -187,10 +197,12 @@ export const PAPERS: PaperMeta[] = [
     "design": "crossover",
     "species": "human",
     "sampleSize": 20,
+    "sourceLine": "20 healthy adults · randomized crossover trial · four breakfasts each",
     "grades": [
       {
         "outcome": "Blood glucose 30 minutes after the meal",
-        "tier": "low"
+        "tier": "low",
+        "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture."
       }
     ],
     "hasBlock": false,
@@ -801,6 +813,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
             "kind": "finding",
             "label": "no clear difference from placebo; the paper does not say how big any difference was",
             "quote": "the analyses of the polysomnography (PSG) did not reveal significant differences in total sleep time (TST), sleep efficiency (SE), sleep latencies, or the relative amount of sleep stages among the three conditions (> 0.05)",
+            "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
             "finding": {
               "outcome": "Total sleep time, time to fall asleep and sleep stages",
               "tier": "low"
@@ -840,6 +853,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
             "label": "Caffeine half-life in saliva after a single 25 mg dose (arm A), mean ± SD, n = 12",
             "quote": "Caffeine showed a half-life of 5.15 ± 1.21 h after single administration, whereas the half-life of methylliberine was only 1.15 ± 0.12 h and that of theacrine 21.00 ± 7.55 h.",
             "source": "caffeine-saliva-half-life",
+            "why": "People were assigned at random, but only 12 took part, so a bigger trial could change the picture.",
             "estimate": {
               "outcome": "Elimination half-life of caffeine in saliva after 25 mg taken alone (arm A)",
               "measure": "mean",
@@ -863,6 +877,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
             "label": "Caffeine half-life in saliva after a single 25 mg dose (arm A), mean ± SD, n = 12",
             "quote": "Caffeine showed a half-life of 5.15 ± 1.21 h after single administration, whereas the half-life of methylliberine was only 1.15 ± 0.12 h and that of theacrine 21.00 ± 7.55 h.",
             "source": "caffeine-saliva-half-life",
+            "why": "People were assigned at random, but only 12 took part, so a bigger trial could change the picture.",
             "estimate": {
               "outcome": "Elimination half-life of caffeine in saliva after 25 mg taken alone (arm A)",
               "measure": "mean",
@@ -924,6 +939,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         ]
       }
     },
+    "sourceLine": "Twenty healthy young men · randomized crossover trial · 10 days per condition",
     "facts": {
       "adenosine_block": {
         "id": "adenosine_block",
@@ -957,6 +973,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "label": "Caffeine half-life in saliva after a single 25 mg dose (arm A), mean ± SD, n = 12",
         "quote": "Caffeine showed a half-life of 5.15 ± 1.21 h after single administration, whereas the half-life of methylliberine was only 1.15 ± 0.12 h and that of theacrine 21.00 ± 7.55 h.",
         "source": "caffeine-saliva-half-life",
+        "why": "People were assigned at random, but only 12 took part, so a bigger trial could change the picture.",
         "estimate": {
           "outcome": "Elimination half-life of caffeine in saliva after 25 mg taken alone (arm A)",
           "measure": "mean",
@@ -1038,6 +1055,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "finding",
         "label": "no clear difference between conditions",
         "quote": "Analyses of subjective sleep quality assessed with the Leeds Sleep Evaluation Questionnaire (LSEQ) did not reveal significant differences among the three conditions in any of the four domains of sleep quality (> 0.05)",
+        "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
         "finding": {
           "outcome": "Self-rated sleep quality",
           "tier": "low"
@@ -1066,6 +1084,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "finding",
         "label": "lower than placebo in both the caffeine and withdrawal conditions, a clear difference",
         "quote": "power density was significantly reduced compared to placebo in the sigma range during both withdrawal",
+        "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
         "finding": {
           "outcome": "Sigma-band brain activity during non-REM sleep",
           "tier": "low"
@@ -1082,6 +1101,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "finding",
         "label": "no clear difference from placebo; the paper does not say how big any difference was",
         "quote": "the analyses of the polysomnography (PSG) did not reveal significant differences in total sleep time (TST), sleep efficiency (SE), sleep latencies, or the relative amount of sleep stages among the three conditions (> 0.05)",
+        "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
         "finding": {
           "outcome": "Total sleep time, time to fall asleep and sleep stages",
           "tier": "low"
@@ -1110,7 +1130,8 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
           "design": "crossover",
           "sampleSize": 12,
           "license": "CC-BY",
-          "tier": "low"
+          "tier": "low",
+          "why": "People were assigned at random, but only 12 took part, so a bigger trial could change the picture."
         }
       ],
       "concepts": []
@@ -1377,6 +1398,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
             "kind": "estimate",
             "label": "Fully adjusted risk difference, 1-2 days vs 0 days, all-cause",
             "quote": "all-cause mortality risk was lower among those who took 8000 steps or more 1 to 2 days per week (aRD, −14.9%; 95% CI −18.8% to −10.9%)",
+            "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
             "estimate": {
               "outcome": "10-year risk of death from any cause",
               "measure": "aRD",
@@ -1404,6 +1426,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
             "kind": "estimate",
             "label": "Fully adjusted risk difference, 3-7 days vs 0 days, all-cause",
             "quote": "3 to 7 days per week (aRD, −16.5%; 95% CI, −20.4% to −12.5%)",
+            "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
             "estimate": {
               "outcome": "10-year risk of death from any cause",
               "measure": "aRD",
@@ -1504,6 +1527,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "kind": "estimate",
               "label": "Share of the 0-day group who died within 10 years, unadjusted",
               "quote": "257/632 (40.7)",
+              "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
               "estimate": {
                 "outcome": "Deaths from any cause within 10 years, unadjusted",
                 "measure": "proportion",
@@ -1520,6 +1544,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "kind": "estimate",
               "label": "Share of the 1-2-day group who died within 10 years, unadjusted",
               "quote": "75/532 (14.1)",
+              "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
               "estimate": {
                 "outcome": "Deaths from any cause within 10 years, unadjusted",
                 "measure": "proportion",
@@ -1536,6 +1561,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "kind": "estimate",
               "label": "Share of the 3-7-day group who died within 10 years, unadjusted",
               "quote": "107/1937 (5.5)",
+              "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
               "estimate": {
                 "outcome": "Deaths from any cause within 10 years, unadjusted",
                 "measure": "proportion",
@@ -1556,6 +1582,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "kind": "estimate",
               "label": "Share of the 0-day group who died within 10 years, unadjusted",
               "quote": "257/632 (40.7)",
+              "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
               "estimate": {
                 "outcome": "Deaths from any cause within 10 years, unadjusted",
                 "measure": "proportion",
@@ -1572,6 +1599,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "kind": "estimate",
               "label": "Share of the 1-2-day group who died within 10 years, unadjusted",
               "quote": "75/532 (14.1)",
+              "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
               "estimate": {
                 "outcome": "Deaths from any cause within 10 years, unadjusted",
                 "measure": "proportion",
@@ -1588,6 +1616,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "kind": "estimate",
               "label": "Share of the 3-7-day group who died within 10 years, unadjusted",
               "quote": "107/1937 (5.5)",
+              "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
               "estimate": {
                 "outcome": "Deaths from any cause within 10 years, unadjusted",
                 "measure": "proportion",
@@ -1606,6 +1635,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "kind": "estimate",
               "label": "Fully adjusted risk difference, 1-2 days vs 0 days, all-cause",
               "quote": "all-cause mortality risk was lower among those who took 8000 steps or more 1 to 2 days per week (aRD, −14.9%; 95% CI −18.8% to −10.9%)",
+              "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
               "estimate": {
                 "outcome": "10-year risk of death from any cause",
                 "measure": "aRD",
@@ -1622,6 +1652,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "kind": "estimate",
               "label": "Fully adjusted risk difference, 3-7 days vs 0 days, all-cause",
               "quote": "3 to 7 days per week (aRD, −16.5%; 95% CI, −20.4% to −12.5%)",
+              "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
               "estimate": {
                 "outcome": "10-year risk of death from any cause",
                 "measure": "aRD",
@@ -1690,6 +1721,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         ]
       }
     },
+    "sourceLine": "3,101 US adults · observational cohort · followed for 10 years",
     "facts": {
       "ages": {
         "id": "ages",
@@ -1702,6 +1734,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "estimate",
         "label": "Fully adjusted risk difference, 1-2 days vs 0 days, all-cause",
         "quote": "all-cause mortality risk was lower among those who took 8000 steps or more 1 to 2 days per week (aRD, −14.9%; 95% CI −18.8% to −10.9%)",
+        "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
         "estimate": {
           "outcome": "10-year risk of death from any cause",
           "measure": "aRD",
@@ -1718,6 +1751,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "estimate",
         "label": "Adjusted risk difference, 1-2 days, adults 65 and over",
         "quote": "aged ≥65 years: aRD, −19.9% [95% CI, −30.8% to −8.9%]",
+        "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
         "estimate": {
           "outcome": "10-year risk of death from any cause",
           "measure": "aRD",
@@ -1734,6 +1768,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "estimate",
         "label": "Adjusted risk difference, 1-2 days, adults under 65",
         "quote": "aged <65 years: aRD, −7.4% [95% CI, −11.2% to −3.7%]",
+        "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
         "estimate": {
           "outcome": "10-year risk of death from any cause",
           "measure": "aRD",
@@ -1750,6 +1785,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "estimate",
         "label": "Fully adjusted risk difference, 3-7 days vs 0 days, all-cause",
         "quote": "3 to 7 days per week (aRD, −16.5%; 95% CI, −20.4% to −12.5%)",
+        "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
         "estimate": {
           "outcome": "10-year risk of death from any cause",
           "measure": "aRD",
@@ -1778,6 +1814,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "estimate",
         "label": "Share of the 0-day group who died within 10 years, unadjusted",
         "quote": "257/632 (40.7)",
+        "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
         "estimate": {
           "outcome": "Deaths from any cause within 10 years, unadjusted",
           "measure": "proportion",
@@ -1794,6 +1831,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "estimate",
         "label": "Share of the 1-2-day group who died within 10 years, unadjusted",
         "quote": "75/532 (14.1)",
+        "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
         "estimate": {
           "outcome": "Deaths from any cause within 10 years, unadjusted",
           "measure": "proportion",
@@ -1810,6 +1848,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "estimate",
         "label": "Share of the 3-7-day group who died within 10 years, unadjusted",
         "quote": "107/1937 (5.5)",
+        "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
         "estimate": {
           "outcome": "Deaths from any cause within 10 years, unadjusted",
           "measure": "proportion",
@@ -2116,6 +2155,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                   "kind": "finding",
                   "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal; direction stated in the abstract, no size given",
                   "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
+                  "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
                   "finding": {
                     "outcome": "Blood glucose after the meal",
                     "tier": "low"
@@ -2290,6 +2330,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                   "kind": "finding",
                   "label": "turmeric alone: no clear difference in blood glucose from the control meal",
                   "quote": "Contradictory to the assumption of this current approach, no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed.",
+                  "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
                   "finding": {
                     "outcome": "Blood glucose after the turmeric-only meal",
                     "tier": "low"
@@ -2319,6 +2360,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "kind": "finding",
                 "label": "differed from the control meal 30 minutes after eating, for the pepper meal and the pepper-plus-turmeric meal; the paper does not say by how much",
                 "quote": "So test meals (BP and BP + TR) show a significant effect for blood glucose level at the time point 30 min as compared to reference meal (C) (p = .023).",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
                 "finding": {
                   "outcome": "Blood glucose 30 minutes after the meal",
                   "tier": "low"
@@ -2336,6 +2378,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "kind": "finding",
                 "label": "no clear difference between the four meals over the whole 3 hours",
                 "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
                 "finding": {
                   "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
                   "tier": "low"
@@ -2618,6 +2661,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "kind": "finding",
                 "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal; direction stated in the abstract, no size given",
                 "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
                 "finding": {
                   "outcome": "Blood glucose after the meal",
                   "tier": "low"
@@ -2631,6 +2675,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "kind": "finding",
                 "label": "no clear difference between the four meals over the whole 3 hours",
                 "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
                 "finding": {
                   "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
                   "tier": "low"
@@ -2644,6 +2689,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "kind": "finding",
                 "label": "less hunger and less perceived eating ability, more satiety, after the pepper meal and the pepper-plus-turmeric meal; no sizes given",
                 "quote": "A decrease in perceived eating ability and hunger, and an increase in satiety after BP + TR and BP meal was observed.",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
                 "finding": {
                   "outcome": "Self-rated hunger, satiety and how much they felt they could eat",
                   "tier": "low"
@@ -2657,6 +2703,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "kind": "finding",
                 "label": "no clear difference between meals or over time",
                 "quote": "There was no significant (p > .05) effect of time, treatment, and time × treatment on postprandial responses of gastrointestinal symptoms.",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
                 "finding": {
                   "outcome": "Self-rated stomach and gut symptoms",
                   "tier": "low"
@@ -2679,6 +2726,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "kind": "finding",
                 "label": "turmeric alone: no clear difference in blood glucose from the control meal",
                 "quote": "Contradictory to the assumption of this current approach, no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed.",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
                 "finding": {
                   "outcome": "Blood glucose after the turmeric-only meal",
                   "tier": "low"
@@ -2692,6 +2740,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "kind": "finding",
                 "label": "no clear difference between the four meals over the whole 3 hours",
                 "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
                 "finding": {
                   "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
                   "tier": "low"
@@ -2709,6 +2758,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "kind": "finding",
                 "label": "no clear difference between meals or over time",
                 "quote": "There was no significant (p > .05) effect of time, treatment, and time × treatment on postprandial responses of gastrointestinal symptoms.",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
                 "finding": {
                   "outcome": "Self-rated stomach and gut symptoms",
                   "tier": "low"
@@ -2731,6 +2781,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "kind": "finding",
                 "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal; direction stated in the abstract, no size given",
                 "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
                 "finding": {
                   "outcome": "Blood glucose after the meal",
                   "tier": "low"
@@ -2744,6 +2795,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "kind": "finding",
                 "label": "no clear difference between the four meals over the whole 3 hours",
                 "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
                 "finding": {
                   "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
                   "tier": "low"
@@ -2757,6 +2809,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "kind": "finding",
                 "label": "less hunger and less perceived eating ability, more satiety, after the pepper meal and the pepper-plus-turmeric meal; no sizes given",
                 "quote": "A decrease in perceived eating ability and hunger, and an increase in satiety after BP + TR and BP meal was observed.",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
                 "finding": {
                   "outcome": "Self-rated hunger, satiety and how much they felt they could eat",
                   "tier": "low"
@@ -2770,6 +2823,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "kind": "finding",
                 "label": "no clear difference between meals or over time",
                 "quote": "There was no significant (p > .05) effect of time, treatment, and time × treatment on postprandial responses of gastrointestinal symptoms.",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
                 "finding": {
                   "outcome": "Self-rated stomach and gut symptoms",
                   "tier": "low"
@@ -2784,6 +2838,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         ]
       }
     },
+    "sourceLine": "20 healthy adults · randomized crossover trial · four breakfasts each",
     "facts": {
       "ages": {
         "id": "ages",
@@ -2796,6 +2851,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "finding",
         "label": "less hunger and less perceived eating ability, more satiety, after the pepper meal and the pepper-plus-turmeric meal; no sizes given",
         "quote": "A decrease in perceived eating ability and hunger, and an increase in satiety after BP + TR and BP meal was observed.",
+        "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
         "finding": {
           "outcome": "Self-rated hunger, satiety and how much they felt they could eat",
           "tier": "low"
@@ -2854,6 +2910,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "finding",
         "label": "differed from the control meal 30 minutes after eating, for the pepper meal and the pepper-plus-turmeric meal; the paper does not say by how much",
         "quote": "So test meals (BP and BP + TR) show a significant effect for blood glucose level at the time point 30 min as compared to reference meal (C) (p = .023).",
+        "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
         "finding": {
           "outcome": "Blood glucose 30 minutes after the meal",
           "tier": "low"
@@ -2864,6 +2921,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "finding",
         "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal; direction stated in the abstract, no size given",
         "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
+        "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
         "finding": {
           "outcome": "Blood glucose after the meal",
           "tier": "low"
@@ -2874,6 +2932,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "finding",
         "label": "no clear difference between the four meals over the whole 3 hours",
         "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
+        "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
         "finding": {
           "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
           "tier": "low"
@@ -2884,6 +2943,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "finding",
         "label": "no clear difference between meals or over time",
         "quote": "There was no significant (p > .05) effect of time, treatment, and time × treatment on postprandial responses of gastrointestinal symptoms.",
+        "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
         "finding": {
           "outcome": "Self-rated stomach and gut symptoms",
           "tier": "low"
@@ -2978,6 +3038,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "estimate",
         "label": "Overall pleasantness of the pepper-plus-turmeric meal, mean ± SD on the 9-point scale (Table 3)",
         "quote": "BP + TR | 6.5 ± 0.49b\n| 6.2 ± 0.52b\n| 6.2 ± 0.46b\n| 6.5 ± 0.44b\n| 6.6 ± 0.42b",
+        "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
         "estimate": {
           "outcome": "Overall pleasantness rating of the pepper-plus-turmeric meal (9-point scale)",
           "measure": "mean",
@@ -2998,6 +3059,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "estimate",
         "label": "Overall pleasantness of the black pepper meal, mean ± SD on the 9-point scale (Table 3)",
         "quote": "BP | 5.9 ± 0.55a\n| 5.35 ± 0.61a\n| 6.05 ± 0.58ab\n| 5.9 ± 0.55a\n| 6.2 ± 0.50a",
+        "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
         "estimate": {
           "outcome": "Overall pleasantness rating of the black pepper meal (9-point scale)",
           "measure": "mean",
@@ -3018,6 +3080,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "estimate",
         "label": "Overall pleasantness of the plain (control) meal, mean ± SD on the 9-point scale (Table 3)",
         "quote": "C | 6.3 ± 0.48b\n| 6.4 ± 0.46b\n| 5.5 ± 0.51a\n| 6.7 ± 0.48b\n| 6.5 ± 0.39ab",
+        "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
         "estimate": {
           "outcome": "Overall pleasantness rating of the plain (control) meal (9-point scale)",
           "measure": "mean",
@@ -3038,6 +3101,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "finding",
         "label": "the control meal and the combined meal were rated higher than the pepper-only and turmeric-only meals, a clear difference",
         "quote": "Post hoc pair‐wise comparison shows that the control meal and combined meal have significantly (p < .05) higher acceptability than (BP and TR) meal in comparison of general appearance, consistency, smell, taste, and whole pleasantness.",
+        "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
         "finding": {
           "outcome": "Palatability (appearance, texture, smell, taste, overall pleasantness)",
           "tier": "low"
@@ -3054,6 +3118,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "estimate",
         "label": "Overall pleasantness of the turmeric meal, mean ± SD on the 9-point scale (Table 3)",
         "quote": "TR | 5.7 ± 0.48a\n| 5.5 ± 0.47a\n| 5.6 ± 0.533a\n| 5.9 ± 0.47a\n| 6.1 ± 0.40a",
+        "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
         "estimate": {
           "outcome": "Overall pleasantness rating of the turmeric meal (9-point scale)",
           "measure": "mean",
@@ -3098,6 +3163,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "finding",
         "label": "turmeric alone: no clear difference in blood glucose from the control meal",
         "quote": "Contradictory to the assumption of this current approach, no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed.",
+        "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
         "finding": {
           "outcome": "Blood glucose after the turmeric-only meal",
           "tier": "low"

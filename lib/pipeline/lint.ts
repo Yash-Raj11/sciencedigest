@@ -323,6 +323,9 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   take("teaser", ed.teaser, { headline: true });
   take("hook", ed.hook, { headline: true, inRead: true });
   take("populationPanel", ed.populationPanel, { inRead: true });
+  // The source line's own words (who, how many or how long): every rule, outside the word budget.
+  take("source.who", ed.source.who);
+  take("source.span", ed.source.span);
   // The finding card: the key result at a glance. Its headline rests on the headline result.
   const cardHeadline = take("card.headline", ed.card.headline, { headline: true, inRead: true });
   take("card.support", ed.card.support, { inRead: true });

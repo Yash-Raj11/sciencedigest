@@ -12,7 +12,7 @@ import { useState } from "react";
 import { ChoicePicker, GradeChip, Notice } from "@/components/protocol/primitives";
 import { IntervalPlot, crossesZero, digitsOf, weakEnd, type PlotRow } from "@/components/sim/IntervalPlot";
 import type { Choice, ResolvedFact } from "@/lib/content/types";
-import { weightLabel } from "@/lib/evidence";
+import { GRADE_WORDS } from "@/lib/evidence-words";
 import { signed } from "@/lib/pipeline/format";
 import type { SimulatorProps } from "../registry";
 
@@ -99,7 +99,7 @@ export default function Simulator({ params }: SimulatorProps) {
         ) : (
           <>
             <strong>The weak end of the overall range is {weak !== null && weak > 0 ? "+" : ""}{weak !== null ? signed(weak, digitsOf(overall)) : ""} {overall.unit}.</strong>{" "}
-            That is the smallest average change these trials support. In your Life Game, requirements resting on this outcome count {weightLabel(tier)}.
+            That is the smallest average change these trials support. In your Life Game, requirements resting on this outcome count as {GRADE_WORDS[tier].toLowerCase()}.
           </>
         )}
       </Notice>

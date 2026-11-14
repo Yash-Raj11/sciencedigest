@@ -23,7 +23,7 @@ export function weightOf(grade: EvidenceGrade): number {
   return WEIGHT_TENTHS[grade] / 10;
 }
 
-/** "×1.0", "×0.7", "×0.4", "×0" as shown next to every graded step. */
+/** "×1.0", "×0.7", "×0.4", "×0". Never shown to a reader (owner, 2026-11-14: grade words and a meter instead); for tests and logs. */
 export function weightLabel(grade: EvidenceGrade): string {
   const tenths = WEIGHT_TENTHS[grade];
   return tenths === 0 ? "×0" : `×${(tenths / 10).toFixed(1)}`;

@@ -15,12 +15,14 @@ import { useState } from "react";
 import { Figure } from "@/components/figures/Figure";
 import { Timeline } from "@/components/figures/primitives";
 import { FROM_THE_PAPER } from "@/lib/content/source-line";
+import { useSourceLine } from "@/components/read/source-line-context";
 import type { FigureProps } from "../../registry";
 import { cellName, factAt, isFlagged, type Cell, type Params } from "./readings";
 
 export default function FiveReadings({ params, alt, interactive = true }: FigureProps) {
   const p = params as unknown as Params;
   const [cell, setCell] = useState<Cell | null>(null);
+  const sourceLine = useSourceLine();
   const times = p.times.map((time) => time.n);
   const fact = cell ? factAt(p, cell) : null;
   return (
@@ -41,7 +43,7 @@ export default function FiveReadings({ params, alt, interactive = true }: Figure
               <p className="text-sm font-medium leading-snug">
                 {cellName(p, cell)}{isFlagged(p, cell) ? ": differed from the plain meal" : ""}
               </p>
-              <p className="mt-1 text-xs font-medium text-muted" data-source-line>{FROM_THE_PAPER}, word for word</p>
+              <p className="mt-1 text-xs font-medium text-muted" data-source-line>{sourceLine ?? FROM_THE_PAPER}</p>
               <p className="mt-0.5 font-serif text-[0.9375rem] italic leading-snug text-muted">&ldquo;{fact.quote}&rdquo;</p>
             </div>
           ) : (

@@ -47,12 +47,12 @@ const WORDS: Record<Result, string> = {
 function Outcome({ name, row }: { name: string; row: Row }) {
   const changed = row.result === "lower";
   return (
-    <li className="flex items-center gap-3 px-3.5 py-3">
+    <li className="flex flex-wrap items-center gap-x-3 gap-y-1 px-3.5 py-3">
       <span className="min-w-0 flex-1">
         <span className="block text-sm leading-snug text-muted">{name}</span>
         <span className={`block font-medium leading-snug ${changed ? "text-accent-text" : "text-ink"}`}>{WORDS[row.result]}</span>
       </span>
-      {row.fact?.finding && changed ? <GradeChip grade={row.fact.finding.tier} /> : null}
+      {row.fact?.finding && changed ? <GradeChip grade={row.fact.finding.tier} why={row.fact.why} /> : null}
     </li>
   );
 }

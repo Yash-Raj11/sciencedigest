@@ -189,6 +189,7 @@ describe("what reaches the page", () => {
       sampleSize: 3101,
       license: "CC-BY",
       tier: "low",
+      why: "The study watched people without assigning anything, so other differences between them could explain the result.",
     }]);
     expect(shortCite({ ...otherExtraction.identifiers, authors: "Weibel J" })).toBe("Weibel, JAMA Network Open 2023");
   });
@@ -197,11 +198,13 @@ describe("what reaches the page", () => {
       slug: "non-rem-sleep", term: "non-REM sleep", plain: conceptFile.plain, model: conceptFile.model, reference: conceptFile.reference,
     }]);
   });
-  it('says where each thing comes from: "From the paper", "From another study: <cite>, <grade>", "Background"', () => {
-    expect(factSourceLine(paper.content.facts.sleep_same, paper.content)).toBe(FROM_THE_PAPER);
+  it('says where each thing comes from: who · design · how long, "From another study: <cite>, <grade>", "Background"', () => {
+    expect(factSourceLine(paper.content.facts.sleep_same, paper.content)).toBe("Twenty healthy young men · randomized crossover trial · 10 days per condition");
+    expect(paper.content.sourceLine).toBe("Twenty healthy young men · randomized crossover trial · 10 days per condition");
+    expect(factSourceLine(paper.content.facts.sleep_same, { context: paper.content.context })).toBe(FROM_THE_PAPER);
     expect(FROM_THE_PAPER).toBe("From the paper");
-    expect(factSourceLine(paper.content.facts[`${OTHER}/ard_1_2`], paper.content)).toBe("From another study: Inoue et al., JAMA Network Open 2023, low certainty");
-    expect(studySourceLine(paper.content.context!.studies[0])).toBe("From another study: Inoue et al., JAMA Network Open 2023, low certainty");
+    expect(factSourceLine(paper.content.facts[`${OTHER}/ard_1_2`], paper.content)).toBe("From another study: Inoue et al., JAMA Network Open 2023, early evidence");
+    expect(studySourceLine(paper.content.context!.studies[0])).toBe("From another study: Inoue et al., JAMA Network Open 2023, early evidence");
     expect(BACKGROUND).toBe("Background");
     expect(conceptReference(paper.content.context!.concepts[0])).toBe("The impact of daily caffeine intake on nighttime sleep in young adult men (doi:10.1038/s41598-021-84088-x)");
   });
@@ -210,7 +213,7 @@ describe("what reaches the page", () => {
   });
   it("lists every context source for the audit, each with its DOI", () => {
     expect(contextSourceList(paper.content)).toEqual([
-      { label: "Another study", citation: expect.stringContaining("Inoue K, Tsugawa Y"), id: "doi:10.1001/jamanetworkopen.2023.5174", grade: "Low certainty" },
+      { label: "Another study", citation: expect.stringContaining("Inoue K, Tsugawa Y"), id: "doi:10.1001/jamanetworkopen.2023.5174", grade: "Early evidence" },
       { label: "Background", citation: "non-REM sleep: The impact of daily caffeine intake on nighttime sleep in young adult men", id: "doi:10.1038/s41598-021-84088-x", grade: null },
     ]);
     expect(contextSourceList(assemble(validated, oldShape).content)).toEqual([]);
@@ -235,7 +238,7 @@ describe("a simulator drawn by kind (the caffeine read as it is built)", () => {
     expect(spec.kind).toBe("decay");
     expect(spec.simulator.halfLife).toMatchObject({ id: `${HALF_LIFE_STUDY}/half_life_caffeine`, source: HALF_LIFE_STUDY, spread: { kind: "sd", value: 1.21 } });
     expect(real.content.context?.studies.map((s) => s.slug)).toEqual([HALF_LIFE_STUDY]);
-    expect(factSourceLine(spec.simulator.halfLife as never, real.content)).toBe("From another study: Wildgrube et al., International journal of pharmaceutics: X 2025, low certainty");
+    expect(factSourceLine(spec.simulator.halfLife as never, real.content)).toBe("From another study: Wildgrube et al., International journal of pharmaceutics: X 2025, early evidence");
     expect(real.content.simulator.words?.finding.flatMap((s) => s.refs)).toContain("sleep_same");
   });
 });

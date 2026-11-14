@@ -33,6 +33,8 @@ export interface ResolvedFact {
   finding?: { outcome: string; tier: EvidenceGrade };
   /** Set when the fact comes from another study: the slug of a ContextStudy. Absent: the paper itself. */
   source?: string;
+  /** For a graded fact: one plain sentence on why it earned its grade (lib/evidence-words.ts). */
+  why?: string;
   /** The spread printed with the estimate (lib/models/spread.ts). Absent: only the estimate's own CI, if any. */
   spread?: { kind: "sd" | "ci95" | "range" | "iqr"; value?: number | null; low?: number | null; high?: number | null };
 }
@@ -49,6 +51,8 @@ export interface ContextStudy {
   license: string;
   /** Derived from the study's own design by lib/pipeline/grade.ts. Shown, never scored. */
   tier: EvidenceGrade;
+  /** Why it earned that grade, in one plain sentence. */
+  why: string;
 }
 
 /** Background knowledge the owner has reviewed. Carries no numbers. */
@@ -102,7 +106,9 @@ export interface PaperMeta {
   species: string;
   sampleSize: number | null;
   /** Distinct outcomes that carry weight in this paper's protocol, strongest first. */
-  grades: { outcome: string; tier: EvidenceGrade }[];
+  grades: { outcome: string; tier: EvidenceGrade; why: string }[];
+  /** "20 healthy adults · randomized crossover trial · four breakfasts each": who, design, how many or how long. */
+  sourceLine: string;
   /** True when a step depends on a block start date. */
   hasBlock: boolean;
   simulatorKind: string;
@@ -169,6 +175,8 @@ export interface PaperContent {
   /** Every source the read uses besides its own paper. Absent when there is none. */
   context?: { studies: ContextStudy[]; concepts: ContextConcept[] };
   primaryEstimate: string;
+  /** The paper's source line (as on PaperMeta): what "from the paper" means for this read. */
+  sourceLine: string;
   /** The finding card: a plain headline and one supporting line (the source line is derived). */
   finding: { headline: Sentence[]; support: Sentence[] };
   facts: Record<string, ResolvedFact>;

@@ -19,6 +19,9 @@ import type { FigureRef, GlossaryEntry, PaperContent, ResolvedFact, Sentence } f
 import { formatEstimate, signed } from "@/lib/pipeline/format";
 import { simulatorBand } from "@/lib/models/spread";
 import { BandStrip } from "@/components/figures/BandStrip";
+import { SourceLineContext, useSourceLine } from "./source-line-context";
+
+export { SourceLineContext };
 
 export type Facts = Record<string, ResolvedFact>;
 export type Context = PaperContent["context"];
@@ -34,6 +37,7 @@ const escaped = (term: string) => term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
  */
 export function Glossary({ content, children }: { content: Pick<PaperContent, "glossary" | "facts" | "context">; children: ReactNode }) {
   const [word, setWord] = useState<string | null>(null);
+  const sourceLine = useSourceLine();
   const entries = useMemo(() => content.glossary ?? [], [content.glossary]);
   const value = useMemo(() => {
     if (entries.length === 0) return null;
@@ -60,7 +64,7 @@ export function Glossary({ content, children }: { content: Pick<PaperContent, "g
             )}
             {sources.map((fact) => (
               <div key={fact.id} data-passage className="rounded-lg border border-line bg-raised px-3.5 py-3">
-                <p className="text-xs font-medium text-muted">{factSourceLine(fact, content)}, word for word</p>
+                <p className="text-xs font-medium text-muted" data-source-line>{factSourceLine(fact, { context: content.context, sourceLine })}</p>
                 <p className="mt-0.5 font-serif text-[0.9375rem] italic leading-snug text-muted">&ldquo;{fact.quote}&rdquo;</p>
               </div>
             ))}
@@ -95,6 +99,7 @@ export function Para({ sentences, facts, context, className = "read", as: Tag = 
   sentences: Sentence[]; facts: Facts; context?: Context; className?: string; as?: "p" | "h2"; plain?: boolean;
 }) {
   const [open, setOpen] = useState<number | null>(null);
+  const sourceLine = useSourceLine();
   if (plain) return <Tag className={className}>{sentences.map((s) => s.text).join(" ")}</Tag>;
 
   const shown = open === null ? [] : sentences[open].refs.map((id) => facts[id]).filter(Boolean);
@@ -142,13 +147,13 @@ export function Para({ sentences, facts, context, className = "read", as: Tag = 
           ))}
           {shown.map((fact) => (
             <div key={fact.id}>
-              <p className="text-xs font-medium text-muted">{factSourceLine(fact, { context })}, word for word</p>
+              <p className="text-xs font-medium text-muted" data-source-line>{factSourceLine(fact, { context, sourceLine })}</p>
               <p className="mt-1 text-sm font-medium leading-snug">{fact.label}</p>
               <p className="mt-0.5 font-serif text-[0.9375rem] italic leading-snug text-muted">&ldquo;{fact.quote}&rdquo;</p>
-              {fact.estimate && (
-                <p className="mt-1.5">
-                  <GradeChip grade={fact.estimate.tier} />
-                </p>
+              {(fact.estimate ?? fact.finding) && (
+                <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <GradeChip grade={(fact.estimate ?? fact.finding)!.tier} why={fact.why} />
+                </div>
               )}
             </div>
           ))}
@@ -191,7 +196,7 @@ export function Pictured({ slug, figure, facts, context, still = false }: {
  * Every word comes from the editorial's `card` (linted like the read); every number from the
  * gated fact. A relative figure says so.
  */
-export function FindingCard({ content, plain = false }: { content: Pick<PaperContent, "finding" | "facts" | "context" | "primaryEstimate">; plain?: boolean }) {
+export function FindingCard({ content, plain = false }: { content: Pick<PaperContent, "finding" | "facts" | "context" | "primaryEstimate" | "sourceLine">; plain?: boolean }) {
   const fact = content.facts[content.primaryEstimate];
   if (!fact) return null;
   const { facts, context, finding } = content;
@@ -211,8 +216,8 @@ export function FindingCard({ content, plain = false }: { content: Pick<PaperCon
         </div>
       ) : null}
       <p className="label mt-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-line pt-2.5">
-        <span data-source-line>{factSourceLine(fact, { context })}</span>
-        {tier ? <GradeChip grade={tier} /> : null}
+        <span data-source-line>{factSourceLine(fact, content)}</span>
+        {tier ? <GradeChip grade={tier} why={plain ? undefined : fact.why} /> : null}
       </p>
     </aside>
   );

@@ -17,6 +17,10 @@
     "headline": "more fat-free mass than no exercise, in the trials pooled. [ffm_all]",
     "support": "Fat-free mass is everything in the body that is not fat. [ffm_all]"
   },
+  "source": {
+    "who": "1,130 adults [sample]",
+    "span": "3 to 15 weeks each [trials]"
+  },
   "sections": [
     {
       "id": "found",

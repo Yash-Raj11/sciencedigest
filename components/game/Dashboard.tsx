@@ -25,9 +25,6 @@ function ScoreCard({ game, hydrated }: { game: Game; hydrated: boolean }) {
           <p className="figure text-[4.5rem] text-accent-text" data-accent-slot>{hydrated ? result.pct : 0}<span className="text-[0.45em]">%</span></p>
           <p className="mt-2 text-sm font-medium">Adherence, weighted by evidence</p>
         </div>
-        <p className="num pb-1 text-right text-sm leading-snug text-muted">
-          {result.earned.toFixed(1)} of {result.possible.toFixed(1)}<br />weight earned today
-        </p>
       </div>
 
       <div className="mt-4"><LifeBar segments={hydrated ? game.segments : []} /></div>

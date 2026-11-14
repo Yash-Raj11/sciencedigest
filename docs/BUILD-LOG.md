@@ -1264,3 +1264,25 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - Tests: `tests/browser/readability.spec.ts` + 7 (the three free cards; no "significant",
   p-value, CI or effect size in a read outside the Receipts, with a planted CI that must be
   caught); `plain.test.ts` + 1 (labels).
+
+## 2026-11-14, Readability 4: source line and grade in words
+
+- The paper's own facts are no longer "From the paper": the read carries a source line,
+  who · design · how many or how long, from a new required editorial `source: { who, span }`
+  (markup, linted; the design comes from the gate via `DESIGN_LABEL`). Caffeine "Twenty healthy
+  young men · randomized crossover trial · 10 days per condition"; turmeric "20 healthy adults ·
+  randomized crossover trial · four breakfasts each"; steps "3,101 US adults · observational
+  cohort · followed for 10 years"; HIIT "1,130 adults · pooled randomized trials · 3 to 15 weeks
+  each". It heads the finding card, every passage, the glossary sheet, the turmeric figure's
+  reading box and the simulator's "What this paper found" box (`SourceLineContext`, in its own
+  module so a figure can read it without a cycle through the registry). "From another study:
+  <cite>, <grade>" keeps its form, with the grade in words.
+- The grade is words and a 3-bar meter (`lib/evidence-words.ts`): Early, Decent, Strong
+  evidence. Where there is room to tap it is a button that opens one plain sentence on why
+  (`gradeWhy`, written in deriveTier's order and tested against it on all 800 input
+  combinations). The weight is gone from every screen (LifeBar, Dashboard's "x of y weight
+  earned", the home explainer, the HIIT simulator, WhatWasMeasured). `weightLabel` stays in
+  lib/evidence.ts for tests only; a static test fails if components/ or app/ import or print one.
+- Feed cards (one link each) show the meter without the button.
+- Tests: `lib/evidence-words.test.ts` (6), context.test.ts expectations, browser
+  `source-line.spec.ts` (4: passage line, card lines, meter + why tap, no "×" on 7 screens).

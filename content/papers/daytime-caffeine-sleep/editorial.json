@@ -17,6 +17,10 @@
     "headline": "Sleep showed no clear difference from placebo nights. [sleep_same]",
     "support": "Total sleep, time to fall asleep and sleep stages were all checked. [sleep_same]"
   },
+  "source": {
+    "who": "Twenty healthy young men [sample, who]",
+    "span": "10 days per condition [schedule]"
+  },
   "sections": [
     {
       "id": "did",

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { GRADE_NAME, weightLabel } from "@/lib/evidence";
+import { GRADE_WORDS } from "@/lib/evidence-words";
 import type { Game } from "@/lib/store/game";
 
 /**
@@ -34,7 +34,7 @@ export function LifeBar({ segments }: { segments: Game["segments"] }) {
             type="button"
             onClick={() => setActiveId((id) => (id === s.id ? null : s.id))}
             aria-pressed={s.id === activeId}
-            aria-label={`${s.label}. ${GRADE_NAME[s.grade]}, counts ${weightLabel(s.grade)}. ${s.satisfied ? "Done" : "Not done"}.`}
+            aria-label={`${s.label}. ${GRADE_WORDS[s.grade]}. ${s.satisfied ? "Done" : "Not done"}.`}
             style={{ flexGrow: s.tenths, flexBasis: 0 }}
             className={`relative min-w-2 overflow-hidden rounded-[5px] border-2 ${s.satisfied ? "border-ink" : "border-muted/50"} ${s.id === activeId ? "outline outline-2 outline-offset-2 outline-ink" : ""}`}
           >
@@ -44,7 +44,7 @@ export function LifeBar({ segments }: { segments: Game["segments"] }) {
       </div>
       <p className="num mt-2 min-h-[2.5rem] text-sm leading-snug text-muted" aria-live="polite">
         {active
-          ? <><strong className="text-ink">{active.label}</strong> ({active.paperTitle}). {GRADE_NAME[active.grade]}, so it counts {weightLabel(active.grade)}. {active.satisfied ? "Done." : "Not done yet."}</>
+          ? <><strong className="text-ink">{active.label}</strong> ({active.paperTitle}). {GRADE_WORDS[active.grade]}. {active.satisfied ? "Done." : "Not done yet."}</>
           : "Wider blocks have stronger evidence behind them. Tap a block to see what it is."}
       </p>
     </div>

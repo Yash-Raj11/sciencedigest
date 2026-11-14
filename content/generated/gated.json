@@ -279,6 +279,7 @@
                 "kind": "estimate",
                 "label": "Fat-free mass, all interval training vs control",
                 "quote": "HIIT induced an overall significant improvement in FFM (WMD: 0.51 kg, 95% CI: 0.06 to 0.95",
+                "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
                 "estimate": {
                   "outcome": "Fat-free mass",
                   "measure": "WMD",
@@ -299,6 +300,7 @@
                 "kind": "estimate",
                 "label": "Fat mass, all interval training vs control",
                 "quote": "HIIT resulted in a significant reduction in FM (WMD: −1.86 kg, 95% CI: −2.55 to −1.18",
+                "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
                 "estimate": {
                   "outcome": "Fat mass",
                   "measure": "WMD",
@@ -319,6 +321,7 @@
                 "kind": "estimate",
                 "label": "Body fat percentage, all interval training vs control",
                 "quote": "induced a significant reduction in BF% [weighted mean difference (WMD): −1.53%, 95% CI: −2.13, −0.92",
+                "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low.",
                 "estimate": {
                   "outcome": "Body fat percentage",
                   "measure": "WMD",
@@ -372,6 +375,7 @@
                 "kind": "estimate",
                 "label": "Fat-free mass, all interval training vs control",
                 "quote": "HIIT induced an overall significant improvement in FFM (WMD: 0.51 kg, 95% CI: 0.06 to 0.95",
+                "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
                 "estimate": {
                   "outcome": "Fat-free mass",
                   "measure": "WMD",
@@ -399,6 +403,7 @@
                 "kind": "estimate",
                 "label": "Fat mass, all interval training vs control",
                 "quote": "HIIT resulted in a significant reduction in FM (WMD: −1.86 kg, 95% CI: −2.55 to −1.18",
+                "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
                 "estimate": {
                   "outcome": "Fat mass",
                   "measure": "WMD",
@@ -426,6 +431,7 @@
                 "kind": "estimate",
                 "label": "Body fat percentage, all interval training vs control",
                 "quote": "induced a significant reduction in BF% [weighted mean difference (WMD): −1.53%, 95% CI: −2.13, −0.92",
+                "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low.",
                 "estimate": {
                   "outcome": "Body fat percentage",
                   "measure": "WMD",
@@ -452,6 +458,7 @@
                     "kind": "estimate",
                     "label": "Fat-free mass, cycling",
                     "quote": "only HIIT involving cycling interventions resulted in a significant increase in FFM compared to other exercise modalities (WMD: 0.63 kg, 95% CI: 0.17 to 1.09",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
                     "estimate": {
                       "outcome": "Fat-free mass",
                       "measure": "WMD",
@@ -468,6 +475,7 @@
                     "kind": "estimate",
                     "label": "Fat mass, cycling",
                     "quote": "cycling and overground running reduced FM (WMD: −1.72 kg, 95% CI: −2.41 to −1.30,0.001 and WMD: −4.25 kg, 95% CI: −5.90 to −2.61",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
                     "estimate": {
                       "outcome": "Fat mass",
                       "measure": "WMD",
@@ -490,6 +498,7 @@
                     "kind": "estimate",
                     "label": "Fat mass, overground running",
                     "quote": "cycling and overground running reduced FM (WMD: −1.72 kg, 95% CI: −2.41 to −1.30,0.001 and WMD: −4.25 kg, 95% CI: −5.90 to −2.61",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
                     "estimate": {
                       "outcome": "Fat mass",
                       "measure": "WMD",
@@ -506,6 +515,7 @@
                     "kind": "estimate",
                     "label": "Body fat percentage, overground running",
                     "quote": "overground running induced the largest overall effect (WMD: −2.80%, 95% CI: −3.89 to −1.71",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low.",
                     "estimate": {
                       "outcome": "Body fat percentage",
                       "measure": "WMD",
@@ -527,6 +537,7 @@
                     "kind": "estimate",
                     "label": "Fat mass, treadmill running",
                     "quote": "treadmill running did not induce significant changes (WMD: −1.10 kg, 95% CI: −2.82 to 0.62",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
                     "estimate": {
                       "outcome": "Fat mass",
                       "measure": "WMD",
@@ -554,6 +565,7 @@
                     "kind": "estimate",
                     "label": "Fat-free mass, programmes longer than 8 weeks",
                     "quote": "produced larger effects than trials of shorter (i.e., less than 8 weeks) durations (WMD: 0.63 kg, 95% CI: 0.17 to 1.10",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
                     "estimate": {
                       "outcome": "Fat-free mass",
                       "measure": "WMD",
@@ -570,6 +582,7 @@
                     "kind": "estimate",
                     "label": "Fat mass, programmes longer than 8 weeks",
                     "quote": "a larger effect on FM was noted when compared to shorter (i.e., less than 8 weeks) interventions (WMD: −1.92 kg, 95% CI: −2.35 to −1.50",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
                     "estimate": {
                       "outcome": "Fat mass",
                       "measure": "WMD",
@@ -586,6 +599,7 @@
                     "kind": "estimate",
                     "label": "Body fat percentage, programmes longer than 8 weeks",
                     "quote": "a larger effect on BF% was noted when compared to shorter (i.e., less than 8 weeks) interventions (WMD: −2.08%, 95% CI: −2.40 to −1.76",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low.",
                     "estimate": {
                       "outcome": "Body fat percentage",
                       "measure": "WMD",
@@ -619,6 +633,7 @@
                     "kind": "estimate",
                     "label": "Fat-free mass, 3 sessions a week",
                     "quote": "3 sessions per week induced a significant increase in FFM (WMD: 0.50 kg, 95% CI: 0.06 to 0.94",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
                     "estimate": {
                       "outcome": "Fat-free mass",
                       "measure": "WMD",
@@ -635,6 +650,7 @@
                     "kind": "estimate",
                     "label": "Fat mass, 3 sessions a week",
                     "quote": "2 and 3 sessions per week had a significant effect on reducing FM (WMD: −4.43 kg, 95% CI: −6.62 to −2.24,0.001 and WMD: −1.24 kg, 95% CI: −2.00 to −0.48",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
                     "estimate": {
                       "outcome": "Fat mass",
                       "measure": "WMD",
@@ -651,6 +667,7 @@
                     "kind": "estimate",
                     "label": "Body fat percentage, 3 sessions a week",
                     "quote": "three sessions per week had a significant effect on reducing BF% (WMD: −1.17%, 95% CI: −1.85 to −0.50,0.001), while two sessions per week were not significant (WMD: −3.23%, 95% CI: −6.52 to 0.04",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low.",
                     "estimate": {
                       "outcome": "Body fat percentage",
                       "measure": "WMD",
@@ -672,6 +689,7 @@
                     "kind": "estimate",
                     "label": "Fat mass, 2 sessions a week",
                     "quote": "2 and 3 sessions per week had a significant effect on reducing FM (WMD: −4.43 kg, 95% CI: −6.62 to −2.24,0.001 and WMD: −1.24 kg, 95% CI: −2.00 to −0.48",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
                     "estimate": {
                       "outcome": "Fat mass",
                       "measure": "WMD",
@@ -688,6 +706,7 @@
                     "kind": "estimate",
                     "label": "Body fat percentage, 2 sessions a week",
                     "quote": "three sessions per week had a significant effect on reducing BF% (WMD: −1.17%, 95% CI: −1.85 to −0.50,0.001), while two sessions per week were not significant (WMD: −3.23%, 95% CI: −6.52 to 0.04",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low.",
                     "estimate": {
                       "outcome": "Body fat percentage",
                       "measure": "WMD",
@@ -714,6 +733,7 @@
                     "kind": "estimate",
                     "label": "Fat-free mass, work bursts of 60 s or less",
                     "quote": "≤60 s produced a significant increase in FFM (WMD: 0.57 kg, 95% CI: 0.29 to 1.44",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
                     "estimate": {
                       "outcome": "Fat-free mass",
                       "measure": "WMD",
@@ -730,6 +750,7 @@
                     "kind": "estimate",
                     "label": "Fat mass, work bursts of 60 s or less",
                     "quote": "produced a significant reduction in FM (WMD: −2.20 kg, 95% CI: −3.01 to −1.39,0.001 and WMD: −1.14 kg, 95% CI: −2.13 to −0.15",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
                     "estimate": {
                       "outcome": "Fat mass",
                       "measure": "WMD",
@@ -746,6 +767,7 @@
                     "kind": "estimate",
                     "label": "Body fat percentage, work bursts of 60 s or less",
                     "quote": "produced a significant reduction in BF% (WMD: −1.87%, 95% CI: −2.78 to −0.96,0.001 and WMD: −0.92%, 95% CI: −1.71 to −0.13",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low.",
                     "estimate": {
                       "outcome": "Body fat percentage",
                       "measure": "WMD",
@@ -766,6 +788,7 @@
                     "kind": "estimate",
                     "label": "Fat-free mass, work bursts longer than 60 s",
                     "quote": ">60 s did not induce significant changes (WMD: −0.85 kg, 95% CI: −2.28 to 0.57",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
                     "estimate": {
                       "outcome": "Fat-free mass",
                       "measure": "WMD",
@@ -782,6 +805,7 @@
                     "kind": "estimate",
                     "label": "Fat mass, work bursts longer than 60 s",
                     "quote": "produced a significant reduction in FM (WMD: −2.20 kg, 95% CI: −3.01 to −1.39,0.001 and WMD: −1.14 kg, 95% CI: −2.13 to −0.15",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
                     "estimate": {
                       "outcome": "Fat mass",
                       "measure": "WMD",
@@ -798,6 +822,7 @@
                     "kind": "estimate",
                     "label": "Body fat percentage, work bursts longer than 60 s",
                     "quote": "produced a significant reduction in BF% (WMD: −1.87%, 95% CI: −2.78 to −0.96,0.001 and WMD: −0.92%, 95% CI: −1.71 to −0.13",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low.",
                     "estimate": {
                       "outcome": "Body fat percentage",
                       "measure": "WMD",
@@ -824,6 +849,7 @@
                     "kind": "estimate",
                     "label": "Fat-free mass, rests of 90 s or less",
                     "quote": "The rest time subgroup for ≤90 s and active rest showed a significant increase in FFM (WMD: 0.70 kg, 95% CI: 0.22 to 1.18,0.004 and WMD: 0.68 kg, 95% CI: 0.20 to 1.17",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
                     "estimate": {
                       "outcome": "Fat-free mass",
                       "measure": "WMD",
@@ -840,6 +866,7 @@
                     "kind": "estimate",
                     "label": "Fat mass, rests of 90 s or less",
                     "quote": "showed a significant reduction in FM (WMD: −2.26 kg, 95% CI: −3.08 to −1.43,0.001 and WMD: −1.07 kg, 95% CI: −1.99 to −0.15",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
                     "estimate": {
                       "outcome": "Fat mass",
                       "measure": "WMD",
@@ -856,6 +883,7 @@
                     "kind": "estimate",
                     "label": "Body fat percentage, rests of 90 s or less",
                     "quote": "showed a significant reduction in BF% (WMD: −1.94%, 95% CI: −2.83 to −1.06,0.001 and WMD: −1.01%, 95% CI: −1.84 to −0.10",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low.",
                     "estimate": {
                       "outcome": "Body fat percentage",
                       "measure": "WMD",
@@ -876,6 +904,7 @@
                     "kind": "estimate",
                     "label": "Fat-free mass, rests longer than 90 s",
                     "quote": "passive and >90 s rest had no significant increase on FFM (WMD: −0.26 kg, 95% CI: −1.44 to 0.91,0.657, and WMD:−0.53 kg, 95% CI: −1.81 to 0.73",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
                     "estimate": {
                       "outcome": "Fat-free mass",
                       "measure": "WMD",
@@ -892,6 +921,7 @@
                     "kind": "estimate",
                     "label": "Fat mass, rests longer than 90 s",
                     "quote": "showed a significant reduction in FM (WMD: −2.26 kg, 95% CI: −3.08 to −1.43,0.001 and WMD: −1.07 kg, 95% CI: −1.99 to −0.15",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
                     "estimate": {
                       "outcome": "Fat mass",
                       "measure": "WMD",
@@ -908,6 +938,7 @@
                     "kind": "estimate",
                     "label": "Body fat percentage, rests longer than 90 s",
                     "quote": "showed a significant reduction in BF% (WMD: −1.94%, 95% CI: −2.83 to −1.06,0.001 and WMD: −1.01%, 95% CI: −1.84 to −0.10",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low.",
                     "estimate": {
                       "outcome": "Body fat percentage",
                       "measure": "WMD",
@@ -934,6 +965,7 @@
                     "kind": "estimate",
                     "label": "Fat-free mass, active rest",
                     "quote": "The rest time subgroup for ≤90 s and active rest showed a significant increase in FFM (WMD: 0.70 kg, 95% CI: 0.22 to 1.18,0.004 and WMD: 0.68 kg, 95% CI: 0.20 to 1.17",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
                     "estimate": {
                       "outcome": "Fat-free mass",
                       "measure": "WMD",
@@ -950,6 +982,7 @@
                     "kind": "estimate",
                     "label": "Fat mass, active rest",
                     "quote": "FM was reduced in all groups regardless of the type [active (WMD: −2.13 kg, 95% CI: −2.99 to −1.27,0.001) or passive (WMD: −1.52 kg, 95% CI: −2.77 to −0.27",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
                     "estimate": {
                       "outcome": "Fat mass",
                       "measure": "WMD",
@@ -966,6 +999,7 @@
                     "kind": "estimate",
                     "label": "Body fat percentage, active rest",
                     "quote": "[active (WMD: −1.60%, 95% CI: −2.43 to −0.77,0.001) or passive (WMD: −1.56%, 95% CI: −2.33 to −0.79",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low.",
                     "estimate": {
                       "outcome": "Body fat percentage",
                       "measure": "WMD",
@@ -986,6 +1020,7 @@
                     "kind": "estimate",
                     "label": "Fat-free mass, passive rest",
                     "quote": "passive and >90 s rest had no significant increase on FFM (WMD: −0.26 kg, 95% CI: −1.44 to 0.91,0.657, and WMD:−0.53 kg, 95% CI: −1.81 to 0.73",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
                     "estimate": {
                       "outcome": "Fat-free mass",
                       "measure": "WMD",
@@ -1002,6 +1037,7 @@
                     "kind": "estimate",
                     "label": "Fat mass, passive rest",
                     "quote": "FM was reduced in all groups regardless of the type [active (WMD: −2.13 kg, 95% CI: −2.99 to −1.27,0.001) or passive (WMD: −1.52 kg, 95% CI: −2.77 to −0.27",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
                     "estimate": {
                       "outcome": "Fat mass",
                       "measure": "WMD",
@@ -1018,6 +1054,7 @@
                     "kind": "estimate",
                     "label": "Body fat percentage, passive rest",
                     "quote": "[active (WMD: −1.60%, 95% CI: −2.43 to −0.77,0.001) or passive (WMD: −1.56%, 95% CI: −2.33 to −0.79",
+                    "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low.",
                     "estimate": {
                       "outcome": "Body fat percentage",
                       "measure": "WMD",
@@ -1038,6 +1075,7 @@
             "kind": "estimate",
             "label": "Fat-free mass after removing one trial (sensitivity analysis)",
             "quote": "the removal of one study [] in particular eliminated any observed significant overall effect of HIIT on FFM (WMD: −0.46, 95% CI: −1.38 to 0.44)",
+            "why": "It pools trials that assigned people at random, which rules out most other explanations.",
             "estimate": {
               "outcome": "Fat-free mass",
               "measure": "WMD",
@@ -1051,12 +1089,14 @@
           }
         }
       },
+      "sourceLine": "1,130 adults · pooled randomized trials · 3 to 15 weeks each",
       "facts": {
         "bf_2wk": {
           "id": "bf_2wk",
           "kind": "estimate",
           "label": "Body fat percentage, 2 sessions a week",
           "quote": "three sessions per week had a significant effect on reducing BF% (WMD: −1.17%, 95% CI: −1.85 to −0.50,0.001), while two sessions per week were not significant (WMD: −3.23%, 95% CI: −6.52 to 0.04",
+          "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low.",
           "estimate": {
             "outcome": "Body fat percentage",
             "measure": "WMD",
@@ -1073,6 +1113,7 @@
           "kind": "estimate",
           "label": "Body fat percentage, 3 sessions a week",
           "quote": "three sessions per week had a significant effect on reducing BF% (WMD: −1.17%, 95% CI: −1.85 to −0.50,0.001), while two sessions per week were not significant (WMD: −3.23%, 95% CI: −6.52 to 0.04",
+          "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low.",
           "estimate": {
             "outcome": "Body fat percentage",
             "measure": "WMD",
@@ -1089,6 +1130,7 @@
           "kind": "estimate",
           "label": "Body fat percentage, all interval training vs control",
           "quote": "induced a significant reduction in BF% [weighted mean difference (WMD): −1.53%, 95% CI: −2.13, −0.92",
+          "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low.",
           "estimate": {
             "outcome": "Body fat percentage",
             "measure": "WMD",
@@ -1105,6 +1147,7 @@
           "kind": "estimate",
           "label": "Body fat percentage, overground running",
           "quote": "overground running induced the largest overall effect (WMD: −2.80%, 95% CI: −3.89 to −1.71",
+          "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it low.",
           "estimate": {
             "outcome": "Body fat percentage",
             "measure": "WMD",
@@ -1127,6 +1170,7 @@
           "kind": "estimate",
           "label": "Fat-free mass, 3 sessions a week",
           "quote": "3 sessions per week induced a significant increase in FFM (WMD: 0.50 kg, 95% CI: 0.06 to 0.94",
+          "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
           "estimate": {
             "outcome": "Fat-free mass",
             "measure": "WMD",
@@ -1143,6 +1187,7 @@
           "kind": "estimate",
           "label": "Fat-free mass, active rest",
           "quote": "The rest time subgroup for ≤90 s and active rest showed a significant increase in FFM (WMD: 0.70 kg, 95% CI: 0.22 to 1.18,0.004 and WMD: 0.68 kg, 95% CI: 0.20 to 1.17",
+          "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
           "estimate": {
             "outcome": "Fat-free mass",
             "measure": "WMD",
@@ -1159,6 +1204,7 @@
           "kind": "estimate",
           "label": "Fat-free mass, all interval training vs control",
           "quote": "HIIT induced an overall significant improvement in FFM (WMD: 0.51 kg, 95% CI: 0.06 to 0.95",
+          "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
           "estimate": {
             "outcome": "Fat-free mass",
             "measure": "WMD",
@@ -1175,6 +1221,7 @@
           "kind": "estimate",
           "label": "Fat-free mass, cycling",
           "quote": "only HIIT involving cycling interventions resulted in a significant increase in FFM compared to other exercise modalities (WMD: 0.63 kg, 95% CI: 0.17 to 1.09",
+          "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
           "estimate": {
             "outcome": "Fat-free mass",
             "measure": "WMD",
@@ -1191,6 +1238,7 @@
           "kind": "estimate",
           "label": "Fat-free mass, work bursts longer than 60 s",
           "quote": ">60 s did not induce significant changes (WMD: −0.85 kg, 95% CI: −2.28 to 0.57",
+          "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
           "estimate": {
             "outcome": "Fat-free mass",
             "measure": "WMD",
@@ -1207,6 +1255,7 @@
           "kind": "estimate",
           "label": "Fat-free mass, work bursts of 60 s or less",
           "quote": "≤60 s produced a significant increase in FFM (WMD: 0.57 kg, 95% CI: 0.29 to 1.44",
+          "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
           "estimate": {
             "outcome": "Fat-free mass",
             "measure": "WMD",
@@ -1223,6 +1272,7 @@
           "kind": "estimate",
           "label": "Fat-free mass after removing one trial (sensitivity analysis)",
           "quote": "the removal of one study [] in particular eliminated any observed significant overall effect of HIIT on FFM (WMD: −0.46, 95% CI: −1.38 to 0.44)",
+          "why": "It pools trials that assigned people at random, which rules out most other explanations.",
           "estimate": {
             "outcome": "Fat-free mass",
             "measure": "WMD",
@@ -1251,6 +1301,7 @@
           "kind": "estimate",
           "label": "Fat-free mass, programmes longer than 8 weeks",
           "quote": "produced larger effects than trials of shorter (i.e., less than 8 weeks) durations (WMD: 0.63 kg, 95% CI: 0.17 to 1.10",
+          "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
           "estimate": {
             "outcome": "Fat-free mass",
             "measure": "WMD",
@@ -1267,6 +1318,7 @@
           "kind": "estimate",
           "label": "Fat-free mass, passive rest",
           "quote": "passive and >90 s rest had no significant increase on FFM (WMD: −0.26 kg, 95% CI: −1.44 to 0.91,0.657, and WMD:−0.53 kg, 95% CI: −1.81 to 0.73",
+          "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
           "estimate": {
             "outcome": "Fat-free mass",
             "measure": "WMD",
@@ -1283,6 +1335,7 @@
           "kind": "estimate",
           "label": "Fat mass, all interval training vs control",
           "quote": "HIIT resulted in a significant reduction in FM (WMD: −1.86 kg, 95% CI: −2.55 to −1.18",
+          "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
           "estimate": {
             "outcome": "Fat mass",
             "measure": "WMD",
@@ -1299,6 +1352,7 @@
           "kind": "estimate",
           "label": "Fat mass, treadmill running",
           "quote": "treadmill running did not induce significant changes (WMD: −1.10 kg, 95% CI: −2.82 to 0.62",
+          "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
           "estimate": {
             "outcome": "Fat mass",
             "measure": "WMD",

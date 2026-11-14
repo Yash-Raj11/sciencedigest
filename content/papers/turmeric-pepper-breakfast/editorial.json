@@ -17,6 +17,10 @@
     "headline": "Blood sugar differed 30 min after the pepper meals. [glucose_30]",
     "support": "The paper doesn't say by how much. [glucose_30]"
   },
+  "source": {
+    "who": "20 healthy adults [sample]",
+    "span": "four breakfasts each [crossover]"
+  },
   "layers": {
     "mechanism": {
       "paragraphs": [

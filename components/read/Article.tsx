@@ -30,7 +30,7 @@ import { useStore } from "@/lib/store";
 import { isDemo } from "@/lib/supabase/client";
 import { KindSimulator } from "./KindSimulator";
 import { MemberExtras } from "./MemberExtras";
-import { FindingCard, Glossary, Para, Pictured, type Context, type Facts } from "./parts";
+import { FindingCard, Glossary, Para, Pictured, SourceLineContext, type Context, type Facts } from "./parts";
 
 const LAYER = "headline";
 /** An old-shape read's sections that are receipts (until step 2E moves them into the audit layer). */
@@ -263,6 +263,7 @@ export function Article({ paper }: { paper: PaperMeta }) {
   const read: Gated<PaperContent> | null = bundled ? { state: "ok", value: bundled } : fetched;
 
   return (
+    <SourceLineContext.Provider value={read?.state === "ok" ? read.value.sourceLine : paper.sourceLine}>
     <article className="space-y-7">
       <header className="pt-2">
         <Link href="/" className="text-sm font-medium text-muted underline underline-offset-4">All reads</Link>
@@ -272,9 +273,9 @@ export function Article({ paper }: { paper: PaperMeta }) {
         <h1 className="mt-2 text-[1.0625rem] font-medium leading-snug text-muted">{paper.title}</h1>
         <dl className="mt-4 space-y-1.5">
           {paper.grades.map((g) => (
-            <div key={g.outcome} className="flex items-center justify-between gap-3 border-t border-line pt-1.5">
-              <dt className="min-w-0 text-sm leading-snug">{g.outcome}</dt>
-              <dd><GradeChip grade={g.tier} /></dd>
+            <div key={g.outcome} className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-line pt-1.5">
+              <dt className="min-w-0 flex-1 text-sm leading-snug">{g.outcome}</dt>
+              <dd className="contents"><GradeChip grade={g.tier} why={g.why} /></dd>
             </div>
           ))}
         </dl>
@@ -335,5 +336,6 @@ export function Article({ paper }: { paper: PaperMeta }) {
         </p>
       </footer>
     </article>
+    </SourceLineContext.Provider>
   );
 }

@@ -120,7 +120,9 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
         `lib/pipeline/plain.test.ts`; `docs/evidence/readability/plain-rules-broken.txt` (5 of 5).
   - [x] 3. Finding cards: plain headline → one supporting line → source line (editorial `card`;
         `FindingCard`, `BandStrip`). Screens: `docs/evidence/readability/card-*.png`.
-  - [ ] IN PROGRESS: 4. Source line + evidence grade words and meter.
+  - [x] 4. Source line (who · design · how long) + grade words, 3-bar meter, tap for why; no
+        weight on any screen. `lib/evidence-words.ts`; tests `lib/evidence-words.test.ts`,
+        `tests/browser/source-line.spec.ts`. Screens: `docs/evidence/readability/card-*.png`.
   - [ ] 5. Feed card = the key idea at a glance; "What's inside" rows deep-link to slots.
   - [ ] 6. Hosted seed: dry run, then push on the owner's "go".
   - [ ] 7. Figure plans (concept sketch; caffeine, turmeric, steps + HIIT) in SIMULATORS.md.

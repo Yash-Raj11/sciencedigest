@@ -36,7 +36,7 @@ export function KindSimulator({ content, observational }: { content: PaperConten
           <>
             <h3 className="text-sm font-medium text-muted">What this paper found</h3>
             {say("finding", "mt-1 text-base leading-snug")}
-            <p className="mt-1.5 text-sm text-muted">{FROM_THE_PAPER}.</p>
+            <p className="label mt-1.5" data-beside-source>{content.sourceLine || FROM_THE_PAPER}</p>
           </>
         ) : null}
       />

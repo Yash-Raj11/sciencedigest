@@ -12,6 +12,8 @@ import { Editorial, LegacyEditorial, editorialShape, type FigureRef as FigureDef
 import { formatEstimate } from "./format";
 import type { Validated, ValidatedFact } from "./gate";
 import { deriveTier } from "./grade";
+import { gradeWhy } from "../evidence-words";
+import { DESIGN_LABEL } from "../content/source-line";
 import type { LintContext } from "./lint";
 import { parseMarkup, plain } from "./markup";
 import { conceptRef, parseRef } from "./refs";
@@ -95,7 +97,7 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
   };
 
   // Key order is kept as it was for the old flat shape, so its generated files do not change.
-  const content: Omit<PaperContent, "facts"> = "layers" in ed
+  const content: Omit<PaperContent, "facts" | "sourceLine"> = "layers" in ed
     ? {
       hook: sentences(ed.hook),
       populationPanel: sentences(ed.populationPanel),
@@ -146,13 +148,22 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
     return study.validated;
   };
 
+  /** Why a graded fact earned its grade, from the study it belongs to. */
+  const whyOf = (fact: ValidatedFact, from: Validated): string | undefined => {
+    const tier = fact.estimate?.tier ?? fact.finding?.tier;
+    if (!tier) return undefined;
+    return gradeWhy({ tier, design: from.design, species: from.species, sampleSize: from.sampleSize, reported: Boolean(fact.estimate?.gradeRef) });
+  };
+
   const resolve = (id: string): ResolvedFact => {
     const ref = parseRef(id);
     const fact: ValidatedFact | undefined = ref.kind === "study" ? studyOf(ref.source).facts[ref.fact] : validated.facts[id];
     if (!fact) throw new Error(`unknown fact "${id}" (the lint should have caught this)`);
+    const why = whyOf(fact, ref.kind === "study" ? studyOf(ref.source) : validated);
     return {
       id, kind: fact.kind, label: fact.label, quote: fact.quote,
       ...(ref.kind === "study" ? { source: ref.source } : {}),
+      ...(why ? { why } : {}),
       ...(fact.estimate ? {
         estimate: {
           outcome: fact.estimate.outcome, measure: fact.estimate.measure, point: fact.estimate.point,
@@ -210,7 +221,10 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
         sampleSize: study.sampleSize,
         license: study.license,
         // The study's own grade, from its own design. Shown beside what it says; never scored.
-        tier: deriveTier({ design: study.design, species: study.species, sampleSize: study.sampleSize, reportedGrade: null }),
+        ...(() => {
+          const tier = deriveTier({ design: study.design, species: study.species, sampleSize: study.sampleSize, reportedGrade: null });
+          return { tier, why: gradeWhy({ tier, design: study.design, species: study.species, sampleSize: study.sampleSize, reported: false }) };
+        })(),
       });
     } else {
       const concept = context.concepts[ref.slug];
@@ -235,14 +249,18 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
       .map(plain).join(" "),
   ).length;
 
-  const gradeByOutcome = new Map<string, EvidenceGrade>();
+  const gradeByOutcome = new Map<string, { tier: EvidenceGrade; why: string }>();
   for (const def of ed.steps) {
     const evidence = def.evidenceRef ? validated.facts[def.evidenceRef] : undefined;
     const graded = evidence?.estimate ?? evidence?.finding;
-    if (!graded || def.retired) continue;
+    if (!evidence || !graded || def.retired) continue;
     const current = gradeByOutcome.get(graded.outcome);
-    if (!current || WEIGHT_TENTHS[graded.tier] > WEIGHT_TENTHS[current]) gradeByOutcome.set(graded.outcome, graded.tier);
+    if (!current || WEIGHT_TENTHS[graded.tier] > WEIGHT_TENTHS[current.tier]) {
+      gradeByOutcome.set(graded.outcome, { tier: graded.tier, why: whyOf(evidence, validated)! });
+    }
   }
+  // Who · design · how many or how long. The design is the gate's; the words are the editorial's.
+  const sourceLine = [plain(parseMarkup(ed.source.who)), (DESIGN_LABEL[validated.design] ?? validated.design).toLowerCase(), plain(parseMarkup(ed.source.span))].join(" · ");
 
   const id = validated.identifiers;
   const strip = (markup: string | null) => (markup ? plain(parseMarkup(markup)) : null);
@@ -268,14 +286,15 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
       design: validated.design,
       species: validated.species,
       sampleSize: validated.sampleSize,
-      grades: [...gradeByOutcome].map(([outcome, tier]) => ({ outcome, tier }))
+      sourceLine,
+      grades: [...gradeByOutcome].map(([outcome, g]) => ({ outcome, tier: g.tier, why: g.why }))
         .sort((a, b) => WEIGHT_TENTHS[b.tier] - WEIGHT_TENTHS[a.tier]),
       hasBlock: ed.steps.some((s) => s.conditionKey === "block_weeks_gte" && !s.retired),
       simulatorKind: ed.simulator.kind,
     },
     steps,
     choices: ed.choices,
-    content: { ...content, facts, ...usedContext },
+    content: { ...content, sourceLine, facts, ...usedContext },
     takeaways,
     carousel: {
       slug: ed.slug,

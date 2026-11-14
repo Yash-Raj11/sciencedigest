@@ -17,6 +17,10 @@
     "headline": "lower 10-year risk of death, compared with 0 days a week. [ard_1_2, followup, threshold]",
     "support": "People who reached 8,000 steps on 1 to 2 days a week, after the study's adjustments. [ard_1_2]"
   },
+  "source": {
+    "who": "3,101 US adults [sample]",
+    "span": "followed for 10 years [followup]"
+  },
   "sections": [
     {
       "id": "found",

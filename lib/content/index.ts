@@ -33,13 +33,4 @@ export function defaultChoices(slug: string): Record<string, string> {
   return out;
 }
 
-export const DESIGN_LABEL: Record<string, string> = {
-  meta_analysis_rct: "Pooled randomized trials",
-  rct: "Randomized trial",
-  crossover: "Randomized crossover trial",
-  cohort: "Observational cohort",
-  case_control: "Case-control study",
-  cross_sectional: "Cross-sectional survey",
-  animal: "Animal study",
-  in_vitro: "Cell study",
-};
+export { DESIGN_LABEL } from "./source-line";

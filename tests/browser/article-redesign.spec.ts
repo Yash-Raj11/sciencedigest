@@ -27,11 +27,12 @@ test.describe("the feed", () => {
       await expect(card.getByRole("heading", { level: 2 })).toHaveText(hook);
       await expect(card.getByText(`${paper.readMinutes} min read`)).toBeVisible();
       await expect(card.locator("svg[data-figure]"), `${paper.slug}: the figure`).toBeVisible();
-      await expect(card.getByText(/×/).first(), `${paper.slug}: the grade chip`).toBeVisible();
+      await expect(card.getByText(/^(Early|Decent|Strong) evidence$/).first(), `${paper.slug}: the grade chip`).toBeVisible();
+      await expect(card, `${paper.slug}: no weight`).not.toContainText("×");
       // A card is one link: it holds no button, so the figure is in its first, untouched view.
       await expect(card.locator("button, [role=button]")).toHaveCount(0);
       if (paper.accessTier === "free") {
-        await expect(card.locator("[data-finding-card] [data-source-line]")).toHaveText("From the paper");
+        await expect(card.locator("[data-finding-card] [data-source-line]")).toHaveText(paper.sourceLine);
       } else {
         // A members' read: the hook and the figure, and nothing else of it.
         await expect(card.locator("[data-finding-card]")).toHaveCount(0);
@@ -89,7 +90,7 @@ test.describe("the read", () => {
     const card = page.locator("article [data-finding-card]");
     const estimate = freeContent("steps-days-per-week")!.facts[freeContent("steps-days-per-week")!.primaryEstimate].estimate!;
     await expect(card).toContainText(String(Math.abs(estimate.point)));
-    await expect(card.locator("[data-source-line]")).toHaveText("From the paper");
+    await expect(card.locator("[data-source-line]")).toHaveText("3,101 US adults · observational cohort · followed for 10 years");
   });
 
   test("a glossary word opens the sheet with its plain text and source line", async ({ page }) => {
@@ -103,7 +104,7 @@ test.describe("the read", () => {
     await expect(sheet).toBeVisible();
     await expect(sheet.getByRole("heading")).toHaveText(entry.term);
     await expect(sheet).toContainText(entry.plain);
-    await expect(sheet).toContainText(entry.concept ? "Background, not from this paper" : "From the paper, word for word");
+    await expect(sheet).toContainText(entry.concept ? "Background, not from this paper" : read.sourceLine);
     await sheet.getByRole("button", { name: "Close" }).click();
     await expect(page.locator("dialog[open]")).toHaveCount(0);
   });
@@ -170,7 +171,7 @@ test.describe("the readings grid (the one interactive figure)", () => {
     await flagged.tap();
     await expect(flagged).toHaveAttribute("aria-pressed", "true");
     await expect(live).toContainText(params.early.fact.quote);
-    await expect(live.locator("[data-source-line]")).toHaveText("From the paper, word for word");
+    await expect(live.locator("[data-source-line]")).toHaveText("20 healthy adults · randomized crossover trial · four breakfasts each");
     await expect(live).toContainText("differed from the plain meal");
     // A reading with no result behind it quotes the paper on the readings, not the result.
     const plain = page.locator(`${frame} [data-cell]`).first();

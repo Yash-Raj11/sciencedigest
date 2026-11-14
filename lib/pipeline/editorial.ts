@@ -88,6 +88,12 @@ const Base = {
    * The headline must cite primaryEstimate.
    */
   card: z.object({ headline: Markup, support: Markup }),
+  /**
+   * The source line (owner, 2026-11-14): who · design · how many or how long, e.g.
+   * "20 healthy adults · randomized crossover trial · four breakfasts each". `who` and `span`
+   * are written here (markup: a number cites its fact); the design comes from the gate.
+   */
+  source: z.object({ who: Markup, span: Markup }),
   takeaways: z.array(Markup).default([]),
   choices: z.array(ChoiceDef).default([]),
   steps: z.array(StepDef).min(1),
