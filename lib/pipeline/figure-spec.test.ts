@@ -9,6 +9,7 @@ import { describe, expect, it } from "vitest";
 import { FIGURE_KEYS } from "../content/figures";
 import { ESTIMATE_LABEL, FigureSpec, specProblems, type SpecFact } from "../content/figure-kinds";
 import { gate } from "./gate";
+import { HALF_LIFE_STUDY, REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
 import { BANNED_TERMS, SENTENCE_WORDS, THROAT_CLEARING, lint, type LintContext } from "./lint";
 import { approved, checkConcept } from "./concepts";
 
@@ -79,7 +80,9 @@ describe("through the content lint, on the caffeine paper", () => {
   const fixture = JSON.parse(readFileSync(new URL("fixtures/layered-caffeine.json", import.meta.url), "utf8"));
   const oldShape = JSON.parse(readFileSync(new URL("editorial.json", dir), "utf8"));
   const context: LintContext = {
-    studies: {},
+    // The real half-life study and library: caffeine's simulator draws on them.
+    studies: { ...REAL_STUDIES },
+    library: REAL_LIBRARY,
     concepts: {
       "non-rem-sleep": checkConcept(approved(fixture.concepts["non-rem-sleep"], "2026-11-13T00:00:00Z"),
         { banned: BANNED_TERMS, throatClearing: THROAT_CLEARING, maxSentenceWords: SENTENCE_WORDS.fail }),
@@ -111,8 +114,8 @@ describe("through the content lint, on the caffeine paper", () => {
   });
   function runWith(figureSpec: unknown, studies: LintContext["studies"], library: string[] = [`${OTHER}/half_life`]) {
     const saved = { studies: context.studies, library: context.library };
-    context.studies = studies;
-    context.library = library;
+    context.studies = { ...REAL_STUDIES, ...studies };
+    context.library = [...REAL_LIBRARY, ...library];
     try { return run(figureSpec); } finally { Object.assign(context, saved); }
   }
   const studySpec = { kind: "decay", facts: { halfLife: `${OTHER}/half_life` }, simulator: { halfLife: `${OTHER}/half_life` } };
@@ -132,8 +135,8 @@ describe("through the content lint, on the caffeine paper", () => {
     const base = Object.fromEntries(Object.entries(structuredClone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary"].includes(key)));
     const layers = structuredClone(fixture.layers);
     layers.mechanism.figure = { figure: "decay", caption: "How long it stays. [-]", alt: "A line that falls by half at each step. [-]", params: {}, spec: studySpec };
-    const report = lint(validated, { ...base, layers, glossary: structuredClone(fixture.glossary) } as never, source, { context: { ...context, studies: { [OTHER]: contextStudy(false) } }, figures: FIGURE_KEYS });
-    expect(report.context?.studies).toEqual([OTHER]);
+    const report = lint(validated, { ...base, layers, glossary: structuredClone(fixture.glossary) } as never, source, { context: { ...context, studies: { ...REAL_STUDIES, [OTHER]: contextStudy(false) } }, figures: FIGURE_KEYS });
+    expect(report.context?.studies).toEqual([HALF_LIFE_STUDY, OTHER].sort());
   });
 
   it("a withdrawn or missing context study cannot feed a spec", () => {

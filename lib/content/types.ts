@@ -170,7 +170,21 @@ export interface PaperContent {
   context?: { studies: ContextStudy[]; concepts: ContextConcept[] };
   primaryEstimate: string;
   facts: Record<string, ResolvedFact>;
-  simulator: { kind: string; params: Record<string, unknown> };
+  simulator: {
+    kind: string;
+    params: Record<string, unknown>;
+    /** Drawn by kind: each param of the spec, resolved to its gated fact (or facts). */
+    spec?: ResolvedSpec;
+    /** Drawn by kind: the sentences it shows, by name ("alt", "finding"). */
+    words?: Record<string, Sentence[]>;
+  };
+}
+
+/** A figure spec with every fact id replaced by the resolved fact. */
+export interface ResolvedSpec {
+  kind: string;
+  facts: Record<string, ResolvedFact | ResolvedFact[]>;
+  simulator: Record<string, ResolvedFact | ResolvedFact[]>;
 }
 
 export interface CarouselSlide {

@@ -25,6 +25,7 @@ import { spawn, type ChildProcess } from "node:child_process";
 import { createServer } from "node:net";
 import { expect, test } from "@playwright/test";
 import { freeContent, papers } from "../../lib/content";
+import { RANDOMIZED_DESIGNS, type Design } from "../../lib/pipeline/grade";
 import { EVIDENCE_KEY, FIGURE_KEYS } from "../../lib/content/figures";
 
 const ROUTE_ERROR = /Route "\/papers\/\[slug\]"|static shell|URL data|Invariant/;
@@ -158,7 +159,7 @@ for (const paper of papers) {
       await expect(frame.locator("[data-figure-legend]"), `${key}: the key appears only when both kinds are drawn`).toHaveCount(kinds.size > 1 ? 1 : 0);
       if (kinds.size > 1) await expect(frame.locator("[data-figure-legend]")).toHaveText(EVIDENCE_KEY);
       // An observational study gets no arrow at all.
-      if (!["rct", "meta_analysis_rct"].includes(paper.design)) expect(seen.arrows, `${key}: arrows in an observational figure`).toBe(0);
+      if (!RANDOMIZED_DESIGNS.has(paper.design as Design)) expect(seen.arrows, `${key}: arrows in an observational figure`).toBe(0);
       // Nothing in an untouched figure moves: motion is for measured change (2D, amendment B).
       const moving = await frame.evaluate((el) => [el, ...el.querySelectorAll("*")].filter((node) => getComputedStyle(node).animationName !== "none").length);
       expect(moving, `${key}: animated elements`).toBe(0);

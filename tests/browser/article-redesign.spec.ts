@@ -4,7 +4,7 @@
  */
 
 import { expect, test, type Page } from "@playwright/test";
-import { freeContent, papers } from "../../lib/content";
+import { DESIGN_LABEL, freeContent, getPaper, papers } from "../../lib/content";
 
 const SLUG = "turmeric-pepper-breakfast";
 const read = freeContent(SLUG)!;
@@ -112,7 +112,7 @@ test.describe("the read", () => {
   test("the limitation is bold without a tap; Full receipts holds the rest", async ({ page }) => {
     await page.goto(`/papers/${SLUG}`);
     const receipts = page.locator('section[aria-label="The receipts"]');
-    await expect(receipts).toContainText("Randomized trial");
+    await expect(receipts).toContainText(DESIGN_LABEL[getPaper(SLUG)!.design]); // "Randomized crossover trial" since the relabel
     const limitation = receipts.locator("ul p").first();
     await expect(limitation).toBeVisible();
     expect(await limitation.evaluate((el) => getComputedStyle(el).fontWeight)).toBe("700");

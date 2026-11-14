@@ -134,6 +134,11 @@ gated context study). Ids in `code`.
 
 ### 1. Caffeine: decay, "coffee time vs bedtime" (`daytime-caffeine-sleep`, free)
 
+**Built 2026-11-14.** `editorial.json` `simulator: { kind: "decay", spec, words }`: the spec
+names the library half-life; `words` holds the alt text, the half-life note and the paper's
+finding (markup, linted like the read). `components/figures/kinds/Decay.tsx` (full mode),
+`components/read/KindSimulator.tsx`, sums in `components/figures/decay-layout.ts`.
+
 - **Reader enters:** when they had caffeine, their amount in mg, and their bedtime. **No dose
   presets** (owner, 2026-11-14): how much caffeine is in a cup is not a gated fact, so the app
   offers no "one coffee = 95 mg" button. The field is empty until the reader types, and is

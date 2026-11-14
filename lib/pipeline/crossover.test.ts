@@ -13,6 +13,7 @@ import { loadStudy } from "../../scripts/context-load";
 import { gate } from "./gate";
 import { causalLanguagePermitted, deriveTier } from "./grade";
 import { lint, type ContextStudyState } from "./lint";
+import { REAL_LIBRARY } from "./fixtures/real-context";
 
 const DIR = new URL("../../content/context/caffeine-saliva-half-life/", import.meta.url);
 const SLUG = "caffeine-saliva-half-life";
@@ -123,7 +124,7 @@ describe("the excluded arm: only caffeine alone (arm A) is usable", () => {
   const contextErrors = (sentence: string, state: ContextStudyState = loaded) => {
     const ed = clone(editorial);
     ed.sections.find((x: { id: string }) => x.id === "parallel").paragraphs.push(sentence);
-    return lint(gated.validated, ed, paperSource, { allowLegacyShape: true, context: { studies: { [SLUG]: state }, concepts: {} } })
+    return lint(gated.validated, ed, paperSource, { allowLegacyShape: true, context: { studies: { [SLUG]: state }, concepts: {}, library: REAL_LIBRARY } })
       .errors.filter((e) => e.rule === "context").map((e) => e.message);
   };
 

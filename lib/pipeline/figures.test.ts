@@ -12,6 +12,7 @@ import { EVIDENCE_KEY, FIGURE_KEYS, assertEvidence, evidenceKindProblem, evidenc
 import { assemble } from "./assemble";
 import { approved, checkConcept } from "./concepts";
 import { gate } from "./gate";
+import { REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
 import { BANNED_TERMS, SENTENCE_WORDS, THROAT_CLEARING, lint, type LintContext } from "./lint";
 
 const dir = new URL("../../content/papers/daytime-caffeine-sleep/", import.meta.url);
@@ -25,7 +26,9 @@ const fixture = JSON.parse(readFileSync(new URL("fixtures/layered-caffeine.json"
 const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
 
 const context: LintContext = {
-  studies: {},
+  // The real half-life study and library: caffeine's simulator draws on them.
+  studies: { ...REAL_STUDIES },
+  library: REAL_LIBRARY,
   concepts: {
     "non-rem-sleep": checkConcept(approved(fixture.concepts["non-rem-sleep"], "2026-11-13T00:00:00Z"),
       { banned: BANNED_TERMS, throatClearing: THROAT_CLEARING, maxSentenceWords: SENTENCE_WORDS.fail }),
@@ -130,9 +133,9 @@ describe("a read with a figure", () => {
 describe("the old flat shape", () => {
   it("may carry one figure, held to the same rules", () => {
     const legacy = clone(oldShape);
-    expect(lint(validated, legacy, source, { allowLegacyShape: true, figures: FIGURE_KEYS }).errors).toEqual([]);
+    expect(lint(validated, legacy, source, { allowLegacyShape: true, context, figures: FIGURE_KEYS }).errors).toEqual([]);
     legacy.figure.params.found = { kind: "measured", fact: "fact:no_depth_change" };
-    expect(lint(validated, legacy, source, { allowLegacyShape: true, figures: FIGURE_KEYS }).errors.map((e) => e.message).join("\n"))
+    expect(lint(validated, legacy, source, { allowLegacyShape: true, context, figures: FIGURE_KEYS }).errors.map((e) => e.message).join("\n"))
       .toContain('drawn as measured, but "no_depth_change" is a statement, not a result');
   });
 });

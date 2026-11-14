@@ -1109,3 +1109,43 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   context fact. Tightening only; nothing was loosened.
 - Tests: `lib/content/fact-library.test.ts` (8), `figure-spec.test.ts` (+1). Removing the lint
   check, the exclusion check or the spread check each fails a test (checked by hand).
+
+## 2026-11-14, Decay simulator live on caffeine (the template kind)
+
+- **A simulator drawn by kind.** `editorial.simulator` gains `spec` (a FigureSpec, kept raw so the
+  lint sees literal numbers) and `words` (named markup: `alt` required, plus any sentence the kind
+  places). The lint runs the same spec check as a layer figure (`checkSpec`), requires
+  spec.kind = simulator.kind and alt text of 4+ words, refuses a figure-kind simulator without a
+  spec, and holds `words` to every sentence rule (outside the word budget, like alt). Assemble
+  resolves the spec to facts (`content.simulator.spec`, `ResolvedSpec`), counts its ids as used
+  (so the context study reaches the audit's source list) and parses `words`.
+- `FIGURE_KINDS` now declares slots (`unit`, `band`, `many`); H12 applies to `band` slots of the
+  simulator group. A param may name a list of facts (for association-curve next).
+- **Caffeine:** `simulator: { kind: "decay" }` on `caffeine-saliva-half-life/half_life_caffeine`
+  (library). The old hand-built `caffeine-timeline` simulator (dose dots on a day bar) is
+  deleted. Reader enters: caffeine time, bedtime, "your amount" (empty; no presets, owner).
+  Sees: "Half of it is gone 3.94 to 6.36 h after you take it." over the curve and its SD band;
+  after typing, the bedtime line, the range on the curve ("28 to 44 mg"), and under the fields
+  "About 28 to 44 mg left at bedtime" plus one sentence ("That is 29% to 47% of your 95 mg, 7 h
+  after you had it."). Without an amount: the share. Then ESTIMATE_LABEL, the band label, the
+  source line, where the half-life comes from, and in its own box "What this paper found" (the
+  sleep finding, "From the paper"), never joined to the band.
+- The read's source-dot buttons keep their 24 px dot but gain an invisible 44 px touch area
+  (`after:-inset-2.5`), everywhere in the read.
+- Look-then-fix, 2 loops (390 px, dark + light). Loop 1 fixed: labels clipped at both edges,
+  result far from the chart (now labelled on the curve), heavy fine print, 24 px dots. Loop 2
+  fixed: last two tick labels colliding, the redundant "mg" placeholder, a faint dark-mode band.
+  Measured at 390 and 360 px, first view and used: smallest label 14 px, smallest target 44 px,
+  chart 100% of the column, no sideways scroll (`docs/evidence/simulators/decay-measure.txt`).
+  **Still not right:** the on-chart "28 to 44 mg" sits on the "half" gridline; the light band
+  reads tan; the journal prints as "International journal of pharmaceutics: X" (its metadata);
+  time fields follow the device's 12/24 h setting.
+- Tests: `scripts/decay-kind.test.ts` rewritten (11: modes, H12, no presets, beside box, the
+  section-i worked example 28–44 mg, clock gaps); `context.test.ts` + 2 (the built caffeine read:
+  lint passes with the library, fails without it on exactly the simulator input; spec resolved,
+  study listed); `tests/browser/simulators.spec.ts` (3). Tests that lint the caffeine editorial
+  now load the real half-life study and library (`lib/pipeline/fixtures/real-context.ts`);
+  `context.test.ts` sets caffeine's simulator aside where it tests text citations only.
+- Missed in the relabel commit, fixed here: two browser tests still expected `rct` ("Randomized
+  trial"; an arrow check listing rct designs by hand, now `RANDOMIZED_DESIGNS`).
+- `scripts/simulator-shots.mts`: shots + measurements per kind (local build, fake Supabase).

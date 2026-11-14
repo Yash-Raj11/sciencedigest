@@ -119,7 +119,7 @@ export function Para({ sentences, facts, context, className = "read", as: Tag = 
                   onClick={() => setOpen((v) => (v === i ? null : i))}
                   aria-expanded={open === i}
                   aria-label="Show the passage in the paper this sentence rests on"
-                  className="ml-0.5 inline-flex h-6 w-6 translate-y-[3px] items-center justify-center rounded-full align-baseline"
+                  className="relative ml-0.5 inline-flex h-6 w-6 translate-y-[3px] items-center justify-center rounded-full align-baseline after:absolute after:-inset-2.5 after:content-['']"
                 >
                   <span aria-hidden className={`h-2.5 w-2.5 rounded-full border-2 border-accent ${open === i ? "bg-accent" : ""}`} />
                 </button>

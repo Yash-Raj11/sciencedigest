@@ -16,7 +16,7 @@ import type { Validated, ValidatedFact } from "./gate";
 import { NON_HUMAN_DISCLAIMER } from "./grade";
 import { glossaryCovers, jargonIn } from "./jargon";
 import { simulatorSource } from "../content/fact-library";
-import { specProblems } from "../content/figure-kinds";
+import { isFigureKind, specProblems } from "../content/figure-kinds";
 import { EVIDENCE_KINDS, evidenceKindProblem, figureKey, type EvidenceKind } from "../content/figures";
 import { parseMarkup, type Sentence } from "./markup";
 import { isContextRef, parseRef } from "./refs";
@@ -274,6 +274,8 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   take("teaser", ed.teaser, { headline: true });
   take("hook", ed.hook, { headline: true, inRead: true });
   take("populationPanel", ed.populationPanel, { inRead: true });
+  // A simulator's own sentences (drawn by kind): every rule, outside the word budget, like alt text.
+  for (const [name, markup] of Object.entries(ed.simulator.words ?? {})) take(`simulator.words.${name}`, markup);
 
   /** Where the weak end of the headline range must be spelled out (H5), and the sentences found there. */
   let weakEndWhere = "sections.lower-bound";
@@ -631,28 +633,51 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   const figureDefs: [string, { figure: string; alt: string; params: Record<string, unknown>; spec?: unknown }][] = layers
     ? LAYERS.flatMap((layer) => (layers[layer].figure ? [[`layers.${layer}.figure`, layers[layer].figure!] as [string, typeof layers.mechanism.figure & object]] : []))
     : ((ed as LegacyEditorial).figure ? [["figure", (ed as LegacyEditorial).figure!]] : []);
-  for (const [where, def] of figureDefs) {
-    const key = figureKey(ed.slug, def.figure);
-    if (def.spec !== undefined) {
-      // Drawn by kind: the spec names facts only, the kind must exist, and a simulator needs a range (H12).
-      // A fact of a gated context study may feed it (H7 amended): checked like any citation, and listed for the audit.
-      for (const group of ["facts", "simulator"] as const) {
-        const given = (def.spec as Record<string, unknown> | null)?.[group];
-        if (given === null || typeof given !== "object") continue;
-        for (const [param, id] of Object.entries(given)) {
+  /**
+   * A figure drawn by kind: the spec names facts only, the kind must exist, and a simulator needs a
+   * range (H12). A fact of a gated context study may feed it (H7 amended): checked like any citation,
+   * and listed for the audit. Its simulator group draws a context fact only from the fact library.
+   */
+  function checkSpec(spec: unknown, where: string): void {
+    for (const group of ["facts", "simulator"] as const) {
+      const given = (spec as Record<string, unknown> | null)?.[group];
+      if (given === null || typeof given !== "object") continue;
+      for (const [param, named] of Object.entries(given)) {
+        for (const id of Array.isArray(named) ? named : [named]) {
           if (typeof id !== "string" || parseRef(id).kind !== "study") continue;
-          checkRef(id, `${where}.spec.${group}.${param}`);
+          checkRef(id, `${where}.${group}.${param}`);
           // A simulator input: the paper's own fact, or one the owner approved into the library (SIMULATORS.md g).
           if (group === "simulator" && simulatorSource(id, facts, context.library ?? []) === "missing") {
-            fail("context", `${where}.spec.simulator.${param}`, `"${id}" is not in the fact library (content/library.json); a simulator draws on the paper's own facts or an owner-approved library fact. Queue it as a simulator upgrade for the owner`);
+            fail("context", `${where}.simulator.${param}`, `"${id}" is not in the fact library (content/library.json); a simulator draws on the paper's own facts or an owner-approved library fact. Queue it as a simulator upgrade for the owner`);
           }
         }
       }
-      const problems = specProblems(def.spec, `${where}.spec`, (id) => {
-        const e = factOf(id)?.fact;
-        return e ? { kind: e.kind, unit: e.estimate?.unit ?? null, point: e.estimate?.point ?? null, spread: e.spread ?? null, ciLow: e.estimate?.ciLow ?? null, ciHigh: e.estimate?.ciHigh ?? null } : undefined;
-      });
-      for (const problem of problems) fail(problem.rule, problem.where, problem.message);
+    }
+    const problems = specProblems(spec, where, (id) => {
+      const e = factOf(id)?.fact;
+      return e ? { kind: e.kind, unit: e.estimate?.unit ?? null, point: e.estimate?.point ?? null, spread: e.spread ?? null, ciLow: e.estimate?.ciLow ?? null, ciHigh: e.estimate?.ciHigh ?? null } : undefined;
+    });
+    for (const problem of problems) fail(problem.rule, problem.where, problem.message);
+  }
+
+  // A simulator drawn by kind: the spec is checked like a figure's, its kind is the simulator's,
+  // and it carries alt text. Its words are held to every rule (outside the word budget, like alt).
+  const sim = ed.simulator;
+  if (sim.spec !== undefined) {
+    const specKind = (sim.spec as { kind?: unknown } | null)?.kind;
+    if (specKind !== sim.kind) fail("figure-spec", "simulator.spec.kind", `the spec is a "${String(specKind)}" but the simulator is a "${sim.kind}"; they must match`);
+    checkSpec(sim.spec, "simulator.spec");
+    let altWords = 0;
+    try { altWords = countWords(parseMarkup(sim.words?.alt ?? "").map((x) => x.text).join(" ")); } catch { /* reported as markup above */ }
+    if (altWords < 4) fail("figure", "simulator.words.alt", "empty alt text: describe in a sentence what the chart shows, for a reader who cannot see it");
+  } else if (isFigureKind(sim.kind)) {
+    fail("figure-spec", "simulator.spec", `a "${sim.kind}" simulator is drawn by kind and needs a spec naming its facts`);
+  }
+
+  for (const [where, def] of figureDefs) {
+    const key = figureKey(ed.slug, def.figure);
+    if (def.spec !== undefined) {
+      checkSpec(def.spec, `${where}.spec`);
     } else if (!(options.figures ?? []).includes(key)) {
       fail("figure", where, `unknown figure "${key}"; it is not listed in lib/content/figures.ts`);
     }

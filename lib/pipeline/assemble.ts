@@ -7,6 +7,7 @@ import { createHash } from "node:crypto";
 import type { BuiltPaper, ContentStep, ContextConcept, ContextStudy, FigureRef, GlossaryEntry, PaperContent, ResolvedFact, Sentence } from "../content/types";
 import type { EvidenceGrade } from "../evidence";
 import { WEIGHT_TENTHS } from "../evidence";
+import { FigureSpec } from "../content/figure-kinds";
 import { Editorial, LegacyEditorial, editorialShape, type FigureRef as FigureDef } from "./editorial";
 import { formatEstimate } from "./format";
 import type { Validated, ValidatedFact } from "./gate";
@@ -172,6 +173,19 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
     return node;
   };
   content.simulator.params = expand(ed.simulator.params) as Record<string, unknown>;
+  // A simulator drawn by kind: every id of its spec becomes the resolved fact, and counts as used,
+  // so a context study it draws on is listed for the audit (H7 amended).
+  if (ed.simulator.spec !== undefined) {
+    const spec = FigureSpec.parse(ed.simulator.spec);
+    const resolveAll = (group: Record<string, string | string[]> | undefined) => Object.fromEntries(Object.entries(group ?? {}).map(([param, named]) => {
+      for (const id of Array.isArray(named) ? named : [named]) used.add(id);
+      return [param, Array.isArray(named) ? named.map(resolve) : resolve(named)];
+    }));
+    content.simulator.spec = { kind: spec.kind, facts: resolveAll(spec.facts), simulator: resolveAll(spec.simulator) };
+  }
+  if (ed.simulator.words) {
+    content.simulator.words = Object.fromEntries(Object.entries(ed.simulator.words).map(([name, markup]) => [name, sentences(markup)]));
+  }
   for (const { ref, def } of drawn) ref.params = expand(def.params) as Record<string, unknown>;
 
   const takeaways = ed.takeaways.map(sentences);

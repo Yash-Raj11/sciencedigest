@@ -5,6 +5,8 @@
  *
  *   { "kind": "decay", "facts": { "halfLife": "half_life" }, "simulator": { "halfLife": "half_life" } }
  *
+ * A param names one fact, or (a slot with `many`) a list of facts in order.
+ *
  * A spec holds names of facts and nothing else: no number, no text to show.
  * Every value the figure draws is looked up from the gated fact: one of the
  * paper's, or one of a gated context study's ("<slug>/<fact>"), never a
@@ -25,17 +27,33 @@ import { simulatorBand, type Spread } from "../models/spread";
 /** A fact of the paper ("half_life") or of a gated context study ("<slug>/half_life"). */
 const FactName = z.string().regex(/^([a-z0-9]+(-[a-z0-9]+)*\/)?[a-z][a-z0-9_]*$/, "a fact id, not a value");
 
+/** A param names one fact, or a list of facts in order (one per group, for example). */
+const FactNames = z.union([FactName, z.array(FactName).min(1)]);
+
 export const FigureSpec = z.strictObject({
   kind: z.string().min(1),
-  facts: z.record(z.string(), FactName),
-  simulator: z.record(z.string(), FactName).optional(),
+  facts: z.record(z.string(), FactNames),
+  simulator: z.record(z.string(), FactNames).optional(),
 });
 export type FigureSpec = z.infer<typeof FigureSpec>;
 
+/**
+ * One param of a kind.
+ *   unit   the fact must be in this unit (the kind does not convert)
+ *   band   the personal estimate is worked out from this fact, so it needs a printed range (H12)
+ *   many   a list of facts, in order
+ */
+export interface Slot { unit?: RegExp; band?: boolean; many?: boolean }
+
+const HOURS = /^(h|hours?)$/;
+
 /** What each kind needs: the facts its still view draws, and the facts its simulator works from. */
 export const FIGURE_KINDS = {
-  decay: { facts: ["halfLife"], simulator: ["halfLife"] },
-} as const satisfies Record<string, { facts: readonly string[]; simulator: readonly string[] }>;
+  decay: {
+    facts: { halfLife: { unit: HOURS } },
+    simulator: { halfLife: { unit: HOURS, band: true } },
+  },
+} as const satisfies Record<string, { facts: Record<string, Slot>; simulator: Record<string, Slot> }>;
 
 export type FigureKind = keyof typeof FIGURE_KINDS;
 export const isFigureKind = (kind: string): kind is FigureKind => Object.hasOwn(FIGURE_KINDS, kind);
@@ -71,9 +89,11 @@ export function specProblems(raw: unknown, where: string, lookup: (id: string) =
   for (const group of ["facts", "simulator"] as const) {
     const given = (raw as Record<string, unknown> | null)?.[group];
     if (given === null || typeof given !== "object") continue;
-    for (const [param, id] of Object.entries(given)) {
-      if (typeof id === "string" && id.startsWith("concept:")) {
-        fail("context", `${where}.${group}.${param}`, `"${id}" is a background concept; a figure and a simulator draw only gated facts, from the paper or a gated context study`);
+    for (const [param, named] of Object.entries(given)) {
+      for (const id of Array.isArray(named) ? named : [named]) {
+        if (typeof id === "string" && id.startsWith("concept:")) {
+          fail("context", `${where}.${group}.${param}`, `"${id}" is a background concept; a figure and a simulator draw only gated facts, from the paper or a gated context study`);
+        }
       }
     }
   }
@@ -93,14 +113,24 @@ export function specProblems(raw: unknown, where: string, lookup: (id: string) =
 
   for (const [group, wanted, given] of [["facts", needs.facts, spec.facts], ["simulator", needs.simulator, spec.simulator]] as const) {
     if (given === undefined) continue;
-    for (const param of wanted) if (!(param in given)) fail("figure-spec", `${where}.${group}`, `a ${spec.kind} figure needs "${param}"`);
-    for (const [param, id] of Object.entries(given)) {
-      const fact = lookup(id);
-      if (!(wanted as readonly string[]).includes(param)) fail("figure-spec", `${where}.${group}.${param}`, `a ${spec.kind} figure has no "${param}"`);
-      else if (!fact) fail("figure-spec", `${where}.${group}.${param}`, `"${id}" is not a gated fact of this read; without the fact the figure is not drawn, and nothing is filled in`);
-      else if (fact.kind !== "estimate" || fact.point === null) fail("figure-spec", `${where}.${group}.${param}`, `"${id}" is a ${fact.kind} with no number; a ${spec.kind} figure draws an estimate`);
-      else if (spec.kind === "decay" && !/^(h|hours?)$/.test(fact.unit ?? "")) fail("figure-spec", `${where}.${group}.${param}`, `"${id}" is in "${fact.unit}"; a decay figure works in hours, and does not convert`)
-      else if (group === "simulator" && !hasRange(fact)) fail("H12", `${where}.simulator.${param}`, `"${id}" has no range, so there is no simulator: a personal estimate is shown only as a range from the fact's own range`);
+    const slots: Record<string, Slot> = wanted;
+    for (const param of Object.keys(slots)) if (!(param in given)) fail("figure-spec", `${where}.${group}`, `a ${spec.kind} figure needs "${param}"`);
+    for (const [param, named] of Object.entries(given)) {
+      const slot = Object.hasOwn(slots, param) ? slots[param] : undefined;
+      if (!slot) { fail("figure-spec", `${where}.${group}.${param}`, `a ${spec.kind} figure has no "${param}"`); continue; }
+      if (Array.isArray(named) !== Boolean(slot.many)) {
+        fail("figure-spec", `${where}.${group}.${param}`, slot.many ? `"${param}" is a list of facts, in order` : `"${param}" names one fact`);
+        continue;
+      }
+      const ids = Array.isArray(named) ? named : [named];
+      ids.forEach((id, i) => {
+        const at = `${where}.${group}.${param}${Array.isArray(named) ? `[${i}]` : ""}`;
+        const fact = lookup(id);
+        if (!fact) fail("figure-spec", at, `"${id}" is not a gated fact of this read; without the fact the figure is not drawn, and nothing is filled in`);
+        else if (fact.kind !== "estimate" || fact.point === null) fail("figure-spec", at, `"${id}" is a ${fact.kind} with no number; a ${spec.kind} figure draws an estimate`);
+        else if (slot.unit && !slot.unit.test(fact.unit ?? "")) fail("figure-spec", at, `"${id}" is in "${fact.unit}"; a ${spec.kind} figure works in ${slot.unit === HOURS ? "hours" : String(slot.unit)}, and does not convert`);
+        else if (group === "simulator" && slot.band && !hasRange(fact)) fail("H12", at, `"${id}" has no range, so there is no simulator: a personal estimate is shown only as a range from the fact's own range`);
+      });
     }
   }
   return out;

@@ -15,7 +15,6 @@ import type { FigureRef } from "@/lib/content/types";
 import GenericSimulator from "./_generic/Simulator";
 import GenericWidget from "./_generic/Widget";
 import LockAndKey from "./daytime-caffeine-sleep/figures/LockAndKey";
-import CaffeineSimulator from "./daytime-caffeine-sleep/Simulator";
 import CaffeineWidget from "./daytime-caffeine-sleep/Widget";
 import WhatWasMeasured from "./hiit-body-composition/figures/WhatWasMeasured";
 import HiitSimulator from "./hiit-body-composition/Simulator";
@@ -46,7 +45,6 @@ const WIDGETS: Record<string, ComponentType<WidgetProps>> = {
 const SIMULATORS: Record<string, ComponentType<SimulatorProps>> = {
   "estimate-explorer": GenericSimulator,
   "steps-days": StepsSimulator,
-  "caffeine-timeline": CaffeineSimulator,
   "hiit-forest": HiitSimulator,
   "breakfast-meals": BreakfastSimulator,
 };

@@ -81,7 +81,19 @@ const Base = {
   takeaways: z.array(Markup).default([]),
   choices: z.array(ChoiceDef).default([]),
   steps: z.array(StepDef).min(1),
-  simulator: z.object({ kind: z.string().min(1), params: z.record(z.string(), z.unknown()) }),
+  /**
+   * The read's simulator. Hand-built: `kind` names a component in components/papers/registry.tsx
+   * and `params` is its data. Drawn by kind (docs/SIMULATORS.md): `kind` is a figure kind,
+   * `spec` names its facts (lib/content/figure-kinds.ts; kept as written, so the lint sees a
+   * literal number), and `words` holds the markup it shows: `alt` (required) and any other
+   * sentence the kind places, such as the paper's own finding beside the result.
+   */
+  simulator: z.object({
+    kind: z.string().min(1),
+    params: z.record(z.string(), z.unknown()).default({}),
+    spec: z.unknown().optional(),
+    words: z.record(z.string().regex(/^[a-z][a-zA-Z]*$/), Markup).optional(),
+  }),
   carousel: z.object({
     slides: z.array(SlideDef).min(3),
     caption: Markup,

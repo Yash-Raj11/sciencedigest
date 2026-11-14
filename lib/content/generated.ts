@@ -31,7 +31,7 @@ export const PAPERS: PaperMeta[] = [
       }
     ],
     "hasBlock": false,
-    "simulatorKind": "caffeine-timeline"
+    "simulatorKind": "decay"
   },
   {
     "id": "8d1309b7-9fbb-592d-93ae-8ff9a08e6ef6",
@@ -811,86 +811,99 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
     },
     "primaryEstimate": "sleep_same",
     "simulator": {
-      "kind": "caffeine-timeline",
-      "params": {
-        "doseMinutes": [
-          {
-            "n": 45,
-            "ref": "schedule"
-          },
-          {
-            "n": 255,
-            "ref": "schedule"
-          },
-          {
-            "n": 475,
-            "ref": "schedule"
-          }
-        ],
-        "doseMg": {
-          "n": 150,
-          "ref": "dose"
-        },
-        "testedGapHours": {
-          "n": 8,
-          "ref": "recording"
-        },
-        "withdrawalGapHours": {
-          "n": 15,
-          "ref": "recording"
-        },
-        "hoursInBed": {
-          "n": 8,
-          "ref": "regular"
-        },
-        "bedtimeDriftMinutes": {
-          "n": 25,
-          "ref": "later_bed"
-        },
-        "findings": [
-          {
-            "id": "sleep_same",
-            "kind": "finding",
-            "label": "no significant difference from placebo (p > 0.05); the text reports no effect size",
-            "quote": "the analyses of the polysomnography (PSG) did not reveal significant differences in total sleep time (TST), sleep efficiency (SE), sleep latencies, or the relative amount of sleep stages among the three conditions (> 0.05)",
-            "finding": {
-              "outcome": "Total sleep time, time to fall asleep and sleep stages",
+      "kind": "decay",
+      "params": {},
+      "spec": {
+        "kind": "decay",
+        "facts": {
+          "halfLife": {
+            "id": "caffeine-saliva-half-life/half_life_caffeine",
+            "kind": "estimate",
+            "label": "Caffeine half-life in saliva after a single 25 mg dose (arm A), mean ± SD, n = 12",
+            "quote": "Caffeine showed a half-life of 5.15 ± 1.21 h after single administration, whereas the half-life of methylliberine was only 1.15 ± 0.12 h and that of theacrine 21.00 ± 7.55 h.",
+            "source": "caffeine-saliva-half-life",
+            "estimate": {
+              "outcome": "Elimination half-life of caffeine in saliva after 25 mg taken alone (arm A)",
+              "measure": "mean",
+              "point": 5.15,
+              "ciLow": null,
+              "ciHigh": null,
+              "unit": "h",
+              "absolute": true,
               "tier": "low"
-            }
-          },
-          {
-            "id": "quality_same",
-            "kind": "finding",
-            "label": "no significant difference between conditions (p > 0.05)",
-            "quote": "Analyses of subjective sleep quality assessed with the Leeds Sleep Evaluation Questionnaire (LSEQ) did not reveal significant differences among the three conditions in any of the four domains of sleep quality (> 0.05)",
-            "finding": {
-              "outcome": "Self-rated sleep quality",
-              "tier": "low"
-            }
-          },
-          {
-            "id": "sigma",
-            "kind": "finding",
-            "label": "lower than placebo in both the caffeine and withdrawal conditions (p < 0.05)",
-            "quote": "power density was significantly reduced compared to placebo in the sigma range during both withdrawal",
-            "finding": {
-              "outcome": "Sigma-band brain activity during non-REM sleep",
-              "tier": "low"
+            },
+            "spread": {
+              "kind": "sd",
+              "value": 1.21
             }
           }
-        ],
-        "outside": {
-          "id": "evening",
-          "kind": "context",
-          "label": "What earlier work reports for caffeine taken in the evening",
-          "quote": "caffeine consumed in the evening hours prolongs sleep latency, reduces total sleep time (TST), shortens deep sleep"
         },
-        "caveat": {
-          "id": "not_after_abstinence",
-          "kind": "statement",
-          "label": "The result may not hold after several days without caffeine",
-          "quote": "Importantly, our findings do not preclude potential impairments of nighttime sleep after morning caffeine intake, if preceded by several days of abstinence from the stimulant."
+        "simulator": {
+          "halfLife": {
+            "id": "caffeine-saliva-half-life/half_life_caffeine",
+            "kind": "estimate",
+            "label": "Caffeine half-life in saliva after a single 25 mg dose (arm A), mean ± SD, n = 12",
+            "quote": "Caffeine showed a half-life of 5.15 ± 1.21 h after single administration, whereas the half-life of methylliberine was only 1.15 ± 0.12 h and that of theacrine 21.00 ± 7.55 h.",
+            "source": "caffeine-saliva-half-life",
+            "estimate": {
+              "outcome": "Elimination half-life of caffeine in saliva after 25 mg taken alone (arm A)",
+              "measure": "mean",
+              "point": 5.15,
+              "ciLow": null,
+              "ciHigh": null,
+              "unit": "h",
+              "absolute": true,
+              "tier": "low"
+            },
+            "spread": {
+              "kind": "sd",
+              "value": 1.21
+            }
+          }
         }
+      },
+      "words": {
+        "alt": [
+          {
+            "text": "A falling curve shows how much of a dose of caffeine is left in the hours after you take it.",
+            "refs": [
+              "caffeine-saliva-half-life/half_life_caffeine"
+            ]
+          },
+          {
+            "text": "A shaded band around the curve shows how much people in that study differed.",
+            "refs": [
+              "caffeine-saliva-half-life/half_life_caffeine"
+            ]
+          }
+        ],
+        "halfLifeNote": [
+          {
+            "text": "That half-life comes from another study: twelve young volunteers took 25 mg of caffeine on its own, measured in their saliva.",
+            "refs": [
+              "caffeine-saliva-half-life/crossover_design",
+              "caffeine-saliva-half-life/arm_a_dose",
+              "caffeine-saliva-half-life/matrix_saliva"
+            ]
+          }
+        ],
+        "finding": [
+          {
+            "text": "In this paper, men who had caffeine every day took their last 150 mg dose 8 hours before bed.",
+            "refs": [
+              "sample",
+              "who",
+              "dose",
+              "recording"
+            ]
+          },
+          {
+            "text": "Their measured sleep did not differ from their placebo nights.",
+            "refs": [
+              "sleep_same"
+            ]
+          }
+        ]
       }
     },
     "facts": {
@@ -905,6 +918,48 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "context",
         "label": "Trial design",
         "quote": "We employed a double-blind, randomized, crossover study including a caffeine, a withdrawal, and a placebo condition."
+      },
+      "caffeine-saliva-half-life/arm_a_dose": {
+        "id": "caffeine-saliva-half-life/arm_a_dose",
+        "kind": "context",
+        "label": "Dose and capsule count in study arm A",
+        "quote": "Then, the ice capsules (study arm A: 25 mg caffeine, study arm B: 100 mg methylliberine, study arm C: 50 mg theacrine, study arm D: combination of 25 mg caffeine, 100 mg methylliberine and 50 mg theacrine) were administered together with 240 mL non‑carbonated water.",
+        "source": "caffeine-saliva-half-life"
+      },
+      "caffeine-saliva-half-life/crossover_design": {
+        "id": "caffeine-saliva-half-life/crossover_design",
+        "kind": "context",
+        "label": "Crossover study design with four arms",
+        "quote": "The in vivo study was performed in a cross over design with four different study arms involving twelve young volunteers aged 22–35 years (2 females and 10 males).",
+        "source": "caffeine-saliva-half-life"
+      },
+      "caffeine-saliva-half-life/half_life_caffeine": {
+        "id": "caffeine-saliva-half-life/half_life_caffeine",
+        "kind": "estimate",
+        "label": "Caffeine half-life in saliva after a single 25 mg dose (arm A), mean ± SD, n = 12",
+        "quote": "Caffeine showed a half-life of 5.15 ± 1.21 h after single administration, whereas the half-life of methylliberine was only 1.15 ± 0.12 h and that of theacrine 21.00 ± 7.55 h.",
+        "source": "caffeine-saliva-half-life",
+        "estimate": {
+          "outcome": "Elimination half-life of caffeine in saliva after 25 mg taken alone (arm A)",
+          "measure": "mean",
+          "point": 5.15,
+          "ciLow": null,
+          "ciHigh": null,
+          "unit": "h",
+          "absolute": true,
+          "tier": "low"
+        },
+        "spread": {
+          "kind": "sd",
+          "value": 1.21
+        }
+      },
+      "caffeine-saliva-half-life/matrix_saliva": {
+        "id": "caffeine-saliva-half-life/matrix_saliva",
+        "kind": "context",
+        "label": "What was measured: caffeine in saliva samples collected by the participants over 24 h",
+        "quote": "Post-administration, subjects collected saliva samples at fixed times (4, 8, 12, 16, 20, 25, 30, 35, 40, 50, 60, 90, 120, 180, 240, 360, 480, 600 and 1440 min) over 24 h.",
+        "source": "caffeine-saliva-half-life"
       },
       "daily_reverse": {
         "id": "daily_reverse",
@@ -1026,6 +1081,21 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "label": "Age range and habitual caffeine intake",
         "quote": "Interested individuals aged between 18 and 35 years old (mean age ± SD: 26.4 ± 4 years) and reporting a daily caffeine consumption between 300 and 600 mg (mean intake ± SD: 478.1 ± 102.8 mg) were included."
       }
+    },
+    "context": {
+      "studies": [
+        {
+          "slug": "caffeine-saliva-half-life",
+          "citation": "Wildgrube T, Senekowitsch S, Krüger R, Winter F, Grimm M, Weitschies W, Schick P. A comparison of theacrine and methylliberine with caffeine as salivary markers for determining gastric emptying. Int J Pharm X. 2025;10:100442.",
+          "shortCite": "Wildgrube et al., International journal of pharmaceutics: X 2025",
+          "doi": "10.1016/j.ijpx.2025.100442",
+          "design": "crossover",
+          "sampleSize": 12,
+          "license": "CC-BY",
+          "tier": "low"
+        }
+      ],
+      "concepts": []
     }
   },
   "steps-days-per-week": {

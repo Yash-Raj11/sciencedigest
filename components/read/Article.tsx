@@ -28,6 +28,7 @@ import { contextSourceList } from "@/lib/content/source-line";
 import type { PaperContent, PaperMeta, Sentence } from "@/lib/content/types";
 import { useStore } from "@/lib/store";
 import { isDemo } from "@/lib/supabase/client";
+import { KindSimulator } from "./KindSimulator";
 import { MemberExtras } from "./MemberExtras";
 import { Glossary, Para, Pictured, PullNumber, type Context, type Facts } from "./parts";
 
@@ -119,7 +120,9 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
 
       <section aria-label="Simulator" className="space-y-3">
         <h2 className="display text-2xl">Try it</h2>
-        <SimulatorFor kind={content.simulator.kind} params={content.simulator.params} />
+        {content.simulator.spec
+          ? <KindSimulator content={content} />
+          : <SimulatorFor kind={content.simulator.kind} params={content.simulator.params} />}
       </section>
     </Glossary>
   );

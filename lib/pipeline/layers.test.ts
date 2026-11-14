@@ -13,6 +13,7 @@ import { assemble } from "./assemble";
 import { approved, checkConcept } from "./concepts";
 import { Editorial, editorialShape } from "./editorial";
 import { gate } from "./gate";
+import { REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
 import { JARGON, glossaryCovers, jargonIn } from "./jargon";
 import { BANNED_TERMS, CAVEAT_TERMS, LAYER_WORDS, SENTENCE_WORDS, THROAT_CLEARING, lint, type LintContext } from "./lint";
 import { splitSentences, wordCount } from "./sentences";
@@ -31,7 +32,9 @@ const without = (value: Record<string, unknown>, keys: string[]) => Object.fromE
 
 /** The fixture's one concept, reviewed, as the build would hand it to the lint. */
 const context: LintContext = {
-  studies: {},
+  // The real half-life study and library: caffeine's simulator draws on them.
+  studies: { ...REAL_STUDIES },
+  library: REAL_LIBRARY,
   concepts: {
     "non-rem-sleep": checkConcept(approved(fixture.concepts["non-rem-sleep"], "2026-11-13T00:00:00Z"),
       { banned: BANNED_TERMS, throatClearing: THROAT_CLEARING, maxSentenceWords: SENTENCE_WORDS.fail }),
@@ -70,7 +73,7 @@ describe("check 1, schema: layers { mechanism, protocol, audit } and a glossary"
   it("accepts the old flat shape only when the caller vouches for it (the temporary allowlist)", () => {
     // After step 2E this paper is itself three-layer, and this option is deleted with the allowlist.
     if (editorialShape(oldShape) !== "legacy") return;
-    expect(lint(validated, oldShape, source, { allowLegacyShape: true, figures: FIGURE_KEYS }).errors).toEqual([]);
+    expect(lint(validated, oldShape, source, { allowLegacyShape: true, context, figures: FIGURE_KEYS }).errors).toEqual([]);
   });
   it("zod rejects the old flat shape outright", () => {
     const parsed = Editorial.safeParse({ ...without(layered(), ["layers", "glossary"]), sections: [], limitations: [] });

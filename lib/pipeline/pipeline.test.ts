@@ -15,6 +15,7 @@ import { gate, locate, type Validated } from "./gate";
 import { deriveTier } from "./grade";
 import { canonicalLicense, checkLicense } from "./license";
 import { lint } from "./lint";
+import { REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
 import { parseMarkup } from "./markup";
 import { findRetracted, parseRetractionWatch } from "./retractions";
 import { numbersIn, sharedShingles, wordNumbersIn } from "./text";
@@ -36,7 +37,8 @@ const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
  * three-layer shape.
  */
 // The real papers each carry a figure now, so the lint needs the list of figures the app can draw.
-const LEGACY = { allowLegacyShape: true, figures: FIGURE_KEYS };
+// The real context studies and library ride along: caffeine's simulator draws on the half-life study.
+const LEGACY = { allowLegacyShape: true, figures: FIGURE_KEYS, context: { studies: REAL_STUDIES, concepts: {}, library: REAL_LIBRARY } };
 
 const steps = load("steps-days-per-week");
 const hiit = load("hiit-body-composition");

@@ -104,49 +104,21 @@
     }
   ],
   "simulator": {
-    "kind": "caffeine-timeline",
-    "params": {
-      "doseMinutes": [
-        {
-          "n": 45,
-          "ref": "schedule"
-        },
-        {
-          "n": 255,
-          "ref": "schedule"
-        },
-        {
-          "n": 475,
-          "ref": "schedule"
-        }
-      ],
-      "doseMg": {
-        "n": 150,
-        "ref": "dose"
+    "kind": "decay",
+    "spec": {
+      "kind": "decay",
+      "facts": {
+        "halfLife": "caffeine-saliva-half-life/half_life_caffeine"
       },
-      "testedGapHours": {
-        "n": 8,
-        "ref": "recording"
-      },
-      "withdrawalGapHours": {
-        "n": 15,
-        "ref": "recording"
-      },
-      "hoursInBed": {
-        "n": 8,
-        "ref": "regular"
-      },
-      "bedtimeDriftMinutes": {
-        "n": 25,
-        "ref": "later_bed"
-      },
-      "findings": [
-        "fact:sleep_same",
-        "fact:quality_same",
-        "fact:sigma"
-      ],
-      "outside": "fact:evening",
-      "caveat": "fact:not_after_abstinence"
+      "simulator": {
+        "halfLife": "caffeine-saliva-half-life/half_life_caffeine"
+      }
+    },
+    "params": {},
+    "words": {
+      "alt": "A falling curve shows how much of a dose of caffeine is left in the hours after you take it. [caffeine-saliva-half-life/half_life_caffeine] A shaded band around the curve shows how much people in that study differed. [caffeine-saliva-half-life/half_life_caffeine]",
+      "halfLifeNote": "That half-life comes from another study: twelve young volunteers took 25 mg of caffeine on its own, measured in their saliva. [caffeine-saliva-half-life/crossover_design, caffeine-saliva-half-life/arm_a_dose, caffeine-saliva-half-life/matrix_saliva]",
+      "finding": "In this paper, men who had caffeine every day took their last 150 mg dose 8 hours before bed. [sample, who, dose, recording] Their measured sleep did not differ from their placebo nights. [sleep_same]"
     }
   },
   "carousel": {

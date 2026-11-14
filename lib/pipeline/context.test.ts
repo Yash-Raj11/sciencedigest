@@ -15,6 +15,8 @@ import { assemble, shortCite } from "./assemble";
 import { approved, checkConcept, conceptFingerprint, isReviewed, type Concept } from "./concepts";
 import { gate } from "./gate";
 import { BANNED_TERMS, SENTENCE_WORDS, THROAT_CLEARING, lint, type ContextStudyState, type LintContext } from "./lint";
+import { HALF_LIFE_STUDY, REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
+import { FIGURE_KEYS } from "../content/figures";
 import { parseRef } from "./refs";
 import { parseRetractionWatch, screenSources } from "./retractions";
 
@@ -26,7 +28,13 @@ const source = read("daytime-caffeine-sleep", "source.txt");
 const gated = gate(JSON.parse(read("daytime-caffeine-sleep", "extraction.json")), source);
 if (!gated.ok) throw new Error(gated.errors.join("\n"));
 const validated = gated.validated;
-const oldShape = JSON.parse(read("daytime-caffeine-sleep", "editorial.json"));
+/**
+ * These tests are about citing another study in the text. Caffeine's own simulator draws on the
+ * half-life study, which would add a second study to every list here, so it is set aside for a
+ * plain hand-built one. The simulator's citation is tested below ("a simulator drawn by kind").
+ */
+const realEditorial = JSON.parse(read("daytime-caffeine-sleep", "editorial.json"));
+const oldShape = { ...realEditorial, simulator: { kind: "estimate-explorer", params: {} } };
 const fixture = JSON.parse(readFileSync(new URL("fixtures/layered-caffeine.json", import.meta.url), "utf8"));
 
 // The other study: the steps paper, as a context source.
@@ -44,6 +52,7 @@ const conceptFile: Concept = fixture.concepts["non-rem-sleep"];
 const reviewed = (concept: Concept) => checkConcept(approved(concept, "2026-11-13T00:00:00Z"), RULES);
 
 function contextWith(change: Partial<LintContext> = {}): LintContext {
+  // The real half-life study and library ride along: the caffeine read's simulator draws on them.
   return { studies: { [OTHER]: study() }, concepts: { "non-rem-sleep": reviewed(conceptFile) }, ...change };
 }
 function layered(): any {
@@ -210,6 +219,24 @@ describe("what reaches the page", () => {
     const untouched = assemble(validated, oldShape);
     expect("context" in untouched.content).toBe(false);
     expect(Object.values(untouched.content.facts).some((f) => "source" in f)).toBe(false);
+  });
+});
+
+describe("a simulator drawn by kind (the caffeine read as it is built)", () => {
+  const real = assemble(validated, realEditorial, { studies: REAL_STUDIES, concepts: {}, library: REAL_LIBRARY });
+  it("passes the lint with the real half-life study and library, and fails without the library", () => {
+    const options = { allowLegacyShape: true, figures: FIGURE_KEYS };
+    expect(lint(validated, realEditorial, source, { ...options, context: { studies: REAL_STUDIES, concepts: {}, library: REAL_LIBRARY } }).errors).toEqual([]);
+    expect(lint(validated, realEditorial, source, { ...options, context: { studies: REAL_STUDIES, concepts: {} } }).errors.map((e) => e.where))
+      .toEqual(["simulator.spec.simulator.halfLife"]);
+  });
+  it("resolves the spec to the gated fact, lists the study for the audit, and keeps the words with their refs", () => {
+    const spec = real.content.simulator.spec!;
+    expect(spec.kind).toBe("decay");
+    expect(spec.simulator.halfLife).toMatchObject({ id: `${HALF_LIFE_STUDY}/half_life_caffeine`, source: HALF_LIFE_STUDY, spread: { kind: "sd", value: 1.21 } });
+    expect(real.content.context?.studies.map((s) => s.slug)).toEqual([HALF_LIFE_STUDY]);
+    expect(factSourceLine(spec.simulator.halfLife as never, real.content)).toBe("From another study: Wildgrube et al., International journal of pharmaceutics: X 2025, low certainty");
+    expect(real.content.simulator.words?.finding.flatMap((s) => s.refs)).toContain("sleep_same");
   });
 });
 
