@@ -9,8 +9,9 @@
  *   band) with its note, "What's inside" (rows that open the read at a slot; the "Try it" row is
  *   the card's one orange), and the source line with the grade.
  *
- * A members' read draws the same card from PaperMeta.card.glance (written by the content build),
- * and lists only the slots everyone can open. The words come from lib/content/glance.ts.
+ * A members' read shows only what amendment A makes public: its hook as the headline and one
+ * figure (PaperMeta.card), here in its glance view, and lists only the slots everyone can open.
+ * The words come from lib/content/glance.ts.
  *
  * No endless scroll: the published papers, twenty at a time.
  */
@@ -60,7 +61,10 @@ function KindGlance({ content, view }: { content: PaperContent; view: GlanceView
 export function PostCard({ paper }: { paper: PaperMeta }) {
   const members = paper.accessTier === "premium";
   const read = members ? undefined : freeContent(paper.slug);
-  const view = read ? glanceView(read) : paper.card?.glance;
+  // A members' read makes public its hook and one figure, nothing else (amendment A).
+  const view = read ? glanceView(read) : null;
+  const still = paper.card?.figure ?? null;
+  const tier = view ? view.tier : paper.grades[0]?.tier ?? null;
   const rows = insideRows({ members, why: read ? whyHeading(read) : null, tryIt: view?.tryIt });
   const href = `/papers/${paper.slug}`;
 
@@ -79,6 +83,10 @@ export function PostCard({ paper }: { paper: PaperMeta }) {
               ? <FigureFor slug={paper.slug} figure={view.figure} glance={view.axes} />
               : read ? <KindGlance content={read} view={view} /> : null}
             <figcaption className="label mx-3 mt-2" data-glance-note>* {view.note}</figcaption>
+          </figure>
+        ) : still ? (
+          <figure className="rounded-2xl bg-bg py-3" data-glance>
+            <FigureFor slug={paper.slug} figure={still} glance={{ x: null, y: null }} />
           </figure>
         ) : null}
       </Link>
@@ -103,7 +111,7 @@ export function PostCard({ paper }: { paper: PaperMeta }) {
 
       <p className="label flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-4 py-3">
         <span data-source-line>{read?.sourceLine ?? paper.sourceLine}</span>
-        {view?.tier ? <GradeChip grade={view.tier} /> : null}
+        {tier ? <GradeChip grade={tier} /> : null}
       </p>
     </article>
   );

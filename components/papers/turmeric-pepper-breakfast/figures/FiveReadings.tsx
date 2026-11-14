@@ -36,7 +36,7 @@ export default function FiveReadings({ params, alt, interactive = true, glance }
             rows={p.meals.map((meal) => ({ label: meal.label, flagged: meal.differed.map((time) => time.n) }))}
           />
         </g>
-        <Label x={312} y={220} anchor="end" tone="muted" size={13}>{`${glance.x} →`}</Label>
+        {glance.x ? <Label x={312} y={220} anchor="end" tone="muted" size={13}>{`${glance.x} →`}</Label> : null}
       </Figure>
     );
   }

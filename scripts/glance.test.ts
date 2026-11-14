@@ -43,7 +43,8 @@ const drawnText = (html: string) => [...html.matchAll(/<text[^>]*>([\s\S]*?)<\/t
 
 const CARDS = PAPERS.map((paper) => {
   const content = FREE_CONTENT[paper.slug];
-  const view = content ? glanceView(content) : paper.card!.glance!;
+  // A members' card: its hook and one figure only (amendment A), drawn in the glance view with no words of its own.
+  const view = content ? glanceView(content) : ({ figure: paper.card!.figure, axes: { x: null, y: null }, alt: "" } as unknown as GlanceView);
   return { slug: paper.slug, members: paper.accessTier === "premium", content, view, html: drawGlance(paper.slug, view, content) };
 });
 
@@ -57,7 +58,7 @@ describe("the still figure prints no number, and its shape is the study's", () =
       const text = drawnText(html);
       expect(text.length).toBeGreaterThan(0);
       for (const t of text) expect(t, `"${t}"`).not.toMatch(/\p{N}/u);
-      expect(text.join(" ")).toContain(view.axes.x);
+      if (view.axes.x) expect(text.join(" ")).toContain(view.axes.x);
       expect(html).toMatch(/data-fact="[^"]+"/);
     });
   }
@@ -81,7 +82,6 @@ describe("the card's words", () => {
     expect(by["steps-days-per-week"].headline).toBe("−14.9 points lower 10-year risk of death, compared with 0 days a week.");
     expect(by["daytime-caffeine-sleep"].headline).toBe("Sleep showed no clear difference from placebo nights.");
     expect(by["daytime-caffeine-sleep"].note).toBe("Curve shape from another study. Try it with your own coffee inside.");
-    expect(by["hiit-body-composition"].headline).toMatch(/^\+0\.51 kg /);
   });
 });
 
@@ -98,8 +98,10 @@ describe("What's inside", () => {
     expect(rows.map((r) => r.slot)).toEqual([SLOTS.protocol, SLOTS.evidence]);
     expect(rows.some((r) => r.accent)).toBe(false);
   });
-  it("the members' card in the public bundle draws one of its figures, never its simulator", () => {
+  it("the members' card in the public bundle is its hook and one figure, nothing else: its glance figure", () => {
     const hiit = CARDS.find((c) => c.members)!;
+    const paper = PAPERS.find((p) => p.slug === hiit.slug)!;
+    expect(Object.keys(paper.card!).sort()).toEqual(["figure", "hook"]);
     expect(hiit.view.figure?.figure).toBe("what-was-measured");
     expect(FREE_CONTENT[hiit.slug]).toBeUndefined();
     expect(gated[hiit.slug].glance.figure?.figure).toBe("what-was-measured");

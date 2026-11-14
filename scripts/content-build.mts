@@ -36,7 +36,6 @@ import { editorialShape } from "../lib/pipeline/editorial";
 import { FIGURE_KEYS } from "../lib/content/figures";
 import { gate } from "../lib/pipeline/gate";
 import { lint } from "../lib/pipeline/lint";
-import { glanceView } from "../lib/content/glance";
 import { loadContext } from "./context-load";
 import { LEGACY_SHAPE_ALLOWLIST } from "./legacy-shape";
 
@@ -128,23 +127,21 @@ if (failed) {
 
 /**
  * What the feed may show of a members' read (amendment A to step 2D, the owner's
- * decision): its hook and its mechanism figure, and the card at a glance (readability 5:
- * the key finding, one sentence, one still figure). Nothing else. A free read needs
+ * decision): its hook and one figure (its glance figure, readability 5), nothing else. A free read needs
  * no card: the whole read is public.
  */
 function publicMeta(paper: (typeof built)[number]): PaperMeta {
   if (paper.meta.accessTier !== "premium") return paper.meta;
   const { content } = paper;
-  const figure = content.layers?.mechanism.figure ?? content.figure ?? null;
+  // The card's one figure is the read's glance figure (the lint makes a members' read name one of
+  // its own figures), drawn on the feed in its glance view: no numbers.
+  const figure = content.glance.figure ?? content.layers?.mechanism.figure ?? content.figure ?? null;
   return {
     ...paper.meta,
     card: {
       hook: content.hook.map((sentence) => sentence.text).join(" "),
       // The caption stays with the read: the card draws the picture and its description only.
       figure: figure ? { ...figure, caption: [] } : null,
-      // The card at a glance (owner, 2026-11-14): the key finding, one sentence, the still figure.
-      // The lint makes a members' read name one of its figures, so nothing behind the gate is drawn.
-      glance: glanceView(content),
     },
   };
 }

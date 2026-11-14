@@ -24,12 +24,18 @@ test.describe("the feed", () => {
     for (const paper of papers) {
       const card = page.locator(`[data-post="${paper.slug}"]`);
       const content = freeContent(paper.slug);
-      const view = content ? glanceView(content) : paper.card!.glance!;
-      await expect(card.getByRole("heading", { level: 2 })).toHaveText(view.headline);
-      await expect(card.locator("[data-glance-support]")).toHaveText(view.support);
       await expect(card.getByText(`${paper.category} · ${paper.readMinutes} min read`)).toBeVisible();
       await expect(card.locator("[data-glance] svg[data-figure]"), `${paper.slug}: the figure`).toBeVisible();
-      await expect(card.locator("[data-glance-note]")).toHaveText(`* ${view.note}`);
+      if (content) {
+        const view = glanceView(content);
+        await expect(card.getByRole("heading", { level: 2 })).toHaveText(view.headline);
+        await expect(card.locator("[data-glance-support]")).toHaveText(view.support);
+        await expect(card.locator("[data-glance-note]")).toHaveText(`* ${view.note}`);
+      } else {
+        // A members' read: its hook and one figure, nothing else of it (amendment A).
+        await expect(card.getByRole("heading", { level: 2 })).toHaveText(paper.card!.hook);
+        await expect(card.locator("[data-glance-support], [data-glance-note]")).toHaveCount(0);
+      }
       await expect(card.getByText(/^(Early|Decent|Strong) evidence$/).first(), `${paper.slug}: the grade chip`).toBeVisible();
       await expect(card, `${paper.slug}: no weight`).not.toContainText("×");
       await expect(card.locator("[data-source-line]")).toHaveText(content ? content.sourceLine : paper.sourceLine);

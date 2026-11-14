@@ -63,11 +63,13 @@ The interactive part is the product; the text is what justifies it.
 | Phase 9, 2D: the read rebuilt (hook, mechanism, number card, protocol, receipts), the feed of whole posts at `/library`, one interactive figure (turmeric's readings grid), motion tokens for toggles | Built; round 2 of the review done 2026-11-14 (next row) | `docs/evidence/article-redesign/` (before/after, dark/light), `phase9-2d-search-the-build.txt` (0 matches), `tests/browser/article-redesign.spec.ts` |
 | Phase 9, 2D round 2: the feed is the home page (`/`), the tracker is `/today`, `/library` answers 308; the Life Game slot on top of the feed; "Start on: Feed / Life Game" (Me, kept on the device); larger hooks; figure kinds (`lib/content/figure-kinds.ts`, `components/figures/kinds/Decay.tsx`, `lib/models/decay.ts`) and rule H12 | Built. **The decay kind is drawn by no read yet**: caffeine has no gated half-life | `docs/evidence/article-redesign/round2/`, `lib/pipeline/figure-spec.test.ts`, `scripts/decay-kind.test.ts`, `tests/http/members-content.test.ts` |
 | Fourth paper `turmeric-pepper-breakfast` (free, three layers, hand-written: no model run, so it does not count toward the Phase 10 gate) | Approved; on the hosted database and on `main`/Vercel (`80e1caa`) | BUILD-LOG 2026-11-13 and 2026-11-14 |
+| Simulators drawn by kind, live: caffeine decay (half-life from the context study `caffeine-saliva-half-life`), steps association-curve | Live on `main` | `docs/evidence/simulators/`, `tests/browser/simulators.spec.ts` |
+| Readability pass 1–7 (owner, 2026-11-14): tokens + contrast table (all ≥ 4.5:1), orange once per screen, plain-language lint rules, finding cards, source line (who · design · how long) + grade words/3-bar meter/tap for why (no weight on any screen), feed card at a glance with "What's inside" deep links, hosted seed, figure plans (SIMULATORS.md j) | Built 1–6; 7 is plans only. ⏸ waiting on the owner | `docs/evidence/readability/` (contrast.md, plain-rules-broken.txt, hosted-seed.txt, feed/read/card screenshots dark + light), `scripts/visual-system.test.ts`, `lib/pipeline/plain.test.ts`, `lib/evidence-words.test.ts`, `scripts/glance.test.ts`, `tests/browser/readability.spec.ts`, `tests/browser/source-line.spec.ts` |
 | Documents: `CLAUDE.md`, `docs/MANUAL.md`, `ARCHITECTURE.md`, `data-model.md`, `BUILD-LOG.md` | Written | — |
 
-Totals on 2026-11-14 (after the model adoption, crossover and spread work): 397 unit tests
-(`docs/evidence/unit-tests.txt`); 14 HTTP and 34 browser tests (not re-run this session);
-191 database assertions per pass and 16 of 16 mutations (unchanged: no SQL touched since).
+Totals on 2026-11-14 (after readability 1–7): 512 unit tests (`docs/evidence/unit-tests.txt`);
+14 HTTP tests (`http-tests.txt`) and 75 browser tests (`browser-tests.txt`); 191 database
+assertions per pass and 16 of 16 mutations (unchanged: no SQL touched since).
 Outputs are in `docs/evidence/`.
 
 ### Deployment state (2026-11-14)
@@ -76,7 +78,8 @@ Outputs are in `docs/evidence/`.
   GitHub and the hosted database are level (four published papers); the hosted seed was
   brought level on the owner's "go" on 2026-11-14 (4 papers, 31 steps).
 - Hosted Supabase project `takhienzcshgkytbvaii`: all migrations to
-  `20261114000100_set_step_amount.sql`, and the seed as of the turmeric release (applied with
+  `20261114000100_set_step_amount.sql`, and the seed as of readability 6 (pushed on the owner's
+  "go", 2026-11-14; dry run reports up to date: `docs/evidence/readability/hosted-seed.txt`) (applied with
   `supabase db query --remote -f supabase/seed.sql`; see MANUAL 3.3). **No hosted command
   without the owner's "go" (2026-11-14).** anonymous sign-ins on; CAPTCHA
   (Turnstile) on. `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is set in Vercel and `.env.local`.

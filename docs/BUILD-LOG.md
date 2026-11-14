@@ -1336,3 +1336,15 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   and ten years, HIIT's "order flips". Every fact named exists in the extraction.
 - Open for the owner: H7 (amended) says a background concept never feeds a figure. Proposed: a
   concept sketch may rest on a reviewed concept only, and never shares a value axis with data.
+
+## 2026-11-14, Readability handoff: the members' card keeps to amendment A
+
+- The HTTP search-the-build test (`tests/http/members-content.test.ts`) caught item 5 putting a
+  `card.glance` (finding headline, sentence, note) of the members' read into the public bundle.
+  Amendment A allows its hook and one figure, nothing else, so the test stood and the code
+  changed: `PaperMeta.card` is back to `{ hook, figure }`. The figure is now the read's glance
+  figure, drawn on the feed in its glance view (no numbers, no extra words). The headline is the
+  hook; there is no sentence and no note. The grade and source line come from public metadata.
+  The seed is unchanged (PaperMeta.card is bundle-only), so the hosted push of item 6 stands.
+- For the owner: should a members' card also show its finding headline and one sentence, like a
+  free card? That widens amendment A, so it is your call.

@@ -146,7 +146,7 @@ export function AssociationCurve({ mode, raw, adjusted, groups, alt, sourceLine,
  * first group is the comparison, on the line of no difference; every other group shows its
  * adjusted difference as a peach band with its point. Axis labels in words, no ticks, no values.
  */
-export function AssociationGlance({ adjusted, groups, alt, x, y }: { adjusted: ResolvedFact[]; groups: GroupEdges[]; alt: string; x: string; y?: string | null }) {
+export function AssociationGlance({ adjusted, groups, alt, x, y }: { adjusted: ResolvedFact[]; groups: GroupEdges[]; alt: string; x: string | null; y?: string | null }) {
   if (!glanceDrawable(groups, adjusted)) return null;
   for (const fact of adjusted) assertEvidence("measured", fact);
   const { zeroY, columns } = associationGlance(groups, adjusted);

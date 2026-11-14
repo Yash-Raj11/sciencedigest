@@ -116,7 +116,7 @@ export interface PaperMeta {
    * A members' read only: the part of it the feed shows to everyone (its hook
    * and its mechanism figure). Everything else stays behind row level security.
    */
-  card?: { hook: string; figure: FigureRef | null; glance?: GlanceView };
+  card?: { hook: string; figure: FigureRef | null };
 }
 
 /** What the feed card shows at a glance: plain words, one still figure (lib/content/glance.ts). */
@@ -124,9 +124,9 @@ export interface GlanceView {
   /** The key finding, with its number first for an estimate ("−14.9 points lower ..."). */
   headline: string;
   support: string;
-  /** null: the read's figure kind, drawn still (free reads only). */
+  /** null: the read's figure kind, drawn still. */
   figure: FigureRef | null;
-  axes: { x: string; y: string | null };
+  axes: { x: string | null; y: string | null };
   alt: string;
   note: string;
   tryIt: string;

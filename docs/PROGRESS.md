@@ -131,6 +131,8 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
   - [x] 7. Figure plans in `docs/SIMULATORS.md` section j (concept sketch class, the pattern, caffeine,
         turmeric, steps, HIIT). Not built. Open: owner ruling on a sketch resting on a concept (j1).
   - [ ] ⏸ Stop after 7 with hashes, contrast table, screenshot paths, plans; /phase-handoff.
+        Reported 2026-11-14; waiting on the owner (concept-sketch ruling, SIMULATORS.md j1; whether
+        a members' card may show its finding headline, BUILD-LOG "Readability handoff").
 - [ ] The pipeline proposes the figure kind and the simulator inputs (`prompts.ts`).
 - [ ] Reader inputs stored on the device only (like the theme).
 - [ ] Run the coverage pass on the 4 existing papers, so their checklist rows stop showing

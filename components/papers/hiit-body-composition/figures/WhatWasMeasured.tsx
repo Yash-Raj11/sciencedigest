@@ -29,7 +29,7 @@ export default function WhatWasMeasured({ params, alt, glance }: FigureProps) {
             />
           );
         })}
-        <Label x={312} y={168} anchor="end" tone="muted" size={13}>{`${glance.x} →`}</Label>
+        {glance.x ? <Label x={312} y={168} anchor="end" tone="muted" size={13}>{`${glance.x} →`}</Label> : null}
       </Figure>
     );
   }

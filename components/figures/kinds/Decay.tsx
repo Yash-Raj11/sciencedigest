@@ -161,7 +161,7 @@ export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = W
  * band of half-lives the study's spread gives, between two axes labelled in words. No ticks
  * and no values: the shape is the gated fact's, the numbers stay in the read.
  */
-export function DecayGlance({ halfLife, alt, x, y }: { halfLife: ResolvedFact; alt: string; x: string; y?: string | null }) {
+export function DecayGlance({ halfLife, alt, x, y }: { halfLife: ResolvedFact; alt: string; x: string | null; y?: string | null }) {
   const point = halfLife.estimate?.point;
   if (point === undefined) return null;
   assertEvidence("measured", halfLife);

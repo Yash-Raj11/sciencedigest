@@ -36,7 +36,7 @@ export interface FigureProps {
    * The glance view (owner, 2026-11-14), the feed card's still figure: axis labels in words
    * (these), no numeric ticks or values, the gated range as a peach band.
    */
-  glance?: { x: string; y: string | null };
+  glance?: { x: string | null; y: string | null };
 }
 
 const WIDGETS: Record<string, ComponentType<WidgetProps>> = {
