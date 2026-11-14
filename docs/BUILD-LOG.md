@@ -832,3 +832,39 @@ The owner's answers to the 2D stop. Four groups, one commit each.
 
 - Rule change committed as `2a0926c`: a gated context study's fact may feed a figure spec and its simulator; never a concept.
 - Grzegorzewski et al. 2021 (doi:10.3389/fphar.2021.752826, PMC8914174): refused at the gate. The half-life appears only in Figures 3B/4B/5B; the text has no verbatim half-life in hours with a range. CC-BY (Europe PMC), not retracted. Year: Europe PMC says 2021, PubMed says 2022 (vol 12). Folder deleted, not committed.
+
+## 2026-11-14, Model: Gemini 4 Hydrogen (free tier) chosen; extract benchmark on turmeric
+
+- **Decision (owner).** `gemini-4-hydrogen` on the Gemini API free tier, through the existing
+  openai-compatible adapter (`https://generativelanguage.googleapis.com/v1beta/openai/`). No
+  Vertex, no billing, no new dependency. The papers are CC-BY public text, so Google's free-tier
+  use of the prompts is acceptable. Groq and Ollama stay documented as fallbacks (MANUAL part 5).
+- **Smoke test.** JSON mode and temperature 0 accepted as sent. The endpoint takes
+  `reasoning_effort` (none, minimal, low, medium, high, xhigh); now `AI_THINKING_EXTRACT`
+  (default high) and `AI_THINKING_EDITORIAL` (default medium), `off` sends nothing, an unknown
+  value fails before any request. `20c591e`.
+- **Benchmark.** `extract` on `turmeric-pepper-breakfast` into a scratch folder
+  (`SD_PAPERS_DIR`), compared with the hand-checked `extraction.json` (42 facts). Folder deleted.
+
+| | |
+|---|---|
+| Facts found | 22 of 42 matched, plus 1 new correct one (`setting`) |
+| Missed | 20: criteria (in `population` instead), fast, in_egg, plate, eaten_in, finger_prick, nothing_else, appetite_scale, gut_scale, taste_scale, sugar_row, carb_row, piperine, trpv1, trpv1_mouth, glp1, animals_before, single_meal, **lim_taste**, lim_mechanism |
+| Wrong numbers | 0: every figure checked against `source.txt` |
+| Wrong kind | 8: every measured result typed `statement`, not `finding` (blood_glucose_treatment_effect, blood_glucose_30min, blood_glucose_iauc, turmeric_alone_glucose, appetite_effects, fullness_not_significant, palatability_comparison, gi_wellbeing). So the gate found "no verified estimate or finding" |
+| Value not inside its quote (gate refused) | 7: test_meals, baseline_female, baseline_male, palatability_scores_control/bp/tr/bp_tr. The numbers are right, but the value strings several of them together instead of copying one passage |
+| Quotes not in the paper | 0 (all 23 + design/species/population/sampleSize located) |
+| Debatable | limitation_low_turmeric_dose: the authors' explanation, filed as a limitation (the hand file calls it a statement) |
+| JSON retries | 0 |
+| Chunking | no (1 part, ~13.6k tokens in) |
+| Tokens | 13,635 in / 3,819 out (25,611 total, so about 6k spent thinking) |
+| Time | 82 s, one request (reasoning_effort high) |
+| Rate-limit hits | 0 |
+
+- **Verdict.** By the owner's rule (more than 2 wrong = do not adopt), not adopted for extract
+  yet. The gate refused the whole extraction, so nothing wrong could have reached a reader.
+  Part of the blame is ours: `EXTRACT_SYSTEM` never defines the kinds (context, finding,
+  statement, limitation) and the worked example (steps) is estimate-heavy. Proposed next, for
+  the owner: (1) a prompt fix that defines each kind and says the value is one contiguous copy
+  from the quote, then re-run this benchmark on Gemini (free, ~25k tokens); (2) if it still
+  fails, the same benchmark on Groq `openai/gpt-oss-120b` (free; needs a Groq key).
