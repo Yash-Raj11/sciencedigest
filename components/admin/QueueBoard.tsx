@@ -10,6 +10,35 @@ import { useCallback, useEffect, useState } from "react";
 import { Notice } from "@/components/protocol/primitives";
 import type { CarouselDeck } from "@/lib/content/types";
 import { CAROUSEL_LIMITS } from "@/lib/pipeline/lint";
+import type { ChecklistRow } from "@/lib/pipeline/coverage";
+
+interface CoverageCard { slug: string; published: boolean; gateOk: boolean; rows: ChecklistRow[] }
+
+/** Which items of a paper are covered by a gated fact. It decides nothing: you confirm it while reading the draft. */
+function CoverageChecklist({ card }: { card: CoverageCard }) {
+  const missing = card.rows.filter((row) => !row.found).length;
+  return (
+    <details className="rounded-2xl border border-line bg-surface p-4" open={missing > 0}>
+      <summary className="flex cursor-pointer items-baseline justify-between gap-3">
+        <span className="display text-lg">{card.slug}</span>
+        <span className="text-sm text-muted">
+          {card.published ? "Published" : "Draft"} · {card.gateOk ? (missing === 0 ? "all found" : `${missing} not found`) : "gate refused: fix the extraction first"}
+        </span>
+      </summary>
+      <ul className="mt-3 space-y-1.5">
+        {card.rows.map((row) => (
+          <li key={row.item} className="flex gap-2 text-sm leading-snug">
+            <span aria-hidden className={row.found ? "text-accent-text" : "text-muted"}>{row.found ? "✓" : "–"}</span>
+            <span className="min-w-0">
+              {row.label}:{" "}
+              {row.found ? <code className="break-words text-muted">{row.facts.join(", ")}</code> : <strong>not found</strong>}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
+}
 
 interface Item { deck: CarouselDeck; status: "waiting" | "approved" | "changed"; approvedAt: string | null }
 
@@ -97,12 +126,15 @@ function DeckCard({ item, onAct }: { item: Item; onAct: (slug: string, action: "
 
 export function QueueBoard() {
   const [items, setItems] = useState<Item[] | null>(null);
+  const [coverage, setCoverage] = useState<CoverageCard[]>([]);
   const [unavailable, setUnavailable] = useState(false);
 
   const load = useCallback(async () => {
     const response = await fetch("/api/admin/queue", { cache: "no-store" });
     if (!response.ok) { setUnavailable(true); return; }
-    setItems(((await response.json()) as { items: Item[] }).items);
+    const data = (await response.json()) as { items: Item[]; coverage?: CoverageCard[] };
+    setItems(data.items);
+    setCoverage(data.coverage ?? []);
   }, []);
 
   useEffect(() => {
@@ -110,7 +142,11 @@ export function QueueBoard() {
     void fetch("/api/admin/queue", { cache: "no-store" }).then(async (response) => {
       if (cancelled) return;
       if (!response.ok) setUnavailable(true);
-      else setItems(((await response.json()) as { items: Item[] }).items);
+      else {
+        const data = (await response.json()) as { items: Item[]; coverage?: CoverageCard[] };
+        setItems(data.items);
+        setCoverage(data.coverage ?? []);
+      }
     });
     return () => { cancelled = true; };
   }, []);
@@ -130,6 +166,13 @@ export function QueueBoard() {
         <Notice tone="warn">
           <strong>This page only works on your own machine.</strong> Run <code>npm run dev</code> and open it at localhost. It does not exist on the deployed site.
         </Notice>
+      )}
+      {coverage.length > 0 && (
+        <section aria-label="Coverage checklist" className="space-y-2">
+          <h2 className="display text-2xl">Coverage checklist</h2>
+          <p className="text-sm leading-snug text-muted">Each item is ticked only by a fact that passed the gate. Check each one against the paper while you review the draft.</p>
+          {coverage.map((card) => <CoverageChecklist key={card.slug} card={card} />)}
+        </section>
       )}
       {items?.length === 0 && <Notice>No decks yet. Publish a paper, then run <code>npm run content:build</code>.</Notice>}
       {items?.map((item) => <DeckCard key={item.deck.slug} item={item} onAct={act} />)}

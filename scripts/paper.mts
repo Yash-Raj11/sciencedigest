@@ -39,7 +39,8 @@ import { FIGURE_KEYS } from "../lib/content/figures";
 import { gate } from "../lib/pipeline/gate";
 import { checkLicense } from "../lib/pipeline/license";
 import { lint } from "../lib/pipeline/lint";
-import { EDITORIAL_SYSTEM, EXTRACT_SYSTEM, editorialPrompt, extractPrompt } from "../lib/pipeline/prompts";
+import { COVERAGE_SYSTEM, EDITORIAL_SYSTEM, EXTRACT_SYSTEM, coveragePrompt, editorialPrompt, extractPrompt } from "../lib/pipeline/prompts";
+import { CoveragePass, mergeCoverage } from "../lib/pipeline/coverage";
 import { findRetracted, parseRetractionWatch } from "../lib/pipeline/retractions";
 import type { GateRole } from "../lib/pipeline/gate";
 import { loadContext } from "./context-load";
@@ -162,9 +163,25 @@ async function extract(slugArg: string | undefined) {
   }
   const { merged, notes } = parts.length > 1 ? mergeExtractions(extractions) : { merged: extractions[0], notes: [] };
   for (const line of notes) console.warn(`warning: merge: ${line}`);
+
+  // Saved before the second request, so a server failure there does not lose the first pass.
+  writeJson(`${dirOf(slug)}/extraction.json`, merged);
+  // The conditions & confounds pass: a second, narrower request per part (lib/pipeline/coverage.ts).
+  let extraction: RawExtraction = merged;
+  const coverageCheck = zodCheck(CoveragePass);
+  for (const part of parts) {
+    const result = await completeJson({ stage: "extract", system: COVERAGE_SYSTEM, prompt: coveragePrompt({ source: part, facts: extraction.facts }) }, coverageCheck);
+    retries += result.retries;
+    const { extraction: next, notes: coverageNotes } = mergeCoverage(extraction, CoveragePass.parse(result.value));
+    const earlier = (extraction as { coverage?: Record<string, string[]> }).coverage;
+    if (earlier) for (const [item, ids] of Object.entries(earlier)) next.coverage[item as keyof typeof next.coverage] = [...new Set([...ids, ...next.coverage[item as keyof typeof next.coverage]])];
+    for (const line of coverageNotes) console.log(`coverage: ${line}`);
+    extraction = next;
+  }
+  const added = extraction.facts.length - merged.facts.length;
   // Saved as the model wrote it (parsed to the schema's shape); the gate judges it next.
-  writeJson(`${dirOf(slug)}/extraction.json`, parts.length > 1 ? merged : (extractions[0]));
-  console.log(`saved ${folder()}/${slug}/extraction.json (parts: ${parts.length}, JSON retries: ${retries}, ${((Date.now() - started) / 1000).toFixed(1)} s)`);
+  writeJson(`${dirOf(slug)}/extraction.json`, extraction);
+  console.log(`saved ${folder()}/${slug}/extraction.json (parts: ${parts.length}, coverage pass added ${added} facts, JSON retries: ${retries}, ${((Date.now() - started) / 1000).toFixed(1)} s)`);
   if (!runGate(slug)) console.log("Fix extraction.json by hand against source.txt, or run extract again. The gate must pass before anything cites it.");
   else if (role === "context") console.log(`A context study stops here: no draft, no protocol. A read cites its facts as [${slug}/<fact_id>].`);
   else console.log(`next: npm run paper -- draft ${slug}`);

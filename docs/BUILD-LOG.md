@@ -939,3 +939,45 @@ doi:10.1016/j.ijpx.2025.100442, PMC12657313. `content/context/caffeine-saliva-ha
 - **Cross-check only, not a source:** two other CC-BY papers cite "4–6 h" from earlier work
   (doi:10.3390/nu17233793, "half-life generally ranging from 4 to 6 h"; doi:10.3389/fcvm.2026.1718154,
   "generally between 4 and 6 h"). Arm A's 3.94–6.36 h agrees with that range.
+
+## 2026-11-14, Gemini 4 Hydrogen adopted for extract; coverage pass and checklist
+
+**Decision (owner).** Adopt `gemini-4-hydrogen` (free tier) for extract, with a safeguard: a
+targeted conditions & confounds pass and a per-paper coverage checklist in `/admin/queue` that
+the owner confirms during draft review. Groq and Ollama stay as fallbacks. Editorial stays
+unbenchmarked until 2E.
+
+- `lib/pipeline/coverage.ts`: `CoveragePass` (the second request's reply), `mergeCoverage`
+  (renames clashing ids, keeps repeats once, relabels only a statement/context fact, and only to
+  limitation; drops coverage ids that name no fact), `coverageChecklist` (ticked only by a fact
+  that passed the gate; no pass = not found). 9 unit tests; breaking the "gated only" filter or
+  the relabel guard fails them.
+- `COVERAGE_SYSTEM` + `coveragePrompt` (`prompts.ts`); `EXTRACT_SYSTEM` now says a
+  non-treatment explanation (taste, a nutrient difference) is a limitation. `extract` runs the
+  pass per part, saves the first pass before it, and writes `coverage` into `extraction.json`
+  (optional field in `RawExtraction`).
+- `/api/admin/queue` returns a checklist per paper (gate run at request time, local only);
+  `QueueBoard` shows it above the decks.
+- Adapter: a 429 or 503 is asked again after 5 s, 15 s, 45 s (Retry-After honoured); a fourth
+  failure stops loudly. Test with `AI_RETRY_BASE_MS=0`. Found the hard way: the first round-3
+  attempt died on a 503 ("high demand") in the second request and lost the first pass; that
+  attempt is not counted.
+
+**Benchmark round 3** (turmeric, scratch folder, deleted):
+
+| | Round 2 | Round 3 |
+|---|---|---|
+| Facts | 83 | 103 (85 first pass + 18 coverage pass) |
+| Hand facts found (of 42), strict quote overlap | 28 | **35** |
+| Counting equivalents | 33 | **41**; only `trpv1_mouth` ("TRPV1 is present in the oral cavity") missed |
+| Round 2's 9 misses | | **all 9 caught**: in_egg, plate, nothing_else, sugar_row (`table1_sugar`, a confound), piperine, trpv1, animals_before, single_meal (`dosing_acute_intervention`), lim_mechanism (`limitation_future_mechanisms`) |
+| Taste limitation | statement | **limitation** (`limitation_palatability_confounding`, also listed under confounds) |
+| Wrong numbers | 0 | 0 |
+| Gate | passes | **refused 1**: `dosing_acute_intervention` typed finding with no outcome. Relabelled to context by hand in the scratch copy: passes, 103 facts |
+| Checklist | | all 9 rows ticked after that relabel. Funding is ticked by "No conflict of interest." only: the paper has no funding statement |
+| JSON retries / chunking | 0 / no | 1 / no |
+| Tokens in / out (3 requests) | 14,122 / 11,842 | 43,035 / 15,424 |
+| Time / 429-503 hits | 182 s / 0 | 290 s / 0 (plus the lost attempt's one 503) |
+
+Not iterated further, as instructed. The one gate refusal is the kind a draft review fixes in a
+line; it was not coached away.

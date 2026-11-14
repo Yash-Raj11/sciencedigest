@@ -96,8 +96,27 @@ export function forGemini(base: string, body: Record<string, unknown>): Record<s
   return out;
 }
 
+/** Busy or rate-limited: worth asking again after a pause. Any other status is final. */
+const TRANSIENT = new Set([429, 503]);
+const TRANSIENT_TRIES = 4;
+
+/** Pause before try `n` (1, 2, 3): Retry-After if the server sends one, else 5 s, 15 s, 45 s. AI_RETRY_BASE_MS scales it (tests use 0). */
+function pauseMs(response: Response, n: number): number {
+  const base = Number(process.env.AI_RETRY_BASE_MS ?? 5000);
+  const after = Number(response.headers?.get?.("retry-after"));
+  return Number.isFinite(after) && after > 0 ? Math.min(after * 1000, 120000) * (base / 5000) : base * 3 ** (n - 1);
+}
+
 async function post(url: string, headers: Record<string, string>, body: Record<string, unknown>): Promise<Response> {
-  return fetch(url, { method: "POST", headers: { "content-type": "application/json", ...headers }, body: JSON.stringify(body) });
+  let response!: Response;
+  for (let n = 1; n <= TRANSIENT_TRIES; n++) {
+    response = await fetch(url, { method: "POST", headers: { "content-type": "application/json", ...headers }, body: JSON.stringify(body) });
+    if (!TRANSIENT.has(response.status) || n === TRANSIENT_TRIES) return response;
+    const wait = pauseMs(response, n);
+    console.warn(`AI server answered ${response.status} (busy or rate-limited); asking again in ${Math.round(wait / 1000)} s (try ${n + 1} of ${TRANSIENT_TRIES}).`);
+    await new Promise((resolve) => setTimeout(resolve, wait));
+  }
+  return response;
 }
 
 /** Retries once without an optional setting the server refused (some models take no temperature, or no JSON mode). */

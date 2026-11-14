@@ -76,6 +76,8 @@ export const RawExtraction = z.object({
   population: Leaf,
   sampleSize: Leaf,
   facts: z.array(Fact).min(1),
+  /** Written by the coverage pass (lib/pipeline/coverage.ts): which fact covers which checklist item. Ids only. */
+  coverage: z.record(z.string(), z.array(z.string())).optional(),
 });
 
 export type RawExtraction = z.infer<typeof RawExtraction>;

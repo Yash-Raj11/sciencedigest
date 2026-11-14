@@ -20,7 +20,7 @@ Rules:
    - "estimate": an effect size from this study's data, with measure (WMD, MD, aRD, RD, proportion, RR, HR, OR), point, ciLow, ciHigh (null if not printed) and unit. Example: "a mean difference of −1.2 kg (95% CI −2.0 to −0.4)". If the paper prints a relative measure (RR, HR, OR), also extract the absolute figures it prints for the same result.
    - "finding": any other measured result of THIS study: a p-value, a significant or non-significant difference, a direction, a mean ± SD from its own tables. Add "outcome": the endpoint measured, in plain words. Example: "resting heart rate did not differ between groups (p = .41)". A passage with a p-value from this study is always a finding or an estimate.
    - "grade": the paper's own certainty rating for an outcome (for example GRADE): value high, moderate or low. Point the estimate's gradeRef at it. Do not rate anything yourself.
-   - "limitation": a weakness the authors state, or a part of the question the study did not measure, in the authors' words. Example: "sleep was measured on two nights only". Extract at least two.
+   - "limitation": a weakness the authors state, or a part of the question the study did not measure, in the authors' words. Example: "sleep was measured on two nights only". When the authors say a result may come from something other than the treatment (taste, a nutrient difference between the meals, expectation), that sentence is a limitation, not a statement. Extract at least two.
    - "statement": a claim, not a measurement of this study: the authors' explanation or proposed mechanism, or what earlier work found. Example: "this may reflect lower cortisol in the evening".
    - "context": how the study was run and who was in it: setting, doses, meals, timing, measuring tools, scales, inclusion rules, baseline characteristics. Example: "participants took 400 mg each morning for 8 weeks".
 7. Coverage. Walk the paper section by section: methods, results, every table, discussion, limitations. List every reportable number and every stated limitation, each as its own fact. A table row of this study's results is a finding.
@@ -35,6 +35,33 @@ REPOSITORY METADATA FOR THE PAPER TO EXTRACT (use for identifiers and license):
 ${JSON.stringify(input.meta, null, 2)}
 
 FULL TEXT OF THE PAPER TO EXTRACT:
+${input.source}`;
+}
+
+/**
+ * The second, narrower extract request: the conditions and confounds a first pass tends to
+ * skip (lib/pipeline/coverage.ts). It returns new facts and a map of which fact covers which item.
+ */
+export const COVERAGE_SYSTEM = `You check one clinical paper for facts a first extraction missed. You are given the paper and the facts already extracted. Return one JSON object and nothing else:
+{"facts": [ ...new facts, in exactly the shape of the extracted ones... ], "relabelAsLimitation": [ ...ids... ], "coverage": {"conditions": [ids], "dosing": [ids], "confounds": [ids], "priorEvidence": [ids], "furtherInvestigation": [ids], "funding": [ids]}}
+
+Look for each item below. For each one the paper states, cite the fact that covers it: an id already extracted, or a new fact you add. If the paper never states an item, leave its list empty. Never guess.
+- conditions: how the treatment was given and under what conditions: what it was eaten or drunk with, mixed into, the fasting window, what was forbidden before or during the test, the time allowed to eat it. One fact per condition.
+- dosing: one single dose or repeated doses, and for how long. A sentence calling the study acute or single-meal counts.
+- confounds: any difference between the arms other than the treatment, including a table row whose values differ between arms (for example an extra 2 g of sugar in one meal), and order or blinding problems.
+- priorEvidence: what species earlier work was done in (for example "only on animals"), and the active ingredient the authors name.
+- furtherInvestigation: every sentence where the authors say something needs further investigation, future research or long-term study. Each is a fact of kind "limitation".
+- funding: the funding statement and the conflict-of-interest statement, copied exactly, as kind "context".
+
+Also list in relabelAsLimitation the id of any extracted statement or context fact in which the authors say a result may come from something other than the treatment (taste, a nutrient difference, expectation).
+
+The rules of the first extraction still hold: every quote is copied character for character from the paper; one value is one unbroken run of characters inside its quote; a table row counts as a quote; new ids are lower_snake_case and not already used. A measured result of this study is a "finding", never a statement.`;
+
+export function coveragePrompt(input: { source: string; facts: { id: string; kind: string; quote: string | null }[] }): string {
+  return `FACTS ALREADY EXTRACTED (id, kind, quote):
+${input.facts.map((f) => `- ${f.id} (${f.kind}): ${(f.quote ?? "").slice(0, 200)}`).join("\n")}
+
+FULL TEXT OF THE PAPER:
 ${input.source}`;
 }
 

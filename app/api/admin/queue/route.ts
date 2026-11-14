@@ -11,9 +11,11 @@
  */
 
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import type { CarouselDeck } from "@/lib/content/types";
+import { coverageChecklist, type ChecklistRow } from "@/lib/pipeline/coverage";
+import { gate } from "@/lib/pipeline/gate";
 
 const LOCAL = process.env.NODE_ENV === "development";
 const ROOT = process.cwd();
@@ -26,6 +28,21 @@ function decks(): CarouselDeck[] {
   return JSON.parse(readFileSync(path.join(ROOT, "content", "generated", "carousels.json"), "utf8")).decks;
 }
 
+export interface CoverageCard { slug: string; published: boolean; gateOk: boolean; rows: ChecklistRow[] }
+
+/** The coverage checklist for every paper with an extraction, drafts included: the owner checks it during draft review. */
+function coverage(): CoverageCard[] {
+  const dir = path.join(ROOT, "content", "papers");
+  return readdirSync(dir).filter((slug) => existsSync(path.join(dir, slug, "extraction.json")) && existsSync(path.join(dir, slug, "source.txt"))).sort().map((slug) => {
+    const raw = JSON.parse(readFileSync(path.join(dir, slug, "extraction.json"), "utf8")) as { coverage?: Record<string, string[]> };
+    const result = gate(raw, readFileSync(path.join(dir, slug, "source.txt"), "utf8"));
+    const editorial = path.join(dir, slug, "editorial.json");
+    const published = existsSync(editorial) && Boolean((JSON.parse(readFileSync(editorial, "utf8")) as { publishedAt?: string | null }).publishedAt);
+    const gated = result.ok ? { design: result.validated.design, sampleSize: result.validated.sampleSize, facts: result.validated.facts } : null;
+    return { slug, published, gateOk: result.ok, rows: coverageChecklist(raw.coverage, gated) };
+  });
+}
+
 export async function GET() {
   if (!LOCAL) return new Response("Not found", { status: 404 });
   const items = decks().map((deck) => {
@@ -34,7 +51,7 @@ export async function GET() {
     const status = !record ? "waiting" : record.fingerprint === fingerprint(deck) ? "approved" : "changed";
     return { deck, status, approvedAt: record?.approvedAt ?? null };
   });
-  return Response.json({ items });
+  return Response.json({ items, coverage: coverage() });
 }
 
 export async function POST(request: Request) {

@@ -49,6 +49,17 @@ describe("openai-compatible provider", () => {
     expect(calls[1].body).not.toHaveProperty("temperature");
   });
 
+  it("asks again after a 503 or 429 (busy, rate-limited), then gives up loudly after four tries", async () => {
+    vi.stubEnv("AI_RETRY_BASE_MS", "0");
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    let calls = fakeFetch([{ status: 503, text: "high demand" }, { status: 429, text: "quota" }, { json: recorded }]);
+    expect(await complete(request)).toBe('{"ok": true, "facts": ["a"]}');
+    expect(calls).toHaveLength(3);
+    calls = fakeFetch([{ status: 503, text: "high demand" }]);
+    await expect(complete(request)).rejects.toThrow(/AI request failed \(503\)/);
+    expect(calls).toHaveLength(4);
+  });
+
   it("fails loudly on a cut-off reply, an empty reply and an HTTP error", async () => {
     fakeFetch([{ json: withContent('{"ok": tr', "length") }]);
     await expect(complete(request)).rejects.toThrow(/ran out of room/);

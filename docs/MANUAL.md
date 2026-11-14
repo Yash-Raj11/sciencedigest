@@ -279,7 +279,7 @@ editorial.json    the read, the protocol, the simulator settings, the Instagram 
 Set in `.env.local`. The gate and the lint judge the output the same way whichever model
 wrote it.
 
-**Chosen: Gemini 4 Hydrogen on the Gemini API free tier** (owner, 2026-11-14). No billing, no
+**Chosen: Gemini 4 Hydrogen on the Gemini API free tier** (owner, 2026-11-14; adopted for extract the same day, with the coverage pass and checklist below). No billing, no
 Vertex, no extra package: it goes through the same openai-compatible adapter. The papers are
 CC-BY public text, so Google's free-tier use of the prompts is acceptable. Make a key at
 aistudio.google.com, then:
@@ -294,8 +294,22 @@ AI_MODEL_EDITORIAL=gemini-4-hydrogen
 # AI_THINKING_EDITORIAL=medium   xhigh, or off (sends nothing). These are the defaults.
 ```
 
-The free tier has rate limits; if a command stops with `AI request failed (429)`, wait a
-minute and run it again.
+The free tier has rate limits and busy spells. A `429` or `503` is asked again by itself (after
+5 s, 15 s, 45 s); if a command still stops with `AI request failed (429)` or `(503)`, wait a few
+minutes and run it again. The first pass is saved before the second request, so it is not lost.
+
+`extract` makes two requests. The first reads the whole paper. The second, the **conditions &
+confounds pass**, looks only for what a first pass tends to skip: how the treatment was given
+(what it was eaten with, fasting, what was forbidden), one dose or many, differences between the
+arms (a table row such as extra sugar in one meal), what species earlier work used, every
+"needs further investigation" sentence, and the funding and conflict statements. It writes a
+`coverage` list into `extraction.json`. The gate judges every fact either request adds.
+
+**Coverage checklist.** `/admin/queue` (local only, `npm run dev`) shows, for every paper with
+an extraction, drafts included: design, n, conditions, dosing, confounds, earlier evidence,
+further investigation, limitations, funding. Each is ticked by a fact that passed the gate, or
+shows **not found**. It decides nothing: check each line against the paper while you read the
+draft. A hand-made extraction (no coverage pass) shows the pass items as not found.
 
 **Fallback, free: an open-weight model on Groq.** Make a key at console.groq.com, then:
 
