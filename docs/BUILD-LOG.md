@@ -450,6 +450,9 @@ session. No bug. Output in `docs/evidence/pre3-live-409.txt`.
 - **Anthropic's frontend-design skill is not available in this Claude Code** (it is not in the
   session's skill list, and nothing was installed). 2C, 2D and Phase 11 are designed by hand
   against the ten colour tokens and the two fonts.
+  *Corrected 2026-11-14:* true when written, but later the same day (17:43, before 2C was
+  committed) the owner installed the third-party `impeccable` design skill and its four agents
+  into `.claude/`. No entry recorded it. See the entry of 2026-11-14.
 
 ## 2026-11-13, Phase 9, step 2A: H9–H11 in code
 
@@ -689,3 +692,21 @@ Generated files are unchanged. `content/context/` and `content/concepts/` hold o
   (`scripts/seed-safety.test.ts`, 11 tests). MANUAL 3.3 and the db-change skill now say this.
 - **No change** to migrations, scoring or evidence weights.
 
+## 2026-11-14, housekeeping after the status check
+
+- **The turmeric release was not committed when the last session ended**, although its entry
+  above says "commit and push, live check". The hosted database had four papers while `main` and
+  Vercel had three. Committed and pushed as `80e1caa`; live check in the entry's commit.
+- **Hosted writes.** The owner confirmed that the `supabase db query --remote -f supabase/seed.sql`
+  run was approved. **Rule from now on: no command against the hosted project without the
+  owner's "go" for that command.**
+- **`impeccable`** (`.claude/skills/impeccable/`, `.claude/agents/impeccable-*.md`) was installed
+  by the owner and stays, committed on its own. It is subordinate to the ten colour tokens and
+  the two fonts: where its advice and `app/globals.css` disagree, the tokens win. eslint now
+  ignores `.claude/**` (its scripts produced 93 warnings; lint is back to none).
+  `.claude/settings.local.json` (this machine's hooks) is in `.gitignore`.
+- **2A, rule (b) dropped (owner's decision).** "A listed word in the mechanism's opening sentence
+  fails even with a glossary entry" was the 2A session's reading, not the owner's wording. It is
+  removed from `lib/pipeline/lint.ts` with its test. Rule (a) stays: a listed word with no
+  glossary entry fails. `docs/evidence/phase9-2a-rules-broken.txt` is left as the record of
+  2A as built (19 breaks; the rule set now has 18 of them).

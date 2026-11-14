@@ -52,8 +52,8 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       and own splitter, (6) passive voice warning, (7) word budget. Each with a failing fixture.
       Temporary allowlist for the three papers, with a test that fails if it outlives 2E.
       Done: 224 unit tests; 19 of 19 deliberate breaks caught
-      (`docs/evidence/phase9-2a-rules-broken.txt`). For the owner to confirm: the reading of
-      "before its glossary entry" (BUILD-LOG 2026-11-13, step 2A).
+      (`docs/evidence/phase9-2a-rules-broken.txt`). The reading of
+      "before its glossary entry": owner kept rule (a), dropped (b), 2026-11-14 (BUILD-LOG).
 - [x] 2B. Context sources: parallel studies (`content/context/`, gated, graded, retraction check)
       and background concepts (`content/concepts/`, no digits, owner approval command). Source
       lines. Check `paper_content` JSON first. No change to scoring files or migrations.

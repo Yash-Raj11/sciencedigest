@@ -466,7 +466,7 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
       if (total > LAYER_WORDS[layer]) fail("H10", `layers.${layer}`, `${total} words; the ${layer} layer has a budget of ${LAYER_WORDS[layer]}`);
     }
 
-    // H9: a technical word needs its glossary entry, and the picture comes before the name.
+    // H9: a technical word needs its glossary entry.
     const plainRead = all.filter((a) => a.layer === "mechanism" || a.layer === "protocol" || a.where === "hook" || a.where === "populationPanel");
     const reported = new Set<string>();
     for (const { where, sentence } of plainRead) {
@@ -474,14 +474,6 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
         if (reported.has(term) || glossary.some((g) => glossaryCovers(g.term, term))) continue;
         reported.add(term);
         fail("H9", where, `"${term}" is used with no glossary entry saying what it physically does: "${sentence.text}"`);
-      }
-    }
-    const opening = all.find((a) => a.layer === "mechanism");
-    if (opening) {
-      const first = splitSentences(opening.sentence.text)[0] ?? "";
-      const named = jargonIn(first);
-      if (named.length > 0) {
-        fail("H9", opening.where, `the mechanism opens with a technical word (${named.join(", ")}); give the mental model first, then the name: "${first}"`);
       }
     }
     const seenTerms = new Set<string>();

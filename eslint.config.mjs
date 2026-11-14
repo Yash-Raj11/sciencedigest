@@ -78,6 +78,7 @@ const eslintConfig = defineConfig([
   },
 
   globalIgnores([
+    ".claude/**", // skills and their scripts (third-party; not part of the app)
     ".next/**",
     ".next-browser/**", // the browser test's own build (playwright.config.ts)
     ".next-browser-dev/**", // the dev server of tests/browser/paper-routes-dev.spec.ts

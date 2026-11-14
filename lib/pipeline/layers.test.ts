@@ -146,12 +146,6 @@ describe("check 2, jargon (H9)", () => {
     expect(run((e) => { e.glossary[1].plain = "Brain waves outside REM, set by the circadian clock."; }).errors)
       .toEqual([expect.stringContaining('H9 glossary[1]: the plain text for "sigma band" uses a technical word (circadian, REM)')]);
   });
-  it("fails a mechanism that opens with the name instead of the picture, glossary entry or not", () => {
-    expect(run((e) => {
-      e.layers.mechanism.paragraphs[0] = `Caffeine blocks the adenosine lock. [-] ${e.layers.mechanism.paragraphs[0]}`;
-      e.glossary.push({ term: "adenosine", plain: "A chemical that piles up while you are awake.", refs: ["tolerance"] });
-    }).errors).toEqual([expect.stringContaining("H9 layers.mechanism[0]: the mechanism opens with a technical word (adenosine)")]);
-  });
   it("fails a glossary entry with a number, a banned word or a duplicate", () => {
     expect(run((e) => { e.glossary[1].plain = "Brain waves of 12 to 15 cycles a second."; }).errors)
       .toEqual([expect.stringContaining('H7 glossary[1]: the plain text for "sigma band" carries a number (12, 15) that is not in the fact(s) it cites')]);
