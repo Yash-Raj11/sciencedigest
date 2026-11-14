@@ -276,9 +276,34 @@ editorial.json    the read, the protocol, the simulator settings, the Instagram 
 
 ### Once: set up the model
 
-In `.env.local` set `AI_API_KEY` (from console.anthropic.com) and the two `AI_MODEL_...` lines.
-Use a strong model for both. Reading a clinical paper accurately is the hard step, and at ten
-papers a week the cost is a few dollars a month.
+Two ways, both set in `.env.local`. The gate and the lint judge the output the same way
+whichever model wrote it.
+
+**Free: an open-weight model on Groq** (no paid API). Make a key at console.groq.com, then:
+
+```
+AI_PROVIDER=openai-compatible
+AI_BASE_URL=https://api.groq.com/openai/v1
+AI_API_KEY=<your Groq key>
+AI_MODEL_EXTRACT=openai/gpt-oss-120b
+AI_MODEL_EDITORIAL=openai/gpt-oss-120b
+# AI_CONTEXT_TOKENS=131072      the model's window; a paper that does not fit is read in parts
+# AI_MAX_TOKENS=32000           room for the reply (a reasoning model thinks inside it)
+```
+
+The variable is `AI_MODEL_EDITORIAL`, not `AI_MODEL_DRAFT`; the pipeline says so if you use
+the wrong one.
+
+**Offline: Ollama.** Install Ollama, `ollama pull gpt-oss:120b` (or a smaller model your
+machine can hold), then `AI_BASE_URL=http://localhost:11434/v1`, the model names as Ollama
+lists them, and no `AI_API_KEY`. Set `AI_CONTEXT_TOKENS` to the window you gave the model.
+
+**Paid: Anthropic.** Leave `AI_PROVIDER` unset, set `AI_API_KEY` from console.anthropic.com
+and the two `AI_MODEL_...` lines.
+
+Either way the model is asked for JSON and its reply is checked against the schema. A bad
+reply is sent back once with the error; a second bad reply stops the command. A paper too long
+for the window is read in parts and merged, with a warning; it is never cut short.
 
 ### Each paper
 

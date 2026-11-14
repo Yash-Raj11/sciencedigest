@@ -29,7 +29,10 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { createInterface } from "node:readline/promises";
 import { fileURLToPath } from "node:url";
-import { complete, parseJsonReply } from "../lib/ai/provider";
+import { completeJson, contextTokens, replyTokens, zodCheck } from "../lib/ai/provider";
+import { mergeExtractions, splitSource, tokensOf } from "../lib/pipeline/chunks";
+import { Editorial, LegacyEditorial } from "../lib/pipeline/editorial";
+import { RawExtraction } from "../lib/pipeline/extraction";
 import { CONCEPT_SLUG, approved } from "../lib/pipeline/concepts";
 import { readSearchRecord, xmlToText } from "../lib/pipeline/europepmc";
 import { FIGURE_KEYS } from "../lib/content/figures";
@@ -43,11 +46,12 @@ import { loadContext } from "./context-load";
 import { LEGACY_SHAPE_ALLOWLIST } from "./legacy-shape";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
-const PAPERS = `${ROOT}content/papers`;
+// For benchmarks and tests only: SD_PAPERS_DIR points extract and draft at a scratch folder.
+const PAPERS = process.env.SD_PAPERS_DIR ?? `${ROOT}content/papers`;
 const CONTEXT = `${ROOT}content/context`;
 // For tests only: SD_CONCEPTS_DIR points approve-concept at a scratch folder.
 const CONCEPTS = process.env.SD_CONCEPTS_DIR ?? `${ROOT}content/concepts`;
-const EXAMPLE = `${PAPERS}/steps-days-per-week`;
+const EXAMPLE = `${ROOT}content/papers/steps-days-per-week`;
 export const RETRACTIONS_CSV = `${ROOT}.cache/retraction-watch-data/retraction_watch.csv`;
 const EUROPE_PMC = "https://www.ebi.ac.uk/europepmc/webservices/rest";
 
@@ -131,17 +135,36 @@ async function fetchPaper(pmcid: string | undefined, slug: string | undefined) {
 
 async function extract(slugArg: string | undefined) {
   const slug = needSlug(slugArg, "source.txt");
-  const reply = await complete({
-    stage: "extract",
-    system: EXTRACT_SYSTEM,
-    prompt: extractPrompt({
-      meta: existsSync(`${dirOf(slug)}/meta.json`) ? readJson(`${dirOf(slug)}/meta.json`) : {},
-      source: readFileSync(`${dirOf(slug)}/source.txt`, "utf8"),
-      exampleExtraction: readFileSync(`${EXAMPLE}/extraction.json`, "utf8"),
-    }),
-  });
-  writeJson(`${dirOf(slug)}/extraction.json`, parseJsonReply(reply));
-  console.log(`saved ${folder()}/${slug}/extraction.json`);
+  const started = Date.now();
+  const meta = existsSync(`${dirOf(slug)}/meta.json`) ? readJson(`${dirOf(slug)}/meta.json`) : {};
+  const source = readFileSync(`${dirOf(slug)}/source.txt`, "utf8");
+  const exampleExtraction = readFileSync(`${EXAMPLE}/extraction.json`, "utf8");
+  const check = zodCheck(RawExtraction);
+
+  // Does the whole paper fit? If not, read it in parts and merge. Never cut it short.
+  const overhead = tokensOf(EXTRACT_SYSTEM + extractPrompt({ meta, source: "", exampleExtraction })) + 500;
+  const room = contextTokens() - replyTokens() - overhead;
+  if (room < 2000) die("The model's context window is too small for the instructions and the example. Use a model with a larger window (AI_CONTEXT_TOKENS).");
+  const parts = tokensOf(source) <= room ? [source] : splitSource(source, Math.floor(room * 3.5));
+  if (parts.length > 1) {
+    console.warn(`warning: the paper (~${tokensOf(source).toLocaleString("en")} tokens) does not fit the model's window; reading it in ${parts.length} parts and merging.`);
+  }
+
+  let retries = 0;
+  const extractions = [];
+  for (const [i, part] of parts.entries()) {
+    const note = parts.length > 1
+      ? `\n\nNOTE: this is part ${i + 1} of ${parts.length} of the paper. Extract only facts whose quote is in this part. Fill identifiers, license, design, species, population and sampleSize from what this part and the metadata show.`
+      : "";
+    const result = await completeJson({ stage: "extract", system: EXTRACT_SYSTEM, prompt: extractPrompt({ meta, source: part, exampleExtraction }) + note }, check);
+    retries += result.retries;
+    extractions.push(RawExtraction.parse(result.value));
+  }
+  const { merged, notes } = parts.length > 1 ? mergeExtractions(extractions) : { merged: extractions[0], notes: [] };
+  for (const line of notes) console.warn(`warning: merge: ${line}`);
+  // Saved as the model wrote it (parsed to the schema's shape); the gate judges it next.
+  writeJson(`${dirOf(slug)}/extraction.json`, parts.length > 1 ? merged : (extractions[0]));
+  console.log(`saved ${folder()}/${slug}/extraction.json (parts: ${parts.length}, JSON retries: ${retries}, ${((Date.now() - started) / 1000).toFixed(1)} s)`);
   if (!runGate(slug)) console.log("Fix extraction.json by hand against source.txt, or run extract again. The gate must pass before anything cites it.");
   else if (role === "context") console.log(`A context study stops here: no draft, no protocol. A read cites its facts as [${slug}/<fact_id>].`);
   else console.log(`next: npm run paper -- draft ${slug}`);
@@ -153,12 +176,16 @@ async function draft(slugArg: string | undefined) {
   const validated = runGate(slug);
   if (!validated) die("The gate must pass before a draft is written.");
   // The editorial model is handed the validated facts and nothing else. It never sees the paper.
-  const reply = await complete({
+  const started = Date.now();
+  // The JSON check is the schema only (either shape, so the lint can name a wrong one); the lint judges the content.
+  const shape = zodCheck(Editorial.or(LegacyEditorial));
+  const { value, retries } = await completeJson({
     stage: "editorial",
     system: EDITORIAL_SYSTEM,
-    prompt: editorialPrompt({ slug, validated, exampleEditorial: readFileSync(`${EXAMPLE}/editorial.json`, "utf8") }),
-  });
-  const editorial = parseJsonReply(reply) as Record<string, unknown>;
+    prompt: editorialPrompt({ slug, validated: validated!, exampleEditorial: readFileSync(`${EXAMPLE}/editorial.json`, "utf8") }),
+  }, (reply) => shape({ ...(reply as object), slug, publishedAt: null }));
+  const editorial = value as Record<string, unknown>;
+  console.log(`JSON retries: ${retries}, ${((Date.now() - started) / 1000).toFixed(1)} s`);
   writeJson(`${dirOf(slug)}/editorial.json`, { ...editorial, slug, publishedAt: null });
   console.log(`saved content/papers/${slug}/editorial.json (a draft: not in the app)`);
   if (runLint(slug, validated!).ok) console.log(`next: read the draft, then npm run paper -- approve ${slug}`);
