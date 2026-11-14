@@ -1319,3 +1319,10 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   full figure does print numbers; bands; headline form; rows; the lint rule's four failures);
   browser + 9 (order, no digit on any card figure, Try it is the one orange, each row lands on its
   slot for all four papers, members' rows, a slot a read lacks is absent).
+
+## 2026-11-14, Readability 6: hosted seed
+
+- Dry run shown (no migrations; seed hash only), then pushed on the owner's "go" for this one
+  push: `supabase db push --remote --include-seed --yes`, then `supabase db query --remote --yes
+  -f supabase/seed.sql`. 4 reads, 2 takeaway rows and 2 step labels updated; no user history
+  touched. Hosted is up to date (dry run). `docs/evidence/readability/hosted-seed.txt`.

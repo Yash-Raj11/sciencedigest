@@ -1,0 +1,20 @@
+Hosted seed, 2026-11-14 (owner's "go" for this one push; readability item 6). Project takhienzcshgkytbvaii.
+
+1. Dry run: supabase db push --remote --dry-run --include-seed
+   DRY RUN: migrations will *not* be pushed to the database.
+   Would seed these files: supabase/seed.sql (hash update)
+   {"upToDate":false,"dryRun":true,"migrations":[],"seeds":["supabase/seed.sql"]}
+
+   seed.sql vs the last hosted content (b22f684): 8 lines changed, reference content only:
+   4 paper_content rows (the reads: card, source line, glance), 2 paper_feature_content
+   key_takeaways rows, 2 protocol_steps rows (source_estimate labels in plain words).
+   No migration. No user history table touched.
+
+2. Push: supabase db push --remote --include-seed --yes
+   Schema migrations are up to date. Updating seed hash to supabase/seed.sql...
+   Then: supabase db query --remote --yes -f supabase/seed.sql   (idempotent upserts)
+
+3. Check (read-only, counts only):
+   papers 4, steps 31, contents 4, reads with glance + sourceLine 4, step labels with
+   "significant" or "p =" 0.
+   Dry run again: {"upToDate":true, "message":"Remote database is up to date."}

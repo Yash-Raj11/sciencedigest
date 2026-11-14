@@ -126,8 +126,9 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
   - [x] 5. Feed card = the key idea at a glance; "What's inside" rows deep-link to slots.
         `lib/content/glance.ts`, editorial `glance`, glance views; tests `scripts/glance.test.ts`,
         `tests/browser/readability.spec.ts`. Screens: `docs/evidence/readability/feed-*.png`.
-  - [ ] IN PROGRESS: 6. Hosted seed: dry run, then push on the owner's "go".
-  - [ ] 7. Figure plans (concept sketch; caffeine, turmeric, steps + HIIT) in SIMULATORS.md.
+  - [x] 6. Hosted seed: dry run shown, pushed on the owner's "go" (one push). Hosted is up to
+        date. `docs/evidence/readability/hosted-seed.txt`.
+  - [ ] IN PROGRESS: 7. Figure plans (concept sketch; caffeine, turmeric, steps + HIIT) in SIMULATORS.md.
   - [ ] ⏸ Stop after 7 with hashes, contrast table, screenshot paths, plans; /phase-handoff.
 - [ ] The pipeline proposes the figure kind and the simulator inputs (`prompts.ts`).
 - [ ] Reader inputs stored on the device only (like the theme).
