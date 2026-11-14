@@ -123,7 +123,7 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
   - [x] 4. Source line (who · design · how long) + grade words, 3-bar meter, tap for why; no
         weight on any screen. `lib/evidence-words.ts`; tests `lib/evidence-words.test.ts`,
         `tests/browser/source-line.spec.ts`. Screens: `docs/evidence/readability/card-*.png`.
-  - [ ] 5. Feed card = the key idea at a glance; "What's inside" rows deep-link to slots.
+  - [ ] IN PROGRESS: 5. Feed card = the key idea at a glance; "What's inside" rows deep-link to slots.
   - [ ] 6. Hosted seed: dry run, then push on the owner's "go".
   - [ ] 7. Figure plans (concept sketch; caffeine, turmeric, steps + HIIT) in SIMULATORS.md.
   - [ ] ⏸ Stop after 7 with hashes, contrast table, screenshot paths, plans; /phase-handoff.
