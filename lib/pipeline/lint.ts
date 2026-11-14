@@ -622,6 +622,14 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
     const key = figureKey(ed.slug, def.figure);
     if (def.spec !== undefined) {
       // Drawn by kind: the spec names facts only, the kind must exist, and a simulator needs a range (H12).
+      // A fact of a gated context study may feed it (H7 amended): checked like any citation, and listed for the audit.
+      for (const group of ["facts", "simulator"] as const) {
+        const given = (def.spec as Record<string, unknown> | null)?.[group];
+        if (given === null || typeof given !== "object") continue;
+        for (const [param, id] of Object.entries(given)) {
+          if (typeof id === "string" && parseRef(id).kind === "study") checkRef(id, `${where}.spec.${group}.${param}`);
+        }
+      }
       const problems = specProblems(def.spec, `${where}.spec`, (id) => {
         const e = factOf(id)?.fact;
         return e ? { kind: e.kind, unit: e.estimate?.unit ?? null, point: e.estimate?.point ?? null, ciLow: e.estimate?.ciLow ?? null, ciHigh: e.estimate?.ciHigh ?? null } : undefined;

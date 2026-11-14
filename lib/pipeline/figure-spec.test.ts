@@ -58,6 +58,13 @@ describe("a figure spec", () => {
     expect(check({ kind: "decay", facts: { halfLife: "half_life" }, label: "Caffeine" }).length).toBe(1);
   });
 
+  it("a background concept never feeds a figure or a simulator: it carries no number", () => {
+    expect(check(spec("bad-concept-number"))).toEqual([
+      expect.stringMatching(/^context spec\.facts\.halfLife: "concept:adenosine" is a background concept/),
+      expect.stringMatching(/^context spec\.simulator\.halfLife: "concept:adenosine" is a background concept/),
+    ]);
+  });
+
   it("the label of a personal estimate is the one H12 names", () => {
     expect(ESTIMATE_LABEL).toBe("Estimate from the study's numbers, not medical advice");
   });
@@ -91,6 +98,45 @@ describe("through the content lint, on the caffeine paper", () => {
     expect(run(spec("good"))).toEqual([
       expect.stringMatching(/^figure-spec layers\.mechanism\.figure\.spec\.facts\.halfLife: "half_life" is not a gated fact/),
       expect.stringMatching(/^figure-spec layers\.mechanism\.figure\.spec\.simulator\.halfLife: "half_life" is not a gated fact/),
+    ]);
+  });
+
+  // A gated context study may feed a spec (owner's rule change, 2026-11-14). Its fact is made up here.
+  const OTHER = "made-up-context-study";
+  const anyFact = Object.values(validated.facts)[0];
+  const contextStudy = (withdrawn: boolean): LintContext["studies"][string] => ({
+    ok: true,
+    validated: { ...validated, facts: { half_life: { ...anyFact, id: "half_life", kind: "estimate", estimate: { unit: "h", point: 5, ciLow: 3, ciHigh: 7, tier: "low" } } } } as never,
+    withdrawn: withdrawn ? { nature: "Retraction", date: null, reason: "test" } : null,
+  });
+  function runWith(figureSpec: unknown, studies: LintContext["studies"]) {
+    const saved = context.studies;
+    context.studies = studies;
+    try { return run(figureSpec); } finally { context.studies = saved; }
+  }
+  const studySpec = { kind: "decay", facts: { halfLife: `${OTHER}/half_life` }, simulator: { halfLife: `${OTHER}/half_life` } };
+
+  it("a gated context study's fact may feed the spec and its simulator", () => {
+    expect(runWith(studySpec, { [OTHER]: contextStudy(false) })).toEqual([]);
+  });
+
+  it("the study fed to a spec is listed for the audit", () => {
+    const base = Object.fromEntries(Object.entries(structuredClone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary"].includes(key)));
+    const layers = structuredClone(fixture.layers);
+    layers.mechanism.figure = { figure: "decay", caption: "How long it stays. [-]", alt: "A line that falls by half at each step. [-]", params: {}, spec: studySpec };
+    const report = lint(validated, { ...base, layers, glossary: structuredClone(fixture.glossary) } as never, source, { context: { ...context, studies: { [OTHER]: contextStudy(false) } }, figures: FIGURE_KEYS });
+    expect(report.context?.studies).toEqual([OTHER]);
+  });
+
+  it("a withdrawn or missing context study cannot feed a spec", () => {
+    expect(runWith(studySpec, { [OTHER]: contextStudy(true) })).toEqual(expect.arrayContaining([expect.stringMatching(/^context .*has been withdrawn/)]));
+    expect(runWith(studySpec, {})).toEqual(expect.arrayContaining([expect.stringMatching(/^context .*no gated source/)]));
+  });
+
+  it("a concept-sourced number in a spec fails through the lint", () => {
+    expect(runWith(spec("bad-concept-number"), {})).toEqual([
+      expect.stringMatching(/^context layers\.mechanism\.figure\.spec\.facts\.halfLife: "concept:adenosine" is a background concept/),
+      expect.stringMatching(/^context layers\.mechanism\.figure\.spec\.simulator\.halfLife: "concept:adenosine" is a background concept/),
     ]);
   });
 

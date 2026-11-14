@@ -100,8 +100,10 @@ What the lint checks on the layers (`npm run content:build` prints all of it):
 
 ## Context: other studies and background concepts
 
-A read may rest on two things besides its own paper. **Neither ever becomes a protocol step,
-feeds a simulator, or changes an evidence weight.**
+A read may rest on two things besides its own paper. **Neither ever becomes a protocol step or
+changes an evidence weight.** One exception for figures: a gated context study's fact may feed
+a figure spec (a kind) and its simulator; the chart shows "From another study: <cite>, <grade>",
+H12 ranges apply, and the audit lists the study. A concept never feeds a figure or a simulator.
 
 | | Lives in | May carry numbers | Cited as | Page says |
 |---|---|---|---|---|
@@ -148,7 +150,8 @@ in `components/papers/registry.tsx`. A layer references one:
   digit in its text. Sums and formatting live in `components/figures/format.ts`.
 - An observational study gets no arrow. Draw the association with a bracket.
 - Never draw a curve, a height or an axis value the paper does not print.
-- A figure uses only its own paper's facts: no context study, no concept.
+- A hand-drawn figure (params) uses only its own paper's facts. A figure spec (a kind) may also
+  use a gated context study's fact (`"<slug>/<fact>"`); never a concept.
 - A figure may be interactive (React state and SVG only) when poking it teaches something a
   still picture cannot; say which, and why, in a design note at the top of the file. The first,
   untouched view carries the point alone. State starts empty and holds only what `params` gave

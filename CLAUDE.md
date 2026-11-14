@@ -73,9 +73,12 @@ when it is kept (`npm run db:mutation` does this for the database).
 - **H11 Voice.** Short sentences, active voice, no academic throat-clearing.
 - **H12 Personal estimates.** A personal estimate is shown only as a range derived from the
   gated fact's range, labelled "Estimate from the study's numbers, not medical advice", with
-  its source line. Missing fact: no simulator; never fill it from general knowledge.
+  its source line. Missing fact: no simulator; never fill it from general knowledge. The fact
+  may come from a gated context study (never a background concept); the range rule still applies.
 - **H7 (amended).** Every number shown to a reader traces to a gated fact, from the paper or
-  from a gated context source. The UI says which.
+  from a gated context source. The UI says which. A figure spec and its simulator may use a
+  fact of a gated context study (owner, 2026-11-14): the chart shows "From another study:
+  <cite>, <grade>" and the audit lists the study. A background concept never feeds one.
 
 ## Skills: load the one that matches before you start
 

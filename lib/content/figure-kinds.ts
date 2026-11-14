@@ -6,7 +6,10 @@
  *   { "kind": "decay", "facts": { "halfLife": "half_life" }, "simulator": { "halfLife": "half_life" } }
  *
  * A spec holds names of facts and nothing else: no number, no text to show.
- * Every value the figure draws is looked up from the gated fact.
+ * Every value the figure draws is looked up from the gated fact: one of the
+ * paper's, or one of a gated context study's ("<slug>/<fact>"), never a
+ * background concept. A context fact is drawn with its source line,
+ * "From another study: <cite>, <grade>", and the audit lists the study.
  *
  * H12: a personal estimate (the simulator) is shown only as a range worked out
  * from the gated fact's own range, under ESTIMATE_LABEL, with its source line.
@@ -41,7 +44,7 @@ export const ESTIMATE_LABEL = "Estimate from the study's numbers, not medical ad
 /** What the lint needs to know of a fact to judge a spec. */
 export interface SpecFact { kind: string; unit: string | null; point: number | null; ciLow: number | null; ciHigh: number | null }
 
-export interface SpecProblem { rule: "figure-spec" | "H7" | "H12"; where: string; message: string }
+export interface SpecProblem { rule: "figure-spec" | "H7" | "H12" | "context"; where: string; message: string }
 
 /** A fact the simulator may work from: an estimate with both ends of its range. */
 export const hasRange = (fact: SpecFact | undefined): fact is SpecFact & { point: number; ciLow: number; ciHigh: number } =>
@@ -61,6 +64,18 @@ export function specProblems(raw: unknown, where: string, lookup: (id: string) =
     else if (Array.isArray(node)) node.forEach((child, i) => walk(child, `${path}[${i}]`));
     else if (node !== null && typeof node === "object") for (const [key, child] of Object.entries(node)) walk(child, `${path}.${key}`);
   })(raw, where);
+  if (out.length > 0) return out;
+
+  // A background concept carries no number (any digit fails its own checks), so it can never feed a figure.
+  for (const group of ["facts", "simulator"] as const) {
+    const given = (raw as Record<string, unknown> | null)?.[group];
+    if (given === null || typeof given !== "object") continue;
+    for (const [param, id] of Object.entries(given)) {
+      if (typeof id === "string" && id.startsWith("concept:")) {
+        fail("context", `${where}.${group}.${param}`, `"${id}" is a background concept; a figure and a simulator draw only gated facts, from the paper or a gated context study`);
+      }
+    }
+  }
   if (out.length > 0) return out;
 
   const parsed = FigureSpec.safeParse(raw);
