@@ -20,7 +20,7 @@ import OrderFlips from "./hiit-body-composition/figures/OrderFlips";
 import HiitWidget from "./hiit-body-composition/Widget";
 import ThreeCrowds from "./steps-days-per-week/figures/ThreeCrowds";
 import StepsWidget from "./steps-days-per-week/Widget";
-import Doorbell from "./turmeric-pepper-breakfast/figures/Doorbell";
+import TongueToBlood from "./turmeric-pepper-breakfast/figures/TongueToBlood";
 import FiveReadings from "./turmeric-pepper-breakfast/figures/FiveReadings";
 import BreakfastSimulator from "./turmeric-pepper-breakfast/Simulator";
 
@@ -65,7 +65,7 @@ const FIGURES: Record<FigureKey, ComponentType<FigureProps>> = {
   "daytime-caffeine-sleep/lock-and-key": LockAndKey,
   "steps-days-per-week/three-crowds": ThreeCrowds,
   "hiit-body-composition/order-flips": OrderFlips,
-  "turmeric-pepper-breakfast/doorbell": Doorbell,
+  "turmeric-pepper-breakfast/tongue-to-blood": TongueToBlood,
   "turmeric-pepper-breakfast/five-readings": FiveReadings,
 };
 

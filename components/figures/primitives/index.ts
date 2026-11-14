@@ -14,3 +14,4 @@ export { IntervalPlot, intervalPlotHeight, type IntervalRowSpec } from "./Interv
 export { WeekStrip, weekStripHeight } from "./WeekStrip";
 export { Person } from "./Person";
 export { CompareRows, compareRowsHeight, type CompareRow } from "./CompareRows";
+export { Gut, Plate, Tongue, Vessel } from "./Pictograms";

@@ -2362,29 +2362,70 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
           ]
         ],
         "figure": {
-          "figure": "doorbell",
+          "figure": "tongue-to-blood",
+          "headline": [
+            {
+              "text": "The authors think pepper switches on a sensor in the mouth, then a gut signal.",
+              "refs": [
+                "trpv1",
+                "trpv1_mouth",
+                "glp1"
+              ]
+            },
+            {
+              "text": "They measured blood sugar, not the hormones.",
+              "refs": [
+                "glucose_lower",
+                "lim_hormones"
+              ]
+            }
+          ],
           "caption": [
             {
-              "text": "The authors' explanation, step by step.",
+              "text": "Dashed: the authors' idea.",
               "refs": [
                 "trpv1",
                 "glp1"
               ]
             },
             {
-              "text": "A dashed arrow is a step the trial did not measure.",
+              "text": "Solid: what the trial measured.",
               "refs": [
-                "lim_hormones"
+                "glucose_lower"
               ]
             }
           ],
-          "alt": "Four boxes, top to bottom, joined by dashed arrows. Pepper touches the mouth. A sensor there fires. The gut sends its food-has-arrived message. Blood sugar rises less. Only the last box is filled.",
+          "alt": "Two rows of four drawings: a breakfast egg, a tongue, a loop of gut and a blood vessel. The top row is the plain egg; the bottom row has black pepper mixed into the egg. In the bottom row, dashed outlines show the authors' idea: pepper switches on a mouth sensor, and a gut signal goes up. A solid arrow runs from the pepper egg to the blood: blood sugar was lower than after the plain egg. The clear difference was at 30 minutes.",
           "params": {
-            "nodes": [
+            "title": "From the mouth to the blood: the authors' idea and what was measured",
+            "rows": {
+              "plain": "Plain egg",
+              "spiced": "Egg with pepper"
+            },
+            "sensor": {
+              "name": "Sensor in the mouth",
+              "kind": "proposed",
+              "fact": {
+                "id": "trpv1_mouth",
+                "kind": "statement",
+                "label": "TRPV1 is in the mouth; the authors say its activation is known to affect glucose control and appetite",
+                "quote": "TRPV1 is present in the oral cavity and its activation is widely known to improve glucose homeostasis, potentially affect appetite responses as well as increase energy metabolism."
+              }
+            },
+            "signal": {
+              "name": "The gut's “food has arrived” signal",
+              "spiced": "May go up",
+              "kind": "proposed",
+              "fact": {
+                "id": "glp1",
+                "kind": "statement",
+                "label": "TRPV1 activation raises GLP-1 in the lower small intestine and the blood (earlier work the authors cite)",
+                "quote": "Furthermore, TRPV1 activation increases GLP‐1; glucagon‐like peptide‐1 levels in the ileum and plasma."
+              }
+            },
+            "links": [
               {
-                "lines": [
-                  "Pepper touches the mouth"
-                ],
+                "spiced": "Pepper may switch it on",
                 "kind": "proposed",
                 "fact": {
                   "id": "trpv1",
@@ -2394,22 +2435,6 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 }
               },
               {
-                "lines": [
-                  "A sensor there fires"
-                ],
-                "kind": "proposed",
-                "fact": {
-                  "id": "trpv1_mouth",
-                  "kind": "statement",
-                  "label": "TRPV1 is in the mouth; the authors say its activation is known to affect glucose control and appetite",
-                  "quote": "TRPV1 is present in the oral cavity and its activation is widely known to improve glucose homeostasis, potentially affect appetite responses as well as increase energy metabolism."
-                }
-              },
-              {
-                "lines": [
-                  "The gut sends its",
-                  "“food has arrived” message"
-                ],
                 "kind": "proposed",
                 "fact": {
                   "id": "glp1",
@@ -2419,52 +2444,75 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 }
               },
               {
-                "lines": [
-                  "Blood sugar rises less"
-                ],
-                "kind": "measured",
+                "kind": "proposed",
                 "fact": {
-                  "id": "glucose_lower",
-                  "kind": "finding",
-                  "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal; direction stated in the abstract, no size given",
-                  "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
-                  "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
-                  "finding": {
-                    "outcome": "Blood glucose after the meal",
-                    "tier": "low"
-                  }
+                  "id": "trpv1_mouth",
+                  "kind": "statement",
+                  "label": "TRPV1 is in the mouth; the authors say its activation is known to affect glucose control and appetite",
+                  "quote": "TRPV1 is present in the oral cavity and its activation is widely known to improve glucose homeostasis, potentially affect appetite responses as well as increase energy metabolism."
                 }
               }
             ],
-            "links": [
-              {
-                "kind": "proposed",
-                "fact": {
-                  "id": "trpv1",
-                  "kind": "statement",
-                  "label": "Authors' proposed mechanism: pepper compounds might act on the TRPV1 receptor",
-                  "quote": "It was found that these effects are owing to the bio‐active profile of black pepper, such as isopiperine, isochavicine, piperine, piperanine, piperolein A and B, which might act on receptor TRPV1"
-                }
+            "meal": {
+              "dose": {
+                "text": "1 g",
+                "ref": "in_egg"
               },
-              {
-                "kind": "proposed",
-                "fact": {
-                  "id": "glp1",
-                  "kind": "statement",
-                  "label": "TRPV1 activation raises GLP-1 in the lower small intestine and the blood (earlier work the authors cite)",
-                  "quote": "Furthermore, TRPV1 activation increases GLP‐1; glucagon‐like peptide‐1 levels in the ileum and plasma."
-                }
-              },
-              {
-                "kind": "proposed",
-                "fact": {
-                  "id": "trpv1_mouth",
-                  "kind": "statement",
-                  "label": "TRPV1 is in the mouth; the authors say its activation is known to affect glucose control and appetite",
-                  "quote": "TRPV1 is present in the oral cavity and its activation is widely known to improve glucose homeostasis, potentially affect appetite responses as well as increase energy metabolism."
+              "words": "of black pepper, mixed into the egg"
+            },
+            "blood": {
+              "lead": "Blood sugar:",
+              "signal": "lower than after the plain egg",
+              "kind": "measured",
+              "fact": {
+                "id": "glucose_lower",
+                "kind": "finding",
+                "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal; direction stated in the abstract, no size given",
+                "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
+                "finding": {
+                  "outcome": "Blood glucose after the meal",
+                  "tier": "low"
                 }
               }
-            ]
+            },
+            "when": {
+              "lead": "The clear difference: at",
+              "minutes": {
+                "n": 30,
+                "ref": "glucose_30"
+              },
+              "unit": "minutes",
+              "kind": "measured",
+              "fact": {
+                "id": "glucose_30",
+                "kind": "finding",
+                "label": "differed from the control meal 30 minutes after eating, for the pepper meal and the pepper-plus-turmeric meal; the paper does not say by how much",
+                "quote": "So test meals (BP and BP + TR) show a significant effect for blood glucose level at the time point 30 min as compared to reference meal (C) (p = .023).",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
+                "finding": {
+                  "outcome": "Blood glucose 30 minutes after the meal",
+                  "tier": "low"
+                }
+              }
+            },
+            "trial": {
+              "words": "What the trial showed",
+              "kind": "measured",
+              "fact": {
+                "id": "glucose_lower",
+                "kind": "finding",
+                "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal; direction stated in the abstract, no size given",
+                "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
+                "finding": {
+                  "outcome": "Blood glucose after the meal",
+                  "tier": "low"
+                }
+              }
+            },
+            "idea": "The authors' idea. No hormones were measured.",
+            "measured": "Measured"
           }
         }
       },

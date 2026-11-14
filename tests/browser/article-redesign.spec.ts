@@ -72,7 +72,7 @@ test.describe("the read", () => {
       await top(page, "h1"),
       (await hook.boundingBox())!.y,
       await top(page, 'section[aria-label="Why it happens"]'),
-      await top(page, '[data-figure-key$="/doorbell"]'),
+      await top(page, '[data-figure-key$="/tongue-to-blood"]'),
       await top(page, "article [data-finding-card]"),
       await top(page, 'section[aria-label="What was tested"]'),
       await top(page, 'section[aria-label="Who was studied"]'),
@@ -83,8 +83,8 @@ test.describe("the read", () => {
     expect(order).toEqual([...order].sort((a, b) => a - b));
     // The figure comes after the first paragraph of the mechanism, before the second.
     const paragraphs = page.locator('section[aria-label="Why it happens"] p.read');
-    expect((await paragraphs.nth(0).boundingBox())!.y).toBeLessThan(await top(page, '[data-figure-key$="/doorbell"]'));
-    expect((await paragraphs.nth(1).boundingBox())!.y).toBeGreaterThan(await top(page, '[data-figure-key$="/doorbell"]'));
+    expect((await paragraphs.nth(0).boundingBox())!.y).toBeLessThan(await top(page, '[data-figure-key$="/tongue-to-blood"]'));
+    expect((await paragraphs.nth(1).boundingBox())!.y).toBeGreaterThan(await top(page, '[data-figure-key$="/tongue-to-blood"]'));
     // Reading type (owner, 2026-11-14): body in Archivo, 15 to 17 px, line height 1.6;
     // headlines in Newsreader, 22 px.
     const type = await paragraphs.first().evaluate((el) => { const s = getComputedStyle(el); return { family: s.fontFamily, size: parseFloat(s.fontSize), ratio: parseFloat(s.lineHeight) / parseFloat(s.fontSize) }; });

@@ -1578,3 +1578,32 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - fat-free-mass: approved by the owner (`approve-concept`, 2026-11-14T21:03Z), committed here.
 - Screens: `docs/evidence/figures-v2/hiit-body-composition/r3-*` (look), `r4-*` (after the one fix:
   more room between subgroup rows). Gates: `docs/evidence/figures-v2/hiit-gates.txt`.
+
+## 2026-11-15, Turmeric 2A "from the tongue to the blood"
+
+- `turmeric-pepper-breakfast/tongue-to-blood` replaces `doorbell` (deleted) as the mechanism
+  figure. Two rows (plain egg, egg with pepper), each a chain of four pictograms (new primitive
+  `Pictograms`: Plate, Tongue, Gut, Vessel; pictures, not quantities). The sensor, the gut
+  signal and the three links are proposed (dashed, `--meta`; `trpv1_mouth`, `glp1`, `trpv1`).
+  One solid arrow under the pepper row, meal to blood, "What the trial showed" (`glucose_lower`;
+  a randomized trial). Pastel behind the pepper row's blood only (its lines in
+  `--on-signal-evidence-fill`); bright orange only on "lower than after the plain egg". The only
+  numbers are bound: "1 g" (`in_egg`, `{text, ref}`) and "30 minutes" (`glucose_30`, `{n, ref}`).
+  `scripts/tongue-to-blood.test.ts` (4) fails if the chain goes solid, the result goes dashed, the
+  orange spreads, or an unbound number appears.
+- Spec differences (wording the paper does not support; for the owner):
+  1. "Heat sensor in the mouth" → "Sensor in the mouth", and the headline drops "pepper's heat":
+     the paper never calls TRPV1 a heat sensor or pepper hot (searched the source). A TRPV1
+     concept could carry "heat" if the owner wants it (would need writing and review).
+  2. "May be released sooner" → "May go up": `glp1` says TRPV1 activation "increases" GLP-1
+     levels; nothing about timing.
+  3. Headline line 2 "They measured only the blood sugar" → "They measured blood sugar, not the
+     hormones.": the trial also measured hunger, gut symptoms and taste (`lim_hormones`).
+  4. Object 1 (the meal) is drawn solid but not bound as measured: `meals`/`in_egg` are context
+     facts, and only a result or a descriptive fact may be bound as measured. Its label cites
+     `in_egg`.
+  5. "Measured" sits at the top of the blood column's labels, not inside the pastel box.
+  6. No card view: 2A is not the feed card's figure (that stays five-readings until 2B).
+- Screens: `docs/evidence/figures-v2/turmeric-pepper-breakfast/r1-*`, `r2-*` (one fix loop: the
+  two between-row labels collided, the gut header crowded the top row, the vessel was faint on the
+  pastel in Dark). Gates: `docs/evidence/figures-v2/turmeric-gates.txt`.

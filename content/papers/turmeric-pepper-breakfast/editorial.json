@@ -38,43 +38,30 @@
         "Turmeric did not follow the script. [-] On its own, 1 g showed no clear difference in blood glucose. [turmeric_none] The authors' explanation is the dose: they call it low. [turmeric_dose]"
       ],
       "figure": {
-        "figure": "doorbell",
-        "caption": "The authors' explanation, step by step. [trpv1, glp1] A dashed arrow is a step the trial did not measure. [lim_hormones]",
-        "alt": "Four boxes, top to bottom, joined by dashed arrows. [-] Pepper touches the mouth. [-] A sensor there fires. [-] The gut sends its food-has-arrived message. [-] Blood sugar rises less. [glucose_lower] Only the last box is filled. [-]",
+        "figure": "tongue-to-blood",
+        "headline": "The authors think pepper switches on a sensor in the mouth, then a gut signal. [trpv1, trpv1_mouth, glp1] They measured blood sugar, not the hormones. [glucose_lower, lim_hormones]",
+        "caption": "Dashed: the authors' idea. [trpv1, glp1] Solid: what the trial measured. [glucose_lower]",
+        "alt": "Two rows of four drawings: a breakfast egg, a tongue, a loop of gut and a blood vessel. [-] The top row is the plain egg; the bottom row has black pepper mixed into the egg. [in_egg] In the bottom row, dashed outlines show the authors' idea: pepper switches on a mouth sensor, and a gut signal goes up. [trpv1, trpv1_mouth, glp1] A solid arrow runs from the pepper egg to the blood: blood sugar was lower than after the plain egg. [glucose_lower] The clear difference was at 30 minutes. [glucose_30]",
         "params": {
-          "nodes": [
-            {
-              "lines": [
-                "Pepper touches the mouth"
-              ],
-              "kind": "proposed",
-              "fact": "fact:trpv1"
-            },
-            {
-              "lines": [
-                "A sensor there fires"
-              ],
-              "kind": "proposed",
-              "fact": "fact:trpv1_mouth"
-            },
-            {
-              "lines": [
-                "The gut sends its",
-                "“food has arrived” message"
-              ],
-              "kind": "proposed",
-              "fact": "fact:glp1"
-            },
-            {
-              "lines": [
-                "Blood sugar rises less"
-              ],
-              "kind": "measured",
-              "fact": "fact:glucose_lower"
-            }
-          ],
+          "title": "From the mouth to the blood: the authors' idea and what was measured",
+          "rows": {
+            "plain": "Plain egg",
+            "spiced": "Egg with pepper"
+          },
+          "sensor": {
+            "name": "Sensor in the mouth",
+            "kind": "proposed",
+            "fact": "fact:trpv1_mouth"
+          },
+          "signal": {
+            "name": "The gut's “food has arrived” signal",
+            "spiced": "May go up",
+            "kind": "proposed",
+            "fact": "fact:glp1"
+          },
           "links": [
             {
+              "spiced": "Pepper may switch it on",
               "kind": "proposed",
               "fact": "fact:trpv1"
             },
@@ -86,7 +73,37 @@
               "kind": "proposed",
               "fact": "fact:trpv1_mouth"
             }
-          ]
+          ],
+          "meal": {
+            "dose": {
+              "text": "1 g",
+              "ref": "in_egg"
+            },
+            "words": "of black pepper, mixed into the egg"
+          },
+          "blood": {
+            "lead": "Blood sugar:",
+            "signal": "lower than after the plain egg",
+            "kind": "measured",
+            "fact": "fact:glucose_lower"
+          },
+          "when": {
+            "lead": "The clear difference: at",
+            "minutes": {
+              "n": 30,
+              "ref": "glucose_30"
+            },
+            "unit": "minutes",
+            "kind": "measured",
+            "fact": "fact:glucose_30"
+          },
+          "trial": {
+            "words": "What the trial showed",
+            "kind": "measured",
+            "fact": "fact:glucose_lower"
+          },
+          "idea": "The authors' idea. No hormones were measured.",
+          "measured": "Measured"
         }
       }
     },

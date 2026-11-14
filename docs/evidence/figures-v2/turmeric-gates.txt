@@ -1,0 +1,17 @@
+# Turmeric 2A gates, 2026-11-15 02:49
+## npm run lint
+> eslint
+
+## npm run typecheck
+> tsc --noEmit
+
+## npm test
+ Test Files  43 passed (43)
+      Tests  656 passed (656)
+## npm run build
+✓ Compiled successfully in 853ms
+## npm run test:http
+ Test Files  2 passed (2)
+      Tests  15 passed (15)
+## npm run test:browser
+  92 passed (46.7s)

@@ -158,7 +158,9 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
         Hosted seed: one push at the END of the session only (owner, 2026-11-15).
   - [x] HIIT 4B (members), in the new `protocolFigure` slot; subgroups only in the read.
         Screens: `docs/evidence/figures-v2/hiit-body-composition/`.
-  - [ ] Turmeric 2A, then the sketches (caffeine 1A/1B, turmeric 2B; HIIT 4A after fat-free-mass).
+  - [x] HIIT 4B review: collapsed subgroups, printed ranges, no-hover-only rule (eslint + browser).
+  - [x] Turmeric 2A (mechanism). Screens: `docs/evidence/figures-v2/turmeric-pepper-breakfast/`.
+  - [ ] The sketches: caffeine 1A/1B, turmeric 2B, HIIT 4A (fat-free-mass approved 2026-11-14).
 - [ ] The pipeline proposes the figure kind and the simulator inputs (`prompts.ts`).
 - [ ] Reader inputs stored on the device only (like the theme).
 - [ ] Run the coverage pass on the 4 existing papers, so their checklist rows stop showing

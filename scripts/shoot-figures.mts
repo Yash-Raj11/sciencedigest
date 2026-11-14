@@ -27,6 +27,11 @@ for (const theme of ["dark", "light", "bedtime"]) {
     ["B-full", '[data-figure-kind][data-mode="full"]'],
     ["B-full", "[data-protocol-figure]"],
   ];
+  // Every hand-drawn figure on the page, framed with its headline and caption.
+  for (const frame of await page.locator("figure:has([data-figure-key])").all()) {
+    const key = (await frame.locator("[data-figure-key]").first().getAttribute("data-figure-key"))!.split("/")[1];
+    await frame.screenshot({ path: `${out}/${round}-fig-${key}-${theme}.png` });
+  }
   for (const [name, sel] of shots) {
     const el = page.locator(sel).first();
     if (await el.count()) await el.screenshot({ path: `${out}/${round}-${name}-${theme}.png` });

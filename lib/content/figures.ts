@@ -23,7 +23,7 @@ export const FIGURE_KEYS = [
   "daytime-caffeine-sleep/lock-and-key",
   "steps-days-per-week/three-crowds",
   "hiit-body-composition/order-flips",
-  "turmeric-pepper-breakfast/doorbell",
+  "turmeric-pepper-breakfast/tongue-to-blood",
   "turmeric-pepper-breakfast/five-readings",
 ] as const;
 
