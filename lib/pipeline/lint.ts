@@ -15,6 +15,7 @@ import type { ConceptState } from "./concepts";
 import type { Validated, ValidatedFact } from "./gate";
 import { NON_HUMAN_DISCLAIMER } from "./grade";
 import { glossaryCovers, jargonIn } from "./jargon";
+import { simulatorSource } from "../content/fact-library";
 import { specProblems } from "../content/figure-kinds";
 import { EVIDENCE_KINDS, evidenceKindProblem, figureKey, type EvidenceKind } from "../content/figures";
 import { parseMarkup, type Sentence } from "./markup";
@@ -59,6 +60,12 @@ export type ContextStudyState =
 export interface LintContext {
   studies: Record<string, ContextStudyState>;
   concepts: Record<string, ConceptState>;
+  /**
+   * The fact library (content/library.json, lib/content/fact-library.ts): context facts the
+   * owner approved for simulators, as "<study>/<fact>". A simulator may draw a context fact
+   * only from here. Absent: empty, so no context fact can feed a simulator.
+   */
+  library?: readonly string[];
 }
 
 export interface LintOptions {
@@ -633,7 +640,12 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
         const given = (def.spec as Record<string, unknown> | null)?.[group];
         if (given === null || typeof given !== "object") continue;
         for (const [param, id] of Object.entries(given)) {
-          if (typeof id === "string" && parseRef(id).kind === "study") checkRef(id, `${where}.spec.${group}.${param}`);
+          if (typeof id !== "string" || parseRef(id).kind !== "study") continue;
+          checkRef(id, `${where}.spec.${group}.${param}`);
+          // A simulator input: the paper's own fact, or one the owner approved into the library (SIMULATORS.md g).
+          if (group === "simulator" && simulatorSource(id, facts, context.library ?? []) === "missing") {
+            fail("context", `${where}.spec.simulator.${param}`, `"${id}" is not in the fact library (content/library.json); a simulator draws on the paper's own facts or an owner-approved library fact. Queue it as a simulator upgrade for the owner`);
+          }
         }
       }
       const problems = specProblems(def.spec, `${where}.spec`, (id) => {

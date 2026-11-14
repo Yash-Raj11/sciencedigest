@@ -59,6 +59,8 @@ const say = (line: string) => { reportLines.push(line); if (!quiet) console.log(
 // Context sources are gated first: a read can only cite what passed.
 const loaded = loadContext(CONTEXT_DIR, CONCEPTS_DIR);
 for (const line of loaded.report) say(line);
+// An approved library fact that is no longer usable stops the build: a simulator may rest on it.
+if (loaded.libraryErrors.length > 0) failed = true;
 
 for (const slug of readdirSync(PAPERS_DIR).sort()) {
   const dir = `${PAPERS_DIR}/${slug}`;

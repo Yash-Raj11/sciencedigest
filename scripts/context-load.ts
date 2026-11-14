@@ -8,9 +8,12 @@
  *   content/context/<slug>/withdrawn.json    written by `npm run retractions` on a hit
  *   content/context/<slug>/excluded.json     facts the owner ruled out of use: { "<fact_id>": "why" }
  *   content/concepts/<slug>.json             one background concept
+ *   content/library.json                     the fact library: context facts the owner approved for simulators
  */
 
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { dirname } from "node:path";
+import { LibraryFile, approvedRefs, libraryProblems, type LibraryStudy } from "../lib/content/fact-library";
 import { CONCEPT_SLUG, checkConcept } from "../lib/pipeline/concepts";
 import { gate } from "../lib/pipeline/gate";
 import { deriveTier } from "../lib/pipeline/grade";
@@ -65,7 +68,28 @@ export function loadStudy(dir: string): ContextStudyState {
   return { ok: true, validated: result.validated, withdrawn, excluded };
 }
 
-export function loadContext(contextDir: string, conceptsDir: string): { context: LintContext; report: string[] } {
+/**
+ * The fact library, checked against the context studies just loaded. Any problem fails the
+ * whole build (`libraryErrors`): an approved fact that stopped being usable must be seen.
+ */
+export function loadLibrary(path: string, studies: LintContext["studies"]): { library: string[]; errors: string[]; report: string[] } {
+  if (!existsSync(path)) return { library: [], errors: [], report: [] };
+  let raw: unknown;
+  try { raw = JSON.parse(readFileSync(path, "utf8")); }
+  catch (error) { return { library: [], errors: [`library.json is not valid JSON: ${(error as Error).message}`], report: [] }; }
+  const view: Record<string, LibraryStudy> = Object.fromEntries(Object.entries(studies).map(([slug, state]) => [slug, state.ok
+    ? { ok: true, withdrawn: state.withdrawn, excluded: state.excluded, facts: state.validated.facts as never }
+    : { ok: false }]));
+  const errors = libraryProblems(raw, view);
+  if (errors.length > 0) return { library: [], errors, report: [] };
+  const file = LibraryFile.parse(raw);
+  return {
+    library: approvedRefs(file), errors: [],
+    report: ["\nfact library (content/library.json)", ...file.facts.map((e) => `  ${e.quantity}: ${e.ref}, approved by the ${e.approved.by} on ${e.approved.on}`)],
+  };
+}
+
+export function loadContext(contextDir: string, conceptsDir: string, libraryPath = `${dirname(contextDir)}/library.json`): { context: LintContext; report: string[]; libraryErrors: string[] } {
   const context: LintContext = { studies: {}, concepts: {} };
   const report: string[] = [];
 
@@ -107,5 +131,10 @@ export function loadContext(contextDir: string, conceptsDir: string): { context:
     }
   }
   if (conceptLines.length > 0) report.push("\nbackground concepts (content/concepts/)", ...conceptLines);
-  return { context, report };
+
+  const library = loadLibrary(libraryPath, context.studies);
+  context.library = library.library;
+  report.push(...library.report);
+  if (library.errors.length > 0) report.push("\nfact library (content/library.json): FAILED", ...library.errors.map((e) => `    - ${e}`));
+  return { context, report, libraryErrors: library.errors };
 }

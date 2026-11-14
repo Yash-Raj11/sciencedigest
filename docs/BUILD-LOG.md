@@ -1090,3 +1090,22 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   (14.1% vs 40.7%) and adjusted (−14.9 points) and puts "Who this was tested in" directly under
   the result; HIIT's subgroup bars say "subgroup result" and sit visually under the pooled bar;
   turmeric's grid uses plain words, with p-values in the Receipts.
+
+## 2026-11-14, Fact library (SIMULATORS.md g)
+
+- `content/library.json`: `{ facts: [{ ref, quantity, approved: { by: "owner", on }, note }] }`.
+  An entry names a context fact; it never carries a number. First entry:
+  `caffeine-half-life` → `caffeine-saliva-half-life/half_life_caffeine` (owner picked the study
+  and ruled the band on 2026-11-14, so it is recorded as approved that day).
+- `lib/content/fact-library.ts` (pure): `libraryProblems` refuses a non-context ref, an approver
+  other than the owner, an empty note, an extra key (a number), a missing / gate-failed /
+  withdrawn study, an excluded fact, an unknown fact, a non-estimate, an estimate with no
+  printed spread (H12), a repeated ref, two facts for one quantity. `simulatorSource`: paper →
+  library → missing. `libraryFor(quantity)` for the pipeline later.
+- `scripts/context-load.ts` loads it after the context studies (`content/library.json`, next to
+  `content/context/`); `content-build` fails on any library problem.
+- Lint: a context fact in a spec's `simulator` group must be in the library ("Queue it as a
+  simulator upgrade"). The still figure (`facts` group) keeps the 2a0926c rule: any gated
+  context fact. Tightening only; nothing was loosened.
+- Tests: `lib/content/fact-library.test.ts` (8), `figure-spec.test.ts` (+1). Removing the lint
+  check, the exclusion check or the spread check each fails a test (checked by hand).

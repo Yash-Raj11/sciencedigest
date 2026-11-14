@@ -36,6 +36,7 @@ when it is kept (`npm run db:mutation` does this for the database).
 | A per-paper component cannot import the database, the store, or compute a percentage | `eslint.config.mjs` (the widget guard) |
 | A figure holds no number of its own outside a geometry prop, no timer and no animation; solid means measured (cites a result), dashed means proposed (cites the authors' sentence); unknown figure, empty alt text | `eslint.config.mjs` (the figure guard), `lib/content/figures.ts`, `lib/pipeline/lint.ts` |
 | A figure spec holds a literal number, or names an unknown kind or a fact that is not gated; a simulator rests on a fact with no range (H12) | `lib/content/figure-kinds.ts`, `lib/pipeline/lint.ts` |
+| A simulator draws a context fact that is not in the owner-approved fact library | `lib/content/fact-library.ts`, `content/library.json`, `lib/pipeline/lint.ts` |
 | A user cannot change their own tier; cannot read another user's ticks; cannot tick a derived step | `supabase/migrations/`, tested in `supabase/tests/database/` |
 | TypeScript scoring and SQL scoring return identical results | `scripts/gen-parity.mts` + `90_parity.generated.test.sql` |
 

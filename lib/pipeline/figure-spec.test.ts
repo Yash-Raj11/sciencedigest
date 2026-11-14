@@ -109,15 +109,23 @@ describe("through the content lint, on the caffeine paper", () => {
     validated: { ...validated, facts: { half_life: { ...anyFact, id: "half_life", kind: "estimate", estimate: { unit: "h", point: 5, ciLow: 3, ciHigh: 7, tier: "low" } } } } as never,
     withdrawn: withdrawn ? { nature: "Retraction", date: null, reason: "test" } : null,
   });
-  function runWith(figureSpec: unknown, studies: LintContext["studies"]) {
-    const saved = context.studies;
+  function runWith(figureSpec: unknown, studies: LintContext["studies"], library: string[] = [`${OTHER}/half_life`]) {
+    const saved = { studies: context.studies, library: context.library };
     context.studies = studies;
-    try { return run(figureSpec); } finally { context.studies = saved; }
+    context.library = library;
+    try { return run(figureSpec); } finally { Object.assign(context, saved); }
   }
   const studySpec = { kind: "decay", facts: { halfLife: `${OTHER}/half_life` }, simulator: { halfLife: `${OTHER}/half_life` } };
 
-  it("a gated context study's fact may feed the spec and its simulator", () => {
+  it("a gated context study's fact may feed the spec and, once in the fact library, its simulator", () => {
     expect(runWith(studySpec, { [OTHER]: contextStudy(false) })).toEqual([]);
+  });
+
+  it("a context fact outside the fact library cannot feed a simulator; the still figure may still draw it", () => {
+    expect(runWith(studySpec, { [OTHER]: contextStudy(false) }, [])).toEqual([
+      expect.stringMatching(/^context layers\.mechanism\.figure\.spec\.simulator\.halfLife: ".*\/half_life" is not in the fact library/),
+    ]);
+    expect(runWith({ kind: "decay", facts: studySpec.facts }, { [OTHER]: contextStudy(false) }, [])).toEqual([]);
   });
 
   it("the study fed to a spec is listed for the audit", () => {

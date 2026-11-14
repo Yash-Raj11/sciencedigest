@@ -1,0 +1,10 @@
+{
+  "facts": [
+    {
+      "ref": "caffeine-saliva-half-life/half_life_caffeine",
+      "quantity": "caffeine-half-life",
+      "approved": { "by": "owner", "on": "2026-11-14" },
+      "note": "Wildgrube 2025, arm A only: 25 mg of caffeine taken alone, measured in saliva, n = 12 young adults, crossover, grade low. Arm D (with methylliberine and theacrine) is excluded. The owner picked the study and ruled the band: mean ± 1 SD."
+    }
+  ]
+}

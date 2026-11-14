@@ -64,7 +64,12 @@ with an `if`).
 
 - **Fact library.** Approved, gated context facts form a reusable library (first entry:
   `caffeine-saliva-half-life/half_life_caffeine`). Once the owner approves a library fact, any
-  paper may use it without approving it again.
+  paper may use it without approving it again. Built: `content/library.json` (each entry names
+  `ref`, `quantity`, `approved { by: "owner", on }` and a `note`; never a number),
+  `lib/content/fact-library.ts` (`libraryProblems`, `simulatorSource`, `libraryFor`), loaded by
+  `scripts/context-load.ts`. A library entry must be a gated, not withdrawn, not excluded
+  estimate with a printed spread; any problem stops the build. The lint refuses a context fact
+  in a spec's `simulator` group unless it is in the library (the still figure is unaffected).
 - **Build check order** for each simulator input:
   1. the paper's own gated facts;
   2. the approved library;

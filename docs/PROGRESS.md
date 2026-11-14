@@ -96,7 +96,9 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       re-extracted as mean ± SD; SIMULATORS.md design notes refined (no caffeine presets,
       raw vs adjusted for steps, HIIT subgroup bars secondary, no p-values in turmeric's grid).
 - [ ] Simulators (owner, 2026-11-14; plan: `docs/SIMULATORS.md`). Caffeine first:
-- [ ] IN PROGRESS: Fact library: data shape for an approved context fact + lookup (paper facts → library).
+- [x] Fact library: data shape for an approved context fact + lookup (paper facts → library).
+      `content/library.json`, `lib/content/fact-library.ts`; lint refuses a non-library context
+      fact in a simulator. BUILD-LOG 2026-11-14 (session 10).
 - [ ] Build check + fallback: no fact → publish with the card figure and queue an upgrade.
 - [ ] `/admin/queue` "simulator upgrade" item type (1–3 Europe PMC candidates) + weekly batch view.
 - [ ] Related reads slot under a simulator's result (published papers by tag).
