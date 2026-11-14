@@ -1484,6 +1484,35 @@
           ]
         }
       ]
+    ],
+    "turmeric-pepper-breakfast": [
+      [
+        {
+          "text": "The dose tested was 1 g of black pepper, cooked into the egg of a toast-and-tea breakfast.",
+          "refs": [
+            "in_egg",
+            "plate"
+          ]
+        }
+      ],
+      [
+        {
+          "text": "The glucose difference showed 30 minutes after eating and not in the 3-hour total.",
+          "refs": [
+            "glucose_30",
+            "glucose_total",
+            "nothing_else"
+          ]
+        }
+      ],
+      [
+        {
+          "text": "Turmeric alone, at 1 g, showed no glucose effect.",
+          "refs": [
+            "turmeric_none"
+          ]
+        }
+      ]
     ]
   }
 }

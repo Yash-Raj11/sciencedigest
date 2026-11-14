@@ -94,6 +94,35 @@ export const PAPERS: PaperMeta[] = [
     ],
     "hasBlock": false,
     "simulatorKind": "steps-days"
+  },
+  {
+    "id": "735a2dc7-8f80-59f4-afae-c49e591ae748",
+    "slug": "turmeric-pepper-breakfast",
+    "title": "1 g of black pepper in breakfast: what blood glucose did over the next 3 hours",
+    "teaser": "Twenty healthy adults ate the same egg-and-toast breakfast four ways. With 1 g of black pepper in the egg, blood glucose was lower 30 minutes later. Added up over 3 hours, the meals did not differ.",
+    "category": "Nutrition",
+    "accessTier": "free",
+    "publishedAt": "2026-11-13T13:46:30.346Z",
+    "readMinutes": 3,
+    "doi": "10.1002/fsn3.3965",
+    "pmid": "38628217",
+    "pmcid": "PMC11016436",
+    "citation": "Khan S, Arif M, Laraib H, et al. The effect of turmeric and black pepper powder incorporated in breakfast on postprandial glycemia, appetite, palatability, and gastrointestinal well-being in normal-weight adults. Food Sci Nutr. 2024;12(4):2846-2854.",
+    "authors": "Khan S, Arif M, Laraib H, Naqvi SN, Shah OA, Farooq U, Sami-Ullah M, Khan GA",
+    "journal": "Food Science & Nutrition",
+    "year": 2024,
+    "license": "CC-BY",
+    "design": "rct",
+    "species": "human",
+    "sampleSize": 20,
+    "grades": [
+      {
+        "outcome": "Blood glucose 30 minutes after the meal",
+        "tier": "low"
+      }
+    ],
+    "hasBlock": false,
+    "simulatorKind": "breakfast-meals"
   }
 ];
 
@@ -322,6 +351,40 @@ export const STEPS: ContentStep[] = [
     "conditionValue": null,
     "appliesWhen": null,
     "retired": false
+  },
+  {
+    "id": "153827fc-001f-5428-ab08-1d5e6da2d9cc",
+    "key": "pepper-in-breakfast",
+    "paperId": "735a2dc7-8f80-59f4-afae-c49e591ae748",
+    "position": 1,
+    "label": "1 g of black pepper in my breakfast",
+    "detail": "The dose this trial tested, cooked into an egg. It did not test more, less or other meals.",
+    "kind": "action",
+    "grade": "low",
+    "sourceEstimate": "Blood glucose 30 minutes after the meal: differed from the control meal 30 minutes after eating, for the pepper meal and the pepper-plus-turmeric meal (p = .023); the text gives no size for the difference",
+    "targetPerWeek": null,
+    "countsStepId": null,
+    "conditionKey": null,
+    "conditionValue": null,
+    "appliesWhen": null,
+    "retired": false
+  },
+  {
+    "id": "72924d31-4867-5fbd-a568-8b5059af38f4",
+    "key": "turmeric-with-pepper",
+    "paperId": "735a2dc7-8f80-59f4-afae-c49e591ae748",
+    "position": 2,
+    "label": "1 g of turmeric with the pepper",
+    "detail": "Tested together with pepper. Turmeric alone showed no glucose effect, so this carries no weight.",
+    "kind": "action",
+    "grade": "none",
+    "sourceEstimate": null,
+    "targetPerWeek": null,
+    "countsStepId": null,
+    "conditionKey": null,
+    "conditionValue": null,
+    "appliesWhen": null,
+    "retired": false
   }
 ];
 
@@ -372,7 +435,8 @@ export const CHOICES: Record<string, Choice[]> = {
       ]
     }
   ],
-  "steps-days-per-week": []
+  "steps-days-per-week": [],
+  "turmeric-pepper-breakfast": []
 };
 
 /** Reads for FREE papers only. Premium reads are never bundled: see content/generated/gated.json. */
@@ -1799,6 +1863,1145 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "label": "Other step thresholds gave similar results",
         "quote": "Different thresholds for the number of daily steps between 6000 and 10 000 yielded similar results."
       }
+    }
+  },
+  "turmeric-pepper-breakfast": {
+    "hook": [
+      {
+        "text": "1 g of black pepper in a breakfast egg, and blood glucose was lower 30 minutes later.",
+        "refs": [
+          "in_egg",
+          "glucose_lower",
+          "glucose_30"
+        ]
+      },
+      {
+        "text": "Added up over the full 3 hours, there was no difference.",
+        "refs": [
+          "glucose_total",
+          "nothing_else"
+        ]
+      }
+    ],
+    "populationPanel": [
+      {
+        "text": "Who this was tested in: 20 healthy adults, 10 men and 10 women.",
+        "refs": [
+          "sample"
+        ]
+      },
+      {
+        "text": "The women averaged 21.4 years old and the men 21.9.",
+        "refs": [
+          "ages"
+        ]
+      },
+      {
+        "text": "The entry rules asked for a body mass index of 18.5 to 24.9 and no chronic disease.",
+        "refs": [
+          "criteria"
+        ]
+      },
+      {
+        "text": "Each person ate all four breakfasts in randomized order, a week apart.",
+        "refs": [
+          "crossover",
+          "washout"
+        ]
+      },
+      {
+        "text": "The result describes one meal in people like these.",
+        "refs": [
+          "single_meal",
+          "sample"
+        ]
+      },
+      {
+        "text": "It says nothing about diabetes or any other disease.",
+        "refs": [
+          "criteria"
+        ]
+      }
+    ],
+    "sections": [],
+    "limitations": [],
+    "layers": {
+      "mechanism": {
+        "paragraphs": [
+          [
+            {
+              "text": "Think of a doorbell in your mouth.",
+              "refs": []
+            },
+            {
+              "text": "Food presses it, and the rest of the body hears that a meal is on the way.",
+              "refs": []
+            },
+            {
+              "text": "The authors point to a real one: a sensor in the mouth called TRPV1.",
+              "refs": [
+                "trpv1_mouth"
+              ]
+            },
+            {
+              "text": "Black pepper carries a compound called piperine and several close relatives.",
+              "refs": [
+                "piperine",
+                "trpv1"
+              ]
+            },
+            {
+              "text": "The authors say these might press that sensor.",
+              "refs": [
+                "trpv1"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "What happens next is a hormone.",
+              "refs": []
+            },
+            {
+              "text": "When TRPV1 fires, levels of a gut hormone called GLP-1 go up in the lower gut and in the blood.",
+              "refs": [
+                "glp1"
+              ]
+            },
+            {
+              "text": "GLP-1 is the gut's message that food has arrived.",
+              "refs": [
+                "glp1",
+                "concept:glucagon-like-peptide"
+              ]
+            },
+            {
+              "text": "It helps hold down the rise in blood sugar after eating, slows the gut and curbs appetite.",
+              "refs": [
+                "concept:glucagon-like-peptide"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "That chain fits what the trial saw.",
+              "refs": []
+            },
+            {
+              "text": "After the pepper breakfast, blood glucose was lower than after the plain one.",
+              "refs": [
+                "glucose_lower"
+              ]
+            },
+            {
+              "text": "The gap showed at the 30-minute reading.",
+              "refs": [
+                "glucose_30"
+              ]
+            },
+            {
+              "text": "Hunger was lower too.",
+              "refs": [
+                "appetite"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "Turmeric did not follow the script.",
+              "refs": []
+            },
+            {
+              "text": "On its own, 1 g did nothing to blood glucose.",
+              "refs": [
+                "turmeric_none"
+              ]
+            },
+            {
+              "text": "The authors' explanation is the dose: they call it low.",
+              "refs": [
+                "turmeric_dose"
+              ]
+            }
+          ]
+        ],
+        "figure": {
+          "figure": "doorbell",
+          "caption": [
+            {
+              "text": "The authors' explanation, step by step.",
+              "refs": [
+                "trpv1",
+                "glp1"
+              ]
+            },
+            {
+              "text": "A dashed arrow is a step the trial did not measure.",
+              "refs": [
+                "lim_hormones"
+              ]
+            }
+          ],
+          "alt": "Four boxes, top to bottom, joined by dashed arrows. Pepper touches the mouth. A sensor there fires. The gut sends its food-has-arrived message. Blood sugar rises less. Only the last box is filled.",
+          "params": {
+            "nodes": [
+              {
+                "lines": [
+                  "Pepper touches the mouth"
+                ],
+                "kind": "proposed",
+                "fact": {
+                  "id": "trpv1",
+                  "kind": "statement",
+                  "label": "Authors' proposed mechanism: pepper compounds might act on the TRPV1 receptor",
+                  "quote": "It was found that these effects are owing to the bio‐active profile of black pepper, such as isopiperine, isochavicine, piperine, piperanine, piperolein A and B, which might act on receptor TRPV1"
+                }
+              },
+              {
+                "lines": [
+                  "A sensor there fires"
+                ],
+                "kind": "proposed",
+                "fact": {
+                  "id": "trpv1_mouth",
+                  "kind": "statement",
+                  "label": "TRPV1 is in the mouth; the authors say its activation is known to affect glucose control and appetite",
+                  "quote": "TRPV1 is present in the oral cavity and its activation is widely known to improve glucose homeostasis, potentially affect appetite responses as well as increase energy metabolism."
+                }
+              },
+              {
+                "lines": [
+                  "The gut sends its",
+                  "“food has arrived” message"
+                ],
+                "kind": "proposed",
+                "fact": {
+                  "id": "glp1",
+                  "kind": "statement",
+                  "label": "TRPV1 activation raises GLP-1 in the lower small intestine and the blood (earlier work the authors cite)",
+                  "quote": "Furthermore, TRPV1 activation increases GLP‐1; glucagon‐like peptide‐1 levels in the ileum and plasma."
+                }
+              },
+              {
+                "lines": [
+                  "Blood sugar rises less"
+                ],
+                "kind": "measured",
+                "fact": {
+                  "id": "glucose_lower",
+                  "kind": "finding",
+                  "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal (p < .05); direction stated in the abstract, no size given",
+                  "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
+                  "finding": {
+                    "outcome": "Blood glucose after the meal",
+                    "tier": "low"
+                  }
+                }
+              }
+            ],
+            "links": [
+              {
+                "kind": "proposed",
+                "fact": {
+                  "id": "trpv1",
+                  "kind": "statement",
+                  "label": "Authors' proposed mechanism: pepper compounds might act on the TRPV1 receptor",
+                  "quote": "It was found that these effects are owing to the bio‐active profile of black pepper, such as isopiperine, isochavicine, piperine, piperanine, piperolein A and B, which might act on receptor TRPV1"
+                }
+              },
+              {
+                "kind": "proposed",
+                "fact": {
+                  "id": "glp1",
+                  "kind": "statement",
+                  "label": "TRPV1 activation raises GLP-1 in the lower small intestine and the blood (earlier work the authors cite)",
+                  "quote": "Furthermore, TRPV1 activation increases GLP‐1; glucagon‐like peptide‐1 levels in the ileum and plasma."
+                }
+              },
+              {
+                "kind": "proposed",
+                "fact": {
+                  "id": "trpv1_mouth",
+                  "kind": "statement",
+                  "label": "TRPV1 is in the mouth; the authors say its activation is known to affect glucose control and appetite",
+                  "quote": "TRPV1 is present in the oral cavity and its activation is widely known to improve glucose homeostasis, potentially affect appetite responses as well as increase energy metabolism."
+                }
+              }
+            ]
+          }
+        }
+      },
+      "protocol": {
+        "paragraphs": [
+          [
+            {
+              "text": "The trial tested one dose: 1 g of black pepper, mixed into a fried egg.",
+              "refs": [
+                "in_egg"
+              ]
+            },
+            {
+              "text": "The egg came with 2 slices of toast and a cup of sweet milk tea.",
+              "refs": [
+                "plate"
+              ]
+            },
+            {
+              "text": "The participants ate after an overnight fast and finished within 10 minutes.",
+              "refs": [
+                "fast",
+                "eaten_in"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "A second version added 1 g of turmeric to the pepper.",
+              "refs": [
+                "meals"
+              ]
+            },
+            {
+              "text": "It showed the same early glucose difference, and tasters liked it more than pepper alone.",
+              "refs": [
+                "glucose_30",
+                "taste_rank"
+              ]
+            },
+            {
+              "text": "Turmeric without pepper showed no glucose effect.",
+              "refs": [
+                "turmeric_none"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "Each version was eaten once.",
+              "refs": [
+                "single_meal",
+                "washout"
+              ]
+            },
+            {
+              "text": "The trial did not test a daily habit.",
+              "refs": [
+                "lim_long_term"
+              ]
+            }
+          ]
+        ],
+        "figure": {
+          "figure": "five-readings",
+          "caption": [
+            {
+              "text": "Each dot is one reading.",
+              "refs": [
+                "timepoints"
+              ]
+            },
+            {
+              "text": "Orange marks the readings that differed from the plain meal.",
+              "refs": [
+                "glucose_30"
+              ]
+            }
+          ],
+          "alt": "Four rows of five dots, one row for each meal. The readings were at 0, 30, 60, 120 and 180 minutes. At 30 minutes, the pepper meal and the both-spices meal are marked as differing from the plain meal. A bracket over all five readings says the total showed no difference.",
+          "params": {
+            "times": [
+              {
+                "n": 0,
+                "ref": "timepoints"
+              },
+              {
+                "n": 30,
+                "ref": "timepoints"
+              },
+              {
+                "n": 60,
+                "ref": "timepoints"
+              },
+              {
+                "n": 120,
+                "ref": "timepoints"
+              },
+              {
+                "n": 180,
+                "ref": "timepoints"
+              }
+            ],
+            "unit": "min",
+            "meals": [
+              {
+                "label": "Plain",
+                "differed": []
+              },
+              {
+                "label": "Pepper",
+                "differed": [
+                  {
+                    "n": 30,
+                    "ref": "glucose_30"
+                  }
+                ]
+              },
+              {
+                "label": "Turmeric",
+                "differed": []
+              },
+              {
+                "label": "Both spices",
+                "differed": [
+                  {
+                    "n": 30,
+                    "ref": "glucose_30"
+                  }
+                ]
+              }
+            ],
+            "pValue": {
+              "text": ".023",
+              "ref": "glucose_30"
+            },
+            "early": {
+              "kind": "measured",
+              "fact": {
+                "id": "glucose_30",
+                "kind": "finding",
+                "label": "differed from the control meal 30 minutes after eating, for the pepper meal and the pepper-plus-turmeric meal (p = .023); the text gives no size for the difference",
+                "quote": "So test meals (BP and BP + TR) show a significant effect for blood glucose level at the time point 30 min as compared to reference meal (C) (p = .023).",
+                "finding": {
+                  "outcome": "Blood glucose 30 minutes after the meal",
+                  "tier": "low"
+                }
+              },
+              "at": {
+                "n": 30,
+                "ref": "glucose_30"
+              }
+            },
+            "total": {
+              "kind": "measured",
+              "fact": {
+                "id": "glucose_total",
+                "kind": "finding",
+                "label": "no significant difference between the four meals over the whole 3 hours",
+                "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
+                "finding": {
+                  "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
+                  "tier": "low"
+                }
+              }
+            }
+          }
+        }
+      },
+      "audit": {
+        "effect": [
+          {
+            "text": "The paper's text gives no size for the glucose difference.",
+            "refs": [
+              "glucose_30"
+            ]
+          },
+          {
+            "text": "It says only that the two pepper meals differed from the plain meal at 30 minutes, with p = .023.",
+            "refs": [
+              "glucose_30"
+            ]
+          }
+        ],
+        "weakEnd": [
+          {
+            "text": "The paper reports no confidence interval for any glucose result.",
+            "refs": [
+              "glucose_30"
+            ]
+          },
+          {
+            "text": "The gap could be wide or barely there; the text cannot say.",
+            "refs": [
+              "glucose_30"
+            ]
+          },
+          {
+            "text": "Over the full 3 hours, total blood glucose did not differ between the four meals.",
+            "refs": [
+              "glucose_total",
+              "nothing_else"
+            ]
+          }
+        ],
+        "limitations": [
+          [
+            {
+              "text": "The trial measured no hormones.",
+              "refs": [
+                "lim_hormones"
+              ]
+            },
+            {
+              "text": "The sensor-and-hormone story is the authors' idea, not a result.",
+              "refs": [
+                "lim_hormones",
+                "lim_mechanism"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "Hunger and fullness were self-reported on paper scales.",
+              "refs": [
+                "appetite_scale"
+              ]
+            },
+            {
+              "text": "The authors say the lower hunger might come from the spiced meals tasting worse.",
+              "refs": [
+                "lim_taste"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "One breakfast per version, in 20 young adults: nothing here speaks to long-term use.",
+              "refs": [
+                "single_meal",
+                "sample",
+                "ages",
+                "lim_long_term"
+              ]
+            }
+          ]
+        ],
+        "missed": [
+          {
+            "text": "The easy summary: these spices are good for blood sugar.",
+            "refs": []
+          },
+          {
+            "text": "The paper found no glucose effect for turmeric alone.",
+            "refs": [
+              "turmeric_none"
+            ]
+          },
+          {
+            "text": "The 3-hour total did not differ for any meal.",
+            "refs": [
+              "glucose_total",
+              "nothing_else"
+            ]
+          },
+          {
+            "text": "Only healthy people took part, so the trial cannot speak to diabetes.",
+            "refs": [
+              "criteria",
+              "sample"
+            ]
+          }
+        ],
+        "more": [
+          [
+            {
+              "text": "The paper does not say whether the participants knew which meal they had.",
+              "refs": []
+            }
+          ],
+          [
+            {
+              "text": "The ingredient table lists 10 g of sugar for the combined meal and 8 g for the others.",
+              "refs": [
+                "sugar_row"
+              ]
+            },
+            {
+              "text": "It still gives all four the same 50 g of carbohydrate.",
+              "refs": [
+                "carb_row"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "Overall taste scores out of 9: plain 6.5, pepper 6.2, turmeric 6.1, both spices 6.6.",
+              "refs": [
+                "taste_scale",
+                "taste_c",
+                "taste_bp",
+                "taste_tr",
+                "taste_both"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "Stomach and gut symptoms, also self-rated, did not differ between meals.",
+              "refs": [
+                "gut",
+                "gut_scale"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "The authors name one weakness: they never measured the meals' glycemic index.",
+              "refs": [
+                "lim_stated"
+              ]
+            }
+          ]
+        ],
+        "figure": null
+      }
+    },
+    "glossary": [
+      {
+        "term": "randomized",
+        "plain": "Chance decided the order of the meals, not the people running the trial.",
+        "refs": [
+          "crossover"
+        ],
+        "concept": null
+      },
+      {
+        "term": "TRPV1",
+        "plain": "A sensor found in the mouth.",
+        "refs": [
+          "trpv1_mouth"
+        ],
+        "concept": null
+      },
+      {
+        "term": "GLP-1",
+        "plain": "A hormone the gut releases after a meal. It helps hold down the rise in blood sugar after eating, slows the gut and curbs appetite.",
+        "refs": [],
+        "concept": "glucagon-like-peptide"
+      },
+      {
+        "term": "piperine",
+        "plain": "The main active ingredient of black pepper.",
+        "refs": [
+          "piperine"
+        ],
+        "concept": null
+      },
+      {
+        "term": "blood glucose",
+        "plain": "The sugar carried in the blood, measured here from a finger prick.",
+        "refs": [
+          "finger_prick"
+        ],
+        "concept": null
+      }
+    ],
+    "primaryEstimate": "glucose_30",
+    "simulator": {
+      "kind": "breakfast-meals",
+      "params": {
+        "participants": {
+          "n": 20,
+          "ref": "sample"
+        },
+        "earlyMinutes": {
+          "n": 30,
+          "ref": "glucose_30"
+        },
+        "totalMinutes": {
+          "n": 180,
+          "ref": "timepoints"
+        },
+        "tasteMax": {
+          "n": 9,
+          "ref": "taste_scale"
+        },
+        "meals": [
+          {
+            "id": "plain",
+            "label": "Plain egg and toast",
+            "added": "Nothing added. Every other meal is compared with this one.",
+            "glucoseEarly": {
+              "result": "reference",
+              "fact": null
+            },
+            "glucoseTotal": {
+              "result": "reference",
+              "fact": null
+            },
+            "hunger": {
+              "result": "reference",
+              "fact": null
+            },
+            "gut": {
+              "result": "reference",
+              "fact": null
+            },
+            "taste": {
+              "n": 6.5,
+              "ref": "taste_c"
+            }
+          },
+          {
+            "id": "pepper",
+            "label": "With black pepper",
+            "added": "Black pepper in the egg, at the dose the trial tested.",
+            "glucoseEarly": {
+              "result": "lower",
+              "fact": {
+                "id": "glucose_lower",
+                "kind": "finding",
+                "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal (p < .05); direction stated in the abstract, no size given",
+                "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
+                "finding": {
+                  "outcome": "Blood glucose after the meal",
+                  "tier": "low"
+                }
+              }
+            },
+            "glucoseTotal": {
+              "result": "same",
+              "fact": {
+                "id": "glucose_total",
+                "kind": "finding",
+                "label": "no significant difference between the four meals over the whole 3 hours",
+                "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
+                "finding": {
+                  "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
+                  "tier": "low"
+                }
+              }
+            },
+            "hunger": {
+              "result": "lower",
+              "fact": {
+                "id": "appetite",
+                "kind": "finding",
+                "label": "less hunger and less perceived eating ability, more satiety, after the pepper meal and the pepper-plus-turmeric meal; no sizes given",
+                "quote": "A decrease in perceived eating ability and hunger, and an increase in satiety after BP + TR and BP meal was observed.",
+                "finding": {
+                  "outcome": "Self-rated hunger, satiety and how much they felt they could eat",
+                  "tier": "low"
+                }
+              }
+            },
+            "gut": {
+              "result": "same",
+              "fact": {
+                "id": "gut",
+                "kind": "finding",
+                "label": "no significant difference between meals or over time (p > .05)",
+                "quote": "There was no significant (p > .05) effect of time, treatment, and time × treatment on postprandial responses of gastrointestinal symptoms.",
+                "finding": {
+                  "outcome": "Self-rated stomach and gut symptoms",
+                  "tier": "low"
+                }
+              }
+            },
+            "taste": {
+              "n": 6.2,
+              "ref": "taste_bp"
+            }
+          },
+          {
+            "id": "turmeric",
+            "label": "With turmeric",
+            "added": "Turmeric in the egg, at the dose the trial tested.",
+            "glucoseEarly": {
+              "result": "same",
+              "fact": {
+                "id": "turmeric_none",
+                "kind": "finding",
+                "label": "turmeric alone: no effect on blood glucose compared with the control meal",
+                "quote": "Contradictory to the assumption of this current approach, no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed.",
+                "finding": {
+                  "outcome": "Blood glucose after the turmeric-only meal",
+                  "tier": "low"
+                }
+              }
+            },
+            "glucoseTotal": {
+              "result": "same",
+              "fact": {
+                "id": "glucose_total",
+                "kind": "finding",
+                "label": "no significant difference between the four meals over the whole 3 hours",
+                "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
+                "finding": {
+                  "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
+                  "tier": "low"
+                }
+              }
+            },
+            "hunger": {
+              "result": "none_reported",
+              "fact": null
+            },
+            "gut": {
+              "result": "same",
+              "fact": {
+                "id": "gut",
+                "kind": "finding",
+                "label": "no significant difference between meals or over time (p > .05)",
+                "quote": "There was no significant (p > .05) effect of time, treatment, and time × treatment on postprandial responses of gastrointestinal symptoms.",
+                "finding": {
+                  "outcome": "Self-rated stomach and gut symptoms",
+                  "tier": "low"
+                }
+              }
+            },
+            "taste": {
+              "n": 6.1,
+              "ref": "taste_tr"
+            }
+          },
+          {
+            "id": "both",
+            "label": "With both spices",
+            "added": "Black pepper and turmeric together in the egg.",
+            "glucoseEarly": {
+              "result": "lower",
+              "fact": {
+                "id": "glucose_lower",
+                "kind": "finding",
+                "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal (p < .05); direction stated in the abstract, no size given",
+                "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
+                "finding": {
+                  "outcome": "Blood glucose after the meal",
+                  "tier": "low"
+                }
+              }
+            },
+            "glucoseTotal": {
+              "result": "same",
+              "fact": {
+                "id": "glucose_total",
+                "kind": "finding",
+                "label": "no significant difference between the four meals over the whole 3 hours",
+                "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
+                "finding": {
+                  "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
+                  "tier": "low"
+                }
+              }
+            },
+            "hunger": {
+              "result": "lower",
+              "fact": {
+                "id": "appetite",
+                "kind": "finding",
+                "label": "less hunger and less perceived eating ability, more satiety, after the pepper meal and the pepper-plus-turmeric meal; no sizes given",
+                "quote": "A decrease in perceived eating ability and hunger, and an increase in satiety after BP + TR and BP meal was observed.",
+                "finding": {
+                  "outcome": "Self-rated hunger, satiety and how much they felt they could eat",
+                  "tier": "low"
+                }
+              }
+            },
+            "gut": {
+              "result": "same",
+              "fact": {
+                "id": "gut",
+                "kind": "finding",
+                "label": "no significant difference between meals or over time (p > .05)",
+                "quote": "There was no significant (p > .05) effect of time, treatment, and time × treatment on postprandial responses of gastrointestinal symptoms.",
+                "finding": {
+                  "outcome": "Self-rated stomach and gut symptoms",
+                  "tier": "low"
+                }
+              }
+            },
+            "taste": {
+              "n": 6.6,
+              "ref": "taste_both"
+            }
+          }
+        ]
+      }
+    },
+    "facts": {
+      "ages": {
+        "id": "ages",
+        "kind": "context",
+        "label": "Average age, body mass index and fasting blood glucose of the people who actually took part",
+        "quote": "The mean age of female students was 21.4 ± 0.72 years with a mean BMI of 23.5 ± 3.9 and fasting blood glucose of 73.5 ± 9.05 mg/dL. For boys the mean age was 21.9 ± 0.84, BMI was 23.22 ± 5.7, and fasting blood glucose was 77.35 ± 9.57 mg/dL."
+      },
+      "appetite": {
+        "id": "appetite",
+        "kind": "finding",
+        "label": "less hunger and less perceived eating ability, more satiety, after the pepper meal and the pepper-plus-turmeric meal; no sizes given",
+        "quote": "A decrease in perceived eating ability and hunger, and an increase in satiety after BP + TR and BP meal was observed.",
+        "finding": {
+          "outcome": "Self-rated hunger, satiety and how much they felt they could eat",
+          "tier": "low"
+        }
+      },
+      "appetite_scale": {
+        "id": "appetite_scale",
+        "kind": "context",
+        "label": "Appetite was rated by the participants on 100 mm lines",
+        "quote": "Appetite was assessed by using VAS (Flint et al., ). The VAS consisted of four scales, each of 100 mm length, which was used to determine the participant's hunger from 0 to 100 mm"
+      },
+      "carb_row": {
+        "id": "carb_row",
+        "kind": "context",
+        "label": "Table 1 gives all four meals the same carbohydrate total",
+        "quote": "Average CHO (g) | 50 | 50 | 50 | 50 |"
+      },
+      "criteria": {
+        "id": "criteria",
+        "kind": "context",
+        "label": "Who could take part: age, body mass index, no chronic disease",
+        "quote": "Inclusion criteria were: free from chronic diseases, aged 18–60 years, and healthy individual with body mass index (BMI) (18.5–24.9 kg/m2) medically healthy."
+      },
+      "crossover": {
+        "id": "crossover",
+        "kind": "context",
+        "label": "Design: randomized crossover, four test meals, each with 50 g of carbohydrate",
+        "quote": "The study made use of a randomized crossover design; all the subjects were provided with 04 test foods, all have 50 g carbohydrate content."
+      },
+      "eaten_in": {
+        "id": "eaten_in",
+        "kind": "context",
+        "label": "Meal eaten within 10 minutes",
+        "quote": "Next, the test meals, supplying 50 g of accessible carbohydrates, were ingested in 10 min."
+      },
+      "fast": {
+        "id": "fast",
+        "kind": "context",
+        "label": "Overnight fast before each visit",
+        "quote": "Selected personnel were instructed to take their twilight meal up to 10:00 p.m. following which they were asked to fast"
+      },
+      "finger_prick": {
+        "id": "finger_prick",
+        "kind": "context",
+        "label": "Blood glucose measured with a glucometer from a finger prick",
+        "quote": "was employed to compute the blood glucose, and samples were collected via finger prick"
+      },
+      "glp1": {
+        "id": "glp1",
+        "kind": "statement",
+        "label": "TRPV1 activation raises GLP-1 in the lower small intestine and the blood (earlier work the authors cite)",
+        "quote": "Furthermore, TRPV1 activation increases GLP‐1; glucagon‐like peptide‐1 levels in the ileum and plasma."
+      },
+      "glucose_30": {
+        "id": "glucose_30",
+        "kind": "finding",
+        "label": "differed from the control meal 30 minutes after eating, for the pepper meal and the pepper-plus-turmeric meal (p = .023); the text gives no size for the difference",
+        "quote": "So test meals (BP and BP + TR) show a significant effect for blood glucose level at the time point 30 min as compared to reference meal (C) (p = .023).",
+        "finding": {
+          "outcome": "Blood glucose 30 minutes after the meal",
+          "tier": "low"
+        }
+      },
+      "glucose_lower": {
+        "id": "glucose_lower",
+        "kind": "finding",
+        "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal (p < .05); direction stated in the abstract, no size given",
+        "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
+        "finding": {
+          "outcome": "Blood glucose after the meal",
+          "tier": "low"
+        }
+      },
+      "glucose_total": {
+        "id": "glucose_total",
+        "kind": "finding",
+        "label": "no significant difference between the four meals over the whole 3 hours",
+        "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
+        "finding": {
+          "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
+          "tier": "low"
+        }
+      },
+      "gut": {
+        "id": "gut",
+        "kind": "finding",
+        "label": "no significant difference between meals or over time (p > .05)",
+        "quote": "There was no significant (p > .05) effect of time, treatment, and time × treatment on postprandial responses of gastrointestinal symptoms.",
+        "finding": {
+          "outcome": "Self-rated stomach and gut symptoms",
+          "tier": "low"
+        }
+      },
+      "gut_scale": {
+        "id": "gut_scale",
+        "kind": "context",
+        "label": "Gut symptoms were rated by the participants on a 4-point scale",
+        "quote": "Gastrointestinal symptoms such as swelling of stomach, uneasy feelings, flatulence, loose stools, diarrhea, constipation, cramping, and grumbling were assessed using a 4‐point Likert scale."
+      },
+      "in_egg": {
+        "id": "in_egg",
+        "kind": "context",
+        "label": "How the spice was given: powder mixed into the fried egg",
+        "quote": "In test meals black pepper (1 g) and turmeric powder (1 g) were added to the egg."
+      },
+      "lim_hormones": {
+        "id": "lim_hormones",
+        "kind": "limitation",
+        "label": "The proposed mechanism was not measured: no hormones were examined",
+        "quote": "However, hormones involved in the regulation of satiety were not examined in this intervention."
+      },
+      "lim_long_term": {
+        "id": "lim_long_term",
+        "kind": "limitation",
+        "label": "No long-term data: the authors call for long-term studies",
+        "quote": "Future long‐term studies with increased dosage of turmeric and black pepper are considered necessary to understand the advantages of long‐term utilization of turmeric and black pepper supplemented breakfast"
+      },
+      "lim_mechanism": {
+        "id": "lim_mechanism",
+        "kind": "limitation",
+        "label": "The authors say the mechanisms still need investigating",
+        "quote": "The potential components of turmeric and black pepper and actual physiological mechanisms involved in these effects need further investigation."
+      },
+      "lim_stated": {
+        "id": "lim_stated",
+        "kind": "limitation",
+        "label": "The authors' own stated limitation: the glycemic index of the meals was not measured",
+        "quote": "This study has some deficiencies. The glycemic index of the test meals was not noted and it necessitates the need to be explored in future research studies."
+      },
+      "lim_taste": {
+        "id": "lim_taste",
+        "kind": "limitation",
+        "label": "The drop in hunger may be a taste effect: the spiced meals were liked less",
+        "quote": "The reported reduction in hunger after BP and BP + TR meal consumption might be because of decreased palatability since different scientific approaches have revealed an enormous effect of palatability on appetite"
+      },
+      "meals": {
+        "id": "meals",
+        "kind": "context",
+        "label": "The four test meals and the spice doses",
+        "quote": "Test foods were: (1) bread toast and egg (control diet), (2) bread toast and egg +1 g black pepper (BP), (3) bread toast and egg +1 g turmeric (TR), and (4) bread toast and egg +1 g black pepper +1 g turmeric (BP + TR), all meals were served with tea."
+      },
+      "nothing_else": {
+        "id": "nothing_else",
+        "kind": "context",
+        "label": "No other food or drink for the 3 hours",
+        "quote": "The ingestion of any kind of food or beverage during the period of 3 h was precluded"
+      },
+      "piperine": {
+        "id": "piperine",
+        "kind": "context",
+        "label": "Black pepper's main active ingredient is piperine",
+        "quote": "Black pepper (Piper nigrum) family piperaceae, with the main active ingredient piperine, has a hypoglycaemic effect (Panda & Kar, )."
+      },
+      "plate": {
+        "id": "plate",
+        "kind": "context",
+        "label": "What else was on the plate: two toasts and a cup of sweet milk tea",
+        "quote": "The fried egg was served with 2 standard bread toasts and a cup of black tea (250 mL) having 200 mL milk, 50 mL water, 1 teaspoon black tea (5 g), and 1 tablespoon sugar (8 g)."
+      },
+      "sample": {
+        "id": "sample",
+        "kind": "context",
+        "label": "Number and sex of participants",
+        "quote": "For this study, a total of 20 healthy individuals comprising 10 males and 10 females, were enrolled through direct personal communication."
+      },
+      "single_meal": {
+        "id": "single_meal",
+        "kind": "context",
+        "label": "The authors call this an acute intervention (one meal per condition)",
+        "quote": "The decrease in hunger and perceived eating ability and increase in satiety and fullness after BP + TR and BP meal in this acute intervention"
+      },
+      "sugar_row": {
+        "id": "sugar_row",
+        "kind": "context",
+        "label": "Table 1 lists 10 g of sugar for the combined meal and 8 g for the other three",
+        "quote": "Sugar (g) | 08 | 08 | 08 | 10 |"
+      },
+      "taste_both": {
+        "id": "taste_both",
+        "kind": "statement",
+        "label": "Table 3, pepper-plus-turmeric meal. Overall pleasantness: 6.6",
+        "quote": "BP + TR | 6.5 ± 0.49b\n| 6.2 ± 0.52b\n| 6.2 ± 0.46b\n| 6.5 ± 0.44b\n| 6.6 ± 0.42b"
+      },
+      "taste_bp": {
+        "id": "taste_bp",
+        "kind": "statement",
+        "label": "Table 3, black pepper meal. Overall pleasantness: 6.2",
+        "quote": "BP | 5.9 ± 0.55a\n| 5.35 ± 0.61a\n| 6.05 ± 0.58ab\n| 5.9 ± 0.55a\n| 6.2 ± 0.50a"
+      },
+      "taste_c": {
+        "id": "taste_c",
+        "kind": "statement",
+        "label": "Table 3, control meal: appearance, texture, smell, taste, overall pleasantness (mean ± SD, 9-point scale). Overall: 6.5",
+        "quote": "C | 6.3 ± 0.48b\n| 6.4 ± 0.46b\n| 5.5 ± 0.51a\n| 6.7 ± 0.48b\n| 6.5 ± 0.39ab"
+      },
+      "taste_rank": {
+        "id": "taste_rank",
+        "kind": "finding",
+        "label": "the control meal and the combined meal were rated higher than the pepper-only and turmeric-only meals (p < .05)",
+        "quote": "Post hoc pair‐wise comparison shows that the control meal and combined meal have significantly (p < .05) higher acceptability than (BP and TR) meal in comparison of general appearance, consistency, smell, taste, and whole pleasantness.",
+        "finding": {
+          "outcome": "Palatability (appearance, texture, smell, taste, overall pleasantness)",
+          "tier": "low"
+        }
+      },
+      "taste_scale": {
+        "id": "taste_scale",
+        "kind": "context",
+        "label": "Taste was rated on a 9-point scale from dislike extremely to like extremely",
+        "quote": "A 9‐point hedonic calibration was exploited with dislike extremely on one end and like extremely on the other end."
+      },
+      "taste_tr": {
+        "id": "taste_tr",
+        "kind": "statement",
+        "label": "Table 3, turmeric meal. Overall pleasantness: 6.1",
+        "quote": "TR | 5.7 ± 0.48a\n| 5.5 ± 0.47a\n| 5.6 ± 0.533a\n| 5.9 ± 0.47a\n| 6.1 ± 0.40a"
+      },
+      "timepoints": {
+        "id": "timepoints",
+        "kind": "context",
+        "label": "When blood glucose was measured",
+        "quote": "blood glucose levels were recorded at 0, 30, 60, 120, and 180 min"
+      },
+      "trpv1": {
+        "id": "trpv1",
+        "kind": "statement",
+        "label": "Authors' proposed mechanism: pepper compounds might act on the TRPV1 receptor",
+        "quote": "It was found that these effects are owing to the bio‐active profile of black pepper, such as isopiperine, isochavicine, piperine, piperanine, piperolein A and B, which might act on receptor TRPV1"
+      },
+      "trpv1_mouth": {
+        "id": "trpv1_mouth",
+        "kind": "statement",
+        "label": "TRPV1 is in the mouth; the authors say its activation is known to affect glucose control and appetite",
+        "quote": "TRPV1 is present in the oral cavity and its activation is widely known to improve glucose homeostasis, potentially affect appetite responses as well as increase energy metabolism."
+      },
+      "turmeric_dose": {
+        "id": "turmeric_dose",
+        "kind": "statement",
+        "label": "Authors' guess at why turmeric alone did nothing: the dose was low",
+        "quote": "A possible rationale for this may be the use of low dose of turmeric powder in this study."
+      },
+      "turmeric_none": {
+        "id": "turmeric_none",
+        "kind": "finding",
+        "label": "turmeric alone: no effect on blood glucose compared with the control meal",
+        "quote": "Contradictory to the assumption of this current approach, no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed.",
+        "finding": {
+          "outcome": "Blood glucose after the turmeric-only meal",
+          "tier": "low"
+        }
+      },
+      "washout": {
+        "id": "washout",
+        "kind": "context",
+        "label": "Each person ate all four meals, one per visit, a week apart",
+        "quote": "Every subject attended four sessions with 1 week washout period between the trials."
+      }
+    },
+    "context": {
+      "studies": [],
+      "concepts": [
+        {
+          "slug": "glucagon-like-peptide",
+          "term": "glucagon-like peptide",
+          "plain": "A hormone the gut releases after a meal. It helps hold down the rise in blood sugar after eating, slows the gut and curbs appetite.",
+          "model": "The gut's message that food has arrived: deal with the sugar, slow the conveyor, stop asking for more.",
+          "reference": {
+            "doi": "10.1152/physrev.00034.2006",
+            "title": "The physiology of glucagon-like peptide 1"
+          }
+        }
+      ]
     }
   }
 };

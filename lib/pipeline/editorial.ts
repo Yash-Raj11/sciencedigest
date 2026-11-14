@@ -13,6 +13,11 @@
 
 import { z } from "zod";
 
+/** A full UTC timestamp, the form `new Date().toISOString()` writes. */
+export function isTimestamp(value: string): boolean {
+  return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z$/.test(value) && !Number.isNaN(Date.parse(value));
+}
+
 /** A string in editorial markup: sentences each followed by [fact ids] or [-]. */
 const Markup = z.string().min(1);
 
@@ -56,8 +61,15 @@ const Base = {
   slug: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
   category: z.string().min(1),
   accessTier: z.enum(["free", "premium"]),
-  /** Set when you approve the paper. Null keeps it out of the app. */
-  publishedAt: z.string().nullable(),
+  /**
+   * Set by `npm run paper -- approve <slug>`. Null keeps it out of the app.
+   * Anything that is not a full date and time is refused: the text "null" or
+   * "13/11/2026" is not null, so it would publish the paper, and it goes into
+   * the database as a timestamp.
+   */
+  publishedAt: z.string().refine(isTimestamp, {
+    message: "not a date and time such as 2026-11-13T09:30:00.000Z; do not type it, run `npm run paper -- approve <slug>` (or `unpublish`)",
+  }).nullable(),
   title: Markup,
   teaser: Markup,
   hook: Markup,

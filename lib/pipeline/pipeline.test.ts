@@ -310,3 +310,16 @@ describe("helpers", () => {
     expect(() => parseRetractionWatch("a,b\n1,2")).toThrow("the file format has changed");
   });
 });
+
+describe("publishedAt is set by the approve command, never typed", () => {
+  it("accepts null (a draft) and a full timestamp", () => {
+    expect(lintErrors(caffeine, (e) => { e.publishedAt = null; })).toEqual([]);
+    expect(lintErrors(caffeine, (e) => { e.publishedAt = "2026-11-13T09:30:00.000Z"; })).toEqual([]);
+  });
+  it("refuses the text \"null\", a bare date and a local date: each would publish the paper", () => {
+    for (const typed of ["null", "13/11/2026", "2026-11-13", "today", ""]) {
+      expect(lintErrors(caffeine, (e) => { e.publishedAt = typed; }), typed)
+        .toEqual([expect.stringContaining("schema publishedAt")]);
+    }
+  });
+});

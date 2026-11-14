@@ -45,6 +45,10 @@ On Supabase CLI 3.x every command targets local Docker unless `--remote` is give
 
 1. `supabase db push --remote --dry-run --include-seed` and show the owner what would change.
 2. **Ask before the real push.** Only after a yes: `supabase db push --remote --include-seed --yes`.
+   On a project that is already seeded this applies migrations but **does not re-run a changed
+   seed** (it prints "Updating seed hash" and writes no rows). When `supabase/seed.sql` changed,
+   follow it with `supabase db query --remote --yes -f supabase/seed.sql` (idempotent upserts of
+   reference content only; `scripts/seed-safety.test.ts` holds that), then count the rows.
 3. Reads for evidence: `supabase db query --remote --read-only "<sql>"`. Counts and times only,
    no ids in the output.
 

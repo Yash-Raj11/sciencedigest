@@ -141,8 +141,23 @@ npm run lint && npm run typecheck && npm test && npm run build
 git add -A && git commit -m "what changed and why" && git push
 ```
 
-If the change touched `supabase/migrations/`, also run `supabase db push`.
-If it touched `content/papers/`, run `supabase db push --include-seed`.
+If the change touched `supabase/migrations/`, also run `supabase db push --remote` (dry run
+first: add `--dry-run`).
+
+If it touched `content/papers/` (a paper approved, unpublished or edited), the hosted database
+needs the new `supabase/seed.sql`. `supabase db push --remote --include-seed` is **not enough**
+once the project has been seeded: it prints "Updating seed hash" and writes no rows (seen on
+CLI 3.1.0, 2026-11-13). Run the file itself. It only upserts papers, their reads and their
+steps, so running it twice is safe:
+
+```
+supabase db push --remote --dry-run --include-seed      # migrations pending? the seed listed?
+supabase db push --remote --include-seed --yes          # applies migrations, records the seed hash
+supabase db query --remote --yes -f supabase/seed.sql   # writes the rows
+supabase db query --remote --read-only "select count(*) from public.papers where published_at is not null"
+```
+
+The last line is the check: the count must match the papers `npm run content:build` printed.
 
 ---
 

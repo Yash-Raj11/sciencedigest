@@ -142,6 +142,50 @@
         "sciencecommunication"
       ],
       "credit": "Inoue K, Tsugawa Y, Mayeda ER, Ritz B. Association of Daily Step Patterns With Mortality in US Adults. JAMA Netw Open. 2023;6(3):e235174. doi:10.1001/jamanetworkopen.2023.5174. Licence: CC-BY."
+    },
+    {
+      "slug": "turmeric-pepper-breakfast",
+      "slides": [
+        {
+          "kind": "hook",
+          "heading": "1 g of black pepper in a breakfast egg. What did blood glucose do?",
+          "body": null
+        },
+        {
+          "kind": "finding",
+          "heading": "Lower at 30 minutes",
+          "body": "After the pepper breakfast, blood glucose was lower than after the plain one at the 30-minute reading. Added up over 3 hours, the meals did not differ."
+        },
+        {
+          "kind": "population",
+          "heading": "Who this describes",
+          "body": "20 healthy adults in their early twenties, one breakfast per version. Nobody with diabetes took part."
+        },
+        {
+          "kind": "nuance",
+          "heading": "Turmeric alone showed nothing",
+          "body": "1 g of turmeric without pepper showed no glucose effect. The authors think the dose was too low."
+        },
+        {
+          "kind": "limitation",
+          "heading": "How sure?",
+          "body": "A small trial of single meals. The text gives no effect sizes and no confidence intervals. The trial measured no hormones, so the mechanism is a proposal."
+        },
+        {
+          "kind": "cta",
+          "heading": "Compare the four breakfasts",
+          "body": "Pick a meal in the simulator to see what the trial recorded after it."
+        }
+      ],
+      "caption": "A crossover trial in 20 healthy young adults tested 1 g of black pepper in a breakfast egg. Blood glucose was lower at 30 minutes than after the plain meal. The 3-hour total did not differ, turmeric alone showed nothing, and the text gives no effect sizes. Simulator at the link in bio.",
+      "hashtags": [
+        "nutrition",
+        "blackpepper",
+        "turmeric",
+        "bloodsugar",
+        "evidencebased"
+      ],
+      "credit": "Khan S, Arif M, Laraib H, et al. The effect of turmeric and black pepper powder incorporated in breakfast on postprandial glycemia, appetite, palatability, and gastrointestinal well-being in normal-weight adults. Food Sci Nutr. 2024;12(4):2846-2854. doi:10.1002/fsn3.3965. Licence: CC-BY."
     }
   ]
 }

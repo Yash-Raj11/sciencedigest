@@ -666,3 +666,26 @@ Generated files are unchanged. `content/context/` and `content/concepts/` hold o
   overflowed a 360 px screen. Screenshots: `docs/evidence/figures/`.
 - `supabase/seed.sql` changed (generated): the members' read now carries its figure. The hosted
   database has not been touched; the live members' read shows no figure until a seed push.
+
+## 2026-11-13: turmeric-pepper-breakfast released (owner's request)
+
+- **Owner's decisions:** the doorbell figure keeps its last box filled (measured: lower blood
+  glucose) with every arrow dashed; the concept `glucagon-like-peptide` was approved by the
+  owner (commit 19fe28a).
+- **`publishedAt` cannot be typed.** A hand edit had left `"publishedAt": "null"` (a string) in
+  the editorial, and the build published it with a made-up date. New rule in
+  `lib/pipeline/editorial.ts` (`isTimestamp`): the value is null or a full UTC timestamp, which
+  is what `npm run paper -- approve` writes. Tests in `lib/pipeline/pipeline.test.ts` refuse
+  `"null"`, `"13/11/2026"` and a date with no time. The bad edit was undone with
+  `npm run paper -- unpublish`, then the paper was approved with `npm run paper -- approve`.
+- **Flow used:** approve, `npm run content:build` (4 papers: 3 free, 1 premium), all gates, the
+  seed push, commit and push, live check.
+- **The documented seed push writes nothing on a seeded project.**
+  `supabase db push --remote --include-seed --yes` printed "Updating seed hash" and the row
+  counts did not move (papers 3, steps 21). The same generated file was then applied with
+  `supabase db query --remote --yes -f supabase/seed.sql`. Counts after: papers 4, reads 4,
+  steps 30, turmeric free and published 1, turmeric steps 2, the members' HIIT read carries its
+  figure. The seed is upserts of reference content only; no user table is touched
+  (`scripts/seed-safety.test.ts`, 11 tests). MANUAL 3.3 and the db-change skill now say this.
+- **No change** to migrations, scoring or evidence weights.
+
