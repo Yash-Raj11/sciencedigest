@@ -129,8 +129,15 @@ gated context study). Ids in `code`.
 
 ### 1. Caffeine: decay, "coffee time vs bedtime" (`daytime-caffeine-sleep`, free)
 
-- **Reader enters:** when they had caffeine, how much (mg), and their bedtime.
-- **Reader sees:** the range left at bedtime, on the halving curve. With 95 mg at 4 pm and bed
+- **Reader enters:** when they had caffeine, their amount in mg, and their bedtime. **No dose
+  presets** (owner, 2026-11-14): how much caffeine is in a cup is not a gated fact, so the app
+  offers no "one coffee = 95 mg" button. The field is empty until the reader types, and is
+  labelled **"your amount"**: the number is theirs, not the study's.
+- **Reader sees:** the range left at bedtime, on the halving curve, as a band plus one plain
+  sentence. **Beside the band, the paper's own sleep finding** (owner, 2026-11-14): in daily
+  users, with the last 150 mg dose 8 hours before bed, measured sleep did not differ from
+  placebo nights (`sleep_same`, `recording`, `who`). It is shown as what the study found in
+  its population, never as a prediction for the reader's night. With 95 mg at 4 pm and bed
   at 11 pm: 95 × 0.5^(7 / 3.94) ≈ 28 mg to 95 × 0.5^(7 / 6.36) ≈ 44 mg, "about 28–44 mg"
   (section i), under "typical spread between people in this study".
 - **Fact ids:** `caffeine-saliva-half-life/half_life_caffeine` (mean 5.15 h, sd 1.21; library);
@@ -141,14 +148,18 @@ gated context study). Ids in `code`.
   what a still picture cannot show.
 - **Missing facts:** the paper prints no half-life, so its own facts cannot feed the simulator.
   Filled through the library: the context study, owner-picked and gated (crossover, grade low),
-  arm D excluded. The result must not be read against this paper's sleep finding: its
-  participants were habitual users (300 to 600 mg a day, the population field) given 3 × 150 mg
-  a day (`dose`), and their sleep did not differ from placebo (`sleep_same`).
+  arm D excluded. The band is not a sleep prediction: the sleep finding beside it says what
+  happened to habitual users (300 to 600 mg a day, `who`) given 3 × 150 mg a day (`dose`),
+  whose sleep did not differ from placebo (`sleep_same`). The two sit side by side, each with
+  its own source line; no sentence joins them into "so you will sleep fine".
 
 ### 2. Steps: association-curve (`steps-days-per-week`, free)
 
 - **Reader enters:** on how many days a week they reach 8,000 steps (0 to 7).
-- **Reader sees:** their band and its printed numbers, with no causal verb. Example, 2 days →
+- **Reader sees:** their band and its printed numbers, with no causal verb. The labels say which
+  number is which (owner, 2026-11-14): 14.1% against 40.7% is **raw** (unadjusted: the groups
+  differ in age and health), −14.9 points is **adjusted**. **"Who this was tested in"** (H3)
+  sits directly under the result, not further down the page. Example, 2 days →
   the "1–2 days" group: 14.1% of that group died within 10 years (75/532, `crude_1_2`) against
   40.7% of the 0-day group (257/632, `crude_0`). Adjusted difference −14.9 points (95% CI −18.8
   to −10.9, `ard_1_2`), labelled "range for the study average" (a CI, not a spread between
@@ -170,7 +181,9 @@ gated context study). Ids in `code`.
   (2 or 3); work bursts (60 s or less, or longer); rests (90 s or less, or longer); active or
   passive rest; programme longer than 8 weeks or not.
 - **Reader sees:** each tested subgroup their routine matches, side by side, and the pooled
-  result; never one combined number. Example, cycling, 3 sessions, 30 s bursts, 60 s active
+  result; never one combined number. Each subgroup bar is labelled **"subgroup result"** and
+  drawn visually secondary to the pooled bar (thinner, muted), so the pooled result reads
+  first (owner, 2026-11-14). Example, cycling, 3 sessions, 30 s bursts, 60 s active
   rest, 10 weeks → fat mass: cycling −1.72 kg (95% CI −2.41 to −1.30, `fm_cycling`); 3
   sessions −1.24 (−2.00 to −0.48, `fm_3wk`); bursts ≤ 60 s −2.20 (−3.01 to −1.39, `fm_le60`);
   rests ≤ 90 s −2.26 (−3.08 to −1.43, `fm_rest_le90`); active rest −2.13 (−2.99 to −1.27,
@@ -191,9 +204,11 @@ gated context study). Ids in `code`.
 
 - **Reader enters:** their combination: black pepper (1 g) yes or no, turmeric (1 g) yes or
   no, in the egg breakfast that was tested (`meals`, `in_egg`, `plate`).
-- **Reader sees:** the matching tested cell and its printed findings. Example, pepper +
-  turmeric → blood glucose 30 minutes after eating differed from the plain meal (p = .023;
-  no size printed, `glucose_30`), lower than the plain meal (`glucose_lower`), no difference
+- **Reader sees:** the matching tested cell and its printed findings, in plain words. **No
+  p-values in the grid** (owner, 2026-11-14): a cell says "lower at 30 min, a clear difference
+  in this study"; the p-values (p = .023, `glucose_30`) live in the Receipts. Example, pepper +
+  turmeric → blood glucose 30 minutes after eating lower than the plain meal, a clear
+  difference in this study (`glucose_30`, `glucose_lower`; no size printed), no difference
   over the whole 3 hours (`glucose_total`); less hunger, more satiety (`appetite`); overall
   pleasantness 6.6 ± 0.42 on a 9-point scale against 6.5 ± 0.39 for the plain meal
   (`taste_both`, `taste_c`). Turmeric alone → no effect on glucose (`turmeric_none`),
@@ -206,6 +221,7 @@ gated context study). Ids in `code`.
   cell. Only the four tested cells exist; there is no dose to slide.
 - **Missing facts:** the glucose values per meal are printed only in Figure 1 (an image), so
   the cells carry direction and p-values, not a glucose number; that stays so (H12: no range,
-  no estimate). The taste values are mean ± SD but are stored as statements: re-extracting them
-  as estimates (measure mean, spread sd) is needed before a cell shows them as a band. No
+  no estimate). The taste values were re-extracted as estimates (measure mean, spread sd, unit
+  points on the 9-point scale; 2026-11-14), so a cell can show each as a band labelled
+  "typical spread between people in this study". No
   library or queue path is proposed for glucose: another study's meal would not be this cell.

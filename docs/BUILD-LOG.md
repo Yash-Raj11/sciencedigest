@@ -1068,3 +1068,25 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   a cell can show a band.
 - PROGRESS gained eight simulator items before 2E. Still for the owner: the round-2 screenshot
   verdict; relabelling caffeine and turmeric as crossover (HANDOFF section 9).
+
+## 2026-11-14, Session 10: owner rulings applied (crossover relabel, taste as mean ± SD, design notes)
+
+- `test:http` 14 of 14 and `test:browser` 34 of 34 run at the start (not run last session).
+  `docs/evidence/http-tests.txt`, `docs/evidence/browser-tests.txt`.
+- **Round-2 screenshots: superseded** (owner). The design is judged live with /impeccable after
+  the simulators.
+- **Relabel (owner):** `daytime-caffeine-sleep` and `turmeric-pepper-breakfast` design `rct` →
+  `crossover`. Both design quotes name the crossover and the randomisation, so the gate's
+  crossover check passes. The audit now says "Randomized crossover trial"; grades unchanged (low,
+  n under 50); causal verbs unchanged (ruling A). No database column holds the design: the
+  seed's grades did not move.
+- **Taste re-extracted (owner):** `taste_c`, `taste_bp`, `taste_tr`, `taste_both` are now
+  estimates, measure mean, unit points (9-point scale), spread sd, from the same Table 3 row
+  quotes (the gate finds every number). Labels say "mean ± SD". The read's sentence and grid
+  are unchanged. `supabase/seed.sql` changed (turmeric's facts); the hosted seed waits for the
+  owner's "go".
+- **SIMULATORS.md design notes refined (owner):** caffeine has no dose presets ("your amount"),
+  and shows the paper's sleep finding beside the band, never joined to it; steps labels raw
+  (14.1% vs 40.7%) and adjusted (−14.9 points) and puts "Who this was tested in" directly under
+  the result; HIIT's subgroup bars say "subgroup result" and sit visually under the pooled bar;
+  turmeric's grid uses plain words, with p-values in the Receipts.

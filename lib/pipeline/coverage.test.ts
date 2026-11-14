@@ -65,7 +65,7 @@ describe("coverageChecklist", () => {
   it("ticks design, n and limitations from the gate, and the pass items from their facts", () => {
     const rows = coverageChecklist({ ...empty, conditions: ["in_egg"], dosing: ["single_meal"], furtherInvestigation: ["lim_mechanism"] }, summary(hand));
     const by = Object.fromEntries(rows.map((r) => [r.item, r]));
-    expect(by.design.facts).toEqual(["design: rct"]);
+    expect(by.design.facts).toEqual(["design: crossover"]); // relabelled by the owner, 2026-11-14
     expect(by.sampleSize.facts).toEqual(["n = 20"]);
     expect(by.conditions).toMatchObject({ found: true, facts: ["in_egg"] });
     expect(by.limitations.facts).toContain("lim_taste");

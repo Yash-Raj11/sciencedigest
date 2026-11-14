@@ -358,9 +358,9 @@ last BUILD-LOG entry says.
 3. What exactly does membership include? This decides what the server-side gated functions return.
 4. Should the companion picture follow the user across devices? That means uploading and
    hosting user images (Supabase Storage), which was deliberately avoided.
-5. `daytime-caffeine-sleep` and `turmeric-pepper-breakfast` are randomised crossovers filed as
-   `rct`. Relabel them `crossover`? (Audit wording changes; grade stays low.) BUILD-LOG 2026-11-14.
-6. The round-2 screenshots verdict (`docs/evidence/article-redesign/round2/`) is still open.
+5. ~~Relabel caffeine and turmeric as `crossover`?~~ Answered 2026-11-14: yes; done.
+6. ~~The round-2 screenshots verdict~~ Superseded 2026-11-14: judged live with /impeccable
+   after the simulators.
 
 ---
 

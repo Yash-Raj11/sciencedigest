@@ -148,7 +148,13 @@ describe("gate: the turmeric benchmark's failures are refused", () => {
     expect(errorsFor((x) => { x.facts.push({ id: "alpha", kind: "context", label: "Significance threshold", value: "p < .05", quote }); })).toEqual([]);
   });
   it("refuses an extraction whose results are all mislabelled: no finding left to report", () => {
-    const errors = errorsFor((x) => { for (const f of x.facts) if (f.kind === "finding") asStatement(x, f.id); });
+    // The taste means are estimates since 2026-11-14 (mean ± SD): mislabel them too, as a model might.
+    const errors = errorsFor((x) => {
+      for (const f of x.facts) {
+        if (f.kind === "finding") asStatement(x, f.id);
+        else if (f.kind === "estimate") { asStatement(x, f.id); delete f.estimate; delete f.spread; }
+      }
+    });
     expect(errors).toContain("no verified estimate or finding: there is no result to report");
   });
   it("refuses a value stitched from several printed figures, even when every figure is in the quote", () => {

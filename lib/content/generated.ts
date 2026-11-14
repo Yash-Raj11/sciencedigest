@@ -21,7 +21,7 @@ export const PAPERS: PaperMeta[] = [
     "journal": "Scientific Reports",
     "year": 2021,
     "license": "CC-BY",
-    "design": "rct",
+    "design": "crossover",
     "species": "human",
     "sampleSize": 20,
     "grades": [
@@ -184,7 +184,7 @@ export const PAPERS: PaperMeta[] = [
     "journal": "Food Science & Nutrition",
     "year": 2024,
     "license": "CC-BY",
-    "design": "rct",
+    "design": "crossover",
     "species": "human",
     "sampleSize": 20,
     "grades": [
@@ -3009,21 +3009,63 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       },
       "taste_both": {
         "id": "taste_both",
-        "kind": "statement",
-        "label": "Table 3, pepper-plus-turmeric meal. Overall pleasantness: 6.6",
-        "quote": "BP + TR | 6.5 ± 0.49b\n| 6.2 ± 0.52b\n| 6.2 ± 0.46b\n| 6.5 ± 0.44b\n| 6.6 ± 0.42b"
+        "kind": "estimate",
+        "label": "Overall pleasantness of the pepper-plus-turmeric meal, mean ± SD on the 9-point scale (Table 3)",
+        "quote": "BP + TR | 6.5 ± 0.49b\n| 6.2 ± 0.52b\n| 6.2 ± 0.46b\n| 6.5 ± 0.44b\n| 6.6 ± 0.42b",
+        "estimate": {
+          "outcome": "Overall pleasantness rating of the pepper-plus-turmeric meal (9-point scale)",
+          "measure": "mean",
+          "point": 6.6,
+          "ciLow": null,
+          "ciHigh": null,
+          "unit": "points",
+          "absolute": true,
+          "tier": "low"
+        },
+        "spread": {
+          "kind": "sd",
+          "value": 0.42
+        }
       },
       "taste_bp": {
         "id": "taste_bp",
-        "kind": "statement",
-        "label": "Table 3, black pepper meal. Overall pleasantness: 6.2",
-        "quote": "BP | 5.9 ± 0.55a\n| 5.35 ± 0.61a\n| 6.05 ± 0.58ab\n| 5.9 ± 0.55a\n| 6.2 ± 0.50a"
+        "kind": "estimate",
+        "label": "Overall pleasantness of the black pepper meal, mean ± SD on the 9-point scale (Table 3)",
+        "quote": "BP | 5.9 ± 0.55a\n| 5.35 ± 0.61a\n| 6.05 ± 0.58ab\n| 5.9 ± 0.55a\n| 6.2 ± 0.50a",
+        "estimate": {
+          "outcome": "Overall pleasantness rating of the black pepper meal (9-point scale)",
+          "measure": "mean",
+          "point": 6.2,
+          "ciLow": null,
+          "ciHigh": null,
+          "unit": "points",
+          "absolute": true,
+          "tier": "low"
+        },
+        "spread": {
+          "kind": "sd",
+          "value": 0.5
+        }
       },
       "taste_c": {
         "id": "taste_c",
-        "kind": "statement",
-        "label": "Table 3, control meal: appearance, texture, smell, taste, overall pleasantness (mean ± SD, 9-point scale). Overall: 6.5",
-        "quote": "C | 6.3 ± 0.48b\n| 6.4 ± 0.46b\n| 5.5 ± 0.51a\n| 6.7 ± 0.48b\n| 6.5 ± 0.39ab"
+        "kind": "estimate",
+        "label": "Overall pleasantness of the plain (control) meal, mean ± SD on the 9-point scale (Table 3)",
+        "quote": "C | 6.3 ± 0.48b\n| 6.4 ± 0.46b\n| 5.5 ± 0.51a\n| 6.7 ± 0.48b\n| 6.5 ± 0.39ab",
+        "estimate": {
+          "outcome": "Overall pleasantness rating of the plain (control) meal (9-point scale)",
+          "measure": "mean",
+          "point": 6.5,
+          "ciLow": null,
+          "ciHigh": null,
+          "unit": "points",
+          "absolute": true,
+          "tier": "low"
+        },
+        "spread": {
+          "kind": "sd",
+          "value": 0.39
+        }
       },
       "taste_rank": {
         "id": "taste_rank",
@@ -3043,9 +3085,23 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       },
       "taste_tr": {
         "id": "taste_tr",
-        "kind": "statement",
-        "label": "Table 3, turmeric meal. Overall pleasantness: 6.1",
-        "quote": "TR | 5.7 ± 0.48a\n| 5.5 ± 0.47a\n| 5.6 ± 0.533a\n| 5.9 ± 0.47a\n| 6.1 ± 0.40a"
+        "kind": "estimate",
+        "label": "Overall pleasantness of the turmeric meal, mean ± SD on the 9-point scale (Table 3)",
+        "quote": "TR | 5.7 ± 0.48a\n| 5.5 ± 0.47a\n| 5.6 ± 0.533a\n| 5.9 ± 0.47a\n| 6.1 ± 0.40a",
+        "estimate": {
+          "outcome": "Overall pleasantness rating of the turmeric meal (9-point scale)",
+          "measure": "mean",
+          "point": 6.1,
+          "ciLow": null,
+          "ciHigh": null,
+          "unit": "points",
+          "absolute": true,
+          "tier": "low"
+        },
+        "spread": {
+          "kind": "sd",
+          "value": 0.4
+        }
       },
       "timepoints": {
         "id": "timepoints",

@@ -1,0 +1,13 @@
+
+> sciencedigest@0.1.0 test:http
+> vitest run --config vitest.http.config.mts
+
+
+ RUN  v5.1.0 /Users/yash/Game/sciencedigest
+
+
+ Test Files  2 passed (2)
+      Tests  14 passed (14)
+   Start at  18:21:02
+   Duration  680ms (tests 84%, import 8%, transform 7%, worker 1%)
+

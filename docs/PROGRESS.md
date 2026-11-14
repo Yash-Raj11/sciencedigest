@@ -76,8 +76,8 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       impeccable binary untracked, plain passage panel; G2 feed at `/`, tracker at `/today`,
       `/library` 308, Life Game slot, "Start on"; G3 larger hooks; G4 figure kinds, the decay
       kind, H12. Caffeine has no gated half-life, so its read was not wired to the decay kind.
-- [ ] ⏸ Stopped here 2026-11-14. Still open: the owner's verdict on the round-2 screenshots
-      (`docs/evidence/article-redesign/round2/`). Answered: a context fact may feed a figure
+- [x] ⏸ Stopped here 2026-11-14. Round-2 screenshot verdict: **superseded** (owner,
+      2026-11-14: the design is judged live with /impeccable after the simulators). Closed. Answered: a context fact may feed a figure
       spec and its simulator (`2a0926c`); the half-life source search is its own item below.
 - [x] H7/H12 rule change (owner, 2026-11-14): a gated context study may feed a figure spec and
       its simulator; a concept never. `2a0926c`. Grzegorzewski 2021 refused at the gate (BUILD-LOG).
@@ -91,6 +91,10 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       onto kinds; (3) `docs/POST-RECIPE.md` + the sticky slot strip; (4) Life Game widgets made
       more interactive and visual; (5) pipeline `prompts.ts` proposing figure specs;
       (6) Related reads slot + `docs/IDEAS.md` (caffeine + L-theanine).
+- [x] Owner rulings 2026-11-14 (session 10): caffeine and turmeric relabelled `crossover`
+      (audit says "Randomized crossover trial"; grade unchanged, low); turmeric taste values
+      re-extracted as mean ± SD; SIMULATORS.md design notes refined (no caffeine presets,
+      raw vs adjusted for steps, HIIT subgroup bars secondary, no p-values in turmeric's grid).
 - [ ] Simulators (owner, 2026-11-14; plan: `docs/SIMULATORS.md`). Caffeine first:
 - [ ] Fact library: data shape for an approved context fact + lookup (paper facts → library).
 - [ ] Build check + fallback: no fact → publish with the card figure and queue an upgrade.

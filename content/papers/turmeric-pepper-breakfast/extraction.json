@@ -11,7 +11,7 @@
   },
   "license": "CC BY 4.0",
   "design": {
-    "value": "rct",
+    "value": "crossover",
     "quote": "The study made use of a randomized crossover design; all the subjects were provided with 04 test foods, all have 50 g carbohydrate content."
   },
   "species": {
@@ -212,31 +212,83 @@
     },
     {
       "id": "taste_c",
-      "kind": "statement",
-      "label": "Table 3, control meal: appearance, texture, smell, taste, overall pleasantness (mean ± SD, 9-point scale). Overall: 6.5",
+      "kind": "estimate",
+      "label": "Overall pleasantness of the plain (control) meal, mean ± SD on the 9-point scale (Table 3)",
       "value": "6.5 ± 0.39ab",
-      "quote": "C | 6.3 ± 0.48b | 6.4 ± 0.46b | 5.5 ± 0.51a | 6.7 ± 0.48b | 6.5 ± 0.39ab"
+      "quote": "C | 6.3 ± 0.48b | 6.4 ± 0.46b | 5.5 ± 0.51a | 6.7 ± 0.48b | 6.5 ± 0.39ab",
+      "estimate": {
+        "outcome": "Overall pleasantness rating of the plain (control) meal (9-point scale)",
+        "measure": "mean",
+        "point": 6.5,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "points",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 0.39
+      }
     },
     {
       "id": "taste_bp",
-      "kind": "statement",
-      "label": "Table 3, black pepper meal. Overall pleasantness: 6.2",
+      "kind": "estimate",
+      "label": "Overall pleasantness of the black pepper meal, mean ± SD on the 9-point scale (Table 3)",
       "value": "6.2 ± 0.50a",
-      "quote": "BP | 5.9 ± 0.55a | 5.35 ± 0.61a | 6.05 ± 0.58ab | 5.9 ± 0.55a | 6.2 ± 0.50a"
+      "quote": "BP | 5.9 ± 0.55a | 5.35 ± 0.61a | 6.05 ± 0.58ab | 5.9 ± 0.55a | 6.2 ± 0.50a",
+      "estimate": {
+        "outcome": "Overall pleasantness rating of the black pepper meal (9-point scale)",
+        "measure": "mean",
+        "point": 6.2,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "points",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 0.5
+      }
     },
     {
       "id": "taste_tr",
-      "kind": "statement",
-      "label": "Table 3, turmeric meal. Overall pleasantness: 6.1",
+      "kind": "estimate",
+      "label": "Overall pleasantness of the turmeric meal, mean ± SD on the 9-point scale (Table 3)",
       "value": "6.1 ± 0.40a",
-      "quote": "TR | 5.7 ± 0.48a | 5.5 ± 0.47a | 5.6 ± 0.533a | 5.9 ± 0.47a | 6.1 ± 0.40a"
+      "quote": "TR | 5.7 ± 0.48a | 5.5 ± 0.47a | 5.6 ± 0.533a | 5.9 ± 0.47a | 6.1 ± 0.40a",
+      "estimate": {
+        "outcome": "Overall pleasantness rating of the turmeric meal (9-point scale)",
+        "measure": "mean",
+        "point": 6.1,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "points",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 0.4
+      }
     },
     {
       "id": "taste_both",
-      "kind": "statement",
-      "label": "Table 3, pepper-plus-turmeric meal. Overall pleasantness: 6.6",
+      "kind": "estimate",
+      "label": "Overall pleasantness of the pepper-plus-turmeric meal, mean ± SD on the 9-point scale (Table 3)",
       "value": "6.6 ± 0.42b",
-      "quote": "BP + TR | 6.5 ± 0.49b | 6.2 ± 0.52b | 6.2 ± 0.46b | 6.5 ± 0.44b | 6.6 ± 0.42b"
+      "quote": "BP + TR | 6.5 ± 0.49b | 6.2 ± 0.52b | 6.2 ± 0.46b | 6.5 ± 0.44b | 6.6 ± 0.42b",
+      "estimate": {
+        "outcome": "Overall pleasantness rating of the pepper-plus-turmeric meal (9-point scale)",
+        "measure": "mean",
+        "point": 6.6,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "points",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 0.42
+      }
     },
     {
       "id": "sugar_row",
