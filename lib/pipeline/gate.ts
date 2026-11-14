@@ -131,6 +131,9 @@ export function gate(input: unknown, source: string, options: { role?: GateRole 
   } else if (designAt) {
     const groups = DESIGN_EVIDENCE[raw.design.value as Design];
     if (!groups.every((g) => hasAny(designAt.text, g))) errors.push(`design: the quoted passage does not support "${raw.design.value}"`);
+    else if (raw.design.value === "rct" && NEGATED_RANDOMISATION.test(designAt.text)) {
+      errors.push(`design: the quoted passage says the trial was not (truly) randomised ("${designAt.text.slice(0, 80)}"); it cannot be graded as an rct`);
+    }
     else if (raw.design.value !== "crossover") design = raw.design.value as Design;
     else {
       // A crossover needs its randomisation stated: in the design passage or another methods

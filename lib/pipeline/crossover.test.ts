@@ -67,6 +67,23 @@ describe("crossover design", () => {
   });
 });
 
+describe("rct: a negated randomisation is refused (owner ruling B, 2026-11-14)", () => {
+  it.each([
+    ["non-randomized", "This was a non-randomized controlled trial in healthy adults."],
+    ["not randomised", "Participants were not randomised; they chose their own group."],
+    ["quasi-randomized", "We ran a quasi-randomized trial in which allocation followed the day of the week."],
+    ["randomization was not possible", "A randomized design was planned, but randomization was not possible at the second site."],
+  ])("%s", (_name, quote) => {
+    const result = gateWith((x) => { x.design = { value: "rct", quote }; }, `${source}\n${quote}\n`);
+    expect(errorsOf(result)).toEqual([expect.stringContaining("design: the quoted passage says the trial was not (truly) randomised")]);
+  });
+
+  it("a plain randomized passage still passes as an rct", () => {
+    const quote = "Participants were randomized to the four study arms by block randomization.";
+    expect(errorsOf(gateWith((x) => { x.design = { value: "rct", quote }; }, `${source}\n${quote}\n`))).toEqual([]);
+  });
+});
+
 describe("the excluded arm: only caffeine alone (arm A) is usable", () => {
   const loaded = loadStudy(DIR.pathname.replace(/\/$/, ""));
   const paper = new URL("../../content/papers/daytime-caffeine-sleep/", import.meta.url);

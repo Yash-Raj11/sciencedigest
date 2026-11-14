@@ -1017,3 +1017,18 @@ crossover AND says the order was randomised, and nothing says it was not.
   a range (`hasRange`), and the extraction schema has no "mean ± SD" measure; ciLow/ciHigh mean
   a confidence interval. The owner's H12 range (mean ± 1 SD, 3.94 to 6.36 h, "typical range in
   this study") needs a way to carry an SD that is not a CI. That is a schema decision.
+
+## 2026-11-14, Rulings A and B: crossover causal verbs kept; rct negation guard
+
+- **A (owner).** A randomised crossover keeps causal verbs, limited to the population studied
+  and the measured outcomes. Already enforced by the H3 lint (a causal sentence must name a
+  `populationTerms` entry and rest on this paper's results); nothing else changed.
+- **B (owner).** The rct check now refuses a design passage that negates the randomisation:
+  "non-randomized", "not randomised", "quasi-randomized", "randomization was not possible"
+  (`NEGATED_RANDOMISATION`, shared with the crossover check). One test per phrase, plus a plain
+  randomized passage that still passes; removing the guard fails all four. The four papers'
+  design quotes are unaffected.
+- *Noticed, not changed:* `daytime-caffeine-sleep` ("double-blind, randomized, crossover") and
+  `turmeric-pepper-breakfast` ("randomized crossover design") are randomised crossovers filed
+  as `rct`. Relabelling would change their audit wording to "Randomized crossover trial"; the
+  grade is the same (both under n = 50, so low). For the owner.

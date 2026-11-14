@@ -46,8 +46,11 @@ export const SPECIES_EVIDENCE: Record<Species, string[]> = {
 /** A crossover's randomisation: "randomized", "randomised", "randomization", "randomisation" (so "block randomization" too). */
 export const CROSSOVER_RANDOMISATION = ["randomized", "randomised", "randomization", "randomisation", "randomly assigned", "randomly allocated"];
 
-/** "not randomized", "non-randomised", "randomization was not possible", "without randomisation": the passage says the opposite. */
-export const NEGATED_RANDOMISATION = /\b(not|non)[\s-]*(been\s+)?randomi[sz]ed|randomi[sz]ation\s+(was|were|is|could)\s+not|randomi[sz]ation\s+was\s+(impossible|not\s+possible)|without\s+randomi[sz]ation|\bno\s+randomi[sz]ation|not\s+randomly/i;
+/**
+ * "not randomized", "non-randomised", "quasi-randomized", "randomization was not possible",
+ * "without randomisation": the passage says the opposite. Checked for rct and crossover.
+ */
+export const NEGATED_RANDOMISATION = /\b(not|non|quasi)[\s-]*(been\s+)?randomi[sz]ed|randomi[sz]ation\s+(was|were|is|could)\s+not|randomi[sz]ation\s+was\s+(impossible|not\s+possible)|without\s+randomi[sz]ation|\bno\s+randomi[sz]ation|not\s+randomly/i;
 
 /** H3: causal verbs are only ever available to randomized human evidence. */
 export function causalLanguagePermitted(design: Design, species: Species): boolean {
