@@ -12,6 +12,7 @@ import { DORMANCY_DAYS } from "@/lib/score";
 import { useStore } from "@/lib/store";
 import { flush, linkEmail, retryHeld } from "@/lib/store/sync";
 import { isDemo } from "@/lib/supabase/client";
+import { readStartChoice, saveStartChoice, type StartChoice } from "@/lib/start";
 import { applyThemeChoice, readThemeChoice, type ThemeChoice } from "@/lib/theme";
 
 const THEMES: { value: ThemeChoice; label: string }[] = [
@@ -39,6 +40,38 @@ function Appearance() {
             className={`h-11 min-w-0 flex-1 rounded-lg border text-sm font-semibold ${choice === theme.value ? "border-accent bg-accent text-accent-ink" : "border-line bg-bg"}`}
           >
             {theme.label}
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+const STARTS: { value: StartChoice; label: string }[] = [
+  { value: "feed", label: "Feed" },
+  { value: "game", label: "Life Game" },
+];
+
+function StartOn() {
+  // Read after mount: the saved choice only exists in the browser.
+  const [choice, setChoice] = useState<StartChoice | null>(null);
+  useEffect(() => {
+    const saved = readStartChoice();
+    queueMicrotask(() => setChoice(saved));
+  }, []);
+
+  return (
+    <section aria-label="Start on" className="rounded-2xl border border-line bg-surface p-4">
+      <h2 className="display text-xl">Start on</h2>
+      <p className="mt-1 text-sm leading-snug text-muted">The screen the app opens on. Kept on this device.</p>
+      <div className="mt-3 flex gap-2" role="group" aria-label="Start on">
+        {STARTS.map((start) => (
+          <button
+            key={start.value} type="button" aria-pressed={choice === start.value}
+            onClick={() => { saveStartChoice(start.value); setChoice(start.value); }}
+            className={`h-11 min-w-0 flex-1 rounded-lg border text-sm font-semibold ${choice === start.value ? "border-accent bg-accent text-accent-ink" : "border-line bg-bg"}`}
+          >
+            {start.label}
           </button>
         ))}
       </div>
@@ -315,6 +348,7 @@ export function Settings() {
         <h1 className="display text-[2.5rem]">Me</h1>
       </header>
       <Appearance />
+      <StartOn />
       <CompanionChoice />
       {hydrated && <Account />}
       {hydrated && <Membership />}

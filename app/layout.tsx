@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Analytics } from "@vercel/analytics/next";
 import { StoreBoot } from "@/components/shell/StoreBoot";
 import { TabBar } from "@/components/shell/TabBar";
+import { START_BOOT_SCRIPT } from "@/lib/start";
 import { THEME_BOOT_SCRIPT } from "@/lib/theme";
 import "./globals.css";
 
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" data-theme="dark" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: START_BOOT_SCRIPT }} />
       </head>
       <body>
         <StoreBoot />

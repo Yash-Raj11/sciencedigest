@@ -45,6 +45,6 @@ test("Me shows the held changes, with the reason and Try again; a reload keeps t
   expect(saved).toEqual(held);
 
   // And the amount is still on Today.
-  await page.goto("/");
+  await page.goto("/today");
   await expect(page.getByRole("button", { name: `Open ${HABIT.label}` })).toContainText("3 of 12 glasses");
 });

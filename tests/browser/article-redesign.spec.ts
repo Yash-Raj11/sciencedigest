@@ -18,7 +18,7 @@ const top = async (page: Page, selector: string) => (await page.locator(selector
 
 test.describe("the feed", () => {
   test("shows every paper as a whole post, without a tap", async ({ page }) => {
-    await page.goto("/library");
+    await page.goto("/");
     await expect(page.locator("[data-post]")).toHaveCount(Math.min(papers.length, 20));
     for (const paper of papers) {
       const card = page.locator(`[data-post="${paper.slug}"]`);
@@ -42,7 +42,7 @@ test.describe("the feed", () => {
   });
 
   test("a tap on a post opens the full read", async ({ page }) => {
-    await page.goto("/library");
+    await page.goto("/");
     await page.locator(`[data-post="${SLUG}"] a`).click();
     await expect(page).toHaveURL(new RegExp(`/papers/${SLUG}$`));
     await expect(page.locator("article h1")).toHaveText(papers.find((p) => p.slug === SLUG)!.title);
@@ -236,5 +236,74 @@ test.describe("quiet motion for toggles", () => {
     expect(moving).toBe(0);
     await page.locator("button.term").first().click();
     expect((await motionOf(page, "dialog[open]")).name).toBe("none");
+  });
+});
+
+test.describe("feed first", () => {
+  test("the home page is the feed, with the Life Game slot on top; /library moved there for good", async ({ page, request }) => {
+    const moved = await request.get("/library", { maxRedirects: 0 });
+    expect(moved.status()).toBe(308);
+    expect(moved.headers().location).toBe("/");
+
+    await page.goto("/");
+    const slot = page.locator("[data-feed-slot]");
+    await expect(slot).toContainText("Life Game");
+    await expect(slot.getByRole("progressbar")).toHaveAttribute("aria-valuenow", "0");
+    await expect(slot.locator("svg").first()).toBeVisible();
+    expect((await slot.boundingBox())!.y).toBeLessThan((await page.locator("[data-post]").first().boundingBox())!.y);
+    // The cat is whole: its box is square and inside the slot.
+    const cat = (await slot.locator("svg").first().boundingBox())!;
+    expect(Math.abs(cat.width - cat.height)).toBeLessThan(1);
+    await slot.click();
+    await expect(page).toHaveURL(/\/today$/);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Life Game");
+    await expect(page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Life Game" })).toHaveAttribute("aria-current", "page");
+  });
+
+  test("the slot counts today's steps", async ({ page }) => {
+    // Two tick-off habits already on the device, nothing ticked.
+    await page.addInitScript(() => {
+      if (localStorage.getItem("sd-store-v1")) return;
+      const habits = ["Stretch after waking", "Ten minutes outside"].map((label, i) => ({
+        id: `b7000000-0000-4000-a000-00000000000${i + 1}`, label, position: i + 1, retired: false, kind: "check", unit: null, target: null,
+      }));
+      localStorage.setItem("sd-store-v1", JSON.stringify({ state: { data: { equipped: [], ticks: {}, program: {}, habits, amounts: {} }, queue: [], demoTier: "free" }, version: 3 }));
+    });
+    await page.goto("/");
+    await expect(page.locator("[data-slot-steps]")).toHaveText("0 of 2 steps today");
+    await page.goto("/today");
+    await page.getByRole("checkbox").first().check();
+    await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Feed" }).click();
+    await expect(page.locator("[data-slot-steps]")).toContainText(/^1 of \d+ steps today$/);
+  });
+
+  test("Start on: Feed is the default; Life Game opens /today once, and the Feed tab still works", async ({ page }) => {
+    await page.goto("/");
+    await expect(page).toHaveURL(/\/$/);
+    await expect(page.locator("[data-post]").first()).toBeVisible();
+
+    await page.goto("/me");
+    const group = page.getByRole("group", { name: "Start on" });
+    await expect(group.getByRole("button", { name: "Feed" })).toHaveAttribute("aria-pressed", "true");
+    await group.getByRole("button", { name: "Life Game" }).click();
+    await expect(group.getByRole("button", { name: "Life Game" })).toHaveAttribute("aria-pressed", "true");
+
+    // A new visit (a new tab has its own session) opens on the tracker.
+    const fresh = await page.context().newPage();
+    await fresh.route("https://sd-browser-test.invalid/**", (route) => route.abort("connectionrefused"));
+    await fresh.goto("/");
+    await expect(fresh).toHaveURL(/\/today$/);
+    await expect(fresh.getByRole("heading", { level: 1 })).toHaveText("Life Game");
+    await fresh.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Feed" }).click();
+    await expect(fresh).toHaveURL(/\/$/);
+    await expect(fresh.locator("[data-post]").first()).toBeVisible();
+
+    // Back to Feed: the next visit opens on the feed again.
+    await fresh.goto("/me");
+    await fresh.getByRole("group", { name: "Start on" }).getByRole("button", { name: "Feed" }).click();
+    const again = await page.context().newPage();
+    await again.goto("/");
+    await expect(again).toHaveURL(/\/$/);
+    await expect(again.locator("[data-post]").first()).toBeVisible();
   });
 });

@@ -135,7 +135,7 @@ export function Dashboard() {
 
       {hydrated && unequipped.length > 0 && (
         <section aria-label="Add a protocol" className="rounded-2xl border border-line p-4">
-          <h2 className="display text-xl">{game.protocols.length === 0 ? "Add a protocol from a paper" : "More from the library"}</h2>
+          <h2 className="display text-xl">{game.protocols.length === 0 ? "Add a protocol from a paper" : "More reads"}</h2>
           <p className="mt-1 text-sm leading-snug text-muted">Each read ends with a protocol you can add here. Those are the items that fill the bar.</p>
           <ul className="mt-2 divide-y divide-line">
             {unequipped.slice(0, 3).map((paper) => (
@@ -150,7 +150,7 @@ export function Dashboard() {
               </li>
             ))}
           </ul>
-          <Link href="/library" className="mt-2 flex h-11 items-center justify-center rounded-lg border border-line font-semibold">Browse the library</Link>
+          <Link href="/" className="mt-2 flex h-11 items-center justify-center rounded-lg border border-line font-semibold">Browse the feed</Link>
         </section>
       )}
     </div>

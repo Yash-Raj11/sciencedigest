@@ -5,12 +5,12 @@ import { usePathname } from "next/navigation";
 
 const TABS = [
   {
-    href: "/", label: "Today", match: (p: string) => p === "/",
-    icon: <path d="M4 7h16M4 12h11M4 17h6" />,
+    href: "/", label: "Feed", match: (p: string) => p === "/" || p.startsWith("/papers"),
+    icon: <path d="M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3V4Zm0 13a3 3 0 0 1 3-3h10" />,
   },
   {
-    href: "/library", label: "Library", match: (p: string) => p.startsWith("/library") || p.startsWith("/papers"),
-    icon: <path d="M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3V4Zm0 13a3 3 0 0 1 3-3h10" />,
+    href: "/today", label: "Life Game", match: (p: string) => p.startsWith("/today"),
+    icon: <path d="M4 7h16M4 12h11M4 17h6" />,
   },
   {
     href: "/me", label: "Me", match: (p: string) => p.startsWith("/me") || p.startsWith("/upgrade"),

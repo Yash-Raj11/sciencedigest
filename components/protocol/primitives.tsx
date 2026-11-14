@@ -355,7 +355,7 @@ export function ProtocolPanel({ protocol, variant, title, intro }: { protocol: P
               <>
                 {variant === "card"
                   ? <Link href={`/papers/${paper.slug}`} className="flex h-10 flex-1 items-center justify-center rounded-lg border border-line text-sm font-semibold">Read the paper</Link>
-                  : <Link href="/" className="flex h-11 flex-1 items-center justify-center rounded-lg border border-line font-semibold">Open Life Game</Link>}
+                  : <Link href="/today" className="flex h-11 flex-1 items-center justify-center rounded-lg border border-line font-semibold">Open Life Game</Link>}
                 <button type="button" onClick={protocol.unequip} className={`${variant === "card" ? "h-10 text-sm" : "h-11"} rounded-lg px-3 font-semibold text-muted`}>Remove</button>
               </>
             ) : protocol.locked ? (

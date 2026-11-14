@@ -47,7 +47,7 @@ test("a blocked Turnstile script never blocks ticking; sync shows offline", asyn
     [STORAGE_KEY, HABITS] as const,
   );
 
-  await page.goto("/");
+  await page.goto("/today");
   for (const habit of HABITS) await expect(page.getByRole("checkbox", { name: habit.label })).toBeVisible();
   expect(turnstileRequests, "the CAPTCHA script must not load with the page").toEqual([]);
 
