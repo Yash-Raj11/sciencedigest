@@ -94,6 +94,23 @@ const Base = {
    * are written here (markup: a number cites its fact); the design comes from the gate.
    */
   source: z.object({ who: Markup, span: Markup }),
+  /**
+   * The feed card's still figure (owner, 2026-11-14): the key idea at a glance. `figure` is
+   * "simulator" (the read's figure kind, drawn still) or the id of one of the read's own figures,
+   * drawn in its glance view: axis labels only, no numeric ticks or values, the gated range as a
+   * peach band. `x` and `y` are the axis labels, `alt` describes the still view, `note` goes under
+   * it ("Curve shape from the study. Try it with your own coffee inside.") and `tryIt` names the
+   * simulator on the card's "Try it: ..." row. None of them may hold a digit (lint rule "glance").
+   * A members' read names one of its figures, never "simulator": the card is public.
+   */
+  glance: z.object({
+    figure: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
+    x: Markup,
+    y: Markup.optional(),
+    alt: Markup,
+    note: Markup,
+    tryIt: Markup,
+  }),
   takeaways: z.array(Markup).default([]),
   choices: z.array(ChoiceDef).default([]),
   steps: z.array(StepDef).min(1),

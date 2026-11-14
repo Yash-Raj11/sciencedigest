@@ -8,3 +8,4 @@ export { Gauge } from "./Gauge";
 export { Label } from "./Label";
 export { LockKey } from "./LockKey";
 export { Timeline, type TimelineRow } from "./Timeline";
+export { GlanceAxes } from "./GlanceAxes";

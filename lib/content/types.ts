@@ -116,7 +116,22 @@ export interface PaperMeta {
    * A members' read only: the part of it the feed shows to everyone (its hook
    * and its mechanism figure). Everything else stays behind row level security.
    */
-  card?: { hook: string; figure: FigureRef | null };
+  card?: { hook: string; figure: FigureRef | null; glance?: GlanceView };
+}
+
+/** What the feed card shows at a glance: plain words, one still figure (lib/content/glance.ts). */
+export interface GlanceView {
+  /** The key finding, with its number first for an estimate ("−14.9 points lower ..."). */
+  headline: string;
+  support: string;
+  /** null: the read's figure kind, drawn still (free reads only). */
+  figure: FigureRef | null;
+  axes: { x: string; y: string | null };
+  alt: string;
+  note: string;
+  tryIt: string;
+  /** The grade of the headline result. */
+  tier: EvidenceGrade | null;
 }
 
 export interface ReadSection {
@@ -179,6 +194,12 @@ export interface PaperContent {
   sourceLine: string;
   /** The finding card: a plain headline and one supporting line (the source line is derived). */
   finding: { headline: Sentence[]; support: Sentence[] };
+  /** The feed card's still figure and its words (lib/content/glance.ts). */
+  glance: {
+    /** null: the read's figure kind (content.simulator.spec), drawn still. */
+    figure: FigureRef | null;
+    x: Sentence[]; y: Sentence[]; alt: Sentence[]; note: Sentence[]; tryIt: Sentence[];
+  };
   facts: Record<string, ResolvedFact>;
   simulator: {
     kind: string;

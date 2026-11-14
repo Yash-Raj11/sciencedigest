@@ -21,6 +21,14 @@
     "who": "3,101 US adults [sample]",
     "span": "followed for 10 years [followup]"
   },
+  "glance": {
+    "figure": "simulator",
+    "x": "Days a week at the step goal [-]",
+    "y": "Risk of death, compared with never reaching the goal [-]",
+    "alt": "For each group that reached the goal, a shaded range shows its difference in risk of death from the group that never did, below the line of no difference. [ard_1_2, ard_3_7]",
+    "note": "Ranges from the study, after its adjustments. Try it with your own week inside. [-]",
+    "tryIt": "find your group [-]"
+  },
   "sections": [
     {
       "id": "found",

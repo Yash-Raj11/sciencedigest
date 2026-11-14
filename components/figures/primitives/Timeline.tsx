@@ -21,7 +21,7 @@ export interface TimelineCell { row: number; time: number }
  * never overlap. With `labelWidth` 0 the row names sit above their rows, which
  * leaves the whole width to the clock.
  */
-export function Timeline({ x, y, width, labelWidth = 84, rowHeight = 26, times, unit, rows, span, flag, selected = null, onSelect, cellLabel }: {
+export function Timeline({ x, y, width, labelWidth = 84, rowHeight = 26, times, unit, rows, span, flag, selected = null, onSelect, cellLabel, ticks = true }: {
   x: number; y: number; width: number; labelWidth?: number; rowHeight?: number;
   /** When the readings were taken, in the paper's own unit. */
   times: number[]; unit: string; rows: TimelineRow[];
@@ -33,6 +33,8 @@ export function Timeline({ x, y, width, labelWidth = 84, rowHeight = 26, times, 
   onSelect?: (cell: TimelineCell) => void;
   /** What a screen reader calls one dot. */
   cellLabel?: (cell: TimelineCell) => string;
+  /** False in the glance view: no time printed under the readings (owner, 2026-11-14). */
+  ticks?: boolean;
 }) {
   if (span) assertEvidence("measured", span.fact);
   if (flag) assertEvidence("measured", flag.fact);
@@ -76,7 +78,7 @@ export function Timeline({ x, y, width, labelWidth = 84, rowHeight = 26, times, 
           })}
         </g>
       ))}
-      {times.map((time) => (
+      {ticks && times.map((time) => (
         <Label key={time} x={at(time)} y={axis + 14} anchor="middle" tone="muted" size={11}>{time === last ? `${time} ${unit}` : time}</Label>
       ))}
       {flag ? (

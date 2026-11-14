@@ -24,7 +24,8 @@
 import { useId, useState, type ReactNode } from "react";
 import { DECAY_FIELD, DECAY_FRAME, SHARE_TICKS, markAnchor, tickLabelled, decayPaths, decayPlace, estimateAtBed, exactHours, gapWords, halfGoneWords, halfLifeRange, halvings, hoursLabel } from "../decay-layout";
 import { Figure } from "../Figure";
-import { Label } from "../primitives";
+import { GlanceAxes, Label } from "../primitives";
+import { GLANCE_FRAME, glanceChart } from "../glance-layout";
 import { ACCENT_TEXT, BAND, INK, LINE } from "../shared";
 import { ESTIMATE_LABEL } from "@/lib/content/figure-kinds";
 import { assertEvidence } from "@/lib/content/figures";
@@ -151,6 +152,29 @@ export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = W
           {beside ? <div className="mt-4 rounded-xl border border-line bg-surface p-3.5" data-beside>{beside}</div> : null}
         </fieldset>
       ) : null}
+    </div>
+  );
+}
+
+/**
+ * The glance view (owner, 2026-11-14): the feed card's still figure. The halving curve and the
+ * band of half-lives the study's spread gives, between two axes labelled in words. No ticks
+ * and no values: the shape is the gated fact's, the numbers stay in the read.
+ */
+export function DecayGlance({ halfLife, alt, x, y }: { halfLife: ResolvedFact; alt: string; x: string; y?: string | null }) {
+  const point = halfLife.estimate?.point;
+  if (point === undefined) return null;
+  assertEvidence("measured", halfLife);
+  const paths = decayPaths(point, halfLifeRange(halfLife), glanceChart);
+  return (
+    <div data-figure-kind="decay" data-mode="glance">
+      <Figure title={halfLife.label} desc={alt} height={GLANCE_FRAME.figureHeight}>
+        <g data-evidence="measured" data-fact={halfLife.id}>
+          {paths.area ? <path d={paths.area} fill={BAND} data-band /> : null}
+          <path d={paths.line} fill="none" stroke={INK} strokeWidth={3} strokeLinejoin="round" strokeLinecap="round" />
+        </g>
+        <GlanceAxes x={x} y={y} />
+      </Figure>
     </div>
   );
 }

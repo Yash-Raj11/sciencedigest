@@ -5,6 +5,7 @@
 
 import { expect, test, type Page } from "@playwright/test";
 import { DESIGN_LABEL, freeContent, getPaper, papers } from "../../lib/content";
+import { glanceView } from "../../lib/content/glance";
 
 const SLUG = "turmeric-pepper-breakfast";
 const read = freeContent(SLUG)!;
@@ -17,34 +18,31 @@ test.beforeEach(async ({ page }) => {
 const top = async (page: Page, selector: string) => (await page.locator(selector).first().boundingBox())!.y;
 
 test.describe("the feed", () => {
-  test("shows every paper as a whole post, without a tap", async ({ page }) => {
+  test("shows every paper as a card with the key idea at a glance", async ({ page }) => {
     await page.goto("/");
     await expect(page.locator("[data-post]")).toHaveCount(Math.min(papers.length, 20));
     for (const paper of papers) {
       const card = page.locator(`[data-post="${paper.slug}"]`);
       const content = freeContent(paper.slug);
-      const hook = content ? content.hook.map((s) => s.text).join(" ") : paper.card!.hook;
-      await expect(card.getByRole("heading", { level: 2 })).toHaveText(hook);
-      await expect(card.getByText(`${paper.readMinutes} min read`)).toBeVisible();
-      await expect(card.locator("svg[data-figure]"), `${paper.slug}: the figure`).toBeVisible();
+      const view = content ? glanceView(content) : paper.card!.glance!;
+      await expect(card.getByRole("heading", { level: 2 })).toHaveText(view.headline);
+      await expect(card.locator("[data-glance-support]")).toHaveText(view.support);
+      await expect(card.getByText(`${paper.category} · ${paper.readMinutes} min read`)).toBeVisible();
+      await expect(card.locator("[data-glance] svg[data-figure]"), `${paper.slug}: the figure`).toBeVisible();
+      await expect(card.locator("[data-glance-note]")).toHaveText(`* ${view.note}`);
       await expect(card.getByText(/^(Early|Decent|Strong) evidence$/).first(), `${paper.slug}: the grade chip`).toBeVisible();
       await expect(card, `${paper.slug}: no weight`).not.toContainText("×");
-      // A card is one link: it holds no button, so the figure is in its first, untouched view.
+      await expect(card.locator("[data-source-line]")).toHaveText(content ? content.sourceLine : paper.sourceLine);
+      // Links only: the figure is in its still view and holds no buttons.
       await expect(card.locator("button, [role=button]")).toHaveCount(0);
-      if (paper.accessTier === "free") {
-        await expect(card.locator("[data-finding-card] [data-source-line]")).toHaveText(paper.sourceLine);
-      } else {
-        // A members' read: the hook and the figure, and nothing else of it.
-        await expect(card.locator("[data-finding-card]")).toHaveCount(0);
-        await expect(card.getByText("Members", { exact: true })).toBeVisible();
-      }
+      if (paper.accessTier !== "free") await expect(card.getByText("Members", { exact: true })).toBeVisible();
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth), "sideways scroll").toBe(false);
   });
 
   test("a tap on a post opens the full read", async ({ page }) => {
     await page.goto("/");
-    await page.locator(`[data-post="${SLUG}"] a`).click();
+    await page.locator(`[data-post="${SLUG}"] [data-glance-link]`).click();
     await expect(page).toHaveURL(new RegExp(`/papers/${SLUG}$`));
     await expect(page.locator("article h1")).toHaveText(papers.find((p) => p.slug === SLUG)!.title);
   });

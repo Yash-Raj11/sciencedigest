@@ -332,6 +332,25 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   if (!cardHeadline.some((s) => s.refs.includes(ed.primaryEstimate))) {
     fail("card", "card.headline", `the finding card's headline must cite the headline result "${ed.primaryEstimate}"`);
   }
+  // The feed card's still figure (owner, 2026-11-14): axis labels only, no numeric ticks or values.
+  // Its words take every rule, and none may hold a digit; the figure must be one the read draws.
+  for (const [name, markup] of Object.entries(ed.glance)) {
+    if (name === "figure" || markup === undefined) continue;
+    const where = `glance.${name}`;
+    if (take(where, markup).some((sentence) => /\p{N}/u.test(sentence.text))) fail("glance", where, "the feed card's figure shows no number: no digit in its axis labels, alt text, note or Try-it words");
+  }
+  {
+    const own = layers
+      ? [layers.mechanism.figure, layers.protocol.figure, layers.audit.figure]
+      : ["figure" in ed ? ed.figure : undefined];
+    const ids = own.filter((f) => f != null).map((f) => f!.figure);
+    if (ed.glance.figure === "simulator") {
+      if (ed.simulator.spec === undefined) fail("glance", "glance.figure", `"simulator" needs a simulator drawn by kind (simulator.spec); name one of the read's figures instead: ${ids.join(", ") || "none"}`);
+      if (ed.accessTier === "premium") fail("glance", "glance.figure", "a members' read's card is public: name one of its figures, not its simulator");
+    } else if (!ids.includes(ed.glance.figure)) {
+      fail("glance", "glance.figure", `"${ed.glance.figure}" is not one of the read's figures (${ids.join(", ") || "none"})`);
+    }
+  }
   // A simulator's own sentences (drawn by kind): every rule, outside the word budget, like alt text.
   for (const [name, markup] of Object.entries(ed.simulator.words ?? {})) take(`simulator.words.${name}`, markup);
 

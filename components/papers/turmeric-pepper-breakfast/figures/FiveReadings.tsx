@@ -13,18 +13,33 @@
 
 import { useState } from "react";
 import { Figure } from "@/components/figures/Figure";
-import { Timeline } from "@/components/figures/primitives";
+import { Label, Timeline } from "@/components/figures/primitives";
 import { FROM_THE_PAPER } from "@/lib/content/source-line";
 import { useSourceLine } from "@/components/read/source-line-context";
 import type { FigureProps } from "../../registry";
 import { cellName, factAt, isFlagged, type Cell, type Params } from "./readings";
 
-export default function FiveReadings({ params, alt, interactive = true }: FigureProps) {
+export default function FiveReadings({ params, alt, interactive = true, glance }: FigureProps) {
   const p = params as unknown as Params;
   const [cell, setCell] = useState<Cell | null>(null);
   const sourceLine = useSourceLine();
   const times = p.times.map((time) => time.n);
   const fact = cell ? factAt(p, cell) : null;
+  if (glance) {
+    // The glance view: the dots and the two that differed; no times, no bracket, no values.
+    return (
+      <Figure title="Five blood glucose readings after four breakfasts" desc={alt} height={228}>
+        {/* The larger dots are the readings the paper says differed: they rest on that result. */}
+        <g data-evidence="measured" data-fact={p.early.fact.id}>
+          <Timeline
+            x={4} y={20} width={312} labelWidth={0} rowHeight={46} times={times} unit={p.unit} ticks={false}
+            rows={p.meals.map((meal) => ({ label: meal.label, flagged: meal.differed.map((time) => time.n) }))}
+          />
+        </g>
+        <Label x={312} y={220} anchor="end" tone="muted" size={13}>{`${glance.x} →`}</Label>
+      </Figure>
+    );
+  }
   return (
     <div>
       <Figure title="Five blood glucose readings after four breakfasts" desc={alt} height={318} interactive={interactive}>

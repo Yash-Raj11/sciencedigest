@@ -21,6 +21,14 @@
     "who": "Twenty healthy young men [sample, who]",
     "span": "10 days per condition [schedule]"
   },
+  "glance": {
+    "figure": "simulator",
+    "x": "Time [-]",
+    "y": "Caffeine in your body [-]",
+    "alt": "A curve traces caffeine leaving the body over time, with a shaded band for how much people differed. [caffeine-saliva-half-life/half_life_caffeine]",
+    "note": "Curve shape from another study. Try it with your own coffee inside. [-]",
+    "tryIt": "how much is left at your bedtime [-]"
+  },
   "sections": [
     {
       "id": "did",

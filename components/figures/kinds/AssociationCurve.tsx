@@ -23,8 +23,9 @@ import { useId, useState, type ReactNode } from "react";
 import { CURVE_FRAME, DAY_BUTTON, blocks, choices, drawable, groupSpan, pickedGroup, rawOutcome, shareWords, type GroupEdges } from "../association-layout";
 import { BandStrip } from "../BandStrip";
 import { Figure } from "../Figure";
-import { Label } from "../primitives";
-import { INK, MUTED } from "../shared";
+import { GlanceAxes, Label } from "../primitives";
+import { GLANCE_FRAME, associationGlance, glanceDrawable } from "../glance-layout";
+import { BAND, INK, MUTED } from "../shared";
 import { assertEvidence } from "@/lib/content/figures";
 import type { ResolvedFact } from "@/lib/content/types";
 
@@ -136,6 +137,36 @@ export function AssociationCurve({ mode, raw, adjusted, groups, alt, sourceLine,
           ) : null}
         </fieldset>
       ) : null}
+    </div>
+  );
+}
+
+/**
+ * The glance view (owner, 2026-11-14): the feed card's still figure. One column per group; the
+ * first group is the comparison, on the line of no difference; every other group shows its
+ * adjusted difference as a peach band with its point. Axis labels in words, no ticks, no values.
+ */
+export function AssociationGlance({ adjusted, groups, alt, x, y }: { adjusted: ResolvedFact[]; groups: GroupEdges[]; alt: string; x: string; y?: string | null }) {
+  if (!glanceDrawable(groups, adjusted)) return null;
+  for (const fact of adjusted) assertEvidence("measured", fact);
+  const { zeroY, columns } = associationGlance(groups, adjusted);
+  const left = GLANCE_FRAME.left;
+  const right = GLANCE_FRAME.left + GLANCE_FRAME.width;
+  return (
+    <div data-figure-kind="association-curve" data-mode="glance">
+      <Figure title={alt} desc={alt} height={GLANCE_FRAME.figureHeight}>
+        <line x1={left} x2={right} y1={zeroY} y2={zeroY} stroke={MUTED} strokeWidth={1.5} />
+        <Label x={right} y={zeroY + GLANCE_FRAME.size * 1.4} anchor="end" tone="muted" size={GLANCE_FRAME.size}>no difference</Label>
+        {columns.map((column, i) => (column.fact ? (
+          <g key={column.fact.id} data-evidence="measured" data-fact={column.fact.id}>
+            {column.band ? <rect x={column.mid - column.width / 2} y={column.band.top} width={column.width} height={column.band.bottom - column.band.top} rx={6} fill={BAND} data-band /> : null}
+            <line x1={column.mid - column.width / 2} x2={column.mid + column.width / 2} y1={column.pointY} y2={column.pointY} stroke={INK} strokeWidth={3} strokeLinecap="round" />
+          </g>
+        ) : (
+          <circle key={`comparison-${i}`} cx={column.mid} cy={column.pointY} r={5} fill={INK} data-comparison />
+        )))}
+        <GlanceAxes x={x} y={y} left={false} />
+      </Figure>
     </div>
   );
 }

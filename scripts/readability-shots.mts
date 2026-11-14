@@ -24,6 +24,8 @@ for (const scheme of ["dark", "light"] as const) {
   const page = await context.newPage();
 
   await page.goto(`${base}/`, { waitUntil: "networkidle" });
+  // The fixed tab bar would sit over a card's lower edge in an element shot.
+  await page.addStyleTag({ content: 'nav[aria-label="Main"] { visibility: hidden !important; }' });
   for (const slug of SLUGS) {
     const card = page.locator(`[data-post="${slug}"]`);
     await card.scrollIntoViewIfNeeded();

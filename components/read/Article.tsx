@@ -25,6 +25,7 @@ import { DESIGN_LABEL, freeContent } from "@/lib/content";
 import { RANDOMIZED_DESIGNS, type Design } from "@/lib/pipeline/grade";
 import { loadRead, type Gated } from "@/lib/content/gated";
 import { contextSourceList } from "@/lib/content/source-line";
+import { LEGACY_RECEIPTS, SLOTS } from "@/lib/content/glance";
 import type { PaperContent, PaperMeta, Sentence } from "@/lib/content/types";
 import { useStore } from "@/lib/store";
 import { isDemo } from "@/lib/supabase/client";
@@ -33,8 +34,8 @@ import { MemberExtras } from "./MemberExtras";
 import { FindingCard, Glossary, Para, Pictured, SourceLineContext, type Context, type Facts } from "./parts";
 
 const LAYER = "headline";
-/** An old-shape read's sections that are receipts (until step 2E moves them into the audit layer). */
-const LEGACY_RECEIPTS = new Set(["lower-bound", "missed"]);
+/** A slot a feed card's row opens (lib/content/glance.ts): clear of the top edge when it lands. */
+const SLOT = "scroll-mt-4";
 const AUDIT = "text-base leading-relaxed";
 
 /** Paragraphs with the layer's figure after the first one. */
@@ -91,12 +92,12 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
       </div>
 
       {layers ? (
-        <section aria-label="Why it happens" className="space-y-4">
+        <section aria-label="Why it happens" id={SLOTS.why} className={`space-y-4 ${SLOT}`}>
           <h2 className={LAYER}>Why it happens</h2>
           <Paragraphs slug={paper.slug} paragraphs={layers.mechanism.paragraphs} figure={layers.mechanism.figure} facts={facts} context={context} />
         </section>
       ) : first ? (
-        <section aria-label={first.heading} className="space-y-4">
+        <section aria-label={first.heading} id={SLOTS.why} className={`space-y-4 ${SLOT}`}>
           <h2 className={LAYER}>{first.heading}</h2>
           <Paragraphs slug={paper.slug} paragraphs={first.paragraphs} figure={content.figure} facts={facts} context={context} />
         </section>
@@ -121,7 +122,7 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
         <WhoWasTested paper={paper} content={content} />
       </section>
 
-      <section aria-label="Simulator" className="space-y-3" data-accent-slot>
+      <section aria-label="Simulator" id={SLOTS.try} className={`space-y-3 ${SLOT}`} data-accent-slot>
         <h2 className="headline">Try it</h2>
         {content.simulator.spec
           ? <KindSimulator content={content} observational={!RANDOMIZED_DESIGNS.has(paper.design as Design)} />
@@ -175,7 +176,7 @@ function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent 
   const sources = contextSourceList(content);
 
   return (
-    <section aria-label="The receipts" className="space-y-4 rounded-2xl border border-line bg-surface p-4">
+    <section aria-label="The receipts" id={SLOTS.receipts} className={`space-y-4 rounded-2xl border border-line bg-surface p-4 ${SLOT}`}>
       <h2 className="headline">The receipts</h2>
       <dl className="grid grid-cols-2 gap-3 text-sm leading-snug">
         <div>
@@ -261,6 +262,15 @@ export function Article({ paper }: { paper: PaperMeta }) {
 
   const bundled = free ? freeContent(paper.slug) : undefined;
   const read: Gated<PaperContent> | null = bundled ? { state: "ok", value: bundled } : fetched;
+  const readState = read?.state ?? null;
+
+  // A feed card's row opens the read at a slot (#why, #try, ...). Client navigation does not
+  // always land there once the read has rendered, so the read goes to the slot itself, and again
+  // when a members' read arrives.
+  useEffect(() => {
+    const slot = decodeURIComponent(window.location.hash.slice(1));
+    if (slot) document.getElementById(slot)?.scrollIntoView({ block: "start" });
+  }, [readState]);
 
   return (
     <SourceLineContext.Provider value={read?.state === "ok" ? read.value.sourceLine : paper.sourceLine}>
@@ -271,7 +281,7 @@ export function Article({ paper }: { paper: PaperMeta }) {
           <span>{paper.category}, {(DESIGN_LABEL[paper.design] ?? paper.design).toLowerCase()}</span>
         </p>
         <h1 className="mt-2 text-[1.0625rem] font-medium leading-snug text-muted">{paper.title}</h1>
-        <dl className="mt-4 space-y-1.5">
+        <dl className={`mt-4 space-y-1.5 ${SLOT}`} id={SLOTS.evidence} aria-label="How sure the evidence is">
           {paper.grades.map((g) => (
             <div key={g.outcome} className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-line pt-1.5">
               <dt className="min-w-0 flex-1 text-sm leading-snug">{g.outcome}</dt>
@@ -306,7 +316,7 @@ export function Article({ paper }: { paper: PaperMeta }) {
         </Notice>
       )}
 
-      <section aria-label="Protocol" className="space-y-3">
+      <section aria-label="Protocol" id={SLOTS.protocol} className={`space-y-3 ${SLOT}`}>
         <h2 className="headline">Put it in your Life Game</h2>
         <WidgetFor slug={paper.slug} variant="article" />
       </section>

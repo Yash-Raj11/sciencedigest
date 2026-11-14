@@ -51,6 +51,15 @@ No caveats inside the mechanism layer. The audit stays visible without a tap (H6
   "hook": "...",                 // H2: the number or the named mechanism
   "populationPanel": "...",      // H3: who this was tested in (shown inside the protocol layer)
   "primaryEstimate": "fact_id",  // the headline result
+  "card": { "headline": "...", "support": "..." },   // the finding card; headline cites primaryEstimate
+  "source": { "who": "20 healthy adults [sample]", "span": "four breakfasts each [crossover]" },
+                                 // source line: who · <design from the gate> · how long
+  "glance": {                    // the feed card's still figure: no digit in any of these
+    "figure": "simulator",       // or the id of one of the read's figures (a members' read: never "simulator")
+    "x": "Time [-]", "y": "Caffeine in your body [-]",   // axis labels in words; y optional
+    "alt": "...", "note": "Curve shape from another study. Try it with your own coffee inside. [-]",
+    "tryIt": "how much is left at your bedtime [-]"     // the card row "Try it: ..."
+  },
   "layers": {
     "mechanism": {               // why it happens. At most 350 words. No caveats (H10).
       "paragraphs": ["..."],     // model first, then the name (H9)

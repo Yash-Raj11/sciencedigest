@@ -1286,3 +1286,36 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - Feed cards (one link each) show the meter without the button.
 - Tests: `lib/evidence-words.test.ts` (6), context.test.ts expectations, browser
   `source-line.spec.ts` (4: passage line, card lines, meter + why tap, no "×" on 7 screens).
+
+## 2026-11-14, Readability 5: the feed card at a glance
+
+- The feed card is the key idea at a glance; the details stay in the read. Order: meta (topic ·
+  read time), a serif headline with the key finding (the number first for an estimate:
+  "−14.9 points lower 10-year risk of death, compared with 0 days a week."), one plain sentence,
+  the still figure with its note, "What's inside", the source line and grade. The hook is no
+  longer on the card (it opens the read). Words: `lib/content/glance.ts` (`glanceView`,
+  `insideRows`, `SLOTS`).
+- New required editorial `glance: { figure, x, y?, alt, note, tryIt }`; lint rule `glance`: no
+  digit in any of them, `figure` is "simulator" (needs a spec) or one of the read's own figures,
+  and a members' read never names its simulator (its card is public).
+- Glance views, axis labels in words, no ticks, no values, the gated range as a peach band:
+  `DecayGlance` (caffeine: the half-life curve and band; "From another study: Wildgrube et al.,
+  …" under it, H7), `AssociationGlance` (steps: each group's adjusted difference as a band below
+  the line of no difference; the comparison group a dot on it), FiveReadings `glance` (turmeric:
+  the dots, the two that differed larger; no range, so no band), WhatWasMeasured `glance` (HIIT:
+  three bands with their point and the no-change mark). `GlanceAxes` primitive; Timeline
+  `ticks={false}`; Gauge `glance`; layout in `components/figures/glance-layout.ts`.
+- Owner's note text kept in form; caffeine's says "Curve shape from another study" because the
+  half-life comes from the context study, not this paper (H7).
+- "What's inside": a free read lists why (its mechanism, or an old-shape read's first section),
+  "Try it: <tryIt>" (the card's one orange, `data-accent-slot`), "Put it in your Life Game", "The
+  receipts". A members' read lists only what everyone can open on its page: the protocol and
+  "How sure the evidence is" (the header grades). Slots are ids on the read (`#why`, `#try`,
+  `#protocol`, `#receipts`, `#evidence`); the read scrolls to the slot itself after it renders,
+  since client navigation did not land on the heavier reads.
+- A members' card now also carries `PaperMeta.card.glance` (headline, sentence, figure, note):
+  the same figure the card already showed publicly, without its numbers.
+- Tests: `scripts/glance.test.ts` (15: no digit in any card's drawn text on all four papers, the
+  full figure does print numbers; bands; headline form; rows; the lint rule's four failures);
+  browser + 9 (order, no digit on any card figure, Try it is the one orange, each row lands on its
+  slot for all four papers, members' rows, a slot a read lacks is absent).

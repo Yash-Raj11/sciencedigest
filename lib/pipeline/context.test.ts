@@ -34,7 +34,12 @@ const validated = gated.validated;
  * plain hand-built one. The simulator's citation is tested below ("a simulator drawn by kind").
  */
 const realEditorial = JSON.parse(read("daytime-caffeine-sleep", "editorial.json"));
-const oldShape = { ...realEditorial, simulator: { kind: "estimate-explorer", params: {} } };
+const oldShape = {
+  ...realEditorial,
+  simulator: { kind: "estimate-explorer", params: {} },
+  // Its card draws the read's own figure, since this simulator is hand-built.
+  glance: { ...realEditorial.glance, figure: "lock-and-key", alt: "A lock and two keys. [-]", note: "Shapes from the paper. [-]" },
+};
 const fixture = JSON.parse(readFileSync(new URL("fixtures/layered-caffeine.json", import.meta.url), "utf8"));
 
 // The other study: the steps paper, as a context source.
@@ -57,12 +62,15 @@ function contextWith(change: Partial<LintContext> = {}): LintContext {
 }
 function layered(): any {
   const base = Object.fromEntries(Object.entries(clone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary"].includes(key)));
-  return { ...base, layers: clone(fixture.layers), glossary: clone(fixture.glossary) };
+  // The fixture's layers draw no figure; the card needs one, so the mechanism layer carries the read's own.
+  const layers = clone(fixture.layers);
+  layers.mechanism.figure = clone(realEditorial.figure);
+  return { ...base, layers, glossary: clone(fixture.glossary) };
 }
 function run(mutate: (editorial: any) => void = () => {}, context: LintContext = contextWith()) {
   const editorial = layered();
   mutate(editorial);
-  const report = lint(validated, editorial, source, { context });
+  const report = lint(validated, editorial, source, { context, figures: FIGURE_KEYS });
   return {
     editorial,
     report,

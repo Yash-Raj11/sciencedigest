@@ -1,56 +1,110 @@
 "use client";
 
 /**
- * The feed: every published paper as a whole post, readable without a tap
- * (amendment A to step 2D). A card shows the hook, the reading time, the
- * mechanism figure in its first view, the number card with its source line and
- * the grade. It is built from the article's own pieces (./parts), so nothing is
- * drawn twice.
+ * The feed: every published paper as a card that gives the key idea at a glance (owner,
+ * 2026-11-14); the details stay in the read. A card, top to bottom:
  *
- * A members' read shows its hook and figure only: that is all the public bundle
- * holds of it (PaperMeta.card, written by the content build).
+ *   meta (topic · read time), a serif headline with the key finding, one plain sentence,
+ *   the still figure (axis labels only, no numeric ticks or values, the gated range as a peach
+ *   band) with its note, "What's inside" (rows that open the read at a slot; the "Try it" row is
+ *   the card's one orange), and the source line with the grade.
+ *
+ * A members' read draws the same card from PaperMeta.card.glance (written by the content build),
+ * and lists only the slots everyone can open. The words come from lib/content/glance.ts.
  *
  * No endless scroll: the published papers, twenty at a time.
  */
 
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
+import { FigureFor } from "@/components/papers/registry";
 import { GradeChip } from "@/components/protocol/primitives";
+import { AssociationGlance } from "@/components/figures/kinds/AssociationCurve";
+import { DecayGlance } from "@/components/figures/kinds/Decay";
 import { freeContent } from "@/lib/content";
-import type { PaperMeta } from "@/lib/content/types";
-import { FindingCard, Pictured } from "./parts";
+import { glanceView, insideRows, whyHeading } from "@/lib/content/glance";
+import { factSourceLine } from "@/lib/content/source-line";
+import type { GlanceView, PaperContent, PaperMeta, ResolvedFact } from "@/lib/content/types";
+import type { GroupEdges } from "@/components/figures/association-layout";
 
 export const FEED_PAGE = 20;
 
+const one = (value: ResolvedFact | ResolvedFact[] | undefined) => (Array.isArray(value) ? value[0] : value);
+const many = (value: ResolvedFact | ResolvedFact[] | undefined) => (Array.isArray(value) ? value : value ? [value] : []);
+
+/**
+ * A free read whose figure is its simulator kind, drawn still. A fact from another study says
+ * so under the chart (H7 amended).
+ */
+function KindGlance({ content, view }: { content: PaperContent; view: GlanceView }) {
+  const spec = content.simulator.spec;
+  if (!spec) return null;
+  const { x, y } = view.axes;
+  if (spec.kind === "decay") {
+    const halfLife = one(spec.simulator.halfLife) ?? one(spec.facts.halfLife);
+    if (!halfLife) return null;
+    return (
+      <>
+        <DecayGlance halfLife={halfLife} alt={view.alt} x={x} y={y} />
+        {halfLife.source ? <p className="label mx-3 mt-1" data-glance-source>{factSourceLine(halfLife, content)}</p> : null}
+      </>
+    );
+  }
+  if (spec.kind === "association-curve") {
+    const groups = content.simulator.params.groups as GroupEdges[] | undefined;
+    return groups ? <AssociationGlance adjusted={many(spec.simulator.adjusted)} groups={groups} alt={view.alt} x={x} y={y} /> : null;
+  }
+  return null;
+}
+
 export function PostCard({ paper }: { paper: PaperMeta }) {
-  const read = paper.accessTier === "free" ? freeContent(paper.slug) : undefined;
-  const hook = read ? read.hook.map((sentence) => sentence.text).join(" ") : paper.card?.hook ?? paper.teaser;
-  const figure = read ? read.layers?.mechanism.figure ?? read.figure : paper.card?.figure;
-  const grade = paper.grades[0];
+  const members = paper.accessTier === "premium";
+  const read = members ? undefined : freeContent(paper.slug);
+  const view = read ? glanceView(read) : paper.card?.glance;
+  const rows = insideRows({ members, why: read ? whyHeading(read) : null, tryIt: view?.tryIt });
+  const href = `/papers/${paper.slug}`;
 
   return (
-    <article data-post={paper.slug}>
-      <Link href={`/papers/${paper.slug}`} className="block space-y-4 rounded-3xl border border-line bg-surface p-4">
-        <p className="flex items-center justify-between gap-3 text-sm text-muted">
-          <span className="min-w-0 truncate">{paper.category}</span>
-          <span className="flex shrink-0 items-center gap-2">
-            {paper.accessTier === "premium" && (
-              <span className="rounded-full border border-line px-2.5 py-0.5 text-xs font-medium text-ink">Members</span>
-            )}
-            <span className="num">{paper.readMinutes} min read</span>
-          </span>
+    <article data-post={paper.slug} className="rounded-3xl border border-line bg-surface">
+      <Link href={href} className="block space-y-3 p-4 pb-3" data-glance-link>
+        <p className="label flex items-center justify-between gap-3">
+          <span className="min-w-0 truncate">{paper.category} · <span className="num">{paper.readMinutes} min read</span></span>
+          {members ? <span className="rounded-full border border-line px-2.5 py-0.5 text-ink">Members</span> : null}
         </p>
-        <h2 className="headline">{hook}</h2>
-        <Pictured slug={paper.slug} figure={figure} still />
-        {read && <FindingCard content={read} plain />}
-        <p className="flex items-center justify-between gap-3 border-t border-line pt-3 text-sm">
-          <span className="min-w-0 leading-snug text-muted">{grade ? grade.outcome : paper.title}</span>
-          {grade ? <GradeChip grade={grade.tier} /> : null}
-        </p>
-        <p className="font-medium text-ink">
-          {paper.accessTier === "premium" ? "Open it: the full read is for members" : "Read it"} <span aria-hidden>→</span>
-        </p>
+        <h2 className="headline" data-glance-headline>{view?.headline ?? paper.card?.hook ?? paper.teaser}</h2>
+        {view ? <p className="text-[0.9375rem] leading-relaxed text-muted" data-glance-support>{view.support}</p> : null}
+        {view ? (
+          <figure className="rounded-2xl bg-bg py-3" data-glance>
+            {view.figure
+              ? <FigureFor slug={paper.slug} figure={view.figure} glance={view.axes} />
+              : read ? <KindGlance content={read} view={view} /> : null}
+            <figcaption className="label mx-3 mt-2" data-glance-note>* {view.note}</figcaption>
+          </figure>
+        ) : null}
       </Link>
+
+      <nav aria-label={`What's inside: ${paper.title}`} className="px-4">
+        <h3 className="label">What&apos;s inside</h3>
+        <ul className="mt-1 divide-y divide-line border-y border-line">
+          {rows.map((row) => (
+            <li key={row.slot}>
+              <Link
+                href={`${href}#${row.slot}`} data-inside-row={row.slot}
+                {...(row.accent ? { "data-accent-slot": "" } : {})}
+                className={`flex min-h-12 items-center justify-between gap-3 py-2 text-[0.9375rem] ${row.accent ? "font-medium text-accent-text" : "text-ink"}`}
+              >
+                <span>{row.label}</span>
+                <span aria-hidden>→</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <p className="label flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-4 py-3">
+        <span data-source-line>{read?.sourceLine ?? paper.sourceLine}</span>
+        {view?.tier ? <GradeChip grade={view.tier} /> : null}
+      </p>
     </article>
   );
 }

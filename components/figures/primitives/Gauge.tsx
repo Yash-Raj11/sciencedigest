@@ -1,5 +1,5 @@
 import { assertEvidence } from "@/lib/content/figures";
-import { INK, LINE, MUTED, strokeOf, type Evidence } from "../shared";
+import { BAND, INK, LINE, MUTED, strokeOf, type Evidence } from "../shared";
 import { Label } from "./Label";
 
 /**
@@ -7,15 +7,30 @@ import { Label } from "./Label";
  * nothing changed marked. The thick bar is the 95% range; the dot is the
  * average. A range that crosses the mark is drawn grey: no clear change.
  */
-export function Gauge({ x, y, width, min, max, value, low, high, label, text, note, kind, fact }: {
+export function Gauge({ x, y, width, min, max, value, low, high, label, text, note, kind, fact, glance = false }: {
   x: number; y: number; width: number; min: number; max: number;
   value: number; low: number | null; high: number | null;
   label: string; text: string; note?: string | null;
+  /** The glance view (owner, 2026-11-14): the range as a peach band, the point as a mark, no values. */
+  glance?: boolean;
 } & Evidence) {
   assertEvidence(kind, fact);
   const at = (v: number) => x + ((Math.min(max, Math.max(min, v)) - min) / (max - min)) * width;
   const clear = low !== null && high !== null && (low > 0 || high < 0);
   const colour = clear ? INK : MUTED;
+  if (glance) {
+    return (
+      <g data-evidence={kind} data-fact={fact.id}>
+        <Label x={x} y={y} size={13} tone="muted">{label}</Label>
+        <line x1={x} x2={x + width} y1={y + 16} y2={y + 16} stroke={LINE} strokeWidth={2} strokeLinecap="round" />
+        {low !== null && high !== null
+          ? <rect x={at(low)} y={y + 9} width={Math.max(at(high) - at(low), 4)} height={14} rx={7} fill={BAND} data-band />
+          : null}
+        <line x1={at(0)} x2={at(0)} y1={y + 5} y2={y + 27} stroke={MUTED} strokeWidth={1.5} />
+        <line x1={at(value)} x2={at(value)} y1={y + 6} y2={y + 26} stroke={INK} strokeWidth={4} strokeLinecap="round" />
+      </g>
+    );
+  }
   return (
     <g data-evidence={kind} data-fact={fact.id}>
       <Label x={x} y={y} size={11.5} tone="muted">{label}</Label>

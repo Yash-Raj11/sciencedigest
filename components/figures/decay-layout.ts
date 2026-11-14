@@ -13,6 +13,9 @@ import { simulatorBand, type Band } from "@/lib/models/spread";
  * `left` leaves room for the share words ("all", "half", "quarter"); `size` is the label
  * size, so a label is at least 14 px when the 320 units are drawn 300 px wide.
  */
+/** Where a chart sits inside its figure. */
+export interface Frame { left: number; top: number; width: number; height: number }
+
 export const DECAY_FRAME = { left: 70, top: 30, width: 240, height: 132, figureHeight: 200, labelGap: 22, size: 15, tick: 5 };
 
 /** One answer field: 48 px tall, so it is a full touch target. */
@@ -37,9 +40,9 @@ export function halvings(halfLife: number): { times: number[]; levels: number[] 
 }
 
 /** Position of a time and a share inside the frame; `x` is null past the end of the chart. */
-export function decayPlace(halfLife: number) {
+export function decayPlace(halfLife: number, frame: Frame = DECAY_FRAME) {
   const last = HALVINGS * halfLife;
-  const { left, top, width, height } = DECAY_FRAME;
+  const { left, top, width, height } = frame;
   return {
     last,
     x: (hours: number): number | null => (hours > last ? null : left + (hours / last) * width),
@@ -51,8 +54,8 @@ export function decayPlace(halfLife: number) {
  * The middle curve and, when there is a band, the shaded area between its two ends:
  * the slow end of the half-life leaves more at every hour, the fast end less.
  */
-export function decayPaths(point: number, band: Range | null): { line: string; area: string | null } {
-  const place = decayPlace(point);
+export function decayPaths(point: number, band: Range | null, frame: Frame = DECAY_FRAME): { line: string; area: string | null } {
+  const place = decayPlace(point, frame);
   const toXY = (curve: { hour: number; share: number }[]) => curve.map((p) => `${(place.x(p.hour) ?? 0).toFixed(1)},${place.y(p.share).toFixed(1)}`);
   const line = `M${toXY(decayCurve(point, place.last, CURVE_STEPS)).join("L")}`;
   if (!band) return { line, area: null };

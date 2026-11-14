@@ -21,6 +21,13 @@
     "who": "1,130 adults [sample]",
     "span": "3 to 15 weeks each [trials]"
   },
+  "glance": {
+    "figure": "what-was-measured",
+    "x": "Change compared with no exercise [-]",
+    "alt": "Three rows, one for each body measure, each with a shaded range and a mark for no change. [ffm_all, fm_all, bf_all]",
+    "note": "Ranges from the pooled trials. Members can try it with their own training inside. [-]",
+    "tryIt": "pick your training [-]"
+  },
   "sections": [
     {
       "id": "found",

@@ -137,3 +137,58 @@ test("the page check catches a CI in the read", async ({ page }) => {
   const text = await page.evaluate(() => document.querySelector("article")!.innerText);
   expect(text.match(PLAIN_OUTSIDE_RECEIPTS)).not.toBeNull();
 });
+
+test.describe("feed card: the key idea at a glance", () => {
+  test.use({ viewport: { width: 390, height: 844 } });
+
+  test("order: meta, headline, one sentence, still figure, What's inside, source line", async ({ page }) => {
+    await page.goto("/", { waitUntil: "networkidle" });
+    const card = page.locator('[data-post="steps-days-per-week"]');
+    const y = async (selector: string) => (await card.locator(selector).first().boundingBox())!.y;
+    const order = [await y("p.label"), await y("[data-glance-headline]"), await y("[data-glance-support]"), await y("[data-glance]"), await y("nav"), await y("[data-source-line]")];
+    expect([...order].sort((a, b) => a - b)).toEqual(order);
+  });
+
+  test("the still figure prints no number on any card", async ({ page }) => {
+    await page.goto("/", { waitUntil: "networkidle" });
+    const texts = await page.locator("[data-post] [data-glance] svg text").allTextContents();
+    expect(texts.length).toBeGreaterThan(0);
+    expect(texts.filter((t) => /\p{N}/u.test(t))).toEqual([]);
+  });
+
+  test("the Try it row is the card's one orange", async ({ page }) => {
+    await page.goto("/", { waitUntil: "networkidle" });
+    for (const slug of ["daytime-caffeine-sleep", "steps-days-per-week", "turmeric-pepper-breakfast"]) {
+      const slot = page.locator(`[data-post="${slug}"] [data-accent-slot]`);
+      await expect(slot).toHaveCount(1);
+      await expect(slot).toHaveAttribute("data-inside-row", "try");
+      await expect(slot).toContainText(/^Try it: /);
+    }
+  });
+
+  for (const slug of ["daytime-caffeine-sleep", "steps-days-per-week", "turmeric-pepper-breakfast", "hiit-body-composition"]) {
+    test(`${slug}: each row lands on its slot`, async ({ page }) => {
+      await page.goto("/", { waitUntil: "networkidle" });
+      const slots = await page.locator(`[data-post="${slug}"] [data-inside-row]`).evaluateAll((rows) => rows.map((r) => r.getAttribute("data-inside-row")!));
+      expect(slots.length).toBeGreaterThanOrEqual(2);
+      for (const slot of slots) {
+        await page.goto("/", { waitUntil: "networkidle" });
+        await page.locator(`[data-post="${slug}"] [data-inside-row="${slot}"]`).click();
+        await expect(page).toHaveURL(new RegExp(`/papers/${slug}#${slot}$`));
+        await expect(page.locator(`#${slot}`)).toBeInViewport();
+      }
+    });
+  }
+
+  test("a members' read lists only the slots everyone can open", async ({ page }) => {
+    await page.goto("/", { waitUntil: "networkidle" });
+    const rows = page.locator('[data-post="hiit-body-composition"] [data-inside-row]');
+    await expect(rows).toHaveText(["Put it in your Life Game→", "How sure the evidence is→"]);
+    await expect(page.locator('[data-post="hiit-body-composition"] [data-accent-slot]')).toHaveCount(0);
+  });
+
+  test("the landing check fails for a slot the read does not have", async ({ page }) => {
+    await page.goto("/papers/hiit-body-composition#try", { waitUntil: "networkidle" });
+    await expect(page.locator("#try")).toHaveCount(0);
+  });
+});

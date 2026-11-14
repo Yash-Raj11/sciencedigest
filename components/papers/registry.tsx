@@ -32,6 +32,11 @@ export interface FigureProps {
   params: Record<string, unknown>; alt: string;
   /** False in the feed card, which is one link: the figure shows its first view and holds no buttons. */
   interactive?: boolean;
+  /**
+   * The glance view (owner, 2026-11-14), the feed card's still figure: axis labels in words
+   * (these), no numeric ticks or values, the gated range as a peach band.
+   */
+  glance?: { x: string; y: string | null };
 }
 
 const WIDGETS: Record<string, ComponentType<WidgetProps>> = {
@@ -61,15 +66,15 @@ const FIGURES: Record<FigureKey, ComponentType<FigureProps>> = {
 };
 
 /** The drawing, and under it the key when the figure mixes measured and proposed. */
-export function FigureFor({ slug, figure, interactive = true }: { slug: string; figure: FigureRef; interactive?: boolean }) {
+export function FigureFor({ slug, figure, interactive = true, glance }: { slug: string; figure: FigureRef; interactive?: boolean; glance?: FigureProps["glance"] }) {
   const key = figureKey(slug, figure.figure);
   if (!isFigureKey(key)) return null;
   const Drawing = FIGURES[key];
   const mixed = evidenceKindsIn(figure.params).length > 1;
   return (
     <div data-figure-key={key}>
-      <Drawing params={figure.params} alt={figure.alt} interactive={interactive} />
-      {mixed ? <p data-figure-legend className="mt-1 text-center text-xs text-muted">{EVIDENCE_KEY}</p> : null}
+      <Drawing params={figure.params} alt={figure.alt} interactive={glance ? false : interactive} glance={glance} />
+      {mixed && !glance ? <p data-figure-legend className="mt-1 text-center text-xs text-muted">{EVIDENCE_KEY}</p> : null}
     </div>
   );
 }

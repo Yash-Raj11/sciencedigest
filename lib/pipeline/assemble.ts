@@ -97,7 +97,7 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
   };
 
   // Key order is kept as it was for the old flat shape, so its generated files do not change.
-  const content: Omit<PaperContent, "facts" | "sourceLine"> = "layers" in ed
+  const content: Omit<PaperContent, "facts" | "sourceLine" | "glance"> = "layers" in ed
     ? {
       hook: sentences(ed.hook),
       populationPanel: sentences(ed.populationPanel),
@@ -201,6 +201,15 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
   }
   for (const { ref, def } of drawn) ref.params = expand(def.params) as Record<string, unknown>;
 
+  // The feed card's still figure: the read's figure kind, or one of its own figures in its glance view.
+  const glanceSource = ed.glance.figure === "simulator" ? null : drawn.find((d) => d.ref.figure === ed.glance.figure)?.ref;
+  if (glanceSource === undefined) throw new Error(`glance.figure "${ed.glance.figure}" is not one of the read's figures (the lint should have caught this)`);
+  const glance: PaperContent["glance"] = {
+    figure: glanceSource ? { ...glanceSource, caption: [], alt: plain(sentences(ed.glance.alt)) } : null,
+    x: sentences(ed.glance.x), y: ed.glance.y ? sentences(ed.glance.y) : [], alt: sentences(ed.glance.alt),
+    note: sentences(ed.glance.note), tryIt: sentences(ed.glance.tryIt),
+  };
+
   const takeaways = ed.takeaways.map(sentences);
   const facts: Record<string, ResolvedFact> = {};
   const studies = new Map<string, ContextStudy>();
@@ -294,7 +303,7 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
     },
     steps,
     choices: ed.choices,
-    content: { ...content, sourceLine, facts, ...usedContext },
+    content: { ...content, glance, sourceLine, facts, ...usedContext },
     takeaways,
     carousel: {
       slug: ed.slug,

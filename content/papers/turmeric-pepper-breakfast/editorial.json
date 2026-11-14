@@ -21,6 +21,13 @@
     "who": "20 healthy adults [sample]",
     "span": "four breakfasts each [crossover]"
   },
+  "glance": {
+    "figure": "five-readings",
+    "x": "Time after breakfast [-]",
+    "alt": "Four rows of dots, one row for each breakfast. Two dots stand out early on: the readings that differed from the plain meal. [glucose_30]",
+    "note": "Readings from the study. Try it with your own breakfast inside. [-]",
+    "tryIt": "pick a breakfast [-]"
+  },
   "layers": {
     "mechanism": {
       "paragraphs": [
