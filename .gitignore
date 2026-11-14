@@ -54,3 +54,5 @@ next-env.d.ts
 
 # Claude Code: this machine's own settings and hooks
 .claude/settings.local.json
+# impeccable ships a per-machine binary; the installer restores it
+.claude/skills/impeccable/scripts/bin/

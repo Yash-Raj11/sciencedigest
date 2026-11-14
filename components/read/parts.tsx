@@ -57,7 +57,7 @@ export function Glossary({ content, children }: { content: Pick<PaperContent, "g
               </>
             )}
             {sources.map((fact) => (
-              <div key={fact.id} className="border-l-4 border-accent pl-3">
+              <div key={fact.id} data-passage className="rounded-lg border border-line bg-raised px-3.5 py-3">
                 <p className="text-xs font-semibold text-muted">{factSourceLine(fact, content)}, word for word</p>
                 <p className="mt-0.5 font-serif text-[0.9375rem] italic leading-snug text-muted">&ldquo;{fact.quote}&rdquo;</p>
               </div>
@@ -129,7 +129,7 @@ export function Para({ sentences, facts, context, className = "read", as: Tag = 
         })}
       </Tag>
       {shown.length + background.length > 0 && (
-        <aside data-shown className="ui-reveal mt-2 space-y-3 rounded-lg border-l-4 border-accent bg-surface px-3.5 py-3">
+        <aside data-shown className="ui-reveal mt-2 space-y-3 rounded-lg border border-line bg-raised px-3.5 py-3">
           {background.map((concept) => (
             <div key={concept.slug}>
               <p className="text-xs font-semibold text-muted">{BACKGROUND}, not from this paper</p>
