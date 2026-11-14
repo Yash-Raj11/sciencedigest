@@ -1423,3 +1423,16 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   (`lib/pipeline/sketch-lint.test.ts`), and a source guard: a component with "sketch" in its name
   may not use an orange token (`scripts/visual-system.test.ts`). `DOT` stroke added to
   `components/figures/shared.ts`.
+
+## 2026-11-15, Concepts for the sketches (written, not approved)
+
+- Item 5. `content/concepts/adenosine.json`, `post-meal-blood-sugar.json`, `fat-free-mass.json`,
+  each `reviewed_by_owner: false`; no digits; each passes the concept checks in `npm run
+  content:build` ("ok, NOT REVIEWED"). No read cites them yet, so the generated files are unchanged.
+- References checked against Crossref, each DOI resolving at doi.org
+  (`docs/evidence/themes/concept-references.txt`): Porkka-Heiskanen et al., Science 1997
+  (adenosine builds up with wakefulness); Freckmann et al., J Diabetes Sci Technol 2007 (glucose
+  after meals in healthy people); Wang, Pierson, Heymsfield, Am J Clin Nutr 1992 (the five-level
+  body-composition model: fat and fat-free mass).
+- The adenosine concept describes the build-up only. That caffeine blocks the dock is the
+  caffeine paper's own sentence (`adenosine_block`), drawn dashed as the authors' idea.

@@ -1,0 +1,10 @@
+{
+  "term": "blood sugar after a meal",
+  "plain": "After you eat, sugar from the food passes from the gut into the blood, so the level rises. The body then moves that sugar into muscle and other cells, and the level falls back towards where it started.",
+  "model": "A wave after each meal: it climbs as the food is absorbed, peaks, then ebbs as the body tucks the sugar away.",
+  "reference": {
+    "doi": "10.1177/193229680700100513",
+    "title": "Continuous glucose profiles in healthy subjects under everyday life conditions and after different meals"
+  },
+  "reviewed_by_owner": false
+}

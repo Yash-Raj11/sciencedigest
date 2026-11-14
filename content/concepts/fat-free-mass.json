@@ -1,0 +1,10 @@
+{
+  "term": "fat-free mass",
+  "plain": "Everything in your body that is not fat: muscle, bone, organs, blood and the water in and around your cells. A body scan can split your weight into fat and this rest; a bathroom scale cannot.",
+  "model": "Two piles on the scale: a fat pile and a pile of everything else. A bathroom scale only reads the two together.",
+  "reference": {
+    "doi": "10.1093/ajcn/56.1.19",
+    "title": "The five-level model: a new approach to organizing body-composition research"
+  },
+  "reviewed_by_owner": false
+}

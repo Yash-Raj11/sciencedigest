@@ -142,7 +142,9 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
         search-the-build 0 matches (`docs/evidence/themes/gates-item3.txt`).
   - [x] 4. Sketch rule + rulings R1–R7 in the docs; `lib/content/sketch.ts`, 19 failing fixtures +
         a source guard. BUILD-LOG 2026-11-15.
-  - [ ] IN PROGRESS: 5. Concepts: adenosine, post-meal-blood-sugar, fat-free-mass (unreviewed).
+  - [x] 5. Concepts adenosine, post-meal-blood-sugar, fat-free-mass written (not approved);
+        references resolve (`docs/evidence/themes/concept-references.txt`).
+  - [ ] ⏸ Stop: hashes, contrast table, theme screenshots, 4 headlines, 3 concepts' plain text; /phase-handoff.
 - [ ] The pipeline proposes the figure kind and the simulator inputs (`prompts.ts`).
 - [ ] Reader inputs stored on the device only (like the theme).
 - [ ] Run the coverage pass on the 4 existing papers, so their checklist rows stop showing

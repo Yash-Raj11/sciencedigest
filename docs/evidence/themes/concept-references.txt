@@ -1,0 +1,4 @@
+# Concept references, checked 2026-11-15 (doi.org status; title from Crossref)
+adenosine  doi:10.1126/science.276.5316.1265  HTTP 302  Adenosine: A Mediator of the Sleep-Inducing Effects of Prolonged Wakefulness | Porkka-Heiskanen, Strecker, Thakkar | Science 1997
+post-meal-blood-sugar  doi:10.1177/193229680700100513  HTTP 302  Continuous Glucose Profiles in Healthy Subjects under Everyday Life Conditions and after Different Meals | Freckmann, Hagenlocher, Baumstark | Journal of Diabetes Science and Technology 2007
+fat-free-mass  doi:10.1093/ajcn/56.1.19  HTTP 302  The five-level model: a new approach to organizing body-composition research | Wang, Pierson, Heymsfield | The American Journal of Clinical Nutrition 1992

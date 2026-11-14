@@ -1,0 +1,10 @@
+{
+  "term": "adenosine",
+  "plain": "A tiredness signal made in the brain. It builds up the longer you stay awake, as brain cells burn energy. When it settles onto brain cells it slows them down, and you feel sleepy. Sleep clears it away.",
+  "model": "Tokens that pile up through the waking day and park on brain cells. The more that park, the sleepier you feel. A night's sleep sweeps the car park clear.",
+  "reference": {
+    "doi": "10.1126/science.276.5316.1265",
+    "title": "Adenosine: a mediator of the sleep-inducing effects of prolonged wakefulness"
+  },
+  "reviewed_by_owner": false
+}
