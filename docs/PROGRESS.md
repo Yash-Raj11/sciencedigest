@@ -71,8 +71,19 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       screenshots in `docs/evidence/article-redesign/`. With the owner's amendments of
       2026-11-14: A the feed (at `/library`), B one interactive figure (turmeric's grid),
       C motion tokens for toggles. BUILD-LOG 2026-11-14.
-- [ ] ⏸ Stop with the screenshot paths for design review. **Stopped here 2026-11-14.** Open for
-      the owner: the design review; feed at `/library` or at `/`; "go" for the hosted seed.
+- [x] ⏸ Stop with the screenshot paths for design review. Answered 2026-11-14 (round 2).
+- [x] 2D round 2 (owner's answers, 2026-11-14): G1 members-number test, hosted seed level,
+      impeccable binary untracked, plain passage panel; G2 feed at `/`, tracker at `/today`,
+      `/library` 308, Life Game slot, "Start on"; G3 larger hooks; G4 figure kinds, the decay
+      kind, H12. Caffeine has no gated half-life, so its read was not wired to the decay kind.
+- [ ] ⏸ Stopped here 2026-11-14. Waiting on the owner: round-2 screenshots
+      (`docs/evidence/article-redesign/round2/`); a context study for caffeine's half-life
+      (BUILD-LOG); whether a context fact may feed a figure and a simulator (it may not today).
+- [ ] 2D round 3, in this order: (1) decay kind wired to caffeine once a half-life with a
+      range is gated; (2) compare-bars (HIIT), association-curve (steps), grid (turmeric) moved
+      onto kinds; (3) `docs/POST-RECIPE.md` + the sticky slot strip; (4) Life Game widgets made
+      more interactive and visual; (5) pipeline `prompts.ts` proposing figure specs;
+      (6) Related reads slot + `docs/IDEAS.md` (caffeine + L-theanine).
 - [ ] 2E. Rewrite the three `editorial.json` files; concept files listed; `prompts.ts` updated
       with an old-shape refusal test; allowlist deleted; before/after table per paper.
 - [ ] ⏸ Stop. Owner approves concepts and reads all three. Phase 9 is not done until then.

@@ -381,3 +381,20 @@ The prompt is saved here so a session with no chat history can continue from thi
 - **`impeccable`** (design skill, installed by the owner) is subordinate to the colour tokens
   and the two fonts.
 - One ⏸ stop per session in budget mode. Details: BUILD-LOG 2026-11-14.
+
+### 2026-11-14: round 2 of the 2D review (owner's answers)
+
+- **Feed first.** `/` is the feed; the tracker is `/today`; `/library` answers 308 to `/`. The
+  top of the feed is a swappable slot (today: the Life Game summary). "Start on: Feed / Life
+  Game" is a per-device setting, default Feed.
+- **Hooks lead.** The H2 hook is the largest text on a card and on a read.
+- **Figure kinds.** A figure may be drawn by kind from a spec in `editorial.json`:
+  `{ kind, facts: { param: factId }, simulator? }`. No literal number in a spec. Kinds live in
+  `components/figures/kinds/`, one component with mode `card` | `full`. Built so far: `decay`.
+- **H12.** A personal estimate is shown only as a range derived from the gated fact's range,
+  labelled "Estimate from the study's numbers, not medical advice", with its source line.
+  Missing fact: no simulator; never fill it from general knowledge.
+- **Remaining order:** decay kind (caffeine) → compare-bars (HIIT), association-curve (steps),
+  grid (turmeric) moved onto kinds; POST-RECIPE.md + the sticky slot strip; Life Game widgets
+  made more interactive and visual; pipeline prompts.ts proposing figure specs; Related reads
+  slot + docs/IDEAS.md (caffeine + L-theanine); then 2E.

@@ -788,3 +788,42 @@ test checks both.
 database was **not** touched: the read is free and bundled, so the site does not depend on it.
 It needs the owner's "go" to bring the hosted seed level.
 
+
+## 2026-11-14, Phase 9, step 2D, round 2: feed first, larger hooks, figure kinds, H12
+
+The owner's answers to the 2D stop. Four groups, one commit each.
+
+- **G1.** `tests/http/members-content.test.ts` now fails if the public card carries a number
+  that only a members-only fact holds, or if the bundle carries such a fact's passage or
+  estimate; one case writes a members-only number into the hook and the figure and proves the
+  check catches it. A fact the hook cites or the card's figure draws is public (the owner's
+  decision); every other fact of a members' read is members-only. The hosted seed was pushed on
+  the owner's "go" (dry-run: no migrations, seed only; after: 4 papers, 31 steps). impeccable's
+  binary (`scripts/bin`) is untracked and ignored; the hook still exits 0. The source-passage
+  panel and the glossary passage lost the orange side tab: a raised surface, 1px border all
+  round, the source line on top.
+- **G2.** `/` is the feed, `/today` the tracker, `/library` a 308 to `/` (`next.config.ts`).
+  Tabs: Feed, Life Game, Me. The feed takes a `top` node; `components/game/FeedSlot.tsx` fills
+  it with the companion, steps today and the adherence bar. *Decision:* "Start on" is kept on
+  the device (`lib/start.ts`, like the theme), not in the database: a column would change the
+  database shape (rule 11). It applies once per visit, so the Feed tab always opens the feed.
+  The manifest's `start_url` stays `/`: it is the feed, and the setting redirects from there.
+- **G3.** Card hook 1.3125rem → 1.625rem; read hook 1.375rem → 1.875rem, both in `read-title`.
+  *Decision:* on a read, the paper's title dropped from 2.125rem to a 1.0625rem muted line, or
+  the hook could not lead. The owner may reverse this.
+- **G4.** `lib/models/decay.ts`, `lib/content/figure-kinds.ts` (zod spec, `specProblems`),
+  `components/figures/kinds/Decay.tsx` (card | full, from `DoseCurve` and `Label`), rule H12 in
+  CLAUDE.md and the lint. The figure guard covers `components/figures/kinds/`. The still curve
+  has a dot at each halving and no other point.
+- **The half-life finding.** The caffeine paper's text never gives a half-life (no match for
+  half-life, elimination or clearance in `source.txt`; no such fact in `extraction.json`). So
+  the read got no spec, no curve and no simulator, and a test holds the finding. The decay kind
+  is proven by unit tests on a made-up fact only; it has not been seen in a browser on a read.
+- **For the owner.** (1) A context study for the half-life. Proposed, not fetched, and the
+  citation is from memory, not verified: Grzegorzewski et al., "Pharmacokinetics of caffeine: a
+  systematic analysis of reported data", Frontiers in Pharmacology, doi:10.3389/fphar.2021.752826
+  (Frontiers publishes CC-BY). The gate must confirm the licence and that it prints a half-life
+  in hours with a range. (2) Today a figure and a simulator may use only the paper's own facts
+  (`lint.ts`, the `science-content` skill). Wiring the decay kind to a context study needs that
+  rule changed by the owner. (3) The decay simulator's wording is generic ("When was your last
+  dose, and how much?"); the coffee wording comes with the wiring.

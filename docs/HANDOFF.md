@@ -54,20 +54,20 @@ The interactive part is the product; the text is what justifies it.
 | Phase 9, 2A: reads in three layers (mechanism, protocol, audit) with a glossary; H9–H11 in the lint. The three starter papers still build in the old shape through a temporary allowlist, removed in 2E | Built, no reader-visible change yet | `docs/evidence/phase9-2a-rules-broken.txt` (19 of 19) |
 | Phase 9, 2B: context sources. A read may cite another gated study (`content/context/`) and owner-reviewed background concepts (`content/concepts/`); neither can back a step or a weight; retraction check covers context | Built; `content/concepts/` holds one reviewed concept (`glucagon-like-peptide`); `content/context/` is empty | `docs/evidence/phase9-2b-gate.txt` (20 of 20) |
 | Phase 9, 2C: figures drawn in code (10 primitives, one mechanism figure per paper; solid = measured, dashed = proposed), figure guard in eslint | Built; shown in the interim article layout | `docs/evidence/phase9-2c-rules-broken.txt` (16), `phase9-2c-browser-rules-broken.txt` (5), `docs/evidence/figures/` |
-| Phase 9, 2D: the read rebuilt (hook, mechanism, number card, protocol, receipts), the feed of whole posts at `/library`, one interactive figure (turmeric's readings grid), motion tokens for toggles | Built; **waiting for the owner's design review** | `docs/evidence/article-redesign/` (before/after, dark/light), `phase9-2d-search-the-build.txt` (0 matches), `tests/browser/article-redesign.spec.ts` |
+| Phase 9, 2D: the read rebuilt (hook, mechanism, number card, protocol, receipts), the feed of whole posts at `/library`, one interactive figure (turmeric's readings grid), motion tokens for toggles | Built; round 2 of the review done 2026-11-14 (next row) | `docs/evidence/article-redesign/` (before/after, dark/light), `phase9-2d-search-the-build.txt` (0 matches), `tests/browser/article-redesign.spec.ts` |
+| Phase 9, 2D round 2: the feed is the home page (`/`), the tracker is `/today`, `/library` answers 308; the Life Game slot on top of the feed; "Start on: Feed / Life Game" (Me, kept on the device); larger hooks; figure kinds (`lib/content/figure-kinds.ts`, `components/figures/kinds/Decay.tsx`, `lib/models/decay.ts`) and rule H12 | Built. **The decay kind is drawn by no read yet**: caffeine has no gated half-life | `docs/evidence/article-redesign/round2/`, `lib/pipeline/figure-spec.test.ts`, `scripts/decay-kind.test.ts`, `tests/http/members-content.test.ts` |
 | Fourth paper `turmeric-pepper-breakfast` (free, three layers, hand-written: no model run, so it does not count toward the Phase 10 gate) | Approved; on the hosted database and on `main`/Vercel (`80e1caa`) | BUILD-LOG 2026-11-13 and 2026-11-14 |
 | Documents: `CLAUDE.md`, `docs/MANUAL.md`, `ARCHITECTURE.md`, `data-model.md`, `BUILD-LOG.md` | Written | — |
 
-Totals on 2026-11-14 (after Phase 9 step 2D): 308 unit tests, 11 HTTP tests, 31 browser tests;
+Totals on 2026-11-14 (after Phase 9 step 2D round 2): 330 unit tests, 14 HTTP tests, 34 browser tests;
 191 database assertions per pass and 16 of 16 mutations (unchanged since the last SQL change:
 Phase 9 has touched no SQL). Outputs are in `docs/evidence/`.
 
 ### Deployment state (2026-11-14)
 
 - Live at `https://sciencedigest-a4ms.vercel.app`, deployed by Vercel from `main`. The Mac,
-  GitHub and the hosted database are level (four published papers), except that
-  `supabase/seed.sql` is one step ahead of the hosted seed (the turmeric figure's params, step 2D):
-  it waits for the owner's "go". The site does not depend on it: that read is bundled.
+  GitHub and the hosted database are level (four published papers); the hosted seed was
+  brought level on the owner's "go" on 2026-11-14 (4 papers, 31 steps).
 - Hosted Supabase project `takhienzcshgkytbvaii`: all migrations to
   `20261114000100_set_step_amount.sql`, and the seed as of the turmeric release (applied with
   `supabase db query --remote -f supabase/seed.sql`; see MANUAL 3.3). **No hosted command
