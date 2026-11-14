@@ -4,7 +4,8 @@
  * The feed: every published paper as a card that gives the key idea at a glance (owner,
  * 2026-11-14); the details stay in the read. A card, top to bottom:
  *
- *   meta (topic · read time), a serif headline with the key finding, one plain sentence,
+ *   meta (topic · read time), the question the paper answers as a serif headline with the plain
+ *   finding directly beneath it (owner, 2026-11-15), one plain sentence,
  *   the still figure (axis labels only, no numeric ticks or values, the gated range as a peach
  *   band) with its note, "What's inside" (rows that open the read at a slot; the "Try it" row is
  *   the card's focal orange), and the source line with the grade.
@@ -75,7 +76,12 @@ export function PostCard({ paper }: { paper: PaperMeta }) {
           <span className="min-w-0 truncate">{paper.category} · <span className="num">{paper.readMinutes} min read</span></span>
           {members ? <span className="rounded-full border border-line px-2.5 py-0.5 text-ink">Members</span> : null}
         </p>
-        <h2 className="headline" data-glance-headline>{view?.headline ?? paper.card?.hook ?? paper.teaser}</h2>
+        {view ? (
+          <hgroup className="space-y-1.5">
+            <h2 className="headline" data-glance-question>{view.question}</h2>
+            <p className="text-[1.0625rem] font-medium leading-snug text-ink" data-glance-headline>{view.headline}</p>
+          </hgroup>
+        ) : <h2 className="headline" data-glance-headline>{paper.card?.hook ?? paper.teaser}</h2>}
         {view ? <p className="text-[0.9375rem] leading-relaxed text-muted" data-glance-support>{view.support}</p> : null}
         {view ? (
           <figure className="rounded-2xl bg-bg py-3" data-glance>

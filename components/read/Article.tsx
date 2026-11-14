@@ -25,7 +25,7 @@ import { DESIGN_LABEL, freeContent } from "@/lib/content";
 import { RANDOMIZED_DESIGNS, type Design } from "@/lib/pipeline/grade";
 import { loadRead, type Gated } from "@/lib/content/gated";
 import { contextSourceList } from "@/lib/content/source-line";
-import { LEGACY_RECEIPTS, SLOTS } from "@/lib/content/glance";
+import { LEGACY_RECEIPTS, SLOTS, glanceView } from "@/lib/content/glance";
 import type { PaperContent, PaperMeta, Sentence } from "@/lib/content/types";
 import { useStore } from "@/lib/store";
 import { isDemo } from "@/lib/supabase/client";
@@ -263,6 +263,9 @@ export function Article({ paper }: { paper: PaperMeta }) {
   const bundled = free ? freeContent(paper.slug) : undefined;
   const read: Gated<PaperContent> | null = bundled ? { state: "ok", value: bundled } : fetched;
   const readState = read?.state ?? null;
+  // The headline (owner, 2026-11-15): the question the paper answers, the plain finding beneath.
+  const view = bundled ? glanceView(bundled) : null;
+  const headline = view ? { question: view.question, finding: view.headline } : null;
 
   // A feed card's row opens the read at a slot (#why, #try, ...). Client navigation does not
   // always land there once the read has rendered, so the read goes to the slot itself, and again
@@ -280,7 +283,13 @@ export function Article({ paper }: { paper: PaperMeta }) {
         <p className="mt-4 flex items-center justify-between gap-3 text-sm text-muted">
           <span>{paper.category}, {(DESIGN_LABEL[paper.design] ?? paper.design).toLowerCase()}</span>
         </p>
-        <h1 className="mt-2 text-[1.0625rem] font-medium leading-snug text-muted">{paper.title}</h1>
+        {headline ? (
+          <hgroup className="mt-2 space-y-2" data-read-headline>
+            <h1 className="headline">{headline.question}</h1>
+            <p className="text-[1.0625rem] font-medium leading-snug text-ink" data-read-finding>{headline.finding}</p>
+            <p className="text-sm leading-snug text-muted" data-read-title>{paper.title}</p>
+          </hgroup>
+        ) : <h1 className="mt-2 text-[1.0625rem] font-medium leading-snug text-muted">{paper.title}</h1>}
         <dl className={`mt-4 space-y-1.5 ${SLOT}`} id={SLOTS.evidence} aria-label="How sure the evidence is">
           {paper.grades.map((g) => (
             <div key={g.outcome} className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-line pt-1.5">

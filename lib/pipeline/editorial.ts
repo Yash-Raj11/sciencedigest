@@ -86,8 +86,14 @@ const Base = {
    *   support   one supporting line.
    *   (source line: from the gate, never written here.)
    * The headline must cite primaryEstimate.
+   *
+   * question (owner, 2026-11-15): the headline of the feed card and of the read is the question
+   *           the paper answers, with `headline` (the plain finding) directly beneath it:
+   *           "Does an afternoon coffee wreck your sleep?" / "Sleep showed no clear difference
+   *           from placebo nights." One yes/no question that does not presuppose an answer
+   *           (lint rule "headline").
    */
-  card: z.object({ headline: Markup, support: Markup }),
+  card: z.object({ question: Markup, headline: Markup, support: Markup }),
   /**
    * The source line (owner, 2026-11-14): who · design · how many or how long, e.g.
    * "20 healthy adults · randomized crossover trial · four breakfasts each". `who` and `span`

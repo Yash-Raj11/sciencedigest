@@ -1,0 +1,16 @@
+== lint
+exit 0
+== typecheck
+exit 0
+== unit
+ Test Files  35 passed (35)
+      Tests  574 passed (574)
+exit 0
+== build
+exit 0
+== http
+ Test Files  2 passed (2)
+      Tests  14 passed (14)
+exit 0
+== browser (after fixing paper-routes-dev.spec.ts h1 expectation)
+  89 passed (47.1s)

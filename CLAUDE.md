@@ -30,7 +30,7 @@ when it is kept (`npm run db:mutation` does this for the database).
 | Rule | Where it lives |
 |---|---|
 | Banned hype words, causal verbs without a randomized design, relative risk without absolute, missing limitation, unsourced numbers | `lib/pipeline/lint.ts` |
-| A read without the three layers; jargon with no glossary entry; a caveat in the mechanism layer; throat-clearing; a sentence over 30 words; a layer over its word budget | `lib/pipeline/editorial.ts`, `lint.ts`, `jargon.ts`, `sentences.ts` |
+| A read without the three layers; jargon with no glossary entry; a caveat in the mechanism layer; throat-clearing; a sentence over 30 words; a layer over its word budget; a headline that is not one yes/no question with the plain finding beneath it | `lib/pipeline/editorial.ts`, `lint.ts`, `jargon.ts`, `sentences.ts` |
 | A quote that is not in the paper voids the extraction; evidence grades are derived, never model-supplied | `lib/pipeline/gate.ts`, `lib/pipeline/grade.ts` |
 | Only CC-BY, CC-BY-SA, CC0 papers | `lib/pipeline/license.ts` |
 | A per-paper component cannot import the database, the store, or compute a percentage | `eslint.config.mjs` (the widget guard) |

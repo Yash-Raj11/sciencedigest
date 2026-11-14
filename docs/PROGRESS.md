@@ -136,7 +136,8 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
 - [ ] Owner rulings R1–R7 on FIGURE-DESIGN.md + items 1–5 (2026-11-15):
   - [x] 1. Themes: Dark, Light, Bedtime; orange roles by meaning; budget test (≤ 3 per screen);
         Me setting; scoring explainer. `docs/evidence/themes/` (contrast.md, screenshots, gates).
-  - [ ] IN PROGRESS: 2. Headlines: the question the paper answers, the plain finding beneath; lint.
+  - [x] 2. Headlines: the question the paper answers, the plain finding beneath; lint rule
+        `headline` (9 failing fixtures, `lib/pipeline/headline.test.ts`). BUILD-LOG 2026-11-15.
 - [ ] The pipeline proposes the figure kind and the simulator inputs (`prompts.ts`).
 - [ ] Reader inputs stored on the device only (like the theme).
 - [ ] Run the coverage pass on the 4 existing papers, so their checklist rows stop showing

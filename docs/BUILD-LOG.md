@@ -1374,3 +1374,23 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   "1.0 of 1.4 = 71%", computed from `lib/evidence.ts`. The no-weight unit test allows only that
   file, and only inside `workedSum()` and the explainer; a browser test checks the page outside it.
 - Theme setting in Me: System / Dark / Light / Bedtime, kept on the device (`lib/theme.ts`).
+
+## 2026-11-15, Headlines: the question the paper answers, the finding beneath
+
+- Item 2. `card.question` (editorial schema, required): the headline of the feed card and of the
+  read; `card.headline` (the plain finding) sits directly under it. The read's `h1` is now the
+  question; the paper's title moved under the finding as a muted line.
+- Lint rule `headline` (`questionProblems` in `lib/pipeline/lint.ts`): one sentence ending in
+  "?"; opens as a yes/no question (Does, Do, Is, Can ...); refuses "why", "how much/many/does",
+  "by how much", "what makes", "still", "really", "even", "actually" (each assumes an answer);
+  the finding line must exist and must not be a question. Nine failing fixtures in
+  `lib/pipeline/headline.test.ts`.
+- The four: caffeine "Does an afternoon coffee wreck your sleep?" / "Sleep showed no clear
+  difference from placebo nights." (the owner's example). Steps "Do one or two 8,000-step days a
+  week go with a longer life?" / "−14.9 points lower 10-year risk of death, compared with 0 days
+  a week." ("go with": observational, no causal verb). Turmeric "Does black pepper in your
+  breakfast egg change your blood sugar?" / "Blood sugar was lower 30 minutes after the pepper
+  meals; over 3 hours, no clear difference." (rewritten: `glucose_lower` states the direction,
+  and the 3-hour result belongs in the finding; "3 hours" cites `nothing_else`, as the hook does).
+  HIIT "Does interval training change your fat and your muscle?" / "+0.51 kg more fat-free mass
+  than no exercise, in the trials pooled."

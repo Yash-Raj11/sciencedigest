@@ -28,7 +28,11 @@ test.describe("the feed", () => {
       await expect(card.locator("[data-glance] svg[data-figure]"), `${paper.slug}: the figure`).toBeVisible();
       if (content) {
         const view = glanceView(content);
-        await expect(card.getByRole("heading", { level: 2 })).toHaveText(view.headline);
+        // The headline is the question the paper answers, the plain finding directly beneath (owner, 2026-11-15).
+        await expect(card.getByRole("heading", { level: 2 })).toHaveText(view.question);
+        await expect(card.locator("[data-glance-headline]")).toHaveText(view.headline);
+        const q = (await card.locator("[data-glance-question]").boundingBox())!;
+        expect((await card.locator("[data-glance-headline]").boundingBox())!.y).toBeGreaterThan(q.y + q.height - 1);
         await expect(card.locator("[data-glance-support]")).toHaveText(view.support);
         await expect(card.locator("[data-glance-note]")).toHaveText(`* ${view.note}`);
       } else {
@@ -50,7 +54,9 @@ test.describe("the feed", () => {
     await page.goto("/");
     await page.locator(`[data-post="${SLUG}"] [data-glance-link]`).click();
     await expect(page).toHaveURL(new RegExp(`/papers/${SLUG}$`));
-    await expect(page.locator("article h1")).toHaveText(papers.find((p) => p.slug === SLUG)!.title);
+    await expect(page.locator("article h1")).toHaveText(glanceView(freeContent(SLUG)!).question);
+    await expect(page.locator("[data-read-finding]")).toHaveText(glanceView(freeContent(SLUG)!).headline);
+    await expect(page.locator("[data-read-title]")).toHaveText(papers.find((p) => p.slug === SLUG)!.title);
   });
 });
 

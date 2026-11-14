@@ -121,6 +121,8 @@ export interface PaperMeta {
 
 /** What the feed card shows at a glance: plain words, one still figure (lib/content/glance.ts). */
 export interface GlanceView {
+  /** The question the paper answers: the card's and the read's headline (owner, 2026-11-15). */
+  question: string;
   /** The key finding, with its number first for an estimate ("−14.9 points lower ..."). */
   headline: string;
   support: string;
@@ -192,8 +194,11 @@ export interface PaperContent {
   primaryEstimate: string;
   /** The paper's source line (as on PaperMeta): what "from the paper" means for this read. */
   sourceLine: string;
-  /** The finding card: a plain headline and one supporting line (the source line is derived). */
-  finding: { headline: Sentence[]; support: Sentence[] };
+  /**
+   * The finding card: the question the paper answers (the headline of the card and the read),
+   * the plain finding beneath it, and one supporting line (the source line is derived).
+   */
+  finding: { question: Sentence[]; headline: Sentence[]; support: Sentence[] };
   /** The feed card's still figure and its words (lib/content/glance.ts). */
   glance: {
     /** null: the read's figure kind (content.simulator.spec), drawn still. */

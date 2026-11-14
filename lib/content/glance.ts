@@ -2,7 +2,7 @@
  * The feed card, the key idea at a glance (owner, 2026-11-14), in this order:
  *
  *   meta (topic · read time)
- *   a serif headline with the key finding ("−14.9 points lower 10-year risk of death ...")
+ *   the question the paper answers (serif headline), and directly beneath it the plain finding ("−14.9 points lower 10-year risk of death ...")
  *   one plain sentence
  *   the still figure: axis labels only, no numeric ticks or values, the gated range as a peach band
  *   "What's inside": 3–4 rows that open the read at a slot; the "Try it" row is the card's focal orange
@@ -34,6 +34,7 @@ export function glanceView(content: PaperContent): GlanceView {
   const e = fact?.estimate;
   const words = plain(content.finding.headline);
   return {
+    question: plain(content.finding.question),
     headline: e ? `${formatEstimate({ ...e, ciLow: null, ciHigh: null })} ${words}` : words,
     support: plain(content.finding.support),
     figure: content.glance.figure,

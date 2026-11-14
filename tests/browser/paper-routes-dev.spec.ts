@@ -27,6 +27,15 @@ import { expect, test } from "@playwright/test";
 import { freeContent, papers } from "../../lib/content";
 import { RANDOMIZED_DESIGNS, type Design } from "../../lib/pipeline/grade";
 import { EVIDENCE_KEY, FIGURE_KEYS } from "../../lib/content/figures";
+import { glanceView } from "../../lib/content/glance";
+
+/** The read's h1: the question the paper answers (owner, 2026-11-15); the title until one is public. */
+function headlineOf(paper: (typeof papers)[number]): string {
+  const read = freeContent(paper.slug);
+  if (read) return glanceView(read).question;
+  const card = paper.card as { question?: string } | undefined;
+  return card?.question ?? paper.title;
+}
 
 const ROUTE_ERROR = /Route "\/papers\/\[slug\]"|static shell|URL data|Invariant/;
 
@@ -86,7 +95,7 @@ for (const paper of papers) {
 
     const response = await page.goto(`${base}/papers/${paper.slug}`, { waitUntil: "networkidle" });
     expect(response?.status()).toBe(200);
-    await expect(page.locator("h1")).toHaveText(paper.title);
+    await expect(page.locator("h1")).toHaveText(headlineOf(paper));
     await expect(page.getByRole("heading", { name: "Put it in your Life Game" })).toBeVisible();
 
     const read = freeContent(paper.slug);
@@ -115,7 +124,7 @@ async function openRead(page: import("@playwright/test").Page, paper: (typeof pa
     await expect(member).toHaveAttribute("aria-checked", "true");
   }
   await page.goto(`${base}/papers/${paper.slug}`, { waitUntil: "networkidle" });
-  await expect(page.locator("h1")).toHaveText(paper.title);
+  await expect(page.locator("h1")).toHaveText(headlineOf(paper));
 }
 
 for (const paper of papers) {

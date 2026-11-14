@@ -219,6 +219,33 @@ interface Located {
   receipts: boolean;
 }
 
+/**
+ * The question headline (owner, 2026-11-15). A read's headline is the question its paper
+ * answers, with the plain finding directly beneath it. The question must:
+ *   - be exactly one sentence, ending in "?";
+ *   - not presuppose an answer: it opens as a yes/no question (Does, Do, Is, Can ...), never
+ *     "Why does ...", "How much ...", "How does ..." (each assumes the effect exists), and it
+ *     carries none of "still", "really", "even", "actually";
+ * and the finding line under it must exist and must not be a question itself.
+ * Pure: words in, problems out.
+ */
+const YES_NO = /^(does|do|did|is|are|was|were|can|could|will|would|should|has|have|had)\b/i;
+const PRESUPPOSES = /\b(why|how (much|many|does|do|did|can|long|far)|by how much|what makes|still|really|even|actually)\b/i;
+
+export function questionProblems(question: string[], finding: string[]): string[] {
+  const problems: string[] = [];
+  if (question.length !== 1) problems.push(`the headline is one question, one sentence; found ${question.length}`);
+  const q = (question[0] ?? "").trim();
+  if (q && !q.endsWith("?")) problems.push(`the headline must be the question the paper answers, ending in "?": "${q}"`);
+  const presupposed = PRESUPPOSES.exec(q);
+  if (presupposed) problems.push(`"${presupposed[0]}" presupposes an answer; ask a yes/no question the finding answers: "${q}"`);
+  else if (q && !YES_NO.test(q)) problems.push(`open with Does, Do, Is, Can or similar, so the question does not presuppose an answer: "${q}"`);
+  const line = finding.join(" ").trim();
+  if (!line) problems.push("a question headline needs the plain finding directly under it (card.headline)");
+  else if (line.endsWith("?")) problems.push(`the line under the question is the finding, not another question: "${line}"`);
+  return problems;
+}
+
 export function lint(validated: Validated, editorialInput: unknown, source: string, options: LintOptions = {}): LintReport {
   const errors: LintIssue[] = [];
   const warnings: LintIssue[] = [];
@@ -327,7 +354,9 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   take("source.who", ed.source.who);
   take("source.span", ed.source.span);
   // The finding card: the key result at a glance. Its headline rests on the headline result.
+  const question = take("card.question", ed.card.question, { headline: true, inRead: true });
   const cardHeadline = take("card.headline", ed.card.headline, { headline: true, inRead: true });
+  for (const problem of questionProblems(question.map((s) => s.text), cardHeadline.map((s) => s.text))) fail("headline", "card.question", problem);
   take("card.support", ed.card.support, { inRead: true });
   if (!cardHeadline.some((s) => s.refs.includes(ed.primaryEstimate))) {
     fail("card", "card.headline", `the finding card's headline must cite the headline result "${ed.primaryEstimate}"`);

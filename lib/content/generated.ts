@@ -824,6 +824,14 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
     },
     "primaryEstimate": "sleep_same",
     "finding": {
+      "question": [
+        {
+          "text": "Does an afternoon coffee wreck your sleep?",
+          "refs": [
+            "schedule"
+          ]
+        }
+      ],
       "headline": [
         {
           "text": "Sleep showed no clear difference from placebo nights.",
@@ -1486,6 +1494,14 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
     },
     "primaryEstimate": "ard_1_2",
     "finding": {
+      "question": [
+        {
+          "text": "Do one or two 8,000-step days a week go with a longer life?",
+          "refs": [
+            "threshold"
+          ]
+        }
+      ],
       "headline": [
         {
           "text": "lower 10-year risk of death, compared with 0 days a week.",
@@ -2659,11 +2675,22 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
     ],
     "primaryEstimate": "glucose_30",
     "finding": {
+      "question": [
+        {
+          "text": "Does black pepper in your breakfast egg change your blood sugar?",
+          "refs": [
+            "in_egg"
+          ]
+        }
+      ],
       "headline": [
         {
-          "text": "Blood sugar differed 30 min after the pepper meals.",
+          "text": "Blood sugar was lower 30 minutes after the pepper meals; over 3 hours, no clear difference.",
           "refs": [
-            "glucose_30"
+            "glucose_30",
+            "glucose_lower",
+            "glucose_total",
+            "nothing_else"
           ]
         }
       ],

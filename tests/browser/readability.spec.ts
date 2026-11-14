@@ -157,7 +157,7 @@ test.describe("finding cards: plain headline, one supporting line, source line",
   test("turmeric: neutral wording, and the size it does not give", async ({ page }) => {
     await page.goto("/papers/turmeric-pepper-breakfast");
     const card = page.locator("article [data-finding-card]");
-    await expect(card.locator(".headline")).toHaveText(/^Blood sugar differed 30 min after the pepper meals\./);
+    await expect(card.locator(".headline")).toHaveText(/^Blood sugar was lower 30 minutes after the pepper meals; over 3 hours, no clear difference\./);
     await expect(card).toContainText("The paper doesn't say by how much.");
   });
 });
@@ -187,11 +187,11 @@ test("the page check catches a CI in the read", async ({ page }) => {
 test.describe("feed card: the key idea at a glance", () => {
   test.use({ viewport: { width: 390, height: 844 } });
 
-  test("order: meta, headline, one sentence, still figure, What's inside, source line", async ({ page }) => {
+  test("order: meta, question, finding, one sentence, still figure, What's inside, source line", async ({ page }) => {
     await page.goto("/", { waitUntil: "networkidle" });
     const card = page.locator('[data-post="steps-days-per-week"]');
     const y = async (selector: string) => (await card.locator(selector).first().boundingBox())!.y;
-    const order = [await y("p.label"), await y("[data-glance-headline]"), await y("[data-glance-support]"), await y("[data-glance]"), await y("nav"), await y("[data-source-line]")];
+    const order = [await y("p.label"), await y("[data-glance-question]"), await y("[data-glance-headline]"), await y("[data-glance-support]"), await y("[data-glance]"), await y("nav"), await y("[data-source-line]")];
     expect([...order].sort((a, b) => a - b)).toEqual(order);
   });
 

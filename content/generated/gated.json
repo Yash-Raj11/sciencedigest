@@ -339,6 +339,14 @@
       },
       "primaryEstimate": "ffm_all",
       "finding": {
+        "question": [
+          {
+            "text": "Does interval training change your fat and your muscle?",
+            "refs": [
+              "trials"
+            ]
+          }
+        ],
         "headline": [
           {
             "text": "more fat-free mass than no exercise, in the trials pooled.",
