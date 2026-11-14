@@ -1436,3 +1436,16 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   body-composition model: fat and fat-free mass).
 - The adenosine concept describes the build-up only. That caffeine blocks the dock is the
   caffeine paper's own sentence (`adenosine_block`), drawn dashed as the authors' idea.
+
+## 2026-11-15, Handoff: the owner's five-item list done; figures next
+
+- Done: themes, headlines, members' card, sketch rule (with R1–R7), concepts. Totals: 595 unit,
+  15 HTTP, 89 browser tests; database untouched (191 assertions, 16 of 16 mutations as before).
+- Working-rule note: the "IN PROGRESS" commits change only PROGRESS.md and were pushed without
+  the full gates; every item commit ran all six (`docs/evidence/themes/gates-item1…5.txt`).
+- For the owner: (1) review the four question headlines; (2) review and approve (or reword) the
+  three concepts with `npm run paper -- approve-concept <slug>`; until then no sketch can ship;
+  (3) "go" for the hosted seed push (`paper_content` gained `finding.question`); (4) the steps
+  finding line reads "−14.9 points lower 10-year risk of death ..." (the sign and "lower" both
+  say the direction); say if you want it reworded.
+- Next: build the figures from `docs/FIGURE-DESIGN.md` (PROGRESS, "Next").

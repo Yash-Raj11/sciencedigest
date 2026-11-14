@@ -65,12 +65,21 @@ The interactive part is the product; the text is what justifies it.
 | Fourth paper `turmeric-pepper-breakfast` (free, three layers, hand-written: no model run, so it does not count toward the Phase 10 gate) | Approved; on the hosted database and on `main`/Vercel (`80e1caa`) | BUILD-LOG 2026-11-13 and 2026-11-14 |
 | Simulators drawn by kind, live: caffeine decay (half-life from the context study `caffeine-saliva-half-life`), steps association-curve | Live on `main` | `docs/evidence/simulators/`, `tests/browser/simulators.spec.ts` |
 | Readability pass 1–7 (owner, 2026-11-14): tokens + contrast table (all ≥ 4.5:1), orange once per screen, plain-language lint rules, finding cards, source line (who · design · how long) + grade words/3-bar meter/tap for why (no weight on any screen), feed card at a glance with "What's inside" deep links, hosted seed, figure plans (SIMULATORS.md j) | Built 1–6; 7 is plans only. ⏸ waiting on the owner | `docs/evidence/readability/` (contrast.md, plain-rules-broken.txt, hosted-seed.txt, feed/read/card screenshots dark + light), `scripts/visual-system.test.ts`, `lib/pipeline/plain.test.ts`, `lib/evidence-words.test.ts`, `scripts/glance.test.ts`, `tests/browser/readability.spec.ts`, `tests/browser/source-line.spec.ts` |
+| Owner's list of 2026-11-15: themes Dark / Light / Bedtime (tokens by meaning, `--signal-evidence-*`; orange = this paper's finding; ≤ 3 orange items per 390 px screen; habits monochrome; weights only in "How scoring works"); question headlines with the finding beneath (lint `headline`); members' card = question + finding + one sentence + figure (amendment A widened); sketch rule (`lib/content/sketch.ts`); three concepts written, not approved; rulings R1–R7 in FIGURE-DESIGN.md | Built and live on `main`. Figures of FIGURE-DESIGN.md **not built yet** (next item). Hosted seed one behind (needs the owner's "go") | `docs/evidence/themes/` (contrast.md, screenshots, gates-item1…5.txt, concept-references.txt), `scripts/visual-system.test.ts`, `tests/browser/readability.spec.ts`, `lib/pipeline/headline.test.ts`, `lib/content/sketch.test.ts`, `lib/pipeline/sketch-lint.test.ts`, `tests/http/members-content.test.ts` |
 | Documents: `CLAUDE.md`, `docs/MANUAL.md`, `ARCHITECTURE.md`, `data-model.md`, `BUILD-LOG.md` | Written | — |
 
-Totals on 2026-11-14 (after readability 1–7): 512 unit tests (`docs/evidence/unit-tests.txt`);
-14 HTTP tests (`http-tests.txt`) and 75 browser tests (`browser-tests.txt`); 191 database
-assertions per pass and 16 of 16 mutations (unchanged: no SQL touched since).
+Totals on 2026-11-15 (after the owner's five-item list): 595 unit tests
+(`docs/evidence/unit-tests.txt`); 15 HTTP tests (`http-tests.txt`) and 89 browser tests
+(`browser-tests.txt`); 191 database assertions per pass and 16 of 16 mutations (unchanged: no
+SQL touched since).
 Outputs are in `docs/evidence/`.
+
+### Deployment state (2026-11-15)
+
+- `main` carries the 2026-11-15 work (themes, headlines, members' card, sketch rule); Vercel
+  deploys it. **The hosted seed is one behind**: `paper_content` JSON gained `finding.question`.
+  Nothing reads that field from the server yet (the members' card and header come from the
+  bundle), so the live site works; push the seed on the owner's "go" (MANUAL 3.3).
 
 ### Deployment state (2026-11-14)
 
@@ -341,15 +350,19 @@ paper; streak protection ("rest day") rules; sharing a finished day as an image.
 ### Resume prompt (paste this to start a fresh session)
 
 ```text
-You are continuing Science Digest. Read, in this order: CLAUDE.md, docs/MASTER-PROMPT.md (the
-prompt, then its Amendments, which win where they disagree), docs/PROGRESS.md,
-docs/ARCHITECTURE.md, docs/HANDOFF.md and the latest docs/BUILD-LOG.md entries. Continue from
-the first unchecked item in docs/PROGRESS.md, following docs/MASTER-PROMPT.md exactly,
-including every ⏸ stop and the "ASK FIRST" list. The repository is the source of truth: if
-anything there disagrees with the prompt, stop and tell me which is wrong. On the live site a
-browser may only load pages as a visitor who has not tapped anything; never work around the
-CAPTCHA. Before doing anything, tell me in two lines which item you are starting and what the
-last BUILD-LOG entry says.
+Resume Science Digest. Read CLAUDE.md, docs/HANDOFF.md, docs/MASTER-PROMPT.md (including
+its Amendments), docs/PROGRESS.md, docs/SIMULATORS.md, docs/FIGURE-DESIGN.md and the latest
+BUILD-LOG entries. Run git status and git log --oneline -5. If the tree is not clean, tell me
+what is uncommitted before doing anything. Then continue with the item marked "Next" in
+docs/PROGRESS.md, with the same working rules and the same ⏸ stops.
+
+Next item: Build the figures from docs/FIGURE-DESIGN.md, two per paper (A "why it happens",
+B "what happens to you"), ahead of the older open items. Data figures first (steps 3A in the
+audit layer and 3B; HIIT 4B; turmeric 2A); the sketches (caffeine 1A/1B, turmeric 2B, HIIT 4A)
+only once their concept is approved. Feed cards draw figure B's still view (R7). Every figure
+obeys the orange budget and the sketch rule.
+Waiting on the owner: review of the 4 question headlines and the 3 concepts (adenosine,
+post-meal-blood-sugar, fat-free-mass; the owner runs approve-concept); "go" for the hosted seed.
 ```
 
 ---

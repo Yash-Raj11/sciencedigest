@@ -130,9 +130,8 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
         date. `docs/evidence/readability/hosted-seed.txt`.
   - [x] 7. Figure plans in `docs/SIMULATORS.md` section j (concept sketch class, the pattern, caffeine,
         turmeric, steps, HIIT). Not built. Open: owner ruling on a sketch resting on a concept (j1).
-  - [ ] ⏸ Stop after 7 with hashes, contrast table, screenshot paths, plans; /phase-handoff.
-        Reported 2026-11-14; waiting on the owner (concept-sketch ruling, SIMULATORS.md j1; whether
-        a members' card may show its finding headline, BUILD-LOG "Readability handoff").
+  - [x] ⏸ Stop after 7 with hashes, contrast table, screenshot paths, plans; /phase-handoff.
+        Answered 2026-11-15: rulings R1–R7 and the five-item list below.
 - [ ] Owner rulings R1–R7 on FIGURE-DESIGN.md + items 1–5 (2026-11-15):
   - [x] 1. Themes: Dark, Light, Bedtime; orange roles by meaning; budget test (≤ 3 per screen);
         Me setting; scoring explainer. `docs/evidence/themes/` (contrast.md, screenshots, gates).
@@ -145,6 +144,14 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
   - [x] 5. Concepts adenosine, post-meal-blood-sugar, fat-free-mass written (not approved);
         references resolve (`docs/evidence/themes/concept-references.txt`).
   - [ ] ⏸ Stop: hashes, contrast table, theme screenshots, 4 headlines, 3 concepts' plain text; /phase-handoff.
+        Reported 2026-11-15. Waiting on the owner: review the 4 headlines and the 3 concepts
+        (`npm run paper -- approve-concept <slug>`, the owner's command); "go" for the hosted seed
+        (the seed changed: `finding.question` in `paper_content`; hosted is one seed behind).
+- [ ] **Next (owner, 2026-11-15): build the figures from `docs/FIGURE-DESIGN.md`**, two per paper
+      (A "why it happens", B "what happens to you"), ahead of the older open items above. Data
+      figures first (steps 3A in the audit layer and 3B; HIIT 4B; turmeric 2A); the sketches
+      (caffeine 1A/1B, turmeric 2B, HIIT 4A) only once their concept is approved. Feed cards draw
+      figure B's still view (R7). Every figure obeys the orange budget and the sketch rule.
 - [ ] The pipeline proposes the figure kind and the simulator inputs (`prompts.ts`).
 - [ ] Reader inputs stored on the device only (like the theme).
 - [ ] Run the coverage pass on the 4 existing papers, so their checklist rows stop showing
