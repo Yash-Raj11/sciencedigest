@@ -91,7 +91,7 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
   const drawn: { ref: FigureRef; def: FigureDef }[] = [];
   const figure = (def: FigureDef | null): FigureRef | null => {
     if (!def) return null;
-    const ref: FigureRef = { figure: def.figure, caption: sentences(def.caption), alt: plain(sentences(def.alt)), params: {} };
+    const ref: FigureRef = { figure: def.figure, ...(def.headline ? { headline: sentences(def.headline) } : {}), caption: sentences(def.caption), alt: plain(sentences(def.alt)), params: {} };
     drawn.push({ ref, def });
     return ref;
   };
@@ -135,6 +135,7 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
       sections: ed.sections.map((s) => ({ id: s.id, heading: s.heading, paragraphs: s.paragraphs.map(sentences) })),
       limitations: ed.limitations.map(sentences),
       ...(ed.figure ? { figure: figure(ed.figure)! } : {}),
+      ...(ed.auditFigure ? { auditFigure: { title: sentences(ed.auditFigure.title), figure: figure(ed.auditFigure)! } } : {}),
       primaryEstimate: ed.primaryEstimate,
       finding: { question: sentences(ed.card.question), headline: sentences(ed.card.headline), support: sentences(ed.card.support) },
       simulator: { kind: ed.simulator.kind, params: {} },

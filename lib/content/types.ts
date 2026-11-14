@@ -146,6 +146,8 @@ export interface ReadSection {
 /** A picture drawn in code, named in the paper's figure registry. */
 export interface FigureRef {
   figure: string;
+  /** The takeaway headline above the drawing (FIGURE-DESIGN 0.3), when the read wrote one. */
+  headline?: Sentence[];
   caption: Sentence[];
   alt: string;
   /** What the picture shows. Every "fact:<id>" has been replaced by the resolved fact. */
@@ -187,6 +189,8 @@ export interface PaperContent {
   limitations: Sentence[][];
   /** Old flat shape only: its one figure. Moves into layers.mechanism in step 2E. */
   figure?: FigureRef;
+  /** Old flat shape only: a figure at the top of the receipts, under its title. Moves into layers.audit.figure in step 2E. */
+  auditFigure?: { title: Sentence[]; figure: FigureRef };
   /** The three-layer read (H10). Absent only on the old flat shape. */
   layers?: ReadLayers;
   glossary?: GlossaryEntry[];

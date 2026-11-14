@@ -174,6 +174,9 @@ export function Pictured({ slug, figure, facts, context, still = false }: {
   if (!figure) return null;
   return (
     <figure className="rounded-2xl border border-line bg-bg py-3">
+      {figure.headline?.length && !still && facts ? (
+        <Para sentences={figure.headline} facts={facts} context={context} className="headline mx-4 mb-2 text-[1.0625rem]" />
+      ) : null}
       <FigureFor slug={slug} figure={figure} interactive={!still} />
       {!still && facts && (
         <figcaption className="mx-3 mt-2 border-t border-line pt-2">

@@ -19,7 +19,7 @@ import CaffeineWidget from "./daytime-caffeine-sleep/Widget";
 import WhatWasMeasured from "./hiit-body-composition/figures/WhatWasMeasured";
 import HiitSimulator from "./hiit-body-composition/Simulator";
 import HiitWidget from "./hiit-body-composition/Widget";
-import SeenTogether from "./steps-days-per-week/figures/SeenTogether";
+import ThreeCrowds from "./steps-days-per-week/figures/ThreeCrowds";
 import StepsWidget from "./steps-days-per-week/Widget";
 import Doorbell from "./turmeric-pepper-breakfast/figures/Doorbell";
 import FiveReadings from "./turmeric-pepper-breakfast/figures/FiveReadings";
@@ -59,7 +59,7 @@ const SIMULATORS: Record<string, ComponentType<SimulatorProps>> = {
  */
 const FIGURES: Record<FigureKey, ComponentType<FigureProps>> = {
   "daytime-caffeine-sleep/lock-and-key": LockAndKey,
-  "steps-days-per-week/seen-together": SeenTogether,
+  "steps-days-per-week/three-crowds": ThreeCrowds,
   "hiit-body-composition/what-was-measured": WhatWasMeasured,
   "turmeric-pepper-breakfast/doorbell": Doorbell,
   "turmeric-pepper-breakfast/five-readings": FiveReadings,

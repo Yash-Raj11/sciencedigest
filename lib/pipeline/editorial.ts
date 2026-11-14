@@ -156,6 +156,8 @@ const Base = {
  */
 const FigureRef = z.object({
   figure: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
+  /** The figure's takeaway headline, above the drawing (FIGURE-DESIGN 0.3): it says what to see. */
+  headline: Markup.optional(),
   caption: Markup,
   alt: Markup,
   params: z.record(z.string(), z.unknown()).default({}),
@@ -243,6 +245,12 @@ export const LegacyEditorial = z.object({
   limitations: z.array(Markup).min(1),
   /** One figure, shown after the first paragraph. Temporary: it moves into layers.mechanism in step 2E. */
   figure: FigureRef.nullable().default(null),
+  /**
+   * A figure at the top of the receipts, under its own title (FIGURE-DESIGN 3A: a figure that needs
+   * a caveat to be honest sits in the audit, never the mechanism, H10). Temporary, like the shape:
+   * it moves into layers.audit.figure in step 2E.
+   */
+  auditFigure: FigureRef.extend({ title: Markup }).nullable().default(null),
 });
 
 export type Editorial = z.infer<typeof Editorial>;

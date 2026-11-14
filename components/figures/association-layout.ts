@@ -8,8 +8,9 @@
  * interpolated between groups, and nothing is shown outside them.
  */
 
-import type { ResolvedFact } from "@/lib/content/types";
+import type { PaperContent, ResolvedFact } from "@/lib/content/types";
 import { simulatorBand, type Band } from "@/lib/models/spread";
+import { eventDots, gridHeight, gridSize } from "./frequency-layout";
 
 export interface Cited { n: number; ref: string }
 export interface GroupEdges { from: Cited; to: Cited; meanAge?: Cited }
@@ -140,3 +141,137 @@ export function pickedGroup(groups: GroupEdges[], raw: ResolvedFact[], adjusted:
 
 /** The raw caption's outcome: "deaths from any cause within 10 years". */
 export const rawOutcome = (raw: ResolvedFact[]): string => (raw[0]?.estimate?.outcome ?? "").replace(/, unadjusted$/, "").toLowerCase();
+
+// ---------------------------------------------------------------------------------------------
+// FIGURE-DESIGN 3B, "100 people, ten years on": the kind drawn as frequency grids (owner,
+// 2026-11-15). One grid per group of the raw shares (monochrome, R4), the adjusted differences
+// as an interval strip (the one pastel zone), the reader's week as their own strip above.
+
+
+/** Days of the reader's week: the toggles above the chart. Words only, so no digit is typed. */
+export const WEEK_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
+
+/** Text sizes and positions in the 320-unit frame. */
+export const GRID_FRAME = {
+  size: 13, small: 12,
+  full: { left: 3, col: 96, gap: 14, start: 14, title: 36, strip: 44, later: 80, bracket: 78, grid: 88 },
+  card: { left: 15, col: 130, gap: 30, axis: 12, title: 32, strip: 40, grid: 66 },
+};
+
+/** N for the whole figure: from the base rate, the comparison group's printed share. */
+export const figureN = (raw: ResolvedFact[]): number | null => gridSize(raw[0]?.estimate?.point ?? 0);
+
+/** Where each column sits, for the full view (every group) or the card (the first two). */
+export function gridColumns(count: number, mode: "full" | "card") {
+  const f = mode === "full" ? GRID_FRAME.full : GRID_FRAME.card;
+  return Array.from({ length: count }, (_, i) => {
+    const x = f.left + i * (f.col + f.gap);
+    return { x, width: f.col, mid: x + f.col / 2 };
+  });
+}
+
+/** The full view's height: titles, strips, grids, two label lines, the key. */
+export function gridFigureHeight(n: number, mode: "full" | "card"): number {
+  if (mode === "full") return GRID_FRAME.full.grid + gridHeight(n, GRID_FRAME.full.col) + 64;
+  return GRID_FRAME.card.grid + gridHeight(n, GRID_FRAME.card.col) + 62;
+}
+
+/** The people in a group the event did not happen to, out of N, as the grid draws them (a half dot counts as half). */
+export function keptOf(rate: number, n: number): number {
+  const { whole, half } = eventDots(rate, n);
+  return n - whole - (half ? 0.5 : 0);
+}
+
+/** "40.7%". */
+const percent = (fact: ResolvedFact | undefined) => (fact?.estimate ? `${number(fact.estimate.point)}%` : "");
+
+/** The count behind a group's share, as printed ("75 of 532"), when the read gave it. */
+const countWords = (group: GroupEdges & { died?: Cited; total?: Cited }) =>
+  group.died && group.total ? ` (${number(group.died.n)} of ${number(group.total.n)})` : "";
+
+export interface GridResult {
+  raw: string;
+  /** Null for the comparison group, which has no adjusted difference of its own. */
+  adjusted: string | null;
+  range: string | null;
+}
+
+/**
+ * The reader's group in words (FIGURE-DESIGN 3B): the raw shares with their printed counts,
+ * labelled raw; then the adjusted difference with its range. Every number is printed in the
+ * paper. "People in this group of the study", never "your risk".
+ */
+export function gridResult(
+  groups: (GroupEdges & { died?: Cited; total?: Cited })[], raw: ResolvedFact[], adjusted: ResolvedFact[], at: number,
+  words: { event: string; events: string; years: number | null; unit?: string },
+): GridResult | null {
+  if (at < 0 || at >= groups.length) return null;
+  const unit = words.unit ?? "days";
+  const within = words.years !== null ? ` within ${number(words.years)} years` : "";
+  const here = `In the ${groupLabel(groups[at], unit)} group, ${percent(raw[at])} ${words.event}${within}${countWords(groups[at])}`;
+  if (at === 0) return { raw: `${here}. This is the group the others were compared with.`, adjusted: null, range: null };
+  const rawText = `${here}, against ${percent(raw[0])} in the ${groupLabel(groups[0], unit)} group${countWords(groups[0])}. Raw.`;
+  const e = adjusted[at - 1]?.estimate;
+  if (!e) return { raw: rawText, adjusted: null, range: null };
+  const per = /^(points?|percentage points)$/.test(e.unit) ? " per 100" : ` ${e.unit}`;
+  const direction = e.point < 0 ? "fewer" : "more";
+  const ends = e.ciLow !== null && e.ciHigh !== null ? [Math.abs(e.ciLow), Math.abs(e.ciHigh)].sort((a, b) => a - b) : null;
+  const crosses = e.ciLow !== null && e.ciHigh !== null && e.ciLow < 0 && e.ciHigh > 0;
+  return {
+    raw: rawText,
+    adjusted: `Adjusted difference: ${number(Math.abs(e.point))} ${direction} ${words.events}${per}${ends && !crosses ? ` (${number(ends[0])} to ${number(ends[1])})` : ""}.`,
+    range: crosses ? "The range crosses no difference, so the study cannot tell which way it goes." : "Range for the study average.",
+  };
+}
+
+/** A strip row's label in three parts: "1–2 days: " · "14.9" · " fewer deaths per 100". */
+export function stripLabel(group: GroupEdges, fact: ResolvedFact, events: string, unit = "days") {
+  const e = fact.estimate!;
+  const per = /^(points?|percentage points)$/.test(e.unit) ? " per 100" : ` ${e.unit}`;
+  return { lead: `${groupLabel(group, unit)}: `, number: number(Math.abs(e.point)), tail: ` ${e.point < 0 ? "fewer" : "more"} ${events}${per}` };
+}
+
+/** The group a reader's week falls in, from the days they ticked (null before any answer). */
+export const weekGroup = (groups: GroupEdges[], ticked: readonly boolean[] | null): number =>
+  ticked === null ? -1 : groupOf(groups, ticked.filter(Boolean).length);
+
+/** The card draws the comparison group and the next one only (FIGURE-DESIGN 3B, card view). */
+export const CARD_GROUPS = 2;
+export const cardSlice = <T,>(items: T[]): T[] => items.slice(0, CARD_GROUPS);
+/** The first group is the one every other group is compared with. */
+export const isComparison = (at: number) => at === 0;
+/** A reader who has not answered yet. */
+export const NO_ANSWER = -1;
+/** The reader's week before they touch it, and after "No days". */
+export const emptyWeek = (): boolean[] => WEEK_DAYS.map(() => false);
+/** The group an adjusted row belongs to: the comparison group has none, so row i is group i + 1. */
+export const groupOfAdjusted = (row: number) => row + 1;
+
+/** The words a grid figure draws, besides its facts. */
+export interface GridWords {
+  /** "died": the event, in "40.7 died per 100". */
+  event: string;
+  /** "deaths": the event as a noun, in "14.9 fewer deaths per 100". */
+  events: string;
+  /** The follow-up in years, from its fact, or null. */
+  years: number | null;
+  /** "Alive at 10 years", "Died": the two kinds of dot, each named once. */
+  kept: string;
+  happened: string;
+  /** "10 years later": over the grids. */
+  later: string;
+}
+
+const text = (sentences: { text: string }[] | undefined) => (sentences ?? []).map((s) => s.text).join(" ");
+
+/** The association-curve's own words: the event and its noun from params, the dot names from the read. */
+export function gridWordsOf(content: Pick<PaperContent, "simulator">): GridWords {
+  const params = content.simulator.params;
+  const words = content.simulator.words ?? {};
+  return {
+    event: String(params.event ?? ""), events: String(params.events ?? ""),
+    years: (params.years as { n: number } | undefined)?.n ?? null,
+    kept: text(words.kept), happened: text(words.happened), later: text(words.later),
+  };
+}
+

@@ -1,0 +1,24 @@
+# Steps figures 3A + 3B gates, 2026-11-14T20:31:06Z
+## lint
+> eslint
+
+## typecheck
+> tsc --noEmit
+
+## unit
+ Test Files  39 passed (39)
+      Tests  618 passed (618)
+## build
+✓ Running next.config.ts took 50ms
+✓ Compiled successfully in 947ms
+✓ Generating static pages using 7 workers (16/16) in 441ms
+## http
+ Test Files  2 passed (2)
+      Tests  15 passed (15)
+## browser
+  ✓  71 [chromium] › tests/browser/paper-routes-dev.spec.ts:133:3 › /papers/daytime-caffeine-sleep draws its figure (933ms)
+  ✓  78 [chromium] › tests/browser/paper-routes-dev.spec.ts:133:3 › /papers/hiit-body-composition draws its figure (2.2s)
+  1) [chromium] › tests/browser/paper-routes-dev.spec.ts:133:3 › /papers/steps-days-per-week draws its figure 
+  1 failed
+    [chromium] › tests/browser/paper-routes-dev.spec.ts:133:3 › /papers/steps-days-per-week draws its figure 
+  89 passed (46.5s)

@@ -42,37 +42,51 @@ test.describe("caffeine: the decay simulator", () => {
   });
 });
 
-test.describe("steps: the association-curve simulator", () => {
-  test("a pick shows its group: adjusted as a band, raw labelled raw, and who was studied straight under the result", async ({ page }) => {
+test.describe("steps: the association-curve simulator (FIGURE-DESIGN 3B)", () => {
+  test("a week of two days: that group's grid at full strength, the raw shares with counts, the adjusted difference, who straight under", async ({ page }) => {
     await page.goto("/papers/steps-days-per-week", { waitUntil: "networkidle" });
     const sim = page.locator('section[aria-label="Simulator"]');
-    await expect(sim.locator("[data-estimate]")).toContainText("Pick a number");
-    await sim.getByRole("radio", { name: "2 days" }).check({ force: true });
+    await expect(sim.locator("[data-estimate]")).toContainText("Tap the days you reach the goal");
+    await expect(sim.locator("[data-adjusted-strip] [data-band]")).toHaveCount(2);
+    const week = sim.locator("[data-your-week] button");
+    await week.nth(0).click();
+    await week.nth(3).click();
+    await expect(sim.locator("[data-figure-kind]")).toHaveAttribute("data-picked-group", "1");
+    await expect(sim.locator('[data-group="1"][data-picked]')).toContainText("your group");
+    await expect(sim.locator("[data-raw]")).toHaveText("In the 1–2 days group, 14.1% died within 10 years (75 of 532), against 40.7% in the 0 days group (257 of 632). Raw.");
+    await expect(sim.locator("[data-adjusted]")).toHaveText("Adjusted difference: 14.9 fewer deaths per 100 (10.9 to 18.8).");
+    await expect(sim.locator("[data-spread-label]")).toHaveText("Range for the study average.");
+    // Only the reader's group keeps the pastel band; the other goes to an outline.
+    await expect(sim.locator('[data-adjusted-strip] [data-emphasis="signal"]')).toHaveCount(1);
     const result = sim.locator("[data-estimate]");
-    await expect(result).toContainText("People with 1–2 days a week");
-    await expect(sim.locator("[data-adjusted]")).toContainText("14.9 points lower");
-    await expect(sim.locator("[data-adjusted]")).toContainText("adjusted, compared with 0 days");
-    await expect(sim.locator("[data-spread-label]")).toContainText("Range for the study average: −18.8 to −10.9 points");
-    await expect(sim.locator("[data-raw]")).toContainText("Raw: 14.1% of this group, against 40.7% at 0 days");
     await expect(result).toContainText("not a prediction for you");
     await expect(result).not.toContainText(/your risk/i);
-    // H3: who was studied comes straight after the result, with the group's average age.
     const who = sim.locator("[data-who]");
     await expect(who).toContainText("3,101 US adults");
-    await expect(who).toContainText("Average age at 1–2 days: 51.5 years.");
-    const order = await sim.evaluate((el) => {
-      const a = el.querySelector("[data-estimate]")!;
-      return a.nextElementSibling?.hasAttribute("data-who") ?? false;
-    });
+    await expect(who).toContainText("Average age in the 1–2 days group: 51.5 years.");
+    const order = await sim.evaluate((el) => el.querySelector("[data-estimate]")!.nextElementSibling?.hasAttribute("data-who") ?? false);
     expect(order).toBe(true);
   });
 
-  test("the first group is the comparison: no adjusted number of its own", async ({ page }) => {
+  test("No days: the comparison group, no adjusted number, both bands outlined", async ({ page }) => {
     await page.goto("/papers/steps-days-per-week", { waitUntil: "networkidle" });
     const sim = page.locator('section[aria-label="Simulator"]');
-    await sim.getByRole("radio", { name: "0 days" }).check({ force: true });
-    await expect(sim.locator("[data-estimate]")).toContainText("The group the others were compared with");
+    await sim.getByRole("button", { name: "No days" }).click();
+    await expect(sim.locator("[data-raw]")).toContainText("This is the group the others were compared with.");
     await expect(sim.locator("[data-adjusted]")).toHaveCount(0);
-    await expect(sim.locator("[data-raw]")).toContainText("Raw: 40.7% of this group.");
+    await expect(sim.locator("[data-adjusted-strip]")).toContainText("Compared with your group");
+    await expect(sim.locator('[data-adjusted-strip] [data-emphasis="signal"]')).toHaveCount(0);
+  });
+});
+
+test.describe("steps: figure 3A sits at the top of the receipts (R3)", () => {
+  test("three columns with the printed ages; the mechanism section draws no figure", async ({ page }) => {
+    await page.goto("/papers/steps-days-per-week", { waitUntil: "networkidle" });
+    const receipts = page.locator('section[aria-label="The receipts"]');
+    const a = receipts.locator("[data-audit-figure]");
+    await expect(a).toBeVisible();
+    await expect(receipts).toContainText("Why the raw gap is so wide");
+    for (const age of ["63.7", "51.5", "46"]) await expect(a.locator("svg")).toContainText(age);
+    await expect(page.locator("#why [data-figure-key]")).toHaveCount(0);
   });
 });

@@ -6,7 +6,7 @@
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
-import { choices, differenceWords, groupLabel, groupOf, pickedGroup, type GroupEdges } from "../components/figures/association-layout";
+import { choices, differenceWords, gridResult, groupLabel, groupOf, pickedGroup, weekGroup, type GroupEdges } from "../components/figures/association-layout";
 import { AssociationCurve } from "../components/figures/kinds/AssociationCurve";
 import { kindParamsProblems, specProblems, type SpecFact } from "../lib/content/figure-kinds";
 import type { ResolvedFact } from "../lib/content/types";
@@ -96,29 +96,68 @@ describe("its sums", () => {
   });
 });
 
-describe("its first view", () => {
+describe("its first view (FIGURE-DESIGN 3B)", () => {
+  const words = { event: "died", events: "deaths", years: 10, kept: "Alive at ten years", happened: "Died", later: "Ten years later" };
+  const counted = groups.map((g, i) => ({ ...g, died: { n: [257, 75, 107][i], ref: "r" }, total: { n: [632, 532, 1937][i], ref: "r" } }));
   const draw = (mode: "card" | "full") => renderToStaticMarkup(createElement(AssociationCurve, {
-    mode, raw, adjusted, groups, alt: "Three bars, one for each group.", sourceLine: "From the paper", observational: true,
-    who: createElement("p", null, "Who was studied"),
+    mode, raw, adjusted, groups: counted, alt: "Three grids of dots, one for each group.", sourceLine: "From the paper", observational: true,
+    who: createElement("p", null, "Who was studied"), words,
   }));
 
-  it("card: one measured block per group with its printed raw share, labelled raw, and no question", () => {
+  it("card: the first two groups as grids of 100 with their exact printed shares; no input, no adjusted strip", () => {
     const html = draw("card");
-    expect(html.match(/data-evidence="measured"/g)).toHaveLength(3);
-    expect(html).toContain("40.7%");
-    expect(html).toContain("5.5%");
-    expect(html).toContain(">Raw</span>");
-    expect(html).not.toContain("<input");
+    expect(html.match(/data-grid="100"/g)).toHaveLength(2);
+    expect(html).toContain("40.7 died per 100");
+    expect(html).toContain("14.1 died per 100");
+    expect(html).not.toContain("5.5 died per 100");
+    expect(html).not.toContain("<button");
+    expect(html).not.toContain("data-adjusted-strip");
+    expect(html).not.toContain("data-band");
   });
 
-  it("full: the same chart, one choice per measured value, nothing picked, no result, and who was studied", () => {
+  it("card: a dot is never rounded up (40.7 → 40 hollow and a half dot; 14.1 → 14 hollow)", () => {
+    const html = draw("card");
+    const grids = html.split("data-grid=").slice(1);
+    expect(grids[0].match(/data-event/g)).toHaveLength(40);
+    expect(grids[0].match(/data-half/g)).toHaveLength(1);
+    expect(grids[1].match(/data-event/g)).toHaveLength(14);
+    expect(grids[1].match(/data-half/g)).toBeNull();
+  });
+
+  it("full: three grids (5.5 → 5 hollow and a half dot, R5), the adjusted strip in pastel, nothing picked, who was studied", () => {
     const html = draw("full");
-    expect(html.match(/type="radio"/g)).toHaveLength(8);
-    expect(html).not.toContain("checked");
-    expect(html).not.toContain("data-adjusted");
-    expect(html).toContain("Pick a number");
+    expect(html.match(/data-grid="100"/g)).toHaveLength(3);
+    expect(html).toContain("5.5 died per 100");
+    expect(html.match(/data-band/g)).toHaveLength(2);
+    expect(html).toContain("14.9");
+    expect(html).not.toMatch(/−14\.9/);
+    expect(html.match(/aria-pressed="true"/g)).toBeNull();
+    expect(html).not.toContain("data-adjusted=");
     expect(html).toContain("data-who");
     expect(html).toContain("it did not assign them to anything");
     expect(html).not.toMatch(/your risk/i);
+    expect(html).not.toContain("<marker");
+  });
+});
+
+describe("the reader's group in words", () => {
+  const words = { event: "died", events: "deaths", years: 10 };
+  const counted = groups.map((g, i) => ({ ...g, died: { n: [257, 75, 107][i], ref: "r" }, total: { n: [632, 532, 1937][i], ref: "r" } }));
+  it("two days: raw shares with their counts, labelled raw; then the adjusted difference in words with its range", () => {
+    const r = gridResult(counted, raw, adjusted, groupOf(groups, 2), words)!;
+    expect(r.raw).toBe("In the 1–2 days group, 14.1% died within 10 years (75 of 532), against 40.7% in the 0 days group (257 of 632). Raw.");
+    expect(r.adjusted).toBe("Adjusted difference: 14.9 fewer deaths per 100 (10.9 to 18.8).");
+    expect(r.range).toBe("Range for the study average.");
+  });
+  it("no days: the comparison group, with no adjusted difference of its own", () => {
+    const r = gridResult(counted, raw, adjusted, 0, words)!;
+    expect(r.adjusted).toBeNull();
+    expect(r.raw).toMatch(/This is the group the others were compared with\.$/);
+  });
+  it("the week maps to a group by the days ticked; untouched is no answer", () => {
+    expect(weekGroup(groups, null)).toBe(-1);
+    expect(weekGroup(groups, [false, false, false, false, false, false, false])).toBe(0);
+    expect(weekGroup(groups, [true, false, true, false, false, false, false])).toBe(1);
+    expect(weekGroup(groups, [true, true, true, true, true, false, false])).toBe(2);
   });
 });

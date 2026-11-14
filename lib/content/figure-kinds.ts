@@ -149,7 +149,7 @@ export function specProblems(raw: unknown, where: string, lookup: (id: string) =
 
 /** A number the read cites: { n, ref } (checked against its passage by the lint's params walk). */
 const Cited = z.object({ n: z.number(), ref: z.string() });
-const Group = z.object({ from: Cited, to: Cited, meanAge: Cited.optional() });
+const Group = z.object({ from: Cited, to: Cited, meanAge: Cited.optional(), died: Cited.optional(), total: Cited.optional() });
 
 /**
  * What a kind needs beyond its spec, in the simulator's params, and how the two line up.

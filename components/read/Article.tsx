@@ -190,6 +190,11 @@ function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent 
           </div>
         )}
       </dl>
+      {content.auditFigure && (
+        <Receipt title={content.auditFigure.title.map((s) => s.text).join(" ")}>
+          <div className="mt-2" data-audit-figure><Pictured slug={paper.slug} figure={content.auditFigure.figure} facts={facts} context={context} /></div>
+        </Receipt>
+      )}
       {audit && (
         <>
           <Receipt title="The size of the effect">

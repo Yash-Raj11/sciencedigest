@@ -28,7 +28,7 @@ import { freeContent } from "@/lib/content";
 import { glanceView, insideRows, whyHeading } from "@/lib/content/glance";
 import { factSourceLine } from "@/lib/content/source-line";
 import type { GlanceView, PaperContent, PaperMeta, ResolvedFact } from "@/lib/content/types";
-import type { GroupEdges } from "@/components/figures/association-layout";
+import { gridWordsOf, type GroupEdges } from "@/components/figures/association-layout";
 
 export const FEED_PAGE = 20;
 
@@ -55,7 +55,8 @@ function KindGlance({ content, view }: { content: PaperContent; view: GlanceView
   }
   if (spec.kind === "association-curve") {
     const groups = content.simulator.params.groups as GroupEdges[] | undefined;
-    return groups ? <AssociationGlance adjusted={many(spec.simulator.adjusted)} groups={groups} alt={view.alt} x={x} y={y} /> : null;
+    const rawNote = (content.simulator.words?.rawNote ?? []).map((s) => s.text).join(" ");
+    return groups ? <AssociationGlance raw={many(spec.simulator.raw)} groups={groups} alt={view.alt} words={gridWordsOf(content)} rawNote={rawNote || undefined} x={x} /> : null;
   }
   return null;
 }

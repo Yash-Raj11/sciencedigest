@@ -8,7 +8,7 @@
  * reader can tap through to the passage.
  */
 
-import type { GroupEdges } from "@/components/figures/association-layout";
+import { gridWordsOf, type GroupEdges } from "@/components/figures/association-layout";
 import { AssociationCurve } from "@/components/figures/kinds/AssociationCurve";
 import { Decay } from "@/components/figures/kinds/Decay";
 import { FROM_THE_PAPER, factSourceLine } from "@/lib/content/source-line";
@@ -47,13 +47,17 @@ export function KindSimulator({ content, observational }: { content: PaperConten
     const raw = many(spec.simulator.raw);
     const groups = content.simulator.params.groups as GroupEdges[] | undefined;
     if (!groups) return null;
+    const plateauFact = content.simulator.params.plateau as ResolvedFact | undefined;
+    const plateauLabel = content.simulator.params.plateauLabel as string | undefined;
     // The first raw share's source line stands for all: every value of this kind is the paper's own.
     return (
       <AssociationCurve
         mode="full" raw={raw} adjusted={many(spec.simulator.adjusted)} groups={groups} alt={alt}
         sourceLine={raw[0] ? factSourceLine(raw[0], content) : FROM_THE_PAPER} observational={observational}
-        ask={say("ask", "text-lg font-medium leading-snug")} headline={say("headline", "text-lg font-medium leading-snug")}
-        who={say("who", "text-base leading-snug")}
+        ask={say("ask", "text-lg font-medium leading-snug")} headline={say("headline", "headline text-[1.0625rem]")}
+        who={say("who", "text-base leading-snug")} words={gridWordsOf(content)}
+        notes={{ raw: say("rawNote", "text-sm leading-snug text-muted"), stripTitle: say("stripTitle", "font-medium"), stripUnder: say("stripUnder", "text-sm leading-snug text-muted") }}
+        plateau={plateauFact && plateauLabel && words.plateau ? { fact: plateauFact, label: plateauLabel, words: say("plateau", "text-sm leading-snug text-muted") } : undefined}
       />
     );
   }

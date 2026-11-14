@@ -343,7 +343,7 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   // Collect every sentence a reader could see ----------------------------------
   const all: Located[] = [];
   const read: Located[] = [];
-  const LEGACY_RECEIPTS = /^(sections\.(lower-bound|missed)\[|limitations\[)/;
+  const LEGACY_RECEIPTS = /^(sections\.(lower-bound|missed)\[|limitations\[|auditFigure\.)/;
   function take(where: string, markup: string, opts: { headline?: boolean; inRead?: boolean; layer?: Layer } = {}): Sentence[] {
     try {
       const sentences = parseMarkup(markup);
@@ -394,7 +394,7 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   {
     const own = layers
       ? [layers.mechanism.figure, layers.protocol.figure, layers.audit.figure]
-      : ["figure" in ed ? ed.figure : undefined];
+      : ["figure" in ed ? ed.figure : undefined, "auditFigure" in ed ? ed.auditFigure : undefined];
     const ids = own.filter((f) => f != null).map((f) => f!.figure);
     if (ed.glance.figure === "simulator") {
       if (ed.simulator.spec === undefined) fail("glance", "glance.figure", `"simulator" needs a simulator drawn by kind (simulator.spec); name one of the read's figures instead: ${ids.join(", ") || "none"}`);
@@ -420,6 +420,7 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
         body.paragraphs.forEach((p, i) => take(`layers.${layer}[${i}]`, p, { inRead: true, layer }));
       }
       if (body.figure) {
+        if (body.figure.headline) take(`layers.${layer}.figure.headline`, body.figure.headline, { inRead: true, layer });
         take(`layers.${layer}.figure.caption`, body.figure.caption, { inRead: true, layer });
         // Alt text is read aloud, not shown: held to every rule, but outside the word budget.
         take(`layers.${layer}.figure.alt`, body.figure.alt);
@@ -446,8 +447,15 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
     weakEnd = bySection.get("lower-bound") ?? [];
     limitationSentences = legacy.limitations.map((l, i) => take(`limitations[${i}]`, l, { inRead: true }));
     if (legacy.figure) {
+      if (legacy.figure.headline) take("figure.headline", legacy.figure.headline, { inRead: true });
       take("figure.caption", legacy.figure.caption, { inRead: true });
       take("figure.alt", legacy.figure.alt);
+    }
+    if (legacy.auditFigure) {
+      take("auditFigure.title", legacy.auditFigure.title, { inRead: true });
+      if (legacy.auditFigure.headline) take("auditFigure.headline", legacy.auditFigure.headline, { inRead: true });
+      take("auditFigure.caption", legacy.auditFigure.caption, { inRead: true });
+      take("auditFigure.alt", legacy.auditFigure.alt);
     }
   }
 
@@ -815,7 +823,10 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   // Figures: known to the app, described for people who cannot see them, and drawn only from facts.
   const figureDefs: [string, { figure: string; alt: string; params: Record<string, unknown>; spec?: unknown }][] = layers
     ? LAYERS.flatMap((layer) => (layers[layer].figure ? [[`layers.${layer}.figure`, layers[layer].figure!] as [string, typeof layers.mechanism.figure & object]] : []))
-    : ((ed as LegacyEditorial).figure ? [["figure", (ed as LegacyEditorial).figure!]] : []);
+    : [
+      ...((ed as LegacyEditorial).figure ? [["figure", (ed as LegacyEditorial).figure!] as [string, LegacyEditorial["figure"] & object]] : []),
+      ...((ed as LegacyEditorial).auditFigure ? [["auditFigure", (ed as LegacyEditorial).auditFigure!] as [string, LegacyEditorial["figure"] & object]] : []),
+    ];
   /**
    * A figure drawn by kind: the spec names facts only, the kind must exist, and a simulator needs a
    * range (H12). A fact of a gated context study may feed it (H7 amended): checked like any citation,

@@ -25,9 +25,8 @@
   "glance": {
     "figure": "simulator",
     "x": "Days a week at the step goal [-]",
-    "y": "Risk of death, compared with never reaching the goal [-]",
-    "alt": "For each group that reached the goal, a shaded range shows its difference in risk of death from the group that never did, below the line of no difference. [ard_1_2, ard_3_7]",
-    "note": "Ranges from the study, after its adjustments. Try it with your own week inside. [-]",
+    "alt": "Two grids of dots, one for people who never reached the step goal and one for people who did on one or two days a week. [threshold] Hollow dots are people who died within ten years, before any adjustment. [crude_0, crude_1_2]",
+    "note": "Each dot is a person, before any adjustment. Try it with your own week inside. [-]",
     "tryIt": "find your group [-]"
   },
   "sections": [
@@ -69,43 +68,75 @@
     "This is an observational study. [cohort] People in poor health walk less and are more likely to die, and no adjustment removes that completely. [confounding]",
     "Wearing a tracker can make people more active for that week, which would place some usually inactive people in the wrong group. [hawthorne]"
   ],
-  "figure": {
-    "figure": "seen-together",
-    "caption": "The gap in deaths that went with days at 8,000 steps. [threshold, ard_1_2, ard_3_7] The study watched people and assigned nothing, so this figure has no arrow. [-]",
-    "alt": "Two bars and a bracket. [-] For people with 1 to 2 step days a week, the risk of death was 14.9 points lower. [threshold, ard_1_2] For people with 3 to 7 step days, it was 16.5 points lower. [threshold, ard_3_7] The bracket under both bars says they were seen together. [-]",
+  "figure": null,
+  "auditFigure": {
+    "figure": "three-crowds",
+    "title": "Why the raw gap is so wide [-]",
+    "headline": "The three groups were different people before anyone counted a step. [ages, mobility]",
+    "caption": "Poor health can affect both step counts and survival. [confounding] The study adjusted for much of this, not all. [models, confounding] Steps were counted for one week only. [one_week]",
+    "alt": "Three columns, one for each group: no days, 1 to 2 days and 3 to 7 days a week at 8,000 steps or more. [threshold] The average ages are 63.7, 51.5 and 46.0 years. [ages] The shares with trouble walking or climbing stairs are 50.5%, 20.3% and 6.8%. [mobility, mobility_def]",
     "params": {
       "threshold": {
         "n": 8000,
         "ref": "threshold"
       },
-      "years": {
-        "n": 10,
-        "ref": "followup"
-      },
-      "few": {
-        "kind": "measured",
-        "fact": "fact:ard_1_2",
-        "from": {
-          "n": 1,
-          "ref": "threshold"
+      "mobilityWords": "had trouble walking or with stairs",
+      "groups": [
+        {
+          "from": {
+            "n": 0,
+            "ref": "threshold"
+          },
+          "to": {
+            "n": 0,
+            "ref": "threshold"
+          },
+          "age": {
+            "n": 63.7,
+            "ref": "ages"
+          },
+          "mobility": {
+            "n": 50.5,
+            "ref": "mobility"
+          }
         },
-        "to": {
-          "n": 2,
-          "ref": "threshold"
-        }
-      },
-      "many": {
-        "kind": "measured",
-        "fact": "fact:ard_3_7",
-        "from": {
-          "n": 3,
-          "ref": "threshold"
+        {
+          "from": {
+            "n": 1,
+            "ref": "threshold"
+          },
+          "to": {
+            "n": 2,
+            "ref": "threshold"
+          },
+          "age": {
+            "n": 51.5,
+            "ref": "ages"
+          },
+          "mobility": {
+            "n": 20.3,
+            "ref": "mobility"
+          }
         },
-        "to": {
-          "n": 7,
-          "ref": "threshold"
+        {
+          "from": {
+            "n": 3,
+            "ref": "threshold"
+          },
+          "to": {
+            "n": 7,
+            "ref": "threshold"
+          },
+          "age": {
+            "n": 46.0,
+            "ref": "ages"
+          },
+          "mobility": {
+            "n": 6.8,
+            "ref": "mobility"
+          }
         }
-      }
+      ]
     }
   },
   "takeaways": [
@@ -186,6 +217,14 @@
           "meanAge": {
             "n": 63.7,
             "ref": "ages"
+          },
+          "died": {
+            "n": 257,
+            "ref": "crude_0"
+          },
+          "total": {
+            "n": 632,
+            "ref": "crude_0"
           }
         },
         {
@@ -200,6 +239,14 @@
           "meanAge": {
             "n": 51.5,
             "ref": "ages"
+          },
+          "died": {
+            "n": 75,
+            "ref": "crude_1_2"
+          },
+          "total": {
+            "n": 532,
+            "ref": "crude_1_2"
           }
         },
         {
@@ -214,15 +261,38 @@
           "meanAge": {
             "n": 46.0,
             "ref": "ages"
+          },
+          "died": {
+            "n": 107,
+            "ref": "crude_3_7"
+          },
+          "total": {
+            "n": 1937,
+            "ref": "crude_3_7"
           }
         }
-      ]
+      ],
+      "event": "died",
+      "events": "deaths",
+      "years": {
+        "n": 10,
+        "ref": "followup"
+      },
+      "plateau": "fact:plateau",
+      "plateauLabel": "the authors: levelled off"
     },
     "words": {
-      "alt": "Three bars, one for each group of days a week at 8,000 steps or more. [threshold] Each bar is the share of that group who died within 10 years, before any adjustment: the bars fall from the first group to the last. [followup, crude_0, crude_1_2, crude_3_7]",
-      "headline": "Before any adjustment, 40.7% of people who reached 8,000 steps on no day of the week died within 10 years. [threshold, followup, crude_0] Among people who did on 3 to 7 days, 5.5% did. [threshold, crude_3_7]",
+      "alt": "Three grids of dots, one for each group of days a week at 8,000 steps or more. [threshold] Each dot is a person; a hollow dot is a person who died within 10 years, before any adjustment. [followup, crude_0, crude_1_2, crude_3_7] Under the grids, two shaded ranges show each group's adjusted difference from the group with no such days. [ard_1_2, ard_3_7]",
+      "headline": "Of the people who never reached 8,000 steps, 40.7% had died ten years on. [threshold, crude_0] With 1–2 days a week, 14.1% had. [threshold, crude_1_2]",
       "ask": "On how many days a week do you reach 8,000 steps? [threshold]",
-      "who": "3,101 US adults aged 20 or older wore a step counter for one week in 2005 and 2006, and national death records followed them afterwards. [sample, cohort]"
+      "who": "3,101 US adults aged 20 or older wore a step counter for one week in 2005 and 2006, and national death records followed them afterwards. [sample, cohort]",
+      "kept": "Alive at 10 years [followup]",
+      "happened": "Died [-]",
+      "later": "10 years later [followup]",
+      "rawNote": "Raw counts. [crude_0, crude_1_2, crude_3_7] The groups differ in age and health. [ages, mobility]",
+      "stripTitle": "After allowing for age, health and habits [models]",
+      "stripUnder": "Range for the study average. [-]",
+      "plateau": "The authors say the lower risk levelled off at 3–4 days. [plateau]"
     }
   },
   "carousel": {

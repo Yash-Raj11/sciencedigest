@@ -21,7 +21,7 @@
 
 export const FIGURE_KEYS = [
   "daytime-caffeine-sleep/lock-and-key",
-  "steps-days-per-week/seen-together",
+  "steps-days-per-week/three-crowds",
   "hiit-body-composition/what-was-measured",
   "turmeric-pepper-breakfast/doorbell",
   "turmeric-pepper-breakfast/five-readings",

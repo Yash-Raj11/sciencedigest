@@ -137,11 +137,11 @@ test("the Life Game check catches one orange number", async ({ page }) => {
 });
 
 test.describe("finding cards: plain headline, one supporting line, source line", () => {
-  test("steps: the big number, what it is, the range as a bar, no CI in words", async ({ page }) => {
+  test("steps: the headline states its own number (no minus with 'lower'), the range as a bar, no CI in words", async ({ page }) => {
     await page.goto("/papers/steps-days-per-week");
     const card = page.locator("article [data-finding-card]");
-    await expect(card.locator("[data-finding-number]")).toHaveText("−14.9 points");
-    await expect(card.locator(".headline")).toHaveText(/^lower 10-year risk of death, compared with 0 days a week\./);
+    await expect(card.locator("[data-finding-number]")).toHaveCount(0);
+    await expect(card.locator(".headline")).toHaveText(/^People with 1–2 such days had a 14\.9-point lower 10-year risk of death than people with none\./);
     await expect(card.locator("[data-finding-range] svg[data-band]")).toHaveAttribute("aria-label", "Range for the study average: −18.8 to −10.9 points");
     await expect(card).not.toContainText(/\bCI\b|confidence interval|significan/i);
   });
@@ -195,9 +195,11 @@ test.describe("feed card: the key idea at a glance", () => {
     expect([...order].sort((a, b) => a - b)).toEqual(order);
   });
 
-  test("the still figure prints no number on any card", async ({ page }) => {
+  // R7 (owner, 2026-11-15): steps' card draws figure 3B's still view, whose printed shares are
+  // checked in scripts/glance.test.ts (every number printed in the paper, none reader-dependent).
+  test("the still figure prints no number on any card but steps' 3B still", async ({ page }) => {
     await page.goto("/", { waitUntil: "networkidle" });
-    const texts = await page.locator("[data-post] [data-glance] svg text").allTextContents();
+    const texts = await page.locator('[data-post]:not([data-post="steps-days-per-week"]) [data-glance] svg text').allTextContents();
     expect(texts.length).toBeGreaterThan(0);
     expect(texts.filter((t) => /\p{N}/u.test(t))).toEqual([]);
   });

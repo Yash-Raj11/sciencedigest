@@ -1410,87 +1410,108 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         }
       ]
     ],
-    "figure": {
-      "figure": "seen-together",
-      "caption": [
+    "auditFigure": {
+      "title": [
         {
-          "text": "The gap in deaths that went with days at 8,000 steps.",
-          "refs": [
-            "threshold",
-            "ard_1_2",
-            "ard_3_7"
-          ]
-        },
-        {
-          "text": "The study watched people and assigned nothing, so this figure has no arrow.",
+          "text": "Why the raw gap is so wide",
           "refs": []
         }
       ],
-      "alt": "Two bars and a bracket. For people with 1 to 2 step days a week, the risk of death was 14.9 points lower. For people with 3 to 7 step days, it was 16.5 points lower. The bracket under both bars says they were seen together.",
-      "params": {
-        "threshold": {
-          "n": 8000,
-          "ref": "threshold"
-        },
-        "years": {
-          "n": 10,
-          "ref": "followup"
-        },
-        "few": {
-          "kind": "measured",
-          "fact": {
-            "id": "ard_1_2",
-            "kind": "estimate",
-            "label": "Fully adjusted risk difference, 1-2 days vs 0 days, all-cause",
-            "quote": "all-cause mortality risk was lower among those who took 8000 steps or more 1 to 2 days per week (aRD, −14.9%; 95% CI −18.8% to −10.9%)",
-            "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
-            "estimate": {
-              "outcome": "10-year risk of death from any cause",
-              "measure": "aRD",
-              "point": -14.9,
-              "ciLow": -18.8,
-              "ciHigh": -10.9,
-              "unit": "points",
-              "absolute": true,
-              "tier": "low"
-            }
-          },
-          "from": {
-            "n": 1,
-            "ref": "threshold"
-          },
-          "to": {
-            "n": 2,
-            "ref": "threshold"
+      "figure": {
+        "figure": "three-crowds",
+        "headline": [
+          {
+            "text": "The three groups were different people before anyone counted a step.",
+            "refs": [
+              "ages",
+              "mobility"
+            ]
           }
-        },
-        "many": {
-          "kind": "measured",
-          "fact": {
-            "id": "ard_3_7",
-            "kind": "estimate",
-            "label": "Fully adjusted risk difference, 3-7 days vs 0 days, all-cause",
-            "quote": "3 to 7 days per week (aRD, −16.5%; 95% CI, −20.4% to −12.5%)",
-            "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
-            "estimate": {
-              "outcome": "10-year risk of death from any cause",
-              "measure": "aRD",
-              "point": -16.5,
-              "ciLow": -20.4,
-              "ciHigh": -12.5,
-              "unit": "points",
-              "absolute": true,
-              "tier": "low"
-            }
+        ],
+        "caption": [
+          {
+            "text": "Poor health can affect both step counts and survival.",
+            "refs": [
+              "confounding"
+            ]
           },
-          "from": {
-            "n": 3,
-            "ref": "threshold"
+          {
+            "text": "The study adjusted for much of this, not all.",
+            "refs": [
+              "models",
+              "confounding"
+            ]
           },
-          "to": {
-            "n": 7,
-            "ref": "threshold"
+          {
+            "text": "Steps were counted for one week only.",
+            "refs": [
+              "one_week"
+            ]
           }
+        ],
+        "alt": "Three columns, one for each group: no days, 1 to 2 days and 3 to 7 days a week at 8,000 steps or more. The average ages are 63.7, 51.5 and 46.0 years. The shares with trouble walking or climbing stairs are 50.5%, 20.3% and 6.8%.",
+        "params": {
+          "threshold": {
+            "n": 8000,
+            "ref": "threshold"
+          },
+          "mobilityWords": "had trouble walking or with stairs",
+          "groups": [
+            {
+              "from": {
+                "n": 0,
+                "ref": "threshold"
+              },
+              "to": {
+                "n": 0,
+                "ref": "threshold"
+              },
+              "age": {
+                "n": 63.7,
+                "ref": "ages"
+              },
+              "mobility": {
+                "n": 50.5,
+                "ref": "mobility"
+              }
+            },
+            {
+              "from": {
+                "n": 1,
+                "ref": "threshold"
+              },
+              "to": {
+                "n": 2,
+                "ref": "threshold"
+              },
+              "age": {
+                "n": 51.5,
+                "ref": "ages"
+              },
+              "mobility": {
+                "n": 20.3,
+                "ref": "mobility"
+              }
+            },
+            {
+              "from": {
+                "n": 3,
+                "ref": "threshold"
+              },
+              "to": {
+                "n": 7,
+                "ref": "threshold"
+              },
+              "age": {
+                "n": 46,
+                "ref": "ages"
+              },
+              "mobility": {
+                "n": 6.8,
+                "ref": "mobility"
+              }
+            }
+          ]
         }
       }
     },
@@ -1539,6 +1560,14 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
             "meanAge": {
               "n": 63.7,
               "ref": "ages"
+            },
+            "died": {
+              "n": 257,
+              "ref": "crude_0"
+            },
+            "total": {
+              "n": 632,
+              "ref": "crude_0"
             }
           },
           {
@@ -1553,6 +1582,14 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
             "meanAge": {
               "n": 51.5,
               "ref": "ages"
+            },
+            "died": {
+              "n": 75,
+              "ref": "crude_1_2"
+            },
+            "total": {
+              "n": 532,
+              "ref": "crude_1_2"
             }
           },
           {
@@ -1567,9 +1604,30 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
             "meanAge": {
               "n": 46,
               "ref": "ages"
+            },
+            "died": {
+              "n": 107,
+              "ref": "crude_3_7"
+            },
+            "total": {
+              "n": 1937,
+              "ref": "crude_3_7"
             }
           }
-        ]
+        ],
+        "event": "died",
+        "events": "deaths",
+        "years": {
+          "n": 10,
+          "ref": "followup"
+        },
+        "plateau": {
+          "id": "plateau",
+          "kind": "statement",
+          "label": "Where the curve flattened",
+          "quote": "the risk of mortality at 10 years rapidly decreased as the number of days per week taking 8000 steps or more increased and plateaued at 3 to 4 days"
+        },
+        "plateauLabel": "the authors: levelled off"
       },
       "spec": {
         "kind": "association-curve",
@@ -1723,35 +1781,41 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       "words": {
         "alt": [
           {
-            "text": "Three bars, one for each group of days a week at 8,000 steps or more.",
+            "text": "Three grids of dots, one for each group of days a week at 8,000 steps or more.",
             "refs": [
               "threshold"
             ]
           },
           {
-            "text": "Each bar is the share of that group who died within 10 years, before any adjustment: the bars fall from the first group to the last.",
+            "text": "Each dot is a person; a hollow dot is a person who died within 10 years, before any adjustment.",
             "refs": [
               "followup",
               "crude_0",
               "crude_1_2",
               "crude_3_7"
             ]
+          },
+          {
+            "text": "Under the grids, two shaded ranges show each group's adjusted difference from the group with no such days.",
+            "refs": [
+              "ard_1_2",
+              "ard_3_7"
+            ]
           }
         ],
         "headline": [
           {
-            "text": "Before any adjustment, 40.7% of people who reached 8,000 steps on no day of the week died within 10 years.",
+            "text": "Of the people who never reached 8,000 steps, 40.7% had died ten years on.",
             "refs": [
               "threshold",
-              "followup",
               "crude_0"
             ]
           },
           {
-            "text": "Among people who did on 3 to 7 days, 5.5% did.",
+            "text": "With 1–2 days a week, 14.1% had.",
             "refs": [
               "threshold",
-              "crude_3_7"
+              "crude_1_2"
             ]
           }
         ],
@@ -1771,6 +1835,67 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "cohort"
             ]
           }
+        ],
+        "kept": [
+          {
+            "text": "Alive at 10 years",
+            "refs": [
+              "followup"
+            ]
+          }
+        ],
+        "happened": [
+          {
+            "text": "Died",
+            "refs": []
+          }
+        ],
+        "later": [
+          {
+            "text": "10 years later",
+            "refs": [
+              "followup"
+            ]
+          }
+        ],
+        "rawNote": [
+          {
+            "text": "Raw counts.",
+            "refs": [
+              "crude_0",
+              "crude_1_2",
+              "crude_3_7"
+            ]
+          },
+          {
+            "text": "The groups differ in age and health.",
+            "refs": [
+              "ages",
+              "mobility"
+            ]
+          }
+        ],
+        "stripTitle": [
+          {
+            "text": "After allowing for age, health and habits",
+            "refs": [
+              "models"
+            ]
+          }
+        ],
+        "stripUnder": [
+          {
+            "text": "Range for the study average.",
+            "refs": []
+          }
+        ],
+        "plateau": [
+          {
+            "text": "The authors say the lower risk levelled off at 3–4 days.",
+            "refs": [
+              "plateau"
+            ]
+          }
         ]
       }
     },
@@ -1782,24 +1907,25 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
           "refs": []
         }
       ],
-      "y": [
-        {
-          "text": "Risk of death, compared with never reaching the goal",
-          "refs": []
-        }
-      ],
+      "y": [],
       "alt": [
         {
-          "text": "For each group that reached the goal, a shaded range shows its difference in risk of death from the group that never did, below the line of no difference.",
+          "text": "Two grids of dots, one for people who never reached the step goal and one for people who did on one or two days a week.",
           "refs": [
-            "ard_1_2",
-            "ard_3_7"
+            "threshold"
+          ]
+        },
+        {
+          "text": "Hollow dots are people who died within ten years, before any adjustment.",
+          "refs": [
+            "crude_0",
+            "crude_1_2"
           ]
         }
       ],
       "note": [
         {
-          "text": "Ranges from the study, after its adjustments. Try it with your own week inside.",
+          "text": "Each dot is a person, before any adjustment. Try it with your own week inside.",
           "refs": []
         }
       ],

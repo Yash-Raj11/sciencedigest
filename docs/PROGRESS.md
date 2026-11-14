@@ -152,6 +152,10 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       figures first (steps 3A in the audit layer and 3B; HIIT 4B; turmeric 2A); the sketches
       (caffeine 1A/1B, turmeric 2B, HIIT 4A) only once their concept is approved. Feed cards draw
       figure B's still view (R7). Every figure obeys the orange budget and the sketch rule.
+  - [x] Owner review 2026-11-15: headline fixes + rule `direction` (`f52af35`); hosted seed pushed once.
+  - [ ] Steps 3A (audit) + 3B: built, committed, NOT pushed. ⏸ Waiting on the owner: how 3A's
+        baseline-table facts may be bound (one browser test red). Screens: `docs/evidence/figures-v2/steps-days-per-week/`.
+  - [ ] HIIT 4B, turmeric 2A, then the sketches (caffeine 1A/1B, turmeric 2B; HIIT 4A after fat-free-mass).
 - [ ] The pipeline proposes the figure kind and the simulator inputs (`prompts.ts`).
 - [ ] Reader inputs stored on the device only (like the theme).
 - [ ] Run the coverage pass on the 4 existing papers, so their checklist rows stop showing

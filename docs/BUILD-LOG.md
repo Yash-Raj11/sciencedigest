@@ -1468,3 +1468,37 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   would print a negative headline number in front of it. The card prints no number in front of a
   headline that states the result's own number (`headlineStatesNumber`, `lib/pipeline/format.ts`).
   Fixtures: `lib/pipeline/direction.test.ts` (3 breaks fail with the rule switched off).
+
+## 2026-11-15, Hosted seed (owner's go) and steps figures 3A + 3B
+
+- Hosted seed pushed once on the owner's go: dry run (seed only, no migrations), push, seed file
+  applied; 4 papers, 31 steps, the new steps finding live; dry run after: up to date
+  (`docs/evidence/figures-v2/hosted-seed.txt`). The steps commit below changes `paper_content`
+  again (auditFigure, simulator words), so hosted is one seed behind; nothing reads those
+  fields from the server for a free read (bundle), so the live site is unaffected.
+- Shared primitives: `FrequencyGrid` (`components/figures/frequency-layout.ts`: N from the base
+  rate, 100 or 1,000; events = floor, half dot for a remainder ≥ 0.5, never rounded up; exact rate
+  in the label; ordered fill from the bottom right) and an SVG `IntervalPlot`
+  (`interval-layout.ts`: baseline 0 for a difference, 1 for a ratio on a log scale; end labels
+  from the fact; overlap fallback writes the range under the row; `mirror` for rows whose words
+  carry the direction). Also `WeekStrip` (solid ticks to `from`, faint to `to`) and `Person`.
+  Tests: `scripts/frequency-interval.test.ts`.
+- 3B: the association-curve kind redrawn as three dot grids (monochrome, R4), the adjusted strip
+  (the one pastel zone; the reader's group keeps it, the other goes to an outline; "Compared with
+  your group" for 0 days), the authors' plateau as a dashed bracket, the reader's week as seven
+  toggles + "No days" (reader's marks in ink, never pastel: FIGURE-DESIGN 0.5), the result in
+  the spec's words with printed counts (`died`/`total` on the groups). Feed card = 3B still (R7):
+  two grids with exact shares. The glance "no digit" check now applies to every card but steps,
+  whose numbers are checked to be printed shares, group edges, the follow-up or the grid's N.
+- 3A: `three-crowds`, at the top of the receipts under "Why the raw gap is so wide", through a
+  new old-shape field `auditFigure` (moves to `layers.audit.figure` in 2E). FigureRef gained an
+  optional `headline` (FIGURE-DESIGN 0.3). The mechanism figure `seen-together` is retired (R3).
+- Spec differences: the 3B headline uses the printed shares ("40.7% had died ten years on")
+  instead of "about 59 / about 86 alive of 100": the lint refuses 59, 86 and 100 (not in any
+  passage), and the rule was kept. 0-days grid draws 40 hollow + a half dot (owner's "never
+  round up"), not the spec's 41. The "link, not a cause" last line is the who box's existing
+  sentence. The lint refused "lower"/"falls" in 3A's caption and alt (no cited fact states a
+  direction): reworded to "affect" and plain lists.
+- Open, for the owner: 3A's ages and mobility shares are `statement` facts (baseline table), and
+  only an estimate or finding may be drawn as measured, so 3A has no measured-bound element and
+  `paper-routes-dev.spec.ts` "draws its figure" fails for steps. Not loosened; not pushed.

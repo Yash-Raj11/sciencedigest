@@ -18,7 +18,7 @@ import { FIGURE_KEYS } from "../lib/content/figures";
 import { glanceView, insideRows, SLOTS } from "../lib/content/glance";
 import { FREE_CONTENT, PAPERS } from "../lib/content/generated";
 import type { GlanceView, PaperContent, ResolvedFact } from "../lib/content/types";
-import type { GroupEdges } from "../components/figures/association-layout";
+import { gridWordsOf, type GroupEdges } from "../components/figures/association-layout";
 import { gate } from "../lib/pipeline/gate";
 import { lint } from "../lib/pipeline/lint";
 import { REAL_LIBRARY, REAL_STUDIES } from "../lib/pipeline/fixtures/real-context";
@@ -34,7 +34,7 @@ function drawGlance(slug: string, view: GlanceView, content?: PaperContent): str
   const { x, y } = view.axes;
   if (spec.kind === "decay") return renderToStaticMarkup(createElement(DecayGlance, { halfLife: one(spec.simulator.halfLife), alt: view.alt, x, y }));
   return renderToStaticMarkup(createElement(AssociationGlance, {
-    adjusted: many(spec.simulator.adjusted), groups: content!.simulator.params.groups as GroupEdges[], alt: view.alt, x, y,
+    raw: many(spec.simulator.raw), groups: content!.simulator.params.groups as GroupEdges[], alt: view.alt, x, words: gridWordsOf(content!),
   }));
 }
 
@@ -52,7 +52,7 @@ describe("the still figure prints no number, and its shape is the study's", () =
   it("every paper has a card view", () => {
     expect(CARDS.map((c) => c.slug).sort()).toEqual(["daytime-caffeine-sleep", "hiit-body-composition", "steps-days-per-week", "turmeric-pepper-breakfast"]);
   });
-  for (const card of ["daytime-caffeine-sleep", "steps-days-per-week", "turmeric-pepper-breakfast", "hiit-body-composition"]) {
+  for (const card of ["daytime-caffeine-sleep", "turmeric-pepper-breakfast", "hiit-body-composition"]) {
     it(`${card}: words only, drawn from gated facts`, () => {
       const { html, view } = CARDS.find((c) => c.slug === card)!;
       const text = drawnText(html);
@@ -62,10 +62,27 @@ describe("the still figure prints no number, and its shape is the study's", () =
       expect(html).toMatch(/data-fact="[^"]+"/);
     });
   }
-  it("a range is a peach band: caffeine, steps and HIIT draw one; turmeric has no range and draws none", () => {
+  // R7 (owner, 2026-11-15): the feed card draws figure B's still view, "with no reader-dependent
+  // numbers". Steps' still (FIGURE-DESIGN 3B card) prints each grid's exact share, so its check is
+  // that every number drawn is a printed share, a group edge or the grid's N, and nothing says "you".
+  it("steps-days-per-week: figure 3B's still view; every number drawn is printed in the paper or is the grid's N", () => {
+    const { html, view, content } = CARDS.find((c) => c.slug === "steps-days-per-week")!;
+    const text = drawnText(html).join(" ");
+    expect(text).toContain(view.axes.x!);
+    const raw = many(content!.simulator.spec!.simulator.raw);
+    const years = (content!.simulator.params.years as { n: number }).n;
+    const allowed = new Set([100, years, ...raw.map((f) => f.estimate!.point), ...(content!.simulator.params.groups as GroupEdges[]).flatMap((g) => [g.from.n, g.to.n])]);
+    const numbers = [...text.matchAll(/\d+(?:\.\d+)?/g)].map((m) => Number(m[0]));
+    expect(numbers.length).toBeGreaterThan(0);
+    for (const n of numbers) expect(allowed.has(n), `${n} is not printed in the paper`).toBe(true);
+    expect(text).not.toMatch(/\byou(r)?\b/i);
+    expect(html).not.toContain("<button");
+    expect(html.match(/data-grid="100"/g)).toHaveLength(2);
+  });
+  it("a range is a peach band: caffeine and HIIT draw one; turmeric has none; steps' raw grids take no pastel (R4)", () => {
     const bands = Object.fromEntries(CARDS.map((c) => [c.slug, (c.html.match(/data-band/g) ?? []).length]));
     expect(bands["daytime-caffeine-sleep"]).toBe(1);
-    expect(bands["steps-days-per-week"]).toBe(2);
+    expect(bands["steps-days-per-week"]).toBe(0);
     expect(bands["hiit-body-composition"]).toBe(3);
     expect(bands["turmeric-pepper-breakfast"]).toBe(0);
   });

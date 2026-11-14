@@ -9,3 +9,7 @@ export { Label } from "./Label";
 export { LockKey } from "./LockKey";
 export { Timeline, type TimelineRow } from "./Timeline";
 export { GlanceAxes } from "./GlanceAxes";
+export { FrequencyGrid } from "./FrequencyGrid";
+export { IntervalPlot, intervalPlotHeight, type IntervalRowSpec } from "./IntervalPlot";
+export { WeekStrip, weekStripHeight } from "./WeekStrip";
+export { Person } from "./Person";
