@@ -1,5 +1,5 @@
 import { assertEvidence } from "@/lib/content/figures";
-import { BAND, INK, LINE, MUTED, strokeOf, type Evidence } from "../shared";
+import { SIGNAL_FILL, INK, LINE, MUTED, strokeOf, type Evidence } from "../shared";
 import { Label } from "./Label";
 
 /**
@@ -24,7 +24,7 @@ export function Gauge({ x, y, width, min, max, value, low, high, label, text, no
         <Label x={x} y={y} size={13} tone="muted">{label}</Label>
         <line x1={x} x2={x + width} y1={y + 16} y2={y + 16} stroke={LINE} strokeWidth={2} strokeLinecap="round" />
         {low !== null && high !== null
-          ? <rect x={at(low)} y={y + 9} width={Math.max(at(high) - at(low), 4)} height={14} rx={7} fill={BAND} data-band />
+          ? <rect x={at(low)} y={y + 9} width={Math.max(at(high) - at(low), 4)} height={14} rx={7} fill={SIGNAL_FILL} data-band />
           : null}
         <line x1={at(0)} x2={at(0)} y1={y + 5} y2={y + 27} stroke={MUTED} strokeWidth={1.5} />
         <line x1={at(value)} x2={at(value)} y1={y + 6} y2={y + 26} stroke={INK} strokeWidth={4} strokeLinecap="round" />

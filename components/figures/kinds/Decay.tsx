@@ -26,7 +26,7 @@ import { DECAY_FIELD, DECAY_FRAME, SHARE_TICKS, markAnchor, tickLabelled, decayP
 import { Figure } from "../Figure";
 import { GlanceAxes, Label } from "../primitives";
 import { GLANCE_FRAME, glanceChart } from "../glance-layout";
-import { ACCENT_TEXT, BAND, INK, LINE } from "../shared";
+import { SIGNAL_TEXT, SIGNAL_FILL, INK, LINE } from "../shared";
 import { ESTIMATE_LABEL } from "@/lib/content/figure-kinds";
 import { assertEvidence } from "@/lib/content/figures";
 import type { ResolvedFact } from "@/lib/content/types";
@@ -84,7 +84,7 @@ export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = W
               </g>
             ))}
             <line x1={left} x2={left + width} y1={bottom} y2={bottom} stroke={INK} strokeWidth={1.5} />
-            {paths.area ? <path d={paths.area} fill={BAND} data-band /> : null}
+            {paths.area ? <path d={paths.area} fill={SIGNAL_FILL} data-band /> : null}
             <path d={paths.line} fill="none" stroke={INK} strokeWidth={3} strokeLinejoin="round" strokeLinecap="round" />
           </g>
           {times.map((time, i) => (
@@ -96,9 +96,9 @@ export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = W
           {estimate && markX !== null ? (
             <g data-marker>
               <line x1={markX} x2={markX} y1={top - tick} y2={bottom} stroke={INK} strokeWidth={1.5} />
-              <line x1={markX} x2={markX} y1={place.y(estimate.share.high)} y2={place.y(estimate.share.low)} stroke={ACCENT_TEXT} strokeWidth={10} strokeLinecap="round" />
+              <line x1={markX} x2={markX} y1={place.y(estimate.share.high)} y2={place.y(estimate.share.low)} stroke={SIGNAL_TEXT} strokeWidth={10} strokeLinecap="round" />
               <Label x={markX} y={top - tick * 2} anchor={markAnchor(markX)} size={size} bold>{words.bed}</Label>
-              <Label x={markX + (markAnchor(markX) === "start" ? tick * 2 : -tick * 2)} y={place.y(estimate.share.high) - tick} anchor={markAnchor(markX)} tone="accent" size={size} bold>
+              <Label x={markX + (markAnchor(markX) === "start" ? tick * 2 : -tick * 2)} y={place.y(estimate.share.high) - tick} anchor={markAnchor(markX)} tone="signal" size={size} bold>
                 {estimate.amountWords ? `${estimate.amountWords} ${words.unit}` : estimate.percentWords}
               </Label>
             </g>
@@ -127,7 +127,7 @@ export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = W
           <div aria-live="polite" className="num mt-4 min-h-[4.5rem]" data-estimate>
             {estimate ? (
               <>
-                <p className="figure text-[2rem] text-accent-text">
+                <p className="figure text-[2rem] text-signal-evidence-text">
                   {estimate.amountWords ? `About ${estimate.amountWords} ${words.unit}` : `About ${estimate.percentWords} of it`}
                   <span className="mt-1 block font-sans text-base font-normal tracking-normal text-muted">left at bedtime</span>
                 </p>
@@ -170,7 +170,7 @@ export function DecayGlance({ halfLife, alt, x, y }: { halfLife: ResolvedFact; a
     <div data-figure-kind="decay" data-mode="glance">
       <Figure title={halfLife.label} desc={alt} height={GLANCE_FRAME.figureHeight}>
         <g data-evidence="measured" data-fact={halfLife.id}>
-          {paths.area ? <path d={paths.area} fill={BAND} data-band /> : null}
+          {paths.area ? <path d={paths.area} fill={SIGNAL_FILL} data-band /> : null}
           <path d={paths.line} fill="none" stroke={INK} strokeWidth={3} strokeLinejoin="round" strokeLinecap="round" />
         </g>
         <GlanceAxes x={x} y={y} />

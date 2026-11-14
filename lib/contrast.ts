@@ -3,7 +3,8 @@
  * token on its surface, both modes, at least 4.5:1). Pure: no React, Next or Supabase.
  */
 
-export type Mode = "light" | "dark";
+export type Mode = "dark" | "light" | "bedtime";
+export const MODES: readonly Mode[] = ["dark", "light", "bedtime"];
 
 /** "#rrggbb", or "rgb(r g b / a)" composited over `under` (a hex colour). */
 export function solid(colour: string, under?: string): string {
@@ -32,7 +33,7 @@ export function contrast(a: string, b: string): number {
   return (hi + 0.05) / (lo + 0.05);
 }
 
-/** The custom properties of the light block (`:root, [data-theme="light"]`) and the dark block. */
+/** The custom properties of each theme block: light (`:root, [data-theme="light"]`), dark, bedtime. */
 export function themeTokens(css: string): Record<Mode, Record<string, string>> {
   const block = (selector: RegExp) => {
     const body = css.match(selector)?.[1];
@@ -42,32 +43,34 @@ export function themeTokens(css: string): Record<Mode, Record<string, string>> {
   return {
     light: block(/:root,\s*\[data-theme="light"\]\s*\{([^}]*)\}/),
     dark: block(/\[data-theme="dark"\]\s*\{([^}]*)\}/),
+    bedtime: block(/\[data-theme="bedtime"\]\s*\{([^}]*)\}/),
   };
 }
 
 /** Every text token, and every surface it is set on. */
-export const TEXT_TOKENS = ["ink", "muted", "meta", "accent-text"] as const;
-export const SURFACES = ["bg", "surface"] as const;
+export const TEXT_TOKENS = ["ink", "muted", "meta", "ink-routine", "signal-evidence-text"] as const;
+export const SURFACES = ["bg", "surface", "raised", "signal-evidence-soft"] as const;
 const NAME: Record<string, string> = {
-  ink: "text", muted: "secondary", meta: "meta", "accent-text": "orange text", "accent-ink": "text on orange",
-  bg: "page", surface: "card", accent: "orange fill", raised: "raised card", band: "peach band (over the page)",
+  ink: "text", muted: "secondary", meta: "meta", "ink-routine": "habit ink", "signal-evidence-text": "finding text (orange)",
+  "on-signal-evidence-fill": "text on the finding fill",
+  bg: "page", surface: "card", raised: "raised card", "signal-evidence-soft": "finding tint", "signal-evidence-fill": "finding fill (pastel)",
 };
 
 export interface ContrastRow { mode: Mode; text: string; on: string; textValue: string; onValue: string; ratio: number }
 
-/** The table: each text token on the page and on a card, plus text on the orange fill. */
+/** The table: each text token on every surface, plus the text written on the pastel fill, all three themes. */
 export function contrastTable(css: string): ContrastRow[] {
   const tokens = themeTokens(css);
   const rows: ContrastRow[] = [];
-  for (const mode of ["dark", "light"] as const) {
+  for (const mode of MODES) {
     const t = tokens[mode];
     const pairs: [string, string][] = [
       ...TEXT_TOKENS.flatMap((text) => SURFACES.map((on) => [text, on] as [string, string])),
-      ["ink", "raised"], ["muted", "raised"], ["accent-ink", "accent"], ["ink", "band"], ["muted", "band"],
+      ["on-signal-evidence-fill", "signal-evidence-fill"],
     ];
     for (const [text, on] of pairs) {
-      // The band is translucent: measured as it shows, over the page.
-      const surface = on === "band" ? solid(t.band, t.bg) : t[on];
+      // A translucent surface is measured as it shows, over the page.
+      const surface = solid(t[on], t.bg);
       rows.push({ mode, text: NAME[text], on: NAME[on], textValue: t[text], onValue: surface, ratio: contrast(t[text], surface) });
     }
   }
@@ -75,7 +78,7 @@ export function contrastTable(css: string): ContrastRow[] {
 }
 
 export function formatContrastTable(rows: ContrastRow[]): string {
-  const lines = ["| Mode | Text | On | Text value | Surface value | Ratio | ≥ 4.5 |", "|---|---|---|---|---|---|---|"];
+  const lines = ["| Theme | Text | On | Text value | Surface value | Ratio | ≥ 4.5 |", "|---|---|---|---|---|---|---|"];
   for (const r of rows) lines.push(`| ${r.mode} | ${r.text} | ${r.on} | ${r.textValue} | ${r.onValue} | ${r.ratio.toFixed(2)} | ${r.ratio >= 4.5 ? "yes" : "NO"} |`);
   return lines.join("\n");
 }

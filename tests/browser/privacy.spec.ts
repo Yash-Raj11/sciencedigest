@@ -34,7 +34,7 @@ test.beforeEach(async ({ page }) => {
   await page.route("https://challenges.cloudflare.com/**", (route) => route.abort("blockedbyclient"));
 });
 
-for (const theme of ["dark", "light"] as const) {
+for (const theme of ["dark", "light", "bedtime"] as const) {
   test(`the privacy page renders in ${theme}`, async ({ page }) => {
     await page.addInitScript((t) => localStorage.setItem("sd-theme", t), theme);
     const response = await page.goto("/privacy");

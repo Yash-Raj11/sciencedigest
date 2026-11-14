@@ -25,7 +25,7 @@ import { BandStrip } from "../BandStrip";
 import { Figure } from "../Figure";
 import { GlanceAxes, Label } from "../primitives";
 import { GLANCE_FRAME, associationGlance, glanceDrawable } from "../glance-layout";
-import { BAND, INK, MUTED } from "../shared";
+import { SIGNAL_FILL, INK, MUTED } from "../shared";
 import { assertEvidence } from "@/lib/content/figures";
 import type { ResolvedFact } from "@/lib/content/types";
 
@@ -81,7 +81,7 @@ export function AssociationCurve({ mode, raw, adjusted, groups, alt, sourceLine,
           {ask ? <div aria-hidden className="font-medium leading-snug">{ask}</div> : null}
           <div className="mt-3 grid grid-cols-4 gap-2" role="radiogroup">
             {choices(groups).map((value) => (
-              <label key={value} className={`${DAY_BUTTON} ${picked === value ? "border-ink bg-ink text-bg" : "border-line bg-bg text-ink"}`}>
+              <label key={value} className={`${DAY_BUTTON} ${picked === value ? "border-signal-evidence-fill bg-signal-evidence-fill text-on-signal-evidence-fill" : "border-line bg-bg text-ink"}`}>
                 <input type="radio" name={`${id}-value`} value={value} checked={picked === value} onChange={() => setPicked(value)} className="sr-only" aria-label={`${value} ${unit}`} />
                 <span aria-hidden className="num">{value}</span>
               </label>
@@ -98,12 +98,12 @@ export function AssociationCurve({ mode, raw, adjusted, groups, alt, sourceLine,
                   <p className="headline mt-1">The group the others were compared with</p>
                 ) : view.difference && view.place ? (
                   <>
-                    <p className="figure mt-1 text-[2rem] text-accent-text" data-adjusted>
+                    <p className="figure mt-1 text-[2rem] text-signal-evidence-text" data-adjusted>
                       {view.difference.headline}
                       <span className="mt-1 block font-sans text-base font-normal tracking-normal text-muted">adjusted, compared with {view.first}</span>
                     </p>
                     <div className="mt-3">
-                      <BandStrip band={view.difference.band} point={view.point} label={`Range for the study average: ${view.difference.bandWords}`} accent />
+                      <BandStrip band={view.difference.band} point={view.point} label={`Range for the study average: ${view.difference.bandWords}`} signal />
                     </div>
                     <p className="mt-1 text-base leading-snug">
                       After the study&apos;s adjustments, {view.outcome} was {view.difference.headline} than at {view.first}.
@@ -159,7 +159,7 @@ export function AssociationGlance({ adjusted, groups, alt, x, y }: { adjusted: R
         <Label x={right} y={zeroY + GLANCE_FRAME.size * 1.4} anchor="end" tone="muted" size={GLANCE_FRAME.size}>no difference</Label>
         {columns.map((column, i) => (column.fact ? (
           <g key={column.fact.id} data-evidence="measured" data-fact={column.fact.id}>
-            {column.band ? <rect x={column.mid - column.width / 2} y={column.band.top} width={column.width} height={column.band.bottom - column.band.top} rx={6} fill={BAND} data-band /> : null}
+            {column.band ? <rect x={column.mid - column.width / 2} y={column.band.top} width={column.width} height={column.band.bottom - column.band.top} rx={6} fill={SIGNAL_FILL} data-band /> : null}
             <line x1={column.mid - column.width / 2} x2={column.mid + column.width / 2} y1={column.pointY} y2={column.pointY} stroke={INK} strokeWidth={3} strokeLinecap="round" />
           </g>
         ) : (

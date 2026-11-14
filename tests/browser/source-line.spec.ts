@@ -61,3 +61,20 @@ test("no screen shows an evidence weight", async ({ page }) => {
     expect(await page.locator("body").innerText(), path).not.toMatch(/×\s?[01](?:\.\d)?\b|\bweight earned\b/);
   }
 });
+
+test("the Life Game shows weights only inside the tap-to-open explainer, with a worked sum", async ({ page }) => {
+  await page.goto("/today", { waitUntil: "networkidle" });
+  await expect(page.locator("[data-scoring-explainer]")).toHaveCount(0);
+  await page.getByRole("button", { name: "How scoring works" }).click();
+  const explainer = page.locator("[data-scoring-explainer]");
+  await expect(explainer).toContainText("strong evidence counts ×1.0");
+  await expect(explainer).toContainText("early evidence counts ×0.4");
+  await expect(explainer.locator("[data-worked-sum]")).toContainText("1.0 of 1.4 = 71%");
+  // Outside the explainer the page still shows no weight.
+  const outside = await page.evaluate(() => {
+    const body = document.body.cloneNode(true) as HTMLElement;
+    body.querySelector("[data-scoring-explainer]")?.remove();
+    return body.innerText;
+  });
+  expect(outside).not.toMatch(/×\s?[01](?:\.\d)?\b/);
+});

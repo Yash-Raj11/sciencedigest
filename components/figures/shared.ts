@@ -15,14 +15,14 @@ import type { ResolvedFact } from "@/lib/content/types";
 export const INK = "var(--ink)";
 export const MUTED = "var(--muted)";
 export const LINE = "var(--line)";
-export const ACCENT = "var(--accent)";
-export const ACCENT_TEXT = "var(--accent-text)";
+/** This paper's finding, as small bright text or a short mark: never a fill. */
+export const SIGNAL_TEXT = "var(--signal-evidence-text)";
 export const SURFACE = "var(--surface)";
 export const META = "var(--meta)";
-/** Peach: a surface for a range or an uncertainty band, never text. */
-export const BAND = "var(--band)";
-/** Soft sage: reserved for concept sketches (shape only, not data). */
-export const SAGE = "var(--sage)";
+/** Pastel peach: the paper's finding as a surface (a band, a range, a result box), never text. */
+export const SIGNAL_FILL = "var(--signal-evidence-fill)";
+/** Text drawn on SIGNAL_FILL. */
+export const ON_SIGNAL_FILL = "var(--on-signal-evidence-fill)";
 export const BG = "var(--bg)";
 
 export const DASH = "5 4";

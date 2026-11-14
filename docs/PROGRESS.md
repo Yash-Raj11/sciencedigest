@@ -134,7 +134,8 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
         Reported 2026-11-14; waiting on the owner (concept-sketch ruling, SIMULATORS.md j1; whether
         a members' card may show its finding headline, BUILD-LOG "Readability handoff").
 - [ ] Owner rulings R1–R7 on FIGURE-DESIGN.md + items 1–5 (2026-11-15):
-  - [ ] IN PROGRESS: 1. Themes (Dark, Light, Bedtime; orange roles; budget test; Me setting).
+  - [x] 1. Themes: Dark, Light, Bedtime; orange roles by meaning; budget test (≤ 3 per screen);
+        Me setting; scoring explainer. `docs/evidence/themes/` (contrast.md, screenshots, gates).
 - [ ] The pipeline proposes the figure kind and the simulator inputs (`prompts.ts`).
 - [ ] Reader inputs stored on the device only (like the theme).
 - [ ] Run the coverage pass on the 4 existing papers, so their checklist rows stop showing

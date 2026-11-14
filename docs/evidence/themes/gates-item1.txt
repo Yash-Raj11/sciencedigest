@@ -1,0 +1,23 @@
+== lint
+> sciencedigest@0.1.0 lint
+> eslint
+
+exit 0
+== typecheck
+> sciencedigest@0.1.0 typecheck
+> tsc --noEmit
+
+exit 0
+== unit
+ Test Files  34 passed (34)
+      Tests  561 passed (561)
+exit 0
+== build
+exit 0
+== http
+ Test Files  2 passed (2)
+      Tests  14 passed (14)
+exit 0
+== browser
+exit 0
+  89 passed (45.0s)

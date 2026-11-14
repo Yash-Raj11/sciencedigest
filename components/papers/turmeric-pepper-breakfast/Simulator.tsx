@@ -50,7 +50,8 @@ function Outcome({ name, row }: { name: string; row: Row }) {
     <li className="flex flex-wrap items-center gap-x-3 gap-y-1 px-3.5 py-3">
       <span className="min-w-0 flex-1">
         <span className="block text-sm leading-snug text-muted">{name}</span>
-        <span className={`block font-medium leading-snug ${changed ? "text-accent-text" : "text-ink"}`}>{WORDS[row.result]}</span>
+        {/* The words say the direction; colour is not the cue (orange budget, owner 2026-11-15). */}
+        <span className="block font-medium leading-snug text-ink">{WORDS[row.result]}</span>
       </span>
       {row.fact?.finding && changed ? <GradeChip grade={row.fact.finding.tier} why={row.fact.why} /> : null}
     </li>
@@ -64,7 +65,8 @@ function TasteLine({ score, max, plain }: { score: number; max: number; plain: n
     <svg viewBox="0 0 300 44" role="img" className="mt-2 w-full" aria-label={`Taste score ${score} out of ${max}. The plain meal scored ${plain}.`}>
       <line x1={12} x2={288} y1={18} y2={18} stroke="var(--line)" strokeWidth={4} strokeLinecap="round" />
       <line x1={x(plain)} x2={x(plain)} y1={8} y2={28} stroke="var(--muted)" strokeWidth={2} />
-      <circle cx={x(score)} cy={18} r={7} fill="var(--accent)" />
+      {/* Taste is context, not the paper's key result: monochrome (docs/FIGURE-DESIGN.md 2B). */}
+      <circle cx={x(score)} cy={18} r={7} fill="var(--ink)" />
       <text x={12} y={41} fontSize={11} fill="var(--muted)">1 dislike</text>
       <text x={288} y={41} fontSize={11} fill="var(--muted)" textAnchor="end">{max} like</text>
     </svg>
@@ -88,7 +90,7 @@ export default function Simulator({ params }: SimulatorProps) {
             <label
               key={m.id}
               className={`flex min-h-12 cursor-pointer items-center justify-center rounded-xl border px-2 py-2 text-center text-sm font-medium leading-snug ${
-                m.id === meal.id ? "border-ink bg-ink text-bg" : "border-line bg-bg text-ink"
+                m.id === meal.id ? "border-signal-evidence-fill bg-signal-evidence-fill text-on-signal-evidence-fill" : "border-line bg-bg text-ink"
               }`}
             >
               <input type="radio" name="breakfast-meal" className="sr-only" checked={m.id === meal.id} onChange={() => setChosen(m.id)} />

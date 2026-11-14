@@ -85,9 +85,20 @@ describe("no screen shows a weight", () => {
     const path = join(dir, name);
     return statSync(path).isDirectory() ? files(path) : /\.(tsx?|css)$/.test(name) ? [path] : [];
   });
-  it("components/ and app/ never import a weight or print one", () => {
-    const hits = [...files("components"), ...files("app")].filter((f) => SHOWS_WEIGHT.test(readFileSync(f, "utf8")));
+  // The one exception (owner, 2026-11-15): the Life Game's tap-to-open "How scoring works"
+  // explainer, with a worked sum. Inside that file, only workedSum() and the explainer touch a weight.
+  const EXPLAINER = join("components", "game", "Dashboard.tsx");
+
+  it("components/ and app/ never import a weight or print one, outside the scoring explainer", () => {
+    const hits = [...files("components"), ...files("app")].filter((f) => f !== EXPLAINER && SHOWS_WEIGHT.test(readFileSync(f, "utf8")));
     expect(hits).toEqual([]);
+  });
+
+  it("in the Life Game, a weight appears only in workedSum() and the explainer it feeds", () => {
+    const text = readFileSync(EXPLAINER, "utf8");
+    const outside = text.replace(/export function workedSum\(\)[\s\S]*?\n}\n/, "").replace(/function HowScoringWorks\(\)[\s\S]*?\n}\n/, "").replace(/^import .*$/gm, "");
+    expect(outside.match(SHOWS_WEIGHT)).toBeNull();
+    expect(text).toMatch(/aria-expanded=\{open\}/);
   });
   it("the check catches one", () => {
     expect(SHOWS_WEIGHT.test('import { weightLabel } from "@/lib/evidence";')).toBe(true);

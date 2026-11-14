@@ -1348,3 +1348,29 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   The seed is unchanged (PaperMeta.card is bundle-only), so the hosted push of item 6 stands.
 - For the owner: should a members' card also show its finding headline and one sentence, like a
   free card? That widens amendment A, so it is your call.
+
+## 2026-11-15, Themes: Dark, Light, Bedtime; orange as "this paper's finding"
+
+- Owner's list of 2026-11-15, item 1. New main themes from the owner's values (dark #090909 /
+  #141414 / #F4F4F2 / #9A9A95 / #262626; light #FFFFFF / #F7F7F5 / #111111 / #5C5C58 / #E2E2DF).
+  The 2026-11-14 dark tokens became **Bedtime** (warm, low-glare; chosen by hand). `--meta`
+  equals `--muted` in Dark and Light: the owner gave one secondary grey.
+- Tokens renamed by meaning: `--signal-evidence-text` (bright; dark #FF6B2B, light #C8430D =
+  #E84E0F scaled by 0.86, the first step reaching 4.5:1 on white, card and tint), `-fill` (pastel:
+  dark #E8A07D, light #FFC9A8, bedtime #D49572), `-soft` (tint), `--on-signal-evidence-fill`
+  (text on the pastel; a pastel cannot carry light text in a dark theme), `--ink-routine` (habits).
+  `--accent`, `--accent-ink`, `--band`, `--sage` retired; a test fails on a retired or hue name.
+- Contrast: 63 pairs, all ≥ 4.5 (lowest 4.52, light orange text on the tint).
+  `docs/evidence/themes/contrast.md`.
+- Budget: the "orange once per screen" slot test is replaced by a count: at most 3 orange items in
+  any 844 px window at 390 px, all three themes; the marks of one chart count as one. It caught
+  the feed (5: the Try-it row's arrow counted apart) and turmeric's read (4: every changed row
+  and the taste dot were orange). Fixed by grouping the row (`data-signal-item`) and drawing
+  turmeric's rows and taste dot in ink: the words say the direction, and FIGURE-DESIGN 2B makes
+  taste context (monochrome). `/today` must hold no orange: the adherence number went to ink.
+- Selected state in a read's simulator (steps' days, turmeric's meals) is the pastel fill.
+- Weights: the Life Game bar's blocks are equal width (no bar sized by grade). "How scoring works"
+  (tap to open) shows "strong evidence counts ×1.0, early evidence counts ×0.4" and a worked sum,
+  "1.0 of 1.4 = 71%", computed from `lib/evidence.ts`. The no-weight unit test allows only that
+  file, and only inside `workedSum()` and the explainer; a browser test checks the page outside it.
+- Theme setting in Me: System / Dark / Light / Bedtime, kept on the device (`lib/theme.ts`).

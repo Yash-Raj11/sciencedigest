@@ -68,7 +68,7 @@ export function IntervalPlot({ rows, lowLabel, highLabel }: { rows: PlotRow[]; l
                   {e.ciLow !== null && e.ciHigh !== null && (
                     <span
                       aria-hidden
-                      className={`absolute top-1/2 h-2.5 -translate-y-1/2 rounded-full ${grey ? "bg-muted/50" : "bg-band"}`}
+                      className={`absolute top-1/2 h-2.5 -translate-y-1/2 rounded-full ${grey ? "bg-muted/50" : "bg-signal-evidence-fill"}`}
                       style={{ left: at(e.ciLow), width: `calc(${at(e.ciHigh)} - ${at(e.ciLow)})`, transition: "left 240ms, width 240ms" }}
                     />
                   )}

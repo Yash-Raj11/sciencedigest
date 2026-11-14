@@ -1,9 +1,9 @@
 /**
  * Prints the contrast table for the theme in app/globals.css (owner, 2026-11-14):
- * every text token on the page and on a card, both modes. The same sums are a test
+ * every text token on every surface, all three themes (2026-11-15). The same sums are a test
  * (scripts/visual-system.test.ts).
  *
- *   npx tsx scripts/contrast-table.mts > docs/evidence/readability/contrast.md
+ *   npx tsx scripts/contrast-table.mts > docs/evidence/themes/contrast.md
  */
 
 import { readFileSync } from "node:fs";

@@ -122,7 +122,7 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
         <WhoWasTested paper={paper} content={content} />
       </section>
 
-      <section aria-label="Simulator" id={SLOTS.try} className={`space-y-3 ${SLOT}`} data-accent-slot>
+      <section aria-label="Simulator" id={SLOTS.try} className={`space-y-3 ${SLOT}`}>
         <h2 className="headline">Try it</h2>
         {content.simulator.spec
           ? <KindSimulator content={content} observational={!RANDOMIZED_DESIGNS.has(paper.design as Design)} />

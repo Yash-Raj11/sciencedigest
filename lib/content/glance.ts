@@ -5,7 +5,7 @@
  *   a serif headline with the key finding ("−14.9 points lower 10-year risk of death ...")
  *   one plain sentence
  *   the still figure: axis labels only, no numeric ticks or values, the gated range as a peach band
- *   "What's inside": 3–4 rows that open the read at a slot; the "Try it" row is the card's orange
+ *   "What's inside": 3–4 rows that open the read at a slot; the "Try it" row is the card's focal orange
  *   the source line and the grade
  *
  * A members' read lists only the slots everyone can open. Pure: no React, Next or Supabase.
@@ -45,24 +45,24 @@ export function glanceView(content: PaperContent): GlanceView {
   };
 }
 
-export interface InsideRow { label: string; slot: Slot; accent: boolean }
+export interface InsideRow { label: string; slot: Slot; focal: boolean }
 
 /**
- * The card's "What's inside" rows. A free read: why it happens, the simulator (the one orange
+ * The card's "What's inside" rows. A free read: why it happens, the simulator (the focal orange
  * row), the protocol, the receipts. A members' read: only what everyone can open on its page,
  * the protocol and how sure the evidence is.
  */
 export function insideRows(input: { members: boolean; why?: string | null; tryIt?: string }): InsideRow[] {
   if (input.members) {
     return [
-      { label: "Put it in your Life Game", slot: SLOTS.protocol, accent: false },
-      { label: "How sure the evidence is", slot: SLOTS.evidence, accent: false },
+      { label: "Put it in your Life Game", slot: SLOTS.protocol, focal: false },
+      { label: "How sure the evidence is", slot: SLOTS.evidence, focal: false },
     ];
   }
   return [
-    ...(input.why ? [{ label: input.why, slot: SLOTS.why, accent: false }] : []),
-    ...(input.tryIt ? [{ label: `Try it: ${input.tryIt}`, slot: SLOTS.try, accent: true }] : []),
-    { label: "Put it in your Life Game", slot: SLOTS.protocol, accent: false },
-    { label: "The receipts", slot: SLOTS.receipts, accent: false },
+    ...(input.why ? [{ label: input.why, slot: SLOTS.why, focal: false }] : []),
+    ...(input.tryIt ? [{ label: `Try it: ${input.tryIt}`, slot: SLOTS.try, focal: true }] : []),
+    { label: "Put it in your Life Game", slot: SLOTS.protocol, focal: false },
+    { label: "The receipts", slot: SLOTS.receipts, focal: false },
   ];
 }

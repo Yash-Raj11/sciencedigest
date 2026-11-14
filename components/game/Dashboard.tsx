@@ -10,6 +10,8 @@ import { HabitTiles } from "./HabitTiles";
 import { Notice, ProgressRing } from "@/components/protocol/primitives";
 import { Sheet } from "@/components/shell/Sheet";
 import { papers } from "@/lib/content";
+import { WEIGHT_TENTHS, pct, weightLabel } from "@/lib/evidence";
+import { GRADE_WORDS } from "@/lib/evidence-words";
 import { useStore } from "@/lib/store";
 import { useGame, type Game } from "@/lib/store/game";
 
@@ -22,7 +24,7 @@ function ScoreCard({ game, hydrated }: { game: Game; hydrated: boolean }) {
     <section aria-label="Your score" className="rounded-2xl border border-line bg-surface p-4">
       <div className="flex items-end justify-between gap-4">
         <div>
-          <p className="figure text-[4.5rem] text-accent-text" data-accent-slot>{hydrated ? result.pct : 0}<span className="text-[0.45em]">%</span></p>
+          <p className="figure text-[4.5rem] text-ink-routine">{hydrated ? result.pct : 0}<span className="text-[0.45em]">%</span></p>
           <p className="mt-2 text-sm font-medium">Adherence, weighted by evidence</p>
         </div>
       </div>
@@ -52,17 +54,44 @@ function ScoreCard({ game, hydrated }: { game: Game; hydrated: boolean }) {
         ))}
       </ol>
 
-      <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} className="mt-4 text-sm font-medium text-ink underline underline-offset-4">
-        {open ? "Hide the explanation" : "What do these numbers mean?"}
+      <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-controls="how-scoring-works" className="mt-4 text-sm font-medium text-ink-routine underline underline-offset-4">
+        {open ? "Hide how scoring works" : "How scoring works"}
       </button>
-      {open && (
-        <div className="mt-3 space-y-2 text-sm leading-relaxed text-muted">
-          <p><strong className="text-ink">Adherence, weighted by evidence.</strong> Of everything you took on from a paper, how much is in place today, with each item counted by how well it is supported: high certainty counts 1.0, moderate 0.7, low 0.4. A habit with no study behind it counts 0 here.</p>
-          <p><strong className="text-ink">Consistency.</strong> Of today&apos;s tick boxes, how many you ticked. Every box counts the same, your own habits included.</p>
-          <p><strong className="text-ink">Neither number measures your body.</strong> A tick records that you did something. Whether anything changed is a question only a measurement can answer.</p>
-        </div>
-      )}
+      {open && <HowScoringWorks />}
     </section>
+  );
+}
+
+/**
+ * The one place a weight is shown (owner, 2026-11-15): inside this tap-to-open explainer, with a
+ * worked sum. Reads never show weights, only grade words. The multipliers and the sum come from
+ * lib/evidence.ts, so they cannot drift from the scoring.
+ */
+const EXAMPLE = { strong: "high", early: "low" } as const;
+
+export function workedSum() {
+  const strong = WEIGHT_TENTHS[EXAMPLE.strong];
+  const early = WEIGHT_TENTHS[EXAMPLE.early];
+  return {
+    strong: weightLabel(EXAMPLE.strong),
+    early: weightLabel(EXAMPLE.early),
+    done: (strong / 10).toFixed(1),
+    total: ((strong + early) / 10).toFixed(1),
+    pct: pct(strong, strong + early),
+  };
+}
+
+function HowScoringWorks() {
+  const sum = workedSum();
+  return (
+    <div id="how-scoring-works" className="mt-3 space-y-2 text-sm leading-relaxed text-muted" data-scoring-explainer>
+      <p><strong className="text-ink-routine">Adherence, weighted by evidence.</strong> Of everything you took on from a paper, how much is in place today. Each item counts by how sure its evidence is: {GRADE_WORDS.high.toLowerCase()} counts {sum.strong}, {GRADE_WORDS.low.toLowerCase()} counts {sum.early}. A habit with no study behind it counts nothing here.</p>
+      <p className="rounded-lg border border-line bg-bg px-3 py-2 text-ink-routine num" data-worked-sum>
+        Example: you took on two items, one with {GRADE_WORDS.high.toLowerCase()} ({sum.strong}) and one with {GRADE_WORDS.low.toLowerCase()} ({sum.early}). Today you did the first. {sum.done} of {sum.total} = {sum.pct}%.
+      </p>
+      <p><strong className="text-ink-routine">Consistency.</strong> Of today&apos;s tick boxes, how many you ticked. Every box counts the same, your own habits included.</p>
+      <p><strong className="text-ink-routine">Neither number measures your body.</strong> A tick records that you did something. Whether anything changed is a question only a measurement can answer.</p>
+    </div>
   );
 }
 

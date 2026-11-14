@@ -19,42 +19,68 @@
 }
 
 /*
- * THE THEME (owner, 2026-11-14). Every colour in the app comes from the tokens below.
- * To restyle the app, change these values and nothing else. Minimal: page, card and
- * text in warm neutrals, one orange, pastel surfaces for uncertainty.
+ * THE THEMES (owner, 2026-11-15). Every colour in the app comes from the tokens below, named
+ * by what they MEAN, never by hue (no "orange" token in a component). Three themes:
  *
- *   --bg          the page (never pure black)
- *   --surface     a card;  --raised  a card on a card (a passage, a sheet)
- *   --line        hairlines: cards are separated by a hairline and space, never a coloured border
- *   --ink         text;  --muted  secondary text;  --meta  labels and source lines
- *   --accent      the orange FILL. Once per screen (data-accent-slot), always with --accent-ink text
- *   --accent-text the orange that is readable as TEXT on the page and on a card
- *   --band        peach, a SURFACE ONLY: every range and uncertainty band. Never text, never a button
- *   --sage        a soft wash reserved for concept sketches ("Shape only, not data")
+ *   dark     the main dark theme, near-black and neutral
+ *   light    the main light theme, white and neutral
+ *   bedtime  warm, low-glare, for reading at night (the 2026-11-14 dark tokens)
  *
- * Contrast (WCAG, every text token on the page and on a card, both modes) is checked by
- * scripts/visual-system.test.ts, which reads this file. Two light values sit one shade
- * darker than the owner's (meta #7A746D, orange text #C24E16): those measured 4.32 and 4.47
- * on the light page, under 4.5.
+ * "System" in Me follows the device between dark and light. Bedtime is chosen by hand.
+ *
+ *   --bg          the page            --surface  a card     --raised  a card on a card
+ *   --line        hairlines and borders
+ *   --ink         text                --muted    secondary text   --meta  labels, source lines
+ *   --ink-routine the ink of daily habits and the Life Game. Monochrome: no orange there
+ *
+ * Orange means "this paper's finding". It is never "good", and the words always say the
+ * direction. Three roles, in every theme:
+ *
+ *   --signal-evidence-text  bright: small key text and numbers only, never a fill
+ *   --signal-evidence-fill  pastel peach: bars, bands, highlights, the selected state in a read.
+ *                           Anything written on it uses --on-signal-evidence-fill
+ *   --signal-evidence-soft  a faint tint behind a block of text
+ *
+ * Budget: one focal orange item per 390 px screen, at most three (tests/browser/readability.spec.ts).
+ * Contrast (every text token on every surface it sits on, all three themes, at least 4.5:1) is
+ * checked by scripts/visual-system.test.ts, which reads this file; the table is
+ * docs/evidence/themes/contrast.md. The light orange text is #E84E0F darkened until it reaches
+ * 4.5:1 on white, on a card and on the soft tint: #C8430D.
  */
 :root,
 [data-theme="light"] {
-  --bg: #faf7f2;
-  --surface: #ffffff;
+  --bg: #ffffff;
+  --surface: #f7f7f5;
   --raised: #ffffff;
-  --line: #e4ded6;
-  --ink: #161514;
-  --muted: #55504a;
-  --meta: #77716b;
-  --accent: #d9561a;
-  --accent-ink: #161514;
-  --accent-text: #c04d16;
-  --band: rgb(253 217 196 / 0.7);
-  --sage: rgb(214 228 207 / 0.7);
+  --line: #e2e2df;
+  --ink: #111111;
+  --muted: #5c5c58;
+  --meta: #5c5c58;
+  --ink-routine: #111111;
+  --signal-evidence-text: #c8430d;
+  --signal-evidence-fill: #ffc9a8;
+  --on-signal-evidence-fill: #111111;
+  --signal-evidence-soft: #fff3ec;
   color-scheme: light;
 }
 
 [data-theme="dark"] {
+  --bg: #090909;
+  --surface: #141414;
+  --raised: #1c1c1c;
+  --line: #262626;
+  --ink: #f4f4f2;
+  --muted: #9a9a95;
+  --meta: #9a9a95;
+  --ink-routine: #f4f4f2;
+  --signal-evidence-text: #ff6b2b;
+  --signal-evidence-fill: #e8a07d;
+  --on-signal-evidence-fill: #111111;
+  --signal-evidence-soft: #22150e;
+  color-scheme: dark;
+}
+
+[data-theme="bedtime"] {
   --bg: #0d0d0c;
   --surface: #171615;
   --raised: #1f1e1c;
@@ -62,11 +88,11 @@
   --ink: #edeae4;
   --muted: #b3aea6;
   --meta: #8f8a83;
-  --accent: #ff7a2f;
-  --accent-ink: #0d0d0c;
-  --accent-text: #ff7a2f;
-  --band: rgb(255 185 143 / 0.22);
-  --sage: rgb(178 204 168 / 0.16);
+  --ink-routine: #edeae4;
+  --signal-evidence-text: #ff7a2f;
+  --signal-evidence-fill: #d49572;
+  --on-signal-evidence-fill: #0d0d0c;
+  --signal-evidence-soft: #241912;
   color-scheme: dark;
 }
 
@@ -79,11 +105,11 @@
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-meta: var(--meta);
-  --color-accent: var(--accent);
-  --color-accent-ink: var(--accent-ink);
-  --color-accent-text: var(--accent-text);
-  --color-band: var(--band);
-  --color-sage: var(--sage);
+  --color-ink-routine: var(--ink-routine);
+  --color-signal-evidence-text: var(--signal-evidence-text);
+  --color-signal-evidence-fill: var(--signal-evidence-fill);
+  --color-on-signal-evidence-fill: var(--on-signal-evidence-fill);
+  --color-signal-evidence-soft: var(--signal-evidence-soft);
   --font-sans: "Archivo Variable", "Helvetica Neue", Arial, sans-serif;
   --font-serif: "Newsreader Variable", Georgia, "Times New Roman", serif;
   /* Body text. Headlines are serif; body and labels are Archivo. One token flips the body. */

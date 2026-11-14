@@ -79,7 +79,7 @@ function DeckCard({ item, onAct }: { item: Item; onAct: (slug: string, action: "
       <ol className="-mx-4 mt-3 flex snap-x gap-3 overflow-x-auto px-4 pb-2">
         {deck.slides.map((slide, i) => (
           <li key={i} className="flex aspect-[4/5] w-56 shrink-0 snap-start flex-col justify-between rounded-lg bg-black p-4 text-white">
-            <p className="text-xs font-medium text-accent-text">{KIND_NAME[slide.kind]}</p>
+            <p className="text-xs font-medium text-signal-evidence-text">{KIND_NAME[slide.kind]}</p>
             <div>
               <p className="headline">{slide.heading}</p>
               {slide.body && <p className="mt-2 text-[0.8125rem] leading-snug text-neutral-300">{slide.body}</p>}

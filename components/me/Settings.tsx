@@ -16,9 +16,10 @@ import { readStartChoice, saveStartChoice, type StartChoice } from "@/lib/start"
 import { applyThemeChoice, readThemeChoice, type ThemeChoice } from "@/lib/theme";
 
 const THEMES: { value: ThemeChoice; label: string }[] = [
-  { value: "system", label: "Match device" },
-  { value: "light", label: "Light" },
+  { value: "system", label: "System" },
   { value: "dark", label: "Dark" },
+  { value: "light", label: "Light" },
+  { value: "bedtime", label: "Bedtime" },
 ];
 
 function Appearance() {
@@ -32,6 +33,7 @@ function Appearance() {
   return (
     <section aria-label="Appearance" className="rounded-2xl border border-line bg-surface p-4">
       <h2 className="headline">Appearance</h2>
+      <p className="mt-1 text-sm leading-snug text-muted">System follows your device. Bedtime is warm and dim, for reading at night. Kept on this device.</p>
       <div className="mt-3 flex gap-2" role="group" aria-label="Theme">
         {THEMES.map((theme) => (
           <button

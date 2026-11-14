@@ -1,39 +1,42 @@
 /**
- * The readability pass (owner, 2026-11-14) in a real browser, at 390 px, dark and light.
+ * The readability pass (owner, 2026-11-14) in a real browser, at 390 px.
  *
- * Orange once per screen: every element painted orange (text, fill, stroke, background,
- * border, outline) must sit inside a [data-accent-slot], and a screen holds at most one slot
- * (the feed: one per card). A stray orange dot anywhere else fails.
+ * The orange budget (owner, 2026-11-15): orange means "this paper's finding". Per 390 × 844
+ * screen there is one focal orange item and at most three in all. An item is one element painted
+ * with the finding's text colour or its pastel fill; the marks of one chart (one <svg>) or one
+ * [data-signal-item] count as one item. The faint tint (--signal-evidence-soft) is a background
+ * and does not count. The Life Game and habits are monochrome: no orange at all.
  */
 
 import { expect, test, type Page } from "@playwright/test";
 
+const THEMES = ["dark", "light", "bedtime"] as const;
 const SCREENS = [
   "/",
-  "/today",
   "/me",
   "/papers/daytime-caffeine-sleep",
   "/papers/steps-days-per-week",
   "/papers/turmeric-pepper-breakfast",
   "/papers/hiit-body-composition",
 ];
+const BUDGET = 3;
 
-/** Elements painted orange that are not inside a slot, and how many slots are not inside a card. */
-async function strayOrange(page: Page) {
+/** The most orange items any one 844 px window of the page holds, and what they are. */
+async function orangeBudget(page: Page) {
   return page.evaluate(() => {
     const root = getComputedStyle(document.documentElement);
     const rgb = (hex: string) => {
       const h = hex.trim().replace("#", "");
       return `rgb(${parseInt(h.slice(0, 2), 16)}, ${parseInt(h.slice(2, 4), 16)}, ${parseInt(h.slice(4, 6), 16)})`;
     };
-    const orange = new Set([rgb(root.getPropertyValue("--accent")), rgb(root.getPropertyValue("--accent-text"))]);
-    const stray: string[] = [];
+    const orange = new Set([rgb(root.getPropertyValue("--signal-evidence-text")), rgb(root.getPropertyValue("--signal-evidence-fill"))]);
+    const items = new Map<Element, { top: number; bottom: number; what: string }>();
     for (const el of document.querySelectorAll<HTMLElement | SVGElement>("body *")) {
-      if (el.closest("[data-accent-slot]") || el.closest(".sr-only")) continue;
+      if (el.closest(".sr-only")) continue;
       const box = el.getBoundingClientRect();
       if (box.width === 0 && box.height === 0) continue;
       const s = getComputedStyle(el);
-      if (s.visibility === "hidden" || s.display === "none") continue;
+      if (s.visibility === "hidden" || s.display === "none" || s.opacity === "0") continue;
       const ownText = [...el.childNodes].some((n) => n.nodeType === Node.TEXT_NODE && n.textContent!.trim());
       const painted = [
         ownText ? s.color : "",
@@ -45,49 +48,92 @@ async function strayOrange(page: Page) {
         el instanceof SVGElement ? s.fill : "",
         el instanceof SVGElement ? s.stroke : "",
       ];
-      if (painted.some((c) => orange.has(c))) stray.push(`${el.tagName.toLowerCase()}.${(el.getAttribute("class") ?? "").slice(0, 60)} "${(el.textContent ?? "").trim().slice(0, 30)}"`);
+      if (!painted.some((c) => orange.has(c))) continue;
+      const key = el.closest("[data-signal-item]") ?? el.closest("svg") ?? el;
+      const k = key.getBoundingClientRect();
+      const top = k.top + scrollY;
+      const prev = items.get(key);
+      items.set(key, {
+        top: prev ? Math.min(prev.top, top) : top,
+        bottom: prev ? Math.max(prev.bottom, top + k.height) : top + k.height,
+        what: `${key.tagName.toLowerCase()} "${(key.textContent ?? "").trim().slice(0, 40)}"`,
+      });
     }
-    const slots = [...document.querySelectorAll("[data-accent-slot]")];
-    const outsideCards = slots.filter((s) => !s.closest("[data-post]")).length;
-    const perCard = [...document.querySelectorAll("[data-post]")].map((c) => c.querySelectorAll("[data-accent-slot]").length);
-    return { stray, outsideCards, perCard };
+    const all = [...items.values()];
+    const height = document.documentElement.scrollHeight;
+    let worst: typeof all = [];
+    for (let start = 0; start < Math.max(height, 1); start += 100) {
+      const inView = all.filter((i) => i.bottom > start && i.top < start + 844);
+      if (inView.length > worst.length) worst = inView;
+    }
+    return { max: worst.length, worst: worst.map((i) => i.what), total: all.length };
   });
 }
 
-for (const scheme of ["dark", "light"] as const) {
-  test.describe(`orange once per screen (${scheme})`, () => {
-    test.use({ colorScheme: scheme, viewport: { width: 390, height: 844 } });
+for (const theme of THEMES) {
+  test.describe(`orange budget (${theme})`, () => {
+    test.use({ viewport: { width: 390, height: 844 } });
+    test.beforeEach(async ({ page }) => {
+      await page.addInitScript((t) => localStorage.setItem("sd-theme", t), theme);
+    });
 
     for (const path of SCREENS) {
-      test(path, async ({ page }) => {
+      test(`${path}: at most ${BUDGET} orange items on any screen`, async ({ page }) => {
         await page.goto(path, { waitUntil: "networkidle" });
-        const { stray, outsideCards, perCard } = await strayOrange(page);
-        expect(stray).toEqual([]);
-        expect(outsideCards).toBeLessThanOrEqual(1);
-        for (const n of perCard) expect(n).toBeLessThanOrEqual(1);
+        await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
+        const { max, worst } = await orangeBudget(page);
+        expect(max, worst.join("\n")).toBeLessThanOrEqual(BUDGET);
       });
     }
 
-    test("caffeine, used: the result is the only orange", async ({ page }) => {
+    test("/today: the Life Game is monochrome, no orange at all", async ({ page }) => {
+      await page.goto("/today", { waitUntil: "networkidle" });
+      expect((await orangeBudget(page)).total).toBe(0);
+    });
+
+    test("the feed: one focal orange item per card", async ({ page }) => {
+      await page.goto("/", { waitUntil: "networkidle" });
+      const perCard = await page.locator("[data-post]").evaluateAll((cards) => cards.map((c) => c.querySelectorAll("[data-signal-focal]").length));
+      expect(perCard.length).toBeGreaterThan(2);
+      for (const n of perCard) expect(n).toBeLessThanOrEqual(1);
+    });
+
+    test("caffeine, used: still within the budget", async ({ page }) => {
       await page.goto("/papers/daytime-caffeine-sleep", { waitUntil: "networkidle" });
       const sim = page.locator('section[aria-label="Simulator"]');
       await sim.getByLabel("Caffeine at").fill("16:00");
       await sim.getByLabel("Bedtime").fill("23:00");
       await sim.getByLabel(/Your amount/).fill("95");
       await expect(sim.locator("[data-marker]")).toBeVisible();
-      expect((await strayOrange(page)).stray).toEqual([]);
+      const { max, worst } = await orangeBudget(page);
+      expect(max, worst.join("\n")).toBeLessThanOrEqual(BUDGET);
     });
   });
 }
 
-test("the check catches a stray orange dot", async ({ page }) => {
-  await page.goto("/papers/daytime-caffeine-sleep", { waitUntil: "networkidle" });
+test("the budget check catches a fourth orange item", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/me", { waitUntil: "networkidle" });
+  const before = (await orangeBudget(page)).max;
+  await page.evaluate((n) => {
+    for (let i = 0; i < n; i++) {
+      const dot = document.createElement("span");
+      dot.className = "inline-block h-2 w-2 bg-signal-evidence-fill";
+      document.body.prepend(dot);
+    }
+  }, 4 - before);
+  expect((await orangeBudget(page)).max).toBe(4);
+});
+
+test("the Life Game check catches one orange number", async ({ page }) => {
+  await page.goto("/today", { waitUntil: "networkidle" });
   await page.evaluate(() => {
-    const dot = document.createElement("span");
-    dot.className = "inline-block h-2 w-2 bg-accent";
-    document.querySelector("article")!.prepend(dot);
+    const n = document.createElement("p");
+    n.className = "text-signal-evidence-text";
+    n.textContent = "71";
+    document.body.prepend(n);
   });
-  expect((await strayOrange(page)).stray).toHaveLength(1);
+  expect((await orangeBudget(page)).total).toBe(1);
 });
 
 test.describe("finding cards: plain headline, one supporting line, source line", () => {
@@ -156,10 +202,10 @@ test.describe("feed card: the key idea at a glance", () => {
     expect(texts.filter((t) => /\p{N}/u.test(t))).toEqual([]);
   });
 
-  test("the Try it row is the card's one orange", async ({ page }) => {
+  test("the Try it row is the card's focal orange", async ({ page }) => {
     await page.goto("/", { waitUntil: "networkidle" });
     for (const slug of ["daytime-caffeine-sleep", "steps-days-per-week", "turmeric-pepper-breakfast"]) {
-      const slot = page.locator(`[data-post="${slug}"] [data-accent-slot]`);
+      const slot = page.locator(`[data-post="${slug}"] [data-signal-focal]`);
       await expect(slot).toHaveCount(1);
       await expect(slot).toHaveAttribute("data-inside-row", "try");
       await expect(slot).toContainText(/^Try it: /);
@@ -184,7 +230,7 @@ test.describe("feed card: the key idea at a glance", () => {
     await page.goto("/", { waitUntil: "networkidle" });
     const rows = page.locator('[data-post="hiit-body-composition"] [data-inside-row]');
     await expect(rows).toHaveText(["Put it in your Life Game→", "How sure the evidence is→"]);
-    await expect(page.locator('[data-post="hiit-body-composition"] [data-accent-slot]')).toHaveCount(0);
+    await expect(page.locator('[data-post="hiit-body-composition"] [data-signal-focal]')).toHaveCount(0);
   });
 
   test("the landing check fails for a slot the read does not have", async ({ page }) => {

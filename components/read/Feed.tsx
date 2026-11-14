@@ -7,7 +7,7 @@
  *   meta (topic · read time), a serif headline with the key finding, one plain sentence,
  *   the still figure (axis labels only, no numeric ticks or values, the gated range as a peach
  *   band) with its note, "What's inside" (rows that open the read at a slot; the "Try it" row is
- *   the card's one orange), and the source line with the grade.
+ *   the card's focal orange), and the source line with the grade.
  *
  * A members' read shows only what amendment A makes public: its hook as the headline and one
  * figure (PaperMeta.card), here in its glance view, and lists only the slots everyone can open.
@@ -98,8 +98,8 @@ export function PostCard({ paper }: { paper: PaperMeta }) {
             <li key={row.slot}>
               <Link
                 href={`${href}#${row.slot}`} data-inside-row={row.slot}
-                {...(row.accent ? { "data-accent-slot": "" } : {})}
-                className={`flex min-h-12 items-center justify-between gap-3 py-2 text-[0.9375rem] ${row.accent ? "font-medium text-accent-text" : "text-ink"}`}
+                {...(row.focal ? { "data-signal-focal": "", "data-signal-item": "" } : {})}
+                className={`flex min-h-12 items-center justify-between gap-3 py-2 text-[0.9375rem] ${row.focal ? "font-medium text-signal-evidence-text" : "text-ink"}`}
               >
                 <span>{row.label}</span>
                 <span aria-hidden>→</span>

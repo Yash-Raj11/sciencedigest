@@ -86,17 +86,17 @@ describe("the card's words", () => {
 });
 
 describe("What's inside", () => {
-  it("a free read: why, Try it (the one orange row), the protocol, the receipts", () => {
+  it("a free read: why, Try it (the focal orange row), the protocol, the receipts", () => {
     const rows = insideRows({ members: false, why: "Why it happens", tryIt: "pick a breakfast" });
     expect(rows.map((r) => [r.label, r.slot])).toEqual([
       ["Why it happens", "why"], ["Try it: pick a breakfast", "try"], ["Put it in your Life Game", "protocol"], ["The receipts", "receipts"],
     ]);
-    expect(rows.filter((r) => r.accent).map((r) => r.slot)).toEqual(["try"]);
+    expect(rows.filter((r) => r.focal).map((r) => r.slot)).toEqual(["try"]);
   });
   it("a members' read: only what everyone can open", () => {
     const rows = insideRows({ members: true, why: "Why it happens", tryIt: "pick your training" });
     expect(rows.map((r) => r.slot)).toEqual([SLOTS.protocol, SLOTS.evidence]);
-    expect(rows.some((r) => r.accent)).toBe(false);
+    expect(rows.some((r) => r.focal)).toBe(false);
   });
   it("the members' card in the public bundle is its hook and one figure, nothing else: its glance figure", () => {
     const hiit = CARDS.find((c) => c.members)!;
