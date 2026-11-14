@@ -11,7 +11,7 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import {
-  allSubgroups, crossesNoChange, matchSentences, missingWords, subgroupValue, subgroupsFor, surestFirst, type CompareSettings,
+  allSubgroups, crossesNoChange, matchSentences, missingWords, subgroupValue, subgroupsFor, summaryWords, surestFirst, type CompareSettings,
 } from "../components/figures/order-layout";
 import { FigureFor } from "../components/papers/registry";
 import type { PaperContent, ResolvedFact } from "../lib/content/types";
@@ -63,6 +63,11 @@ describe("4B order and words", () => {
     expect(matchSentences([{ label: "Fat", n: 0 }], true)[0]).toMatch(/^Not tested/);
     expect(matchSentences([{ label: "Fat", n: 3 }], false)).toEqual([]);
   });
+  it("the collapsed summary counts one outcome's matches, singular and plural", () => {
+    expect(summaryWords(6)).toBe("6 subgroup results match your routine");
+    expect(summaryWords(1)).toBe("1 subgroup result matches your routine");
+    expect(summaryWords(0)).toBe("No subgroup result matches your routine");
+  });
   it("an outcome's scale is set from every subgroup it could show", () => {
     expect(allSubgroups(sim, "fm").map((f) => f.id)).toContain("fm_treadmill");
     expect(allSubgroups(sim, "bf").map((f) => f.id)).not.toContain("fm_treadmill");
@@ -81,6 +86,9 @@ describe("4B views", () => {
     expect(html).toContain("and the range crosses no change.");
     expect(html.match(/data-pick=/g)?.length).toBe(13);
     expect(html).not.toContain("data-subgroup"); // untouched: no picks, no subgroup rows
+    expect(html).not.toContain("data-toggle");
+    expect(html).toContain('role="group"'); // a figure with buttons in it is a group, not an image
+    expect(html).not.toMatch(/<title>(?!What thirty-six)/); // no tooltip but the frame's own name
   });
   it("the card (glance): the pooled rows only, no inputs, and the simulator is never drawn even if passed", () => {
     const html = draw({ glance: { x: null, y: null }, simulator: hiit.simulator.params });

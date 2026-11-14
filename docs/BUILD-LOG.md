@@ -1554,3 +1554,27 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   a full routine); (5) the sensitivity sentence is split over the label and a note line.
 - Screens: `docs/evidence/figures-v2/hiit-body-composition/r1-*`, `r2-*` (two loops: frame padding,
   range text off the point mark). Gates: `docs/evidence/figures-v2/hiit-gates.txt`.
+
+## 2026-11-15, HIIT 4B review (owner): collapsed subgroups, printed ranges, no hover-only
+
+- Subgroups collapsed by default. Under each pooled row, one tap target: "N subgroup results
+  match your routine" (`summaryWords`; "No subgroup result matches your routine" when a pick has
+  only unreported settings). It is an SVG `role="button"` with `aria-expanded`, in the tab order,
+  Enter or Space toggles, a focus ring on `:focus-visible`, about 44 px tall. It opens only that
+  outcome. The frame is now `role="group"` when it holds buttons. A full routine, collapsed: about
+  560 px tall at 390 px (browser test: at most 800).
+- Each subgroup's range is a thin outlined band with its printed ends under it (or the range in
+  words when the ends would clash). The `<title>` tooltip is gone.
+- No hover-only information, two rules: eslint (`NO_HOVER_ONLY`, in the general block and in the
+  figure guard): no `title` attribute on an HTML or SVG element anywhere in `components/` or
+  `app/`, and no SVG `<title>` except the frame's own (`components/figures/Figure.tsx`); fixtures
+  `bad-hover-title`, `bad-hover-attribute`. Browser (`hoverOnlyNumbers` in
+  `paper-routes-dev.spec.ts`): every number in a tooltip must also be visible text, on every
+  paper's read and in 4B with all outcomes open. It caught one real case at once: the `Decay`
+  frame took its name from the fact label ("… n = 12"), a number the figure does not print; it is
+  now "How much is left, hour by hour" (`DECAY_TITLE`).
+- Departures 1, 2 and 5 accepted by the owner. Departure 4 (no inner scroll) is superseded by the
+  collapsed default; departure 3 (ranges only in a tooltip) is fixed.
+- fat-free-mass: approved by the owner (`approve-concept`, 2026-11-14T21:03Z), committed here.
+- Screens: `docs/evidence/figures-v2/hiit-body-composition/r3-*` (look), `r4-*` (after the one fix:
+  more room between subgroup rows). Gates: `docs/evidence/figures-v2/hiit-gates.txt`.

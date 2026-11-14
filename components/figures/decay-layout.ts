@@ -148,3 +148,9 @@ export function estimateAtBed(amountText: string, doseText: string, bedText: str
     amount: usable ? amount : null,
   };
 }
+
+/**
+ * The frame's accessible name. Not the fact's label: a <title> shows as a tooltip, and the label
+ * carries numbers ("n = 12") the figure does not print, which would make them hover-only.
+ */
+export const DECAY_TITLE = "How much is left, hour by hour";

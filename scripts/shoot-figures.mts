@@ -37,13 +37,17 @@ for (const theme of ["dark", "light", "bedtime"]) {
     await week.nth(0).click(); await week.nth(2).click();
     await page.locator('[data-figure-kind][data-mode="full"]').first().screenshot({ path: `${out}/${round}-B-picked-${theme}.png` });
   }
-  // A compare-bars figure (4B): a whole routine picked, one option per setting.
+  // A compare-bars figure (4B): a whole routine picked (collapsed), then every outcome opened,
+  // then a routine with unclear and unreported subgroups, opened.
   const picks = ["modality:cycling", "weeks:over8", "frequency:three", "work:short", "rest:short", "restType:active"];
+  const shoot = (name: string) => page.locator("[data-protocol-figure]").screenshot({ path: `${out}/${round}-${name}-${theme}.png` });
   if (await page.locator("[data-pick]").count()) {
     for (const pick of picks) await page.locator(`[data-pick="${pick}"]`).click();
-    await page.locator("[data-protocol-figure]").screenshot({ path: `${out}/${round}-B-picked-${theme}.png` });
+    await shoot("B-picked");
+    for (const toggle of await page.locator("[data-toggle]").all()) await toggle.click();
+    await shoot("B-open");
     for (const pick of ["modality:treadmill", "weeks:upto8", "frequency:two"]) await page.locator(`[data-pick="${pick}"]`).click();
-    await page.locator("[data-protocol-figure]").screenshot({ path: `${out}/${round}-B-unclear-${theme}.png` });
+    await shoot("B-unclear");
   }
   await page.goto(`${base}/`, { waitUntil: "networkidle" });
   const card = page.locator(`[data-post="${slug}"]`).first();

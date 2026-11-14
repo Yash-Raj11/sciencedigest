@@ -5,6 +5,23 @@ import nextTs from "eslint-config-next/typescript";
 /** The props of a figure that say where and how big, never how much. */
 const FIGURE_GEOMETRY = "/^(x|y|x1|y1|x2|y2|cx|cy|r|rx|ry|dx|dy|width|height|d|viewBox|points|transform|strokeWidth|strokeDasharray|fontSize|opacity|size|gap|min|max|nodeHeight|rowHeight|labelWidth|className|tabIndex)$/";
 
+/**
+ * No hover-only information (owner, 2026-11-15): a phone has no hover, so a tooltip may never be
+ * where something lives. No `title` attribute on an HTML or SVG element, and no SVG <title> except
+ * the figure frame's own accessible name (components/figures/Figure.tsx, which also shows every
+ * number it holds as text: tests/browser/paper-routes-dev.spec.ts checks the numbers).
+ */
+const NO_HOVER_ONLY = [
+  {
+    selector: "JSXOpeningElement[name.name=/^[a-z]/] > JSXAttribute[name.name='title']",
+    message: "No hover-only information: a phone has no hover. Show it as text, or behind a tap (a button with aria-expanded).",
+  },
+  {
+    selector: "JSXOpeningElement[name.name='title']",
+    message: "No SVG <title> outside the figure frame: a tooltip is hover-only, and a phone has no hover. Draw it as text, or behind a tap.",
+  },
+];
+
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
@@ -36,6 +53,12 @@ const eslintConfig = defineConfig([
     },
   },
 
+  {
+    files: ["components/**/*.tsx", "app/**/*.tsx"],
+    ignores: ["components/figures/Figure.tsx"],
+    rules: { "no-restricted-syntax": ["error", ...NO_HOVER_ONLY] },
+  },
+
   /*
    * THE FIGURE GUARD.
    *
@@ -51,6 +74,8 @@ const eslintConfig = defineConfig([
     files: ["components/papers/**/figures/**/*.{ts,tsx}", "components/figures/kinds/**/*.{ts,tsx}"],
     rules: {
       "no-restricted-syntax": ["error",
+        // Listed again here: this block replaces the one above for figure files.
+        ...NO_HOVER_ONLY,
         {
           selector: `Literal[raw=/^[0-9.]/]:not(JSXAttribute[name.name=${FIGURE_GEOMETRY}] Literal)`,
           message: "A figure holds no number of its own outside a geometry prop (x, y, width, r, d ...). A number the reader sees comes from params, bound to a gated fact.",

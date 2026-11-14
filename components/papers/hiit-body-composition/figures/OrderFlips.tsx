@@ -10,7 +10,12 @@
  * paper printed for it, each on its own row and never summed, because the subgroups share trials.
  * A still picture cannot show which of thirty-odd subgroup rows apply to one reader. The untouched
  * view carries the point alone: the pooled rows and, under fat-free mass, the result with one
- * trial left out. State starts empty and holds only the reader's picks.
+ * trial left out. State starts empty and holds only the reader's picks and which outcomes are open.
+ *
+ * Owner, 2026-11-15: the subgroups are collapsed by default. Each pooled row gets one tap target,
+ * "N subgroup results match your routine", that opens only that outcome's subgroups, so a full
+ * routine still fits about one phone screen. Each subgroup's range is drawn and its ends printed:
+ * nothing lives in a tooltip.
  *
  * The subgroup facts come from the simulator's params, which the read passes in (`simulator`) and
  * the feed card never does: a members' read keeps them out of the public card (rule 7).
@@ -21,7 +26,7 @@ import { wrapLines } from "@/components/figures/crowds-layout";
 import { Figure } from "@/components/figures/Figure";
 import {
   ORDER_FRAME as F, ORDER_WORDS, afterWords, allSubgroups, crossesNoChange, gradeWords, matchSentences, missingWords,
-  pitchPath, pointWords, pooledLabelY, stackBottom, stackTops, subgroupValue, subgroupsFor, surestFirst,
+  pitchPath, pointWords, pooledLabelY, stackBottom, stackTops, subgroupValue, subgroupsFor, summaryWords, surestFirst,
   type CompareSettings, type OutcomeId, type Picks, type PooledRow,
 } from "@/components/figures/order-layout";
 import { CompareRows, compareRowsHeight, Label, type CompareRow } from "@/components/figures/primitives";
@@ -45,6 +50,7 @@ export default function OrderFlips({ params, alt, interactive = true, glance, si
   const sim = simulator as unknown as CompareSettings | undefined;
   const full = !glance;
   const [picks, setPicks] = useState<Picks>({});
+  const [open, setOpen] = useState<Record<OutcomeId, boolean>>({});
   const picked = Object.values(picks).some(Boolean);
 
   const rows = surestFirst(p.rows);
@@ -63,12 +69,18 @@ export default function OrderFlips({ params, alt, interactive = true, glance, si
     const found = full && sim ? subgroupsFor(sim, picks, row.outcome) : { rows: [], missing: [] };
     if (full && sim) {
       extent.push(...allSubgroups(sim, row.outcome));
-      if (found.rows.length) {
-        out.push({ kind: "line", text: ORDER_WORDS.subgroups });
-        for (const s of found.rows) out.push({ kind: "subgroup", fact: s.fact, lead: s.words, value: subgroupValue(s), clear: s.clear });
-      }
-      if (found.missing.length) {
-        for (const line of wrapLines(missingWords(found.missing), F.rowsWidth, F.small)) out.push({ kind: "line", text: line });
+      if (found.rows.length || found.missing.length) {
+        const expanded = Boolean(open[row.outcome]);
+        out.push({
+          kind: "toggle", id: row.outcome, text: summaryWords(found.rows.length), expanded,
+          onToggle: () => setOpen((v) => ({ ...v, [row.outcome]: !v[row.outcome] })),
+        });
+        if (expanded) {
+          for (const s of found.rows) out.push({ kind: "subgroup", fact: s.fact, lead: s.words, value: subgroupValue(s), clear: s.clear });
+          if (found.missing.length) {
+            for (const line of wrapLines(missingWords(found.missing), F.rowsWidth, F.small)) out.push({ kind: "line", text: line });
+          }
+        }
       }
     }
     return { row, out, extent, matched: found.rows.length };
@@ -111,7 +123,7 @@ export default function OrderFlips({ params, alt, interactive = true, glance, si
         </fieldset>
       ) : null}
 
-      <Figure title={p.title} desc={alt} height={height}>
+      <Figure title={p.title} desc={alt} height={height} interactive={full && interactive && Boolean(sim)}>
         <Label x={F.pitchLeft} y={F.title} size={F.size} bold>{p.title}</Label>
         <Label x={F.pitchLeft} y={F.phase} tone="muted" size={F.small}>{p.pitchTitle}</Label>
         <Label x={F.rowsLeft} y={F.phase} tone="muted" size={F.small}>{ORDER_WORDS.start}</Label>

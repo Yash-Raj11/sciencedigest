@@ -29,6 +29,16 @@ describe("the figure guard", () => {
     expect((await check("bad-ambient-motion", KIND)).length).toBeGreaterThan(0);
   }, 60000);
 
+  it("refuses hover-only information: an SVG <title> in a figure or primitive, a title attribute anywhere", async () => {
+    for (const path of [FIGURE, "components/figures/primitives/Fixture.tsx", "components/figures/kinds/Fixture.tsx"]) {
+      expect((await check("bad-hover-title", path)).join("\n"), path).toMatch(/no-restricted-syntax: No SVG <title> outside the figure frame/);
+    }
+    expect((await check("bad-hover-attribute", "components/read/Fixture.tsx")).join("\n")).toMatch(/no-restricted-syntax: No hover-only information/);
+    expect((await check("bad-hover-attribute", "app/Fixture.tsx")).join("\n")).toMatch(/no-restricted-syntax: No hover-only information/);
+    // The frame's own accessible name is the one SVG <title> allowed.
+    expect(await check("good", "components/figures/Figure.tsx")).toEqual([]);
+  }, 60000);
+
   it("passes a figure whose numbers come from params", async () => {
     expect(await check("good", FIGURE)).toEqual([]);
   }, 60000);

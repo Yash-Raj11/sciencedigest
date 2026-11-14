@@ -127,6 +127,26 @@ async function openRead(page: import("@playwright/test").Page, paper: (typeof pa
   await expect(page.locator("h1")).toHaveText(headlineOf(paper));
 }
 
+/**
+ * No hover-only information (owner, 2026-11-15): a phone has no hover. Every number in a tooltip
+ * (an SVG <title> or a title attribute) must also be on the page as text a reader sees.
+ */
+async function hoverOnlyNumbers(page: import("@playwright/test").Page): Promise<string[]> {
+  return page.evaluate(() => {
+    const numbers = (text: string) => text.match(/\d+(?:[.,]\d+)*/g) ?? [];
+    const visible = [...document.querySelectorAll("body *")]
+      .filter((el) => el.tagName.toLowerCase() !== "title" && el.tagName.toLowerCase() !== "desc" && !el.closest("title, desc, script, style"))
+      .map((el) => [...el.childNodes].filter((n) => n.nodeType === Node.TEXT_NODE).map((n) => n.textContent ?? "").join(" "))
+      .join(" ");
+    const shown = new Set(numbers(visible.replace(/\s+/g, " ")));
+    const tips = [
+      ...[...document.querySelectorAll("title")].filter((t) => t.closest("svg")).map((t) => t.textContent ?? ""),
+      ...[...document.querySelectorAll("[title]")].map((el) => el.getAttribute("title") ?? ""),
+    ];
+    return tips.flatMap((tip) => numbers(tip).filter((n) => !shown.has(n)).map((n) => `${n} (in "${tip}")`));
+  });
+}
+
 for (const paper of papers) {
   const keys = FIGURE_KEYS.filter((key) => key.startsWith(`${paper.slug}/`));
 
@@ -173,6 +193,7 @@ for (const paper of papers) {
       const moving = await frame.evaluate((el) => [el, ...el.querySelectorAll("*")].filter((node) => getComputedStyle(node).animationName !== "none").length);
       expect(moving, `${key}: animated elements`).toBe(0);
     }
+    expect(await hoverOnlyNumbers(page), "a number that only a tooltip carries").toEqual([]);
   });
 
   test(`/papers/${paper.slug}: its figures fit a 360 px screen and hold still under reduced motion`, async ({ page }) => {
@@ -213,10 +234,48 @@ test("/papers/hiit-body-composition: figure 4B shows subgroups for a picked rout
   await expect(figure.locator("[data-match]")).toHaveCount(0);
   await figure.locator('[data-pick="modality:cycling"]').click();
   await figure.locator('[data-pick="modality:treadmill"]').click(); // one option per setting
+  // Collapsed by default: one summary per outcome, nothing under it until it is opened.
+  const fmToggle = figure.locator('[data-toggle="fm"]');
+  await expect(fmToggle).toHaveText("1 subgroup result matches your routine");
+  await expect(fmToggle).toHaveAttribute("aria-expanded", "false");
+  await expect(figure.locator("[data-subgroup]")).toHaveCount(0);
+  // Keyboard: focus and Enter opens only that outcome.
+  await fmToggle.focus();
+  await page.keyboard.press("Enter");
+  await expect(fmToggle).toHaveAttribute("aria-expanded", "true");
   await expect(figure.locator('[data-outcome="fm"] [data-subgroup]')).toHaveCount(1);
   await expect(figure.locator('[data-outcome="fm"] [data-subgroup] [data-value]')).toHaveText("no clear change in this subgroup");
+  // Its range is printed, not left to a tooltip.
+  await expect(figure.locator('[data-outcome="fm"] [data-subgroup] text')).toContainText(["−2.82", "0.62"]);
+  await expect(figure.locator('[data-toggle="ffm"]')).toHaveAttribute("aria-expanded", "false");
+  await expect(figure.locator('[data-outcome="ffm"] [data-compare-line]')).toHaveCount(0);
+  await figure.locator('[data-toggle="ffm"]').click();
+  await expect(figure.locator('[data-toggle="ffm"]')).toHaveText("No subgroup result matches your routine");
   expect((await figure.locator('[data-outcome="ffm"] [data-compare-line]').allTextContents()).join(" ")).toBe("Not reported for this outcome: treadmill running.");
+  await page.keyboard.press("Tab"); // the toggles are in the tab order
   await expect(figure.locator("[data-match]")).toHaveText("Your routine matches 1 tested subgroup for fat. Each is shown separately. They cannot be added together.");
+  expect(await hoverOnlyNumbers(page), "a number that only a tooltip carries").toEqual([]);
   // The pooled rows stay first and unchanged.
   await expect(figure.locator('[data-row="pooled"] [data-point]')).toHaveText(["+0.51 kg", "−1.86 kg", "−1.53 points"]);
+});
+
+// Owner, 2026-11-15: with a whole routine picked and every outcome collapsed, figure 4B fits about
+// one phone screen (at most about 800 px tall at 390 px wide).
+test("/papers/hiit-body-composition: figure 4B with a full routine, collapsed, fits one phone screen", async ({ page }) => {
+  test.setTimeout(120000);
+  await page.setViewportSize({ width: 390, height: 844 });
+  const hiit = papers.find((p) => p.slug === "hiit-body-composition")!;
+  await openRead(page, hiit);
+  const figure = page.locator("[data-protocol-figure]");
+  for (const pick of ["modality:cycling", "weeks:over8", "frequency:three", "work:short", "rest:short", "restType:active"]) {
+    await figure.locator(`[data-pick="${pick}"]`).click();
+  }
+  await expect(figure.locator("[data-toggle]")).toHaveCount(3);
+  for (const toggle of await figure.locator("[data-toggle]").all()) await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  const box = await figure.locator("svg[data-figure]").boundingBox();
+  expect(box!.height, "figure 4B height at 390 px, full routine, collapsed").toBeLessThanOrEqual(800);
+  // Opened, every subgroup row is there, and its range is printed.
+  for (const toggle of await figure.locator("[data-toggle]").all()) await toggle.click();
+  await expect(figure.locator("[data-subgroup]")).toHaveCount(17);
+  expect(await hoverOnlyNumbers(page), "a number that only a tooltip carries").toEqual([]);
 });

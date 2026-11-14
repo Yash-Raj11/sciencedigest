@@ -22,7 +22,7 @@
  */
 
 import { useId, useState, type ReactNode } from "react";
-import { DECAY_FIELD, DECAY_FRAME, SHARE_TICKS, markAnchor, tickLabelled, decayPaths, decayPlace, estimateAtBed, exactHours, gapWords, halfGoneWords, halfLifeRange, halvings, hoursLabel } from "../decay-layout";
+import { DECAY_FIELD, DECAY_FRAME, DECAY_TITLE, SHARE_TICKS, markAnchor, tickLabelled, decayPaths, decayPlace, estimateAtBed, exactHours, gapWords, halfGoneWords, halfLifeRange, halvings, hoursLabel } from "../decay-layout";
 import { Figure } from "../Figure";
 import { GlanceAxes, Label } from "../primitives";
 import { GLANCE_FRAME, glanceChart } from "../glance-layout";
@@ -75,7 +75,7 @@ export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = W
       {range ? <p className="headline" data-half-gone>{halfGoneWords(range)}</p> : null}
 
       <div className={range ? "mt-3" : undefined}>
-        <Figure title={halfLife.label} desc={alt} height={figureHeight} interactive={false}>
+        <Figure title={DECAY_TITLE} desc={alt} height={figureHeight} interactive={false}>
           <g data-evidence="measured" data-fact={halfLife.id}>
             {SHARE_TICKS.map(({ share, word }) => (
               <g key={word}>
@@ -168,7 +168,7 @@ export function DecayGlance({ halfLife, alt, x, y }: { halfLife: ResolvedFact; a
   const paths = decayPaths(point, halfLifeRange(halfLife), glanceChart);
   return (
     <div data-figure-kind="decay" data-mode="glance">
-      <Figure title={halfLife.label} desc={alt} height={GLANCE_FRAME.figureHeight}>
+      <Figure title={DECAY_TITLE} desc={alt} height={GLANCE_FRAME.figureHeight}>
         <g data-evidence="measured" data-fact={halfLife.id}>
           {paths.area ? <path d={paths.area} fill={SIGNAL_FILL} data-band /> : null}
           <path d={paths.line} fill="none" stroke={INK} strokeWidth={3} strokeLinejoin="round" strokeLinecap="round" />

@@ -128,7 +128,6 @@ export const pitchY = (i: number, rowTop: (i: number) => number, size: number) =
 export const ORDER_WORDS = {
   band: "Range for the study average",
   baseline: "No change",
-  subgroups: "Subgroup results for your routine",
   start: "Start",
   pick: "Pick any part of your routine. The paper's subgroup results for it appear under each row.",
 } as const;
@@ -146,3 +145,7 @@ export const stackBottom = (tops: number[], heights: number[], pad: number) =>
 
 /** The baseline of a pooled row's label in a block at `top`; the first block carries the "No change" header. */
 export const pooledLabelY = (top: number, first: boolean) => top + (first ? ORDER_FRAME.small * 1.5 : 0) + ORDER_FRAME.size;
+
+/** The tap target under a pooled row: "6 subgroup results match your routine". */
+export const summaryWords = (n: number) =>
+  n ? `${n} subgroup ${n === 1 ? "result matches" : "results match"} your routine` : "No subgroup result matches your routine";
