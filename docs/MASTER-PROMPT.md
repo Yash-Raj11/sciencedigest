@@ -364,3 +364,20 @@ pipeline run, 11 Instagram carousels, 12 native app and home-screen widgets, 13 
 
 The prompt is saved here so a session with no chat history can continue from this file and
 `docs/PROGRESS.md`. The Resume prompt is in `docs/HANDOFF.md`, section 8.
+
+### 2026-11-14: owner's amendments (they win where they conflict with the text above)
+
+- **No command against the hosted Supabase project without the owner's "go"** for that command.
+- **2A:** rule (b) is dropped (a listed word may open the mechanism if it has a glossary entry).
+- **2D, A:** the title list becomes a feed of whole post cards (hook, reading time, mechanism
+  figure, number card with source line, grade chip); a members' read shows its hook and figure
+  only; no endless scroll; the card reuses the article's components.
+- **2D, B:** figures may be interactive with React state and SVG only, no new dependency; the
+  first view carries the point alone; every state obeys the figure rules; shapes are placed by
+  calculation; motion only for measured change; 44 px targets at 360 px, keyboard, aria-live.
+  One figure is interactive so far (turmeric's readings grid).
+- **2D, C:** toggles get one quiet transition, 120 to 180 ms, from tokens in `app/globals.css`;
+  none under reduced motion.
+- **`impeccable`** (design skill, installed by the owner) is subordinate to the colour tokens
+  and the two fonts.
+- One ⏸ stop per session in budget mode. Details: BUILD-LOG 2026-11-14.
