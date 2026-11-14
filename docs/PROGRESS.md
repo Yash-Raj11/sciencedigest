@@ -110,7 +110,17 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
   - [x] association-curve (steps). Pick 0–7 days → the group's adjusted difference as a band,
         raw labelled raw, "Who this was tested in" straight under it. Screens:
         `docs/evidence/simulators/association-curve-{dark,light}.png`, `-used-{dark,light}.png`.
-  - [ ] ⏸ Stop after caffeine + steps are live (owner, session 10).
+  - [x] ⏸ Stop after caffeine + steps are live (owner, session 10). Answered 2026-11-14:
+        the owner's readability list (below) comes next.
+- [ ] Readability pass (owner, 2026-11-14: research understandable to everyone). Items 1–7:
+  - [ ] IN PROGRESS: 1. Visual system as tokens (palette, pastel bands, orange once, type, contrast table).
+  - [ ] 2. Plain-language lint rules (significant, p/CI/effect size, direction words).
+  - [ ] 3. Finding cards: headline → supporting line → source line.
+  - [ ] 4. Source line (design · who · how many/how long) + evidence grade words and meter.
+  - [ ] 5. Feed card = the key idea at a glance; "What's inside" rows deep-link to slots.
+  - [ ] 6. Hosted seed: dry run, then push on the owner's "go".
+  - [ ] 7. Figure plans (concept sketch; caffeine, turmeric, steps + HIIT) in SIMULATORS.md.
+  - [ ] ⏸ Stop after 7 with hashes, contrast table, screenshot paths, plans; /phase-handoff.
 - [ ] The pipeline proposes the figure kind and the simulator inputs (`prompts.ts`).
 - [ ] Reader inputs stored on the device only (like the theme).
 - [ ] Run the coverage pass on the 4 existing papers, so their checklist rows stop showing
