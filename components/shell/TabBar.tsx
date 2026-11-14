@@ -34,9 +34,9 @@ export function TabBar() {
               <Link
                 href={tab.href}
                 aria-current={active ? "page" : undefined}
-                className={`relative flex h-16 flex-col items-center justify-center gap-1 text-xs font-semibold ${active ? "text-accent-text" : "text-muted"}`}
+                className={`relative flex h-16 flex-col items-center justify-center gap-1 text-xs font-medium ${active ? "text-ink" : "text-muted"}`}
               >
-                {active && <span aria-hidden className="absolute inset-x-6 top-0 h-[3px] bg-accent" />}
+                {active && <span aria-hidden className="absolute inset-x-6 top-0 h-[3px] bg-ink" />}
                 <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   {tab.icon}
                 </svg>

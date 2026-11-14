@@ -27,8 +27,8 @@ export function Sheet({ open, onClose, title, children }: { open: boolean; onClo
       {open && (
         <div className="p-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
           <div className="mb-3 flex items-center justify-between gap-3">
-            <h2 className="display min-w-0 text-2xl">{title}</h2>
-            <button type="button" onClick={onClose} className="h-10 shrink-0 rounded-lg border border-line px-3.5 text-sm font-semibold">Close</button>
+            <h2 className="headline min-w-0">{title}</h2>
+            <button type="button" onClick={onClose} className="h-10 shrink-0 rounded-lg border border-line px-3.5 text-sm font-medium">Close</button>
           </div>
           {children}
         </div>

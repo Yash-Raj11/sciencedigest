@@ -27,10 +27,10 @@ function RegimenChart({ regimen }: { regimen: Regimen }) {
       <ol className="flex items-end gap-1.5" aria-label="Sessions logged in each of the last eight weeks">
         {regimen.weeks.map((week) => (
           <li key={week.week_start} className="flex min-w-0 flex-1 flex-col items-center gap-1">
-            <span className="num text-xs font-semibold">{week.sessions}</span>
+            <span className="num text-xs font-medium">{week.sessions}</span>
             <span className="flex h-20 w-full items-end rounded-sm bg-line/50">
               <span
-                className={`w-full rounded-sm ${week.met ? "bg-accent" : "bg-muted/60"}`}
+                className={`w-full rounded-sm ${week.met ? "bg-ink" : "bg-muted/60"}`}
                 style={{ height: `${(week.sessions / tallest) * 100}%` }}
               />
             </span>
@@ -73,8 +73,8 @@ export function MemberExtras({ paper }: { paper: PaperMeta }) {
   return (
     <section aria-label="Membership extras" className="rounded-2xl border border-line p-4">
       <div className="flex items-baseline justify-between gap-3">
-        <h2 className="display text-xl">Going further</h2>
-        <span className="rounded-full border border-accent px-2.5 py-0.5 text-xs font-bold text-accent-text">Members</span>
+        <h2 className="headline">Going further</h2>
+        <span className="rounded-full border border-line px-2.5 py-0.5 text-xs font-medium text-ink">Members</span>
       </div>
 
       {locked ? (
@@ -84,7 +84,7 @@ export function MemberExtras({ paper }: { paper: PaperMeta }) {
             {hasWeeklyTarget && <li><strong>Your last eight weeks.</strong> Sessions logged each week against the protocol&apos;s target.</li>}
           </ul>
           <p className="mt-3 text-sm leading-snug text-muted">Tracking, your streak and your history stay free whether or not you join.</p>
-          <Link href="/upgrade" className="mt-3 flex h-11 items-center justify-center rounded-lg border border-accent font-bold text-accent-text">
+          <Link href="/upgrade" className="mt-3 flex h-11 items-center justify-center rounded-lg border border-line font-medium text-ink">
             See what membership adds
           </Link>
         </>
@@ -92,11 +92,11 @@ export function MemberExtras({ paper }: { paper: PaperMeta }) {
         <div className="mt-3 space-y-5">
           {takeaways.state === "ok" && takeaways.value.length > 0 && (
             <div>
-              <h3 className="font-semibold">Implementation notes</h3>
+              <h3 className="font-medium">Implementation notes</h3>
               <ul className="mt-2 space-y-2">
                 {takeaways.value.map((note, i) => (
                   <li key={i} className="flex gap-3 text-[0.9375rem] leading-relaxed">
-                    <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                    <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
                     <span>{note.map((s) => s.text).join(" ")}</span>
                   </li>
                 ))}
@@ -107,7 +107,7 @@ export function MemberExtras({ paper }: { paper: PaperMeta }) {
 
           {hasWeeklyTarget && (
             <div>
-              <h3 className="font-semibold">Your last eight weeks</h3>
+              <h3 className="font-medium">Your last eight weeks</h3>
               <div className="mt-2">
                 {!equipped && <p className="text-sm leading-snug text-muted">Add the protocol above and log sessions; your weeks appear here.</p>}
                 {equipped && regimen?.state === "ok" && <RegimenChart regimen={regimen.value} />}

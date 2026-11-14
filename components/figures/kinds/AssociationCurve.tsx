@@ -23,7 +23,7 @@ import { useId, useState, type ReactNode } from "react";
 import { BAND_FRAME, CURVE_FRAME, DAY_BUTTON, blocks, choices, drawable, groupSpan, pickedGroup, rawOutcome, shareWords, type GroupEdges } from "../association-layout";
 import { Figure } from "../Figure";
 import { Label } from "../primitives";
-import { ACCENT, ACCENT_TEXT, INK, MUTED } from "../shared";
+import { ACCENT_TEXT, BAND, INK, MUTED } from "../shared";
 import { assertEvidence } from "@/lib/content/figures";
 import type { ResolvedFact } from "@/lib/content/types";
 
@@ -52,7 +52,7 @@ export function AssociationCurve({ mode, raw, adjusted, groups, alt, sourceLine,
     <div data-figure-kind="association-curve" data-mode={mode}>
       {mode === "full" && headline ? <div data-headline>{headline}</div> : null}
       <p className="mt-3 text-sm leading-snug text-muted" data-raw-caption>
-        <span className="font-bold text-ink">Raw</span>, before any adjustment: {rawOutcome(raw)}.
+        <span className="font-medium text-ink">Raw</span>, before any adjustment: {rawOutcome(raw)}.
       </p>
 
       <div className="mt-2">
@@ -63,8 +63,8 @@ export function AssociationCurve({ mode, raw, adjusted, groups, alt, sourceLine,
             const on = !view || mine;
             return (
               <g key={raw[i].id} data-evidence="measured" data-fact={raw[i].id} data-picked={mine ? "" : undefined}>
-                <rect x={shape.x} y={shape.y} width={shape.w} height={shape.h} rx={4} fill={on ? ACCENT : MUTED} opacity={on ? 1 : 0.4} />
-                <Label x={shape.mid} y={shape.y - valueGap} anchor="middle" tone={on ? "accent" : "muted"} size={size} bold>{shareWords(raw[i])}</Label>
+                <rect x={shape.x} y={shape.y} width={shape.w} height={shape.h} rx={4} fill={on ? INK : MUTED} opacity={on ? 1 : 0.35} />
+                <Label x={shape.mid} y={shape.y - valueGap} anchor="middle" tone={on ? "ink" : "muted"} size={size} bold>{shareWords(raw[i])}</Label>
                 <Label x={shape.mid} y={bottom + axisGap} anchor="middle" tone={mine ? "ink" : "muted"} size={size} bold={mine}>{groupSpan(groups[i])}</Label>
               </g>
             );
@@ -76,10 +76,10 @@ export function AssociationCurve({ mode, raw, adjusted, groups, alt, sourceLine,
       {mode === "full" ? (
         <fieldset className="mt-4 border-t border-line pt-4" data-simulator>
           <legend className="sr-only">{typeof ask === "string" ? ask : "Your own value"}</legend>
-          {ask ? <div aria-hidden className="font-semibold leading-snug">{ask}</div> : null}
+          {ask ? <div aria-hidden className="font-medium leading-snug">{ask}</div> : null}
           <div className="mt-3 grid grid-cols-4 gap-2" role="radiogroup">
             {choices(groups).map((value) => (
-              <label key={value} className={`${DAY_BUTTON} ${picked === value ? "border-accent bg-accent text-accent-ink" : "border-line bg-bg text-ink"}`}>
+              <label key={value} className={`${DAY_BUTTON} ${picked === value ? "border-ink bg-ink text-bg" : "border-line bg-bg text-ink"}`}>
                 <input type="radio" name={`${id}-value`} value={value} checked={picked === value} onChange={() => setPicked(value)} className="sr-only" aria-label={`${value} ${unit}`} />
                 <span aria-hidden className="num">{value}</span>
               </label>
@@ -91,17 +91,17 @@ export function AssociationCurve({ mode, raw, adjusted, groups, alt, sourceLine,
               <p className="text-base leading-snug text-muted">Pick a number and the group it falls in appears here.</p>
             ) : (
               <>
-                <p className="text-sm font-semibold text-muted">People with {view.heading}</p>
+                <p className="text-sm font-medium text-muted">People with {view.heading}</p>
                 {view.comparison ? (
-                  <p className="mt-1 text-2xl font-bold leading-tight">The group the others were compared with</p>
+                  <p className="headline mt-1">The group the others were compared with</p>
                 ) : view.difference && view.place ? (
                   <>
-                    <p className="mt-1 text-2xl font-bold leading-tight" data-adjusted>
+                    <p className="figure mt-1 text-[2rem] text-accent-text" data-adjusted>
                       {view.difference.headline}
-                      <span className="block text-base font-semibold text-muted">adjusted, compared with {view.first}</span>
+                      <span className="mt-1 block font-sans text-base font-normal tracking-normal text-muted">adjusted, compared with {view.first}</span>
                     </p>
                     <svg viewBox={`0 0 320 ${BAND_FRAME.height}`} className="mt-3 block w-full max-w-[360px]" role="img" aria-label={`Range for the study average: ${view.difference.bandWords}`} data-band>
-                      <rect x={view.place.low} y={BAND_FRAME.y} width={Math.max(view.place.high - view.place.low, BAND_FRAME.thickness)} height={BAND_FRAME.thickness} rx={7} fill={ACCENT_TEXT} opacity={0.45} />
+                      <rect x={view.place.low} y={BAND_FRAME.y} width={Math.max(view.place.high - view.place.low, BAND_FRAME.thickness)} height={BAND_FRAME.thickness} rx={7} fill={BAND} />
                       <line x1={view.place.point} x2={view.place.point} y1={BAND_FRAME.y - 6} y2={BAND_FRAME.y + BAND_FRAME.thickness + 6} stroke={ACCENT_TEXT} strokeWidth={4} strokeLinecap="round" />
                       <line x1={view.place.zero} x2={view.place.zero} y1={BAND_FRAME.y - 10} y2={BAND_FRAME.y + BAND_FRAME.thickness + 10} stroke={MUTED} strokeWidth={1.5} />
                       <Label x={view.place.zero} y={BAND_FRAME.size} anchor="end" tone="muted" size={BAND_FRAME.size}>no difference</Label>
@@ -118,7 +118,7 @@ export function AssociationCurve({ mode, raw, adjusted, groups, alt, sourceLine,
                   </>
                 ) : null}
                 <p className="mt-3 text-base leading-snug" data-raw>
-                  <span className="font-bold">Raw:</span> {view.raw} of this group{view.comparison ? "" : `, against ${view.firstRaw} at ${view.first}`}. The groups differ in age and health, so the raw gap is not the adjusted one.
+                  <span className="font-medium">Raw:</span> {view.raw} of this group{view.comparison ? "" : `, against ${view.firstRaw} at ${view.first}`}. The groups differ in age and health, so the raw gap is not the adjusted one.
                 </p>
                 <p className="mt-2 text-sm leading-snug text-muted">People in this group of the study, not a prediction for you. <span data-source-line>{sourceLine}.</span></p>
               </>
@@ -126,11 +126,11 @@ export function AssociationCurve({ mode, raw, adjusted, groups, alt, sourceLine,
           </div>
 
           {who ? (
-            <section aria-label="Who this was tested in" className="mt-4 rounded-xl border-2 border-ink p-3.5" data-who>
-              <h3 className="text-base font-bold">Who this was tested in</h3>
+            <section aria-label="Who this was tested in" className="mt-4 rounded-xl border border-line bg-surface p-3.5" data-who>
+              <h3 className="text-base font-medium">Who this was tested in</h3>
               <div className="mt-1">{who}</div>
               {view?.meanAge != null ? (
-                <p className="mt-1 text-base leading-snug">Average age at {view.label}: <span className="num font-semibold">{view.meanAge}</span> years.</p>
+                <p className="mt-1 text-base leading-snug">Average age at {view.label}: <span className="num font-medium">{view.meanAge}</span> years.</p>
               ) : null}
               <p className="mt-1 text-sm leading-snug text-muted">
                 {observational

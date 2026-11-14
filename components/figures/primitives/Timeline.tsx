@@ -1,7 +1,7 @@
 import { assertEvidence } from "@/lib/content/figures";
 import type { ResolvedFact } from "@/lib/content/types";
 import { narrowestGap, timeScale } from "../scale";
-import { ACCENT, INK, LINE, MUTED } from "../shared";
+import { INK, LINE, MUTED } from "../shared";
 import { Bracket } from "./Bracket";
 import { Label } from "./Label";
 
@@ -56,7 +56,7 @@ export function Timeline({ x, y, width, labelWidth = 84, rowHeight = 26, times, 
             : <Label x={x} y={rowY(i) + 4} size={11.5}>{row.label}</Label>}
           {times.map((time) => {
             const dot = row.flagged.includes(time)
-              ? <circle cx={at(time)} cy={rowY(i)} r={6.5} fill={ACCENT} data-flagged />
+              ? <circle cx={at(time)} cy={rowY(i)} r={6.5} fill={INK} data-flagged />
               : <circle cx={at(time)} cy={rowY(i)} r={3.5} fill={MUTED} />;
             if (!onSelect) return <g key={time}>{dot}</g>;
             const cell = { row: i, time };
@@ -81,8 +81,8 @@ export function Timeline({ x, y, width, labelWidth = 84, rowHeight = 26, times, 
       ))}
       {flag ? (
         <g data-evidence="measured" data-fact={flag.fact.id}>
-          <line x1={at(flag.time)} x2={at(flag.time)} y1={axis + 20} y2={axis + 30} stroke={ACCENT} strokeWidth={1.75} />
-          <Label x={at(flag.time) - 10} y={axis + 44} tone="accent" size={11.5} bold lines={flag.lines} />
+          <line x1={at(flag.time)} x2={at(flag.time)} y1={axis + 20} y2={axis + 30} stroke={INK} strokeWidth={1.75} />
+          <Label x={at(flag.time) - 10} y={axis + 44} tone="ink" size={11.5} bold lines={flag.lines} />
         </g>
       ) : null}
     </g>

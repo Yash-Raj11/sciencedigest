@@ -50,7 +50,7 @@ function Outcome({ name, row }: { name: string; row: Row }) {
     <li className="flex items-center gap-3 px-3.5 py-3">
       <span className="min-w-0 flex-1">
         <span className="block text-sm leading-snug text-muted">{name}</span>
-        <span className={`block font-semibold leading-snug ${changed ? "text-accent-text" : "text-ink"}`}>{WORDS[row.result]}</span>
+        <span className={`block font-medium leading-snug ${changed ? "text-accent-text" : "text-ink"}`}>{WORDS[row.result]}</span>
       </span>
       {row.fact?.finding && changed ? <GradeChip grade={row.fact.finding.tier} /> : null}
     </li>
@@ -82,13 +82,13 @@ export default function Simulator({ params }: SimulatorProps) {
   return (
     <div className="space-y-4 rounded-2xl border border-line bg-surface p-4">
       <fieldset>
-        <legend className="font-semibold">Pick a breakfast the trial served</legend>
+        <legend className="font-medium">Pick a breakfast the trial served</legend>
         <div className="mt-2 grid grid-cols-2 gap-2">
           {meals.map((m) => (
             <label
               key={m.id}
               className={`flex min-h-12 cursor-pointer items-center justify-center rounded-xl border px-2 py-2 text-center text-sm font-medium leading-snug ${
-                m.id === meal.id ? "border-accent bg-bg text-accent-text" : "border-line bg-bg text-ink"
+                m.id === meal.id ? "border-ink bg-ink text-bg" : "border-line bg-bg text-ink"
               }`}
             >
               <input type="radio" name="breakfast-meal" className="sr-only" checked={m.id === meal.id} onChange={() => setChosen(m.id)} />
@@ -108,7 +108,7 @@ export default function Simulator({ params }: SimulatorProps) {
         </ul>
         <div className="border-t border-line px-3.5 py-3">
           <p className="text-sm leading-snug text-muted">How much they liked it overall</p>
-          <p className="font-semibold leading-snug"><span className="num">{meal.taste.n}</span> out of <span className="num">{p.tasteMax.n}</span></p>
+          <p className="font-medium leading-snug"><span className="num">{meal.taste.n}</span> out of <span className="num">{p.tasteMax.n}</span></p>
           <TasteLine score={meal.taste.n} max={p.tasteMax.n} plain={plain.taste.n} />
           {meal.id !== plain.id ? <p className="mt-1 text-sm leading-snug text-muted">The grey mark is the plain meal.</p> : null}
         </div>

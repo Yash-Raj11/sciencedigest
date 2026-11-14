@@ -1,5 +1,5 @@
 import { assertEvidence } from "@/lib/content/figures";
-import { ACCENT, BG, INK, strokeOf, type Evidence } from "../shared";
+import { BG, INK, strokeOf, type Evidence } from "../shared";
 import { Arrow } from "./Arrow";
 import { Label } from "./Label";
 
@@ -25,9 +25,9 @@ export function Flow({ x, y, width, nodeHeight = 44, gap = 26, nodes, links = []
           <g key={i} data-evidence={node.kind} data-fact={node.fact.id}>
             <rect
               x={x} y={top(i)} width={width} height={nodeHeight} rx={10}
-              fill={measured ? ACCENT : BG} stroke={measured ? ACCENT : INK} strokeWidth={1.5} {...strokeOf(node.kind)}
+              fill={measured ? INK : BG} stroke={measured ? INK : INK} strokeWidth={1.5} {...strokeOf(node.kind)}
             />
-            <Label x={x + width / 2} y={firstLine} anchor="middle" tone={measured ? "onAccent" : "ink"} bold={measured} lines={node.lines} />
+            <Label x={x + width / 2} y={firstLine} anchor="middle" tone={measured ? "onInk" : "ink"} bold={measured} lines={node.lines} />
           </g>
         );
       })}

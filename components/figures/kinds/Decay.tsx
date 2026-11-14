@@ -25,7 +25,7 @@ import { useId, useState, type ReactNode } from "react";
 import { DECAY_FIELD, DECAY_FRAME, SHARE_TICKS, markAnchor, tickLabelled, decayPaths, decayPlace, estimateAtBed, exactHours, gapWords, halfGoneWords, halfLifeRange, halvings, hoursLabel } from "../decay-layout";
 import { Figure } from "../Figure";
 import { Label } from "../primitives";
-import { ACCENT, ACCENT_TEXT, INK, LINE } from "../shared";
+import { ACCENT_TEXT, BAND, INK, LINE } from "../shared";
 import { ESTIMATE_LABEL } from "@/lib/content/figure-kinds";
 import { assertEvidence } from "@/lib/content/figures";
 import type { ResolvedFact } from "@/lib/content/types";
@@ -71,7 +71,7 @@ export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = W
 
   return (
     <div data-figure-kind="decay" data-mode={mode}>
-      {range ? <p className="text-xl font-bold leading-snug" data-half-gone>{halfGoneWords(range)}</p> : null}
+      {range ? <p className="headline" data-half-gone>{halfGoneWords(range)}</p> : null}
 
       <div className={range ? "mt-3" : undefined}>
         <Figure title={halfLife.label} desc={alt} height={figureHeight} interactive={false}>
@@ -83,8 +83,8 @@ export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = W
               </g>
             ))}
             <line x1={left} x2={left + width} y1={bottom} y2={bottom} stroke={INK} strokeWidth={1.5} />
-            {paths.area ? <path d={paths.area} fill={ACCENT_TEXT} opacity={0.4} data-band /> : null}
-            <path d={paths.line} fill="none" stroke={ACCENT} strokeWidth={3} strokeLinejoin="round" strokeLinecap="round" />
+            {paths.area ? <path d={paths.area} fill={BAND} data-band /> : null}
+            <path d={paths.line} fill="none" stroke={INK} strokeWidth={3} strokeLinejoin="round" strokeLinecap="round" />
           </g>
           {times.map((time, i) => (
             <g key={time}>
@@ -109,15 +109,15 @@ export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = W
         <fieldset className="mt-4 border-t border-line pt-4" data-simulator>
           <legend className="sr-only">{words.ask}</legend>
           <div className="grid grid-cols-2 gap-3">
-            <label htmlFor={`${id}-dose`} className="text-sm font-semibold text-muted">
+            <label htmlFor={`${id}-dose`} className="text-sm font-medium text-muted">
               {words.dose}
               <input id={`${id}-dose`} type="time" value={dose} onChange={(e) => setDose(e.target.value)} className={DECAY_FIELD} />
             </label>
-            <label htmlFor={`${id}-bed`} className="text-sm font-semibold text-muted">
+            <label htmlFor={`${id}-bed`} className="text-sm font-medium text-muted">
               {words.bed}
               <input id={`${id}-bed`} type="time" value={bed} onChange={(e) => setBed(e.target.value)} className={DECAY_FIELD} />
             </label>
-            <label htmlFor={`${id}-amount`} className="col-span-2 text-sm font-semibold text-muted">
+            <label htmlFor={`${id}-amount`} className="col-span-2 text-sm font-medium text-muted">
               {words.amount} ({words.unit})
               <input id={`${id}-amount`} type="number" inputMode="decimal" min={0} step="any" value={amount} onChange={(e) => setAmount(e.target.value)} className={DECAY_FIELD} />
             </label>
@@ -126,9 +126,9 @@ export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = W
           <div aria-live="polite" className="num mt-4 min-h-[4.5rem]" data-estimate>
             {estimate ? (
               <>
-                <p className="text-2xl font-bold leading-tight">
+                <p className="figure text-[2rem] text-accent-text">
                   {estimate.amountWords ? `About ${estimate.amountWords} ${words.unit}` : `About ${estimate.percentWords} of it`}
-                  <span className="block text-base font-semibold text-muted">left at bedtime</span>
+                  <span className="mt-1 block font-sans text-base font-normal tracking-normal text-muted">left at bedtime</span>
                 </p>
                 <p className="mt-2 text-base leading-snug">
                   {estimate.amountWords
@@ -143,7 +143,7 @@ export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = W
           </div>
 
           <div className="mt-3 space-y-1.5 text-sm leading-snug text-muted">
-            <p className="font-semibold" data-estimate-label>{ESTIMATE_LABEL}.</p>
+            <p className="font-medium" data-estimate-label>{ESTIMATE_LABEL}.</p>
             <p><span data-spread-label>Half-life used: {exactHours(range.low)} to {exactHours(range.high)}, the {range.label}.</span> <span data-source-line>{sourceLine}.</span></p>
             {note ? <div>{note}</div> : null}
           </div>

@@ -32,12 +32,12 @@ export default function Simulator({ params }: SimulatorProps) {
   return (
     <div className="space-y-4 rounded-2xl border border-line bg-surface p-4">
       <fieldset>
-        <legend className="font-semibold">Pick the results to compare</legend>
+        <legend className="font-medium">Pick the results to compare</legend>
         <div className="mt-2 divide-y divide-line rounded-xl border border-line bg-bg">
           {rows.map((row) => (
             <label key={row.fact.id} className="flex cursor-pointer items-center gap-3 px-3.5 py-3">
               <input
-                type="checkbox" className="h-5 w-5 accent-[var(--accent)]" checked={!off.has(row.fact.id)}
+                type="checkbox" className="h-5 w-5 accent-[var(--ink)]" checked={!off.has(row.fact.id)}
                 onChange={() => setOff((current) => {
                   const next = new Set(current);
                   if (next.has(row.fact.id)) next.delete(row.fact.id); else next.add(row.fact.id);

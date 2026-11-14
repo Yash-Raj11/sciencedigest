@@ -22,8 +22,8 @@ function ScoreCard({ game, hydrated }: { game: Game; hydrated: boolean }) {
     <section aria-label="Your score" className="rounded-2xl border border-line bg-surface p-4">
       <div className="flex items-end justify-between gap-4">
         <div>
-          <p className="figure text-[4.5rem]">{hydrated ? result.pct : 0}<span className="text-[0.45em]">%</span></p>
-          <p className="mt-2 text-sm font-semibold">Adherence, weighted by evidence</p>
+          <p className="figure text-[4.5rem] text-accent-text" data-accent-slot>{hydrated ? result.pct : 0}<span className="text-[0.45em]">%</span></p>
+          <p className="mt-2 text-sm font-medium">Adherence, weighted by evidence</p>
         </div>
         <p className="num pb-1 text-right text-sm leading-snug text-muted">
           {result.earned.toFixed(1)} of {result.possible.toFixed(1)}<br />weight earned today
@@ -35,27 +35,27 @@ function ScoreCard({ game, hydrated }: { game: Game; hydrated: boolean }) {
       <dl className="mt-3 grid grid-cols-2 gap-3 border-t border-line pt-3">
         <div>
           <dt className="text-sm text-muted">Consistency</dt>
-          <dd className="num text-lg font-bold">{result.consistency.done} of {result.consistency.total} <span className="text-sm font-medium text-muted">boxes today</span></dd>
+          <dd className="num text-lg font-medium">{result.consistency.done} of {result.consistency.total} <span className="text-sm font-medium text-muted">boxes today</span></dd>
         </div>
         <div>
           <dt className="text-sm text-muted">Streak</dt>
-          <dd className="num text-lg font-bold">{game.streak} <span className="text-sm font-medium text-muted">{game.streak === 1 ? "day" : "days"}</span></dd>
+          <dd className="num text-lg font-medium">{game.streak} <span className="text-sm font-medium text-muted">{game.streak === 1 ? "day" : "days"}</span></dd>
         </div>
       </dl>
 
       <ol className="mt-3 flex justify-between" aria-label="This week">
         {game.week.map((day, i) => (
           <li key={day.date} className="flex flex-col items-center gap-1.5">
-            <span className={`text-xs font-semibold ${day.isToday ? "text-ink" : "text-muted"}`}>{DAY_LETTERS[i]}</span>
+            <span className={`text-xs font-medium ${day.isToday ? "text-ink" : "text-muted"}`}>{DAY_LETTERS[i]}</span>
             <span
               aria-label={`${day.date}: ${day.active ? "something ticked" : day.future ? "upcoming" : "nothing ticked"}`}
-              className={`h-7 w-7 rounded-full border-2 ${day.active ? "border-accent bg-accent" : day.future ? "border-line" : "border-muted/50"} ${day.isToday ? "outline outline-2 outline-offset-2 outline-ink" : ""}`}
+              className={`h-7 w-7 rounded-full border-2 ${day.active ? "border-ink bg-ink" : day.future ? "border-line" : "border-muted/50"} ${day.isToday ? "outline outline-2 outline-offset-2 outline-ink" : ""}`}
             />
           </li>
         ))}
       </ol>
 
-      <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} className="mt-4 text-sm font-semibold text-accent-text underline underline-offset-4">
+      <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} className="mt-4 text-sm font-medium text-ink underline underline-offset-4">
         {open ? "Hide the explanation" : "What do these numbers mean?"}
       </button>
       {open && (
@@ -74,22 +74,22 @@ function ProtocolTiles({ game }: { game: Game }) {
   const open = game.protocols.find((v) => v.paper.slug === openSlug) ?? null;
   return (
     <section aria-label="Protocols from papers">
-      <h2 className="display text-xl">From papers</h2>
+      <h2 className="headline">From papers</h2>
       <ul className="mt-2 grid grid-cols-2 gap-2.5">
         {game.protocols.map((view) => (
           <li key={view.paper.id}>
             <button
               type="button" onClick={() => setOpenSlug(view.paper.slug)}
-              className={`flex h-full w-full flex-col rounded-2xl border p-3 text-left ${view.progress.total > 0 && view.progress.done >= view.progress.total ? "border-accent bg-accent-soft" : "border-line bg-surface"}`}
+              className={`flex h-full w-full flex-col rounded-2xl border p-3 text-left ${view.progress.total > 0 && view.progress.done >= view.progress.total ? "border-ink bg-surface" : "border-line bg-surface"}`}
             >
               <span className="flex items-start justify-between gap-2">
-                <span className="line-clamp-2 font-semibold leading-snug">{view.paper.category}</span>
+                <span className="line-clamp-2 font-medium leading-snug">{view.paper.category}</span>
                 <ProgressRing pct={view.progress.pct} size={44} label={view.paper.category} />
               </span>
               <span className="num mt-auto pt-3 text-sm text-muted">
                 {view.dormant ? "Paused. Open to resume." : `${view.progress.done} of ${view.progress.total} in place`}
               </span>
-              <span className="mt-2 flex h-10 items-center justify-center rounded-lg border border-line bg-bg text-sm font-bold">Open</span>
+              <span className="mt-2 flex h-10 items-center justify-center rounded-lg border border-line bg-bg text-sm font-medium">Open</span>
             </button>
           </li>
         ))}
@@ -113,7 +113,7 @@ export function Dashboard() {
   return (
     <div className="space-y-4">
       <header className="pt-2">
-        <h1 className="display text-[2.5rem]">Life Game</h1>
+        <h1 className="headline">Life Game</h1>
         <p className="text-muted">{hydrated ? longDate(game.today) : "\u00a0"}</p>
       </header>
 
@@ -135,7 +135,7 @@ export function Dashboard() {
 
       {hydrated && unequipped.length > 0 && (
         <section aria-label="Add a protocol" className="rounded-2xl border border-line p-4">
-          <h2 className="display text-xl">{game.protocols.length === 0 ? "Add a protocol from a paper" : "More reads"}</h2>
+          <h2 className="headline">{game.protocols.length === 0 ? "Add a protocol from a paper" : "More reads"}</h2>
           <p className="mt-1 text-sm leading-snug text-muted">Each read ends with a protocol you can add here. Those are the items that fill the bar.</p>
           <ul className="mt-2 divide-y divide-line">
             {unequipped.slice(0, 3).map((paper) => (
@@ -150,7 +150,7 @@ export function Dashboard() {
               </li>
             ))}
           </ul>
-          <Link href="/" className="mt-2 flex h-11 items-center justify-center rounded-lg border border-line font-semibold">Browse the feed</Link>
+          <Link href="/" className="mt-2 flex h-11 items-center justify-center rounded-lg border border-line font-medium">Browse the feed</Link>
         </section>
       )}
     </div>

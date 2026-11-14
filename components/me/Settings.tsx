@@ -31,13 +31,13 @@ function Appearance() {
 
   return (
     <section aria-label="Appearance" className="rounded-2xl border border-line bg-surface p-4">
-      <h2 className="display text-xl">Appearance</h2>
+      <h2 className="headline">Appearance</h2>
       <div className="mt-3 flex gap-2" role="group" aria-label="Theme">
         {THEMES.map((theme) => (
           <button
             key={theme.value} type="button" aria-pressed={choice === theme.value}
             onClick={() => { applyThemeChoice(theme.value); setChoice(theme.value); }}
-            className={`h-11 min-w-0 flex-1 rounded-lg border text-sm font-semibold ${choice === theme.value ? "border-accent bg-accent text-accent-ink" : "border-line bg-bg"}`}
+            className={`h-11 min-w-0 flex-1 rounded-lg border text-sm font-medium ${choice === theme.value ? "border-ink bg-ink text-bg" : "border-line bg-bg"}`}
           >
             {theme.label}
           </button>
@@ -62,14 +62,14 @@ function StartOn() {
 
   return (
     <section aria-label="Start on" className="rounded-2xl border border-line bg-surface p-4">
-      <h2 className="display text-xl">Start on</h2>
+      <h2 className="headline">Start on</h2>
       <p className="mt-1 text-sm leading-snug text-muted">The screen the app opens on. Kept on this device.</p>
       <div className="mt-3 flex gap-2" role="group" aria-label="Start on">
         {STARTS.map((start) => (
           <button
             key={start.value} type="button" aria-pressed={choice === start.value}
             onClick={() => { saveStartChoice(start.value); setChoice(start.value); }}
-            className={`h-11 min-w-0 flex-1 rounded-lg border text-sm font-semibold ${choice === start.value ? "border-accent bg-accent text-accent-ink" : "border-line bg-bg"}`}
+            className={`h-11 min-w-0 flex-1 rounded-lg border text-sm font-medium ${choice === start.value ? "border-ink bg-ink text-bg" : "border-line bg-bg"}`}
           >
             {start.label}
           </button>
@@ -84,7 +84,7 @@ function CompanionChoice() {
   const [message, setMessage] = useState<string | null>(null);
   return (
     <section aria-label="Your companion" className="rounded-2xl border border-line bg-surface p-4">
-      <h2 className="display text-xl">Your companion</h2>
+      <h2 className="headline">Your companion</h2>
       <div className="mt-3 flex items-center gap-4">
         <CompanionFigure mood="lively" size="h-20 w-20" />
         <p className="min-w-0 flex-1 text-sm leading-snug text-muted">
@@ -94,7 +94,7 @@ function CompanionChoice() {
         </p>
       </div>
       <div className="mt-3 flex gap-2">
-        <label className="flex h-11 flex-1 cursor-pointer items-center justify-center rounded-lg bg-accent font-bold text-accent-ink focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent">
+        <label className="flex h-11 flex-1 cursor-pointer items-center justify-center rounded-lg bg-ink font-medium text-bg focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ink">
           {avatar ? "Change picture" : "Use my own picture"}
           <input
             type="file" accept="image/*" className="sr-only"
@@ -105,7 +105,7 @@ function CompanionChoice() {
             }}
           />
         </label>
-        {avatar && <button type="button" onClick={() => { clearAvatar(); setMessage(null); }} className="h-11 rounded-lg border border-line px-4 font-semibold">Back to the cat</button>}
+        {avatar && <button type="button" onClick={() => { clearAvatar(); setMessage(null); }} className="h-11 rounded-lg border border-line px-4 font-medium">Back to the cat</button>}
       </div>
       {message && <p className="mt-2 text-sm" role="status">{message}</p>}
     </section>
@@ -146,7 +146,7 @@ function HeldChanges() {
       <button
         type="button" disabled={busy}
         onClick={async () => { setBusy(true); await retryHeld(); setBusy(false); }}
-        className="mt-2 h-11 rounded-lg border border-line px-4 text-sm font-semibold disabled:opacity-40"
+        className="mt-2 h-11 rounded-lg border border-line px-4 text-sm font-medium disabled:opacity-40"
       >
         {busy ? "Trying" : "Try again"}
       </button>
@@ -170,7 +170,7 @@ function HumanCheck() {
       {state === "dismissed" && (
         <p className="mt-2 text-sm leading-snug text-muted">
           Your progress is not backed up yet.{" "}
-          <button type="button" onClick={() => useStore.setState({ humanCheck: "needed" })} className="font-semibold text-ink underline underline-offset-2">
+          <button type="button" onClick={() => useStore.setState({ humanCheck: "needed" })} className="font-medium text-ink underline underline-offset-2">
             Confirm you&rsquo;re a person
           </button>
         </p>
@@ -229,14 +229,14 @@ function Account() {
   if (isDemo) {
     return (
       <section aria-label="Account" className="rounded-2xl border border-line bg-surface p-4">
-        <h2 className="display text-xl">Account</h2>
+        <h2 className="headline">Account</h2>
         <div className="mt-3">
           <Notice tone="warn">
             <strong>Demo mode.</strong> This copy of the app is not connected to a database, so everything you tick is kept on this device only. The operations manual (docs/MANUAL.md, part 3) shows how to connect one.
           </Notice>
         </div>
         <p className="mt-3 text-sm leading-snug text-muted">
-          <Link href="/privacy" className="font-semibold text-ink underline underline-offset-2">What we keep about you</Link>
+          <Link href="/privacy" className="font-medium text-ink underline underline-offset-2">What we keep about you</Link>
         </p>
       </section>
     );
@@ -244,7 +244,7 @@ function Account() {
 
   return (
     <section aria-label="Account" className="rounded-2xl border border-line bg-surface p-4">
-      <h2 className="display text-xl">Account</h2>
+      <h2 className="headline">Account</h2>
       <p className="mt-1 text-sm leading-snug text-muted">
         {held > 0 && sync.status === "idle" ? "Everything else is saved." : SYNC_TEXT[sync.status]}{waiting > 0 ? ` ${waiting} waiting to send.` : ""}
       </p>
@@ -274,7 +274,7 @@ function Account() {
               placeholder="you@example.com"
               className="h-11 min-w-0 flex-1 rounded-lg border border-line bg-bg px-3 text-base text-ink placeholder:text-muted"
             />
-            <button type="submit" disabled={busy} className="h-11 rounded-lg bg-accent px-4 font-bold text-accent-ink disabled:opacity-40">
+            <button type="submit" disabled={busy} className="h-11 rounded-lg bg-ink px-4 font-medium text-bg disabled:opacity-40">
               {busy ? "Sending" : "Add email"}
             </button>
           </div>
@@ -282,7 +282,7 @@ function Account() {
         </form>
       )}
       <p className="mt-3 text-sm leading-snug text-muted">
-        <Link href="/privacy" className="font-semibold text-ink underline underline-offset-2">What we keep about you</Link>
+        <Link href="/privacy" className="font-medium text-ink underline underline-offset-2">What we keep about you</Link>
       </p>
     </section>
   );
@@ -292,7 +292,7 @@ function Membership() {
   const tier = useStore((s) => (isDemo ? s.demoTier : s.session.tier));
   return (
     <section aria-label="Membership" className="rounded-2xl border border-line bg-surface p-4">
-      <h2 className="display text-xl">Membership</h2>
+      <h2 className="headline">Membership</h2>
       <p className="mt-1 leading-snug">{tier === "premium" ? "You are a member." : "You are on the free plan. Tracking, your streak and your history are free for good."}</p>
       {isDemo && (
         <button
@@ -304,12 +304,12 @@ function Membership() {
             <span className="block font-medium leading-snug">Preview the app as a member</span>
             <span className="block text-sm leading-snug text-muted">Demo mode only. Opens the members&apos; read and extras so you can check them.</span>
           </span>
-          <span aria-hidden className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${tier === "premium" ? "bg-accent" : "bg-line"}`}>
+          <span aria-hidden className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${tier === "premium" ? "bg-ink" : "bg-line"}`}>
             <span className={`absolute top-1 h-5 w-5 rounded-full bg-bg transition-[left] ${tier === "premium" ? "left-6" : "left-1"}`} />
           </span>
         </button>
       )}
-      <Link href="/upgrade" className="mt-3 flex h-11 items-center justify-center rounded-lg border border-line font-semibold">What membership adds</Link>
+      <Link href="/upgrade" className="mt-3 flex h-11 items-center justify-center rounded-lg border border-line font-medium">What membership adds</Link>
     </section>
   );
 }
@@ -317,7 +317,7 @@ function Membership() {
 function Scoring() {
   return (
     <section aria-label="How scoring works" className="rounded-2xl border border-line bg-surface p-4">
-      <h2 className="display text-xl">How your score works</h2>
+      <h2 className="headline">How your score works</h2>
       <p className="mt-1 text-[0.9375rem] leading-relaxed text-muted">
         Each requirement from a paper counts by how far its evidence can be trusted. Well-supported actions fill more of your bar than popular ones with thin evidence behind them.
       </p>
@@ -345,7 +345,7 @@ export function Settings() {
   return (
     <div className="space-y-4">
       <header className="pt-2">
-        <h1 className="display text-[2.5rem]">Me</h1>
+        <h1 className="headline">Me</h1>
       </header>
       <Appearance />
       <StartOn />

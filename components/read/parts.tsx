@@ -51,14 +51,14 @@ export function Glossary({ content, children }: { content: Pick<PaperContent, "g
             <p className="read">{entry.plain}</p>
             {concept && (
               <>
-                <p className="rounded-xl bg-surface px-3.5 py-3 text-[0.9375rem] leading-relaxed"><span className="block text-xs font-semibold text-muted">The picture to hold in mind</span>{concept.model}</p>
-                <p className="text-xs font-semibold text-muted">{BACKGROUND}, not from this paper</p>
+                <p className="rounded-xl bg-surface px-3.5 py-3 text-[0.9375rem] leading-relaxed"><span className="block text-xs font-medium text-muted">The picture to hold in mind</span>{concept.model}</p>
+                <p className="text-xs font-medium text-muted">{BACKGROUND}, not from this paper</p>
                 <p className="text-xs leading-snug text-muted">{conceptReference(concept)}</p>
               </>
             )}
             {sources.map((fact) => (
               <div key={fact.id} data-passage className="rounded-lg border border-line bg-raised px-3.5 py-3">
-                <p className="text-xs font-semibold text-muted">{factSourceLine(fact, content)}, word for word</p>
+                <p className="text-xs font-medium text-muted">{factSourceLine(fact, content)}, word for word</p>
                 <p className="mt-0.5 font-serif text-[0.9375rem] italic leading-snug text-muted">&ldquo;{fact.quote}&rdquo;</p>
               </div>
             ))}
@@ -121,7 +121,7 @@ export function Para({ sentences, facts, context, className = "read", as: Tag = 
                   aria-label="Show the passage in the paper this sentence rests on"
                   className="relative ml-0.5 inline-flex h-6 w-6 translate-y-[3px] items-center justify-center rounded-full align-baseline after:absolute after:-inset-2.5 after:content-['']"
                 >
-                  <span aria-hidden className={`h-2.5 w-2.5 rounded-full border-2 border-accent ${open === i ? "bg-accent" : ""}`} />
+                  <span aria-hidden className={`h-2.5 w-2.5 rounded-full border-[1.5px] border-meta ${open === i ? "bg-ink border-ink" : ""}`} />
                 </button>
               </span>{" "}
             </span>
@@ -132,16 +132,16 @@ export function Para({ sentences, facts, context, className = "read", as: Tag = 
         <aside data-shown className="ui-reveal mt-2 space-y-3 rounded-lg border border-line bg-raised px-3.5 py-3">
           {background.map((concept) => (
             <div key={concept.slug}>
-              <p className="text-xs font-semibold text-muted">{BACKGROUND}, not from this paper</p>
-              <p className="mt-1 text-sm font-semibold leading-snug">{concept.term}</p>
+              <p className="text-xs font-medium text-muted">{BACKGROUND}, not from this paper</p>
+              <p className="mt-1 text-sm font-medium leading-snug">{concept.term}</p>
               <p className="mt-0.5 text-[0.9375rem] leading-snug text-muted">{concept.plain}</p>
               <p className="mt-1 text-xs leading-snug text-muted">{conceptReference(concept)}</p>
             </div>
           ))}
           {shown.map((fact) => (
             <div key={fact.id}>
-              <p className="text-xs font-semibold text-muted">{factSourceLine(fact, { context })}, word for word</p>
-              <p className="mt-1 text-sm font-semibold leading-snug">{fact.label}</p>
+              <p className="text-xs font-medium text-muted">{factSourceLine(fact, { context })}, word for word</p>
+              <p className="mt-1 text-sm font-medium leading-snug">{fact.label}</p>
               <p className="mt-0.5 font-serif text-[0.9375rem] italic leading-snug text-muted">&ldquo;{fact.quote}&rdquo;</p>
               {fact.estimate && (
                 <p className="num mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
@@ -191,11 +191,11 @@ export function PullNumber({ fact, context }: { fact: ResolvedFact | undefined; 
   const e = fact.estimate;
   const tier = e?.tier ?? fact.finding?.tier;
   return (
-    <aside aria-label="The key number" data-pull-number className="rounded-2xl border-2 border-accent bg-accent-soft p-4">
+    <aside aria-label="The key number" data-pull-number className="rounded-2xl border-2 border-line bg-surface p-4">
       {e ? (
         <>
-          <p className="display num text-[2.5rem] leading-none">{formatEstimate({ ...e, ciLow: null, ciHigh: null })}</p>
-          <p className="mt-2 font-semibold leading-snug">{e.outcome}</p>
+          <p className="headline leading-none">{formatEstimate({ ...e, ciLow: null, ciHigh: null })}</p>
+          <p className="mt-2 font-medium leading-snug">{e.outcome}</p>
           <p className="num mt-1 text-sm leading-snug text-muted">
             {e.absolute ? "An absolute difference" : "A relative figure"}
             {e.ciLow !== null && e.ciHigh !== null ? <>: {formatEstimate(e)}</> : null}.
@@ -203,11 +203,11 @@ export function PullNumber({ fact, context }: { fact: ResolvedFact | undefined; 
         </>
       ) : (
         <>
-          <p className="read-title text-[1.375rem]">{sentenceCase(fact.label)}.</p>
-          {fact.finding && <p className="mt-2 text-sm font-semibold leading-snug text-muted">{fact.finding.outcome}</p>}
+          <p className="headline">{sentenceCase(fact.label)}.</p>
+          {fact.finding && <p className="mt-2 text-sm font-medium leading-snug text-muted">{fact.finding.outcome}</p>}
         </>
       )}
-      <p className="mt-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-accent pt-2 text-xs font-semibold text-muted">
+      <p className="mt-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-line pt-2 text-xs font-medium text-muted">
         <span data-source-line>{factSourceLine(fact, { context })}</span>
         {tier ? <GradeChip grade={tier} /> : null}
       </p>

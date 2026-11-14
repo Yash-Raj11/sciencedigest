@@ -96,7 +96,7 @@ for (const paper of papers) {
       // H6: the limitation is on the page in bold without a tap.
       const limitation = receipts.locator("ul p").first();
       await expect(limitation).toBeVisible();
-      expect(await limitation.evaluate((el) => getComputedStyle(el).fontWeight)).toBe("700");
+      expect(await limitation.evaluate((el) => getComputedStyle(el).fontWeight)).toBe("500");
     }
 
     // The dev checks report a moment after the page has loaded.

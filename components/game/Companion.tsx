@@ -25,16 +25,16 @@ const POSE: Record<Mood, { tail: number; eyes: "closed" | "open" | "wide" | "hap
 };
 
 function Eyes({ kind }: { kind: "closed" | "open" | "wide" | "happy" }) {
-  const stroke = { stroke: "var(--accent-ink)", strokeWidth: 2.6, strokeLinecap: "round" as const, fill: "none" };
+  const stroke = { stroke: "var(--bg)", strokeWidth: 2.6, strokeLinecap: "round" as const, fill: "none" };
   if (kind === "closed") return <><path d="M43 53 q6 4 12 0" {...stroke} /><path d="M65 53 q6 4 12 0" {...stroke} /></>;
   if (kind === "happy") return <><path d="M43 55 q6 -8 12 0" {...stroke} /><path d="M65 55 q6 -8 12 0" {...stroke} /></>;
   const ry = kind === "wide" ? 6.5 : 5;
   return (
     <>
-      <ellipse cx="49" cy="53" rx="4" ry={ry} fill="var(--accent-ink)" />
-      <ellipse cx="71" cy="53" rx="4" ry={ry} fill="var(--accent-ink)" />
-      <circle cx="50.5" cy="51" r="1.4" fill="var(--accent)" />
-      <circle cx="72.5" cy="51" r="1.4" fill="var(--accent)" />
+      <ellipse cx="49" cy="53" rx="4" ry={ry} fill="var(--bg)" />
+      <ellipse cx="71" cy="53" rx="4" ry={ry} fill="var(--bg)" />
+      <circle cx="50.5" cy="51" r="1.4" fill="var(--ink)" />
+      <circle cx="72.5" cy="51" r="1.4" fill="var(--ink)" />
     </>
   );
 }
@@ -44,24 +44,24 @@ export function Cat({ mood }: { mood: Mood }) {
   const moving = mood === "lively" || mood === "glowing";
   return (
     <svg viewBox="0 0 120 124" className="h-full w-full" aria-hidden>
-      {mood === "glowing" && <circle cx="60" cy="64" r="56" fill="none" stroke="var(--accent)" strokeWidth="2" className="companion-halo" />}
+      {mood === "glowing" && <circle cx="60" cy="64" r="56" fill="none" stroke="var(--ink)" strokeWidth="2" className="companion-halo" />}
       <g opacity={mood === "resting" ? 0.55 : 1} style={{ transition: "opacity 400ms" }}>
         <g style={{ transformOrigin: "84px 100px", transform: `rotate(${pose.tail}deg)`, transition: "transform 500ms cubic-bezier(0.2,0.8,0.2,1)" }}>
-          <path d="M84 100 q26 -2 22 -30" fill="none" stroke="var(--accent)" strokeWidth="9" strokeLinecap="round" className={moving ? "companion-tail" : ""} />
+          <path d="M84 100 q26 -2 22 -30" fill="none" stroke="var(--ink)" strokeWidth="9" strokeLinecap="round" className={moving ? "companion-tail" : ""} />
         </g>
-        <ellipse cx="60" cy="92" rx="30" ry="25" fill="var(--accent)" />
-        <path d="M36 36 L40 10 L56 28 Z M84 36 L80 10 L64 28 Z" fill="var(--accent)" />
-        <path d="M41 30 L42.5 18 L50 27 Z M79 30 L77.5 18 L70 27 Z" fill="var(--accent-ink)" opacity="0.28" />
-        <circle cx="60" cy="52" r="27" fill="var(--accent)" />
+        <ellipse cx="60" cy="92" rx="30" ry="25" fill="var(--ink)" />
+        <path d="M36 36 L40 10 L56 28 Z M84 36 L80 10 L64 28 Z" fill="var(--ink)" />
+        <path d="M41 30 L42.5 18 L50 27 Z M79 30 L77.5 18 L70 27 Z" fill="var(--bg)" opacity="0.28" />
+        <circle cx="60" cy="52" r="27" fill="var(--ink)" />
         <Eyes kind={pose.eyes} />
-        <path d="M57 62 h6 l-3 3.5 Z" fill="var(--accent-ink)" />
-        <path d="M60 65.5 q-4 5 -8 1 M60 65.5 q4 5 8 1" fill="none" stroke="var(--accent-ink)" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M38 60 h-12 M38 65 l-11 4 M82 60 h12 M82 65 l11 4" stroke="var(--accent-ink)" strokeWidth="1.4" strokeLinecap="round" opacity="0.55" />
-        <ellipse cx="48" cy="112" rx="8" ry="5" fill="var(--accent)" stroke="var(--accent-ink)" strokeOpacity="0.25" />
-        <ellipse cx="72" cy="112" rx="8" ry="5" fill="var(--accent)" stroke="var(--accent-ink)" strokeOpacity="0.25" />
+        <path d="M57 62 h6 l-3 3.5 Z" fill="var(--bg)" />
+        <path d="M60 65.5 q-4 5 -8 1 M60 65.5 q4 5 8 1" fill="none" stroke="var(--bg)" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M38 60 h-12 M38 65 l-11 4 M82 60 h12 M82 65 l11 4" stroke="var(--bg)" strokeWidth="1.4" strokeLinecap="round" opacity="0.55" />
+        <ellipse cx="48" cy="112" rx="8" ry="5" fill="var(--ink)" stroke="var(--bg)" strokeOpacity="0.25" />
+        <ellipse cx="72" cy="112" rx="8" ry="5" fill="var(--ink)" stroke="var(--bg)" strokeOpacity="0.25" />
       </g>
       {mood === "resting" && (
-        <g fill="var(--muted)" fontFamily="var(--font-sans)" fontWeight="700">
+        <g fill="var(--muted)" fontFamily="var(--font-sans)" fontWeight="500">
           <text x="92" y="30" fontSize="13">z</text>
           <text x="101" y="19" fontSize="10">z</text>
         </g>
@@ -74,14 +74,14 @@ function Photo({ src, mood }: { src: string; mood: Mood }) {
   const ring = { resting: 2, waiting: 3, alert: 4, lively: 5, glowing: 6 }[mood];
   return (
     <span className="relative block h-full w-full">
-      {mood === "glowing" && <span aria-hidden className="companion-halo absolute -inset-1.5 rounded-full border-2 border-accent" />}
+      {mood === "glowing" && <span aria-hidden className="companion-halo absolute -inset-1.5 rounded-full border-2 border-ink" />}
       {/* A data: URL from this device's own storage; next/image has nothing to optimise. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src} alt=""
         className="h-full w-full rounded-full object-cover"
         style={{
-          boxShadow: `0 0 0 ${ring}px ${mood === "resting" ? "var(--line)" : "var(--accent)"}`,
+          boxShadow: `0 0 0 ${ring}px ${mood === "resting" ? "var(--line)" : "var(--ink)"}`,
           filter: mood === "resting" ? "grayscale(1) opacity(0.6)" : "none",
           transition: "box-shadow 400ms, filter 400ms",
         }}
@@ -128,7 +128,7 @@ export function Companion({ input, ready }: { input: MoodInput; ready: boolean }
       </button>
       <div className="min-w-0 flex-1">
         <p className="text-sm text-muted">{ready ? MOOD_NAME[mood].charAt(0).toUpperCase() + MOOD_NAME[mood].slice(1) : " "}</p>
-        <p className="mt-0.5 font-semibold leading-snug" aria-live="polite">{ready ? said : " "}</p>
+        <p className="mt-0.5 font-medium leading-snug" aria-live="polite">{ready ? said : " "}</p>
         <p className="mt-1 text-xs leading-snug text-muted">Follows what you tick. It cannot see your health.</p>
       </div>
     </section>

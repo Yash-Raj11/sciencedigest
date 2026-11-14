@@ -35,7 +35,7 @@ export function DayComplete({ game, ready }: { game: Game; ready: boolean }) {
     <Sheet open={open} onClose={() => setOpen(false)} title="Today is complete">
       <div className="flex flex-col items-center pb-2 text-center">
         <div className="day-burst relative my-4"><CompanionFigure mood="glowing" size="h-36 w-36" /></div>
-        <p className="num text-lg font-semibold">{done} of {total} boxes ticked.</p>
+        <p className="num text-lg font-medium">{done} of {total} boxes ticked.</p>
         <dl className="mt-4 grid w-full grid-cols-2 gap-2.5 text-left">
           <div className="rounded-xl border border-line bg-surface p-3">
             <dt className="text-sm text-muted">Streak</dt>

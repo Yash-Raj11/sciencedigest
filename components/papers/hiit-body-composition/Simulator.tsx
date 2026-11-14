@@ -65,12 +65,12 @@ export default function Simulator({ params }: SimulatorProps) {
   return (
     <div className="space-y-4 rounded-2xl border border-line bg-surface p-4">
       <fieldset>
-        <legend className="font-semibold">What do you want to look at?</legend>
+        <legend className="font-medium">What do you want to look at?</legend>
         <div className="mt-2 divide-y divide-line rounded-xl border border-line bg-bg">
           {outcomes.map((o) => (
             <label key={o.id} className="flex cursor-pointer items-center gap-3 px-3.5 py-3">
               <input
-                type="radio" name="hiit-outcome" className="h-5 w-5 accent-[var(--accent)]"
+                type="radio" name="hiit-outcome" className="h-5 w-5 accent-[var(--ink)]"
                 checked={o.id === outcomeId} onChange={() => setOutcomeId(o.id)}
               />
               <span className="min-w-0 flex-1 font-medium leading-snug">{o.label}</span>
@@ -113,14 +113,14 @@ export default function Simulator({ params }: SimulatorProps) {
             <span className="block font-medium leading-snug">Remove the single most influential trial</span>
             <span className="block text-sm leading-snug text-muted">The authors re-ran the pooling with each trial left out in turn.</span>
           </span>
-          <span aria-hidden className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${withoutOne ? "bg-accent" : "bg-line"}`}>
+          <span aria-hidden className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${withoutOne ? "bg-ink" : "bg-line"}`}>
             <span className={`absolute top-1 h-5 w-5 rounded-full bg-bg transition-[left] ${withoutOne ? "left-6" : "left-1"}`} />
           </span>
         </button>
       )}
 
       <div className="rounded-xl border border-line bg-bg p-3.5">
-        <p className="font-semibold">Build a session you could really do</p>
+        <p className="font-medium">Build a session you could really do</p>
         <p className="text-sm leading-snug text-muted">Move a slider and watch the rows above change with it.</p>
         <div className="mt-3 space-y-3">
           {([
@@ -130,7 +130,7 @@ export default function Simulator({ params }: SimulatorProps) {
             ["perWeek", "Sessions a week", 1, 5, 1, `${session.perWeek}`],
           ] as const).map(([key, label, min, max, step, shown]) => (
             <label key={key} className="block">
-              <span className="flex items-baseline justify-between gap-3 text-sm"><span className="font-medium">{label}</span><span className="num font-bold">{shown}</span></span>
+              <span className="flex items-baseline justify-between gap-3 text-sm"><span className="font-medium">{label}</span><span className="num font-medium">{shown}</span></span>
               <input type="range" min={min} max={max} step={step} value={session[key]} className="mt-1 w-full"
                 onChange={(e) => setSession((v) => ({ ...v, [key]: Number(e.target.value) }))} />
             </label>
@@ -143,7 +143,7 @@ export default function Simulator({ params }: SimulatorProps) {
       </div>
 
       <div className="rounded-xl border border-line bg-bg p-3.5">
-        <p className="mb-3 font-semibold">The rest of the programme</p>
+        <p className="mb-3 font-medium">The rest of the programme</p>
         <ChoicePicker choices={choices} values={picks} onChange={(key, value) => value && setPicks((p) => ({ ...p, [key]: value }))} />
       </div>
 

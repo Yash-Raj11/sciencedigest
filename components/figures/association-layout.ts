@@ -18,7 +18,7 @@ export interface GroupEdges { from: Cited; to: Cited; meanAge?: Cited }
 export const CURVE_FRAME = { left: 6, top: 34, width: 308, height: 120, figureHeight: 222, gap: 4, size: 15, valueGap: 8, axisGap: 22, titleGap: 46 };
 
 /** One answer button: 48 px tall, so it is a full touch target. */
-export const DAY_BUTTON = "flex h-12 min-w-0 cursor-pointer items-center justify-center rounded-lg border text-lg font-bold";
+export const DAY_BUTTON = "flex h-12 min-w-0 cursor-pointer items-center justify-center rounded-lg border text-lg font-medium";
 
 const DASH = "–";
 const MINUS = "−";

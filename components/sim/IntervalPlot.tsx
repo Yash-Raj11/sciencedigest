@@ -54,8 +54,8 @@ export function IntervalPlot({ rows, lowLabel, highLabel }: { rows: PlotRow[]; l
           return (
             <li key={row.key}>
               <p className="flex items-baseline justify-between gap-3">
-                <span className={`min-w-0 leading-snug ${row.strong ? "font-bold" : "font-medium"}`}>{row.label}</span>
-                <span className="num shrink-0 text-sm font-semibold">{e ? `${e.point > 0 ? "+" : ""}${signed(e.point, d)} ${unit}` : ""}</span>
+                <span className={`min-w-0 leading-snug ${row.strong ? "font-medium text-ink" : "text-muted"}`}>{row.label}</span>
+                <span className="num shrink-0 text-sm font-medium">{e ? `${e.point > 0 ? "+" : ""}${signed(e.point, d)} ${unit}` : ""}</span>
               </p>
               {e ? (
                 <div
@@ -68,13 +68,13 @@ export function IntervalPlot({ rows, lowLabel, highLabel }: { rows: PlotRow[]; l
                   {e.ciLow !== null && e.ciHigh !== null && (
                     <span
                       aria-hidden
-                      className={`absolute top-1/2 h-2.5 -translate-y-1/2 rounded-full ${grey ? "bg-muted/50" : "bg-accent/45"}`}
+                      className={`absolute top-1/2 h-2.5 -translate-y-1/2 rounded-full ${grey ? "bg-muted/50" : "bg-band"}`}
                       style={{ left: at(e.ciLow), width: `calc(${at(e.ciHigh)} - ${at(e.ciLow)})`, transition: "left 240ms, width 240ms" }}
                     />
                   )}
                   <span
                     aria-hidden
-                    className={`absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-bg ${grey ? "bg-muted" : "bg-accent"}`}
+                    className={`absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-bg ${grey ? "bg-muted" : "bg-ink"}`}
                     style={{ left: at(e.point), transition: "left 240ms" }}
                   />
                 </div>

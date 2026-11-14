@@ -32,7 +32,7 @@ import { KindSimulator } from "./KindSimulator";
 import { MemberExtras } from "./MemberExtras";
 import { Glossary, Para, Pictured, PullNumber, type Context, type Facts } from "./parts";
 
-const LAYER = "read-title text-[1.625rem]";
+const LAYER = "headline";
 const AUDIT = "text-base leading-relaxed";
 
 /** Paragraphs with the layer's figure after the first one. */
@@ -53,8 +53,8 @@ function Paragraphs({ slug, paragraphs, figure, facts, context }: { slug: string
 function WhoWasTested({ paper, content }: { paper: PaperMeta; content: PaperContent }) {
   const observational = !RANDOMIZED_DESIGNS.has(paper.design as Design);
   return (
-    <section aria-label="Who was studied" className="rounded-2xl border-2 border-ink p-4">
-      <h3 className="display text-xl">Who this was tested in</h3>
+    <section aria-label="Who was studied" className="rounded-2xl border border-line bg-surface p-4">
+      <h3 className="headline">Who this was tested in</h3>
       <div className="mt-2">
         <Para sentences={content.populationPanel} facts={content.facts} context={content.context} className={AUDIT} />
       </div>
@@ -77,11 +77,11 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
   return (
     <Glossary content={content}>
       <div>
-        <Para as="h2" sentences={content.hook} facts={facts} context={context} className="read-title text-[1.875rem]" />
+        <Para as="h2" sentences={content.hook} facts={facts} context={context} className="headline" />
         <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
-          <span className="num font-semibold" data-read-minutes>{paper.readMinutes} min read</span>
+          <span className="num font-medium" data-read-minutes>{paper.readMinutes} min read</span>
           <span className="flex items-center gap-1.5">
-            <span aria-hidden className="h-2.5 w-2.5 shrink-0 rounded-full border-2 border-accent" />
+            <span aria-hidden className="h-2.5 w-2.5 shrink-0 rounded-full border-[1.5px] border-meta" />
             Tap a dot for the passage in the paper{hasGlossary ? "; tap an underlined word for what it means" : ""}.
           </span>
         </p>
@@ -118,8 +118,8 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
         <WhoWasTested paper={paper} content={content} />
       </section>
 
-      <section aria-label="Simulator" className="space-y-3">
-        <h2 className="display text-2xl">Try it</h2>
+      <section aria-label="Simulator" className="space-y-3" data-accent-slot>
+        <h2 className="headline">Try it</h2>
         {content.simulator.spec
           ? <KindSimulator content={content} observational={!RANDOMIZED_DESIGNS.has(paper.design as Design)} />
           : <SimulatorFor kind={content.simulator.kind} params={content.simulator.params} />}
@@ -131,7 +131,7 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
 function Receipt({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div>
-      <h3 className="text-sm font-semibold text-muted">{title}</h3>
+      <h3 className="text-sm font-medium text-muted">{title}</h3>
       {children}
     </div>
   );
@@ -142,15 +142,15 @@ function Primer() {
   return (
     <dl className="space-y-3 border-t border-line pt-3 text-[0.9375rem] leading-relaxed">
       <div>
-        <dt className="font-semibold">95% CI (confidence interval)</dt>
+        <dt className="font-medium">95% CI (confidence interval)</dt>
         <dd className="text-muted">The range the true average plausibly sits in. A range that includes zero means the study cannot tell an effect from no effect.</dd>
       </div>
       <div>
-        <dt className="font-semibold">Certainty: high, moderate, low</dt>
+        <dt className="font-medium">Certainty: high, moderate, low</dt>
         <dd className="text-muted">How far a result can be trusted, judged from how the study was done. It is about trust, not size: a high-certainty effect can still be tiny.</dd>
       </div>
       <div>
-        <dt className="font-semibold">Points</dt>
+        <dt className="font-medium">Points</dt>
         <dd className="text-muted">Percentage points: the plain gap between two percentages. Going from 20% to 15% is 5 points.</dd>
       </div>
     </dl>
@@ -169,17 +169,17 @@ function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent 
   const sources = contextSourceList(content);
 
   return (
-    <section aria-label="The receipts" className="space-y-4 rounded-2xl border border-accent bg-accent-soft p-4">
-      <h2 className="display text-xl">The receipts</h2>
+    <section aria-label="The receipts" className="space-y-4 rounded-2xl border border-line bg-surface p-4">
+      <h2 className="headline">The receipts</h2>
       <dl className="grid grid-cols-2 gap-3 text-sm leading-snug">
         <div>
-          <dt className="font-semibold text-muted">Design</dt>
-          <dd className="font-semibold">{DESIGN_LABEL[paper.design] ?? paper.design}</dd>
+          <dt className="font-medium text-muted">Design</dt>
+          <dd className="font-medium">{DESIGN_LABEL[paper.design] ?? paper.design}</dd>
         </div>
         {paper.sampleSize !== null && (
           <div>
-            <dt className="font-semibold text-muted">Participants</dt>
-            <dd className="num font-semibold">{paper.sampleSize.toLocaleString("en")}</dd>
+            <dt className="font-medium text-muted">Participants</dt>
+            <dd className="num font-medium">{paper.sampleSize.toLocaleString("en")}</dd>
           </div>
         )}
       </dl>
@@ -199,13 +199,13 @@ function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent 
           {limitations.map((limitation, i) => (
             <li key={i} className="flex gap-3">
               <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
-              <div className="min-w-0 flex-1"><Para sentences={limitation} facts={facts} context={context} className={`${AUDIT} font-bold`} /></div>
+              <div className="min-w-0 flex-1"><Para sentences={limitation} facts={facts} context={context} className={`${AUDIT} font-medium`} /></div>
             </li>
           ))}
         </ul>
       </Receipt>
-      <details className="border-t border-accent pt-3">
-        <summary className="flex min-h-11 cursor-pointer items-center font-semibold">Full receipts</summary>
+      <details className="border-t border-line pt-3">
+        <summary className="flex min-h-11 cursor-pointer items-center font-medium">Full receipts</summary>
         <div className="ui-reveal mt-2 space-y-4">
           {audit && (
             <Receipt title="What summaries leave out">
@@ -217,7 +217,7 @@ function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent 
             <Receipt title="Other sources this read uses">
               {sources.map((source) => (
                 <p key={source.id} className="mt-1 text-sm leading-snug text-muted">
-                  <span className="font-semibold">{source.label}.</span> {source.citation} ({source.id}){source.grade ? `, ${source.grade.toLowerCase()}` : ""}
+                  <span className="font-medium">{source.label}.</span> {source.citation} ({source.id}){source.grade ? `, ${source.grade.toLowerCase()}` : ""}
                 </p>
               ))}
             </Receipt>
@@ -249,11 +249,11 @@ export function Article({ paper }: { paper: PaperMeta }) {
   return (
     <article className="space-y-7">
       <header className="pt-2">
-        <Link href="/" className="text-sm font-semibold text-muted underline underline-offset-4">All reads</Link>
+        <Link href="/" className="text-sm font-medium text-muted underline underline-offset-4">All reads</Link>
         <p className="mt-4 flex items-center justify-between gap-3 text-sm text-muted">
           <span>{paper.category}, {(DESIGN_LABEL[paper.design] ?? paper.design).toLowerCase()}</span>
         </p>
-        <h1 className="mt-2 text-[1.0625rem] font-semibold leading-snug text-muted">{paper.title}</h1>
+        <h1 className="mt-2 text-[1.0625rem] font-medium leading-snug text-muted">{paper.title}</h1>
         <dl className="mt-4 space-y-1.5">
           {paper.grades.map((g) => (
             <div key={g.outcome} className="flex items-center justify-between gap-3 border-t border-line pt-1.5">
@@ -278,7 +278,7 @@ export function Article({ paper }: { paper: PaperMeta }) {
           <p className="read">{paper.teaser}</p>
           <Notice tone="warn">
             <strong>This read is for members.</strong> The summary above and the protocol below are open to everyone; the full read, its simulator and the implementation notes come with membership.
-            <Link href="/upgrade" className="mt-3 flex h-11 items-center justify-center rounded-lg bg-accent font-bold text-accent-ink">See what membership adds</Link>
+            <Link href="/upgrade" className="mt-3 flex h-11 items-center justify-center rounded-lg bg-ink font-medium text-bg">See what membership adds</Link>
           </Notice>
         </>
       )}
@@ -290,7 +290,7 @@ export function Article({ paper }: { paper: PaperMeta }) {
       )}
 
       <section aria-label="Protocol" className="space-y-3">
-        <h2 className="display text-2xl">Put it in your Life Game</h2>
+        <h2 className="headline">Put it in your Life Game</h2>
         <WidgetFor slug={paper.slug} variant="article" />
       </section>
 
@@ -301,13 +301,13 @@ export function Article({ paper }: { paper: PaperMeta }) {
       <footer className="space-y-2 border-t border-line pt-4 text-sm leading-snug text-muted">
         <p>{paper.citation}</p>
         <p>
-          <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noreferrer" className="font-semibold text-accent-text underline underline-offset-4">
+          <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noreferrer" className="font-medium text-ink underline underline-offset-4">
             Read the original paper
           </a>
           {paper.pmcid && (
             <>
               {" or the "}
-              <a href={`https://pmc.ncbi.nlm.nih.gov/articles/${paper.pmcid}/`} target="_blank" rel="noreferrer" className="font-semibold text-accent-text underline underline-offset-4">
+              <a href={`https://pmc.ncbi.nlm.nih.gov/articles/${paper.pmcid}/`} target="_blank" rel="noreferrer" className="font-medium text-ink underline underline-offset-4">
                 free full text
               </a>
             </>

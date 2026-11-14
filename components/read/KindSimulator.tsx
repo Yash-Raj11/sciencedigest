@@ -34,7 +34,7 @@ export function KindSimulator({ content, observational }: { content: PaperConten
         note={say("halfLifeNote", "text-sm leading-snug text-muted")}
         beside={words.finding ? (
           <>
-            <h3 className="text-sm font-semibold text-muted">What this paper found</h3>
+            <h3 className="text-sm font-medium text-muted">What this paper found</h3>
             {say("finding", "mt-1 text-base leading-snug")}
             <p className="mt-1.5 text-sm text-muted">{FROM_THE_PAPER}.</p>
           </>
@@ -52,7 +52,7 @@ export function KindSimulator({ content, observational }: { content: PaperConten
       <AssociationCurve
         mode="full" raw={raw} adjusted={many(spec.simulator.adjusted)} groups={groups} alt={alt}
         sourceLine={raw[0] ? factSourceLine(raw[0], content) : FROM_THE_PAPER} observational={observational}
-        ask={say("ask", "text-lg font-semibold leading-snug")} headline={say("headline", "text-lg font-semibold leading-snug")}
+        ask={say("ask", "text-lg font-medium leading-snug")} headline={say("headline", "text-lg font-medium leading-snug")}
         who={say("who", "text-base leading-snug")}
       />
     );

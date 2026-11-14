@@ -20,7 +20,7 @@ function CoverageChecklist({ card }: { card: CoverageCard }) {
   return (
     <details className="rounded-2xl border border-line bg-surface p-4" open={missing > 0}>
       <summary className="flex cursor-pointer items-baseline justify-between gap-3">
-        <span className="display text-lg">{card.slug}</span>
+        <span className="headline">{card.slug}</span>
         <span className="text-sm text-muted">
           {card.published ? "Published" : "Draft"} · {card.gateOk ? (missing === 0 ? "all found" : `${missing} not found`) : "gate refused: fix the extraction first"}
         </span>
@@ -28,7 +28,7 @@ function CoverageChecklist({ card }: { card: CoverageCard }) {
       <ul className="mt-3 space-y-1.5">
         {card.rows.map((row) => (
           <li key={row.item} className="flex gap-2 text-sm leading-snug">
-            <span aria-hidden className={row.found ? "text-accent-text" : "text-muted"}>{row.found ? "✓" : "–"}</span>
+            <span aria-hidden className={row.found ? "text-ink" : "text-muted"}>{row.found ? "✓" : "–"}</span>
             <span className="min-w-0">
               {row.label}:{" "}
               {row.found ? <code className="break-words text-muted">{row.facts.join(", ")}</code> : <strong>not found</strong>}
@@ -70,8 +70,8 @@ function DeckCard({ item, onAct }: { item: Item; onAct: (slug: string, action: "
     <section aria-label={deck.slug} className="rounded-2xl border border-line bg-surface p-4">
       <header className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h2 className="display text-xl">{deck.slug}</h2>
-          <p className={`text-sm leading-snug ${item.status === "approved" ? "text-accent-text" : "text-muted"}`}>{STATUS_TEXT[item.status]}</p>
+          <h2 className="headline">{deck.slug}</h2>
+          <p className={`text-sm leading-snug ${item.status === "approved" ? "text-ink" : "text-muted"}`}>{STATUS_TEXT[item.status]}</p>
         </div>
         <span className="num shrink-0 text-sm text-muted">{deck.slides.length} slides</span>
       </header>
@@ -79,21 +79,21 @@ function DeckCard({ item, onAct }: { item: Item; onAct: (slug: string, action: "
       <ol className="-mx-4 mt-3 flex snap-x gap-3 overflow-x-auto px-4 pb-2">
         {deck.slides.map((slide, i) => (
           <li key={i} className="flex aspect-[4/5] w-56 shrink-0 snap-start flex-col justify-between rounded-lg bg-black p-4 text-white">
-            <p className="text-xs font-semibold text-[#ff8a33]">{KIND_NAME[slide.kind]}</p>
+            <p className="text-xs font-medium text-accent-text">{KIND_NAME[slide.kind]}</p>
             <div>
-              <p className="display text-[1.375rem]">{slide.heading}</p>
+              <p className="headline">{slide.heading}</p>
               {slide.body && <p className="mt-2 text-[0.8125rem] leading-snug text-neutral-300">{slide.body}</p>}
             </div>
             <p className="num flex items-center justify-between text-xs text-neutral-400">
               <span>{i + 1} / {deck.slides.length}</span>
-              <span aria-hidden className="h-1.5 w-8 rounded-sm bg-[#ff6a00]" />
+              <span aria-hidden className="h-1.5 w-8 rounded-sm bg-ink" />
             </p>
           </li>
         ))}
       </ol>
 
       <div className="mt-3 rounded-xl border border-line bg-bg p-3.5">
-        <p className="flex items-baseline justify-between gap-3 text-sm font-semibold">
+        <p className="flex items-baseline justify-between gap-3 text-sm font-medium">
           Caption
           <span className="num font-normal text-muted">{caption.length} of {CAROUSEL_LIMITS.caption} characters</span>
         </p>
@@ -106,16 +106,16 @@ function DeckCard({ item, onAct }: { item: Item; onAct: (slug: string, action: "
 
       <footer className="mt-3 flex gap-2">
         {item.status === "approved" ? (
-          <button type="button" onClick={() => onAct(deck.slug, "withdraw")} className="h-11 flex-1 rounded-lg border border-line font-semibold">Withdraw approval</button>
+          <button type="button" onClick={() => onAct(deck.slug, "withdraw")} className="h-11 flex-1 rounded-lg border border-line font-medium">Withdraw approval</button>
         ) : (
-          <button type="button" disabled={problems.length > 0} onClick={() => onAct(deck.slug, "approve")} className="h-11 flex-1 rounded-lg bg-accent font-bold text-accent-ink disabled:opacity-40">
+          <button type="button" disabled={problems.length > 0} onClick={() => onAct(deck.slug, "approve")} className="h-11 flex-1 rounded-lg bg-ink font-medium text-bg disabled:opacity-40">
             I have read every slide: approve
           </button>
         )}
         <button
           type="button"
           onClick={() => { void navigator.clipboard.writeText(caption).then(() => { setCopied(true); setTimeout(() => setCopied(false), 1500); }); }}
-          className="h-11 rounded-lg border border-line px-4 font-semibold"
+          className="h-11 rounded-lg border border-line px-4 font-medium"
         >
           {copied ? "Copied" : "Copy caption"}
         </button>
@@ -159,7 +159,7 @@ export function QueueBoard() {
   return (
     <div className="space-y-4 pb-8">
       <header className="pt-2">
-        <h1 className="display text-[2.5rem]">Instagram queue</h1>
+        <h1 className="headline">Instagram queue</h1>
         <p className="text-muted">One deck per published paper, written from the same checked facts as the read. Nothing is posted from here.</p>
       </header>
       {unavailable && (
@@ -169,7 +169,7 @@ export function QueueBoard() {
       )}
       {coverage.length > 0 && (
         <section aria-label="Coverage checklist" className="space-y-2">
-          <h2 className="display text-2xl">Coverage checklist</h2>
+          <h2 className="headline">Coverage checklist</h2>
           <p className="text-sm leading-snug text-muted">Each item is ticked only by a fact that passed the gate. Check each one against the paper while you review the draft.</p>
           {coverage.map((card) => <CoverageChecklist key={card.slug} card={card} />)}
         </section>

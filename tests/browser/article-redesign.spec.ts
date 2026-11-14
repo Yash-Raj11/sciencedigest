@@ -72,10 +72,16 @@ test.describe("the read", () => {
     const paragraphs = page.locator('section[aria-label="Why it happens"] p.read');
     expect((await paragraphs.nth(0).boundingBox())!.y).toBeLessThan(await top(page, '[data-figure-key$="/doorbell"]'));
     expect((await paragraphs.nth(1).boundingBox())!.y).toBeGreaterThan(await top(page, '[data-figure-key$="/doorbell"]'));
-    // Reading type: Newsreader, line height at least 1.6.
-    const type = await paragraphs.first().evaluate((el) => { const s = getComputedStyle(el); return { family: s.fontFamily, ratio: parseFloat(s.lineHeight) / parseFloat(s.fontSize) }; });
-    expect(type.family).toContain("Newsreader");
-    expect(type.ratio).toBeGreaterThanOrEqual(1.6);
+    // Reading type (owner, 2026-11-14): body in Archivo, 15 to 17 px, line height 1.6;
+    // headlines in Newsreader, 22 px.
+    const type = await paragraphs.first().evaluate((el) => { const s = getComputedStyle(el); return { family: s.fontFamily, size: parseFloat(s.fontSize), ratio: parseFloat(s.lineHeight) / parseFloat(s.fontSize) }; });
+    expect(type.family).toContain("Archivo");
+    expect(type.size).toBeGreaterThanOrEqual(15);
+    expect(type.size).toBeLessThanOrEqual(17);
+    expect(type.ratio).toBeGreaterThanOrEqual(1.599);
+    const headline = await page.locator("article h2").first().evaluate((el) => { const s = getComputedStyle(el); return { family: s.fontFamily, size: parseFloat(s.fontSize) }; });
+    expect(headline.family).toContain("Newsreader");
+    expect(headline.size).toBe(22);
   });
 
   test("the number card gives the headline result and its source line", async ({ page }) => {
@@ -115,7 +121,9 @@ test.describe("the read", () => {
     await expect(receipts).toContainText(DESIGN_LABEL[getPaper(SLUG)!.design]); // "Randomized crossover trial" since the relabel
     const limitation = receipts.locator("ul p").first();
     await expect(limitation).toBeVisible();
-    expect(await limitation.evaluate((el) => getComputedStyle(el).fontWeight)).toBe("700");
+    // Prominent without a tap (H6): the heavier of the two weights, in the full text colour.
+    expect(await limitation.evaluate((el) => getComputedStyle(el).fontWeight)).toBe("500");
+    expect(await limitation.evaluate((el) => getComputedStyle(el).color)).toBe(await page.evaluate(() => getComputedStyle(document.body).color));
     const missed = receipts.getByText("What summaries leave out");
     await expect(missed).toBeHidden();
     await receipts.getByText("Full receipts").click();

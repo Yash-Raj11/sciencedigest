@@ -113,8 +113,10 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
   - [x] ⏸ Stop after caffeine + steps are live (owner, session 10). Answered 2026-11-14:
         the owner's readability list (below) comes next.
 - [ ] Readability pass (owner, 2026-11-14: research understandable to everyone). Items 1–7:
-  - [ ] IN PROGRESS: 1. Visual system as tokens (palette, pastel bands, orange once, type, contrast table).
-  - [ ] 2. Plain-language lint rules (significant, p/CI/effect size, direction words).
+  - [x] 1. Visual system as tokens (palette, pastel bands, orange once, type, contrast table).
+        `docs/evidence/readability/contrast.md`; tests `scripts/visual-system.test.ts`,
+        `tests/browser/readability.spec.ts`.
+  - [ ] IN PROGRESS: 2. Plain-language lint rules.
   - [ ] 3. Finding cards: headline → supporting line → source line.
   - [ ] 4. Source line (design · who · how many/how long) + evidence grade words and meter.
   - [ ] 5. Feed card = the key idea at a glance; "What's inside" rows deep-link to slots.

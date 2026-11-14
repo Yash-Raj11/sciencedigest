@@ -1,5 +1,5 @@
 import { assertEvidence } from "@/lib/content/figures";
-import { ACCENT, BG, INK, MUTED, strokeOf, type Evidence } from "../shared";
+import { BG, INK, MUTED, strokeOf, type Evidence } from "../shared";
 
 /** A key pointing left, its tip at (tipX, mid). The real key has teeth; the blank has none. */
 function Key({ tipX, mid, size, real, faint = false }: { tipX: number; mid: number; size: number; real: boolean; faint?: boolean }) {
@@ -26,7 +26,7 @@ export function LockKey({ x, y, size = 44, keyIn, shutOut = false, kind, fact }:
   assertEvidence(kind, fact);
   const measured = kind === "measured";
   const open = keyIn === "real";
-  const body = { fill: measured ? ACCENT : BG, stroke: INK, strokeWidth: 1.75, ...strokeOf(kind) };
+  const body = { fill: measured ? INK : BG, stroke: INK, strokeWidth: 1.75, ...strokeOf(kind) };
   const w = size;
   const h = size * 0.8;
   const top = y + size * 0.45;

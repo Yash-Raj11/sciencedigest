@@ -35,19 +35,19 @@ export function PostCard({ paper }: { paper: PaperMeta }) {
           <span className="min-w-0 truncate">{paper.category}</span>
           <span className="flex shrink-0 items-center gap-2">
             {paper.accessTier === "premium" && (
-              <span className="rounded-full border border-accent px-2.5 py-0.5 text-xs font-bold text-accent-text">Members</span>
+              <span className="rounded-full border border-line px-2.5 py-0.5 text-xs font-medium text-ink">Members</span>
             )}
             <span className="num">{paper.readMinutes} min read</span>
           </span>
         </p>
-        <h2 className="read-title text-[1.625rem]">{hook}</h2>
+        <h2 className="headline">{hook}</h2>
         <Pictured slug={paper.slug} figure={figure} still />
         {read && <PullNumber fact={read.facts[read.primaryEstimate]} context={read.context} />}
         <p className="flex items-center justify-between gap-3 border-t border-line pt-3 text-sm">
           <span className="min-w-0 leading-snug text-muted">{grade ? grade.outcome : paper.title}</span>
           {grade ? <GradeChip grade={grade.tier} /> : null}
         </p>
-        <p className="font-semibold text-accent-text">
+        <p className="font-medium text-ink">
           {paper.accessTier === "premium" ? "Open it: the full read is for members" : "Read it"} <span aria-hidden>→</span>
         </p>
       </Link>
@@ -63,7 +63,7 @@ export function Feed({ papers, top }: { papers: PaperMeta[]; top?: ReactNode }) 
       {top}
       {papers.slice(0, shown).map((paper) => <PostCard key={paper.id} paper={paper} />)}
       {papers.length > shown && (
-        <button type="button" onClick={() => setShown((n) => n + FEED_PAGE)} className="flex h-12 w-full items-center justify-center rounded-xl border border-line font-semibold">
+        <button type="button" onClick={() => setShown((n) => n + FEED_PAGE)} className="flex h-12 w-full items-center justify-center rounded-xl border border-line font-medium">
           Show {Math.min(FEED_PAGE, papers.length - shown)} more
         </button>
       )}

@@ -38,10 +38,10 @@ export default function FiveReadings({ params, alt, interactive = true }: Figure
         <div aria-live="polite" data-reading className="mx-3 mt-2 min-h-[7.5rem] rounded-xl bg-surface px-3.5 py-3">
           {cell && fact ? (
             <div key={`${cell.row}-${cell.time}`} data-shown data-fact={fact.id} className="ui-reveal">
-              <p className="text-sm font-semibold leading-snug">
+              <p className="text-sm font-medium leading-snug">
                 {cellName(p, cell)}{isFlagged(p, cell) ? ": differed from the plain meal" : ""}
               </p>
-              <p className="mt-1 text-xs font-semibold text-muted" data-source-line>{FROM_THE_PAPER}, word for word</p>
+              <p className="mt-1 text-xs font-medium text-muted" data-source-line>{FROM_THE_PAPER}, word for word</p>
               <p className="mt-0.5 font-serif text-[0.9375rem] italic leading-snug text-muted">&ldquo;{fact.quote}&rdquo;</p>
             </div>
           ) : (

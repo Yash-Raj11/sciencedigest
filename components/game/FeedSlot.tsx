@@ -27,18 +27,18 @@ export function FeedSlot() {
       <CompanionFigure mood={mood} size="h-16 w-16" />
       <span className="min-w-0 flex-1">
         <span className="flex items-baseline justify-between gap-3">
-          <span className="display text-xl">Life Game</span>
-          <span className="num text-sm font-bold" data-slot-pct>{pct}%</span>
+          <span className="headline">Life Game</span>
+          <span className="num text-sm font-medium" data-slot-pct>{pct}%</span>
         </span>
         <span className="num mt-0.5 block text-sm leading-snug text-muted" data-slot-steps>{steps}</span>
         <span
           role="progressbar" aria-label="Adherence today, weighted by evidence" aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct}
           className="mt-2 block h-2.5 overflow-hidden rounded-full bg-line"
         >
-          <span className="block h-full rounded-full bg-accent" style={{ width: `${pct}%` }} />
+          <span className="block h-full rounded-full bg-ink" style={{ width: `${pct}%` }} />
         </span>
       </span>
-      <span aria-hidden className="font-semibold text-accent-text">→</span>
+      <span aria-hidden className="font-medium text-ink">→</span>
     </Link>
   );
 }

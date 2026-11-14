@@ -36,3 +36,10 @@ export function applyThemeChoice(choice: ThemeChoice): void {
 
 /** Runs in <head> before the page paints, so there is no flash of the wrong theme. */
 export const THEME_BOOT_SCRIPT = `(function(){try{var s=localStorage.getItem(${JSON.stringify(THEME_KEY)});var t=s==="light"||s==="dark"?s:(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.dataset.theme=t}catch(e){}})()`;
+
+/**
+ * The page colour of each mode, for the browser chrome and the installed app (which cannot
+ * read a CSS variable). A copy of --bg in app/globals.css; scripts/visual-system.test.ts
+ * fails if the two drift apart.
+ */
+export const PAGE_COLOUR = { dark: "#0d0d0c", light: "#faf7f2" } as const;

@@ -1,5 +1,5 @@
 import { assertEvidence } from "@/lib/content/figures";
-import { ACCENT, INK, LINE, MUTED, strokeOf, type Evidence } from "../shared";
+import { INK, LINE, MUTED, strokeOf, type Evidence } from "../shared";
 import { Label } from "./Label";
 
 /**
@@ -15,7 +15,7 @@ export function Gauge({ x, y, width, min, max, value, low, high, label, text, no
   assertEvidence(kind, fact);
   const at = (v: number) => x + ((Math.min(max, Math.max(min, v)) - min) / (max - min)) * width;
   const clear = low !== null && high !== null && (low > 0 || high < 0);
-  const colour = clear ? ACCENT : MUTED;
+  const colour = clear ? INK : MUTED;
   return (
     <g data-evidence={kind} data-fact={fact.id}>
       <Label x={x} y={y} size={11.5} tone="muted">{label}</Label>

@@ -1,5 +1,5 @@
 import { assertEvidence } from "@/lib/content/figures";
-import { ACCENT, BG, INK, strokeOf, type Evidence } from "../shared";
+import { BG, INK, strokeOf, type Evidence } from "../shared";
 import { Label } from "./Label";
 
 export interface Bar extends Evidence { label: string; value: number; text: string; note?: string | null }
@@ -17,7 +17,7 @@ export function BarPair({ x, y, width, max, gap = 58, bars }: { x: number; y: nu
             <Label x={x} y={top} size={11.5} tone="muted">{bar.label}</Label>
             <rect
               x={x} y={top + 7} width={Math.max(2, (bar.value / max) * width)} height={14} rx={3}
-              fill={measured ? ACCENT : BG} stroke={measured ? ACCENT : INK} strokeWidth={1.5} {...strokeOf(bar.kind)}
+              fill={measured ? INK : BG} stroke={measured ? INK : INK} strokeWidth={1.5} {...strokeOf(bar.kind)}
             />
             <Label x={x} y={top + 37} bold>{bar.text}</Label>
             {bar.note ? <Label x={x + width} y={top + 37} anchor="end" tone="muted" size={11}>{bar.note}</Label> : null}

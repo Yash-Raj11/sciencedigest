@@ -19,11 +19,11 @@ export function GradeChip({ grade, className = "" }: { grade: EvidenceGrade; cla
   return (
     <span
       title={`${GRADE_NAME[grade]}: counts ${weightLabel(grade)} toward the weighted score`}
-      className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-xs font-semibold text-muted ${className}`}
+      className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-xs font-medium text-muted ${className}`}
     >
       <span aria-hidden className="flex gap-[2px]">
         {[0, 1, 2].map((i) => (
-          <span key={i} className={`h-2.5 w-1.5 rounded-[1px] ${i < PIPS[grade] ? "bg-accent" : "bg-line"}`} />
+          <span key={i} className={`h-2.5 w-1.5 rounded-[1px] ${i < PIPS[grade] ? "bg-ink" : "bg-line"}`} />
         ))}
       </span>
       <span>{SHORT[grade]} <span className="num">{weightLabel(grade)}</span></span>
@@ -40,7 +40,7 @@ export function ProgressRing({ pct, size = 56, label }: { pct: number; size?: nu
       <svg viewBox={`0 0 ${size} ${size}`} className="h-full w-full -rotate-90">
         <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--line)" strokeWidth="6" />
         <circle
-          cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--accent)" strokeWidth="6" strokeLinecap="butt"
+          cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--ink)" strokeWidth="6" strokeLinecap="butt"
           strokeDasharray={c} strokeDashoffset={c - (c * pct) / 100}
           style={{ transition: "stroke-dashoffset 320ms cubic-bezier(0.2,0.8,0.2,1)" }}
         />
@@ -54,7 +54,7 @@ export function CheckBox({ checked }: { checked: boolean }) {
   return (
     <span
       aria-hidden
-      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-md border-2 transition-colors ${checked ? "border-accent bg-accent text-accent-ink" : "border-muted/60 bg-transparent text-transparent"}`}
+      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-md border-2 transition-colors ${checked ? "border-ink bg-ink text-bg" : "border-muted/60 bg-transparent text-transparent"}`}
     >
       <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M5 12.5 10 17 19 7" />
@@ -90,7 +90,7 @@ function DerivedRow(props: { met: boolean; label: string; status: string; traili
     <div className="flex items-start gap-3 py-3">
       <span
         aria-hidden
-        className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 ${props.met ? "border-accent bg-accent text-accent-ink" : "border-dashed border-muted/60 text-transparent"}`}
+        className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 ${props.met ? "border-ink bg-ink text-bg" : "border-dashed border-muted/60 text-transparent"}`}
       >
         <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M5 12.5 10 17 19 7" />
@@ -120,7 +120,7 @@ function WeekPips({ count, target }: { count: number; target: number }) {
   return (
     <span aria-hidden className="mt-1.5 flex gap-1">
       {Array.from({ length: Math.max(target, count) }, (_, i) => (
-        <span key={i} className={`h-2 w-5 rounded-sm ${i < count ? "bg-accent" : "bg-line"}`} />
+        <span key={i} className={`h-2 w-5 rounded-sm ${i < count ? "bg-ink" : "bg-line"}`} />
       ))}
     </span>
   );
@@ -215,7 +215,7 @@ export function ChoicePicker({ choices, values, onChange }: { choices: Choice[];
                 <span className="block font-medium leading-snug">{choice.label}</span>
                 {choice.help && <span className="block text-sm leading-snug text-muted">{choice.help}</span>}
               </span>
-              <span aria-hidden className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${on ? "bg-accent" : "bg-line"}`}>
+              <span aria-hidden className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${on ? "bg-ink" : "bg-line"}`}>
                 <span className={`absolute top-1 h-5 w-5 rounded-full bg-bg transition-[left] ${on ? "left-6" : "left-1"}`} />
               </span>
             </button>
@@ -231,7 +231,7 @@ export function ChoicePicker({ choices, values, onChange }: { choices: Choice[];
                 return (
                   <label
                     key={option.value}
-                    className={`cursor-pointer rounded-full border px-3.5 py-1.5 text-sm font-semibold has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-accent ${selected ? "border-accent bg-accent text-accent-ink" : "border-line text-ink"}`}
+                    className={`cursor-pointer rounded-full border px-3.5 py-1.5 text-sm font-medium has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-ink ${selected ? "border-ink bg-ink text-bg" : "border-line text-ink"}`}
                   >
                     <input
                       type="radio" name={`${base}-${choice.key}`} className="sr-only" checked={selected}
@@ -266,7 +266,7 @@ function BlockStart({ protocol }: { protocol: Protocol }) {
           className="h-9 rounded-md border border-line bg-bg px-2 text-sm text-ink"
         />
         {!started && (
-          <button type="button" onClick={() => protocol.startBlock(protocol.today)} className="h-9 rounded-md bg-accent px-3 text-sm font-bold text-accent-ink">
+          <button type="button" onClick={() => protocol.startBlock(protocol.today)} className="h-9 rounded-md bg-ink px-3 text-sm font-medium text-bg">
             Start today
           </button>
         )}
@@ -277,7 +277,7 @@ function BlockStart({ protocol }: { protocol: Protocol }) {
 
 export function Notice({ children, tone = "plain" }: { children: ReactNode; tone?: "plain" | "warn" }) {
   return (
-    <div className={`rounded-lg border px-3.5 py-3 text-sm leading-snug ${tone === "warn" ? "border-accent bg-accent-soft text-ink" : "border-line bg-surface text-ink"}`}>
+    <div className={`rounded-lg border px-3.5 py-3 text-sm leading-snug ${tone === "warn" ? "border-muted bg-surface text-ink" : "border-line bg-surface text-ink"}`}>
       {children}
     </div>
   );
@@ -299,7 +299,7 @@ export function ProtocolPanel({ protocol, variant, title, intro }: { protocol: P
       <header className="flex items-center gap-3.5">
         <ProgressRing pct={interactive ? protocol.progress.pct : 0} label="Protocol completed" />
         <div className="min-w-0 flex-1">
-          <h3 className="display text-xl">{title}</h3>
+          <h3 className="headline">{title}</h3>
           <p className="num text-sm text-muted">
             {!protocol.hydrated ? " "
               : protocol.dormant ? "Paused: untouched for over a week"
@@ -308,7 +308,7 @@ export function ProtocolPanel({ protocol, variant, title, intro }: { protocol: P
           </p>
         </div>
         {variant === "card" && hasSettings && interactive && (
-          <button type="button" onClick={() => setSettingsOpen((v) => !v)} aria-expanded={showSettings} className="rounded-md border border-line px-2.5 py-1.5 text-xs font-semibold">
+          <button type="button" onClick={() => setSettingsOpen((v) => !v)} aria-expanded={showSettings} className="rounded-md border border-line px-2.5 py-1.5 text-xs font-medium">
             Settings
           </button>
         )}
@@ -320,8 +320,8 @@ export function ProtocolPanel({ protocol, variant, title, intro }: { protocol: P
         <div className="mt-4 space-y-3">
           <Notice>A protocol left alone for more than seven days stops counting against your score. Nothing is lost: your history is kept.</Notice>
           <div className="flex gap-2">
-            <button type="button" onClick={protocol.equip} className="h-11 flex-1 rounded-lg bg-accent font-bold text-accent-ink">Resume</button>
-            <button type="button" onClick={protocol.unequip} className="h-11 rounded-lg border border-line px-4 font-semibold">Remove</button>
+            <button type="button" onClick={protocol.equip} className="h-11 flex-1 rounded-lg bg-ink font-medium text-bg">Resume</button>
+            <button type="button" onClick={protocol.unequip} className="h-11 rounded-lg border border-line px-4 font-medium">Remove</button>
           </div>
         </div>
       ) : (
@@ -354,14 +354,14 @@ export function ProtocolPanel({ protocol, variant, title, intro }: { protocol: P
             ) : protocol.equipped ? (
               <>
                 {variant === "card"
-                  ? <Link href={`/papers/${paper.slug}`} className="flex h-10 flex-1 items-center justify-center rounded-lg border border-line text-sm font-semibold">Read the paper</Link>
-                  : <Link href="/today" className="flex h-11 flex-1 items-center justify-center rounded-lg border border-line font-semibold">Open Life Game</Link>}
-                <button type="button" onClick={protocol.unequip} className={`${variant === "card" ? "h-10 text-sm" : "h-11"} rounded-lg px-3 font-semibold text-muted`}>Remove</button>
+                  ? <Link href={`/papers/${paper.slug}`} className="flex h-10 flex-1 items-center justify-center rounded-lg border border-line text-sm font-medium">Read the paper</Link>
+                  : <Link href="/today" className="flex h-11 flex-1 items-center justify-center rounded-lg border border-line font-medium">Open Life Game</Link>}
+                <button type="button" onClick={protocol.unequip} className={`${variant === "card" ? "h-10 text-sm" : "h-11"} rounded-lg px-3 font-medium text-muted`}>Remove</button>
               </>
             ) : protocol.locked ? (
-              <Link href="/upgrade" className="flex h-11 flex-1 items-center justify-center rounded-lg border border-accent font-bold text-accent-text">Members only: see what membership adds</Link>
+              <Link href="/upgrade" className="flex h-11 flex-1 items-center justify-center rounded-lg border border-line font-medium text-ink">Members only: see what membership adds</Link>
             ) : (
-              <button type="button" onClick={protocol.equip} className="h-12 flex-1 rounded-lg bg-accent text-base font-bold text-accent-ink">
+              <button type="button" onClick={protocol.equip} className="h-12 flex-1 rounded-lg bg-ink text-base font-medium text-bg">
                 Add to Life Game
               </button>
             )}
