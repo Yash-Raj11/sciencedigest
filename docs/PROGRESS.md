@@ -79,6 +79,15 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
 - [ ] ⏸ Stopped here 2026-11-14. Waiting on the owner: round-2 screenshots
       (`docs/evidence/article-redesign/round2/`); a context study for caffeine's half-life
       (BUILD-LOG); whether a context fact may feed a figure and a simulator (it may not today).
+- [x] H7/H12 rule change (owner, 2026-11-14): a gated context study may feed a figure spec and
+      its simulator; a concept never. `2a0926c`. Grzegorzewski 2021 refused at the gate (BUILD-LOG).
+- [ ] Find a context study for caffeine's half-life. Search Europe PMC: licence
+      CC-BY/CC-BY-SA/CC0 via the API; healthy ADULTS (exclude neonates/preterm);
+      not retracted; the body text (not only a figure) states a half-life in hours
+      WITH a range or mean ± SD. Give the owner 3 candidates with DOI, licence, design and n,
+      and the exact sentence. ⏸ The owner picks one.
+- [ ] Note: AI_API_KEY is missing from .env.local, so the extract stage can't run.
+      Owner to add it before Phase 10.
 - [ ] 2D round 3, in this order: (1) decay kind wired to caffeine once a half-life with a
       range is gated; (2) compare-bars (HIIT), association-curve (steps), grid (turmeric) moved
       onto kinds; (3) `docs/POST-RECIPE.md` + the sticky slot strip; (4) Life Game widgets made

@@ -827,3 +827,8 @@ The owner's answers to the 2D stop. Four groups, one commit each.
   (`lint.ts`, the `science-content` skill). Wiring the decay kind to a context study needs that
   rule changed by the owner. (3) The decay simulator's wording is generic ("When was your last
   dose, and how much?"); the coffee wording comes with the wiring.
+
+## 2026-11-14, H7/H12 rule change; the half-life context study refused
+
+- Rule change committed as `2a0926c`: a gated context study's fact may feed a figure spec and its simulator; never a concept.
+- Grzegorzewski et al. 2021 (doi:10.3389/fphar.2021.752826, PMC8914174): refused at the gate. The half-life appears only in Figures 3B/4B/5B; the text has no verbatim half-life in hours with a range. CC-BY (Europe PMC), not retracted. Folder deleted, not committed.
