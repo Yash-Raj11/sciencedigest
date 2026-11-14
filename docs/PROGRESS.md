@@ -104,6 +104,7 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
 - [ ] Related reads slot under a simulator's result (published papers by tag).
 - [ ] Each kind's simulator: decay (caffeine), association-curve (steps), compare-bars (HIIT),
       grid (turmeric), dose-response, step-through (none).
+  - [ ] IN PROGRESS: decay (caffeine).
 - [ ] The pipeline proposes the figure kind and the simulator inputs (`prompts.ts`).
 - [ ] Reader inputs stored on the device only (like the theme).
 - [ ] Run the coverage pass on the 4 existing papers, so their checklist rows stop showing
