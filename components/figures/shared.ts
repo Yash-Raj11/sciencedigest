@@ -26,6 +26,8 @@ export const ON_SIGNAL_FILL = "var(--on-signal-evidence-fill)";
 export const BG = "var(--bg)";
 
 export const DASH = "5 4";
+/** A sketch (shape only, not data): a thin dotted line in monochrome ink, never orange. */
+export const DOT = "1 4";
 export const FONT = "var(--font-sans)";
 
 /** An element drawn as measured or proposed, with the fact that lets it be drawn that way. */

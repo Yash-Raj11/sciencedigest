@@ -112,7 +112,10 @@ What the lint checks on the layers (`npm run content:build` prints all of it):
 A read may rest on two things besides its own paper. **Neither ever becomes a protocol step or
 changes an evidence weight.** One exception for figures: a gated context study's fact may feed
 a figure spec (a kind) and its simulator; the chart shows "From another study: <cite>, <grade>",
-H12 ranges apply, and the audit lists the study. A concept never feeds a figure or a simulator.
+H12 ranges apply, and the audit lists the study. A concept never feeds a number or a simulator.
+The one thing a concept may carry is a **sketch** (owner, 2026-11-15): a shape only, no numbers,
+monochrome and dotted, tagged "Sketch, not data", and only once the owner has reviewed the concept
+(`sketches` in editorial.json; `lib/content/sketch.ts`). Where the paper measured it, draw the data.
 
 | | Lives in | May carry numbers | Cited as | Page says |
 |---|---|---|---|---|

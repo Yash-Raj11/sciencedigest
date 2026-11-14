@@ -161,6 +161,21 @@ describe("habits and the Life Game are monochrome", () => {
   });
 });
 
+describe("a sketch is monochrome", () => {
+  // A component that draws a sketch has "sketch" in its file name (lib/content/sketch.ts).
+  const ORANGE = /signal-evidence|SIGNAL_(TEXT|FILL)|ON_SIGNAL_FILL/;
+  const sketchFiles = () => source(["components"]).filter((f) => /sketch/i.test(f));
+
+  it("no sketch component uses an orange token", () => {
+    expect(sketchFiles().filter((f) => ORANGE.test(readFileSync(f, "utf8")))).toEqual([]);
+  });
+
+  it("the check fails on a sketch drawn in the finding's fill", () => {
+    expect(ORANGE.test("<path d={d} stroke={SIGNAL_FILL} strokeDasharray={DOT} />")).toBe(true);
+    expect(ORANGE.test("<path d={d} stroke={MUTED} strokeDasharray={DOT} />")).toBe(false);
+  });
+});
+
 describe("no bar sized by evidence grade", () => {
   const SIZED = /flexGrow:\s*\w*\.?(tenths|weight|grade)|width:\s*`?\$?\{?\w*\.?(tenths|weight)/;
 

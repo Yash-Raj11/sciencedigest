@@ -1405,3 +1405,21 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   one sentence, and that the members' hook is no longer anywhere in the public build. Search-the-
   build: zero matches (`docs/evidence/themes/gates-item3.txt`).
 - Not changed: the seed (PaperMeta.card is bundle-only), the database, the members' read itself.
+
+## 2026-11-15, Sketch rule and the rulings R1–R7
+
+- Owner rulings on `docs/FIGURE-DESIGN.md`: R1 sketches monochrome + dotted (no sage), R2 tag
+  "Sketch, not data", R3 steps A in the audit layer, R4 steps raw grids monochrome, R5 the half
+  dot accepted with "5.5 died per 100" (the other two grid labels now use the same words), R6
+  HIIT A keeps "The trials did not test why.", R7 feed cards use figure B's still view. Applied in
+  FIGURE-DESIGN 0.6 and the sections they touch; SIMULATORS.md j1, j3, j4 updated.
+- Item 4, the sketch rule: draw the data where the paper measured it; otherwise a sketch (shape
+  only, monochrome, dotted, "Sketch, not data") may rest on a concept the owner has reviewed.
+  CLAUDE.md H7/H12 and the rules table, the `science-content` skill and MASTER-PROMPT amended.
+- Code: `lib/content/sketch.ts` (`sketchProblems`), editorial field `sketches` (no read uses one
+  yet), lint rules `sketch`, `sketch-number`, `sketch-concept`, `sketch-colour`. Failing fixtures:
+  15 in `lib/content/sketch.test.ts` (numbers, value fields, unknown/unreviewed/failing concept,
+  orange ink, orange words, sage, tag, stroke, alt), 4 through the real lint
+  (`lib/pipeline/sketch-lint.test.ts`), and a source guard: a component with "sketch" in its name
+  may not use an orange token (`scripts/visual-system.test.ts`). `DOT` stroke added to
+  `components/figures/shared.ts`.

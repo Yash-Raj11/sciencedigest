@@ -140,7 +140,8 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
         `headline` (9 failing fixtures, `lib/pipeline/headline.test.ts`). BUILD-LOG 2026-11-15.
   - [x] 3. Members' card: question, finding headline, one sentence + figure; amendment A updated;
         search-the-build 0 matches (`docs/evidence/themes/gates-item3.txt`).
-  - [ ] IN PROGRESS: 4. Sketch rule (rulings R1–R7 into the docs; lint: numbers, unreviewed concept, orange).
+  - [x] 4. Sketch rule + rulings R1–R7 in the docs; `lib/content/sketch.ts`, 19 failing fixtures +
+        a source guard. BUILD-LOG 2026-11-15.
 - [ ] The pipeline proposes the figure kind and the simulator inputs (`prompts.ts`).
 - [ ] Reader inputs stored on the device only (like the theme).
 - [ ] Run the coverage pass on the 4 existing papers, so their checklist rows stop showing

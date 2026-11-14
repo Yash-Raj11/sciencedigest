@@ -1,7 +1,7 @@
 # Figure design: two figures per paper
 
-Design spec only (2026-11-15). Nothing here is built. It refines `docs/SIMULATORS.md` section j;
-where the two differ, section 0.6 lists the difference for the owner to rule on. CLAUDE.md rules
+Design spec only (2026-11-15). Nothing here is built. It refines `docs/SIMULATORS.md` section j.
+The owner ruled on it the same day (R1–R7, section 0.6); the rulings are applied below. CLAUDE.md rules
 H7, H9, H10 and H12 hold everywhere: this file never relaxes them.
 
 Every paper gets two figures:
@@ -78,17 +78,23 @@ The feed card holds one figure (amendment A). The pick per paper is named in eac
 - An input outside what was tested gets "Not tested in this study" and the chart falls back
   to the card still.
 
-### 0.6 Where this differs from SIMULATORS.md section j (owner to rule)
+### 0.6 Owner rulings (2026-11-15), applied in this file
 
-1. **Sketch colour.** Section j1 gives sketches a sage wash (`--sage`). The colour roles
-   above have three roles and no sage, so sketches here are monochrome, dotted and unfilled.
-2. **Sketch tag.** j1 says "Shape only, not data". This file uses "Sketch, not data".
-3. **The j1 ruling is still open.** A sketch rests on a background concept, and H7 (amended)
-   says a background concept never feeds a figure. Every sketch below is blocked until the
-   owner rules that a reviewed concept may carry a shape with no number.
-4. **Concepts to write and review** before any sketch ships: `adenosine` (caffeine A and B),
-   `post-meal-blood-sugar` (turmeric B), `fat-free-mass` (HIIT A). Only
-   `glucagon-like-peptide` is reviewed today.
+- **R1.** Sketches are monochrome and dotted; no sage. SIMULATORS.md j1 updated.
+- **R2.** The sketch tag reads "Sketch, not data".
+- **R3.** Steps figure A lives in the audit layer; the steps mechanism layer is text only.
+- **R4.** Steps raw grids are monochrome; the pastel fill is only for the adjusted bands.
+- **R5.** Steps 3–7 days: the half-filled dot is accepted; the label shows the exact
+  "5.5 died per 100".
+- **R6.** HIIT figure A keeps "The trials did not test why."
+- **R7.** Feed cards use figure B's still view, with no reader-dependent numbers.
+
+The sketch rule (item 4 of the same list): where the paper measured something relevant, draw that
+data; otherwise a sketch may rest on a background concept **the owner has reviewed**. Enforced by
+`lib/content/sketch.ts` (a sketch with a number, on an unreviewed concept, or in orange fails).
+Concepts written for review, not yet approved: `adenosine` (caffeine A and B),
+`post-meal-blood-sugar` (turmeric B), `fat-free-mass` (HIIT A). Until the owner approves each one,
+the sketch that rests on it cannot ship.
 
 ---
 
@@ -219,7 +225,7 @@ lines, the gap (a `--line` hatch, not a fill), axis, phases, dose ticks.
 
 **Card vs full.** Card: headline, panel 2 with "Sleep pressure keeps building", "How tired
 you feel" and "Hidden tiredness", the tag, and the result box's second line. Panel 1 is not
-in the card. Full: everything above. **Feed card pick: 1B.**
+in the card. Full: everything above. **Feed card pick: 1B, its still view (R7: no reader-dependent numbers).**
 
 ---
 
@@ -347,7 +353,7 @@ so it takes no pastel.
 
 **Card vs full.** Card: the pepper state, with "Plain egg", "Egg with pepper", "Lower here"
 and the bracket label, plus the tag. Full: switches, all labels, the result sentence, the
-taste strip. **Feed card pick: 2B.**
+taste strip. **Feed card pick: 2B, its still view (R7: no reader-dependent numbers).**
 
 ---
 
@@ -420,7 +426,8 @@ source feeds the grid.
   - 0 days: 59 filled, 41 hollow (`crude_0`, 40.7% died).
   - 1–2 days: 86 filled, 14 hollow (`crude_1_2`, 14.1% died).
   - 3–7 days: 94 filled, 5 hollow, and one half-filled dot (`crude_3_7`, 5.5% died). The
-    half dot keeps the picture true to the printed 5.5 without rounding it either way.
+    half dot keeps the picture true to the printed 5.5 without rounding it either way (R5:
+    accepted).
   Dot counts are computed in the layout file from the fact, never typed into the component.
 - **Adjusted strip (328 × 44, under the grids, pastel).** A horizontal scale "fewer deaths
   per 100 people, compared with 0 days". Two bands on it, each with a point mark:
@@ -432,7 +439,7 @@ source feeds the grid.
 | Where | Label |
 |---|---|
 | Grid titles | "0 days" · "1–2 days" · "3–7 days" |
-| Under each grid | "40.7% died" · "14.1% died" · "5.5% died" |
+| Under each grid | "40.7 died per 100" · "14.1 died per 100" · "5.5 died per 100" (R5; all three in the same words) |
 | Under those, once, spanning | "Raw counts. The groups differ in age and health." |
 | Filled dot, named once | "Alive at 10 years" |
 | Hollow dot, named once | "Died" |
@@ -473,7 +480,7 @@ Bright orange: "14.9" and "16.5" in the strip labels. Monochrome: every dot (`--
 
 **Card vs full.** Card: headline, the first two grids only (0 days and 1–2 days) with their
 "% died" labels and the "Raw counts" line. Full: three grids, adjusted strip, plateau,
-simulator. **Feed card pick: 3B.**
+simulator. **Feed card pick: 3B, its still view (R7: no reader-dependent numbers).**
 
 ---
 
@@ -608,7 +615,7 @@ passive rest; longer than 8 weeks or not).**
 
 **Card vs full.** Card (members' card, amendment A: hook and one figure): the three pooled
 rows with their point numbers and grade words, and the "How it's sold" margin. No
-sensitivity row, no inputs. Full: everything. **Feed card pick: 4B.**
+sensitivity row, no inputs. Full: everything. **Feed card pick: 4B, its still view (R7: no reader-dependent numbers).**
 
 ---
 

@@ -1,0 +1,17 @@
+== lint
+exit 0
+== typecheck
+exit 0
+== unit
+ Test Files  37 passed (37)
+      Tests  595 passed (595)
+exit 0
+== build
+exit 0
+== http
+ Test Files  2 passed (2)
+      Tests  15 passed (15)
+exit 0
+== browser
+exit 0
+  89 passed (45.2s)

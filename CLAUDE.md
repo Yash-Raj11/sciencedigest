@@ -36,6 +36,7 @@ when it is kept (`npm run db:mutation` does this for the database).
 | A per-paper component cannot import the database, the store, or compute a percentage | `eslint.config.mjs` (the widget guard) |
 | A figure holds no number of its own outside a geometry prop, no timer and no animation; solid means measured (cites a result), dashed means proposed (cites the authors' sentence); unknown figure, empty alt text | `eslint.config.mjs` (the figure guard), `lib/content/figures.ts`, `lib/pipeline/lint.ts` |
 | A figure spec holds a literal number, or names an unknown kind or a fact that is not gated; a simulator rests on a fact with no range (H12) | `lib/content/figure-kinds.ts`, `lib/pipeline/lint.ts` |
+| A sketch with a number, on a concept the owner has not reviewed, or in orange; not dotted; no "Sketch, not data" tag | `lib/content/sketch.ts`, `lib/pipeline/lint.ts`, `scripts/visual-system.test.ts` |
 | A simulator draws a context fact that is not in the owner-approved fact library | `lib/content/fact-library.ts`, `content/library.json`, `lib/pipeline/lint.ts` |
 | A user cannot change their own tier; cannot read another user's ticks; cannot tick a derived step | `supabase/migrations/`, tested in `supabase/tests/database/` |
 | TypeScript scoring and SQL scoring return identical results | `scripts/gen-parity.mts` + `90_parity.generated.test.sql` |
@@ -77,10 +78,16 @@ when it is kept (`npm run db:mutation` does this for the database).
   gated fact's range, labelled "Estimate from the study's numbers, not medical advice", with
   its source line. Missing fact: no simulator; never fill it from general knowledge. The fact
   may come from a gated context study (never a background concept); the range rule still applies.
+  A sketch is never a personal estimate: it holds no number, so no simulator reads from it.
 - **H7 (amended).** Every number shown to a reader traces to a gated fact, from the paper or
   from a gated context source. The UI says which. A figure spec and its simulator may use a
   fact of a gated context study (owner, 2026-11-14): the chart shows "From another study:
-  <cite>, <grade>" and the audit lists the study. A background concept never feeds one.
+  <cite>, <grade>" and the audit lists the study. A background concept never feeds a number.
+- **Sketch rule (owner, 2026-11-15).** Where the paper measured something relevant, draw that data
+  (solid, bound to fact ids). Otherwise a figure may draw a sketch: shape only, no numbers,
+  monochrome and dotted, tagged "Sketch, not data" on the figure, resting on a background concept
+  the owner has reviewed. A sketch never contradicts the paper's finding and never shares a value
+  axis with data (it may share the time axis).
 
 ## Skills: load the one that matches before you start
 

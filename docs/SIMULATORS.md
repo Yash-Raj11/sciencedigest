@@ -129,30 +129,35 @@ input, not a fact.
 
 ## j. Figure plans (owner, 2026-11-14; planned, not built)
 
-### j1. A new visual class: the concept sketch
+### j1. A new visual class: the sketch (owner's ruling, 2026-11-15)
 
-A concept sketch draws a **shape only, no numbers**. It shows how something behaves when the
-paper prints no values for it (sleep pressure over a day, a glucose curve). It has its own look,
-so no one mistakes it for data:
+Where the paper measured something relevant, the figure draws that data: solid, bound to fact ids.
+Otherwise it may draw a **sketch**: a shape only, no numbers. It shows how something behaves when
+the paper prints no values for it (sleep pressure over a day, a glucose curve). It has its own
+look, so no one mistakes it for data (rulings R1, R2):
 
-- a soft sage wash (`--sage`) under a thin, rounded line in `--muted`;
-- no axis ticks, no gridlines and no band;
-- the tag **"Shape only, not data"** on the figure itself, not only in the caption.
+- a thin **dotted** line in monochrome ink (`--ink`, `--muted`, `--meta` or `--line`), no fill of
+  its own, never orange (the earlier sage wash is dropped);
+- no axis ticks, no gridlines, no value axis and no band;
+- the tag **"Sketch, not data"** on the figure itself, not only in the caption.
 
-The three classes then read apart at a glance: solid ink means measured, dashed means proposed
-by the authors, and sage means a shape only.
+The three classes read apart at a glance: solid means measured, dashed means proposed by the
+authors, dotted means a sketch.
 
-Enforced by code, when built:
+**The ruling.** A sketch may rest only on a background concept **the owner has reviewed**
+(`content/concepts/<slug>.json`, `reviewed_by_owner` set by `approve-concept`). It never shares a
+value axis with data (it may share the time axis), and it never contradicts the paper's finding.
+A concept still never feeds a number (H7, H12).
 
-- a new kind `concept-sketch` in `lib/content/figure-kinds.ts` whose params accept no `{ n, ref }`
-  and no fact. The lint fails on any numeric tick, any digit in the sketch's text, a missing
-  "Shape only, not data" tag, or a band;
-- the figure guard already refuses digits in a figure file.
+Enforced by code (`lib/content/sketch.ts`, called by the lint for each entry of the editorial's
+`sketches`; fixtures in `lib/content/sketch.test.ts` and `lib/pipeline/sketch-lint.test.ts`):
 
-**Owner ruling needed.** H7 (amended) says "a background concept never feeds a figure". A sketch
-carries no number, but its shape is still a claim. Proposal: a sketch may rest only on a
-**reviewed** concept (`[concept:<slug>]`), shows "Background" under it, and never shares a value
-axis with data. It may share the time axis.
+- `sketch-number`: a digit in any of its words, any number in the spec, or a field that would
+  carry a value or a fact (`facts`, `ticks`, `values`, `axis`, `ref`, `n` ...);
+- `sketch-concept`: no concept, an unknown or failing concept, or one the owner has not reviewed;
+- `sketch-colour`: an ink that is not monochrome, or any word naming orange or the finding's
+  colours; and `scripts/visual-system.test.ts` fails a sketch component that uses an orange token;
+- `sketch`: the tag is not exactly "Sketch, not data", the stroke is not dotted, or no alt text.
 
 ### j2. The pattern for every figure
 
@@ -168,10 +173,10 @@ axis with data. It may share the time axis.
 - **Headline:** "Caffeine hides tiredness; it doesn't remove it."
 - **The day:** the x axis runs from waking to bedtime, in words ("wake", "noon", "bed"), with no
   clock ticks. The reader's own times come in the simulator.
-- **Sleep pressure (concept sketch):** a sage line rises through the day, labelled "Sleep pressure
-  builds" (`concept:adenosine`, once reviewed). A second sage line, "How tired you feel", runs
-  under it while caffeine is in the body. The gap between the two lines is shaded sage and
-  labelled "Masked tiredness". The whole layer carries "Shape only, not data".
+- **Sleep pressure (sketch):** a dotted monochrome line rises through the day, labelled "Sleep
+  pressure keeps building" (`concept:adenosine`, once reviewed). A second dotted line, "How tired
+  you feel", runs under it while caffeine is in the body. The gap between the two is hatched in
+  `--line` (no fill) and labelled "Hidden tiredness". The layer carries "Sketch, not data".
 - **The caffeine curve (data):** solid ink, driven by the real half-life band
   (`caffeine-saliva-half-life/half_life_caffeine`, peach band, "From another study: Wildgrube et
   al., early evidence"), stacked over the paper's three doses (`dose`, `schedule`: 45, 255 and
@@ -192,7 +197,7 @@ axis with data. It may share the time axis.
 
   Steps 1–3 are unmeasured, so they are drawn faint and dashed and cite the authors' proposing
   sentences. Their caveat (`lim_mechanism`) stays in the audit (H10). Step 4 is solid.
-- **Blood sugar:** a concept sketch (sage, "Shape only, not data"), since the paper prints no
+- **Blood sugar:** a sketch (dotted, monochrome, "Sketch, not data"), since the paper prints no
   glucose values. It shows two curves after a meal, labelled "plain" and "with pepper", that part
   early and meet again by the end. On it, solid dots mark the readings that were taken
   (`timepoints`). One filled dot at 30 min is labelled "differed" (`glucose_30`). A bracket over

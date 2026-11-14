@@ -17,6 +17,7 @@ import { NON_HUMAN_DISCLAIMER } from "./grade";
 import { glossaryCovers, jargonIn } from "./jargon";
 import { simulatorSource } from "../content/fact-library";
 import { isFigureKind, kindParamsProblems, specProblems } from "../content/figure-kinds";
+import { sketchProblems } from "../content/sketch";
 import { EVIDENCE_KINDS, evidenceKindProblem, figureKey, type EvidenceKind } from "../content/figures";
 import { parseMarkup, type Sentence } from "./markup";
 import { isContextRef, parseRef } from "./refs";
@@ -778,6 +779,13 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
     }
   }
   walkParams(ed.simulator.params, "simulator.params", "simulator");
+
+  // Sketches: a shape only, on a reviewed concept, monochrome and dotted (lib/content/sketch.ts).
+  (ed.sketches ?? []).forEach((sketch, i) => {
+    for (const problem of sketchProblems(sketch, `sketches[${i}]`, context.concepts)) fail(problem.rule, problem.where, problem.message);
+    const slug = (sketch as { concept?: unknown } | null)?.concept;
+    if (typeof slug === "string" && context.concepts[slug]?.ok) usedConcepts.add(slug);
+  });
 
   // Figures: known to the app, described for people who cannot see them, and drawn only from facts.
   const figureDefs: [string, { figure: string; alt: string; params: Record<string, unknown>; spec?: unknown }][] = layers

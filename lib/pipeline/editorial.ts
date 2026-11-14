@@ -117,6 +117,12 @@ const Base = {
     note: Markup,
     tryIt: Markup,
   }),
+  /**
+   * Sketches (owner, 2026-11-15): shapes with no numbers, monochrome and dotted, tagged "Sketch,
+   * not data", each resting on a background concept the owner has reviewed. Checked whole by
+   * lib/content/sketch.ts (lint rules sketch, sketch-number, sketch-concept, sketch-colour).
+   */
+  sketches: z.array(z.unknown()).default([]),
   takeaways: z.array(Markup).default([]),
   choices: z.array(ChoiceDef).default([]),
   steps: z.array(StepDef).min(1),
