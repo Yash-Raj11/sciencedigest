@@ -33,7 +33,7 @@ when it is kept (`npm run db:mutation` does this for the database).
 | A quote that is not in the paper voids the extraction; evidence grades are derived, never model-supplied | `lib/pipeline/gate.ts`, `lib/pipeline/grade.ts` |
 | Only CC-BY, CC-BY-SA, CC0 papers | `lib/pipeline/license.ts` |
 | A per-paper component cannot import the database, the store, or compute a percentage | `eslint.config.mjs` (the widget guard) |
-| A figure holds no number of its own outside a geometry prop; solid means measured (cites a result), dashed means proposed (cites the authors' sentence); unknown figure, empty alt text | `eslint.config.mjs` (the figure guard), `lib/content/figures.ts`, `lib/pipeline/lint.ts` |
+| A figure holds no number of its own outside a geometry prop, no timer and no animation; solid means measured (cites a result), dashed means proposed (cites the authors' sentence); unknown figure, empty alt text | `eslint.config.mjs` (the figure guard), `lib/content/figures.ts`, `lib/pipeline/lint.ts` |
 | A user cannot change their own tier; cannot read another user's ticks; cannot tick a derived step | `supabase/migrations/`, tested in `supabase/tests/database/` |
 | TypeScript scoring and SQL scoring return identical results | `scripts/gen-parity.mts` + `90_parity.generated.test.sql` |
 

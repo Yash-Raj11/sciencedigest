@@ -1,0 +1,15 @@
+ ✓ tests/http/papers-status.test.ts > paper pages on the production server > an unknown slug answers 404, not 200 78ms
+ ✓ tests/http/papers-status.test.ts > paper pages on the production server > a near-miss of a real slug also answers 404 20ms
+ ✓ tests/http/papers-status.test.ts > paper pages on the production server > the published paper turmeric-pepper-breakfast (free) answers 200 6ms
+ ✓ tests/http/papers-status.test.ts > paper pages on the production server > the published paper steps-days-per-week (free) answers 200 7ms
+ ✓ tests/http/papers-status.test.ts > paper pages on the production server > the published paper daytime-caffeine-sleep (free) answers 200 5ms
+ ✓ tests/http/papers-status.test.ts > paper pages on the production server > the published paper hiit-body-composition (premium) answers 200 4ms
+ ✓ tests/http/papers-status.test.ts > paper pages on the production server > the privacy page answers 200 5ms
+stdout | tests/http/members-content.test.ts > the search-the-build check > finds no sentence of a members' read or of the implementation notes: zero matches
+search-the-build: 36 members-only sentences, 90 public files, 0 matches
+ ✓ tests/http/members-content.test.ts > the search-the-build check > has a build to search, and members' text to search for 1ms
+ ✓ tests/http/members-content.test.ts > the search-the-build check > can find a sentence that IS public (so zero matches below means something) 0ms
+ ✓ tests/http/members-content.test.ts > the search-the-build check > finds no sentence of a members' read or of the implementation notes: zero matches 8ms
+ ✓ tests/http/members-content.test.ts > the search-the-build check > makes public, of a members' read, its hook and one figure and nothing else 0ms
+ Test Files  2 passed (2)
+      Tests  11 passed (11)

@@ -159,9 +159,9 @@ for (const paper of papers) {
       if (kinds.size > 1) await expect(frame.locator("[data-figure-legend]")).toHaveText(EVIDENCE_KEY);
       // An observational study gets no arrow at all.
       if (!["rct", "meta_analysis_rct"].includes(paper.design)) expect(seen.arrows, `${key}: arrows in an observational figure`).toBe(0);
-      // At most one entrance animation.
+      // Nothing in an untouched figure moves: motion is for measured change (2D, amendment B).
       const moving = await frame.evaluate((el) => [el, ...el.querySelectorAll("*")].filter((node) => getComputedStyle(node).animationName !== "none").length);
-      expect(moving, `${key}: animated elements`).toBe(1);
+      expect(moving, `${key}: animated elements`).toBe(0);
     }
   });
 

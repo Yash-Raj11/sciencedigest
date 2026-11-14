@@ -1,8 +1,16 @@
 "use client";
 
 /**
- * The five-minute read for one paper: hook, who was studied, the sections,
- * what to hold loosely, then the simulator and the protocol widget.
+ * The five-minute read for one paper, in the order of step 2D:
+ *
+ *   1. the hook, with the reading time
+ *   2. why it happens: short paragraphs, the figure after the first, glossary
+ *      words underlined (tap one for its plain meaning)
+ *   3. one number card: the headline result and where it comes from
+ *   4. what was tested, who it was tested in, the simulator, then the protocol
+ *   5. the receipts, always visible: design, n, the raw effect, the weak end of
+ *      the range and the limitation in bold; "Full receipts" holds the rest
+ *   6. members' extras
  *
  * Free reads are bundled with the app and render straight away. A members'
  * read is fetched after the page loads, and the server decides whether this
@@ -10,108 +18,27 @@
  */
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { FigureFor, SimulatorFor, WidgetFor } from "@/components/papers/registry";
+import { useEffect, useState, type ReactNode } from "react";
+import { SimulatorFor, WidgetFor } from "@/components/papers/registry";
 import { GradeChip, Notice } from "@/components/protocol/primitives";
 import { DESIGN_LABEL, freeContent } from "@/lib/content";
 import { loadRead, type Gated } from "@/lib/content/gated";
-import { BACKGROUND, FROM_THE_PAPER, conceptReference, contextSourceList, factSourceLine } from "@/lib/content/source-line";
-import type { FigureRef, PaperContent, PaperMeta, ResolvedFact, Sentence } from "@/lib/content/types";
-import { formatEstimate } from "@/lib/pipeline/format";
+import { contextSourceList } from "@/lib/content/source-line";
+import type { PaperContent, PaperMeta, Sentence } from "@/lib/content/types";
 import { useStore } from "@/lib/store";
 import { isDemo } from "@/lib/supabase/client";
 import { MemberExtras } from "./MemberExtras";
+import { Glossary, Para, Pictured, PullNumber, type Context, type Facts } from "./parts";
 
-type Facts = Record<string, ResolvedFact>;
-type Context = PaperContent["context"];
-
-/**
- * One paragraph. Sentences that rest on a source carry a dot; tap it to see the
- * passage, with a line saying whether it is from the paper or from another study.
- */
-function Para({ sentences, facts, context, className = "read" }: { sentences: Sentence[]; facts: Facts; context?: Context; className?: string }) {
-  const [open, setOpen] = useState<number | null>(null);
-  const shown = open === null ? [] : sentences[open].refs.map((id) => facts[id]).filter(Boolean);
-  // A sentence may also rest on a background concept, cited as "concept:<slug>".
-  const background = open === null ? [] : sentences[open].refs
-    .filter((id) => id.startsWith("concept:"))
-    .map((id) => context?.concepts.find((c) => c.slug === id.slice(8)))
-    .filter((c) => c !== undefined);
-
-  return (
-    <div>
-      <p className={className}>
-        {sentences.map((sentence, i) => {
-          if (sentence.refs.length === 0) return <span key={i}>{sentence.text} </span>;
-          // The dot stays glued to the sentence's last word, so it never starts a line alone.
-          const cut = sentence.text.lastIndexOf(" ") + 1;
-          return (
-            <span key={i}>
-              {sentence.text.slice(0, cut)}
-              <span className="whitespace-nowrap">
-                {sentence.text.slice(cut)}
-                <button
-                  type="button"
-                  onClick={() => setOpen((v) => (v === i ? null : i))}
-                  aria-expanded={open === i}
-                  aria-label="Show the passage in the paper this sentence rests on"
-                  className="ml-0.5 inline-flex h-6 w-6 translate-y-[3px] items-center justify-center rounded-full align-baseline"
-                >
-                  <span aria-hidden className={`h-2.5 w-2.5 rounded-full border-2 border-accent ${open === i ? "bg-accent" : ""}`} />
-                </button>
-              </span>{" "}
-            </span>
-          );
-        })}
-      </p>
-      {shown.length + background.length > 0 && (
-        <aside className="mt-2 space-y-3 rounded-lg border-l-4 border-accent bg-surface px-3.5 py-3">
-          {background.map((concept) => (
-            <div key={concept.slug}>
-              <p className="text-xs font-semibold text-muted">{BACKGROUND}, not from this paper</p>
-              <p className="mt-1 text-sm font-semibold leading-snug">{concept.term}</p>
-              <p className="mt-0.5 text-[0.9375rem] leading-snug text-muted">{concept.plain}</p>
-              <p className="mt-1 text-xs leading-snug text-muted">{conceptReference(concept)}</p>
-            </div>
-          ))}
-          {shown.map((fact) => (
-            <div key={fact.id}>
-              <p className="text-xs font-semibold text-muted">{factSourceLine(fact, { context })}, word for word</p>
-              <p className="mt-1 text-sm font-semibold leading-snug">{fact.label}</p>
-              <p className="mt-0.5 font-serif text-[0.9375rem] italic leading-snug text-muted">&ldquo;{fact.quote}&rdquo;</p>
-              {fact.estimate && (
-                <p className="num mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-                  <span>{formatEstimate(fact.estimate)}</span>
-                  <GradeChip grade={fact.estimate.tier} />
-                </p>
-              )}
-            </div>
-          ))}
-        </aside>
-      )}
-    </div>
-  );
-}
-
-/** A figure with its caption. Step 2D decides where figures sit; for now each follows its layer's first paragraph. */
-function Pictured({ slug, figure, facts, context }: { slug: string; figure: FigureRef | null | undefined; facts: Facts; context?: Context }) {
-  if (!figure) return null;
-  return (
-    <figure className="rounded-2xl border border-line p-3">
-      <FigureFor slug={slug} figure={figure} />
-      <figcaption className="mt-2 border-t border-line pt-2">
-        <Para sentences={figure.caption} facts={facts} context={context} className="text-sm leading-snug text-muted" />
-      </figcaption>
-    </figure>
-  );
-}
+const LAYER = "read-title text-[1.625rem]";
+const AUDIT = "text-base leading-relaxed";
 
 /** Paragraphs with the layer's figure after the first one. */
-function Paragraphs({ slug, paragraphs, figure, facts, context }: { slug: string; paragraphs: Sentence[][]; figure?: FigureRef | null; facts: Facts; context?: Context }) {
+function Paragraphs({ slug, paragraphs, figure, facts, context }: { slug: string; paragraphs: Sentence[][]; figure?: PaperContent["figure"] | null; facts: Facts; context?: Context }) {
   return (
     <>
       {paragraphs.map((paragraph, i) => (
-        <div key={i} className="space-y-3">
+        <div key={i} className="space-y-4">
           <Para sentences={paragraph} facts={facts} context={context} />
           {i === 0 ? <Pictured slug={slug} figure={figure} facts={facts} context={context} /> : null}
         </div>
@@ -120,165 +47,181 @@ function Paragraphs({ slug, paragraphs, figure, facts, context }: { slug: string
   );
 }
 
-/**
- * The three layers of a read (H10), drawn plainly: why it happens, what was
- * tested, and the receipts. The limitations sit in bold and are never behind a
- * tap (H6). Step 2D of the master prompt replaces this layout; until then a
- * three-layer read must still show all of its text.
- */
-function Layers({ paper, content }: { paper: PaperMeta; content: PaperContent }) {
-  const layers = content.layers;
-  if (!layers) return null;
-  const { facts, context } = content;
-  const { mechanism, protocol, audit } = layers;
-  const sources = contextSourceList(content);
-
+/** H3: who the result describes, and what kind of claim the design allows. */
+function WhoWasTested({ paper, content }: { paper: PaperMeta; content: PaperContent }) {
+  const observational = !["rct", "meta_analysis_rct"].includes(paper.design);
   return (
-    <>
-      <section aria-label="Why it happens" className="space-y-3">
-        <h2 className="read-title text-[1.625rem]">Why it happens</h2>
-        <Paragraphs slug={paper.slug} paragraphs={mechanism.paragraphs} figure={mechanism.figure} facts={facts} context={context} />
-      </section>
-
-      <section aria-label="What was tested" className="space-y-3">
-        <h2 className="read-title text-[1.625rem]">What was tested</h2>
-        <Paragraphs slug={paper.slug} paragraphs={protocol.paragraphs} figure={protocol.figure} facts={facts} context={context} />
-      </section>
-
-      <section aria-label="The receipts" className="space-y-3 rounded-2xl border border-accent bg-accent-soft p-4">
-        <h2 className="display text-xl">The receipts</h2>
-        <p className="text-sm leading-snug text-muted">
-          {DESIGN_LABEL[paper.design] ?? paper.design}
-          {paper.sampleSize !== null && <>, <span className="num">{paper.sampleSize.toLocaleString("en")}</span> participants</>}.
-        </p>
-        <div>
-          <h3 className="text-sm font-semibold text-muted">The size of the effect</h3>
-          <Para sentences={audit.effect} facts={facts} context={context} className="text-base leading-relaxed" />
-          <Pictured slug={paper.slug} figure={audit.figure} facts={facts} context={context} />
-        </div>
-        <div>
-          <h3 className="text-sm font-semibold text-muted">How weak it could be</h3>
-          <Para sentences={audit.weakEnd} facts={facts} context={context} className="text-base leading-relaxed" />
-        </div>
-        <div>
-          <h3 className="text-sm font-semibold text-muted">What to hold loosely</h3>
-          <ul className="mt-1 space-y-3">
-            {audit.limitations.map((limitation, i) => (
-              <li key={i} className="flex gap-3">
-                <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
-                <div className="min-w-0 flex-1"><Para sentences={limitation} facts={facts} context={context} className="text-base font-bold leading-relaxed" /></div>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h3 className="text-sm font-semibold text-muted">What summaries leave out</h3>
-          <Para sentences={audit.missed} facts={facts} context={context} className="text-base leading-relaxed" />
-        </div>
-        {audit.more.length + sources.length > 0 && (
-          <details className="border-t border-line pt-3">
-            <summary className="cursor-pointer font-semibold">Full receipts</summary>
-            <div className="mt-3 space-y-3">
-              {audit.more.map((paragraph, i) => <Para key={i} sentences={paragraph} facts={facts} context={context} className="text-base leading-relaxed" />)}
-              {sources.map((source) => (
-                <p key={source.id} className="text-sm leading-snug text-muted">
-                  <span className="font-semibold">{source.label}.</span> {source.citation} ({source.id}){source.grade ? `, ${source.grade.toLowerCase()}` : ""}
-                </p>
-              ))}
-            </div>
-          </details>
-        )}
-      </section>
-
-      {(content.glossary ?? []).length > 0 && (
-        <section aria-label="Words used here" className="rounded-2xl border border-line p-4">
-          <h2 className="display text-xl">Words used here</h2>
-          <dl className="mt-3 space-y-3 text-[0.9375rem] leading-relaxed">
-            {(content.glossary ?? []).map((entry) => (
-              <div key={entry.term}>
-                <dt className="font-semibold">{entry.term}</dt>
-                <dd className="text-muted">{entry.plain}</dd>
-                <dd className="text-xs font-semibold text-muted">{entry.concept ? BACKGROUND : FROM_THE_PAPER}</dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-      )}
-    </>
+    <section aria-label="Who was studied" className="rounded-2xl border-2 border-ink p-4">
+      <h3 className="display text-xl">Who this was tested in</h3>
+      <div className="mt-2">
+        <Para sentences={content.populationPanel} facts={content.facts} context={content.context} className={AUDIT} />
+      </div>
+      <p className="mt-2 text-sm leading-snug text-muted">
+        {observational
+          ? "This study watched people; it did not assign them to anything. It can show that two things go together, not that one causes the other."
+          : "The result holds for people like these. Nobody outside that group was tested."}
+      </p>
+    </section>
   );
 }
 
-function ReadBody({ paper, content }: { paper: PaperMeta; content: PaperContent }) {
-  const { facts } = content;
-  const observational = !["rct", "meta_analysis_rct"].includes(paper.design);
+/** Everything above the protocol widget: hook, mechanism, number, what was tested, simulator. */
+function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }) {
+  const { facts, context, layers } = content;
+  const hasGlossary = (content.glossary ?? []).length > 0;
+  // An old-shape read (until step 2E): its first section stands where the mechanism will.
+  const [first, ...rest] = content.sections;
 
   return (
-    <>
-      <Para sentences={content.hook} facts={facts} context={content.context} className="read text-[1.3125rem] leading-[1.45]" />
-
-      <p className="flex items-center gap-2 text-sm text-muted">
-        <span aria-hidden className="h-2.5 w-2.5 shrink-0 rounded-full border-2 border-accent" />
-        Tap a dot to see the exact passage in the paper.
-      </p>
-
-      <section aria-label="Who was studied" className="rounded-2xl border-2 border-ink p-4">
-        <h2 className="display text-xl">Who this describes</h2>
-        <div className="mt-2">
-          <Para sentences={content.populationPanel} facts={facts} context={content.context} className="text-base leading-relaxed" />
-        </div>
-        <p className="mt-2 text-sm leading-snug text-muted">
-          {observational
-            ? "This study watched people; it did not assign them to anything. It can show that two things go together, not that one causes the other."
-            : "The result holds for people like these. Nobody outside that group was tested."}
+    <Glossary content={content}>
+      <div>
+        <Para as="h2" sentences={content.hook} facts={facts} context={context} className="read text-[1.375rem] font-medium leading-[1.4]" />
+        <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
+          <span className="num font-semibold" data-read-minutes>{paper.readMinutes} min read</span>
+          <span className="flex items-center gap-1.5">
+            <span aria-hidden className="h-2.5 w-2.5 shrink-0 rounded-full border-2 border-accent" />
+            Tap a dot for the passage in the paper{hasGlossary ? "; tap an underlined word for what it means" : ""}.
+          </span>
         </p>
-      </section>
+      </div>
 
-      <Layers paper={paper} content={content} />
+      {layers ? (
+        <section aria-label="Why it happens" className="space-y-4">
+          <h2 className={LAYER}>Why it happens</h2>
+          <Paragraphs slug={paper.slug} paragraphs={layers.mechanism.paragraphs} figure={layers.mechanism.figure} facts={facts} context={context} />
+        </section>
+      ) : first ? (
+        <section aria-label={first.heading} className="space-y-4">
+          <h2 className={LAYER}>{first.heading}</h2>
+          <Paragraphs slug={paper.slug} paragraphs={first.paragraphs} figure={content.figure} facts={facts} context={context} />
+        </section>
+      ) : null}
 
-      {content.sections.map((section, at) => (
-        <section key={section.id} aria-label={section.heading} className="space-y-3">
-          <h2 className="read-title text-[1.625rem]">{section.heading}</h2>
-          {/* An old-shape read has one figure: after the first paragraph of its first section. */}
-          <Paragraphs slug={paper.slug} paragraphs={section.paragraphs} figure={at === 0 ? content.figure : null} facts={facts} context={content.context} />
+      <PullNumber fact={facts[content.primaryEstimate]} context={context} />
+
+      {rest.map((section) => (
+        <section key={section.id} aria-label={section.heading} className="space-y-4">
+          <h2 className={LAYER}>{section.heading}</h2>
+          <Paragraphs slug={paper.slug} paragraphs={section.paragraphs} facts={facts} context={context} />
         </section>
       ))}
 
-      {!content.layers && <section aria-label="Limitations" className="rounded-2xl border border-accent bg-accent-soft p-4">
-        <h2 className="display text-xl">What to hold loosely</h2>
-        <p className="mt-1 text-sm leading-snug text-muted">One study never settles a question. These are the weak points of this one.</p>
-        <ul className="mt-3 space-y-3">
-          {content.limitations.map((limitation, i) => (
-            <li key={i} className="flex gap-3">
-              <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
-              <div className="min-w-0 flex-1"><Para sentences={limitation} facts={facts} context={content.context} className="text-base leading-relaxed" /></div>
-            </li>
-          ))}
-        </ul>
-      </section>}
-
-      <details className="rounded-2xl border border-line p-4">
-        <summary className="cursor-pointer font-semibold">New to reading studies? Three terms</summary>
-        <dl className="mt-3 space-y-3 text-[0.9375rem] leading-relaxed">
-          <div>
-            <dt className="font-semibold">95% CI (confidence interval)</dt>
-            <dd className="text-muted">The range the true average plausibly sits in. A range that includes zero means the study cannot tell an effect from no effect.</dd>
-          </div>
-          <div>
-            <dt className="font-semibold">Certainty: high, moderate, low</dt>
-            <dd className="text-muted">How far a result can be trusted, judged from how the study was done. It is about trust, not size: a high-certainty effect can still be tiny.</dd>
-          </div>
-          <div>
-            <dt className="font-semibold">Points</dt>
-            <dd className="text-muted">Percentage points: the plain gap between two percentages. Going from 20% to 15% is 5 points.</dd>
-          </div>
-        </dl>
-      </details>
+      <section aria-label="What was tested" className="space-y-4">
+        {layers ? (
+          <>
+            <h2 className={LAYER}>What was tested</h2>
+            <Paragraphs slug={paper.slug} paragraphs={layers.protocol.paragraphs} figure={layers.protocol.figure} facts={facts} context={context} />
+          </>
+        ) : null}
+        <WhoWasTested paper={paper} content={content} />
+      </section>
 
       <section aria-label="Simulator" className="space-y-3">
         <h2 className="display text-2xl">Try it</h2>
         <SimulatorFor kind={content.simulator.kind} params={content.simulator.params} />
       </section>
-    </>
+    </Glossary>
+  );
+}
+
+function Receipt({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div>
+      <h3 className="text-sm font-semibold text-muted">{title}</h3>
+      {children}
+    </div>
+  );
+}
+
+/** How to read the numbers. Lives inside "Full receipts". */
+function Primer() {
+  return (
+    <dl className="space-y-3 border-t border-line pt-3 text-[0.9375rem] leading-relaxed">
+      <div>
+        <dt className="font-semibold">95% CI (confidence interval)</dt>
+        <dd className="text-muted">The range the true average plausibly sits in. A range that includes zero means the study cannot tell an effect from no effect.</dd>
+      </div>
+      <div>
+        <dt className="font-semibold">Certainty: high, moderate, low</dt>
+        <dd className="text-muted">How far a result can be trusted, judged from how the study was done. It is about trust, not size: a high-certainty effect can still be tiny.</dd>
+      </div>
+      <div>
+        <dt className="font-semibold">Points</dt>
+        <dd className="text-muted">Percentage points: the plain gap between two percentages. Going from 20% to 15% is 5 points.</dd>
+      </div>
+    </dl>
+  );
+}
+
+/**
+ * The receipts (H10's audit layer). Design, sample size, the raw effect, the
+ * weak end of the range and the limitations are on the page without a tap, the
+ * limitations in bold (H6). The expander holds the rest.
+ */
+function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent }) {
+  const { facts, context } = content;
+  const audit = content.layers?.audit;
+  const limitations = audit ? audit.limitations : content.limitations;
+  const sources = contextSourceList(content);
+
+  return (
+    <section aria-label="The receipts" className="space-y-4 rounded-2xl border border-accent bg-accent-soft p-4">
+      <h2 className="display text-xl">The receipts</h2>
+      <dl className="grid grid-cols-2 gap-3 text-sm leading-snug">
+        <div>
+          <dt className="font-semibold text-muted">Design</dt>
+          <dd className="font-semibold">{DESIGN_LABEL[paper.design] ?? paper.design}</dd>
+        </div>
+        {paper.sampleSize !== null && (
+          <div>
+            <dt className="font-semibold text-muted">Participants</dt>
+            <dd className="num font-semibold">{paper.sampleSize.toLocaleString("en")}</dd>
+          </div>
+        )}
+      </dl>
+      {audit && (
+        <>
+          <Receipt title="The size of the effect">
+            <Para sentences={audit.effect} facts={facts} context={context} className={AUDIT} />
+            <div className="mt-3"><Pictured slug={paper.slug} figure={audit.figure} facts={facts} context={context} /></div>
+          </Receipt>
+          <Receipt title="How weak it could be">
+            <Para sentences={audit.weakEnd} facts={facts} context={context} className={AUDIT} />
+          </Receipt>
+        </>
+      )}
+      <Receipt title="What to hold loosely">
+        <ul className="mt-1 space-y-3">
+          {limitations.map((limitation, i) => (
+            <li key={i} className="flex gap-3">
+              <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
+              <div className="min-w-0 flex-1"><Para sentences={limitation} facts={facts} context={context} className={`${AUDIT} font-bold`} /></div>
+            </li>
+          ))}
+        </ul>
+      </Receipt>
+      <details className="border-t border-accent pt-3">
+        <summary className="flex min-h-11 cursor-pointer items-center font-semibold">Full receipts</summary>
+        <div className="ui-reveal mt-2 space-y-4">
+          {audit && (
+            <Receipt title="What summaries leave out">
+              <Para sentences={audit.missed} facts={facts} context={context} className={AUDIT} />
+            </Receipt>
+          )}
+          {audit?.more.map((paragraph, i) => <Para key={i} sentences={paragraph} facts={facts} context={context} className={AUDIT} />)}
+          {sources.length > 0 && (
+            <Receipt title="Other sources this read uses">
+              {sources.map((source) => (
+                <p key={source.id} className="mt-1 text-sm leading-snug text-muted">
+                  <span className="font-semibold">{source.label}.</span> {source.citation} ({source.id}){source.grade ? `, ${source.grade.toLowerCase()}` : ""}
+                </p>
+              ))}
+            </Receipt>
+          )}
+          <Primer />
+        </div>
+      </details>
+    </section>
   );
 }
 
@@ -300,12 +243,11 @@ export function Article({ paper }: { paper: PaperMeta }) {
   const read: Gated<PaperContent> | null = bundled ? { state: "ok", value: bundled } : fetched;
 
   return (
-    <article className="space-y-6">
+    <article className="space-y-7">
       <header className="pt-2">
         <Link href="/library" className="text-sm font-semibold text-muted underline underline-offset-4">Library</Link>
         <p className="mt-4 flex items-center justify-between gap-3 text-sm text-muted">
           <span>{paper.category}, {(DESIGN_LABEL[paper.design] ?? paper.design).toLowerCase()}</span>
-          <span className="num shrink-0">{paper.readMinutes} min read</span>
         </p>
         <h1 className="read-title mt-2 text-[2.125rem]">{paper.title}</h1>
         <dl className="mt-4 space-y-1.5">
@@ -318,7 +260,7 @@ export function Article({ paper }: { paper: PaperMeta }) {
         </dl>
       </header>
 
-      {read?.state === "ok" && <ReadBody paper={paper} content={read.value} />}
+      {read?.state === "ok" && <ReadTop paper={paper} content={read.value} />}
 
       {read === null && (
         <div aria-busy className="space-y-3">
@@ -347,6 +289,8 @@ export function Article({ paper }: { paper: PaperMeta }) {
         <h2 className="display text-2xl">Put it in your Life Game</h2>
         <WidgetFor slug={paper.slug} variant="article" />
       </section>
+
+      {read?.state === "ok" && <Receipts paper={paper} content={read.value} />}
 
       <MemberExtras paper={paper} />
 

@@ -13,6 +13,20 @@
  * --accent       fills (buttons, bars, ticks). Always paired with --accent-ink text.
  * --accent-text  orange that is readable as TEXT on the page background.
  */
+/*
+ * Motion tokens. One quiet transition for controls that change state (a toggle,
+ * a picked option, a sheet or an expander opening): 120 to 180 ms, ease-out,
+ * transform and opacity only, once, no bounce. It is feedback for a tap, never
+ * data: a figure moves only for measured change. Under prefers-reduced-motion
+ * the state changes at once (see the end of this file).
+ */
+:root {
+  --motion-fast: 120ms;
+  --motion: 160ms;
+  --motion-slow: 180ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 :root,
 [data-theme="light"] {
   --bg: #ffffff;
@@ -146,8 +160,8 @@ input[type="range"] {
 }
 
 /* Bottom sheet: the maximised view of a widget. */
-@keyframes sheet-up { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
-dialog.sheet[open] { animation: sheet-up 220ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+@keyframes sheet-up { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
+dialog.sheet[open] { animation: sheet-up var(--motion-slow) var(--ease-out); }
 
 @media (prefers-reduced-motion: reduce) {
   .companion-tail, .companion-halo, .day-burst::before, dialog.sheet[open] { animation: none; }
@@ -159,15 +173,33 @@ dialog.sheet[open] { animation: sheet-up 220ms cubic-bezier(0.2, 0.8, 0.2, 1); }
 }
 
 /*
- * Figures (components/figures/Figure.tsx). The one entrance animation a figure
- * is allowed: it settles into place once. Nothing moves for a reader who has
- * asked for reduced motion.
+ * State feedback for toggles (amendment C to step 2D). The newly chosen option,
+ * the opened expander and the panel a control reveals settle in once.
  */
-@keyframes figure-enter {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: none; }
-}
-.figure-enter { animation: figure-enter 320ms ease-out both; }
+@keyframes ui-settle { from { opacity: 0.55; transform: scale(0.97); } to { opacity: 1; transform: none; } }
+@keyframes ui-reveal { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+button[aria-pressed="true"],
+[role="switch"][aria-checked="true"],
+[role="tab"][aria-selected="true"],
+label:has(> input[type="radio"]:checked) { animation: ui-settle var(--motion-fast) var(--ease-out); }
+details[open] > .ui-reveal,
+.ui-reveal[data-shown] { animation: ui-reveal var(--motion) var(--ease-out); }
 @media (prefers-reduced-motion: reduce) {
-  .figure-enter { animation: none; }
+  button[aria-pressed="true"],
+  [role="switch"][aria-checked="true"],
+  [role="tab"][aria-selected="true"],
+  label:has(> input[type="radio"]:checked),
+  details[open] > .ui-reveal,
+  .ui-reveal[data-shown] { animation: none; }
+}
+
+/* Reading measure: 60 to 68 characters a line where the screen allows it. */
+.read { max-width: 66ch; }
+
+/* A word with a plain-language entry: tap it. */
+.term {
+  text-decoration: underline dotted var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+  cursor: pointer;
 }

@@ -3,7 +3,7 @@ import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 
 /** The props of a figure that say where and how big, never how much. */
-const FIGURE_GEOMETRY = "/^(x|y|x1|y1|x2|y2|cx|cy|r|rx|ry|dx|dy|width|height|d|viewBox|points|transform|strokeWidth|strokeDasharray|fontSize|opacity|size|gap|min|max|nodeHeight|rowHeight|labelWidth|className)$/";
+const FIGURE_GEOMETRY = "/^(x|y|x1|y1|x2|y2|cx|cy|r|rx|ry|dx|dy|width|height|d|viewBox|points|transform|strokeWidth|strokeDasharray|fontSize|opacity|size|gap|min|max|nodeHeight|rowHeight|labelWidth|className|tabIndex)$/";
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -66,6 +66,17 @@ const eslintConfig = defineConfig([
         {
           selector: `TemplateElement[value.raw=/[0-9]/]:not(JSXAttribute[name.name=${FIGURE_GEOMETRY}] TemplateElement)`,
           message: "No digits in a figure's own strings. A number the reader sees comes from params, bound to a gated fact.",
+        },
+        // An interactive figure (step 2D, amendment B). Its state is covered by the rules above:
+        // useState(30) is a numeric literal outside a geometry prop, so a state can only start
+        // empty or come from params. What is left to refuse is motion that no fact drives.
+        {
+          selector: "CallExpression[callee.name=/^(setInterval|setTimeout|requestAnimationFrame)$/], CallExpression[callee.property.name=/^(setInterval|setTimeout|requestAnimationFrame|animate)$/]",
+          message: "A figure has no clock of its own: no timers and no animation loop. Motion is for measured change only, and a state changes when the reader acts.",
+        },
+        {
+          selector: "JSXOpeningElement[name.name=/^(animate|animateTransform|animateMotion|set)$/]",
+          message: "No SVG animation elements in a figure. Motion is for measured change only.",
         },
       ],
     },

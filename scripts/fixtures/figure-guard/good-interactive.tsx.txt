@@ -1,0 +1,23 @@
+import { useState } from "react";
+import { Figure } from "@/components/figures/Figure";
+import { Label } from "@/components/figures/primitives";
+
+interface Params { readings: { label: string; quote: string }[] }
+
+// State starts empty and only ever holds something that came from params.
+export default function Fixture({ params, alt }: { params: Record<string, unknown>; alt: string }) {
+  const p = params as unknown as Params;
+  const [picked, setPicked] = useState<{ label: string; quote: string } | null>(null);
+  return (
+    <div>
+      <Figure title="A fixture" desc={alt} height={120} interactive>
+        {p.readings.map((reading, i) => (
+          <g key={reading.label} role="button" tabIndex={0} onClick={() => setPicked(reading)}>
+            <Label x={8} y={20 + i * 20}>{reading.label}</Label>
+          </g>
+        ))}
+      </Figure>
+      <p aria-live="polite">{picked ? picked.quote : "Tap a row."}</p>
+    </div>
+  );
+}

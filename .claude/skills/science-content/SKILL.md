@@ -83,7 +83,7 @@ never from the editorial.
 What the lint checks on the layers (`npm run content:build` prints all of it):
 
 - A word on the jargon list (`lib/pipeline/jargon.ts`) in the hook, the population panel, the
-  mechanism or the protocol needs a glossary entry, and may not sit in the opening sentence of
+  mechanism or the protocol needs a glossary entry. A glossary entry's plain text may not use a
   the mechanism. A glossary entry's plain text may not use a listed word, a number or a banned
   word.
 - Mechanism text may not contain: limitation, confound, self-reported, "p =", "p<", 95%, CI,
@@ -149,6 +149,11 @@ in `components/papers/registry.tsx`. A layer references one:
 - An observational study gets no arrow. Draw the association with a bracket.
 - Never draw a curve, a height or an axis value the paper does not print.
 - A figure uses only its own paper's facts: no context study, no concept.
+- A figure may be interactive (React state and SVG only) when poking it teaches something a
+  still picture cannot; say which, and why, in a design note at the top of the file. The first,
+  untouched view carries the point alone. State starts empty and holds only what `params` gave
+  it; every state obeys the rules above. Shapes are placed by calculation
+  (`components/figures/scale.ts`). No timers, no loops: motion is for measured change only.
 
 ## Workflow
 

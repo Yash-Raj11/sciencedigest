@@ -66,10 +66,13 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
 - [x] Off-list (owner's request, 2026-11-13): release `turmeric-pepper-breakfast`. Hosted seed
       written (papers 4, steps 30); `isTimestamp` rule + test; on `main` as `80e1caa`, live 200
       on 2026-11-14. Hand-written, so it does not count toward the Phase 10 gate.
-- [ ] 2D. Rebuild `components/read/Article.tsx` (hook, mechanism, pull-number, protocol,
+- [x] 2D. Rebuild `components/read/Article.tsx` (hook, mechanism, pull-number, protocol,
       receipts, members' extras); search-the-build check; walkthrough extended; before/after
-      screenshots in `docs/evidence/article-redesign/`.
-- [ ] ⏸ Stop with the screenshot paths for design review.
+      screenshots in `docs/evidence/article-redesign/`. With the owner's amendments of
+      2026-11-14: A the feed (at `/library`), B one interactive figure (turmeric's grid),
+      C motion tokens for toggles. BUILD-LOG 2026-11-14.
+- [ ] ⏸ Stop with the screenshot paths for design review. **Stopped here 2026-11-14.** Open for
+      the owner: the design review; feed at `/library` or at `/`; "go" for the hosted seed.
 - [ ] 2E. Rewrite the three `editorial.json` files; concept files listed; `prompts.ts` updated
       with an old-shape refusal test; allowlist deleted; before/after table per paper.
 - [ ] ⏸ Stop. Owner approves concepts and reads all three. Phase 9 is not done until then.

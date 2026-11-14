@@ -1,0 +1,15 @@
+import { useState } from "react";
+import { Figure } from "@/components/figures/Figure";
+import { Label } from "@/components/figures/primitives";
+
+// A state that starts on a number the figure made up: the first view would show it.
+export default function Fixture({ alt }: { alt: string }) {
+  const [minutes, setMinutes] = useState(30);
+  return (
+    <Figure title="A fixture" desc={alt} height={120} interactive>
+      <g role="button" tabIndex={0} onClick={() => setMinutes(minutes)}>
+        <Label x={8} y={20}>{minutes}</Label>
+      </g>
+    </Figure>
+  );
+}

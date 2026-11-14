@@ -710,3 +710,81 @@ Generated files are unchanged. `content/context/` and `content/concepts/` hold o
   removed from `lib/pipeline/lint.ts` with its test. Rule (a) stays: a listed word with no
   glossary entry fails. `docs/evidence/phase9-2a-rules-broken.txt` is left as the record of
   2A as built (19 breaks; the rule set now has 18 of them).
+
+## 2026-11-14, Phase 9, step 2D: the read rebuilt, the feed, one interactive figure
+
+Done as the master prompt writes it, plus three amendments the owner gave on 2026-11-14. Where
+they conflict with the master prompt, the amendments win.
+
+- **The read** (`components/read/Article.tsx`), in order: the hook as an H2 with the reading time;
+  "Why it happens" with the figure after the first paragraph and glossary words underlined; one
+  number card; "What was tested" with the "Who this was tested in" panel; the simulator; "Put it
+  in your Life Game"; "The receipts" (design, participants, effect, weak end, limitations in
+  bold, all without a tap); members' extras. "Full receipts" holds what summaries leave out,
+  the rest of the audit, every context source and the three-terms primer (it used to be its own
+  expander). The three old-shape reads use the same page: their first section stands where the
+  mechanism will, until 2E.
+- **Shared pieces** (`components/read/parts.tsx`): `Para`, `Pictured`, `PullNumber`, `Glossary`.
+  The article and the feed card draw with the same code.
+- **Glossary.** A word with an entry is a button with a dotted underline; it opens the existing
+  `Sheet` with the plain text, the concept's "picture to hold in mind" and reference when it is
+  background, or the paper's passage when it rests on a fact.
+- **The number card** shows the headline estimate and says "an absolute difference" with its
+  95% range. When the paper gives no size (caffeine, turmeric: a finding), it shows what was
+  found in words instead of a number. No number is invented to fill the card.
+- **Search-the-build check** is now a test, `tests/http/members-content.test.ts`: every sentence
+  of the members' read and of every paper's implementation notes is searched for in
+  `.next/static` and the prerendered `.html`/`.rsc`. Zero matches. It first proves it can find a
+  sentence that is public.
+
+**Amendment A: the feed.**
+- *Decision for the owner to confirm:* the prompt says "the home page becomes a feed, not a
+  title list". In the repository the home page (`/`) is Today, the tracker; the title list is
+  `/library`. The feed replaced the title list at `/library`. Moving the tracker off `/` would
+  change the installed app's start page and the tab bar, so it was not done without asking.
+- A card (`components/read/Feed.tsx`) shows the hook (H2), reading time, the mechanism figure in
+  its first view, the number card with its source line, and the grade chip. A card is one link
+  and holds no button. Twenty at a time, with a "Show more" button; no endless scroll.
+- **A members' read on the feed.** Its hook and mechanism figure had never been public. The
+  content build now writes them (and nothing else: no caption, no number card) into the public
+  metadata as `PaperMeta.card`, for premium papers only. This is the owner's instruction and the
+  one deliberate exception to "nothing of a members' read in the browser"; the search-the-build
+  test asserts the card holds exactly `hook` and `figure`.
+
+**Amendment B: interactive figures.**
+- React state and SVG only; no dependency added.
+- One figure is interactive: turmeric's readings grid (`FiveReadings`). Tap or focus a dot and
+  the panel under it shows the paper's own sentence with "From the paper, word for word". An
+  orange dot quotes the result that flags it; any other dot quotes what the paper says of that
+  meal's readings (`timepoints`; for the turmeric meal, `turmeric_none`). Each row's fact is in
+  `editorial.json` (`meals[].reading`), so the build ties it to the paper.
+- The first view is unchanged in meaning: two orange dots, the bracket, nothing picked.
+- **Geometry by calculation.** `components/figures/scale.ts`: a reading sits where its minute
+  puts it. To make every dot a 44 px target at 360 px, the row names moved above their rows
+  and the figure now runs edge to edge in its card; the spacing was not bent.
+  `scripts/figure-states.test.ts` asserts the spacing ratios equal the minute ratios, that the
+  positions move when the fact moves, and the 44 px gap.
+- **Every state.** The same test walks all 20 states: each shows a verbatim passage of a fact of
+  this paper, and only a result is drawn as differing.
+- **The figure guard** now also refuses timers, animation loops and SVG animation elements in a
+  figure file. A state that starts on a number was already refused (it is a numeric literal
+  outside a geometry prop); there is now a fixture proving it. `tabIndex` joined the allowed
+  props. Three new fixtures: `good-interactive`, `bad-state-number`, `bad-ambient-motion`.
+- **The entrance animation of figures is removed** (`figure-enter`): it was decorative, and
+  motion is now for measured change only. No figure here shows a change over time, so none moves.
+- Design notes are in each figure file only where it is interactive (FiveReadings). Proposed,
+  not built: caffeine's lock (tap to swap the real key and the blank key); steps' bars (tap a
+  bar for the paper's sentence and range); HIIT's three gauges (tap a row for the pooled result
+  and its certainty); turmeric's doorbell (tap a step for the sentence where the authors
+  propose it).
+
+**Amendment C: quiet motion for toggles.** Tokens beside the colour tokens in `app/globals.css`:
+`--motion-fast` 120 ms, `--motion` 160 ms, `--motion-slow` 180 ms, `--ease-out`. A picked
+option, a switch, an opened expander, a revealed passage and the sheet settle once, with
+transform and opacity only. Under `prefers-reduced-motion` the animation is `none`: the browser
+test checks both.
+
+**For the owner.** `supabase/seed.sql` changed (the turmeric figure's params). The hosted
+database was **not** touched: the read is free and bundled, so the site does not depend on it.
+It needs the owner's "go" to bring the hosted seed level.
+

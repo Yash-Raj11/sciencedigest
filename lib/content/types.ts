@@ -104,6 +104,11 @@ export interface PaperMeta {
   /** True when a step depends on a block start date. */
   hasBlock: boolean;
   simulatorKind: string;
+  /**
+   * A members' read only: the part of it the feed shows to everyone (its hook
+   * and its mechanism figure). Everything else stays behind row level security.
+   */
+  card?: { hook: string; figure: FigureRef | null };
 }
 
 export interface ReadSection {

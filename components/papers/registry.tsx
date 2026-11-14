@@ -30,7 +30,11 @@ import BreakfastSimulator from "./turmeric-pepper-breakfast/Simulator";
 export interface WidgetProps { variant: "article" | "card" }
 export interface SimulatorProps { params: Record<string, unknown> }
 /** `params` is what the picture shows, every value bound to a gated fact; `alt` is its description. */
-export interface FigureProps { params: Record<string, unknown>; alt: string }
+export interface FigureProps {
+  params: Record<string, unknown>; alt: string;
+  /** False in the feed card, which is one link: the figure shows its first view and holds no buttons. */
+  interactive?: boolean;
+}
 
 const WIDGETS: Record<string, ComponentType<WidgetProps>> = {
   "steps-days-per-week": StepsWidget,
@@ -61,14 +65,14 @@ const FIGURES: Record<FigureKey, ComponentType<FigureProps>> = {
 };
 
 /** The drawing, and under it the key when the figure mixes measured and proposed. */
-export function FigureFor({ slug, figure }: { slug: string; figure: FigureRef }) {
+export function FigureFor({ slug, figure, interactive = true }: { slug: string; figure: FigureRef; interactive?: boolean }) {
   const key = figureKey(slug, figure.figure);
   if (!isFigureKey(key)) return null;
   const Drawing = FIGURES[key];
   const mixed = evidenceKindsIn(figure.params).length > 1;
   return (
     <div data-figure-key={key}>
-      <Drawing params={figure.params} alt={figure.alt} />
+      <Drawing params={figure.params} alt={figure.alt} interactive={interactive} />
       {mixed ? <p data-figure-legend className="mt-1 text-center text-xs text-muted">{EVIDENCE_KEY}</p> : null}
     </div>
   );

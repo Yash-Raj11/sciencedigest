@@ -56,6 +56,21 @@ describe("the figure guard", () => {
     expect(errors.join("\n")).toMatch(/no-restricted-syntax: No digits in a figure's own strings/);
   }, 60000);
 
+  it("passes an interactive figure whose state starts empty and holds only what params gave it", async () => {
+    expect(await check("good-interactive", FIGURE)).toEqual([]);
+  }, 60000);
+
+  it("refuses a state that starts on a number of the figure's own", async () => {
+    const errors = await check("bad-state-number", FIGURE);
+    expect(errors.join("\n")).toMatch(/no-restricted-syntax: A figure holds no number of its own outside a geometry prop/);
+  }, 60000);
+
+  it("refuses a timer and an SVG animation element: no motion that no fact drives", async () => {
+    const errors = (await check("bad-ambient-motion", FIGURE)).join("\n");
+    expect(errors).toMatch(/no-restricted-syntax: A figure has no clock of its own/);
+    expect(errors).toMatch(/no-restricted-syntax: No SVG animation elements in a figure/);
+  }, 60000);
+
   it("is a rule about figures only: the same file passes as a simulator", async () => {
     expect(await check("bad-number-text", "components/papers/some-paper/Simulator.tsx")).toEqual([]);
   }, 60000);

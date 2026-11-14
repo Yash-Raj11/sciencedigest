@@ -64,7 +64,79 @@ export const PAPERS: PaperMeta[] = [
       }
     ],
     "hasBlock": true,
-    "simulatorKind": "hiit-forest"
+    "simulatorKind": "hiit-forest",
+    "card": {
+      "hook": "Interval training is sold on fat loss. Pool the trials, rate how far each result can be trusted, and the order flips.",
+      "figure": {
+        "figure": "what-was-measured",
+        "caption": [],
+        "alt": "Three lines, each with a mark for no change. Fat-free mass: 0.51 kg more. Fat mass: 1.86 kg less. Body fat percentage: 1.53 points less.",
+        "params": {
+          "rows": [
+            {
+              "label": "Fat-free mass",
+              "kind": "measured",
+              "fact": {
+                "id": "ffm_all",
+                "kind": "estimate",
+                "label": "Fat-free mass, all interval training vs control",
+                "quote": "HIIT induced an overall significant improvement in FFM (WMD: 0.51 kg, 95% CI: 0.06 to 0.95",
+                "estimate": {
+                  "outcome": "Fat-free mass",
+                  "measure": "WMD",
+                  "point": 0.51,
+                  "ciLow": 0.06,
+                  "ciHigh": 0.95,
+                  "unit": "kg",
+                  "absolute": true,
+                  "tier": "high"
+                }
+              }
+            },
+            {
+              "label": "Fat mass",
+              "kind": "measured",
+              "fact": {
+                "id": "fm_all",
+                "kind": "estimate",
+                "label": "Fat mass, all interval training vs control",
+                "quote": "HIIT resulted in a significant reduction in FM (WMD: −1.86 kg, 95% CI: −2.55 to −1.18",
+                "estimate": {
+                  "outcome": "Fat mass",
+                  "measure": "WMD",
+                  "point": -1.86,
+                  "ciLow": -2.55,
+                  "ciHigh": -1.18,
+                  "unit": "kg",
+                  "absolute": true,
+                  "tier": "moderate"
+                }
+              }
+            },
+            {
+              "label": "Body fat percentage",
+              "kind": "measured",
+              "fact": {
+                "id": "bf_all",
+                "kind": "estimate",
+                "label": "Body fat percentage, all interval training vs control",
+                "quote": "induced a significant reduction in BF% [weighted mean difference (WMD): −1.53%, 95% CI: −2.13, −0.92",
+                "estimate": {
+                  "outcome": "Body fat percentage",
+                  "measure": "WMD",
+                  "point": -1.53,
+                  "ciLow": -2.13,
+                  "ciHigh": -0.92,
+                  "unit": "points",
+                  "absolute": true,
+                  "tier": "low"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
   },
   {
     "id": "58929ab5-72ec-5a41-941b-be5f29965932",
@@ -2235,7 +2307,13 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
             "meals": [
               {
                 "label": "Plain",
-                "differed": []
+                "differed": [],
+                "reading": {
+                  "id": "timepoints",
+                  "kind": "context",
+                  "label": "When blood glucose was measured",
+                  "quote": "blood glucose levels were recorded at 0, 30, 60, 120, and 180 min"
+                }
               },
               {
                 "label": "Pepper",
@@ -2244,11 +2322,27 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                     "n": 30,
                     "ref": "glucose_30"
                   }
-                ]
+                ],
+                "reading": {
+                  "id": "timepoints",
+                  "kind": "context",
+                  "label": "When blood glucose was measured",
+                  "quote": "blood glucose levels were recorded at 0, 30, 60, 120, and 180 min"
+                }
               },
               {
                 "label": "Turmeric",
-                "differed": []
+                "differed": [],
+                "reading": {
+                  "id": "turmeric_none",
+                  "kind": "finding",
+                  "label": "turmeric alone: no effect on blood glucose compared with the control meal",
+                  "quote": "Contradictory to the assumption of this current approach, no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed.",
+                  "finding": {
+                    "outcome": "Blood glucose after the turmeric-only meal",
+                    "tier": "low"
+                  }
+                }
               },
               {
                 "label": "Both spices",
@@ -2257,7 +2351,13 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                     "n": 30,
                     "ref": "glucose_30"
                   }
-                ]
+                ],
+                "reading": {
+                  "id": "timepoints",
+                  "kind": "context",
+                  "label": "When blood glucose was measured",
+                  "quote": "blood glucose levels were recorded at 0, 30, 60, 120, and 180 min"
+                }
               }
             ],
             "pValue": {

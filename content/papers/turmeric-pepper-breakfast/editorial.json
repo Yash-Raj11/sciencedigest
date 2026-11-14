@@ -111,7 +111,8 @@
           "meals": [
             {
               "label": "Plain",
-              "differed": []
+              "differed": [],
+              "reading": "fact:timepoints"
             },
             {
               "label": "Pepper",
@@ -120,11 +121,13 @@
                   "n": 30,
                   "ref": "glucose_30"
                 }
-              ]
+              ],
+              "reading": "fact:timepoints"
             },
             {
               "label": "Turmeric",
-              "differed": []
+              "differed": [],
+              "reading": "fact:turmeric_none"
             },
             {
               "label": "Both spices",
@@ -133,7 +136,8 @@
                   "n": 30,
                   "ref": "glucose_30"
                 }
-              ]
+              ],
+              "reading": "fact:timepoints"
             }
           ],
           "pValue": {
