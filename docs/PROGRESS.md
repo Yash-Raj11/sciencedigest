@@ -81,13 +81,11 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       spec and its simulator (`2a0926c`); the half-life source search is its own item below.
 - [x] H7/H12 rule change (owner, 2026-11-14): a gated context study may feed a figure spec and
       its simulator; a concept never. `2a0926c`. Grzegorzewski 2021 refused at the gate (BUILD-LOG).
-- [ ] Find a context study for caffeine's half-life. Search Europe PMC: licence
-      CC-BY/CC-BY-SA/CC0 via the API; healthy ADULTS (exclude neonates/preterm);
-      not retracted; the body text (not only a figure) states a half-life in hours
-      WITH a range or mean ± SD. Give the owner 3 candidates with DOI, licence, design and n,
-      and the exact sentence. ⏸ The owner picks one.
-- [ ] Note: AI_API_KEY is missing from .env.local, so the extract stage can't run.
-      Owner to add it before Phase 10.
+- [x] Find a context study for caffeine's half-life. Owner picked Wildgrube 2025
+      (doi:10.1016/j.ijpx.2025.100442); gated as `caffeine-saliva-half-life`, design crossover
+      (new design type), grade low; arm D excluded. BUILD-LOG 2026-11-14.
+- [x] Note: AI_API_KEY is missing from .env.local, so the extract stage can't run.
+      Added by the owner; Gemini 4 Hydrogen adopted for extract (BUILD-LOG 2026-11-14).
 - [ ] 2D round 3, in this order: (1) decay kind wired to caffeine once a half-life with a
       range is gated; (2) compare-bars (HIIT), association-curve (steps), grid (turmeric) moved
       onto kinds; (3) `docs/POST-RECIPE.md` + the sticky slot strip; (4) Life Game widgets made

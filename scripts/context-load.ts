@@ -6,6 +6,7 @@
  *   content/context/<slug>/source.txt        the other study's text, as retrieved
  *   content/context/<slug>/extraction.json   its facts, gated with role "context"
  *   content/context/<slug>/withdrawn.json    written by `npm run retractions` on a hit
+ *   content/context/<slug>/excluded.json     facts the owner ruled out of use: { "<fact_id>": "why" }
  *   content/concepts/<slug>.json             one background concept
  */
 
@@ -50,7 +51,18 @@ export function loadStudy(dir: string): ContextStudyState {
   const withdrawn = existsSync(`${dir}/withdrawn.json`)
     ? JSON.parse(readFileSync(`${dir}/withdrawn.json`, "utf8")) as { nature: string; date: string | null; reason: string }
     : null;
-  return { ok: true, validated: result.validated, withdrawn };
+  // Facts the owner ruled out of use, each with the reason (for example an arm that does not apply).
+  let excluded: Record<string, string> = {};
+  if (existsSync(`${dir}/excluded.json`)) {
+    try { excluded = JSON.parse(readFileSync(`${dir}/excluded.json`, "utf8")) as Record<string, string>; }
+    catch (error) { return { ok: false, errors: [`excluded.json is not valid JSON: ${(error as Error).message}`] }; }
+    const problems = Object.entries(excluded).flatMap(([id, why]) => [
+      ...(Object.hasOwn(result.validated.facts, id) ? [] : [`excluded.json names "${id}", which is not a verified fact`]),
+      ...(typeof why === "string" && why.trim() ? [] : [`excluded.json: "${id}" needs a reason`]),
+    ]);
+    if (problems.length > 0) return { ok: false, errors: problems };
+  }
+  return { ok: true, validated: result.validated, withdrawn, excluded };
 }
 
 export function loadContext(contextDir: string, conceptsDir: string): { context: LintContext; report: string[] } {
@@ -70,7 +82,8 @@ export function loadContext(contextDir: string, conceptsDir: string): { context:
     } else {
       const v = state.validated;
       const tier = deriveTier({ design: v.design, species: v.species, sampleSize: v.sampleSize, reportedGrade: null });
-      report.push(`  ${slug}: gate ok (role context): ${Object.keys(v.facts).length} facts, licence ${v.license}, design ${v.design}, grade ${tier}`);
+      const out = Object.keys(state.excluded ?? {}).length;
+      report.push(`  ${slug}: gate ok (role context): ${Object.keys(v.facts).length} facts${out ? ` (${out} excluded from use)` : ""}, licence ${v.license}, design ${v.design}, grade ${tier}`);
     }
   }
   if (report.length > 0) report.unshift("\ncontext studies (content/context/)");

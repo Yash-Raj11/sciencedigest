@@ -981,3 +981,39 @@ unbenchmarked until 2E.
 
 Not iterated further, as instructed. The one gate refusal is the kind a draft review fixes in a
 line; it was not coached away.
+
+## 2026-11-14, Gate: crossover design; the half-life study passes, arm D excluded
+
+**Decision (owner).** A new design type, `crossover`, supported only when the paper names the
+crossover AND says the order was randomised, and nothing says it was not.
+
+- `grade.ts`: `crossover` in `DESIGNS`; its design passage must say crossover / cross-over /
+  cross over; `CROSSOVER_RANDOMISATION` (randomized, randomised, randomization, randomisation,
+  randomly assigned/allocated) may sit in the design passage or another extracted passage of
+  the same paper; `NEGATED_RANDOMISATION` ("not randomized", "non-randomised", "randomization
+  was not possible", "without randomisation") in either refuses it. `RANDOMIZED_DESIGNS`
+  (meta_analysis_rct, rct, crossover) now drives `deriveTier` (moderate, or low under n = 50)
+  and `causalLanguagePermitted`. *Decision:* a randomised crossover licenses causal verbs for
+  the studied population, like an rct; the owner may reverse this.
+- Audit wording: "Randomized crossover trial" (`DESIGN_LABEL`); the read's "Who this was tested
+  in" panel uses `RANDOMIZED_DESIGNS`, so a crossover is not called observational.
+- `rct` is unchanged: block randomisation alone still does not make an rct (test). Noticed, not
+  changed: `rct`'s word check has no negation guard, so "non-randomized" contains "randomized".
+  No current paper says that; a guard there is a gate change for the owner.
+- `EXTRACT_SYSTEM` lists crossover and asks for the randomisation sentence as a context fact.
+- **The half-life study** (`content/context/caffeine-saliva-half-life/`): design set to
+  crossover (the "cross over design" sentence; randomisation from `randomization_blocks`).
+  **Gate passes: 87 facts, design crossover, n = 12, grade low.**
+- **Only arm A is usable.** `excluded.json` (new, read by `scripts/context-load.ts`; the lint
+  refuses a citation of a listed fact; an unknown id or a missing reason fails the source):
+  t12_caffeine_d (15.33 ± 10.75 h), auc/cmax/tmax_caffeine_d, stat_caffeine_auc_t12_sig.
+  Kept: `half_life_caffeine` (5.15 ± 1.21 h, the body sentence) and `t12_caffeine_a`.
+- Tests (`lib/pipeline/crossover.test.ts`, 10): the paper passes; a negated randomisation
+  sentence fails; a "non-randomised cross over" design passage fails; no randomisation passage
+  fails; a design passage without the crossover fails; block randomisation is not an rct;
+  arm A is citable, arm D is refused; a bad `excluded.json` fails. Removing the exclusion check,
+  the negation check or the randomisation requirement each fails a test.
+- **For the wiring (next session):** the decay simulator reads an `estimate` with both ends of
+  a range (`hasRange`), and the extraction schema has no "mean ± SD" measure; ciLow/ciHigh mean
+  a confidence interval. The owner's H12 range (mean ± 1 SD, 3.94 to 6.36 h, "typical range in
+  this study") needs a way to carry an SD that is not a CI. That is a schema decision.

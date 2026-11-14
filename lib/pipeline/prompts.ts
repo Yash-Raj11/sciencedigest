@@ -15,7 +15,7 @@ Rules:
    Wrong: value "34.2 ± 5.1 years, weight 71.0 ± 9.8 kg" when the paper reads "34.2 ± 5.1 years with a mean weight of 71.0 ± 9.8 kg".
    Right: one fact with value "34.2 ± 5.1 years", another with value "71.0 ± 9.8 kg".
 4. If the paper does not report something, write "not_reported" for its value and null for its quote. Never guess.
-5. design is one of: meta_analysis_rct, rct, cohort, case_control, cross_sectional, animal, in_vitro. species is one of: human, mouse, rat, other_animal, cell_culture.
+5. design is one of: meta_analysis_rct, rct, crossover, cohort, case_control, cross_sectional, animal, in_vitro. Use crossover when each person had every condition in turn; its design quote names the crossover, and add a context fact quoting the sentence that says the order was randomised. species is one of: human, mouse, rat, other_animal, cell_culture.
 6. Every fact has a "kind". Use exactly these six:
    - "estimate": an effect size from this study's data, with measure (WMD, MD, aRD, RD, proportion, RR, HR, OR), point, ciLow, ciHigh (null if not printed) and unit. Example: "a mean difference of −1.2 kg (95% CI −2.0 to −0.4)". If the paper prints a relative measure (RR, HR, OR), also extract the absolute figures it prints for the same result.
    - "finding": any other measured result of THIS study: a p-value, a significant or non-significant difference, a direction, a mean ± SD from its own tables. Add "outcome": the endpoint measured, in plain words. Example: "resting heart rate did not differ between groups (p = .41)". A passage with a p-value from this study is always a finding or an estimate.

@@ -48,7 +48,11 @@ export interface LintReport {
 
 /** One folder of content/context/, after the gate (role "context") and the retraction check. */
 export type ContextStudyState =
-  | { ok: true; validated: Validated; withdrawn: { nature: string; date: string | null; reason: string } | null }
+  | {
+      ok: true; validated: Validated; withdrawn: { nature: string; date: string | null; reason: string } | null;
+      /** Facts the owner ruled out of use (content/context/<slug>/excluded.json): id -> why. A read may not cite them. */
+      excluded?: Record<string, string>;
+    }
   | { ok: false; errors: string[] };
 
 /** Everything a read may cite besides its own paper. Built by scripts/context-load.ts. */
@@ -225,6 +229,8 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
         once("context", where, `cites "${ref}", but the source "${parsedRef.source}" has been withdrawn (${study.withdrawn.nature}${study.withdrawn.date ? `, ${study.withdrawn.date}` : ""}); remove the citation`);
       } else if (!study.validated.facts[parsedRef.fact]) {
         once("context", where, `cites "${ref}", but the source "${parsedRef.source}" has no verified fact "${parsedRef.fact}"`);
+      } else if (study.excluded && Object.hasOwn(study.excluded, parsedRef.fact)) {
+        once("context", where, `cites "${ref}", which is excluded from use: ${study.excluded[parsedRef.fact]}`);
       } else usedStudies.add(parsedRef.source);
       return;
     }

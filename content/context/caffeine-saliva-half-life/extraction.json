@@ -11,8 +11,8 @@
   },
   "license": "CC-BY",
   "design": {
-    "value": "rct",
-    "quote": "Block randomization in blocks of four was used to ensure complete counterbalancing of the sequence of study days and to minimize systematic bias."
+    "value": "crossover",
+    "quote": "The in vivo study was performed in a cross over design with four different study arms involving twelve young volunteers aged 22–35 years (2 females and 10 males)."
   },
   "species": {
     "value": "human",

@@ -22,6 +22,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { SimulatorFor, WidgetFor } from "@/components/papers/registry";
 import { GradeChip, Notice } from "@/components/protocol/primitives";
 import { DESIGN_LABEL, freeContent } from "@/lib/content";
+import { RANDOMIZED_DESIGNS, type Design } from "@/lib/pipeline/grade";
 import { loadRead, type Gated } from "@/lib/content/gated";
 import { contextSourceList } from "@/lib/content/source-line";
 import type { PaperContent, PaperMeta, Sentence } from "@/lib/content/types";
@@ -49,7 +50,7 @@ function Paragraphs({ slug, paragraphs, figure, facts, context }: { slug: string
 
 /** H3: who the result describes, and what kind of claim the design allows. */
 function WhoWasTested({ paper, content }: { paper: PaperMeta; content: PaperContent }) {
-  const observational = !["rct", "meta_analysis_rct"].includes(paper.design);
+  const observational = !RANDOMIZED_DESIGNS.has(paper.design as Design);
   return (
     <section aria-label="Who was studied" className="rounded-2xl border-2 border-ink p-4">
       <h3 className="display text-xl">Who this was tested in</h3>

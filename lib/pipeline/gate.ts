@@ -11,7 +11,7 @@
 import type { EvidenceGrade } from "../evidence";
 import { ABSOLUTE_MEASURES, NOT_REPORTED, RawExtraction, type Estimate, type RawFact } from "./extraction";
 import {
-  DESIGNS, DESIGN_EVIDENCE, GRADE_WORDS, SPECIES, SPECIES_EVIDENCE,
+  CROSSOVER_RANDOMISATION, DESIGNS, DESIGN_EVIDENCE, GRADE_WORDS, NEGATED_RANDOMISATION, SPECIES, SPECIES_EVIDENCE,
   causalLanguagePermitted, deriveTier, type Design, type Species,
 } from "./grade";
 import { checkLicense, type AllowedLicense } from "./license";
@@ -130,8 +130,19 @@ export function gate(input: unknown, source: string, options: { role?: GateRole 
     errors.push(`design: "${raw.design.value}" is not one of ${DESIGNS.join(", ")}`);
   } else if (designAt) {
     const groups = DESIGN_EVIDENCE[raw.design.value as Design];
-    if (groups.every((g) => hasAny(designAt.text, g))) design = raw.design.value as Design;
-    else errors.push(`design: the quoted passage does not support "${raw.design.value}"`);
+    if (!groups.every((g) => hasAny(designAt.text, g))) errors.push(`design: the quoted passage does not support "${raw.design.value}"`);
+    else if (raw.design.value !== "crossover") design = raw.design.value as Design;
+    else {
+      // A crossover needs its randomisation stated: in the design passage or another methods
+      // passage of this extraction (verbatim in the source), and nowhere negated.
+      const passages = [designAt.text, ...raw.facts.map((f) => (f.quote ? locate(source, f.quote) : null))
+        .filter((span): span is Span => span !== null).map(([a, b]) => normalize(source.slice(a, b)))];
+      const randomised = passages.filter((text) => hasAny(text, CROSSOVER_RANDOMISATION));
+      const negated = [designAt.text, ...randomised].find((text) => NEGATED_RANDOMISATION.test(text));
+      if (negated) errors.push(`design: a passage says the crossover was not randomised ("${negated.slice(0, 80)}"); it cannot be graded as a randomised crossover`);
+      else if (randomised.length === 0) errors.push("design: a crossover needs a passage saying the order was randomised (randomized, randomised, randomization); none was extracted");
+      else design = "crossover";
+    }
   }
 
   let species: Species | null = null;
