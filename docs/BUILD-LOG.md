@@ -1032,3 +1032,26 @@ crossover AND says the order was randomised, and nothing says it was not.
   `turmeric-pepper-breakfast` ("randomized crossover design") are randomised crossovers filed
   as `rct`. Relabelling would change their audit wording to "Randomized crossover trial"; the
   grade is the same (both under n = 50, so low). For the owner.
+
+## 2026-11-14, Ruling C: spreads (sd, ci95, range, iqr); the half-life recorded as mean ± SD
+
+**Decision (owner, schema approved).** A fact may carry a spread, captured verbatim like any
+number. The simulator labels it by kind and never converts SD to CI or the reverse.
+
+- `extraction.ts`: `Spread` {kind sd | ci95 | range | iqr, value | low/high} on a fact; new
+  measure `mean` (absolute: a group average such as a half-life).
+- `gate.ts` (`spreadProblem`): a spread only on an estimate; an sd has a value above zero and no
+  ends; ci95/range/iqr have both ends in order; every number must be printed in the quote; a ci95
+  spread may not repeat ciLow/ciHigh. The validated (and resolved) fact carries it.
+- `lib/models/spread.ts` (`simulatorBand`): sd → mean ± 1 SD, "typical spread between people in
+  this study"; ci95 (spread or the estimate's own CI) → "range for the study average"; range →
+  "range in this study"; iqr → "middle half of people in this study". An SD wins over a CI: a
+  personal simulator is about one person. `hasRange` (H12) and the decay figure use it; the decay
+  simulator now says which band it used ("Half-life used: 3.94 h to 6.36 h, the typical spread
+  between people in this study"). `formatEstimate` prints a mean without a "+".
+- **Re-gated:** `half_life_caffeine` is now kind estimate, measure mean, point 5.15 h, spread
+  sd 1.21; ciLow/ciHigh stay null. Gate ok, 87 facts, crossover, grade low.
+- Tests: an SD fact gives 3.94–6.36 under the SD label; a CI fact keeps its ends and label; SD
+  beats CI; range/iqr labels; no band without a spread; the gate refuses an SD not in the quote,
+  an SD written as ends, a CI made up from the SD (4.47–5.83 is not printed), reversed ends, and a
+  spread on a non-estimate.

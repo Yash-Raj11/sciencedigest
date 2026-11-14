@@ -16,7 +16,8 @@ function decimals(value: number): number {
 export function formatEstimate(e: Pick<ResolvedEstimate, "point" | "ciLow" | "ciHigh" | "unit" | "measure">): string {
   const digits = Math.max(decimals(e.point), e.ciLow === null ? 0 : decimals(e.ciLow), e.ciHigh === null ? 0 : decimals(e.ciHigh));
   const unit = e.unit === "%" ? "%" : ` ${e.unit}`;
-  const isDifference = e.measure !== "proportion";
+  // A proportion or a group average is a level, not a difference: no "+".
+  const isDifference = e.measure !== "proportion" && e.measure !== "mean";
   const point = `${isDifference && e.point > 0 ? "+" : ""}${signed(e.point, digits)}${unit}`;
   if (e.ciLow === null || e.ciHigh === null) return point;
   return `${point} (95% CI ${signed(e.ciLow, digits)} to ${signed(e.ciHigh, digits)})`;

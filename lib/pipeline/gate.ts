@@ -9,7 +9,7 @@
  */
 
 import type { EvidenceGrade } from "../evidence";
-import { ABSOLUTE_MEASURES, NOT_REPORTED, RawExtraction, type Estimate, type RawFact } from "./extraction";
+import { ABSOLUTE_MEASURES, NOT_REPORTED, RawExtraction, type Estimate, type RawFact, type SpreadInput as Spread } from "./extraction";
 import {
   CROSSOVER_RANDOMISATION, DESIGNS, DESIGN_EVIDENCE, GRADE_WORDS, NEGATED_RANDOMISATION, SPECIES, SPECIES_EVIDENCE,
   causalLanguagePermitted, deriveTier, type Design, type Species,
@@ -35,6 +35,8 @@ export interface ValidatedFact {
   estimate?: ValidatedEstimate;
   /** For a finding: the measured endpoint and the tier its design earns. */
   finding?: { outcome: string; tier: EvidenceGrade };
+  /** The spread printed with an estimate (sd, ci95, range, iqr), each number found in the quote. */
+  spread?: Spread;
 }
 
 /**
@@ -80,6 +82,26 @@ export function locate(source: string, quote: string): Span | null {
   if (escaped.length === 0 || escaped[0] === "") return null;
   const found = new RegExp(escaped.join("\\s+")).exec(normalize(source));
   return found ? [found.index, found.index + found[0].length] : null;
+}
+
+/**
+ * What is wrong with an estimate's spread, or null. Its numbers must be printed in the quote, an SD
+ * is above zero, a band's ends are in order, and a ci95 spread may not repeat ciLow/ciHigh.
+ */
+function spreadProblem(spread: Spread, e: Estimate, text: string): string | null {
+  if (spread.kind === "sd") {
+    if (spread.value == null) return "an sd spread needs its value";
+    if (spread.low != null || spread.high != null) return "an sd spread has a value, not low and high (an SD is never turned into a range of ends)";
+    if (!(spread.value > 0)) return "an sd must be above zero";
+    if (!containsNumbers(text, [spread.value])) return `the sd ${spread.value} does not appear in the quoted passage`;
+    return null;
+  }
+  if (spread.low == null || spread.high == null) return `a ${spread.kind} spread needs low and high`;
+  if (spread.value != null) return `a ${spread.kind} spread has low and high, not a value`;
+  if (spread.low > spread.high) return `the ${spread.kind} ends are reversed`;
+  if (!containsNumbers(text, [spread.low, spread.high])) return `${spread.low}, ${spread.high} (${spread.kind}) do not both appear in the quoted passage`;
+  if (spread.kind === "ci95" && (e.ciLow !== null || e.ciHigh !== null)) return "a ci95 spread repeats ciLow/ciHigh; give the interval once";
+  return null;
 }
 
 /** "p = .023", "p < 0.05", "p > .05" (after normalize(): any spacing). */
@@ -190,11 +212,18 @@ export function gate(input: unknown, source: string, options: { role?: GateRole 
         errors.push(`fact ${fact.id}: ${wanted.join(", ")} do not all appear in the quoted passage`);
         continue;
       }
+      if (fact.spread) {
+        const problem = spreadProblem(fact.spread, e, at.text);
+        if (problem) { errors.push(`fact ${fact.id}: ${problem}`); continue; }
+      }
       if ((e.ciLow === null) !== (e.ciHigh === null)) errors.push(`fact ${fact.id}: half a confidence interval`);
       if (e.ciLow !== null && e.ciHigh !== null && e.ciLow > e.ciHigh) errors.push(`fact ${fact.id}: interval bounds are reversed`);
       if (e.ciLow !== null && e.ciHigh !== null && (e.point < e.ciLow || e.point > e.ciHigh)) {
         warnings.push(`fact ${fact.id}: the point estimate lies outside its own interval as printed; check the paper`);
       }
+    } else if (fact.spread) {
+      errors.push(`fact ${fact.id}: a spread belongs to an estimate (a number with measure, point and unit), not a ${fact.kind}`);
+      continue;
     } else if (fact.kind === "grade") {
       const words = GRADE_WORDS[fact.value as keyof typeof GRADE_WORDS];
       if (!words) { errors.push(`fact ${fact.id}: grade must be high, moderate or low`); continue; }
@@ -250,6 +279,7 @@ export function gate(input: unknown, source: string, options: { role?: GateRole 
         tier: deriveTier({ design, species, sampleSize, reportedGrade }),
       };
     }
+    if (fact.kind === "estimate" && fact.spread) out.spread = fact.spread;
     if (fact.kind === "finding" && fact.outcome) {
       out.finding = { outcome: fact.outcome, tier: deriveTier({ design, species, sampleSize, reportedGrade: null }) };
     }

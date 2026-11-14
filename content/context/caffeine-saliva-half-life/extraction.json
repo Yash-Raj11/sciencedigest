@@ -655,11 +655,23 @@
     },
     {
       "id": "half_life_caffeine",
-      "kind": "finding",
+      "kind": "estimate",
       "label": "Caffeine half-life in saliva after a single 25 mg dose (arm A), mean ± SD, n = 12",
       "value": "5.15 ± 1.21 h",
       "quote": "Caffeine showed a half-life of 5.15 ± 1.21 h after single administration, whereas the half-life of methylliberine was only 1.15 ± 0.12 h and that of theacrine 21.00 ± 7.55 h.",
-      "outcome": "Elimination half-life of caffeine measured in saliva"
+      "estimate": {
+        "outcome": "Elimination half-life of caffeine in saliva after 25 mg taken alone (arm A)",
+        "measure": "mean",
+        "point": 5.15,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "h",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 1.21
+      }
     },
     {
       "id": "matrix_saliva",

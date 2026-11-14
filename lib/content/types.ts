@@ -33,6 +33,8 @@ export interface ResolvedFact {
   finding?: { outcome: string; tier: EvidenceGrade };
   /** Set when the fact comes from another study: the slug of a ContextStudy. Absent: the paper itself. */
   source?: string;
+  /** The spread printed with the estimate (lib/models/spread.ts). Absent: only the estimate's own CI, if any. */
+  spread?: { kind: "sd" | "ci95" | "range" | "iqr"; value?: number | null; low?: number | null; high?: number | null };
 }
 
 /** Another study a read cites beside its own paper. It never carries weight in the tracker. */

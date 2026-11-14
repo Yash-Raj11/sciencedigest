@@ -22,9 +22,10 @@ const Leaf = z.object({
   quote: z.string().nullable(),
 });
 
-export const MEASURES = ["WMD", "MD", "aRD", "RD", "proportion", "RR", "HR", "OR"] as const;
+/** "mean": a group average this study measured (for example a half-life), usually with an SD as its spread. */
+export const MEASURES = ["WMD", "MD", "aRD", "RD", "proportion", "mean", "RR", "HR", "OR"] as const;
 /** Measures on an absolute scale. Anything else is relative and may not stand alone (H5). */
-export const ABSOLUTE_MEASURES: ReadonlySet<string> = new Set(["WMD", "MD", "aRD", "RD", "proportion"]);
+export const ABSOLUTE_MEASURES: ReadonlySet<string> = new Set(["WMD", "MD", "aRD", "RD", "proportion", "mean"]);
 
 const Estimate = z.object({
   outcome: z.string().min(1),
@@ -36,6 +37,17 @@ const Estimate = z.object({
   unit: z.string().min(1),
   /** Id of a `grade` fact, when the paper itself rates the certainty of this outcome. */
   gradeRef: z.string().nullable().default(null),
+});
+
+/**
+ * The spread printed beside a number (owner ruling C): sd (value), or ci95 / range / iqr (low and
+ * high). Copied as printed; the gate finds each number in the quote. Never converted (lib/models/spread.ts).
+ */
+export const Spread = z.object({
+  kind: z.enum(["sd", "ci95", "range", "iqr"]),
+  value: z.number().nullable().optional(),
+  low: z.number().nullable().optional(),
+  high: z.number().nullable().optional(),
 });
 
 const Fact = z.object({
@@ -56,6 +68,8 @@ const Fact = z.object({
   estimate: Estimate.optional(),
   /** For a finding: the endpoint that was measured, in plain words. */
   outcome: z.string().min(1).optional(),
+  /** The spread printed with an estimate's number: an SD, a 95% CI, a range or an IQR. */
+  spread: Spread.optional(),
 });
 
 export const RawExtraction = z.object({
@@ -83,3 +97,4 @@ export const RawExtraction = z.object({
 export type RawExtraction = z.infer<typeof RawExtraction>;
 export type RawFact = z.infer<typeof Fact>;
 export type Estimate = z.infer<typeof Estimate>;
+export type SpreadInput = z.infer<typeof Spread>;

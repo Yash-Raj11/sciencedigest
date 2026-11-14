@@ -158,6 +158,7 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
         },
       } : {}),
       ...(fact.finding ? { finding: fact.finding } : {}),
+      ...(fact.spread ? { spread: fact.spread } : {}),
     };
   };
 

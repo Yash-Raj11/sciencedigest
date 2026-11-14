@@ -84,6 +84,35 @@ describe("rct: a negated randomisation is refused (owner ruling B, 2026-11-14)",
   });
 });
 
+describe("spread (ruling C): copied as printed, never converted", () => {
+  const withSpread = (spread: unknown, patch: (f: any) => void = () => {}) => gateWith((x) => {
+    const f = x.facts.find((g: any) => g.id === "half_life_caffeine");
+    f.spread = spread;
+    patch(f);
+  });
+
+  it("the half-life is a mean with an SD, and the validated fact carries it", () => {
+    const result = gateWith(() => {});
+    expect(result.ok && result.validated.facts.half_life_caffeine).toMatchObject({
+      kind: "estimate", estimate: { measure: "mean", point: 5.15, ciLow: null, ciHigh: null, unit: "h" }, spread: { kind: "sd", value: 1.21 },
+    });
+  });
+  it("refuses an SD that is not printed in the quote", () => {
+    expect(errorsOf(withSpread({ kind: "sd", value: 1.31 }))).toEqual([expect.stringContaining("the sd 1.31 does not appear in the quoted passage")]);
+  });
+  it("refuses an SD written as two ends (that would be a conversion)", () => {
+    expect(errorsOf(withSpread({ kind: "sd", value: 1.21, low: 3.94, high: 6.36 }))).toEqual([expect.stringContaining("an sd spread has a value, not low and high")]);
+  });
+  it("refuses a CI made up from the SD (its ends are not printed)", () => {
+    expect(errorsOf(withSpread({ kind: "ci95", low: 4.47, high: 5.83 }))).toEqual([expect.stringContaining("4.47, 5.83 (ci95) do not both appear")]);
+  });
+  it("refuses reversed ends and a spread on a fact that is not an estimate", () => {
+    expect(errorsOf(withSpread({ kind: "range", low: 6.36, high: 3.94 }))).toEqual([expect.stringContaining("the range ends are reversed")]);
+    const result = gateWith((x) => { x.facts.find((g: any) => g.id === "funding").spread = { kind: "sd", value: 1 }; });
+    expect(errorsOf(result)).toEqual([expect.stringContaining("fact funding: a spread belongs to an estimate")]);
+  });
+});
+
 describe("the excluded arm: only caffeine alone (arm A) is usable", () => {
   const loaded = loadStudy(DIR.pathname.replace(/\/$/, ""));
   const paper = new URL("../../content/papers/daytime-caffeine-sleep/", import.meta.url);

@@ -20,6 +20,7 @@
  */
 
 import { z } from "zod";
+import { simulatorBand, type Spread } from "../models/spread";
 
 /** A fact of the paper ("half_life") or of a gated context study ("<slug>/half_life"). */
 const FactName = z.string().regex(/^([a-z0-9]+(-[a-z0-9]+)*\/)?[a-z][a-z0-9_]*$/, "a fact id, not a value");
@@ -42,13 +43,13 @@ export const isFigureKind = (kind: string): kind is FigureKind => Object.hasOwn(
 export const ESTIMATE_LABEL = "Estimate from the study's numbers, not medical advice";
 
 /** What the lint needs to know of a fact to judge a spec. */
-export interface SpecFact { kind: string; unit: string | null; point: number | null; ciLow: number | null; ciHigh: number | null }
+export interface SpecFact { kind: string; unit: string | null; point: number | null; ciLow: number | null; ciHigh: number | null; spread?: Spread | null }
 
 export interface SpecProblem { rule: "figure-spec" | "H7" | "H12" | "context"; where: string; message: string }
 
-/** A fact the simulator may work from: an estimate with both ends of its range. */
-export const hasRange = (fact: SpecFact | undefined): fact is SpecFact & { point: number; ciLow: number; ciHigh: number } =>
-  fact !== undefined && fact.point !== null && fact.ciLow !== null && fact.ciHigh !== null;
+/** A fact the simulator may work from: an estimate whose printed spread (SD, CI, range, IQR) gives a band. */
+export const hasRange = (fact: SpecFact | undefined): fact is SpecFact & { point: number } =>
+  fact !== undefined && fact.point !== null && simulatorBand(fact) !== null;
 
 /**
  * Everything wrong with a spec as written in editorial.json (the raw JSON, so a

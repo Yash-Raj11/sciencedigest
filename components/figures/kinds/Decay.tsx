@@ -17,7 +17,7 @@
  */
 
 import { useId, useState } from "react";
-import { DECAY_FIELD, DECAY_FRAME, decayPlace, estimateLeft, halfLifeRange, halvings, hoursLabel } from "../decay-layout";
+import { DECAY_FIELD, DECAY_FRAME, decayPlace, estimateLeft, exactHours, halfLifeRange, halvings, hoursLabel } from "../decay-layout";
 import { Figure } from "../Figure";
 import { DoseCurve, Label } from "../primitives";
 import { ACCENT_TEXT } from "../shared";
@@ -92,6 +92,7 @@ export function Decay({ mode, halfLife, alt, sourceLine, words = WORDS }: {
             )}
           </div>
           <p className="mt-1 text-xs font-semibold leading-snug text-muted" data-estimate-label>{ESTIMATE_LABEL}</p>
+          <p className="text-xs leading-snug text-muted" data-spread-label>Half-life used: {exactHours(range.low)} to {exactHours(range.high)}, the {range.label}.</p>
           <p className="text-xs leading-snug text-muted" data-source-line>{sourceLine}: {halfLife.label}</p>
         </fieldset>
       ) : null}

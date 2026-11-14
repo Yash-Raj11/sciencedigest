@@ -6,6 +6,7 @@
 
 import type { ResolvedFact } from "@/lib/content/types";
 import { amountLeftRange, fractionLeft, type Range } from "@/lib/models/decay";
+import { simulatorBand, type Band } from "@/lib/models/spread";
 
 /** The drawing area inside the 320-unit frame, and the height of the whole figure. */
 export const DECAY_FRAME = { left: 24, top: 18, width: 272, height: 96, figureHeight: 150, labelGap: 16 };
@@ -32,13 +33,19 @@ export function decayPlace(halfLife: number) {
   };
 }
 
+/** A band end exactly as worked out from the printed numbers (3.94 h), not rounded for the axis. */
+export const exactHours = (hours: number): string => `${hours.toLocaleString("en", { maximumFractionDigits: 6 })} h`;
+
 export const hoursLabel = (hours: number): string => `${Number(hours.toFixed(1)).toLocaleString("en")} h`;
 
-/** The half-life and its range, when the fact is an estimate that prints both ends. Otherwise null: no simulator (H12). */
-export function halfLifeRange(fact: ResolvedFact): Range | null {
+/**
+ * The half-life band and what to call it: mean ± 1 SD, or a CI, range or IQR as printed, never
+ * converted (lib/models/spread.ts). Null when the fact prints no spread: no simulator (H12).
+ */
+export function halfLifeRange(fact: ResolvedFact): Band | null {
   const e = fact.estimate;
-  if (!e || e.ciLow === null || e.ciHigh === null) return null;
-  return { low: e.ciLow, high: e.ciHigh };
+  if (!e) return null;
+  return simulatorBand({ point: e.point, ciLow: e.ciLow, ciHigh: e.ciHigh, spread: fact.spread ?? null });
 }
 
 const round = (n: number): string => (n < 10 ? Number(n.toFixed(1)) : Math.round(n)).toLocaleString("en");

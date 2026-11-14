@@ -638,7 +638,7 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
       }
       const problems = specProblems(def.spec, `${where}.spec`, (id) => {
         const e = factOf(id)?.fact;
-        return e ? { kind: e.kind, unit: e.estimate?.unit ?? null, point: e.estimate?.point ?? null, ciLow: e.estimate?.ciLow ?? null, ciHigh: e.estimate?.ciHigh ?? null } : undefined;
+        return e ? { kind: e.kind, unit: e.estimate?.unit ?? null, point: e.estimate?.point ?? null, spread: e.spread ?? null, ciLow: e.estimate?.ciLow ?? null, ciHigh: e.estimate?.ciHigh ?? null } : undefined;
       });
       for (const problem of problems) fail(problem.rule, problem.where, problem.message);
     } else if (!(options.figures ?? []).includes(key)) {

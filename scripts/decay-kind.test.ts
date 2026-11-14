@@ -50,6 +50,15 @@ describe("the decay kind", () => {
     expect(halfLifeRange(pointOnly)).toBeNull();
   });
 
+  it("ruling C: an SD fact gives mean ± 1 SD under its own label, and the figure says which spread it used", () => {
+    const sd: ResolvedFact = { ...pointOnly, estimate: { ...estimate, point: 5.15, ciLow: null, ciHigh: null }, spread: { kind: "sd", value: 1.21 } };
+    expect(halfLifeRange(sd)).toEqual({ low: 3.94, high: 6.36, kind: "sd", label: "typical spread between people in this study" });
+    const html = draw("full", sd);
+    expect(html).toContain("data-simulator");
+    expect(html).toContain("3.94 h to 6.36 h, the typical spread between people in this study");
+    expect(draw("full", withRange)).toContain("the range for the study average");
+  });
+
   it("a fact with no number draws nothing at all", () => {
     expect(draw("full", noNumber)).toBe("");
     expect(draw("card", noNumber)).toBe("");
@@ -57,7 +66,7 @@ describe("the decay kind", () => {
 
   it("the estimate is a range from the fact's range, and nothing until both answers are given", () => {
     const range = halfLifeRange(withRange)!;
-    expect(range).toEqual({ low: 2, high: 8 });
+    expect(range).toEqual({ low: 2, high: 8, kind: "ci95", label: "range for the study average" });
     expect(estimateLeft("", "4", range)).toBeNull();
     expect(estimateLeft("200", "", range)).toBeNull();
     expect(estimateLeft("abc", "4", range)).toBeNull();
