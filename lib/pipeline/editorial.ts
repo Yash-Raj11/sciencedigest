@@ -78,6 +78,16 @@ const Base = {
   populationPanel: Markup,
   /** The headline result: an estimate or a finding. */
   primaryEstimate: z.string(),
+  /**
+   * The finding card (owner, 2026-11-14), the key result at a glance, in three tiers:
+   *   headline  plain words. Under an estimate's big number it says what the number is
+   *             ("lower 10-year risk of death, compared with 0 days a week"); for a finding
+   *             it is the finding ("Sleep showed no clear difference from placebo nights").
+   *   support   one supporting line.
+   *   (source line: from the gate, never written here.)
+   * The headline must cite primaryEstimate.
+   */
+  card: z.object({ headline: Markup, support: Markup }),
   takeaways: z.array(Markup).default([]),
   choices: z.array(ChoiceDef).default([]),
   steps: z.array(StepDef).min(1),

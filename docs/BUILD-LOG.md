@@ -1239,3 +1239,28 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - Tests: `lib/pipeline/plain.test.ts` (28). Each rule disabled by hand fails tests
   (`docs/evidence/readability/plain-rules-broken.txt`). Fixture `layered-caffeine.json` reworded
   ("fell" → "came"); the H5 significance test now also expects the plain error.
+
+## 2026-11-14, Readability 3: finding cards in three tiers
+
+- Editorial gains a required `card: { headline, support }` (markup, linted as reader text;
+  rule `card`: the headline cites `primaryEstimate`). `PaperContent.finding` carries it.
+  `FindingCard` (components/read/parts.tsx) replaces `PullNumber`: for an estimate, the big
+  number (`.figure`, no CI) and the headline saying what it is; for a finding, the headline is
+  the finding; then one supporting line; an estimate's range as a small peach bar
+  (`components/figures/BandStrip.tsx`, now shared with the association simulator) labelled
+  "Range for the study average"; then the source line and grade.
+- Cards (owner's wording where given): caffeine "Sleep showed no clear difference from placebo
+  nights." / "Total sleep, time to fall asleep and sleep stages were all checked."; turmeric
+  "Blood sugar differed 30 min after the pepper meals." / "The paper doesn't say by how much.";
+  steps "−14.9 points" + "lower 10-year risk of death, compared with 0 days a week." / "People
+  who reached 8,000 steps on 1 to 2 days a week, after the study's adjustments." + range bar;
+  HIIT (members) "+0.51 kg" + "more fat-free mass than no exercise, in the trials pooled."
+- The new page check (browser) found "significant" and "p = .023" on protocol step source
+  lines: they print a fact's **label**, our wording. 11 labels rewritten in plain words
+  (caffeine 3, turmeric 8; the verbatim quotes are untouched), and the lint now holds every
+  label of the paper, and of any cited context fact, to the plain rules (`facts.<id>.label`).
+  The stored `source_estimate` text of two steps changes with it: the hosted seed (item 6).
+- `prompts.ts`: the draft prompt asks for `card` and states the plain-language rules.
+- Tests: `tests/browser/readability.spec.ts` + 7 (the three free cards; no "significant",
+  p-value, CI or effect size in a read outside the Receipts, with a planted CI that must be
+  caught); `plain.test.ts` + 1 (labels).

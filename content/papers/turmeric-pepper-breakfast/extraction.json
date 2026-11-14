@@ -121,7 +121,7 @@
     {
       "id": "glucose_30",
       "kind": "finding",
-      "label": "differed from the control meal 30 minutes after eating, for the pepper meal and the pepper-plus-turmeric meal (p = .023); the text gives no size for the difference",
+      "label": "differed from the control meal 30 minutes after eating, for the pepper meal and the pepper-plus-turmeric meal; the paper does not say by how much",
       "value": "show a significant effect for blood glucose level at the time point 30 min",
       "quote": "So test meals (BP and BP + TR) show a significant effect for blood glucose level at the time point 30 min as compared to reference meal (C) (p = .023).",
       "outcome": "Blood glucose 30 minutes after the meal"
@@ -129,7 +129,7 @@
     {
       "id": "glucose_lower",
       "kind": "finding",
-      "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal (p < .05); direction stated in the abstract, no size given",
+      "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal; direction stated in the abstract, no size given",
       "value": "resulted in lower blood glycemia",
       "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
       "outcome": "Blood glucose after the meal"
@@ -137,7 +137,7 @@
     {
       "id": "glucose_total",
       "kind": "finding",
-      "label": "no significant difference between the four meals over the whole 3 hours",
+      "label": "no clear difference between the four meals over the whole 3 hours",
       "value": "shows a non-significant effect",
       "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
       "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)"
@@ -145,7 +145,7 @@
     {
       "id": "turmeric_none",
       "kind": "finding",
-      "label": "turmeric alone: no effect on blood glucose compared with the control meal",
+      "label": "turmeric alone: no clear difference in blood glucose from the control meal",
       "value": "no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed",
       "quote": "Contradictory to the assumption of this current approach, no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed.",
       "outcome": "Blood glucose after the turmeric-only meal"
@@ -153,7 +153,7 @@
     {
       "id": "turmeric_dose",
       "kind": "statement",
-      "label": "Authors' guess at why turmeric alone did nothing: the dose was low",
+      "label": "Authors' guess at why turmeric alone showed no clear difference: the dose was low",
       "value": "the use of low dose of turmeric powder",
       "quote": "A possible rationale for this may be the use of low dose of turmeric powder in this study."
     },
@@ -168,7 +168,7 @@
     {
       "id": "fullness_ns",
       "kind": "finding",
-      "label": "no significant difference between meals",
+      "label": "no clear difference between meals",
       "value": "the effect of treatment on fullness is not statistically significant",
       "quote": "However, in our study, the effect of treatment on fullness is not statistically significant but both of these meals (BP and BP + TR) have increased fullness as compared to TR and control meal.",
       "outcome": "Self-rated fullness"
@@ -183,7 +183,7 @@
     {
       "id": "gut",
       "kind": "finding",
-      "label": "no significant difference between meals or over time (p > .05)",
+      "label": "no clear difference between meals or over time",
       "value": "There was no significant (p > .05) effect of time, treatment, and time × treatment on postprandial responses of gastrointestinal symptoms",
       "quote": "There was no significant (p > .05) effect of time, treatment, and time × treatment on postprandial responses of gastrointestinal symptoms.",
       "outcome": "Self-rated stomach and gut symptoms"
@@ -205,7 +205,7 @@
     {
       "id": "taste_rank",
       "kind": "finding",
-      "label": "the control meal and the combined meal were rated higher than the pepper-only and turmeric-only meals (p < .05)",
+      "label": "the control meal and the combined meal were rated higher than the pepper-only and turmeric-only meals, a clear difference",
       "value": "the control meal and combined meal have significantly (p < .05) higher acceptability than (BP and TR) meal",
       "quote": "Post hoc pair‐wise comparison shows that the control meal and combined meal have significantly (p < .05) higher acceptability than (BP and TR) meal in comparison of general appearance, consistency, smell, taste, and whole pleasantness.",
       "outcome": "Palatability (appearance, texture, smell, taste, overall pleasantness)"

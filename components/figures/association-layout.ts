@@ -133,6 +133,7 @@ export function pickedGroup(groups: GroupEdges[], raw: ResolvedFact[], adjusted:
     outcome: fact?.estimate?.outcome.toLowerCase() ?? "",
     difference,
     place: difference && fact?.estimate ? bandPlace(difference.band, fact.estimate.point) : null,
+    point: fact?.estimate?.point ?? 0,
     meanAge: groups[at].meanAge?.n ?? null,
   };
 }

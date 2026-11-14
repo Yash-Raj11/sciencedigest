@@ -13,6 +13,10 @@
   ],
   "populationPanel": "Who was studied: twenty healthy men aged 18 to 35 who already had 300 to 600 mg of caffeine a day and slept well. [sample, who, good_sleepers] Each man went through all three conditions in random order without knowing which capsules he was taking. [blind] The result describes men like these. [lim_male] It says nothing yet about women, older adults or people who rarely have caffeine. [lim_male, lim_young, not_after_abstinence]",
   "primaryEstimate": "sleep_same",
+  "card": {
+    "headline": "Sleep showed no clear difference from placebo nights. [sleep_same]",
+    "support": "Total sleep, time to fall asleep and sleep stages were all checked. [sleep_same]"
+  },
   "sections": [
     {
       "id": "did",

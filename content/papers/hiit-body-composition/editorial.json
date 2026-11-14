@@ -13,6 +13,10 @@
   ],
   "populationPanel": "Who was studied: 1,130 adults with a mean age of 26.27 years, across thirty-six randomized trials lasting 3 to 15 weeks. [sample, trials] Most were inactive and overweight or obese, so the findings describe that group best. [lim_population] Children, teenagers and people with a known disease were left out. [excluded]",
   "primaryEstimate": "ffm_all",
+  "card": {
+    "headline": "more fat-free mass than no exercise, in the trials pooled. [ffm_all]",
+    "support": "Fat-free mass is everything in the body that is not fat. [ffm_all]"
+  },
   "sections": [
     {
       "id": "found",

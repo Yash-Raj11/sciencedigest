@@ -31,10 +31,10 @@ test.describe("the feed", () => {
       // A card is one link: it holds no button, so the figure is in its first, untouched view.
       await expect(card.locator("button, [role=button]")).toHaveCount(0);
       if (paper.accessTier === "free") {
-        await expect(card.locator("[data-pull-number] [data-source-line]")).toHaveText("From the paper");
+        await expect(card.locator("[data-finding-card] [data-source-line]")).toHaveText("From the paper");
       } else {
         // A members' read: the hook and the figure, and nothing else of it.
-        await expect(card.locator("[data-pull-number]")).toHaveCount(0);
+        await expect(card.locator("[data-finding-card]")).toHaveCount(0);
         await expect(card.getByText("Members", { exact: true })).toBeVisible();
       }
     }
@@ -60,7 +60,7 @@ test.describe("the read", () => {
       (await hook.boundingBox())!.y,
       await top(page, 'section[aria-label="Why it happens"]'),
       await top(page, '[data-figure-key$="/doorbell"]'),
-      await top(page, "article [data-pull-number]"),
+      await top(page, "article [data-finding-card]"),
       await top(page, 'section[aria-label="What was tested"]'),
       await top(page, 'section[aria-label="Who was studied"]'),
       await top(page, 'section[aria-label="Simulator"]'),
@@ -84,12 +84,11 @@ test.describe("the read", () => {
     expect(headline.size).toBe(22);
   });
 
-  test("the number card gives the headline result and its source line", async ({ page }) => {
+  test("the finding card gives the headline result and its source line", async ({ page }) => {
     await page.goto("/papers/steps-days-per-week");
-    const card = page.locator("article [data-pull-number]");
+    const card = page.locator("article [data-finding-card]");
     const estimate = freeContent("steps-days-per-week")!.facts[freeContent("steps-days-per-week")!.primaryEstimate].estimate!;
     await expect(card).toContainText(String(Math.abs(estimate.point)));
-    await expect(card).toContainText("An absolute difference");
     await expect(card.locator("[data-source-line]")).toHaveText("From the paper");
   });
 

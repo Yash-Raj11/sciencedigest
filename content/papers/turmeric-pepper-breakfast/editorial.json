@@ -13,6 +13,10 @@
   ],
   "populationPanel": "Who this was tested in: 20 healthy adults, 10 men and 10 women. [sample] The women averaged 21.4 years old and the men 21.9. [ages] The entry rules asked for a body mass index of 18.5 to 24.9 and no chronic disease. [criteria] Each person ate all four breakfasts in randomized order, a week apart. [crossover, washout] The result describes one meal in people like these. [single_meal, sample] It says nothing about diabetes or any other disease. [criteria]",
   "primaryEstimate": "glucose_30",
+  "card": {
+    "headline": "Blood sugar differed 30 min after the pepper meals. [glucose_30]",
+    "support": "The paper doesn't say by how much. [glucose_30]"
+  },
   "layers": {
     "mechanism": {
       "paragraphs": [

@@ -18,7 +18,7 @@ import { useState, type ReactNode } from "react";
 import { GradeChip } from "@/components/protocol/primitives";
 import { freeContent } from "@/lib/content";
 import type { PaperMeta } from "@/lib/content/types";
-import { Pictured, PullNumber } from "./parts";
+import { FindingCard, Pictured } from "./parts";
 
 export const FEED_PAGE = 20;
 
@@ -42,7 +42,7 @@ export function PostCard({ paper }: { paper: PaperMeta }) {
         </p>
         <h2 className="headline">{hook}</h2>
         <Pictured slug={paper.slug} figure={figure} still />
-        {read && <PullNumber fact={read.facts[read.primaryEstimate]} context={read.context} />}
+        {read && <FindingCard content={read} plain />}
         <p className="flex items-center justify-between gap-3 border-t border-line pt-3 text-sm">
           <span className="min-w-0 leading-snug text-muted">{grade ? grade.outcome : paper.title}</span>
           {grade ? <GradeChip grade={grade.tier} /> : null}

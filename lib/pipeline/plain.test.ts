@@ -156,3 +156,16 @@ describe("a figure's words follow its layer", () => {
     expect(plainErrors(turmeric, (e) => { e.layers.protocol.figure.alt += " The pepper row is lower. [-]"; })).toHaveLength(1);
   });
 });
+
+describe("a fact's label is held to the same rules (it shows on a step's source line)", () => {
+  const relabel = (id: string, label: string) => {
+    const read = clone(turmeric);
+    read.validated.facts[id] = { ...read.validated.facts[id], label };
+    return read;
+  };
+  it("fails a label with \"significant\", a p-value or \"no effect\"", () => {
+    expect(plainErrors(relabel("glucose_total", "no significant difference over 3 hours"), () => {}).join()).toMatch(/facts\.glucose_total\.label: "significant"/);
+    expect(plainErrors(relabel("glucose_30", "differed at 30 minutes (p = .023)"), () => {}).join()).toMatch(/facts\.glucose_30\.label: a p-value/);
+    expect(plainErrors(relabel("turmeric_none", "turmeric alone: no effect on blood glucose"), () => {}).join()).toMatch(/facts\.turmeric_none\.label: "no effect"/);
+  });
+});

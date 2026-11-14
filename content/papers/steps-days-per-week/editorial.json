@@ -13,6 +13,10 @@
   ],
   "populationPanel": "Who was studied: 3,101 US adults aged 20 or older who wore an accelerometer for 1 week in 2005-2006 and were then traced through national death records. [sample, cohort] Nobody was assigned to walk more or less, so this is an observational study. [cohort] It describes these adults. It is not a prescription. [-]",
   "primaryEstimate": "ard_1_2",
+  "card": {
+    "headline": "lower 10-year risk of death, compared with 0 days a week. [ard_1_2, followup, threshold]",
+    "support": "People who reached 8,000 steps on 1 to 2 days a week, after the study's adjustments. [ard_1_2]"
+  },
   "sections": [
     {
       "id": "found",

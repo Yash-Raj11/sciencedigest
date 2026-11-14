@@ -20,10 +20,11 @@
  */
 
 import { useId, useState, type ReactNode } from "react";
-import { BAND_FRAME, CURVE_FRAME, DAY_BUTTON, blocks, choices, drawable, groupSpan, pickedGroup, rawOutcome, shareWords, type GroupEdges } from "../association-layout";
+import { CURVE_FRAME, DAY_BUTTON, blocks, choices, drawable, groupSpan, pickedGroup, rawOutcome, shareWords, type GroupEdges } from "../association-layout";
+import { BandStrip } from "../BandStrip";
 import { Figure } from "../Figure";
 import { Label } from "../primitives";
-import { ACCENT_TEXT, BAND, INK, MUTED } from "../shared";
+import { INK, MUTED } from "../shared";
 import { assertEvidence } from "@/lib/content/figures";
 import type { ResolvedFact } from "@/lib/content/types";
 
@@ -100,15 +101,9 @@ export function AssociationCurve({ mode, raw, adjusted, groups, alt, sourceLine,
                       {view.difference.headline}
                       <span className="mt-1 block font-sans text-base font-normal tracking-normal text-muted">adjusted, compared with {view.first}</span>
                     </p>
-                    <svg viewBox={`0 0 320 ${BAND_FRAME.height}`} className="mt-3 block w-full max-w-[360px]" role="img" aria-label={`Range for the study average: ${view.difference.bandWords}`} data-band>
-                      <rect x={view.place.low} y={BAND_FRAME.y} width={Math.max(view.place.high - view.place.low, BAND_FRAME.thickness)} height={BAND_FRAME.thickness} rx={7} fill={BAND} />
-                      <line x1={view.place.point} x2={view.place.point} y1={BAND_FRAME.y - 6} y2={BAND_FRAME.y + BAND_FRAME.thickness + 6} stroke={ACCENT_TEXT} strokeWidth={4} strokeLinecap="round" />
-                      <line x1={view.place.zero} x2={view.place.zero} y1={BAND_FRAME.y - 10} y2={BAND_FRAME.y + BAND_FRAME.thickness + 10} stroke={MUTED} strokeWidth={1.5} />
-                      <Label x={view.place.zero} y={BAND_FRAME.size} anchor="end" tone="muted" size={BAND_FRAME.size}>no difference</Label>
-                      <Label x={view.place.low} y={BAND_FRAME.labelY} anchor="middle" tone="muted" size={BAND_FRAME.size}>{view.place.lowWords}</Label>
-                      <Label x={view.place.high} y={BAND_FRAME.labelY} anchor="middle" tone="muted" size={BAND_FRAME.size}>{view.place.highWords}</Label>
-                      <Label x={view.place.zero} y={BAND_FRAME.labelY} anchor="middle" tone="muted" size={BAND_FRAME.size}>{view.place.zeroWords}</Label>
-                    </svg>
+                    <div className="mt-3">
+                      <BandStrip band={view.difference.band} point={view.point} label={`Range for the study average: ${view.difference.bandWords}`} accent />
+                    </div>
                     <p className="mt-1 text-base leading-snug">
                       After the study&apos;s adjustments, {view.outcome} was {view.difference.headline} than at {view.first}.
                     </p>

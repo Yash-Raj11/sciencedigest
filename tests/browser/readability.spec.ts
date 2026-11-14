@@ -89,3 +89,51 @@ test("the check catches a stray orange dot", async ({ page }) => {
   });
   expect((await strayOrange(page)).stray).toHaveLength(1);
 });
+
+test.describe("finding cards: plain headline, one supporting line, source line", () => {
+  test("steps: the big number, what it is, the range as a bar, no CI in words", async ({ page }) => {
+    await page.goto("/papers/steps-days-per-week");
+    const card = page.locator("article [data-finding-card]");
+    await expect(card.locator("[data-finding-number]")).toHaveText("−14.9 points");
+    await expect(card.locator(".headline")).toHaveText(/^lower 10-year risk of death, compared with 0 days a week\./);
+    await expect(card.locator("[data-finding-range] svg[data-band]")).toHaveAttribute("aria-label", "Range for the study average: −18.8 to −10.9 points");
+    await expect(card).not.toContainText(/\bCI\b|confidence interval|significan/i);
+  });
+
+  test("caffeine: the finding as the headline, what was checked under it", async ({ page }) => {
+    await page.goto("/papers/daytime-caffeine-sleep");
+    const card = page.locator("article [data-finding-card]");
+    await expect(card.locator(".headline")).toHaveText(/^Sleep showed no clear difference from placebo nights\./);
+    await expect(card).toContainText("Total sleep, time to fall asleep and sleep stages were all checked.");
+    await expect(card.locator("[data-finding-number]")).toHaveCount(0);
+  });
+
+  test("turmeric: neutral wording, and the size it does not give", async ({ page }) => {
+    await page.goto("/papers/turmeric-pepper-breakfast");
+    const card = page.locator("article [data-finding-card]");
+    await expect(card.locator(".headline")).toHaveText(/^Blood sugar differed 30 min after the pepper meals\./);
+    await expect(card).toContainText("The paper doesn't say by how much.");
+  });
+});
+
+/** Text a reader sees without a tap, outside the Receipts and the members' extras. */
+const PLAIN_OUTSIDE_RECEIPTS = /significan|\bp ?[<=>≤≥] ?0?\.\d|\bp-values?\b|confidence interval|\b95 ?% ?CI\b|\bCIs?\b|effect sizes?/i;
+
+for (const slug of ["daytime-caffeine-sleep", "steps-days-per-week", "turmeric-pepper-breakfast"]) {
+  test(`${slug}: no "significant", p-value, CI or effect size outside the Receipts`, async ({ page }) => {
+    await page.goto(`/papers/${slug}`, { waitUntil: "networkidle" });
+    const text = await page.evaluate(() => {
+      const article = document.querySelector("article")!.cloneNode(true) as HTMLElement;
+      article.querySelectorAll('section[aria-label="The receipts"], footer').forEach((el) => el.remove());
+      return article.innerText;
+    });
+    expect(text.match(PLAIN_OUTSIDE_RECEIPTS)).toBeNull();
+  });
+}
+
+test("the page check catches a CI in the read", async ({ page }) => {
+  await page.goto("/papers/steps-days-per-week", { waitUntil: "networkidle" });
+  await page.evaluate(() => { document.querySelector("article h2")!.append(" (95% CI −18.8 to −10.9)"); });
+  const text = await page.evaluate(() => document.querySelector("article")!.innerText);
+  expect(text.match(PLAIN_OUTSIDE_RECEIPTS)).not.toBeNull();
+});

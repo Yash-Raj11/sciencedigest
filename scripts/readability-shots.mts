@@ -4,7 +4,8 @@
  *
  *   npx tsx scripts/readability-shots.mts <base url> [suffix]
  *
- * Output: docs/evidence/readability/feed-<slug>-<mode>.png, read-<slug>-<mode>.png
+ * Output: docs/evidence/readability/feed-<slug>-<mode>.png, read-<slug>-<mode>.png,
+ *         card-<slug>-<mode>.png (the read's finding card)
  */
 
 import { mkdirSync } from "node:fs";
@@ -31,6 +32,8 @@ for (const scheme of ["dark", "light"] as const) {
   for (const slug of SLUGS) {
     await page.goto(`${base}/papers/${slug}`, { waitUntil: "networkidle" });
     await page.screenshot({ path: `${OUT}/read-${slug}-${scheme}${suffix}.png`, fullPage: true });
+    const card = page.locator("article [data-finding-card]");
+    if (await card.count()) await card.screenshot({ path: `${OUT}/card-${slug}-${scheme}${suffix}.png` });
   }
   await context.close();
 }

@@ -169,6 +169,8 @@ export interface PaperContent {
   /** Every source the read uses besides its own paper. Absent when there is none. */
   context?: { studies: ContextStudy[]; concepts: ContextConcept[] };
   primaryEstimate: string;
+  /** The finding card: a plain headline and one supporting line (the source line is derived). */
+  finding: { headline: Sentence[]; support: Sentence[] };
   facts: Record<string, ResolvedFact>;
   simulator: {
     kind: string;

@@ -30,7 +30,7 @@ import { useStore } from "@/lib/store";
 import { isDemo } from "@/lib/supabase/client";
 import { KindSimulator } from "./KindSimulator";
 import { MemberExtras } from "./MemberExtras";
-import { Glossary, Para, Pictured, PullNumber, type Context, type Facts } from "./parts";
+import { FindingCard, Glossary, Para, Pictured, type Context, type Facts } from "./parts";
 
 const LAYER = "headline";
 /** An old-shape read's sections that are receipts (until step 2E moves them into the audit layer). */
@@ -102,7 +102,7 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
         </section>
       ) : null}
 
-      <PullNumber fact={facts[content.primaryEstimate]} context={context} />
+      <FindingCard content={content} />
 
       {rest.map((section) => (
         <section key={section.id} aria-label={section.heading} className="space-y-4">

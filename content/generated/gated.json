@@ -335,6 +335,24 @@
         }
       },
       "primaryEstimate": "ffm_all",
+      "finding": {
+        "headline": [
+          {
+            "text": "more fat-free mass than no exercise, in the trials pooled.",
+            "refs": [
+              "ffm_all"
+            ]
+          }
+        ],
+        "support": [
+          {
+            "text": "Fat-free mass is everything in the body that is not fat.",
+            "refs": [
+              "ffm_all"
+            ]
+          }
+        ]
+      },
       "simulator": {
         "kind": "hiit-forest",
         "params": {

@@ -124,6 +124,7 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
         return { term: entry.term, plain: concept.concept.plain, refs: [], concept: entry.concept };
       }),
       primaryEstimate: ed.primaryEstimate,
+      finding: { headline: sentences(ed.card.headline), support: sentences(ed.card.support) },
       simulator: { kind: ed.simulator.kind, params: {} },
     }
     : {
@@ -133,6 +134,7 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
       limitations: ed.limitations.map(sentences),
       ...(ed.figure ? { figure: figure(ed.figure)! } : {}),
       primaryEstimate: ed.primaryEstimate,
+      finding: { headline: sentences(ed.card.headline), support: sentences(ed.card.support) },
       simulator: { kind: ed.simulator.kind, params: {} },
     };
   used.add(ed.primaryEstimate);

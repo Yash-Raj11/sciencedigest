@@ -86,7 +86,7 @@
     {
       "id": "sleep_same",
       "kind": "finding",
-      "label": "no significant difference from placebo (p > 0.05); the text reports no effect size",
+      "label": "no clear difference from placebo; the paper does not say how big any difference was",
       "value": "did not reveal significant differences in total sleep time",
       "quote": "the analyses of the polysomnography (PSG) did not reveal significant differences in total sleep time (TST), sleep efficiency (SE), sleep latencies, or the relative amount of sleep stages among the three conditions (> 0.05)",
       "outcome": "Total sleep time, time to fall asleep and sleep stages"
@@ -94,7 +94,7 @@
     {
       "id": "quality_same",
       "kind": "finding",
-      "label": "no significant difference between conditions (p > 0.05)",
+      "label": "no clear difference between conditions",
       "value": "did not reveal significant differences among the three conditions",
       "quote": "Analyses of subjective sleep quality assessed with the Leeds Sleep Evaluation Questionnaire (LSEQ) did not reveal significant differences among the three conditions in any of the four domains of sleep quality (> 0.05)",
       "outcome": "Self-rated sleep quality"
@@ -109,7 +109,7 @@
     {
       "id": "sigma",
       "kind": "finding",
-      "label": "lower than placebo in both the caffeine and withdrawal conditions (p < 0.05)",
+      "label": "lower than placebo in both the caffeine and withdrawal conditions, a clear difference",
       "value": "power density was significantly reduced compared to placebo in the sigma range",
       "quote": "power density was significantly reduced compared to placebo in the sigma range during both withdrawal",
       "outcome": "Sigma-band brain activity during non-REM sleep"

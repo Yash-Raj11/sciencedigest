@@ -118,8 +118,9 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
         `tests/browser/readability.spec.ts`.
   - [x] 2. Plain-language lint rules (significant, p/CI/effect size, "no effect", direction words).
         `lib/pipeline/plain.test.ts`; `docs/evidence/readability/plain-rules-broken.txt` (5 of 5).
-  - [ ] IN PROGRESS: 3. Finding cards.
-  - [ ] 4. Source line (design · who · how many/how long) + evidence grade words and meter.
+  - [x] 3. Finding cards: plain headline → one supporting line → source line (editorial `card`;
+        `FindingCard`, `BandStrip`). Screens: `docs/evidence/readability/card-*.png`.
+  - [ ] IN PROGRESS: 4. Source line + evidence grade words and meter.
   - [ ] 5. Feed card = the key idea at a glance; "What's inside" rows deep-link to slots.
   - [ ] 6. Hosted seed: dry run, then push on the owner's "go".
   - [ ] 7. Figure plans (concept sketch; caffeine, turmeric, steps + HIIT) in SIMULATORS.md.

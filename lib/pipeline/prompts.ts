@@ -77,6 +77,8 @@ Rules (a program checks every one and rejects the draft if any is broken):
 - If it is true, a causal sentence must name the studied population using one of your populationTerms.
 - Never give a relative figure (a ratio, or "X% lower") unless the same sentence or paragraph gives the absolute figure.
 - Open with the counter-intuitive number or the named mechanism, not with hype.
+- card: {"headline": "...", "support": "..."}, the key finding at a glance. The headline cites primaryEstimate; for an estimate it says what the number is, in plain words; for a finding it states the finding. One supporting line.
+- Plain language: outside the "lower-bound" and "missed" sections and the limitations, never write "significant", a p-value, a confidence interval or "effect size": say "a clear difference" or "no clear difference". Never write "no effect" or "did not change" for a result the study could not tell from zero. Write "lower", "higher", "rose" or "fell" only when a cited fact states that direction; otherwise "differed".
 - Include a section with id "lower-bound" that states both ends of the main estimate's 95% interval and says in plain words what the weak end means. If the paper gives no interval, say so in so many words.
 - Include a section with id "missed": what most summaries of this study leave out.
 - Include a section with id "parallel": a related idea, drawn only from the context facts.

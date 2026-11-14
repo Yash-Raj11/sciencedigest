@@ -6,7 +6,7 @@
  *
  *   Para        one paragraph; a dot after a sourced sentence opens its passage
  *   Pictured    a figure with its caption
- *   PullNumber  the key gated number, its absolute form and its source line
+ *   FindingCard the key finding: plain headline, one supporting line, source line
  *   Glossary    underlines the words that have a plain-language entry
  */
 
@@ -16,7 +16,9 @@ import { GradeChip } from "@/components/protocol/primitives";
 import { Sheet } from "@/components/shell/Sheet";
 import { BACKGROUND, conceptReference, factSourceLine } from "@/lib/content/source-line";
 import type { FigureRef, GlossaryEntry, PaperContent, ResolvedFact, Sentence } from "@/lib/content/types";
-import { formatEstimate } from "@/lib/pipeline/format";
+import { formatEstimate, signed } from "@/lib/pipeline/format";
+import { simulatorBand } from "@/lib/models/spread";
+import { BandStrip } from "@/components/figures/BandStrip";
 
 export type Facts = Record<string, ResolvedFact>;
 export type Context = PaperContent["context"];
@@ -177,39 +179,44 @@ export function Pictured({ slug, figure, facts, context, still = false }: {
   );
 }
 
-const sentenceCase = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
-
 /**
- * The one number to take away: the headline result, in its absolute form when
- * the paper gives a size, with the line saying where it comes from. When the
- * paper gives no size (a finding), the card says what was found instead of
- * inventing a figure.
+ * The finding card (owner, 2026-11-14): the key result at a glance, in three tiers.
+ *
+ *   1. the plain headline. For an estimate, the big number first ("−14.9 points") and the
+ *      headline under it says what the number is; for a finding, the headline is the finding.
+ *   2. one supporting line; for an estimate with a range, the range as a small bar (the words
+ *      "confidence interval" stay in the Receipts).
+ *   3. the source line and the grade.
+ *
+ * Every word comes from the editorial's `card` (linted like the read); every number from the
+ * gated fact. A relative figure says so.
  */
-export function PullNumber({ fact, context }: { fact: ResolvedFact | undefined; context?: Context }) {
+export function FindingCard({ content, plain = false }: { content: Pick<PaperContent, "finding" | "facts" | "context" | "primaryEstimate">; plain?: boolean }) {
+  const fact = content.facts[content.primaryEstimate];
   if (!fact) return null;
+  const { facts, context, finding } = content;
   const e = fact.estimate;
   const tier = e?.tier ?? fact.finding?.tier;
+  const band = e ? simulatorBand({ point: e.point, ciLow: e.ciLow, ciHigh: e.ciHigh, spread: fact.spread ?? null }) : null;
   return (
-    <aside aria-label="The key number" data-pull-number className="rounded-2xl border-2 border-line bg-surface p-4">
-      {e ? (
-        <>
-          <p className="headline leading-none">{formatEstimate({ ...e, ciLow: null, ciHigh: null })}</p>
-          <p className="mt-2 font-medium leading-snug">{e.outcome}</p>
-          <p className="num mt-1 text-sm leading-snug text-muted">
-            {e.absolute ? "An absolute difference" : "A relative figure"}
-            {e.ciLow !== null && e.ciHigh !== null ? <>: {formatEstimate(e)}</> : null}.
-          </p>
-        </>
-      ) : (
-        <>
-          <p className="headline">{sentenceCase(fact.label)}.</p>
-          {fact.finding && <p className="mt-2 text-sm font-medium leading-snug text-muted">{fact.finding.outcome}</p>}
-        </>
-      )}
-      <p className="mt-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-line pt-2 text-xs font-medium text-muted">
+    <aside aria-label="The key finding" data-finding-card className="rounded-2xl border border-line bg-surface p-4">
+      {e ? <p className="figure text-[2.75rem]" data-finding-number>{formatEstimate({ ...e, ciLow: null, ciHigh: null })}</p> : null}
+      <Para sentences={finding.headline} facts={facts} context={context} className={`headline${e ? " mt-1" : ""}`} plain={plain} />
+      <Para sentences={finding.support} facts={facts} context={context} className="mt-2 text-[0.9375rem] leading-relaxed text-muted" plain={plain} />
+      {e && !e.absolute ? <p className="mt-1 text-sm text-muted">A relative figure.</p> : null}
+      {band && e ? (
+        <div className="mt-3" data-finding-range>
+          <BandStrip band={band} point={e.point} label={`${sentenceCase(band.label)}: ${signedWords(band.low)} to ${signedWords(band.high)} ${e.unit}`} />
+          <p className="label mt-1">{sentenceCase(band.label)}</p>
+        </div>
+      ) : null}
+      <p className="label mt-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-line pt-2.5">
         <span data-source-line>{factSourceLine(fact, { context })}</span>
         {tier ? <GradeChip grade={tier} /> : null}
       </p>
     </aside>
   );
 }
+
+const sentenceCase = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+const signedWords = (n: number) => signed(n);

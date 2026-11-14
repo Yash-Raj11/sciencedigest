@@ -209,7 +209,7 @@ export const STEPS: ContentStep[] = [
     "detail": "The gap this trial tested. It did not test anything shorter.",
     "kind": "action",
     "grade": "low",
-    "sourceEstimate": "Total sleep time, time to fall asleep and sleep stages: no significant difference from placebo (p > 0.05); the text reports no effect size",
+    "sourceEstimate": "Total sleep time, time to fall asleep and sleep stages: no clear difference from placebo; the paper does not say how big any difference was",
     "targetPerWeek": null,
     "countsStepId": null,
     "conditionKey": null,
@@ -433,7 +433,7 @@ export const STEPS: ContentStep[] = [
     "detail": "The dose this trial tested, cooked into an egg. It did not test more, less or other meals.",
     "kind": "action",
     "grade": "low",
-    "sourceEstimate": "Blood glucose 30 minutes after the meal: differed from the control meal 30 minutes after eating, for the pepper meal and the pepper-plus-turmeric meal (p = .023); the text gives no size for the difference",
+    "sourceEstimate": "Blood glucose 30 minutes after the meal: differed from the control meal 30 minutes after eating, for the pepper meal and the pepper-plus-turmeric meal; the paper does not say by how much",
     "targetPerWeek": null,
     "countsStepId": null,
     "conditionKey": null,
@@ -799,7 +799,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
           "fact": {
             "id": "sleep_same",
             "kind": "finding",
-            "label": "no significant difference from placebo (p > 0.05); the text reports no effect size",
+            "label": "no clear difference from placebo; the paper does not say how big any difference was",
             "quote": "the analyses of the polysomnography (PSG) did not reveal significant differences in total sleep time (TST), sleep efficiency (SE), sleep latencies, or the relative amount of sleep stages among the three conditions (> 0.05)",
             "finding": {
               "outcome": "Total sleep time, time to fall asleep and sleep stages",
@@ -810,6 +810,24 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       }
     },
     "primaryEstimate": "sleep_same",
+    "finding": {
+      "headline": [
+        {
+          "text": "Sleep showed no clear difference from placebo nights.",
+          "refs": [
+            "sleep_same"
+          ]
+        }
+      ],
+      "support": [
+        {
+          "text": "Total sleep, time to fall asleep and sleep stages were all checked.",
+          "refs": [
+            "sleep_same"
+          ]
+        }
+      ]
+    },
     "simulator": {
       "kind": "decay",
       "params": {},
@@ -1018,7 +1036,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       "quality_same": {
         "id": "quality_same",
         "kind": "finding",
-        "label": "no significant difference between conditions (p > 0.05)",
+        "label": "no clear difference between conditions",
         "quote": "Analyses of subjective sleep quality assessed with the Leeds Sleep Evaluation Questionnaire (LSEQ) did not reveal significant differences among the three conditions in any of the four domains of sleep quality (> 0.05)",
         "finding": {
           "outcome": "Self-rated sleep quality",
@@ -1046,7 +1064,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       "sigma": {
         "id": "sigma",
         "kind": "finding",
-        "label": "lower than placebo in both the caffeine and withdrawal conditions (p < 0.05)",
+        "label": "lower than placebo in both the caffeine and withdrawal conditions, a clear difference",
         "quote": "power density was significantly reduced compared to placebo in the sigma range during both withdrawal",
         "finding": {
           "outcome": "Sigma-band brain activity during non-REM sleep",
@@ -1062,7 +1080,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       "sleep_same": {
         "id": "sleep_same",
         "kind": "finding",
-        "label": "no significant difference from placebo (p > 0.05); the text reports no effect size",
+        "label": "no clear difference from placebo; the paper does not say how big any difference was",
         "quote": "the analyses of the polysomnography (PSG) did not reveal significant differences in total sleep time (TST), sleep efficiency (SE), sleep latencies, or the relative amount of sleep stages among the three conditions (> 0.05)",
         "finding": {
           "outcome": "Total sleep time, time to fall asleep and sleep stages",
@@ -1409,6 +1427,26 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       }
     },
     "primaryEstimate": "ard_1_2",
+    "finding": {
+      "headline": [
+        {
+          "text": "lower 10-year risk of death, compared with 0 days a week.",
+          "refs": [
+            "ard_1_2",
+            "followup",
+            "threshold"
+          ]
+        }
+      ],
+      "support": [
+        {
+          "text": "People who reached 8,000 steps on 1 to 2 days a week, after the study's adjustments.",
+          "refs": [
+            "ard_1_2"
+          ]
+        }
+      ]
+    },
     "simulator": {
       "kind": "association-curve",
       "params": {
@@ -2076,7 +2114,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "fact": {
                   "id": "glucose_lower",
                   "kind": "finding",
-                  "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal (p < .05); direction stated in the abstract, no size given",
+                  "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal; direction stated in the abstract, no size given",
                   "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
                   "finding": {
                     "outcome": "Blood glucose after the meal",
@@ -2250,7 +2288,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "reading": {
                   "id": "turmeric_none",
                   "kind": "finding",
-                  "label": "turmeric alone: no effect on blood glucose compared with the control meal",
+                  "label": "turmeric alone: no clear difference in blood glucose from the control meal",
                   "quote": "Contradictory to the assumption of this current approach, no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed.",
                   "finding": {
                     "outcome": "Blood glucose after the turmeric-only meal",
@@ -2279,7 +2317,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "fact": {
                 "id": "glucose_30",
                 "kind": "finding",
-                "label": "differed from the control meal 30 minutes after eating, for the pepper meal and the pepper-plus-turmeric meal (p = .023); the text gives no size for the difference",
+                "label": "differed from the control meal 30 minutes after eating, for the pepper meal and the pepper-plus-turmeric meal; the paper does not say by how much",
                 "quote": "So test meals (BP and BP + TR) show a significant effect for blood glucose level at the time point 30 min as compared to reference meal (C) (p = .023).",
                 "finding": {
                   "outcome": "Blood glucose 30 minutes after the meal",
@@ -2296,7 +2334,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "fact": {
                 "id": "glucose_total",
                 "kind": "finding",
-                "label": "no significant difference between the four meals over the whole 3 hours",
+                "label": "no clear difference between the four meals over the whole 3 hours",
                 "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
                 "finding": {
                   "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
@@ -2506,6 +2544,24 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       }
     ],
     "primaryEstimate": "glucose_30",
+    "finding": {
+      "headline": [
+        {
+          "text": "Blood sugar differed 30 min after the pepper meals.",
+          "refs": [
+            "glucose_30"
+          ]
+        }
+      ],
+      "support": [
+        {
+          "text": "The paper doesn't say by how much.",
+          "refs": [
+            "glucose_30"
+          ]
+        }
+      ]
+    },
     "simulator": {
       "kind": "breakfast-meals",
       "params": {
@@ -2560,7 +2616,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "fact": {
                 "id": "glucose_lower",
                 "kind": "finding",
-                "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal (p < .05); direction stated in the abstract, no size given",
+                "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal; direction stated in the abstract, no size given",
                 "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
                 "finding": {
                   "outcome": "Blood glucose after the meal",
@@ -2573,7 +2629,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "fact": {
                 "id": "glucose_total",
                 "kind": "finding",
-                "label": "no significant difference between the four meals over the whole 3 hours",
+                "label": "no clear difference between the four meals over the whole 3 hours",
                 "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
                 "finding": {
                   "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
@@ -2599,7 +2655,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "fact": {
                 "id": "gut",
                 "kind": "finding",
-                "label": "no significant difference between meals or over time (p > .05)",
+                "label": "no clear difference between meals or over time",
                 "quote": "There was no significant (p > .05) effect of time, treatment, and time × treatment on postprandial responses of gastrointestinal symptoms.",
                 "finding": {
                   "outcome": "Self-rated stomach and gut symptoms",
@@ -2621,7 +2677,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "fact": {
                 "id": "turmeric_none",
                 "kind": "finding",
-                "label": "turmeric alone: no effect on blood glucose compared with the control meal",
+                "label": "turmeric alone: no clear difference in blood glucose from the control meal",
                 "quote": "Contradictory to the assumption of this current approach, no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed.",
                 "finding": {
                   "outcome": "Blood glucose after the turmeric-only meal",
@@ -2634,7 +2690,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "fact": {
                 "id": "glucose_total",
                 "kind": "finding",
-                "label": "no significant difference between the four meals over the whole 3 hours",
+                "label": "no clear difference between the four meals over the whole 3 hours",
                 "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
                 "finding": {
                   "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
@@ -2651,7 +2707,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "fact": {
                 "id": "gut",
                 "kind": "finding",
-                "label": "no significant difference between meals or over time (p > .05)",
+                "label": "no clear difference between meals or over time",
                 "quote": "There was no significant (p > .05) effect of time, treatment, and time × treatment on postprandial responses of gastrointestinal symptoms.",
                 "finding": {
                   "outcome": "Self-rated stomach and gut symptoms",
@@ -2673,7 +2729,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "fact": {
                 "id": "glucose_lower",
                 "kind": "finding",
-                "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal (p < .05); direction stated in the abstract, no size given",
+                "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal; direction stated in the abstract, no size given",
                 "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
                 "finding": {
                   "outcome": "Blood glucose after the meal",
@@ -2686,7 +2742,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "fact": {
                 "id": "glucose_total",
                 "kind": "finding",
-                "label": "no significant difference between the four meals over the whole 3 hours",
+                "label": "no clear difference between the four meals over the whole 3 hours",
                 "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
                 "finding": {
                   "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
@@ -2712,7 +2768,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "fact": {
                 "id": "gut",
                 "kind": "finding",
-                "label": "no significant difference between meals or over time (p > .05)",
+                "label": "no clear difference between meals or over time",
                 "quote": "There was no significant (p > .05) effect of time, treatment, and time × treatment on postprandial responses of gastrointestinal symptoms.",
                 "finding": {
                   "outcome": "Self-rated stomach and gut symptoms",
@@ -2796,7 +2852,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       "glucose_30": {
         "id": "glucose_30",
         "kind": "finding",
-        "label": "differed from the control meal 30 minutes after eating, for the pepper meal and the pepper-plus-turmeric meal (p = .023); the text gives no size for the difference",
+        "label": "differed from the control meal 30 minutes after eating, for the pepper meal and the pepper-plus-turmeric meal; the paper does not say by how much",
         "quote": "So test meals (BP and BP + TR) show a significant effect for blood glucose level at the time point 30 min as compared to reference meal (C) (p = .023).",
         "finding": {
           "outcome": "Blood glucose 30 minutes after the meal",
@@ -2806,7 +2862,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       "glucose_lower": {
         "id": "glucose_lower",
         "kind": "finding",
-        "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal (p < .05); direction stated in the abstract, no size given",
+        "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal; direction stated in the abstract, no size given",
         "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
         "finding": {
           "outcome": "Blood glucose after the meal",
@@ -2816,7 +2872,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       "glucose_total": {
         "id": "glucose_total",
         "kind": "finding",
-        "label": "no significant difference between the four meals over the whole 3 hours",
+        "label": "no clear difference between the four meals over the whole 3 hours",
         "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
         "finding": {
           "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
@@ -2826,7 +2882,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       "gut": {
         "id": "gut",
         "kind": "finding",
-        "label": "no significant difference between meals or over time (p > .05)",
+        "label": "no clear difference between meals or over time",
         "quote": "There was no significant (p > .05) effect of time, treatment, and time × treatment on postprandial responses of gastrointestinal symptoms.",
         "finding": {
           "outcome": "Self-rated stomach and gut symptoms",
@@ -2980,7 +3036,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       "taste_rank": {
         "id": "taste_rank",
         "kind": "finding",
-        "label": "the control meal and the combined meal were rated higher than the pepper-only and turmeric-only meals (p < .05)",
+        "label": "the control meal and the combined meal were rated higher than the pepper-only and turmeric-only meals, a clear difference",
         "quote": "Post hoc pair‐wise comparison shows that the control meal and combined meal have significantly (p < .05) higher acceptability than (BP and TR) meal in comparison of general appearance, consistency, smell, taste, and whole pleasantness.",
         "finding": {
           "outcome": "Palatability (appearance, texture, smell, taste, overall pleasantness)",
@@ -3034,13 +3090,13 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       "turmeric_dose": {
         "id": "turmeric_dose",
         "kind": "statement",
-        "label": "Authors' guess at why turmeric alone did nothing: the dose was low",
+        "label": "Authors' guess at why turmeric alone showed no clear difference: the dose was low",
         "quote": "A possible rationale for this may be the use of low dose of turmeric powder in this study."
       },
       "turmeric_none": {
         "id": "turmeric_none",
         "kind": "finding",
-        "label": "turmeric alone: no effect on blood glucose compared with the control meal",
+        "label": "turmeric alone: no clear difference in blood glucose from the control meal",
         "quote": "Contradictory to the assumption of this current approach, no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed.",
         "finding": {
           "outcome": "Blood glucose after the turmeric-only meal",

@@ -323,6 +323,12 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   take("teaser", ed.teaser, { headline: true });
   take("hook", ed.hook, { headline: true, inRead: true });
   take("populationPanel", ed.populationPanel, { inRead: true });
+  // The finding card: the key result at a glance. Its headline rests on the headline result.
+  const cardHeadline = take("card.headline", ed.card.headline, { headline: true, inRead: true });
+  take("card.support", ed.card.support, { inRead: true });
+  if (!cardHeadline.some((s) => s.refs.includes(ed.primaryEstimate))) {
+    fail("card", "card.headline", `the finding card's headline must cite the headline result "${ed.primaryEstimate}"`);
+  }
   // A simulator's own sentences (drawn by kind): every rule, outside the word budget, like alt text.
   for (const [name, markup] of Object.entries(ed.simulator.words ?? {})) take(`simulator.words.${name}`, markup);
 
@@ -470,6 +476,23 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
         fail("plain", where, `"${direction[0]}" says which way it went, but no cited fact states a direction; say "differed", or cite the fact that says it: "${text}"`);
       }
     }
+  }
+
+  // A fact's label is our wording, not the paper's, and the app shows it outside the Receipts
+  // (a protocol step's source line, the passage panel). Held to the same plain-language rules.
+  const labelled = new Map<string, ValidatedFact>(Object.entries(facts));
+  for (const { sentence } of all) {
+    for (const ref of sentence.refs) {
+      const hit = parseRef(ref).kind === "study" ? factOf(ref)?.fact : undefined;
+      if (hit) labelled.set(ref, hit);
+    }
+  }
+  for (const [id, fact] of labelled) {
+    const where = `facts.${id}.label`;
+    if (PLAIN_SIGNIFICANT.test(fact.label)) fail("plain", where, `"significant" in a fact's label, which shows outside the Receipts; say "a clear difference" or "no clear difference": "${fact.label}"`);
+    const stat = PLAIN_STATS.find(([, pattern]) => pattern.test(fact.label));
+    if (stat) fail("plain", where, `${stat[0]} in a fact's label, which shows outside the Receipts: "${fact.label}"`);
+    if (NULL_OVERCLAIM.test(fact.label)) fail("plain", where, `"${NULL_OVERCLAIM.exec(fact.label)![0]}" in a fact's label; say "no clear difference": "${fact.label}"`);
   }
 
   // H4: the rodent trap ----------------------------------------------------------
