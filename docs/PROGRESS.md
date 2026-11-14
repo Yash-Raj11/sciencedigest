@@ -128,7 +128,8 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
         `tests/browser/readability.spec.ts`. Screens: `docs/evidence/readability/feed-*.png`.
   - [x] 6. Hosted seed: dry run shown, pushed on the owner's "go" (one push). Hosted is up to
         date. `docs/evidence/readability/hosted-seed.txt`.
-  - [ ] IN PROGRESS: 7. Figure plans (concept sketch; caffeine, turmeric, steps + HIIT) in SIMULATORS.md.
+  - [x] 7. Figure plans in `docs/SIMULATORS.md` section j (concept sketch class, the pattern, caffeine,
+        turmeric, steps, HIIT). Not built. Open: owner ruling on a sketch resting on a concept (j1).
   - [ ] ⏸ Stop after 7 with hashes, contrast table, screenshot paths, plans; /phase-handoff.
 - [ ] The pipeline proposes the figure kind and the simulator inputs (`prompts.ts`).
 - [ ] Reader inputs stored on the device only (like the theme).

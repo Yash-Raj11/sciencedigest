@@ -1326,3 +1326,13 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   push: `supabase db push --remote --include-seed --yes`, then `supabase db query --remote --yes
   -f supabase/seed.sql`. 4 reads, 2 takeaway rows and 2 step labels updated; no user history
   touched. Hosted is up to date (dry run). `docs/evidence/readability/hosted-seed.txt`.
+
+## 2026-11-14, Readability 7: figure plans (not built)
+
+- `docs/SIMULATORS.md` section j: the concept sketch (sage wash, thin line, "Shape only, not
+  data", no ticks, no band; the lint will fail on any numeric tick); the pattern for every figure
+  (takeaway headline above, labels on the lines, a story over time, the paper's result in its own
+  box); plans for caffeine's hidden-tiredness day chart, turmeric's annotated drawing, steps' week
+  and ten years, HIIT's "order flips". Every fact named exists in the extraction.
+- Open for the owner: H7 (amended) says a background concept never feeds a figure. Proposed: a
+  concept sketch may rest on a reviewed concept only, and never shares a value axis with data.

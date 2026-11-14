@@ -127,6 +127,109 @@ input, not a fact.
 
 ---
 
+## j. Figure plans (owner, 2026-11-14; planned, not built)
+
+### j1. A new visual class: the concept sketch
+
+A concept sketch draws a **shape only, no numbers**. It shows how something behaves when the
+paper prints no values for it (sleep pressure over a day, a glucose curve). It has its own look,
+so no one mistakes it for data:
+
+- a soft sage wash (`--sage`) under a thin, rounded line in `--muted`;
+- no axis ticks, no gridlines and no band;
+- the tag **"Shape only, not data"** on the figure itself, not only in the caption.
+
+The three classes then read apart at a glance: solid ink means measured, dashed means proposed
+by the authors, and sage means a shape only.
+
+Enforced by code, when built:
+
+- a new kind `concept-sketch` in `lib/content/figure-kinds.ts` whose params accept no `{ n, ref }`
+  and no fact. The lint fails on any numeric tick, any digit in the sketch's text, a missing
+  "Shape only, not data" tag, or a band;
+- the figure guard already refuses digits in a figure file.
+
+**Owner ruling needed.** H7 (amended) says "a background concept never feeds a figure". A sketch
+carries no number, but its shape is still a claim. Proposal: a sketch may rest only on a
+**reviewed** concept (`[concept:<slug>]`), shows "Background" under it, and never shares a value
+axis with data. It may share the time axis.
+
+### j2. The pattern for every figure
+
+- **A takeaway headline above the chart**, in plain words. It says what to see, not what is drawn.
+- **Labels on the lines**: each line, band or bar is named where it sits. No legend.
+- **A story over time where it fits**: the x axis is the reader's day or the study's follow-up,
+  so the figure reads left to right as something that happens.
+- **The paper's own result sits in its own box beside the chart**, never joined to a modelled
+  line.
+
+### j3. Caffeine: the "hidden tiredness" day chart
+
+- **Headline:** "Caffeine hides tiredness; it doesn't remove it."
+- **The day:** the x axis runs from waking to bedtime, in words ("wake", "noon", "bed"), with no
+  clock ticks. The reader's own times come in the simulator.
+- **Sleep pressure (concept sketch):** a sage line rises through the day, labelled "Sleep pressure
+  builds" (`concept:adenosine`, once reviewed). A second sage line, "How tired you feel", runs
+  under it while caffeine is in the body. The gap between the two lines is shaded sage and
+  labelled "Masked tiredness". The whole layer carries "Shape only, not data".
+- **The caffeine curve (data):** solid ink, driven by the real half-life band
+  (`caffeine-saliva-half-life/half_life_caffeine`, peach band, "From another study: Wildgrube et
+  al., early evidence"), stacked over the paper's three doses (`dose`, `schedule`: 45, 255 and
+  475 min after waking). Stacking the doses is a model step, so the curve is labelled "Estimate
+  from the study's numbers" (H12).
+- **In its own box:** "This study: sleep showed no clear difference from placebo nights"
+  (`sleep_same`), with its source line. Nothing links the box to the curve.
+
+### j4. Turmeric: the annotated drawing
+
+- **Headline:** "Pepper may slow the first rise in blood sugar; the paper measured only the
+  last step."
+- **The drawing:** a simple left-to-right picture:
+  1. mouth;
+  2. the heat sensor (`trpv1_mouth`, `trpv1`);
+  3. the gut's "food has arrived" signal (`glp1`, `gut`);
+  4. blood sugar.
+
+  Steps 1–3 are unmeasured, so they are drawn faint and dashed and cite the authors' proposing
+  sentences. Their caveat (`lim_mechanism`) stays in the audit (H10). Step 4 is solid.
+- **Blood sugar:** a concept sketch (sage, "Shape only, not data"), since the paper prints no
+  glucose values. It shows two curves after a meal, labelled "plain" and "with pepper", that part
+  early and meet again by the end. On it, solid dots mark the readings that were taken
+  (`timepoints`). One filled dot at 30 min is labelled "differed" (`glucose_30`). A bracket over
+  the whole span reads "total: no clear difference" (`glucose_total`).
+- **Rule:** the sketch's gap is never given a height. The 30-min dot carries no value, because
+  the paper prints none.
+
+### j5. Steps: a week and ten years
+
+- **Headline:** "People who hit 8,000 steps on just 1–2 days a week had a lower 10-year death
+  rate than people who never did." It describes an association, so there is no arrow.
+- **The week:** a strip of seven day-boxes per group, ticked to show the group's span
+  (`threshold`, groups 0, 1–2 and 3–7). The reader's own week is ticked in the simulator.
+- **Ten years:** the x axis runs from the start of the study to "10 years later" (`followup`).
+  Each group ends in a solid bar showing the share who died, labelled raw (`crude_0`,
+  `crude_1_2`, `crude_3_7`). Beside it, a bracket shows the group's adjusted difference as a
+  peach band (`ard_1_2`, `ard_3_7`).
+- **Rule:** no line is drawn between the start and the end, because the paper prints only the
+  end values.
+- **Under the chart:** "Who this was tested in", plus the plateau note (`plateau`: the curve
+  flattened at 3 to 4 days a week).
+
+### j6. HIIT: "the order flips" (members)
+
+- **Headline:** "Sold on fat loss; the strongest evidence is for keeping fat-free mass."
+- **The chart:** two columns.
+  - Left, "What it's sold on": fat loss first, drawn as plain text with no data.
+  - Right, "What the pooled trials found": the three results, ordered by how sure the evidence
+    is (`grade_ffm` strong, `grade_fm` decent, `grade_bf` early). Each is a peach band with its
+    point and a no-change mark (`ffm_all`, `fm_all`, `bf_all`). The grade meter and words sit on
+    each row.
+  - A bracket shows the order flipping between the columns. This is a ranking, not a causal
+    arrow.
+- **Story over time:** the trials' span (`trials`: 3 to 15 weeks) labels the x axis of an inset
+  for the simulator's settings. Only subgroups the paper prints are offered (`ffm_over8`,
+  `fm_cycling` and the rest); nothing is interpolated.
+
 ## Appendix: design notes for the four papers
 
 Each note uses only the gated facts in the paper's `extraction.json` (and, for caffeine, the
