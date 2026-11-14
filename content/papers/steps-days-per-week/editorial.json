@@ -136,7 +136,15 @@
             "ref": "mobility"
           }
         }
-      ]
+      ],
+      "ages": {
+        "kind": "measured",
+        "fact": "fact:ages"
+      },
+      "mobility": {
+        "kind": "measured",
+        "fact": "fact:mobility"
+      }
     }
   },
   "takeaways": [

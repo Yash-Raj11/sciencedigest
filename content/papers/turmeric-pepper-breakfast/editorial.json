@@ -4,8 +4,8 @@
   "accessTier": "free",
   "publishedAt": "2026-11-13T13:46:30.346Z",
   "title": "1 g of black pepper in breakfast: what blood glucose did over the next 3 hours [meals, nothing_else]",
-  "teaser": "Twenty healthy adults ate the same egg-and-toast breakfast four ways. [sample, meals] With 1 g of black pepper in the egg, blood glucose was lower 30 minutes later. [in_egg, glucose_lower, glucose_30] Added up over 3 hours, the meals did not differ. [glucose_total, nothing_else]",
-  "hook": "1 g of black pepper in a breakfast egg, and blood glucose was lower 30 minutes later. [in_egg, glucose_lower, glucose_30] Added up over the full 3 hours, there was no difference. [glucose_total, nothing_else]",
+  "teaser": "Twenty healthy adults ate the same egg-and-toast breakfast four ways. [sample, meals] With 1 g of black pepper in the egg, blood glucose was lower than after the plain meal. [in_egg, glucose_lower] The clear difference was at the 30-minute reading. [glucose_30] Added up over 3 hours, the meals did not differ. [glucose_total, nothing_else]",
+  "hook": "1 g of black pepper in a breakfast egg, and blood glucose was lower than after the plain egg. [in_egg, glucose_lower] The clear difference was at 30 minutes. [glucose_30] Added up over the full 3 hours, there was no difference. [glucose_total, nothing_else]",
   "populationTerms": [
     "adults",
     "participants",
@@ -15,8 +15,8 @@
   "primaryEstimate": "glucose_30",
   "card": {
     "question": "Does black pepper in your breakfast egg change your blood sugar? [in_egg]",
-    "headline": "Blood sugar was lower 30 minutes after the pepper meals; over 3 hours, no clear difference. [glucose_30, glucose_lower, glucose_total, nothing_else]",
-    "support": "The paper doesn't say by how much. [glucose_30]"
+    "headline": "Blood sugar was lower after the pepper meals than after the plain meal. [glucose_lower] The clear difference was at 30 minutes; [glucose_30] across 3 hours, no clear difference. [glucose_total, nothing_else]",
+    "support": "The paper doesn't say by how much. [glucose_lower]"
   },
   "source": {
     "who": "20 healthy adults [sample]",
@@ -383,8 +383,8 @@
       },
       {
         "kind": "finding",
-        "heading": "Lower at 30 minutes [glucose_lower, glucose_30]",
-        "body": "After the pepper breakfast, blood glucose was lower than after the plain one at the 30-minute reading. [glucose_lower, glucose_30] Added up over 3 hours, the meals did not differ. [glucose_total, nothing_else]"
+        "heading": "Lower after the pepper meals [glucose_lower]",
+        "body": "After the pepper breakfast, blood glucose was lower than after the plain one. [glucose_lower] The clear difference was at the 30-minute reading. [glucose_30] Added up over 3 hours, the meals did not differ. [glucose_total, nothing_else]"
       },
       {
         "kind": "population",

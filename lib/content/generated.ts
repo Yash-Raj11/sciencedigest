@@ -39,7 +39,7 @@ export const PAPERS: PaperMeta[] = [
     "id": "8d1309b7-9fbb-592d-93ae-8ff9a08e6ef6",
     "slug": "hiit-body-composition",
     "title": "Interval training's best-supported effect is on lean mass, not fat: thirty-six trials, graded",
-    "teaser": "Across thirty-six randomized trials in adults, interval training reduced body fat percentage by 1.53 points and raised fat-free mass by 0.51 kg. The fat result is graded low certainty. The lean-mass result is graded high, and it hangs on a single trial.",
+    "teaser": "Across thirty-six randomized trials in adults, interval training reduced body fat percentage by 1.53 points. In the same adults, it raised fat-free mass by 0.51 kg. The fat result is graded low certainty. The lean-mass result is graded high, and it hangs on a single trial.",
     "category": "Body composition",
     "accessTier": "premium",
     "publishedAt": "2026-11-12T00:00:00Z",
@@ -72,7 +72,7 @@ export const PAPERS: PaperMeta[] = [
     "simulatorKind": "hiit-forest",
     "card": {
       "question": "Does interval training change your body fat and lean mass?",
-      "finding": "Fat-free mass +0.51 kg and fat mass −1.86 kg, vs no exercise, trials pooled.",
+      "finding": "Fat-free mass +0.51 kg; fat mass −1.86 kg; both vs no exercise, trials pooled.",
       "support": "Fat-free mass is everything in the body that is not fat.",
       "figure": {
         "figure": "what-was-measured",
@@ -183,7 +183,7 @@ export const PAPERS: PaperMeta[] = [
     "id": "735a2dc7-8f80-59f4-afae-c49e591ae748",
     "slug": "turmeric-pepper-breakfast",
     "title": "1 g of black pepper in breakfast: what blood glucose did over the next 3 hours",
-    "teaser": "Twenty healthy adults ate the same egg-and-toast breakfast four ways. With 1 g of black pepper in the egg, blood glucose was lower 30 minutes later. Added up over 3 hours, the meals did not differ.",
+    "teaser": "Twenty healthy adults ate the same egg-and-toast breakfast four ways. With 1 g of black pepper in the egg, blood glucose was lower than after the plain meal. The clear difference was at the 30-minute reading. Added up over 3 hours, the meals did not differ.",
     "category": "Nutrition",
     "accessTier": "free",
     "publishedAt": "2026-11-13T13:46:30.346Z",
@@ -1511,7 +1511,25 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "ref": "mobility"
               }
             }
-          ]
+          ],
+          "ages": {
+            "kind": "measured",
+            "fact": {
+              "id": "ages",
+              "kind": "descriptive",
+              "label": "Mean age of the three groups (0, 1-2, 3-7 days)",
+              "quote": "Age, mean (SD), y\n\n63.7 (19.3)\n\n51.5 (19.0)\n\n46.0 (15.5)"
+            }
+          },
+          "mobility": {
+            "kind": "measured",
+            "fact": {
+              "id": "mobility",
+              "kind": "descriptive",
+              "label": "Number (%) with a mobility limitation in the three groups",
+              "quote": "Mobility limitation\n\n319 (50.5)\n\n108 (20.3)\n\n132 (6.8)"
+            }
+          }
         }
       }
     },
@@ -1940,7 +1958,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
     "facts": {
       "ages": {
         "id": "ages",
-        "kind": "statement",
+        "kind": "descriptive",
         "label": "Mean age of the three groups (0, 1-2, 3-7 days)",
         "quote": "Age, mean (SD), y\n\n63.7 (19.3)\n\n51.5 (19.0)\n\n46.0 (15.5)"
       },
@@ -2089,7 +2107,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       },
       "mobility": {
         "id": "mobility",
-        "kind": "statement",
+        "kind": "descriptive",
         "label": "Number (%) with a mobility limitation in the three groups",
         "quote": "Mobility limitation\n\n319 (50.5)\n\n108 (20.3)\n\n132 (6.8)"
       },
@@ -2146,10 +2164,15 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
   "turmeric-pepper-breakfast": {
     "hook": [
       {
-        "text": "1 g of black pepper in a breakfast egg, and blood glucose was lower 30 minutes later.",
+        "text": "1 g of black pepper in a breakfast egg, and blood glucose was lower than after the plain egg.",
         "refs": [
           "in_egg",
-          "glucose_lower",
+          "glucose_lower"
+        ]
+      },
+      {
+        "text": "The clear difference was at 30 minutes.",
+        "refs": [
           "glucose_30"
         ]
       },
@@ -2813,10 +2836,20 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       ],
       "headline": [
         {
-          "text": "Blood sugar was lower 30 minutes after the pepper meals; over 3 hours, no clear difference.",
+          "text": "Blood sugar was lower after the pepper meals than after the plain meal.",
           "refs": [
-            "glucose_30",
-            "glucose_lower",
+            "glucose_lower"
+          ]
+        },
+        {
+          "text": "The clear difference was at 30 minutes;",
+          "refs": [
+            "glucose_30"
+          ]
+        },
+        {
+          "text": "across 3 hours, no clear difference.",
+          "refs": [
             "glucose_total",
             "nothing_else"
           ]
@@ -2826,7 +2859,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         {
           "text": "The paper doesn't say by how much.",
           "refs": [
-            "glucose_30"
+            "glucose_lower"
           ]
         }
       ]

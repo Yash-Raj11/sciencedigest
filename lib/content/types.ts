@@ -25,7 +25,7 @@ export interface ResolvedEstimate {
 
 export interface ResolvedFact {
   id: string;
-  kind: "estimate" | "finding" | "grade" | "statement" | "limitation" | "context";
+  kind: "estimate" | "finding" | "grade" | "descriptive" | "statement" | "limitation" | "context";
   label: string;
   /** The passage in the paper this was read from, verbatim. */
   quote: string;

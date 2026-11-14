@@ -349,10 +349,21 @@
         ],
         "headline": [
           {
-            "text": "Fat-free mass +0.51 kg and fat mass −1.86 kg, vs no exercise, trials pooled.",
+            "text": "Fat-free mass +0.51 kg;",
             "refs": [
-              "ffm_all",
+              "ffm_all"
+            ]
+          },
+          {
+            "text": "fat mass −1.86 kg;",
+            "refs": [
               "fm_all"
+            ]
+          },
+          {
+            "text": "both vs no exercise, trials pooled.",
+            "refs": [
+              "trials"
             ]
           }
         ],

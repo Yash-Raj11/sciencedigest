@@ -235,8 +235,14 @@ export function gate(input: unknown, source: string, options: { role?: GateRole 
       }
       // A p-value is this study's own test: the passage reports a result, so it is a finding or an
       // estimate, never background. (Benchmark 2026-11-14: a model filed every result as a statement.)
-      if ((fact.kind === "statement" || fact.kind === "context") && P_VALUE.test(at.text) && !P_THRESHOLD.test(at.text)) {
+      if ((fact.kind === "statement" || fact.kind === "context" || fact.kind === "descriptive") && P_VALUE.test(at.text) && !P_THRESHOLD.test(at.text)) {
         errors.push(`fact ${fact.id}: the quote carries a p-value, so it reports a result of this study; use kind "finding" (or "estimate"), not "${fact.kind}"`);
+        continue;
+      }
+      // A descriptive fact says who was studied at the start. It carries no result, so it can never
+      // be read as one: no outcome, no estimate (owner, 2026-11-15).
+      if (fact.kind === "descriptive" && (fact.outcome || fact.estimate)) {
+        errors.push(`fact ${fact.id}: a descriptive fact describes who was studied at the start; it carries no ${fact.outcome ? "outcome" : "estimate"}, so it can never stand as a finding`);
         continue;
       }
       if (fact.kind === "finding" && !fact.outcome) {

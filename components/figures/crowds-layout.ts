@@ -6,7 +6,7 @@
 
 import { textWidth } from "./interval-layout";
 
-export const CROWDS_FRAME = { left: 4, col: 100, gap: 10, span: 16, title: 40, strip: 48, person: 68, personHeight: 62, ageLabel: 150, age: 168, fact: 190, size: 12, line: 15, height: 270 };
+export const CROWDS_FRAME = { left: 4, col: 100, gap: 10, span: 16, title: 40, strip: 48, person: 68, personHeight: 62, ageLabel: 150, age: 168, fact: 190, size: 12, line: 15, height: 284 };
 
 export function crowdColumns(count: number) {
   return Array.from({ length: count }, (_, i) => {

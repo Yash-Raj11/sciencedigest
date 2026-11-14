@@ -531,6 +531,20 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
     if (SIGNIFICANCE.test(text) && MAGNITUDE_WORD.test(text)) {
       fail("H5", where, `statistical significance described as magnitude: "${text}"`);
     }
+    // One claim per clause (owner, 2026-11-15): a headline or finding clause rests on one result.
+    // Two results under one marker would let a time from one fact and a direction from another
+    // merge into a claim neither makes ("lower at 30 minutes"). Context facts may come along.
+    if (headline) {
+      const results = sentence.refs.filter((r) => { const k = factOf(r)?.fact.kind; return k === "estimate" || k === "finding"; });
+      if (results.length > 1) {
+        fail("one-claim", where, `one clause cites ${results.length} results (${results.join(", ")}); give each its own clause and marker, so no claim joins two facts: "${text}"`);
+      }
+    }
+    // A descriptive fact (who was studied, at the start) is never a headline (owner, 2026-11-15).
+    if (headline) {
+      const described = sentence.refs.filter((r) => factOf(r)?.fact.kind === "descriptive");
+      if (described.length > 0) fail("descriptive", where, `"${described.join(", ")}" describes who was studied at the start; it may be drawn, never put in a headline: "${text}"`);
+    }
     if (directionTwice(text)) {
       fail("direction", where, `a minus sign and "lower/fewer/less" say the direction twice; keep the words and drop the sign: "${text}"`);
     }

@@ -1502,3 +1502,26 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - Open, for the owner: 3A's ages and mobility shares are `statement` facts (baseline table), and
   only an estimate or finding may be drawn as measured, so 3A has no measured-bound element and
   `paper-routes-dev.spec.ts` "draws its figure" fails for steps. Not loosened; not pushed.
+
+## 2026-11-15, Owner rulings: descriptive facts, one claim per clause
+
+- Fact kind `descriptive` (owner's option a): who was studied, measured at the start, verbatim.
+  May be drawn as measured (never proposed) and the figure says "Measured at the start"
+  (`DESCRIPTIVE_LABEL`); never a finding or a headline: the gate refuses one with an outcome, an
+  estimate or a p-value; the lint already refused it as `primaryEstimate` or a step's evidence,
+  and now refuses it in any headline sentence (rule `descriptive`). Steps' `ages` and `mobility`
+  rebound; 3A binds them as measured. `lib/pipeline/descriptive.test.ts`: 14 tests; each rule
+  switched off fails 1 to 4 of them. The steps browser test passes (90 of 90).
+- Rule `one-claim`: a headline or finding clause cites at most one result (estimate or finding);
+  context facts may come along. A clause is one markup segment, so a sentence may carry two
+  markers ("…at 30 minutes; [glucose_30] across 3 hours, no clear difference. [glucose_total, …]").
+  It caught five more merges: turmeric teaser, hook and carousel heading (time from `glucose_30`,
+  direction from `glucose_lower`), HIIT teaser and finding (two pooled results). All rewritten.
+  The turmeric slide body had the same merge (not a headline) and was split too. FIGURE-DESIGN 2A
+  and 2B labels split the same way ("Lower here" → "Clear difference here"). Fixtures:
+  `lib/pipeline/one-claim.test.ts` (3 fail with the rule off).
+- Turmeric finding: the owner's three clauses, each on its own fact. fat-free-mass `model`: "An
+  ordinary bathroom scale only reads the two together." (unreviewed; the owner approves next).
+- IntervalPlot: the "no difference" tick no longer reaches the row label (band lowered, tick
+  shortened). Screens: `docs/evidence/figures-v2/steps-days-per-week/r3-*`.
+- Hosted seed: one dry run + push at the end of the session only (owner).

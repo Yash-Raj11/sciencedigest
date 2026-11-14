@@ -87,6 +87,10 @@ test.describe("steps: figure 3A sits at the top of the receipts (R3)", () => {
     await expect(a).toBeVisible();
     await expect(receipts).toContainText("Why the raw gap is so wide");
     for (const age of ["63.7", "51.5", "46"]) await expect(a.locator("svg")).toContainText(age);
+    // Descriptive facts drawn as measured, and labelled so (owner, 2026-11-15).
+    await expect(a.locator('svg [data-evidence="measured"][data-fact="ages"]')).toHaveCount(3);
+    await expect(a.locator('svg [data-evidence="measured"][data-fact="mobility"]')).toHaveCount(3);
+    await expect(a.locator("svg")).toContainText("Measured at the start");
     await expect(page.locator("#why [data-figure-key]")).toHaveCount(0);
   });
 });

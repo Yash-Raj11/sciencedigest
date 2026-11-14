@@ -39,15 +39,21 @@ export const EVIDENCE_KEY = "solid: measured · dashed: proposed";
 
 const RESULT_KINDS: readonly string[] = ["estimate", "finding"];
 
+/**
+ * A descriptive fact (who was studied, measured at the start: owner, 2026-11-15) may be drawn as
+ * measured, never as proposed, and the figure says so with this label.
+ */
+export const DESCRIPTIVE_LABEL = "Measured at the start";
+const MEASURED_KINDS: readonly string[] = [...RESULT_KINDS, "descriptive"];
+
 /** Why this fact cannot stand behind an element of this kind, or null when it can. */
 export function evidenceKindProblem(kind: EvidenceKind, fact: { id: string; kind: string } | null | undefined): string | null {
   if (!fact) return `a "${kind}" element must cite a fact`;
-  const isResult = RESULT_KINDS.includes(fact.kind);
-  if (kind === "measured" && !isResult) {
-    return `"${fact.id}" is a ${fact.kind}, not a result; only an estimate or a finding may be drawn as measured`;
+  if (kind === "measured" && !MEASURED_KINDS.includes(fact.kind)) {
+    return `"${fact.id}" is a ${fact.kind}, not a result; only an estimate, a finding or a descriptive fact may be drawn as measured`;
   }
-  if (kind === "proposed" && isResult) {
-    return `"${fact.id}" is a result (${fact.kind}); a proposed element cites the sentence where the authors propose it`;
+  if (kind === "proposed" && MEASURED_KINDS.includes(fact.kind)) {
+    return `"${fact.id}" is ${fact.kind === "descriptive" ? "a measurement at the start" : `a result (${fact.kind})`}; a proposed element cites the sentence where the authors propose it`;
   }
   return null;
 }

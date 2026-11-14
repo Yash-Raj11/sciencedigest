@@ -263,7 +263,8 @@ the measured label.
 | Object 2, bottom row | "Pepper may switch it on" (`trpv1`) |
 | Object 3 | "The gut's 'food has arrived' signal" (`glp1`, `concept:glucagon-like-peptide`) |
 | Object 3, bottom row | "May be released sooner" |
-| Object 4, bottom row | "Blood sugar at 30 minutes: lower than after the plain egg" (`glucose_30`, `glucose_lower`) |
+| Object 4, bottom row | "Blood sugar: lower than after the plain egg" (`glucose_lower`) |
+| Object 4, bottom row, second line | "The clear difference: at 30 minutes" (`glucose_30`) |
 | Under the links 1→2→3 | "The authors' idea. No hormones were measured." (`lim_hormones`) |
 | Under object 4 | "Measured" |
 
@@ -272,7 +273,7 @@ the measured label.
 - Measured (solid): object 1 (the meal as served) and object 4's label.
 - Proposed (dashed outlines, dashed links): objects 2 and 3 and the links between 1, 2, 3
   and 4 (`trpv1`, `trpv1_mouth`, `glp1`). This is a randomized trial, so the solid claim
-  "pepper meal → lower at 30 minutes" may be drawn as one solid arrow running **under** the
+  "pepper meal → lower blood sugar" (`glucose_lower`) may be drawn as one solid arrow running **under** the
   chain, straight from object 1 to object 4, labelled "What the trial showed". The chain
   above it stays dashed.
 - Sketch: none. The sugar cubes in object 4 are not counted: both rows draw the same number
@@ -282,19 +283,20 @@ The label under the links states a fact about what was measured, not a caveat ab
 mechanism; the mechanism's limitation (`lim_mechanism`) stays in the audit (H10).
 
 **Colour.** Pastel: the background of object 4 in the bottom row only. Bright orange: the
-words "lower than after the plain egg". Monochrome: everything else; dashed objects in
+words "lower than after the plain egg" (owner, 2026-11-15, rule `one-claim`: the direction is
+`glucose_lower`'s, the time is `glucose_30`'s; each label cites one). Monochrome: everything else; dashed objects in
 `--meta`.
 
 **Simulator.** None.
 
 **Card vs full.** Card: the bottom row only, with "Heat sensor in the mouth", "The gut's
-'food has arrived' signal", "Blood sugar at 30 minutes: lower", and "The authors' idea"
+'food has arrived' signal", "Blood sugar: lower", and "The authors' idea"
 under the dashed part. Full: both rows and all labels.
 
 ### 2B. What happens to you: "the first half hour"
 
-**Headline:** "With pepper, blood sugar was lower at 30 minutes. Over the whole 3 hours, no
-clear difference."
+**Headline:** "With pepper, blood sugar was lower. The clear difference was at 30 minutes;
+across 3 hours, no clear difference." (Owner, 2026-11-15: one fact per clause.)
 
 **Composition (328 × 250).** Two curves compared over time (reference style 4).
 
@@ -315,7 +317,7 @@ clear difference."
 |---|---|
 | Upper curve | "Plain egg" |
 | Lower curve | "Egg with pepper" |
-| Pastel column | "Lower here" (`glucose_30`) |
+| Pastel column | "Clear difference here" (`glucose_30`: it gives the time, not the direction) |
 | Bracket | "Whole 3 hours: no clear difference" (`glucose_total`) |
 | Axis dots | "Blood sugar was checked at these times" (`timepoints`) |
 | Under the chart | "The paper prints no blood sugar values, so the lines show shape only." |
@@ -332,7 +334,7 @@ clear difference."
 - The sketch may part the lines **only** inside the pastel column and must draw them
   together from the 60-minute tick onward, or the bracket's claim is contradicted.
 
-**Colour.** Pastel: the 30-minute column. Bright orange: "Lower here". Monochrome: both
+**Colour.** Pastel: the 30-minute column. Bright orange: "Clear difference here". Monochrome: both
 curves (`--ink` dotted for the reader's meal, `--muted` dotted for the other), dots, bracket,
 axis.
 
@@ -341,7 +343,7 @@ axis.
 | Reader's meal | What the chart draws | Result sentence |
 |---|---|---|
 | Neither | One curve, "Plain egg". No pastel column. | "This is the plain meal the others were compared with." |
-| Pepper | Two curves; "Egg with pepper" in ink; column lit. | "After this meal, blood sugar at 30 minutes was lower than after the plain egg, a clear difference in this study. Over 3 hours: no clear difference." (`glucose_30`, `glucose_total`) |
+| Pepper | Two curves; "Egg with pepper" in ink; column lit. | "After this meal, blood sugar was lower than after the plain egg. (`glucose_lower`) The clear difference was at 30 minutes. (`glucose_30`) Over 3 hours: no clear difference. (`glucose_total`)" |
 | Pepper + turmeric | As pepper; lower curve relabelled "Egg with pepper and turmeric". A note under it: "This meal's tea had more sugar: 10 g, not 8 g." (`sugar_row`) | Same sentence as pepper. |
 | Turmeric | One curve, labelled "Plain egg and egg with turmeric". No column. | "Turmeric alone: no clear difference in blood sugar from the plain egg." (`turmeric_none`) |
 
@@ -351,7 +353,7 @@ in full view only, a four-cell strip shows overall pleasantness for the four mea
 spread between people in this study", with the reader's cell outlined in ink. It is context,
 so it takes no pastel.
 
-**Card vs full.** Card: the pepper state, with "Plain egg", "Egg with pepper", "Lower here"
+**Card vs full.** Card: the pepper state, with "Plain egg", "Egg with pepper", "Clear difference here"
 and the bracket label, plus the tag. Full: switches, all labels, the result sentence, the
 taste strip. **Feed card pick: 2B, its still view (R7: no reader-dependent numbers).**
 

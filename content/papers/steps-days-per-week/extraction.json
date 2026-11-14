@@ -391,14 +391,14 @@
     },
     {
       "id": "ages",
-      "kind": "statement",
+      "kind": "descriptive",
       "label": "Mean age of the three groups (0, 1-2, 3-7 days)",
       "value": "63.7 (19.3)",
       "quote": "Age, mean (SD), y\n63.7 (19.3)\n51.5 (19.0)\n46.0 (15.5)"
     },
     {
       "id": "mobility",
-      "kind": "statement",
+      "kind": "descriptive",
       "label": "Number (%) with a mobility limitation in the three groups",
       "value": "319 (50.5)",
       "quote": "Mobility limitation\n319 (50.5)\n108 (20.3)\n132 (6.8)"

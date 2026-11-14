@@ -157,7 +157,7 @@ test.describe("finding cards: plain headline, one supporting line, source line",
   test("turmeric: neutral wording, and the size it does not give", async ({ page }) => {
     await page.goto("/papers/turmeric-pepper-breakfast");
     const card = page.locator("article [data-finding-card]");
-    await expect(card.locator(".headline")).toHaveText(/^Blood sugar was lower 30 minutes after the pepper meals; over 3 hours, no clear difference\./);
+    await expect(card.locator(".headline")).toHaveText(/^Blood sugar was lower after the pepper meals than after the plain meal\. The clear difference was at 30 minutes; across 3 hours, no clear difference\./);
     await expect(card).toContainText("The paper doesn't say by how much.");
   });
 });

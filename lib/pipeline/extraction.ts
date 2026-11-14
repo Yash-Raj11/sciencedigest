@@ -57,9 +57,12 @@ const Fact = z.object({
    * finding     a result on a measured endpoint that the paper reports WITHOUT an
    *             effect size, e.g. "no significant difference in total sleep time"
    * grade       the paper's own certainty rating for an outcome
+   * descriptive who was studied, as measured at the start (a baseline or table characteristic,
+   *             verbatim): it may be drawn as measured, labelled "measured at the start", and is
+   *             never a finding, never a headline (owner, 2026-11-15)
    * statement / limitation / context   everything else worth citing
    */
-  kind: z.enum(["estimate", "finding", "grade", "statement", "limitation", "context"]),
+  kind: z.enum(["estimate", "finding", "grade", "descriptive", "statement", "limitation", "context"]),
   /** What this is, in the extractor's own words. Editors read it; readers never do. */
   label: z.string().min(1),
   /** A short verbatim phrase (or the printed figures) that appears inside the quote. */

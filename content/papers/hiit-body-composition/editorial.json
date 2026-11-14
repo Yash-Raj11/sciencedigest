@@ -4,7 +4,7 @@
   "accessTier": "premium",
   "publishedAt": "2026-11-12T00:00:00Z",
   "title": "Interval training's best-supported effect is on lean mass, not fat: thirty-six trials, graded [trials, grade_ffm, grade_bf]",
-  "teaser": "Across thirty-six randomized trials in adults, interval training reduced body fat percentage by 1.53 points and raised fat-free mass by 0.51 kg. [trials, bf_all, ffm_all] The fat result is graded low certainty. [grade_bf] The lean-mass result is graded high, and it hangs on a single trial. [grade_ffm, ffm_loo]",
+  "teaser": "Across thirty-six randomized trials in adults, interval training reduced body fat percentage by 1.53 points. [trials, bf_all] In the same adults, it raised fat-free mass by 0.51 kg. [trials, ffm_all] The fat result is graded low certainty. [grade_bf] The lean-mass result is graded high, and it hangs on a single trial. [grade_ffm, ffm_loo]",
   "hook": "Interval training is sold on fat loss. [-] Pool the trials, rate how far each result can be trusted, and the order flips. [grade_ffm, grade_bf]",
   "populationTerms": [
     "adults",
@@ -15,7 +15,7 @@
   "primaryEstimate": "ffm_all",
   "card": {
     "question": "Does interval training change your body fat and lean mass? [trials]",
-    "headline": "Fat-free mass +0.51 kg and fat mass −1.86 kg, vs no exercise, trials pooled. [ffm_all, fm_all]",
+    "headline": "Fat-free mass +0.51 kg; [ffm_all] fat mass −1.86 kg; [fm_all] both vs no exercise, trials pooled. [trials]",
     "support": "Fat-free mass is everything in the body that is not fat. [ffm_all]"
   },
   "source": {

@@ -35,7 +35,7 @@ export function IntervalPlot({ x, y, width, rows, mirror = false, baselineLabel,
       {rows.map((row, i) => {
         const p = placed[i];
         const rowTop = top + i * rowHeight;
-        const bandY = rowTop + size * 1.5;
+        const bandY = rowTop + size * 1.9;
         const signal = row.emphasis === "signal";
         return (
           <g key={row.fact.id} data-evidence="measured" data-fact={row.fact.id} data-emphasis={row.emphasis}>
@@ -44,7 +44,7 @@ export function IntervalPlot({ x, y, width, rows, mirror = false, baselineLabel,
               <tspan fill={signal ? SIGNAL_TEXT : INK}>{row.label.number}</tspan>
               <tspan>{row.label.tail}</tspan>
             </text>
-            <line x1={baseline} x2={baseline} y1={bandY - 9} y2={bandY + band + 9} stroke={MUTED} strokeWidth={1.5} data-baseline />
+            <line x1={baseline} x2={baseline} y1={bandY - 4} y2={bandY + band + 4} stroke={MUTED} strokeWidth={1.5} data-baseline />
             {p.low !== null && p.high !== null ? (
               <rect x={p.low} y={bandY} width={Math.max(p.high - p.low, band)} height={band} rx={band / 2}
                 fill={signal ? SIGNAL_FILL : "none"} stroke={signal ? "none" : LINE} strokeWidth={1.5} data-band={signal ? "" : undefined} />
