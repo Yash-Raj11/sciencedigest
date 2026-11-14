@@ -76,9 +76,9 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       impeccable binary untracked, plain passage panel; G2 feed at `/`, tracker at `/today`,
       `/library` 308, Life Game slot, "Start on"; G3 larger hooks; G4 figure kinds, the decay
       kind, H12. Caffeine has no gated half-life, so its read was not wired to the decay kind.
-- [ ] ⏸ Stopped here 2026-11-14. Waiting on the owner: round-2 screenshots
-      (`docs/evidence/article-redesign/round2/`); a context study for caffeine's half-life
-      (BUILD-LOG); whether a context fact may feed a figure and a simulator (it may not today).
+- [ ] ⏸ Stopped here 2026-11-14. Still open: the owner's verdict on the round-2 screenshots
+      (`docs/evidence/article-redesign/round2/`). Answered: a context fact may feed a figure
+      spec and its simulator (`2a0926c`); the half-life source search is its own item below.
 - [x] H7/H12 rule change (owner, 2026-11-14): a gated context study may feed a figure spec and
       its simulator; a concept never. `2a0926c`. Grzegorzewski 2021 refused at the gate (BUILD-LOG).
 - [ ] Find a context study for caffeine's half-life. Search Europe PMC: licence

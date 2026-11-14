@@ -831,4 +831,4 @@ The owner's answers to the 2D stop. Four groups, one commit each.
 ## 2026-11-14, H7/H12 rule change; the half-life context study refused
 
 - Rule change committed as `2a0926c`: a gated context study's fact may feed a figure spec and its simulator; never a concept.
-- Grzegorzewski et al. 2021 (doi:10.3389/fphar.2021.752826, PMC8914174): refused at the gate. The half-life appears only in Figures 3B/4B/5B; the text has no verbatim half-life in hours with a range. CC-BY (Europe PMC), not retracted. Folder deleted, not committed.
+- Grzegorzewski et al. 2021 (doi:10.3389/fphar.2021.752826, PMC8914174): refused at the gate. The half-life appears only in Figures 3B/4B/5B; the text has no verbatim half-life in hours with a range. CC-BY (Europe PMC), not retracted. Year: Europe PMC says 2021, PubMed says 2022 (vol 12). Folder deleted, not committed.
