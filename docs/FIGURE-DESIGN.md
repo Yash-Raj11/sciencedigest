@@ -512,7 +512,7 @@ directions."
 | Where | Label |
 |---|---|
 | Lower block | "Fat" |
-| Upper block | "Everything else: muscle, bone, water (fat-free mass)" |
+| Upper block | "Fat-free mass: everything else (muscle, bone, water)" |
 | Right panel, fat block | "Less, on average" (`fm_all`) |
 | Right panel, other block | "A little more, on average" (`ffm_all`) |
 | Under the top band | "The trials did not test why." |
@@ -540,12 +540,12 @@ blocks (`--muted` for fat, `--ink` outline for the rest), both strips.
 
 **Simulator.** None.
 
-**Card vs full.** Card: the top band only, with "Fat", "Everything else: muscle, bone, water",
+**Card vs full.** Card: the top band only, with "Fat", "Fat-free mass: everything else (muscle, bone, water)",
 "Less, on average", "A little more, on average". Full: both bands.
 
 ### 4B. What happens to you: "the order flips"
 
-**Headline:** "Sold on fat loss. The surest result is that muscle and the rest held up."
+**Headline:** "Sold on fat loss. The surest result is that fat-free mass held up."
 
 **Composition (328 × 320).**
 
@@ -559,7 +559,7 @@ blocks (`--muted` for fat, `--ink` outline for the rest), both strips.
   2. Fat mass: `fm_all` (−1.86 kg, −2.55 to −1.18), grade `grade_fm`.
   3. Body fat percentage: `bf_all` (−1.53 points, −2.13 to −0.92), grade `grade_bf`.
 - **Left margin (60 px), "the pitch".** A plain text list in `--meta`, in the order the
-  thing is usually sold: "fat loss" first, "muscle" last. A thin bracket joins each word to
+  thing is usually sold: "fat loss" first, "lean mass" last (owner, 2026-11-15: "muscle" never stands in for fat-free mass). A thin bracket joins each word to
   its row, so the reader sees the lines cross. The bracket has no arrowhead: it shows a
   ranking.
 - **Sensitivity row (full view only, 328 × 40, hollow).** Under row 1, an outline band with
@@ -571,7 +571,7 @@ blocks (`--muted` for fat, `--ink` outline for the rest), both strips.
 |---|---|
 | Left margin, title | "How it's sold" |
 | Rows, title | "What 36 trials found, surest first" (`trials`) |
-| Row 1 | "Muscle, bone and water: +0.51 kg" · grade words "strong evidence" |
+| Row 1 | "Fat-free mass: +0.51 kg" · grade words "strong evidence" |
 | Row 2 | "Fat: −1.86 kg" · "decent evidence" |
 | Row 3 | "Body fat share: −1.53 points" · "early evidence" |
 | Each no-change line, named once | "No change" |

@@ -15,8 +15,8 @@
   "primaryEstimate": "ard_1_2",
   "card": {
     "question": "Do one or two 8,000-step days a week go with a longer life? [threshold]",
-    "headline": "lower 10-year risk of death, compared with 0 days a week. [ard_1_2, followup, threshold]",
-    "support": "People who reached 8,000 steps on 1 to 2 days a week, after the study's adjustments. [ard_1_2]"
+    "headline": "People with 1–2 such days had a 14.9-point lower 10-year risk of death than people with none. [ard_1_2, followup, threshold]",
+    "support": "This is the difference after the study's adjustments. [ard_1_2]"
   },
   "source": {
     "who": "3,101 US adults [sample]",

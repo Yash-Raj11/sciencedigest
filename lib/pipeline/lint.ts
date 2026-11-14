@@ -14,6 +14,7 @@ import { Editorial, LAYERS, LegacyEditorial, OLD_SHAPE_MESSAGE, editorialShape, 
 import type { ConceptState } from "./concepts";
 import type { Validated, ValidatedFact } from "./gate";
 import { NON_HUMAN_DISCLAIMER } from "./grade";
+import { headlineStatesNumber } from "./format";
 import { glossaryCovers, jargonIn } from "./jargon";
 import { simulatorSource } from "../content/fact-library";
 import { isFigureKind, kindParamsProblems, specProblems } from "../content/figure-kinds";
@@ -112,6 +113,18 @@ export const CAUSAL_VERB =
 const RELATIVE_WORDING =
   /\d\s?%\s+(lower|higher|less|more|fewer|greater|reduction|increase|decrease|drop|cut)\b|\brelative risk\b|\bhazard ratio\b|\bodds ratio\b|\b(halves|halved|halving|doubles|doubled|doubling|triples|tripled|tripling)\b|\d\s?(x|times)\s+(as|more|less|higher|lower)\b/i;
 const PERCENT_COMPARISON = /\d\s?%\s+(lower|higher|less|more|fewer|greater)\b/i;
+/**
+ * Direction said twice (owner, 2026-11-15): a minus sign and "lower", "fewer" or "less" in one
+ * sentence read as a double negative ("−14.9 points lower"). Say the direction once, in words.
+ * A minus sign here is one in front of a digit, after a space, bracket or the start: "1–2 days"
+ * and "10-year" are not minus signs.
+ */
+const NEGATIVE_NUMBER = /(?:^|[\s(\[:])[−-]\s?\d/;
+const DOWN_WORD = /\b(lower|fewer|less)\b/i;
+export function directionTwice(text: string): boolean {
+  return NEGATIVE_NUMBER.test(text) && DOWN_WORD.test(text);
+}
+
 const SIGNIFICANCE = /\bp\s?[<=>]\s?0?\.\d+|\b(statistically )?significan(t|tly|ce)\b/i;
 const MAGNITUDE_WORD =
   /\b(huge|massive|dramatic|dramatically|powerful|powerfully|strong|strongly|major|large|largely|substantial|substantially|big|striking|strikingly|remarkable|remarkably|profound|profoundly)\b/i;
@@ -359,6 +372,15 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   const cardHeadline = take("card.headline", ed.card.headline, { headline: true, inRead: true });
   for (const problem of questionProblems(question.map((s) => s.text), cardHeadline.map((s) => s.text))) fail("headline", "card.question", problem);
   take("card.support", ed.card.support, { inRead: true });
+  // The card prints the headline result's number in front of a headline that states none
+  // ("−14.9 points" + "lower 10-year risk ..."): the same double direction, made on the screen.
+  {
+    const point = facts[ed.primaryEstimate]?.estimate?.point;
+    const words = cardHeadline.map((s) => s.text).join(" ");
+    if (point !== undefined && point < 0 && !headlineStatesNumber(cardHeadline, point) && DOWN_WORD.test(words)) {
+      fail("direction", "card.headline", `the card prints the minus number in front of this line, so "lower/fewer/less" says the direction twice; state the number in the line, in words: "${words}"`);
+    }
+  }
   if (!cardHeadline.some((s) => s.refs.includes(ed.primaryEstimate))) {
     fail("card", "card.headline", `the finding card's headline must cite the headline result "${ed.primaryEstimate}"`);
   }
@@ -500,6 +522,9 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
     }
     if (SIGNIFICANCE.test(text) && MAGNITUDE_WORD.test(text)) {
       fail("H5", where, `statistical significance described as magnitude: "${text}"`);
+    }
+    if (directionTwice(text)) {
+      fail("direction", where, `a minus sign and "lower/fewer/less" say the direction twice; keep the words and drop the sign: "${text}"`);
     }
   }
 

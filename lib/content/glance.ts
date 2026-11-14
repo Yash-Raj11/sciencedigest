@@ -11,7 +11,7 @@
  * A members' read lists only the slots everyone can open. Pure: no React, Next or Supabase.
  */
 
-import { formatEstimate } from "../pipeline/format";
+import { formatEstimate, headlineStatesNumber } from "../pipeline/format";
 import type { GlanceView, PaperContent, Sentence } from "./types";
 
 const plain = (sentences: Sentence[]) => sentences.map((s) => s.text).join(" ");
@@ -33,9 +33,11 @@ export function glanceView(content: PaperContent): GlanceView {
   const fact = content.facts[content.primaryEstimate];
   const e = fact?.estimate;
   const words = plain(content.finding.headline);
+  // A headline that states its own number gets none in front of it (owner, 2026-11-15).
+  const prefix = e && !headlineStatesNumber(content.finding.headline, e.point) ? `${formatEstimate({ ...e, ciLow: null, ciHigh: null })} ` : "";
   return {
     question: plain(content.finding.question),
-    headline: e ? `${formatEstimate({ ...e, ciLow: null, ciHigh: null })} ${words}` : words,
+    headline: `${prefix}${words}`,
     support: plain(content.finding.support),
     figure: content.glance.figure,
     axes: { x: plain(content.glance.x), y: content.glance.y.length ? plain(content.glance.y) : null },

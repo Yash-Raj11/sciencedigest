@@ -16,7 +16,7 @@ import { GradeChip } from "@/components/protocol/primitives";
 import { Sheet } from "@/components/shell/Sheet";
 import { BACKGROUND, conceptReference, factSourceLine } from "@/lib/content/source-line";
 import type { FigureRef, GlossaryEntry, PaperContent, ResolvedFact, Sentence } from "@/lib/content/types";
-import { formatEstimate, signed } from "@/lib/pipeline/format";
+import { formatEstimate, headlineStatesNumber, signed } from "@/lib/pipeline/format";
 import { simulatorBand } from "@/lib/models/spread";
 import { BandStrip } from "@/components/figures/BandStrip";
 import { SourceLineContext, useSourceLine } from "./source-line-context";
@@ -205,8 +205,8 @@ export function FindingCard({ content, plain = false }: { content: Pick<PaperCon
   const band = e ? simulatorBand({ point: e.point, ciLow: e.ciLow, ciHigh: e.ciHigh, spread: fact.spread ?? null }) : null;
   return (
     <aside aria-label="The key finding" data-finding-card className="rounded-2xl border border-line bg-surface p-4">
-      {e ? <p className="figure text-[2.75rem]" data-finding-number>{formatEstimate({ ...e, ciLow: null, ciHigh: null })}</p> : null}
-      <Para sentences={finding.headline} facts={facts} context={context} className={`headline${e ? " mt-1" : ""}`} plain={plain} />
+      {e && !headlineStatesNumber(finding.headline, e.point) ? <p className="figure text-[2.75rem]" data-finding-number>{formatEstimate({ ...e, ciLow: null, ciHigh: null })}</p> : null}
+      <Para sentences={finding.headline} facts={facts} context={context} className={`headline${e && !headlineStatesNumber(finding.headline, e.point) ? " mt-1" : ""}`} plain={plain} />
       <Para sentences={finding.support} facts={facts} context={context} className="mt-2 text-[0.9375rem] leading-relaxed text-muted" plain={plain} />
       {e && !e.absolute ? <p className="mt-1 text-sm text-muted">A relative figure.</p> : null}
       {band && e ? (

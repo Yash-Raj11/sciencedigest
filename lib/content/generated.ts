@@ -71,8 +71,8 @@ export const PAPERS: PaperMeta[] = [
     "hasBlock": true,
     "simulatorKind": "hiit-forest",
     "card": {
-      "question": "Does interval training change your fat and your muscle?",
-      "finding": "+0.51 kg more fat-free mass than no exercise, in the trials pooled.",
+      "question": "Does interval training change your body fat and lean mass?",
+      "finding": "Fat-free mass +0.51 kg and fat mass −1.86 kg, vs no exercise, trials pooled.",
       "support": "Fat-free mass is everything in the body that is not fat.",
       "figure": {
         "figure": "what-was-measured",
@@ -1506,7 +1506,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       ],
       "headline": [
         {
-          "text": "lower 10-year risk of death, compared with 0 days a week.",
+          "text": "People with 1–2 such days had a 14.9-point lower 10-year risk of death than people with none.",
           "refs": [
             "ard_1_2",
             "followup",
@@ -1516,7 +1516,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       ],
       "support": [
         {
-          "text": "People who reached 8,000 steps on 1 to 2 days a week, after the study's adjustments.",
+          "text": "This is the difference after the study's adjustments.",
           "refs": [
             "ard_1_2"
           ]

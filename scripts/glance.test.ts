@@ -77,9 +77,9 @@ describe("the still figure prints no number, and its shape is the study's", () =
 });
 
 describe("the card's words", () => {
-  it("the headline leads with the number for an estimate, and is the finding otherwise", () => {
+  it("the headline states its own number (none printed in front, owner 2026-11-15), and is the finding otherwise", () => {
     const by = Object.fromEntries(CARDS.map((c) => [c.slug, c.view]));
-    expect(by["steps-days-per-week"].headline).toBe("−14.9 points lower 10-year risk of death, compared with 0 days a week.");
+    expect(by["steps-days-per-week"].headline).toBe("People with 1–2 such days had a 14.9-point lower 10-year risk of death than people with none.");
     expect(by["daytime-caffeine-sleep"].headline).toBe("Sleep showed no clear difference from placebo nights.");
     expect(by["daytime-caffeine-sleep"].note).toBe("Curve shape from another study. Try it with your own coffee inside.");
   });

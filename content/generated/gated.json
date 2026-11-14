@@ -341,7 +341,7 @@
       "finding": {
         "question": [
           {
-            "text": "Does interval training change your fat and your muscle?",
+            "text": "Does interval training change your body fat and lean mass?",
             "refs": [
               "trials"
             ]
@@ -349,9 +349,10 @@
         ],
         "headline": [
           {
-            "text": "more fat-free mass than no exercise, in the trials pooled.",
+            "text": "Fat-free mass +0.51 kg and fat mass −1.86 kg, vs no exercise, trials pooled.",
             "refs": [
-              "ffm_all"
+              "ffm_all",
+              "fm_all"
             ]
           }
         ],

@@ -1449,3 +1449,22 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   finding line reads "−14.9 points lower 10-year risk of death ..." (the sign and "lower" both
   say the direction); say if you want it reworded.
 - Next: build the figures from `docs/FIGURE-DESIGN.md` (PROGRESS, "Next").
+
+## 2026-11-15, Owner review: headline fixes, rule `direction`, fat-free-mass wording
+
+- Concepts `adenosine` and `post-meal-blood-sugar` approved by the owner (`approve-concept`),
+  committed as found (`ceaf04c`). `fat-free-mass`: "a bathroom scale cannot" → "an ordinary
+  bathroom scale cannot" (still unreviewed; the owner approves it next).
+- Steps finding: "People with 1–2 such days had a 14.9-point lower 10-year risk of death than
+  people with none." Support: "This is the difference after the study's adjustments."
+- HIIT question "Does interval training change your body fat and lean mass?"; finding "Fat-free
+  mass +0.51 kg and fat mass −1.86 kg, vs no exercise, trials pooled." (`ffm_all`, `fm_all`).
+  "Muscle" removed where it stood in for fat-free mass (FIGURE-DESIGN 4A, 4B: row label, headline,
+  the "How it's sold" margin now says "lean mass").
+- Turmeric finding unchanged: `glucose_lower` states the direction ("Experimental meals BP and BP
+  + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.").
+- Rule `direction` (`lib/pipeline/lint.ts`): a minus sign in front of a digit plus "lower", "fewer"
+  or "less" in one sentence fails; so does a card headline with "lower/fewer/less" when the card
+  would print a negative headline number in front of it. The card prints no number in front of a
+  headline that states the result's own number (`headlineStatesNumber`, `lib/pipeline/format.ts`).
+  Fixtures: `lib/pipeline/direction.test.ts` (3 breaks fail with the rule switched off).
