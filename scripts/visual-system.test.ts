@@ -23,17 +23,18 @@ const CSS = readFileSync("app/globals.css", "utf8");
 const tokens = themeTokens(CSS);
 
 /**
- * The owner's values (2026-11-15). Bedtime keeps the 2026-11-14 dark tokens. The light finding
- * text is #E84E0F darkened until it reaches 4.5:1 on white, a card and the tint (#C8430D).
+ * The owner's values (2026-11-15, second pass): dark and light are the pre-c19198f tokens with a
+ * pastel orange. Bedtime keeps the 2026-11-14 dark tokens. The light finding text is the pastel
+ * #FFB38A darkened until it reaches 4.5:1 on white, a card and the tint (#AD5428).
  */
 const OWNER = {
-  dark: { bg: "#090909", surface: "#141414", ink: "#f4f4f2", muted: "#9a9a95", line: "#262626", "signal-evidence-text": "#ff6b2b" },
-  light: { bg: "#ffffff", surface: "#f7f7f5", ink: "#111111", muted: "#5c5c58", line: "#e2e2df", "signal-evidence-text": "#c8430d" },
+  dark: { bg: "#000000", surface: "#141414", ink: "#f4f4f4", muted: "#a3a3a3", line: "#303030", "signal-evidence-text": "#ffb38a", "signal-evidence-fill": "#ffb38a" },
+  light: { bg: "#ffffff", surface: "#f3f3f1", ink: "#0a0a0a", muted: "#5c5c5c", line: "#dcdcda", "signal-evidence-text": "#ad5428", "signal-evidence-fill": "#ffb38a" },
   bedtime: { bg: "#0d0d0c", surface: "#171615", ink: "#edeae4", muted: "#b3aea6", meta: "#8f8a83", line: "#2a2826", "signal-evidence-text": "#ff7a2f" },
 } as const;
 
 /** Every theme defines every token, so a component never meets an undefined colour. */
-const ROLES = ["bg", "surface", "raised", "line", "ink", "muted", "meta", "ink-routine", "signal-evidence-text", "signal-evidence-fill", "on-signal-evidence-fill", "signal-evidence-soft"];
+const ROLES = ["bg", "surface", "raised", "line", "ink", "muted", "meta", "ink-routine", "signal-evidence-text", "signal-evidence-fill", "on-signal-evidence-fill", "signal-evidence-pale", "signal-evidence-soft"];
 
 const source = (dirs: string[]) =>
   execFileSync("git", ["ls-files", ...dirs], { encoding: "utf8" })
@@ -51,13 +52,14 @@ describe("palette", () => {
     });
   }
 
-  it("the light finding text is the owner's orange, darkened just enough", () => {
-    expect(contrast("#e84e0f", "#ffffff")).toBeLessThan(4.5);
+  it("the light finding text is the pastel, darkened just enough", () => {
+    expect(contrast(tokens.light["signal-evidence-fill"], "#ffffff")).toBeLessThan(4.5);
     expect(contrast(tokens.light["signal-evidence-text"], "#ffffff")).toBeGreaterThanOrEqual(4.5);
   });
 
-  it("the page is never pure black", () => {
-    expect(tokens.dark.bg).not.toBe("#000000");
+  it("the dark finding text is the pastel itself, readable on black", () => {
+    expect(tokens.dark["signal-evidence-text"]).toBe(tokens.dark["signal-evidence-fill"]);
+    expect(contrast(tokens.dark["signal-evidence-text"], tokens.dark.bg)).toBeGreaterThanOrEqual(4.5);
   });
 
   it("the browser chrome colour is a copy of --bg", () => {
