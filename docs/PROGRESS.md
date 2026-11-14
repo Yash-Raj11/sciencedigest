@@ -91,6 +91,17 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       onto kinds; (3) `docs/POST-RECIPE.md` + the sticky slot strip; (4) Life Game widgets made
       more interactive and visual; (5) pipeline `prompts.ts` proposing figure specs;
       (6) Related reads slot + `docs/IDEAS.md` (caffeine + L-theanine).
+- [ ] Simulators (owner, 2026-11-14; plan: `docs/SIMULATORS.md`). Caffeine first:
+- [ ] Fact library: data shape for an approved context fact + lookup (paper facts → library).
+- [ ] Build check + fallback: no fact → publish with the card figure and queue an upgrade.
+- [ ] `/admin/queue` "simulator upgrade" item type (1–3 Europe PMC candidates) + weekly batch view.
+- [ ] Related reads slot under a simulator's result (published papers by tag).
+- [ ] Each kind's simulator: decay (caffeine), association-curve (steps), compare-bars (HIIT),
+      grid (turmeric), dose-response, step-through (none).
+- [ ] The pipeline proposes the figure kind and the simulator inputs (`prompts.ts`).
+- [ ] Reader inputs stored on the device only (like the theme).
+- [ ] Run the coverage pass on the 4 existing papers, so their checklist rows stop showing
+      "not found" (`extract` re-run into scratch; merge only the coverage facts after review).
 - [ ] 2E. Rewrite the three `editorial.json` files; concept files listed; `prompts.ts` updated
       with an old-shape refusal test; allowlist deleted; before/after table per paper.
 - [ ] ⏸ Stop. Owner approves concepts and reads all three. Phase 9 is not done until then.

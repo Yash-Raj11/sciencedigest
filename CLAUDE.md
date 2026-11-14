@@ -2,6 +2,7 @@
 
 Read this first. `docs/MANUAL.md` explains how to do things; this file says what must stay true.
 `docs/BUILD-LOG.md` records decisions already made. `docs/data-model.md` is the database.
+`docs/SIMULATORS.md` is the personal-simulator plan (layers, kinds, fact library, spreads): build figures to it.
 
 ## What this is
 
