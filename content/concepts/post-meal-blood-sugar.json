@@ -6,5 +6,9 @@
     "doi": "10.1177/193229680700100513",
     "title": "Continuous glucose profiles in healthy subjects under everyday life conditions and after different meals"
   },
-  "reviewed_by_owner": false
+  "reviewed_by_owner": true,
+  "reviewed": {
+    "at": "2026-11-14T19:13:24.746Z",
+    "fingerprint": "bea9e8c0d912"
+  }
 }

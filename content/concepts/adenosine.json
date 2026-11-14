@@ -6,5 +6,9 @@
     "doi": "10.1126/science.276.5316.1265",
     "title": "Adenosine: a mediator of the sleep-inducing effects of prolonged wakefulness"
   },
-  "reviewed_by_owner": false
+  "reviewed_by_owner": true,
+  "reviewed": {
+    "at": "2026-11-14T19:13:10.295Z",
+    "fingerprint": "72ec0225187b"
+  }
 }
