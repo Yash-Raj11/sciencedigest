@@ -401,10 +401,9 @@ Next unchecked item: 2E. Rewrite the three `editorial.json` files; concept files
 `prompts.ts` updated with an old-shape refusal test; allowlist deleted; before/after table per
 paper. (The coverage pass is done and merged, 2026-11-19; the three reads still on the
 allowlist are daytime-caffeine-sleep, hiit-body-composition and steps-days-per-week.)
-Waiting on the owner: the caffeine design label ("Randomized crossover trial") beside the
-paper's "pseudo-randomization" sentence (BUILD-LOG 2026-11-19); second "go" for the hosted seed
-push; wip/colour-figures; five-readings in the turmeric receipts; the five FIGURE-DESIGN
-departures; the clear-control labels and the turmeric meal picker's default (BUILD-LOG 2026-11-19).
+Waiting on the owner: second "go" for the hosted seed push; wip/colour-figures; five-readings
+in the turmeric receipts; the five FIGURE-DESIGN departures; the clear-control labels and the
+turmeric meal picker's default (BUILD-LOG 2026-11-19).
 ```
 
 ---

@@ -1986,3 +1986,10 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   test reads the steps fact count from the file instead of pinning 34. New: every id in each
   paper's coverage map names one of its gated facts, and all six items are present (break B11
   caught, `breaks.txt`).
+
+## 2026-11-19: owner ruling: the caffeine design label stays
+
+- Asked whether "Randomized crossover trial" still fits beside the paper's sentence that the order
+  of the three conditions was "based on pseudo-randomization" (now gated as
+  `pseudo_randomization`). Owner: **keep the label.** The design stays `crossover` with the
+  randomized audit wording of 2026-11-14; nothing in the read or the gate changes.
