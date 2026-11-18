@@ -46,7 +46,7 @@ The interactive part is the product; the text is what justifies it.
 | Pipeline commands (`npm run paper -- fetch / extract / draft / approve`) | `fetch` and `extract` run live 2026-11-14; `draft` never run live | BUILD-LOG 2026-11-14 (three turmeric benchmarks, one context study) |
 | Extract model: Gemini 4 Hydrogen, Gemini API free tier, through the openai-compatible adapter (per-stage thinking level, 429/503 retry); Groq and Ollama are fallbacks | **Adopted for extract** 2026-11-14; editorial not benchmarked (2E) | BUILD-LOG 2026-11-14; `lib/ai/provider.test.ts` |
 | Extract: the six fact kinds, one value per passage, a second "conditions & confounds" pass writing `coverage`; the gate refuses a p-value filed as background | Built | Turmeric round 3: 35/42 strict, 41 with equivalents, 0 wrong numbers; `lib/pipeline/coverage.test.ts` |
-| Coverage checklist per paper in `/admin/queue` (drafts included; ticked only by gated facts) | Built. The four existing papers show the pass items as "not found" (hand-made extractions) | API checked on the dev server 2026-11-14 |
+| Coverage checklist per paper in `/admin/queue` (drafts included; ticked only by gated facts) | Built. The four existing papers got the pass coverage-only (`paper extract --coverage-only`, scratch copies only) and the owner merged all 71 new facts, 2026-11-19: rows found of nine, caffeine 7, HIIT 6, steps 6, turmeric 9. Nothing a reader sees changed (only cited facts are bundled) | `docs/evidence/coverage-pass/` (each paper's review with every quote, breaks 11 of 11, checklist-after-merge.txt), `scripts/coverage-only.test.ts`, `lib/pipeline/coverage.test.ts` |
 | Gate: `crossover` design (crossover named + randomisation, negation refused); rct negation guard; spreads (sd, ci95, range, iqr) never converted; measure `mean` | Built | `lib/pipeline/crossover.test.ts`, `lib/models/spread.test.ts` |
 | First context study `caffeine-saliva-half-life` (Wildgrube 2025): crossover, n = 12, grade low; half-life mean 5.15 h, sd 1.21; arm D excluded (`excluded.json`) | Gated, cited by no read yet | `npm run content:build` report |
 | Personal-simulator plan (`docs/SIMULATORS.md`): layers, kinds, fact library, spreads, four design notes | Written; nothing of it built beyond the decay kind | — |
@@ -73,6 +73,9 @@ The interactive part is the product; the text is what justifies it.
 | Reader inputs stored on the device only (2026-11-19): what a reader types or picks in a simulator (caffeine, steps, turmeric switches and meal, HIIT routine) comes back on a reopened read; `sd.sim.<slug>.<simulator>` in localStorage, checked in and out (dropped, never clamped); "Clear my numbers" by the simulator and on Me; a privacy line | Built; never synced, no change to `supabase/`, scoring or the store | `lib/reader-inputs.ts`, `lib/reader-inputs.test.ts`, `tests/browser/reader-inputs.spec.ts`, `docs/evidence/reader-inputs/` |
 | Documents: `CLAUDE.md`, `docs/MANUAL.md`, `ARCHITECTURE.md`, `data-model.md`, `BUILD-LOG.md` | Written | — |
 
+Totals on 2026-11-19 (after the coverage pass was merged): 752 unit, 15 HTTP and 105 browser
+tests (`docs/evidence/coverage-pass/gates-after-merge.txt`, copied to `unit-tests.txt`,
+`http-tests.txt`, `browser-tests.txt`); database not re-run (no SQL touched).
 Totals on 2026-11-19 (after reader inputs): 734 unit, 15 HTTP and 103 browser tests
 (`docs/evidence/reader-inputs/gates.txt`, copied to `unit-tests.txt`, `http-tests.txt`,
 `browser-tests.txt`); database not re-run (no SQL touched).
@@ -82,6 +85,14 @@ Totals on 2026-11-18 (after the draft-stage menu of figure kinds): 700 unit test
 (`browser-tests.txt`); 191 database assertions per pass and 16 of 16 mutations (unchanged and
 not re-run: no SQL touched since 2026-11-14).
 Outputs are in `docs/evidence/`.
+
+### Deployment state (2026-11-19, after the coverage pass)
+
+- `main` carries the coverage-only tool (`bd71f8f`), the run's evidence (`b023f01`) and the
+  merge (the handoff commit). The merge changes only the four `extraction.json` files and tests:
+  `lib/content/generated.ts`, `content/generated/` and `supabase/seed.sql` are unchanged, so the
+  live reads are the same and the hosted seed is no further behind than before.
+- Hosted database: unchanged; the seed push still waits on the owner's second "go".
 
 ### Deployment state (2026-11-19, after reader inputs)
 
@@ -386,15 +397,14 @@ git log --oneline -5. If the tree is not clean, tell me what is uncommitted befo
 anything. Then continue the master prompt from the first unchecked item in
 docs/PROGRESS.md, with the same working rules and the same ⏸ stops.
 
-Next unchecked item: Run the coverage pass on the 4 existing papers, so their checklist rows
-stop showing "not found" (`extract` re-run into scratch; merge only the coverage facts after
-review). Then 2E. Rewrite the three `editorial.json` files; concept files listed; `prompts.ts`
-updated with an old-shape refusal test; allowlist deleted; before/after table per paper.
-How: coverage-only, against the hand-checked facts, into scratch (owner, 2026-11-19; MASTER-PROMPT
-amendment). Say before calling the model; show me the new facts before merging.
-Waiting on the owner: second "go" for the hosted seed push; wip/colour-figures; five-readings in the
-turmeric receipts; the five FIGURE-DESIGN departures; the clear-control labels and the turmeric
-meal picker's default (BUILD-LOG 2026-11-19).
+Next unchecked item: 2E. Rewrite the three `editorial.json` files; concept files listed;
+`prompts.ts` updated with an old-shape refusal test; allowlist deleted; before/after table per
+paper. (The coverage pass is done and merged, 2026-11-19; the three reads still on the
+allowlist are daytime-caffeine-sleep, hiit-body-composition and steps-days-per-week.)
+Waiting on the owner: the caffeine design label ("Randomized crossover trial") beside the
+paper's "pseudo-randomization" sentence (BUILD-LOG 2026-11-19); second "go" for the hosted seed
+push; wip/colour-figures; five-readings in the turmeric receipts; the five FIGURE-DESIGN
+departures; the clear-control labels and the turmeric meal picker's default (BUILD-LOG 2026-11-19).
 ```
 
 ---
