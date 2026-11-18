@@ -390,9 +390,9 @@ Next unchecked item: Run the coverage pass on the 4 existing papers, so their ch
 stop showing "not found" (`extract` re-run into scratch; merge only the coverage facts after
 review). Then 2E. Rewrite the three `editorial.json` files; concept files listed; `prompts.ts`
 updated with an old-shape refusal test; allowlist deleted; before/after table per paper.
-Waiting on the owner: how to run the coverage pass (BUILD-LOG 2026-11-19: a full `extract` gives
-new model ids that must be mapped by hand; a coverage-only run against the hand-checked facts
-does not); second "go" for the hosted seed push; wip/colour-figures; five-readings in the
+How: coverage-only, against the hand-checked facts, into scratch (owner, 2026-11-19; MASTER-PROMPT
+amendment). Say before calling the model; show me the new facts before merging.
+Waiting on the owner: second "go" for the hosted seed push; wip/colour-figures; five-readings in the
 turmeric receipts; the five FIGURE-DESIGN departures; the clear-control labels and the turmeric
 meal picker's default (BUILD-LOG 2026-11-19).
 ```

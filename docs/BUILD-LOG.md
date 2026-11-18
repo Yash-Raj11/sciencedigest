@@ -1897,3 +1897,11 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   "re-run extract", and either way calls the model with `AI_API_KEY`.
 - Still the owner's to decide from this item: one clear label everywhere ("Clear my numbers")
   instead of per simulator; whether turmeric's breakfast picker should open with no meal chosen.
+
+## 2026-11-19: the owner chose the coverage-only run
+
+- Owner, answering the handoff question: run the coverage pass **coverage-only**, against the
+  hand-checked facts, into scratch. Recorded as a MASTER-PROMPT amendment and in PROGRESS. Not
+  run yet: the next session adds the run (a flag on `paper extract`, or a step beside it; no new
+  dependency, `content/papers/` untouched), says before it calls the model, and shows the owner the
+  new facts and ticked items before merging.

@@ -412,3 +412,13 @@ The prompt is saved here so a session with no chat history can continue from thi
 - **Sketches** (rulings R1, R2 and item 4): where the paper measured something, draw the data;
   otherwise a sketch (shape only, monochrome and dotted, tagged "Sketch, not data") may rest on
   a background concept the owner has reviewed. Details: `docs/FIGURE-DESIGN.md`, CLAUDE.md H7/H12.
+
+### 2026-11-19: the coverage pass on the four existing papers, coverage-only
+
+- The owner chose a **coverage-only run** over a full `extract` re-run. Feed the conditions &
+  confounds request (`COVERAGE_SYSTEM`, `coveragePrompt`) the hand-checked facts of each paper's
+  `extraction.json`, and write the result to a scratch copy (`SD_PAPERS_DIR`), never over
+  `content/papers/`. Then its coverage map points at existing ids, and only the new facts need
+  review. The owner reviews the new facts and ticked items before anything is merged. It calls the
+  model with `AI_API_KEY`: say so before starting. Reason: BUILD-LOG 2026-11-19 (a full re-run
+  gives new model ids that would have to be mapped by hand).
