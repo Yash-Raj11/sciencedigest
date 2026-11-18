@@ -1,0 +1,14 @@
+Hosted seed dry run, 2026-11-18, on the owner's "go" (dry run only; nothing written)
+Command: supabase db push --remote --dry-run --include-seed   (CLI 3.1.0, main at 838430a)
+
+Target: project Science Digest (takhienzcshgkytbvaii) · production
+Initialising login role...
+DRY RUN: migrations will *not* be pushed to the database.
+Would seed these files:
+ • supabase/seed.sql (hash update)
+{"upToDate":false,"dryRun":true,"migrations":[],"seeds":["supabase/seed.sql"],"roles":[],"message":"Finished supabase db push.","target":{"kind":"linked","project_ref":"takhienzcshgkytbvaii","project_name":"Science Digest","environment":"production"}}
+
+Reading: no migrations pending. The hosted seed hash differs from supabase/seed.sql on main,
+so the hosted reads are older than main (at least the four sketches are missing there).
+"hash update" writes no rows on an already-seeded project (MANUAL 3.3): the rows need
+supabase db query --remote --yes -f supabase/seed.sql, then the published-papers count (expect 4).

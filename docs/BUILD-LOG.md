@@ -1774,3 +1774,16 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   - screenshots in Dark and Light (`scripts/sketch-shots.mts`).
 - The hosted seed is now out of date (new figures). It is not pushed: that waits on the owner's
   "go".
+
+## 2026-11-18: hosted seed dry run
+
+- On the owner's "go", ran `supabase db push --remote --dry-run --include-seed`. Nothing was
+  written. No migrations are pending. `supabase/seed.sql` differs from the seed recorded on the
+  hosted project ("hash update"). The hosted reads are therefore older than `main`, and that
+  answers the 2026-11-15 question: whichever commit that push came from, the hosted seed needs
+  re-running now. Output: `docs/evidence/sketches/hosted-seed-dry-run.txt`.
+- The real push waits on a second "go". It has three steps:
+  1. `push --include-seed --yes`, which only records the hash;
+  2. `db query --remote --yes -f supabase/seed.sql`, which writes the rows (it upserts reference
+     content only, as `scripts/seed-safety.test.ts` checks);
+  3. a read-only count of published papers, which should be 4.
