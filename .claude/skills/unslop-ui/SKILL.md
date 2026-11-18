@@ -17,6 +17,7 @@ habit widget, which is the core product. Run the Section 7 checklist before call
 | Here | Resolved as |
 |---|---|
 | Section 6 starter tokens (green accent) | **Not used.** The tokens in `app/globals.css` are the design system: dark, light and bedtime themes, pastel orange as the one accent (`--signal-evidence-*`). Never add a second accent or a hue-named token. |
+| "One accent, only on progress, the CTA and completed states" | Orange is the one accent, and it also means **this paper's finding**: figures' measured marks, the receipts, source dots (owner, 2026-11-18). The cap is the orange budget, 10 items per 390 px screen (`tests/browser/readability.spec.ts`), not this table. |
 | "% of protocol completed" ring | The ring shows a number the app already has: **evidence-weighted adherence** or **plain consistency** (boxes ticked today), computed in `lib/score.ts`. No new percentage, XP or points (rule 3). A per-paper component never computes it (widget guard). |
 | Specific headlines | The headline stays **one yes/no question with the plain finding beneath it** (`lib/pipeline/editorial.ts`). Make the finding beneath it specific. No causal verb without a randomized design, no hype words (`lint.ts`). |
 | Motion on figures | Figures hold **no timer and no animation** (figure guard). Motion rules apply to controls and the check-off moment only. |

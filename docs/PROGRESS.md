@@ -132,7 +132,7 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
         turmeric, steps, HIIT). Not built. Open: owner ruling on a sketch resting on a concept (j1).
   - [x] ⏸ Stop after 7 with hashes, contrast table, screenshot paths, plans; /phase-handoff.
         Answered 2026-11-15: rulings R1–R7 and the five-item list below.
-- [ ] Owner rulings R1–R7 on FIGURE-DESIGN.md + items 1–5 (2026-11-15):
+- [x] Owner rulings R1–R7 on FIGURE-DESIGN.md + items 1–5 (2026-11-15):
   - [x] 1. Themes: Dark, Light, Bedtime; orange roles by meaning; budget test (≤ 3 per screen);
         Me setting; scoring explainer. `docs/evidence/themes/` (contrast.md, screenshots, gates).
   - [x] 2. Headlines: the question the paper answers, the plain finding beneath; lint rule
@@ -143,8 +143,10 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
         a source guard. BUILD-LOG 2026-11-15.
   - [x] 5. Concepts adenosine, post-meal-blood-sugar, fat-free-mass written (not approved);
         references resolve (`docs/evidence/themes/concept-references.txt`).
-  - [ ] ⏸ Stop: hashes, contrast table, theme screenshots, 4 headlines, 3 concepts' plain text; /phase-handoff.
-        Reported 2026-11-15. Waiting on the owner: review the 4 headlines and the 3 concepts
+  - [x] ⏸ Stop: hashes, contrast table, theme screenshots, 4 headlines, 3 concepts' plain text; /phase-handoff.
+        Answered 2026-11-15: headlines fixed (`f52af35`), adenosine and post-meal-blood-sugar
+        approved (`ceaf04c`), fat-free-mass approved; all four concepts now `reviewed_by_owner`.
+        Reported 2026-11-15. Was waiting on the owner: review the 4 headlines and the 3 concepts
         (`npm run paper -- approve-concept <slug>`, the owner's command); "go" for the hosted seed
         (the seed changed: `finding.question` in `paper_content`; hosted is one seed behind).
 - [ ] **Next (owner, 2026-11-15): build the figures from `docs/FIGURE-DESIGN.md`**, two per paper
@@ -160,7 +162,14 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
         Screens: `docs/evidence/figures-v2/hiit-body-composition/`.
   - [x] HIIT 4B review: collapsed subgroups, printed ranges, no-hover-only rule (eslint + browser).
   - [x] Turmeric 2A (mechanism). Screens: `docs/evidence/figures-v2/turmeric-pepper-breakfast/`.
+  - [x] Owner's design pass 2026-11-18 (not in the master prompt; BUILD-LOG 2026-11-18):
+        `unslop-ui` skill (`f4274f7`); orange swaps parked on `wip/colour-figures` (`981b7cf`,
+        not for main as it stood); source dots and glossary underline orange again, exempt from
+        the budget; premium palette (warm paper light, deep soft black dark), orange measured
+        marks in figures, receipts card redesigned, caffeine time slider, orange budget raised
+        3 → 10 per screen (`92610a6`). Screens: `docs/evidence/premium/`.
   - [ ] The sketches: caffeine 1A/1B, turmeric 2B, HIIT 4A (fat-free-mass approved 2026-11-14).
+        All four concepts are reviewed (2026-11-18 check), so none is blocked.
 - [ ] The pipeline proposes the figure kind and the simulator inputs (`prompts.ts`).
 - [ ] Reader inputs stored on the device only (like the theme).
 - [ ] Run the coverage pass on the 4 existing papers, so their checklist rows stop showing

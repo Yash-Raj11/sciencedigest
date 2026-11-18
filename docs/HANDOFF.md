@@ -65,14 +65,26 @@ The interactive part is the product; the text is what justifies it.
 | Fourth paper `turmeric-pepper-breakfast` (free, three layers, hand-written: no model run, so it does not count toward the Phase 10 gate) | Approved; on the hosted database and on `main`/Vercel (`80e1caa`) | BUILD-LOG 2026-11-13 and 2026-11-14 |
 | Simulators drawn by kind, live: caffeine decay (half-life from the context study `caffeine-saliva-half-life`), steps association-curve | Live on `main` | `docs/evidence/simulators/`, `tests/browser/simulators.spec.ts` |
 | Readability pass 1–7 (owner, 2026-11-14): tokens + contrast table (all ≥ 4.5:1), orange once per screen, plain-language lint rules, finding cards, source line (who · design · how long) + grade words/3-bar meter/tap for why (no weight on any screen), feed card at a glance with "What's inside" deep links, hosted seed, figure plans (SIMULATORS.md j) | Built 1–6; 7 is plans only. ⏸ waiting on the owner | `docs/evidence/readability/` (contrast.md, plain-rules-broken.txt, hosted-seed.txt, feed/read/card screenshots dark + light), `scripts/visual-system.test.ts`, `lib/pipeline/plain.test.ts`, `lib/evidence-words.test.ts`, `scripts/glance.test.ts`, `tests/browser/readability.spec.ts`, `tests/browser/source-line.spec.ts` |
-| Owner's list of 2026-11-15: themes Dark / Light / Bedtime (tokens by meaning, `--signal-evidence-*`; orange = this paper's finding; ≤ 3 orange items per 390 px screen; habits monochrome; weights only in "How scoring works"); question headlines with the finding beneath (lint `headline`); members' card = question + finding + one sentence + figure (amendment A widened); sketch rule (`lib/content/sketch.ts`); three concepts written, not approved; rulings R1–R7 in FIGURE-DESIGN.md | Built and live on `main`. Figures of FIGURE-DESIGN.md **not built yet** (next item). Hosted seed one behind (needs the owner's "go") | `docs/evidence/themes/` (contrast.md, screenshots, gates-item1…5.txt, concept-references.txt), `scripts/visual-system.test.ts`, `tests/browser/readability.spec.ts`, `lib/pipeline/headline.test.ts`, `lib/content/sketch.test.ts`, `lib/pipeline/sketch-lint.test.ts`, `tests/http/members-content.test.ts` |
+| Owner's list of 2026-11-15: themes Dark / Light / Bedtime (tokens by meaning, `--signal-evidence-*`; orange = this paper's finding; ≤ 3 orange items per 390 px screen; habits monochrome; weights only in "How scoring works"); question headlines with the finding beneath (lint `headline`); members' card = question + finding + one sentence + figure (amendment A widened); sketch rule (`lib/content/sketch.ts`); three concepts written, not approved; rulings R1–R7 in FIGURE-DESIGN.md | Built and live on `main`. Concepts since approved; budget since raised to 10 (next rows). Hosted seed: see deployment state | `docs/evidence/themes/` (contrast.md, screenshots, gates-item1…5.txt, concept-references.txt), `scripts/visual-system.test.ts`, `tests/browser/readability.spec.ts`, `lib/pipeline/headline.test.ts`, `lib/content/sketch.test.ts`, `lib/pipeline/sketch-lint.test.ts`, `tests/http/members-content.test.ts` |
+| Figures of FIGURE-DESIGN.md, data figures (2026-11-15): steps 3A (audit) + 3B, HIIT 4B "the order flips" (members, `protocolFigure` slot), turmeric 2A "from the tongue to the blood" | Built and live on `main`. **The four sketches (caffeine 1A/1B, turmeric 2B, HIIT 4A) are not built** (next item; all four concepts reviewed) | `docs/evidence/figures-v2/`, `scripts/order-flips.test.ts`, `scripts/tongue-to-blood.test.ts` |
+| Owner's design pass 2026-11-18: `unslop-ui` skill (`.claude/skills/unslop-ui/`); premium palette (light: warm paper page, white cards, warm ink; dark: deep soft black, layered greys); orange measured marks in figures; receipts card (tinted header, tiles, numbered receipts); source dots and glossary underline orange with pastel, exempt from the budget; caffeine time slider; orange budget 10 per screen (was 3) | Built and live on `main` (`92610a6`). Earlier orange swaps parked, unmerged, on `wip/colour-figures` (`981b7cf`) | `docs/evidence/premium/`, `docs/evidence/themes/contrast.md` (regenerated), `scripts/visual-system.test.ts`, `scripts/decay-kind.test.ts`, `tests/browser/readability.spec.ts`, `tests/browser/simulators.spec.ts` |
 | Documents: `CLAUDE.md`, `docs/MANUAL.md`, `ARCHITECTURE.md`, `data-model.md`, `BUILD-LOG.md` | Written | — |
 
-Totals on 2026-11-15 (after the owner's five-item list): 595 unit tests
+Totals on 2026-11-18 (after the owner's design pass): 660 unit tests
 (`docs/evidence/unit-tests.txt`); 15 HTTP tests (`http-tests.txt`) and 89 browser tests
-(`browser-tests.txt`); 191 database assertions per pass and 16 of 16 mutations (unchanged: no
-SQL touched since).
+(`browser-tests.txt`); 191 database assertions per pass and 16 of 16 mutations (unchanged and
+not re-run: no SQL touched since 2026-11-14).
 Outputs are in `docs/evidence/`.
+
+### Deployment state (2026-11-18)
+
+- `main` is at the 2026-11-18 handoff commit; Vercel deployed `92610a6` (both projects success,
+  live `/` 200 with the new palette). The branch `wip/colour-figures` is on GitHub and is not
+  deployed or merged; its figure swaps are already on `main`, the rest stays parked.
+- Hosted database: no migration since `20261114000100_set_step_amount.sql`. `supabase/seed.sql`
+  last changed in `a0059a7` (2026-11-15, turmeric 2A); the BUILD-LOG records one hosted push on
+  2026-11-15 but not whether it came after `3492dea`, `3a4dfbb` and `a0059a7`. Run the dry run
+  (MANUAL 3.3) on the owner's "go" to see if it is behind. Nothing changed the seed on 2026-11-18.
 
 ### Deployment state (2026-11-15)
 

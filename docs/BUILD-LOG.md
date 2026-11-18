@@ -1680,3 +1680,22 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - The orange budget is raised from three to ten per 390 px screen (owner, 2026-11-18). The
   receipts card alone puts nine on its busiest screen. One focal item per feed card stays. The
   "pastel fill is a surface" rule is unchanged.
+
+## 2026-11-18: UI rules skill, and the handoff
+
+- `unslop-ui` skill added (`.claude/skills/unslop-ui/SKILL.md`, listed in CLAUDE.md), from the
+  owner's pasted rules. Section 0 records where it yields to CLAUDE.md: the existing tokens, not
+  its sample green palette; adherence or consistency in the ring, never a new number; the yes/no
+  headline; no motion in figures. Updated the same day: orange also marks the finding in figures
+  and receipts, capped by the budget of 10.
+- Icons: Lucide was tried and taken out on the owner's word ("let the svg as they were"). The
+  app keeps its hand-drawn inline SVG icons; no icon library without asking.
+- Still the owner's to decide:
+  1. The hosted seed: whether the 2026-11-15 push came after `a0059a7`. A dry run (MANUAL 3.3)
+     on the owner's "go" answers it.
+  2. `wip/colour-figures`: its figure swaps are on `main`; the rest (orange buttons, chips,
+     links, tab bar, ring in reads, Notice) is parked. Keep, cherry-pick under the visual-system
+     test, or delete the branch.
+- Evidence: unit, HTTP and browser output saved in `docs/evidence/`; screenshots in
+  `docs/evidence/premium/` (`scripts/premium-shots.mts`). Database tests not re-run: no SQL
+  touched since 2026-11-14.
