@@ -44,6 +44,7 @@ import { CoveragePass, mergeCoverage } from "../lib/pipeline/coverage";
 import { findRetracted, parseRetractionWatch } from "../lib/pipeline/retractions";
 import type { GateRole } from "../lib/pipeline/gate";
 import { loadContext } from "./context-load";
+import { kindMenu, proposeKinds } from "../lib/pipeline/propose";
 import { LEGACY_SHAPE_ALLOWLIST } from "./legacy-shape";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
@@ -193,13 +194,17 @@ async function draft(slugArg: string | undefined) {
   const validated = runGate(slug);
   if (!validated) die("The gate must pass before a draft is written.");
   // The editorial model is handed the validated facts and nothing else. It never sees the paper.
+  // Code works out which figure kinds those facts can feed (and with which facts); the model picks from that menu.
+  const { context } = loadContext(CONTEXT, CONCEPTS);
+  const kinds = kindMenu(proposeKinds(validated!.facts, context));
+  console.log(`figure kinds offered:\n${kinds}`);
   const started = Date.now();
   // The JSON check is the schema only (either shape, so the lint can name a wrong one); the lint judges the content.
   const shape = zodCheck(Editorial.or(LegacyEditorial));
   const { value, retries } = await completeJson({
     stage: "editorial",
     system: EDITORIAL_SYSTEM,
-    prompt: editorialPrompt({ slug, validated: validated!, exampleEditorial: readFileSync(`${EXAMPLE}/editorial.json`, "utf8") }),
+    prompt: editorialPrompt({ slug, validated: validated!, exampleEditorial: readFileSync(`${EXAMPLE}/editorial.json`, "utf8"), kinds }),
   }, (reply) => shape({ ...(reply as object), slug, publishedAt: null }));
   const editorial = value as Record<string, unknown>;
   console.log(`JSON retries: ${retries}, ${((Date.now() - started) / 1000).toFixed(1)} s`);

@@ -1787,3 +1787,36 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   2. `db query --remote --yes -f supabase/seed.sql`, which writes the rows (it upserts reference
      content only, as `scripts/seed-safety.test.ts` checks);
   3. a read-only count of published papers, which should be 4.
+
+## 2026-11-18: the draft stage proposes the figure kind and the simulator inputs
+
+- **Code proposes, the model picks, the lint judges.** Before a draft, `proposeKinds`
+  (`lib/pipeline/propose.ts`, pure) lists every figure kind with the gated facts that could fill
+  each of its slots, by the same tests `specProblems` applies: an estimate with a number, the
+  kind's unit, and a printed range for a simulator input (H12). `kindMenu` turns it into text with
+  ids, labels and units, never a fact's value. `npm run paper -- draft` prints the menu and hands
+  it to `editorialPrompt` (`kinds`). The model is told to copy ids from the list into the spec,
+  never a number, and to fall back to `estimate-explorer` when no kind fits. The menu saves a
+  wasted draft; it lets nothing through, because the lint still checks the spec.
+- Why code and not the model: which facts fit a kind is a rule the repository already holds in
+  code (`FIGURE_KINDS`, `hasRange`). Asking the model to rediscover it would invite a spec the
+  lint refuses, or a simulator on a fact with no range.
+- **Order follows SIMULATORS.md g:** the paper's own facts, then the owner-approved library
+  (excluded, withdrawn or ungated library facts are never offered). The library fills the still
+  view too, as the caffeine read does today.
+- **A kind only the library can fill is marked "ANOTHER STUDY ONLY".** A library fact fits any
+  paper by its unit, so the caffeine half-life is offered to steps, HIIT and turmeric as well.
+  The menu lists these kinds after the paper's own, and the prompt says to use one only when the
+  read is about what that fact measures. This is a judgment left to the model and then the
+  owner's read of the draft; no relevance rule exists in code. If the library grows, a
+  relevance check (for example by the entry's `quantity`) may be worth adding.
+- `KIND_GUIDE` (`prompts.ts`): one plain sentence per kind on what it draws, the params it needs
+  and the words it reads, joined into `EDITORIAL_SYSTEM`. A test fails when a kind has no guide.
+- On the four papers: caffeine is offered decay (library only); steps association-curve from its
+  own facts, every id its read uses included; HIIT and turmeric have no kind of their own (their
+  simulators are hand-built), so they are offered only the library's decay.
+- The rest of the draft prompt is still the old flat shape. 2E rewrites it to the three layers.
+- Not run against the model yet: the first live `draft` is Phase 10.
+- Evidence: `docs/evidence/propose/gates.txt` (lint, typecheck, 700 unit tests, build) and
+  `breaks.txt` (9 deliberate breaks, each failing `lib/pipeline/propose.test.ts`, each passing
+  again once restored). No screens or routes changed, so browser and HTTP tests were not re-run.

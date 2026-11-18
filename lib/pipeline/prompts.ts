@@ -6,6 +6,8 @@
  * example, so the model sees the exact shape it has to return.
  */
 
+import type { FigureKind } from "../content/figure-kinds";
+
 export const EXTRACT_SYSTEM = `You extract facts from one clinical research paper into strict JSON. You do not summarise, judge or grade.
 
 Rules:
@@ -65,7 +67,7 @@ FULL TEXT OF THE PAPER:
 ${input.source}`;
 }
 
-export const EDITORIAL_SYSTEM = `You write a short, plain-language read about one clinical study for people with no science background. You are given ONLY a validated list of facts extracted from the paper. You have not seen the paper and must not add anything that is not in the facts.
+const EDITORIAL_RULES = `You write a short, plain-language read about one clinical study for people with no science background. You are given ONLY a validated list of facts extracted from the paper. You have not seen the paper and must not add anything that is not in the facts.
 
 Return one JSON object and nothing else, in the same shape as the example.
 
@@ -87,16 +89,49 @@ Rules (a program checks every one and rejects the draft if any is broken):
 - Every number you write must appear in a fact you cite for that sentence.
 - 350 to 1000 words in total. Short sentences. Define any technical word the first time you use it.
 - steps: the protocol a reader can track. Only genuine daily choices are "action" steps. "N times a week" is a weekly_target that counts an action step. A step's evidenceRef names the estimate or finding that supports it; leave it null if nothing does. Never write a grade or a weight: those are derived by code.
-- simulator: use {"kind": "estimate-explorer", "params": {"lowLabel": "...", "highLabel": "...", "rows": [{"label": "...", "fact": "fact:<id>"}]}} with 2 to 8 estimate facts worth comparing.
+- simulator: choose it from FIGURE KINDS AVAILABLE, below the facts. That list was worked out by a program from these facts; it is the only list.
+  - Prefer a kind filled from this paper's own facts. A kind marked ANOTHER STUDY ONLY rests on an owner-approved fact from another study: use it only when this read is about what that fact measures, and say in words.halfLifeNote (or the kind's note) that the number comes from another study.
+  - If a kind offers a simulator, use it: {"kind": "<kind>", "spec": {"kind": "<kind>", "facts": {...}, "simulator": {...}}, "params": {...}, "words": {"alt": "...", ...}}. The kind's guide says which params and words it reads.
+  - Every value in "spec" is a fact id copied from that kind's list, in the slot it is listed under. Never a number, never text to show, never a fact id that is not listed there.
+  - If no kind fits (none offers a simulator, or the only ones are ANOTHER STUDY ONLY and this read is about something else), use {"kind": "estimate-explorer", "params": {"lowLabel": "...", "highLabel": "...", "rows": [{"label": "...", "fact": "fact:<id>"}]}} with 2 to 8 estimate facts worth comparing. Never make up a personal estimate: a simulator exists only where a listed fact has a range.
+  - glance.figure may be "simulator" only for a simulator drawn by kind.
+  - words.alt describes in one sentence what the chart shows. Every word in "words" is markup and follows every rule above.
 - carousel: 5 to 8 slides for Instagram (kinds: hook, finding, population, limitation, nuance, cta). It must include a population slide and a limitation slide. The same markup and rules apply.
 - publishedAt must be null. A person approves the draft.`;
 
-export function editorialPrompt(input: { slug: string; validated: unknown; exampleEditorial: string }): string {
+/**
+ * What each figure kind draws and reads, for the draft stage. One entry per kind in
+ * FIGURE_KINDS (a test fails when a kind has no guide). Words only: the numbers come from
+ * the facts the spec names.
+ */
+export const KIND_GUIDE: Record<FigureKind, string> = {
+  decay: `decay: something the body clears over time, drawn as a falling curve from one half-life. The reader enters a time and an amount and sees the range left at bedtime.
+  params: {}. words: alt; halfLifeNote (where the half-life comes from, and who it was measured in); finding (this paper's own result, shown beside the estimate).`,
+  "association-curve": `association-curve: groups of an observational study, in order, the first the comparison group. The reader picks their own value and sees their group's printed result. Never causal, whatever the design.
+  spec.facts.raw and spec.simulator.raw: each group's unadjusted share, in group order. spec.simulator.adjusted: each later group's adjusted difference from the first (one fewer than raw).
+  params.groups: one per group, in order, [{"from": {"n": <low edge>, "ref": "<fact>"}, "to": {"n": <high edge>, "ref": "<fact>"}}], each number cited from the fact whose quote prints it; edges follow on with no gap.
+  words: alt; ask (the question put to the reader); headline; who (who this was tested in); rawNote; stripTitle; stripUnder.`,
+};
+
+export const EDITORIAL_SYSTEM = `${EDITORIAL_RULES}
+
+Figure kinds (what each one draws, the params it needs, the words it reads):
+${Object.values(KIND_GUIDE).join("\n")}`;
+
+/**
+ * The draft request. `kinds` is the menu from lib/pipeline/propose.ts (kindMenu(proposeKinds(...))),
+ * worked out from the same validated facts: the model picks its figure kind and simulator inputs
+ * from it, and the lint checks the spec it writes.
+ */
+export function editorialPrompt(input: { slug: string; validated: unknown; exampleEditorial: string; kinds: string }): string {
   return `EXAMPLE OUTPUT (a different paper; copy the shape, not the content):
 ${input.exampleEditorial}
 
 SLUG TO USE: ${input.slug}
 
 VALIDATED FACTS FOR THE PAPER TO WRITE ABOUT:
-${JSON.stringify(input.validated, null, 2)}`;
+${JSON.stringify(input.validated, null, 2)}
+
+FIGURE KINDS AVAILABLE (worked out from these facts; pick the simulator from this list only):
+${input.kinds}`;
 }

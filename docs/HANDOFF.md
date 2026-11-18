@@ -69,10 +69,12 @@ The interactive part is the product; the text is what justifies it.
 | Figures of FIGURE-DESIGN.md, data figures (2026-11-15): steps 3A (audit) + 3B, HIIT 4B "the order flips" (members, `protocolFigure` slot), turmeric 2A "from the tongue to the blood" | Built and live on `main`. The four sketches followed (next row) | `docs/evidence/figures-v2/`, `scripts/order-flips.test.ts`, `scripts/tongue-to-blood.test.ts` |
 | Owner's design pass 2026-11-18: `unslop-ui` skill (`.claude/skills/unslop-ui/`); premium palette (light: warm paper page, white cards, warm ink; dark: deep soft black, layered greys); orange measured marks in figures; receipts card (tinted header, tiles, numbered receipts); source dots and glossary underline orange with pastel, exempt from the budget; caffeine time slider; orange budget 10 per screen (was 3) | Built and live on `main` (`92610a6`). Earlier orange swaps parked, unmerged, on `wip/colour-figures` (`981b7cf`) | `docs/evidence/premium/`, `docs/evidence/themes/contrast.md` (regenerated), `scripts/visual-system.test.ts`, `scripts/decay-kind.test.ts`, `tests/browser/readability.spec.ts`, `tests/browser/simulators.spec.ts` |
 | The four sketches of FIGURE-DESIGN.md (2026-11-18): caffeine 1A parking spot (replaces lock-and-key) and 1B hidden tiredness day (under the simulator; the feed card), turmeric 2B first half hour (protocol layer; the feed card; five-readings moved to the receipts), HIIT 4A two piles. `"sketch:<id>"` references, Sketch primitive the only dotted line | Built; departures from the spec listed in BUILD-LOG 2026-11-18 for the owner. Hosted seed not pushed | `docs/evidence/sketches/` (gates.txt, breaks.txt 8 of 8, screenshots), `scripts/two-piles.test.ts`, `parking-spot.test.ts`, `first-half-hour.test.ts`, `hidden-tiredness.test.ts` |
+| The draft stage proposes the figure kind and the simulator inputs: code lists the kinds the gated facts (and the owner-approved library) can feed, the prompt carries that menu and a guide per kind, the lint still checks the spec | Built; not yet run against the model | `lib/pipeline/propose.ts`, `lib/pipeline/propose.test.ts`, `docs/evidence/propose/` (breaks 9 of 9) |
 | Documents: `CLAUDE.md`, `docs/MANUAL.md`, `ARCHITECTURE.md`, `data-model.md`, `BUILD-LOG.md` | Written | — |
 
-Totals on 2026-11-18 (after the sketches): 688 unit tests
-(`docs/evidence/unit-tests.txt`); 15 HTTP tests (`http-tests.txt`) and 93 browser tests
+Totals on 2026-11-18 (after the draft-stage menu of figure kinds): 700 unit tests
+(`docs/evidence/propose/gates.txt`; 688 after the sketches,
+`docs/evidence/unit-tests.txt`); 15 HTTP tests (`http-tests.txt`) and 93 browser tests
 (`browser-tests.txt`); 191 database assertions per pass and 16 of 16 mutations (unchanged and
 not re-run: no SQL touched since 2026-11-14).
 Outputs are in `docs/evidence/`.

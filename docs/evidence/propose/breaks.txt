@@ -1,0 +1,60 @@
+=== BREAK: H12: a simulator offered on a fact with no range
+     × H12: a fact with no range draws the still view, never a simulator 4ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 11 passed (12)
+--- restored:
+      Tests  12 passed (12)
+=== BREAK: unit not checked
+     × offers nothing the lint would refuse: a spec built from any offer passes specProblems 6ms
+     × puts the paper's own kind first, and marks a kind that only the library can fill 2ms
+     × refuses the wrong unit and a fact with no number 0ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  3 failed | 9 passed (12)
+--- restored:
+      Tests  12 passed (12)
+=== BREAK: excluded library fact offered
+     × takes a library fact only when it is approved, gated, not excluded and not withdrawn 3ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 11 passed (12)
+--- restored:
+      Tests  12 passed (12)
+=== BREAK: withdrawn library fact offered
+     × takes a library fact only when it is approved, gated, not excluded and not withdrawn 3ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 11 passed (12)
+--- restored:
+      Tests  12 passed (12)
+=== BREAK: library-only kind not marked
+     × puts the paper's own kind first, and marks a kind that only the library can fill 4ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 11 passed (12)
+--- restored:
+      Tests  12 passed (12)
+=== BREAK: the paper's own facts dropped (library only)
+     × offers what each real read draws by kind, with the facts it names 9ms
+     × puts the paper's own kind first, and marks a kind that only the library can fill 1ms
+     × H12: a fact with no range draws the still view, never a simulator 2ms
+     × a fact with a printed spread or CI feeds the simulator, with its band's label 1ms
+     × lists the paper's own fact before the library's 1ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  5 failed | 7 passed (12)
+--- restored:
+      Tests  12 passed (12)
+=== BREAK: fact value shown in the menu
+     × shows ids, labels and units, never a fact's value 6ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 11 passed (12)
+--- restored:
+      Tests  12 passed (12)
+=== BREAK: a kind with no guide
+     × has a guide for every figure kind, in the system prompt 3ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 11 passed (12)
+--- restored:
+      Tests  12 passed (12)
+=== BREAK: menu left out of the prompt
+     × carries the menu worked out from the same facts 4ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 11 passed (12)
+--- restored:
+      Tests  12 passed (12)
