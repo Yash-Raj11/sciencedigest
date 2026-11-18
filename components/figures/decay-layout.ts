@@ -156,12 +156,15 @@ export function estimateAtBed(amountText: string, doseText: string, bedText: str
 export const DECAY_TITLE = "How much is left, hour by hour";
 
 /**
- * The time slider (owner, 2026-11-18): drag the caffeine time through the day instead of typing
- * it. Minutes after midnight, 05:00 to 23:45 in quarter hours. It writes the same "HH:MM" the
- * time field holds, so the two stay one state. With no time set the thumb rests at noon, but the
- * state stays empty: nothing is estimated until the reader acts.
+ * The time sliders (owner, 2026-11-18): drag the caffeine time and the bedtime instead of typing
+ * them. Values are minutes after midnight in quarter hours; the bedtime range runs past midnight
+ * (19:00 to 03:00 is 1140 to 1620). Each writes the same "HH:MM" its time field holds, so the two
+ * stay one state. With no time set the thumb rests mid-range, but the state stays empty: nothing
+ * is estimated until the reader acts.
  */
-export const DOSE_SLIDER = { min: 5 * 60, max: 23 * 60 + 45, step: 15, rest: 12 * 60 };
+export interface TimeSlider { min: number; max: number; step: number; rest: number }
+export const DOSE_SLIDER: TimeSlider = { min: 5 * 60, max: 23 * 60 + 45, step: 15, rest: 12 * 60 };
+export const BED_SLIDER: TimeSlider = { min: 19 * 60, max: 27 * 60, step: 15, rest: 23 * 60 };
 
 /** "HH:MM" to minutes after midnight, or null when it is not a time. */
 export function minutesOf(clock: string): number | null {
@@ -172,21 +175,22 @@ export function minutesOf(clock: string): number | null {
   return h < 24 && min < 60 ? h * 60 + min : null;
 }
 
-/** Minutes after midnight to "HH:MM". */
+/** Minutes after midnight (past 1440 means the next day) to "HH:MM". */
 export function clockOf(minutes: number): string {
   const m = ((Math.round(minutes) % 1440) + 1440) % 1440;
   return `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
 }
 
-/** Where the thumb sits for this time: inside the slider's range, noon when unset. */
-export function sliderValue(clock: string): number {
-  const m = minutesOf(clock);
-  if (m === null) return DOSE_SLIDER.rest;
-  return Math.min(DOSE_SLIDER.max, Math.max(DOSE_SLIDER.min, m));
+/** Where the thumb sits for this time: inside the slider's range (after midnight counts as the next day), mid-range when unset. */
+export function sliderValue(clock: string, slider: TimeSlider = DOSE_SLIDER): number {
+  let m = minutesOf(clock);
+  if (m === null) return slider.rest;
+  if (m < slider.min && m + 1440 <= slider.max) m += 1440;
+  return Math.min(slider.max, Math.max(slider.min, m));
 }
 
 /** How far along the track the thumb is, as a CSS length; "0%" when unset (no orange track). */
-export function sliderShare(clock: string): string {
+export function sliderShare(clock: string, slider: TimeSlider = DOSE_SLIDER): string {
   if (minutesOf(clock) === null) return "0%";
-  return `${((sliderValue(clock) - DOSE_SLIDER.min) / (DOSE_SLIDER.max - DOSE_SLIDER.min)) * 100}%`;
+  return `${((sliderValue(clock, slider) - slider.min) / (slider.max - slider.min)) * 100}%`;
 }

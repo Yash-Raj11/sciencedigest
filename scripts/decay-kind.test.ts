@@ -5,7 +5,7 @@
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
-import { DOSE_SLIDER, clockOf, minutesOf, sliderShare, sliderValue, decayPaths, decayPlace, estimateAtBed, gapWords, halfGoneWords, halfLifeRange, halvings, hoursUntil } from "../components/figures/decay-layout";
+import { BED_SLIDER, DOSE_SLIDER, clockOf, minutesOf, sliderShare, sliderValue, decayPaths, decayPlace, estimateAtBed, gapWords, halfGoneWords, halfLifeRange, halvings, hoursUntil } from "../components/figures/decay-layout";
 import { Decay } from "../components/figures/kinds/Decay";
 import { ESTIMATE_LABEL } from "../lib/content/figure-kinds";
 import type { ResolvedFact } from "../lib/content/types";
@@ -32,13 +32,13 @@ describe("the decay kind", () => {
     expect(html).not.toContain(ESTIMATE_LABEL);
   });
 
-  it("full: the same chart, three labelled questions plus the time slider, a live answer, the H12 label and the source line", () => {
+  it("full: the same chart, three labelled questions plus two time sliders, a live answer, the H12 label and the source line", () => {
     const html = draw("full", withRange);
     const chart = (markup: string) => markup.match(/<svg[\s\S]*<\/svg>/)![0];
     expect(chart(html)).toBe(chart(draw("card", withRange)));
-    expect(html.match(/<input/g)).toHaveLength(4);
-    expect(html.match(/<label/g)).toHaveLength(4);
-    expect(html.match(/<input[^>]*type="range"[^>]*>/g)).toHaveLength(1);
+    expect(html.match(/<input/g)).toHaveLength(5);
+    expect(html.match(/<label/g)).toHaveLength(5);
+    expect(html.match(/<input[^>]*type="range"[^>]*>/g)).toHaveLength(2);
     expect(html).toContain('aria-live="polite"');
     expect(html).toContain(ESTIMATE_LABEL.replace("'", "&#x27;"));
     expect(html).toContain("From the paper.");
@@ -53,11 +53,14 @@ describe("the decay kind", () => {
     const fields = inputs.filter((input) => !input.includes('type="range"'));
     expect(fields).toHaveLength(3);
     for (const input of fields) expect(input).toContain('value=""');
-    // The slider's thumb has to rest somewhere, but it says so and looks unchosen.
-    const slider = inputs.find((input) => input.includes('type="range"'))!;
-    expect(slider).toContain("data-unset");
-    expect(slider).toContain('aria-valuetext="Not set"');
-    expect(slider).toContain("--p:0%");
+    // A slider's thumb has to rest somewhere, but it says so and looks unchosen.
+    const sliders = inputs.filter((input) => input.includes('type="range"'));
+    expect(sliders).toHaveLength(2);
+    for (const slider of sliders) {
+      expect(slider).toContain("data-unset");
+      expect(slider).toContain('aria-valuetext="Not set"');
+      expect(slider).toContain("--p:0%");
+    }
     expect(html).toContain(">Not set<");
   });
 
@@ -75,6 +78,18 @@ describe("the decay kind", () => {
     expect(sliderShare(clockOf(DOSE_SLIDER.min))).toBe("0%");
     expect(sliderShare(clockOf(DOSE_SLIDER.max))).toBe("100%");
     for (let m = DOSE_SLIDER.min; m <= DOSE_SLIDER.max; m += DOSE_SLIDER.step) expect(sliderValue(clockOf(m))).toBe(m);
+  });
+
+  it("the bedtime slider runs past midnight: 01:30 sits after 23:00, and the clock wraps", () => {
+    expect(clockOf(BED_SLIDER.min)).toBe("19:00");
+    expect(clockOf(BED_SLIDER.max)).toBe("03:00");
+    expect(sliderValue("", BED_SLIDER)).toBe(BED_SLIDER.rest);
+    expect(sliderValue("23:00", BED_SLIDER)).toBe(23 * 60);
+    expect(sliderValue("01:30", BED_SLIDER)).toBe(25 * 60 + 30);
+    expect(sliderValue("01:30", BED_SLIDER)).toBeGreaterThan(sliderValue("23:00", BED_SLIDER));
+    expect(sliderValue("12:00", BED_SLIDER)).toBe(BED_SLIDER.min);
+    expect(sliderShare("03:00", BED_SLIDER)).toBe("100%");
+    for (let m = BED_SLIDER.min; m <= BED_SLIDER.max; m += BED_SLIDER.step) expect(sliderValue(clockOf(m), BED_SLIDER)).toBe(m);
   });
 
   it("the paper's own finding sits beside the result, in its own box", () => {

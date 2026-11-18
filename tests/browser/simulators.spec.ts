@@ -12,22 +12,28 @@ test.describe("caffeine: the decay simulator", () => {
     await expect(sim.locator("[data-half-gone]")).toHaveText("Half of it is gone 3.94 to 6.36 h after you take it.");
     await expect(sim.locator("[data-band]")).toHaveCount(1);
     for (const field of await sim.locator('input:not([type="range"])').all()) await expect(field).toHaveValue("");
-    // The time slider's thumb rests at noon, but nothing is chosen until the reader moves it.
-    const slider = sim.locator('input[type="range"]');
-    await expect(slider).toHaveCount(1);
-    await expect(slider).toHaveAttribute("data-unset", "");
-    await expect(slider).toHaveAttribute("aria-valuetext", "Not set");
+    // The time sliders' thumbs rest mid-range, but nothing is chosen until the reader moves them.
+    const sliders = sim.locator('input[type="range"]');
+    await expect(sliders).toHaveCount(2);
+    for (const slider of await sliders.all()) {
+      await expect(slider).toHaveAttribute("data-unset", "");
+      await expect(slider).toHaveAttribute("aria-valuetext", "Not set");
+    }
     await expect(sim.getByRole("button")).toHaveCount(await sim.getByRole("button", { name: /Show the passage/ }).count());
     await expect(sim.locator("[data-marker]")).toHaveCount(0);
   });
 
-  test("the time slider sets the caffeine time and the estimate follows", async ({ page }) => {
+  test("the two time sliders set the caffeine time and the bedtime, and the estimate follows", async ({ page }) => {
     await page.goto("/papers/daytime-caffeine-sleep", { waitUntil: "networkidle" });
     const sim = page.locator('section[aria-label="Simulator"]');
-    await sim.getByLabel("Bedtime").fill("23:00");
-    await sim.getByLabel("Drag to set the time").fill("960");
+    // 23:00 is where the thumb rests, so moving there changes nothing: go past it, then back.
+    await sim.getByLabel("Drag for the time you go to bed").fill("1500");
+    await expect(sim.getByLabel("Bedtime")).toHaveValue("01:00");
+    await sim.getByLabel("Drag for the time you go to bed").fill("1380");
+    await expect(sim.getByLabel("Bedtime")).toHaveValue("23:00");
+    await sim.getByLabel("Drag for the caffeine time").fill("960");
     await expect(sim.getByLabel("Caffeine at")).toHaveValue("16:00");
-    await expect(sim.locator('input[type="range"]')).not.toHaveAttribute("data-unset");
+    for (const slider of await sim.locator('input[type="range"]').all()) await expect(slider).not.toHaveAttribute("data-unset");
     await expect(sim.locator("[data-estimate]")).toContainText("About 29% to 47% of it");
   });
 

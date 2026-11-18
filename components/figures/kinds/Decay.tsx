@@ -22,7 +22,7 @@
  */
 
 import { useId, useState, type CSSProperties, type ReactNode } from "react";
-import { DECAY_FIELD, DECAY_FRAME, DECAY_TITLE, DOSE_SLIDER, clockOf, sliderShare, sliderValue, SHARE_TICKS, markAnchor, tickLabelled, decayPaths, decayPlace, estimateAtBed, exactHours, gapWords, halfGoneWords, halfLifeRange, halvings, hoursLabel } from "../decay-layout";
+import { DECAY_FIELD, DECAY_FRAME, DECAY_TITLE, BED_SLIDER, DOSE_SLIDER, clockOf, type TimeSlider, sliderShare, sliderValue, SHARE_TICKS, markAnchor, tickLabelled, decayPaths, decayPlace, estimateAtBed, exactHours, gapWords, halfGoneWords, halfLifeRange, halvings, hoursLabel } from "../decay-layout";
 import { Figure } from "../Figure";
 import { GlanceAxes, Label } from "../primitives";
 import { GLANCE_FRAME, glanceChart } from "../glance-layout";
@@ -109,22 +109,9 @@ export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = W
       {range ? (
         <fieldset className="mt-4 border-t border-line pt-4" data-simulator>
           <legend className="sr-only">{words.ask}</legend>
-          <div className="mb-4 rounded-2xl border border-line bg-raised px-3.5 pb-2 pt-3" data-dose-slider>
-            <div className="flex items-baseline justify-between gap-3">
-              <label htmlFor={`${id}-slide`} className="text-sm font-medium text-muted">Drag to set the time</label>
-              <span className={`num text-xl font-medium ${dose ? "text-signal-evidence-text" : "text-muted"}`} aria-hidden>{dose || "Not set"}</span>
-            </div>
-            <input
-              id={`${id}-slide`} type="range" className="slider mt-1"
-              min={DOSE_SLIDER.min} max={DOSE_SLIDER.max} step={DOSE_SLIDER.step}
-              value={sliderValue(dose)} onChange={(e) => setDose(clockOf(Number(e.target.value)))}
-              aria-valuetext={dose || "Not set"} data-unset={dose ? undefined : ""}
-              style={{ "--p": sliderShare(dose) } as CSSProperties}
-            />
-            <div className="num flex justify-between text-xs text-meta" aria-hidden>
-              <span>{clockOf(DOSE_SLIDER.min)}</span>
-              <span>{clockOf(DOSE_SLIDER.max)}</span>
-            </div>
+          <div className="mb-4 divide-y divide-line rounded-2xl border border-line bg-raised px-3.5" data-time-sliders>
+            <TimeRange id={`${id}-slide`} label="Drag for the caffeine time" value={dose} onChange={setDose} slider={DOSE_SLIDER} data="dose" />
+            <TimeRange id={`${id}-slide-bed`} label="Drag for the time you go to bed" value={bed} onChange={setBed} slider={BED_SLIDER} data="bed" />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <label htmlFor={`${id}-dose`} className="text-sm font-medium text-muted">
@@ -169,6 +156,31 @@ export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = W
           {beside ? <div className="mt-4 rounded-xl border border-line bg-surface p-3.5" data-beside>{beside}</div> : null}
         </fieldset>
       ) : null}
+    </div>
+  );
+}
+
+/** One time slider: its label, the chosen time in orange (or "Not set"), the track, its two ends. */
+function TimeRange({ id, label, value, onChange, slider, data }: {
+  id: string; label: string; value: string; onChange: (clock: string) => void; slider: TimeSlider; data: string;
+}) {
+  return (
+    <div className="pb-2 pt-3" data-time-slider={data}>
+      <div className="flex items-baseline justify-between gap-3">
+        <label htmlFor={id} className="text-sm font-medium text-muted">{label}</label>
+        <span className={`num text-xl font-medium ${value ? "text-signal-evidence-text" : "text-muted"}`} aria-hidden>{value || "Not set"}</span>
+      </div>
+      <input
+        id={id} type="range" className="slider mt-1"
+        min={slider.min} max={slider.max} step={slider.step}
+        value={sliderValue(value, slider)} onChange={(e) => onChange(clockOf(Number(e.target.value)))}
+        aria-valuetext={value || "Not set"} data-unset={value ? undefined : ""}
+        style={{ "--p": sliderShare(value, slider) } as CSSProperties}
+      />
+      <div className="num flex justify-between text-xs text-meta" aria-hidden>
+        <span>{clockOf(slider.min)}</span>
+        <span>{clockOf(slider.max)}</span>
+      </div>
     </div>
   );
 }
