@@ -94,6 +94,8 @@ when it is kept (`npm run db:mutation` does this for the database).
 - `science-content`: before editing `content/**`, `lib/pipeline/prompts.ts`, carousel text, or any wording a reader sees.
 - `db-change`: before editing `supabase/**`, `lib/score.ts`, `lib/evidence.ts`, or anything that calls the database.
 - `phase-handoff`: when the owner types `/phase-handoff`, and at the end of each phase.
+- `unslop-ui`: before building or changing any UI, page, card, feed or protocol widget. Run its
+  Section 7 checklist before calling UI work done. Where it touches a rule in this file, this file wins.
 
 ## Style
 
