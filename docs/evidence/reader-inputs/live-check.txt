@@ -1,0 +1,24 @@
+$ curl status codes, live site, 2026-11-19 00:35 (main at 2cceeaf)
+/                                    200
+/papers/daytime-caffeine-sleep       200
+/papers/steps-days-per-week          200
+/papers/turmeric-pepper-breakfast    200
+/papers/hiit-body-composition        200
+/me                                  200
+/privacy                             200
+/today                               200
+/papers/does-not-exist               404
+
+$ npx tsx scripts/reader-inputs-live-check.mts https://sciencedigest-a4ms.vercel.app   # a visitor who taps and types nothing
+PASS  caffeine read: HTTP 200
+PASS  the stored caffeine time is back
+PASS  the stored bedtime is back
+PASS  the stored amount of -5 (out of range) is dropped, not clamped
+PASS  Clear my numbers shows by the simulator
+PASS  the estimate is drawn from the stored times
+PASS  29 requests seen; none carries an answer (failures above if any)
+PASS  Me shows the simulator numbers card
+PASS  Me offers Clear my numbers while something is kept
+PASS  the privacy page says it
+PASS  no error on any page
+all passed
