@@ -21,12 +21,12 @@
  * no motion.
  */
 
-import { useId, useState, type ReactNode } from "react";
-import { DECAY_FIELD, DECAY_FRAME, DECAY_TITLE, SHARE_TICKS, markAnchor, tickLabelled, decayPaths, decayPlace, estimateAtBed, exactHours, gapWords, halfGoneWords, halfLifeRange, halvings, hoursLabel } from "../decay-layout";
+import { useId, useState, type CSSProperties, type ReactNode } from "react";
+import { DECAY_FIELD, DECAY_FRAME, DECAY_TITLE, DOSE_SLIDER, clockOf, sliderShare, sliderValue, SHARE_TICKS, markAnchor, tickLabelled, decayPaths, decayPlace, estimateAtBed, exactHours, gapWords, halfGoneWords, halfLifeRange, halvings, hoursLabel } from "../decay-layout";
 import { Figure } from "../Figure";
 import { GlanceAxes, Label } from "../primitives";
 import { GLANCE_FRAME, glanceChart } from "../glance-layout";
-import { SIGNAL_TEXT, SIGNAL_FILL, INK, LINE } from "../shared";
+import { SIGNAL_TEXT, SIGNAL_PALE, INK, LINE } from "../shared";
 import { ESTIMATE_LABEL } from "@/lib/content/figure-kinds";
 import { assertEvidence } from "@/lib/content/figures";
 import type { ResolvedFact } from "@/lib/content/types";
@@ -84,8 +84,8 @@ export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = W
               </g>
             ))}
             <line x1={left} x2={left + width} y1={bottom} y2={bottom} stroke={INK} strokeWidth={1.5} />
-            {paths.area ? <path d={paths.area} fill={SIGNAL_FILL} data-band /> : null}
-            <path d={paths.line} fill="none" stroke={INK} strokeWidth={3} strokeLinejoin="round" strokeLinecap="round" />
+            {paths.area ? <path d={paths.area} fill={SIGNAL_PALE} data-band /> : null}
+            <path d={paths.line} fill="none" stroke={SIGNAL_TEXT} strokeWidth={3} strokeLinejoin="round" strokeLinecap="round" />
           </g>
           {times.map((time, i) => (
             <g key={time}>
@@ -109,6 +109,23 @@ export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = W
       {range ? (
         <fieldset className="mt-4 border-t border-line pt-4" data-simulator>
           <legend className="sr-only">{words.ask}</legend>
+          <div className="mb-4 rounded-2xl border border-line bg-raised px-3.5 pb-2 pt-3" data-dose-slider>
+            <div className="flex items-baseline justify-between gap-3">
+              <label htmlFor={`${id}-slide`} className="text-sm font-medium text-muted">Drag to set the time</label>
+              <span className={`num text-xl font-medium ${dose ? "text-signal-evidence-text" : "text-muted"}`} aria-hidden>{dose || "Not set"}</span>
+            </div>
+            <input
+              id={`${id}-slide`} type="range" className="slider mt-1"
+              min={DOSE_SLIDER.min} max={DOSE_SLIDER.max} step={DOSE_SLIDER.step}
+              value={sliderValue(dose)} onChange={(e) => setDose(clockOf(Number(e.target.value)))}
+              aria-valuetext={dose || "Not set"} data-unset={dose ? undefined : ""}
+              style={{ "--p": sliderShare(dose) } as CSSProperties}
+            />
+            <div className="num flex justify-between text-xs text-meta" aria-hidden>
+              <span>{clockOf(DOSE_SLIDER.min)}</span>
+              <span>{clockOf(DOSE_SLIDER.max)}</span>
+            </div>
+          </div>
           <div className="grid grid-cols-2 gap-3">
             <label htmlFor={`${id}-dose`} className="text-sm font-medium text-muted">
               {words.dose}
@@ -170,8 +187,8 @@ export function DecayGlance({ halfLife, alt, x, y }: { halfLife: ResolvedFact; a
     <div data-figure-kind="decay" data-mode="glance">
       <Figure title={DECAY_TITLE} desc={alt} height={GLANCE_FRAME.figureHeight}>
         <g data-evidence="measured" data-fact={halfLife.id}>
-          {paths.area ? <path d={paths.area} fill={SIGNAL_FILL} data-band /> : null}
-          <path d={paths.line} fill="none" stroke={INK} strokeWidth={3} strokeLinejoin="round" strokeLinecap="round" />
+          {paths.area ? <path d={paths.area} fill={SIGNAL_PALE} data-band /> : null}
+          <path d={paths.line} fill="none" stroke={SIGNAL_TEXT} strokeWidth={3} strokeLinejoin="round" strokeLinecap="round" />
         </g>
         <GlanceAxes x={x} y={y} />
       </Figure>

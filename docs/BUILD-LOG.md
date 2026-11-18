@@ -1637,3 +1637,46 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - Rule for any later cherry-pick from that branch: it must pass the visual-system test as it
   stands. Do not loosen, skip or exempt the test to land it; change the swap instead, or get
   the owner to change the budget first and record that here.
+
+## 2026-11-18: tap-a-dot markers and glossary underline orange again, with pastel
+
+- Owner: bring back the pre-c19198f orange on the source dots (one after each sentence, and the
+  one in the "Tap a dot" hint) and on the dotted underline of glossary words, and add pastel.
+- Now: the dot is an orange ring (`--signal-evidence-text`) with a pastel centre
+  (`--signal-evidence-pale`) and fills with `--signal-evidence-fill` when open. The underline is
+  `--signal-evidence-text`. The "Who this was tested in" panel takes the soft tint with a pale
+  border, so its dots sit on pastel.
+- The orange budget (2026-11-15) is amended for the dots only: an element that itself carries
+  `[data-source-dot]` is not counted (`tests/browser/readability.spec.ts`). Children and ancestors
+  still count. Tests keep it narrow: the marker lives on exactly one element in each of
+  `components/read/parts.tsx` and `components/read/Article.tsx` (`scripts/visual-system.test.ts`),
+  every marked element is an empty, aria-hidden mark no bigger than 12 px, and an orange item
+  wrapped in the marker still counts. Everything else in reads, figures and feed cards keeps the
+  budget; the visual-system rule "the pastel fill is a surface" is unchanged.
+
+## 2026-11-18: premium palette, orange in figures and receipts, caffeine time slider
+
+- Owner: make the black and white feel premium (the white felt shallow), put orange in the
+  figures and the receipts (too little orange, the receipts looked dull), and give the caffeine
+  simulator a slider.
+- Palette (`app/globals.css`, pinned in `scripts/visual-system.test.ts`, `PAGE_COLOUR` in
+  `lib/theme.ts`): light is a warm paper page `#f6f3ee` with white cards `#ffffff`, raised
+  `#faf8f4`, warm ink `#15120f`, muted `#5b554e`, line `#e2ddd4`. Dark is a deep soft black
+  `#0a0a0a` with layered greys (`#161616`, `#212121`, line `#2e2e2e`) and warm white ink
+  `#f5f4f0`. The orange tokens and bedtime are unchanged. Every text token still reaches 4.5:1
+  on every surface (`docs/evidence/themes/contrast.md`, regenerated).
+- Figures: the measured marks take the finding's orange: the swaps parked on
+  `wip/colour-figures` for the 16 figure and simulator files were brought to main. Decay's
+  half-life band moved from the pastel fill to `--signal-evidence-pale` (new `SIGNAL_PALE`), so
+  the orange line stays visible on it in dark themes.
+- Receipts: a card with a soft-tint header ("The audit"), Design and Participants as tiles (the
+  participant count large, in orange), numbered receipts (01, 02 ... in orange) on hairlines,
+  orange limitation dots, and "Full receipts" in orange with a chevron.
+- Caffeine: a time slider over the "Caffeine at" field (05:00 to 23:45 in quarter hours; its
+  numbers live in `decay-layout.ts`, outside the figure guard). It writes the same HH:MM the time
+  field holds. Unset, its thumb rests at noon with a plain track, a muted ring, "Not set" and
+  `data-unset`, so nothing is a preset (`scripts/decay-kind.test.ts`,
+  `tests/browser/simulators.spec.ts`).
+- The orange budget is raised from three to ten per 390 px screen (owner, 2026-11-18). The
+  receipts card alone puts nine on its busiest screen. One focal item per feed card stays. The
+  "pastel fill is a surface" rule is unchanged.

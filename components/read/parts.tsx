@@ -128,7 +128,7 @@ export function Para({ sentences, facts, context, className = "read", as: Tag = 
                   aria-label="Show the passage in the paper this sentence rests on"
                   className="relative ml-0.5 inline-flex h-6 w-6 translate-y-[3px] items-center justify-center rounded-full align-baseline after:absolute after:-inset-2.5 after:content-['']"
                 >
-                  <span aria-hidden className={`h-2.5 w-2.5 rounded-full border-[1.5px] border-meta ${open === i ? "bg-ink border-ink" : ""}`} />
+                  <span aria-hidden data-source-dot className={`h-2.5 w-2.5 rounded-full border-2 border-signal-evidence-text ${open === i ? "bg-signal-evidence-fill" : "bg-signal-evidence-pale"}`} />
                 </button>
               </span>{" "}
             </span>

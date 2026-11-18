@@ -22,8 +22,8 @@
  * THE THEMES (owner, 2026-11-15). Every colour in the app comes from the tokens below, named
  * by what they MEAN, never by hue (no "orange" token in a component). Three themes:
  *
- *   dark     the main dark theme: black, neutral greys, pastel orange (the pre-2026-11-14 tokens)
- *   light    the main light theme: white, neutral greys, pastel orange
+ *   dark     the main dark theme: a deep soft black, layered greys, pastel orange (owner, 2026-11-18)
+ *   light    the main light theme: warm paper page, white cards, warm ink, pastel orange (2026-11-18)
  *   bedtime  warm, low-glare, for reading at night (the 2026-11-14 dark tokens)
  *
  * "System" in Me follows the device between dark and light. Bedtime is chosen by hand.
@@ -44,8 +44,9 @@
  *   --signal-evidence-pale  a lighter peach (darker in dark themes): a soft band or range behind data
  *   --signal-evidence-soft  a faint tint behind a block of text
  *
- * Budget: one focal orange item per 390 px screen, at most three (tests/browser/readability.spec.ts),
- * for reads, figures and feed cards. Anything inside [data-life-game] is exempt.
+ * Budget: one focal orange item per feed card, at most ten per 390 px screen (raised from three by
+ * the owner, 2026-11-18; tests/browser/readability.spec.ts), for reads, figures and feed cards.
+ * Anything inside [data-life-game] is exempt, and so are the tap-a-dot source markers.
  * Contrast (every text token on every surface it sits on, all three themes, at least 4.5:1) is
  * checked by scripts/visual-system.test.ts, which reads this file; the table is
  * docs/evidence/themes/contrast.md. The light orange text #AD5428 is the pastel #FFB38A darkened
@@ -53,34 +54,34 @@
  */
 :root,
 [data-theme="light"] {
-  --bg: #ffffff;
-  --surface: #f3f3f1;
-  --raised: #ffffff;
-  --line: #dcdcda;
-  --ink: #0a0a0a;
-  --muted: #5c5c5c;
-  --meta: #5c5c5c;
-  --ink-routine: #0a0a0a;
+  --bg: #f6f3ee;
+  --surface: #ffffff;
+  --raised: #faf8f4;
+  --line: #e2ddd4;
+  --ink: #15120f;
+  --muted: #5b554e;
+  --meta: #5b554e;
+  --ink-routine: #15120f;
   --signal-evidence-text: #ad5428;
   --signal-evidence-fill: #ffb38a;
-  --on-signal-evidence-fill: #0a0a0a;
+  --on-signal-evidence-fill: #15120f;
   --signal-evidence-pale: #ffdcc6;
   --signal-evidence-soft: #fff4ec;
   color-scheme: light;
 }
 
 [data-theme="dark"] {
-  --bg: #000000;
-  --surface: #141414;
-  --raised: #1e1e1e;
-  --line: #303030;
-  --ink: #f4f4f4;
-  --muted: #a3a3a3;
-  --meta: #a3a3a3;
-  --ink-routine: #f4f4f4;
+  --bg: #0a0a0a;
+  --surface: #161616;
+  --raised: #212121;
+  --line: #2e2e2e;
+  --ink: #f5f4f0;
+  --muted: #a6a39e;
+  --meta: #a6a39e;
+  --ink-routine: #f5f4f0;
   --signal-evidence-text: #ffb38a;
   --signal-evidence-fill: #ffb38a;
-  --on-signal-evidence-fill: #000000;
+  --on-signal-evidence-fill: #0a0a0a;
   --signal-evidence-pale: #4a2e1d;
   --signal-evidence-soft: #2a1a10;
   color-scheme: dark;
@@ -195,6 +196,56 @@ input[type="range"] {
   accent-color: var(--ink);
 }
 
+/*
+ * The time slider (owner, 2026-11-18). A pastel track that fills up to the thumb (--p, set by
+ * the component), a white thumb ringed in the finding's orange, 44 px of touch height. Unset
+ * ([data-unset]): a plain track and a muted ring, so nothing looks chosen before the reader acts.
+ */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  cursor: pointer;
+  --p: 0%;
+}
+.slider::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--signal-evidence-fill) var(--p), var(--line) var(--p));
+}
+.slider::-moz-range-track {
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--signal-evidence-fill) var(--p), var(--line) var(--p));
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  margin-top: -10px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 3px solid var(--signal-evidence-text);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.25);
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+.slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 3px solid var(--signal-evidence-text);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.25);
+}
+.slider:active::-webkit-slider-thumb { transform: scale(1.1); }
+.slider[data-unset]::-webkit-slider-thumb { border-color: var(--muted); }
+.slider[data-unset]::-moz-range-thumb { border-color: var(--muted); }
+.slider:focus-visible { outline: 2px solid var(--signal-evidence-text); outline-offset: 2px; border-radius: 999px; }
+
 @keyframes fill-in {
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
@@ -257,7 +308,7 @@ details[open] > .ui-reveal,
 
 /* A word with a plain-language entry: tap it. */
 .term {
-  text-decoration: underline dotted var(--meta);
+  text-decoration: underline dotted var(--signal-evidence-text);
   text-decoration-thickness: 2px;
   text-underline-offset: 0.22em;
   cursor: pointer;

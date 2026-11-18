@@ -1,13 +1,16 @@
 /**
  * The readability pass (owner, 2026-11-14) in a real browser, at 390 px.
  *
- * The orange budget (owner, 2026-11-15): orange means "this paper's finding". Per 390 × 844
- * screen there is one focal orange item and at most three in all. An item is one element painted
+ * The orange budget (owner, 2026-11-15; raised 2026-11-18): orange means "this paper's finding".
+ * Per 390 × 844 screen there is one focal orange item per feed card and at most ten in all (the
+ * owner asked for more orange in figures and the receipts on 2026-11-18; it was three). An item is one element painted
  * with the finding's text colour or its pastel fill; the marks of one chart (one <svg>) or one
  * [data-signal-item] count as one item. The faint tint (--signal-evidence-soft) is a background
  * and does not count. The Life Game, the companion and /today are exempt (owner, 2026-11-15,
  * second pass): they keep their original pastel-orange look, so anything inside [data-life-game]
  * is not counted, /today is not checked, and neither is Me (its controls are the Life Game's).
+ * The tap-a-dot source markers are exempt too (owner, 2026-11-18): an element that itself carries
+ * [data-source-dot] is not counted. Only that element: never its children or ancestors.
  * Reads, figures and feed cards keep the budget.
  */
 
@@ -21,7 +24,7 @@ const SCREENS = [
   "/papers/turmeric-pepper-breakfast",
   "/papers/hiit-body-composition",
 ];
-const BUDGET = 3;
+const BUDGET = 10;
 
 /** The most orange items any one 844 px window of the page holds, and what they are. */
 async function orangeBudget(page: Page) {
@@ -34,7 +37,7 @@ async function orangeBudget(page: Page) {
     const orange = new Set([rgb(root.getPropertyValue("--signal-evidence-text")), rgb(root.getPropertyValue("--signal-evidence-fill"))]);
     const items = new Map<Element, { top: number; bottom: number; what: string }>();
     for (const el of document.querySelectorAll<HTMLElement | SVGElement>("body *")) {
-      if (el.closest(".sr-only") || el.closest("[data-life-game]")) continue;
+      if (el.closest(".sr-only") || el.closest("[data-life-game]") || el.hasAttribute("data-source-dot")) continue;
       const box = el.getBoundingClientRect();
       if (box.width === 0 && box.height === 0) continue;
       const s = getComputedStyle(el);
@@ -64,11 +67,12 @@ async function orangeBudget(page: Page) {
     const all = [...items.values()];
     const height = document.documentElement.scrollHeight;
     let worst: typeof all = [];
+    let at = 0;
     for (let start = 0; start < Math.max(height, 1); start += 100) {
       const inView = all.filter((i) => i.bottom > start && i.top < start + 844);
-      if (inView.length > worst.length) worst = inView;
+      if (inView.length > worst.length) { worst = inView; at = start; }
     }
-    return { max: worst.length, worst: worst.map((i) => i.what), total: all.length };
+    return { max: worst.length, worst: worst.map((i) => i.what), total: all.length, at };
   });
 }
 
@@ -108,18 +112,20 @@ for (const theme of THEMES) {
   });
 }
 
-test("the budget check catches a fourth orange item", async ({ page }) => {
+test("the budget check catches one orange item over the budget", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/papers/daytime-caffeine-sleep", { waitUntil: "networkidle" });
-  const before = (await orangeBudget(page)).max;
-  await page.evaluate((n) => {
+  const { max: before, at } = await orangeBudget(page);
+  // Put the extra items inside the most crowded screen, wherever on the page it is.
+  await page.evaluate(({ n, top }) => {
     for (let i = 0; i < n; i++) {
       const dot = document.createElement("span");
-      dot.className = "inline-block h-2 w-2 bg-signal-evidence-fill";
+      dot.className = "absolute left-0 h-2 w-2 bg-signal-evidence-fill";
+      dot.style.top = `${top + 10 + i * 12}px`;
       document.body.prepend(dot);
     }
-  }, 4 - before);
-  expect((await orangeBudget(page)).max).toBe(4);
+  }, { n: BUDGET + 1 - before, top: at });
+  expect((await orangeBudget(page)).max).toBe(BUDGET + 1);
 });
 
 test("the Life Game exemption covers only [data-life-game]: an orange number outside it counts", async ({ page }) => {
@@ -132,6 +138,33 @@ test("the Life Game exemption covers only [data-life-game]: an orange number out
     document.body.prepend(n);
   });
   expect((await orangeBudget(page)).total).toBe(before + 1);
+});
+
+test("the source-dot exemption covers only the dot itself: an orange item inside or around it counts", async ({ page }) => {
+  await page.goto("/papers/turmeric-pepper-breakfast", { waitUntil: "networkidle" });
+  const before = (await orangeBudget(page)).total;
+  await page.evaluate(() => {
+    const wrap = document.createElement("div");
+    wrap.setAttribute("data-source-dot", "");
+    const n = document.createElement("p");
+    n.className = "text-signal-evidence-text";
+    n.textContent = "71";
+    wrap.append(n);
+    document.body.prepend(wrap);
+  });
+  expect((await orangeBudget(page)).total).toBe(before + 1);
+});
+
+test("every source dot is a small, empty, hidden mark", async ({ page }) => {
+  await page.goto("/papers/turmeric-pepper-breakfast", { waitUntil: "networkidle" });
+  const dots = await page.locator("[data-source-dot]").evaluateAll((els) =>
+    els.map((el) => {
+      const box = el.getBoundingClientRect();
+      return { hidden: el.getAttribute("aria-hidden") === "true", empty: el.childNodes.length === 0, small: box.width <= 12 && box.height <= 12 };
+    }),
+  );
+  expect(dots.length).toBeGreaterThan(3);
+  for (const dot of dots) expect(dot).toEqual({ hidden: true, empty: true, small: true });
 });
 
 test.describe("finding cards: plain headline, one supporting line, source line", () => {

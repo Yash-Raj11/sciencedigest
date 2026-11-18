@@ -56,7 +56,7 @@ function Paragraphs({ slug, paragraphs, figure, facts, context }: { slug: string
 function WhoWasTested({ paper, content }: { paper: PaperMeta; content: PaperContent }) {
   const observational = !RANDOMIZED_DESIGNS.has(paper.design as Design);
   return (
-    <section aria-label="Who was studied" className="rounded-2xl border border-line bg-surface p-4">
+    <section aria-label="Who was studied" className="rounded-2xl border border-signal-evidence-pale bg-signal-evidence-soft p-4">
       <h3 className="headline">Who this was tested in</h3>
       <div className="mt-2">
         <Para sentences={content.populationPanel} facts={content.facts} context={content.context} className={AUDIT} />
@@ -85,7 +85,7 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
         <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
           <span className="num font-medium" data-read-minutes>{paper.readMinutes} min read</span>
           <span className="flex items-center gap-1.5">
-            <span aria-hidden className="h-2.5 w-2.5 shrink-0 rounded-full border-[1.5px] border-meta" />
+            <span aria-hidden data-source-dot className="h-2.5 w-2.5 shrink-0 rounded-full border-2 border-signal-evidence-text bg-signal-evidence-pale" />
             Tap a dot for the passage in the paper{hasGlossary ? "; tap an underlined word for what it means" : ""}.
           </span>
         </p>
@@ -134,10 +134,14 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
   );
 }
 
-function Receipt({ title, children }: { title: string; children: ReactNode }) {
+/** One receipt: a numbered title on a hairline, then its evidence. */
+function Receipt({ n, title, children }: { n?: number; title: string; children: ReactNode }) {
   return (
-    <div>
-      <h3 className="text-sm font-medium text-muted">{title}</h3>
+    <div className="border-t border-line pt-4 first:border-t-0 first:pt-0">
+      <h3 className="flex items-baseline gap-2.5 text-[0.9375rem] font-medium leading-snug text-ink">
+        {n !== undefined ? <span className="num shrink-0 text-xs font-medium tracking-wider text-signal-evidence-text">{String(n).padStart(2, "0")}</span> : null}
+        <span>{title}</span>
+      </h3>
       {children}
     </div>
   );
@@ -176,55 +180,66 @@ function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent 
   const legacyMissed = legacy("missed");
   const limitations = audit ? audit.limitations : content.limitations;
   const sources = contextSourceList(content);
+  let count = 0;
+  const next = () => ++count;
 
   return (
-    <section aria-label="The receipts" id={SLOTS.receipts} className={`space-y-4 rounded-2xl border border-line bg-surface p-4 ${SLOT}`}>
-      <h2 className="headline">The receipts</h2>
-      <dl className="grid grid-cols-2 gap-3 text-sm leading-snug">
-        <div>
-          <dt className="font-medium text-muted">Design</dt>
-          <dd className="font-medium">{DESIGN_LABEL[paper.design] ?? paper.design}</dd>
-        </div>
-        {paper.sampleSize !== null && (
-          <div>
-            <dt className="font-medium text-muted">Participants</dt>
-            <dd className="num font-medium">{paper.sampleSize.toLocaleString("en")}</dd>
+    <section aria-label="The receipts" id={SLOTS.receipts} className={`overflow-hidden rounded-3xl border border-line bg-surface ${SLOT}`}>
+      <header className="border-b border-line bg-signal-evidence-soft px-4 pb-4 pt-5">
+        <p className="text-xs font-medium tracking-wider text-signal-evidence-text">The audit</p>
+        <h2 className="headline mt-1">The receipts</h2>
+        <dl className="mt-4 grid grid-cols-2 gap-2.5 text-sm leading-snug">
+          <div className="rounded-2xl border border-line bg-surface px-3.5 py-3">
+            <dt className="text-xs font-medium text-muted">Design</dt>
+            <dd className="mt-1 font-medium">{DESIGN_LABEL[paper.design] ?? paper.design}</dd>
           </div>
-        )}
-      </dl>
+          {paper.sampleSize !== null && (
+            <div className="rounded-2xl border border-line bg-surface px-3.5 py-3">
+              <dt className="text-xs font-medium text-muted">Participants</dt>
+              <dd className="figure mt-0.5 text-[1.75rem] leading-none text-signal-evidence-text">{paper.sampleSize.toLocaleString("en")}</dd>
+            </div>
+          )}
+        </dl>
+      </header>
+      <div className="space-y-4 p-4">
       {content.auditFigure && (
-        <Receipt title={content.auditFigure.title.map((s) => s.text).join(" ")}>
+        <Receipt n={next()} title={content.auditFigure.title.map((s) => s.text).join(" ")}>
           <div className="mt-2" data-audit-figure><Pictured slug={paper.slug} figure={content.auditFigure.figure} facts={facts} context={context} /></div>
         </Receipt>
       )}
       {audit && (
         <>
-          <Receipt title="The size of the effect">
+          <Receipt n={next()} title="The size of the effect">
             <Para sentences={audit.effect} facts={facts} context={context} className={AUDIT} />
             <div className="mt-3"><Pictured slug={paper.slug} figure={audit.figure} facts={facts} context={context} /></div>
           </Receipt>
-          <Receipt title="How weak it could be">
+          <Receipt n={next()} title="How weak it could be">
             <Para sentences={audit.weakEnd} facts={facts} context={context} className={AUDIT} />
           </Receipt>
         </>
       )}
       {legacyWeak && (
-        <Receipt title="How weak it could be">
+        <Receipt n={next()} title="How weak it could be">
           {legacyWeak.paragraphs.map((paragraph, i) => <Para key={i} sentences={paragraph} facts={facts} context={context} className={AUDIT} />)}
         </Receipt>
       )}
-      <Receipt title="What to hold loosely">
-        <ul className="mt-1 space-y-3">
+      <Receipt n={next()} title="What to hold loosely">
+        <ul className="mt-2 space-y-3">
           {limitations.map((limitation, i) => (
             <li key={i} className="flex gap-3">
-              <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
+              <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-signal-evidence-fill" />
               <div className="min-w-0 flex-1"><Para sentences={limitation} facts={facts} context={context} className={`${AUDIT} font-medium`} /></div>
             </li>
           ))}
         </ul>
       </Receipt>
-      <details className="border-t border-line pt-3">
-        <summary className="flex min-h-11 cursor-pointer items-center font-medium">Full receipts</summary>
+      <details className="group border-t border-line pt-3">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between font-medium text-signal-evidence-text [&::-webkit-details-marker]:hidden">
+          Full receipts
+          <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5 transition-transform duration-[var(--motion)] ease-[var(--ease-out)] group-open:rotate-180 motion-reduce:transition-none" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </summary>
         <div className="ui-reveal mt-2 space-y-4">
           {audit && (
             <Receipt title="What summaries leave out">
@@ -249,6 +264,7 @@ function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent 
           <Primer />
         </div>
       </details>
+      </div>
     </section>
   );
 }

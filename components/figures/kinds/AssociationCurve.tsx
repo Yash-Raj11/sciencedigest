@@ -97,7 +97,7 @@ export function AssociationCurve({ mode, raw, adjusted, groups, alt, sourceLine,
                 <button
                   key={day} type="button" aria-pressed={on}
                   onClick={() => setWeek((w) => (w ?? emptyWeek()).map((v, j) => (j === i ? !v : v)))}
-                  className={`flex h-12 min-w-0 items-center justify-center rounded-lg border text-sm font-medium ${on ? "border-ink bg-ink text-bg" : "border-line bg-bg text-ink"}`}
+                  className={`flex h-12 min-w-0 items-center justify-center rounded-lg border text-sm font-medium ${on ? "border-signal-evidence-fill bg-signal-evidence-fill text-on-signal-evidence-fill" : "border-line bg-bg text-ink"}`}
                 >
                   {day}
                 </button>
@@ -105,7 +105,7 @@ export function AssociationCurve({ mode, raw, adjusted, groups, alt, sourceLine,
             })}
           </div>
           <button type="button" onClick={() => setWeek(emptyWeek())} aria-pressed={answered && isComparison(at)}
-            className={`mt-2 min-h-11 rounded-lg border px-3 text-sm font-medium ${answered && isComparison(at) ? "border-ink text-ink" : "border-line text-muted"}`}>
+            className={`mt-2 min-h-11 rounded-lg border px-3 text-sm font-medium ${answered && isComparison(at) ? "border-signal-evidence-text text-signal-evidence-text" : "border-line text-muted"}`}>
             No days
           </button>
         </fieldset>

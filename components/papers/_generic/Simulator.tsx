@@ -37,7 +37,7 @@ export default function Simulator({ params }: SimulatorProps) {
           {rows.map((row) => (
             <label key={row.fact.id} className="flex cursor-pointer items-center gap-3 px-3.5 py-3">
               <input
-                type="checkbox" className="h-5 w-5 accent-[var(--ink)]" checked={!off.has(row.fact.id)}
+                type="checkbox" className="h-5 w-5 accent-[var(--signal-evidence-fill)]" checked={!off.has(row.fact.id)}
                 onChange={() => setOff((current) => {
                   const next = new Set(current);
                   if (next.has(row.fact.id)) next.delete(row.fact.id); else next.add(row.fact.id);

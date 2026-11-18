@@ -10,7 +10,7 @@
 import { assertEvidence } from "@/lib/content/figures";
 import type { ResolvedFact } from "@/lib/content/types";
 import { dotRadius, gridDots } from "../frequency-layout";
-import { INK, META } from "../shared";
+import { META, SIGNAL_TEXT } from "../shared";
 
 export function FrequencyGrid({ x, y, size, n, fact, tone = "ink" }: {
   x: number; y: number; size: number; n: number; fact: ResolvedFact; tone?: "ink" | "dim";
@@ -19,7 +19,7 @@ export function FrequencyGrid({ x, y, size, n, fact, tone = "ink" }: {
   const rate = fact.estimate?.point;
   if (rate === undefined) return null;
   const r = dotRadius(n, size);
-  const fill = tone === "ink" ? INK : META;
+  const fill = tone === "ink" ? SIGNAL_TEXT : META;
   const opacity = tone === "ink" ? 1 : 0.45;
   return (
     <g data-evidence="measured" data-fact={fact.id} data-grid={n} opacity={opacity}>

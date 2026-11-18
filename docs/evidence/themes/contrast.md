@@ -2,48 +2,48 @@
 
 | Theme | Text | On | Text value | Surface value | Ratio | ≥ 4.5 |
 |---|---|---|---|---|---|---|
-| dark | text | page | #f4f4f4 | #000000 | 19.09 | yes |
-| dark | text | card | #f4f4f4 | #141414 | 16.75 | yes |
-| dark | text | raised card | #f4f4f4 | #1e1e1e | 15.16 | yes |
-| dark | text | finding tint | #f4f4f4 | #2a1a10 | 15.23 | yes |
-| dark | secondary | page | #a3a3a3 | #000000 | 8.33 | yes |
-| dark | secondary | card | #a3a3a3 | #141414 | 7.30 | yes |
-| dark | secondary | raised card | #a3a3a3 | #1e1e1e | 6.61 | yes |
-| dark | secondary | finding tint | #a3a3a3 | #2a1a10 | 6.64 | yes |
-| dark | meta | page | #a3a3a3 | #000000 | 8.33 | yes |
-| dark | meta | card | #a3a3a3 | #141414 | 7.30 | yes |
-| dark | meta | raised card | #a3a3a3 | #1e1e1e | 6.61 | yes |
-| dark | meta | finding tint | #a3a3a3 | #2a1a10 | 6.64 | yes |
-| dark | habit ink | page | #f4f4f4 | #000000 | 19.09 | yes |
-| dark | habit ink | card | #f4f4f4 | #141414 | 16.75 | yes |
-| dark | habit ink | raised card | #f4f4f4 | #1e1e1e | 15.16 | yes |
-| dark | habit ink | finding tint | #f4f4f4 | #2a1a10 | 15.23 | yes |
-| dark | finding text (orange) | page | #ffb38a | #000000 | 12.07 | yes |
-| dark | finding text (orange) | card | #ffb38a | #141414 | 10.59 | yes |
-| dark | finding text (orange) | raised card | #ffb38a | #1e1e1e | 9.58 | yes |
+| dark | text | page | #f5f4f0 | #0a0a0a | 17.99 | yes |
+| dark | text | card | #f5f4f0 | #161616 | 16.44 | yes |
+| dark | text | raised card | #f5f4f0 | #212121 | 14.63 | yes |
+| dark | text | finding tint | #f5f4f0 | #2a1a10 | 15.22 | yes |
+| dark | secondary | page | #a6a39e | #0a0a0a | 7.88 | yes |
+| dark | secondary | card | #a6a39e | #161616 | 7.20 | yes |
+| dark | secondary | raised card | #a6a39e | #212121 | 6.41 | yes |
+| dark | secondary | finding tint | #a6a39e | #2a1a10 | 6.66 | yes |
+| dark | meta | page | #a6a39e | #0a0a0a | 7.88 | yes |
+| dark | meta | card | #a6a39e | #161616 | 7.20 | yes |
+| dark | meta | raised card | #a6a39e | #212121 | 6.41 | yes |
+| dark | meta | finding tint | #a6a39e | #2a1a10 | 6.66 | yes |
+| dark | habit ink | page | #f5f4f0 | #0a0a0a | 17.99 | yes |
+| dark | habit ink | card | #f5f4f0 | #161616 | 16.44 | yes |
+| dark | habit ink | raised card | #f5f4f0 | #212121 | 14.63 | yes |
+| dark | habit ink | finding tint | #f5f4f0 | #2a1a10 | 15.22 | yes |
+| dark | finding text (orange) | page | #ffb38a | #0a0a0a | 11.38 | yes |
+| dark | finding text (orange) | card | #ffb38a | #161616 | 10.40 | yes |
+| dark | finding text (orange) | raised card | #ffb38a | #212121 | 9.25 | yes |
 | dark | finding text (orange) | finding tint | #ffb38a | #2a1a10 | 9.63 | yes |
-| dark | text on the finding fill | finding fill (pastel) | #000000 | #ffb38a | 12.07 | yes |
-| light | text | page | #0a0a0a | #ffffff | 19.80 | yes |
-| light | text | card | #0a0a0a | #f3f3f1 | 17.82 | yes |
-| light | text | raised card | #0a0a0a | #ffffff | 19.80 | yes |
-| light | text | finding tint | #0a0a0a | #fff4ec | 18.29 | yes |
-| light | secondary | page | #5c5c5c | #ffffff | 6.69 | yes |
-| light | secondary | card | #5c5c5c | #f3f3f1 | 6.02 | yes |
-| light | secondary | raised card | #5c5c5c | #ffffff | 6.69 | yes |
-| light | secondary | finding tint | #5c5c5c | #fff4ec | 6.18 | yes |
-| light | meta | page | #5c5c5c | #ffffff | 6.69 | yes |
-| light | meta | card | #5c5c5c | #f3f3f1 | 6.02 | yes |
-| light | meta | raised card | #5c5c5c | #ffffff | 6.69 | yes |
-| light | meta | finding tint | #5c5c5c | #fff4ec | 6.18 | yes |
-| light | habit ink | page | #0a0a0a | #ffffff | 19.80 | yes |
-| light | habit ink | card | #0a0a0a | #f3f3f1 | 17.82 | yes |
-| light | habit ink | raised card | #0a0a0a | #ffffff | 19.80 | yes |
-| light | habit ink | finding tint | #0a0a0a | #fff4ec | 18.29 | yes |
-| light | finding text (orange) | page | #ad5428 | #ffffff | 5.15 | yes |
-| light | finding text (orange) | card | #ad5428 | #f3f3f1 | 4.64 | yes |
-| light | finding text (orange) | raised card | #ad5428 | #ffffff | 5.15 | yes |
+| dark | text on the finding fill | finding fill (pastel) | #0a0a0a | #ffb38a | 11.38 | yes |
+| light | text | page | #15120f | #f6f3ee | 16.86 | yes |
+| light | text | card | #15120f | #ffffff | 18.66 | yes |
+| light | text | raised card | #15120f | #faf8f4 | 17.59 | yes |
+| light | text | finding tint | #15120f | #fff4ec | 17.24 | yes |
+| light | secondary | page | #5b554e | #f6f3ee | 6.65 | yes |
+| light | secondary | card | #5b554e | #ffffff | 7.36 | yes |
+| light | secondary | raised card | #5b554e | #faf8f4 | 6.94 | yes |
+| light | secondary | finding tint | #5b554e | #fff4ec | 6.80 | yes |
+| light | meta | page | #5b554e | #f6f3ee | 6.65 | yes |
+| light | meta | card | #5b554e | #ffffff | 7.36 | yes |
+| light | meta | raised card | #5b554e | #faf8f4 | 6.94 | yes |
+| light | meta | finding tint | #5b554e | #fff4ec | 6.80 | yes |
+| light | habit ink | page | #15120f | #f6f3ee | 16.86 | yes |
+| light | habit ink | card | #15120f | #ffffff | 18.66 | yes |
+| light | habit ink | raised card | #15120f | #faf8f4 | 17.59 | yes |
+| light | habit ink | finding tint | #15120f | #fff4ec | 17.24 | yes |
+| light | finding text (orange) | page | #ad5428 | #f6f3ee | 4.66 | yes |
+| light | finding text (orange) | card | #ad5428 | #ffffff | 5.15 | yes |
+| light | finding text (orange) | raised card | #ad5428 | #faf8f4 | 4.86 | yes |
 | light | finding text (orange) | finding tint | #ad5428 | #fff4ec | 4.76 | yes |
-| light | text on the finding fill | finding fill (pastel) | #0a0a0a | #ffb38a | 11.38 | yes |
+| light | text on the finding fill | finding fill (pastel) | #15120f | #ffb38a | 10.72 | yes |
 | bedtime | text | page | #edeae4 | #0d0d0c | 16.19 | yes |
 | bedtime | text | card | #edeae4 | #171615 | 15.05 | yes |
 | bedtime | text | raised card | #edeae4 | #1f1e1c | 13.87 | yes |

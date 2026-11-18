@@ -50,8 +50,8 @@ function Outcome({ name, row }: { name: string; row: Row }) {
     <li className="flex flex-wrap items-center gap-x-3 gap-y-1 px-3.5 py-3">
       <span className="min-w-0 flex-1">
         <span className="block text-sm leading-snug text-muted">{name}</span>
-        {/* The words say the direction; colour is not the cue (orange budget, owner 2026-11-15). */}
-        <span className="block font-medium leading-snug text-ink">{WORDS[row.result]}</span>
+        {/* The words say the direction; the colour only repeats it. */}
+        <span className={`block font-medium leading-snug ${changed ? "text-signal-evidence-text" : "text-ink"}`}>{WORDS[row.result]}</span>
       </span>
       {row.fact?.finding && changed ? <GradeChip grade={row.fact.finding.tier} why={row.fact.why} /> : null}
     </li>
@@ -65,8 +65,7 @@ function TasteLine({ score, max, plain }: { score: number; max: number; plain: n
     <svg viewBox="0 0 300 44" role="img" className="mt-2 w-full" aria-label={`Taste score ${score} out of ${max}. The plain meal scored ${plain}.`}>
       <line x1={12} x2={288} y1={18} y2={18} stroke="var(--line)" strokeWidth={4} strokeLinecap="round" />
       <line x1={x(plain)} x2={x(plain)} y1={8} y2={28} stroke="var(--muted)" strokeWidth={2} />
-      {/* Taste is context, not the paper's key result: monochrome (docs/FIGURE-DESIGN.md 2B). */}
-      <circle cx={x(score)} cy={18} r={7} fill="var(--ink)" />
+      <circle cx={x(score)} cy={18} r={7} fill="var(--signal-evidence-text)" />
       <text x={12} y={41} fontSize={11} fill="var(--muted)">1 dislike</text>
       <text x={288} y={41} fontSize={11} fill="var(--muted)" textAnchor="end">{max} like</text>
     </svg>

@@ -23,13 +23,14 @@ const CSS = readFileSync("app/globals.css", "utf8");
 const tokens = themeTokens(CSS);
 
 /**
- * The owner's values (2026-11-15, second pass): dark and light are the pre-c19198f tokens with a
- * pastel orange. Bedtime keeps the 2026-11-14 dark tokens. The light finding text is the pastel
+ * The owner's values (2026-11-18, "premium" pass): dark is a deep soft black with layered greys;
+ * light is a warm paper page with white cards and warm ink. Both keep the 2026-11-15 pastel
+ * orange. Bedtime keeps the 2026-11-14 dark tokens. The light finding text is the pastel
  * #FFB38A darkened until it reaches 4.5:1 on white, a card and the tint (#AD5428).
  */
 const OWNER = {
-  dark: { bg: "#000000", surface: "#141414", ink: "#f4f4f4", muted: "#a3a3a3", line: "#303030", "signal-evidence-text": "#ffb38a", "signal-evidence-fill": "#ffb38a" },
-  light: { bg: "#ffffff", surface: "#f3f3f1", ink: "#0a0a0a", muted: "#5c5c5c", line: "#dcdcda", "signal-evidence-text": "#ad5428", "signal-evidence-fill": "#ffb38a" },
+  dark: { bg: "#0a0a0a", surface: "#161616", ink: "#f5f4f0", muted: "#a6a39e", line: "#2e2e2e", "signal-evidence-text": "#ffb38a", "signal-evidence-fill": "#ffb38a" },
+  light: { bg: "#f6f3ee", surface: "#ffffff", ink: "#15120f", muted: "#5b554e", line: "#e2ddd4", "signal-evidence-text": "#ad5428", "signal-evidence-fill": "#ffb38a" },
   bedtime: { bg: "#0d0d0c", surface: "#171615", ink: "#edeae4", muted: "#b3aea6", meta: "#8f8a83", line: "#2a2826", "signal-evidence-text": "#ff7a2f" },
 } as const;
 
@@ -172,6 +173,26 @@ describe("the Life Game exemption stays in the Life Game", () => {
 
   it("the check fails on the marker in a read", () => {
     expect(!HOME.test("components/read/Hook.tsx") && MARKER.test('<p data-life-game className="figure">')).toBe(true);
+  });
+});
+
+/*
+ * The tap-a-dot source markers keep their orange ring (owner, 2026-11-18) and are exempt from the
+ * orange budget through [data-source-dot]. The marker belongs to the dot in Para and the dot in
+ * the read's "Tap a dot" hint, nowhere else.
+ */
+describe("the source-dot exemption stays on the source dots", () => {
+  const MARKER = /data-source-dot/;
+  const HOMES = new Set(["components/read/parts.tsx", "components/read/Article.tsx"]);
+
+  it("only the two dots carry the marker", () => {
+    const leaks = source(["app", "components"]).filter((f) => !HOMES.has(f) && MARKER.test(readFileSync(f, "utf8")));
+    expect(leaks).toEqual([]);
+    for (const f of HOMES) expect(readFileSync(f, "utf8").match(/data-source-dot/g)?.length, f).toBe(1);
+  });
+
+  it("the check fails on the marker in a figure", () => {
+    expect(!HOMES.has("components/figures/primitives/Gauge.tsx") && MARKER.test('<circle data-source-dot fill={SIGNAL_TEXT} />')).toBe(true);
   });
 });
 

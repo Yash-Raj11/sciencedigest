@@ -154,3 +154,39 @@ export function estimateAtBed(amountText: string, doseText: string, bedText: str
  * carries numbers ("n = 12") the figure does not print, which would make them hover-only.
  */
 export const DECAY_TITLE = "How much is left, hour by hour";
+
+/**
+ * The time slider (owner, 2026-11-18): drag the caffeine time through the day instead of typing
+ * it. Minutes after midnight, 05:00 to 23:45 in quarter hours. It writes the same "HH:MM" the
+ * time field holds, so the two stay one state. With no time set the thumb rests at noon, but the
+ * state stays empty: nothing is estimated until the reader acts.
+ */
+export const DOSE_SLIDER = { min: 5 * 60, max: 23 * 60 + 45, step: 15, rest: 12 * 60 };
+
+/** "HH:MM" to minutes after midnight, or null when it is not a time. */
+export function minutesOf(clock: string): number | null {
+  const m = /^(\d{1,2}):(\d{2})$/.exec(clock.trim());
+  if (!m) return null;
+  const h = Number(m[1]);
+  const min = Number(m[2]);
+  return h < 24 && min < 60 ? h * 60 + min : null;
+}
+
+/** Minutes after midnight to "HH:MM". */
+export function clockOf(minutes: number): string {
+  const m = ((Math.round(minutes) % 1440) + 1440) % 1440;
+  return `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
+}
+
+/** Where the thumb sits for this time: inside the slider's range, noon when unset. */
+export function sliderValue(clock: string): number {
+  const m = minutesOf(clock);
+  if (m === null) return DOSE_SLIDER.rest;
+  return Math.min(DOSE_SLIDER.max, Math.max(DOSE_SLIDER.min, m));
+}
+
+/** How far along the track the thumb is, as a CSS length; "0%" when unset (no orange track). */
+export function sliderShare(clock: string): string {
+  if (minutesOf(clock) === null) return "0%";
+  return `${((sliderValue(clock) - DOSE_SLIDER.min) / (DOSE_SLIDER.max - DOSE_SLIDER.min)) * 100}%`;
+}

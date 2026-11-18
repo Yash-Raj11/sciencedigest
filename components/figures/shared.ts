@@ -21,6 +21,8 @@ export const SURFACE = "var(--surface)";
 export const META = "var(--meta)";
 /** Pastel peach: the paper's finding as a surface (a band, a range, a result box), never text. */
 export const SIGNAL_FILL = "var(--signal-evidence-fill)";
+/** A lighter peach (darker in dark themes): a soft band behind an orange line, so the line stays clear. */
+export const SIGNAL_PALE = "var(--signal-evidence-pale)";
 /** Text drawn on SIGNAL_FILL. */
 export const ON_SIGNAL_FILL = "var(--on-signal-evidence-fill)";
 export const BG = "var(--bg)";

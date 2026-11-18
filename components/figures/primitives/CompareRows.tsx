@@ -131,7 +131,7 @@ export function CompareRows({ x, y, width, rows, extent = [], baselineLabel, siz
               <rect x={p.low} y={bandY} width={Math.max(p.high - p.low, band)} height={band} rx={band / 2}
                 fill={pooled ? SIGNAL_FILL : "none"} stroke={pooled ? "none" : LINE} strokeWidth={1.5} data-band={pooled ? "" : undefined} />
             ) : null}
-            <line x1={p.point} x2={p.point} y1={bandY - 5} y2={bandY + band + 5} stroke={INK} strokeWidth={3} strokeLinecap="round" />
+            <line x1={p.point} x2={p.point} y1={bandY - 5} y2={bandY + band + 5} stroke={pooled ? SIGNAL_TEXT : INK} strokeWidth={3} strokeLinecap="round" />
             {ends(p, bandY + band + small + 6)}
           </g>
         );

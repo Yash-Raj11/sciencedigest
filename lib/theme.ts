@@ -47,4 +47,4 @@ export const THEME_BOOT_SCRIPT = `(function(){try{var s=localStorage.getItem(${J
  * read a CSS variable). A copy of --bg in app/globals.css; scripts/visual-system.test.ts
  * fails if they drift apart.
  */
-export const PAGE_COLOUR: Record<Theme, string> = { dark: "#000000", light: "#ffffff", bedtime: "#0d0d0c" };
+export const PAGE_COLOUR: Record<Theme, string> = { dark: "#0a0a0a", light: "#f6f3ee", bedtime: "#0d0d0c" };

@@ -111,7 +111,7 @@ export default function OrderFlips({ params, alt, interactive = true, glance, si
                     <button
                       key={option.id} type="button" aria-pressed={on} data-pick={`${setting.id}:${option.id}`}
                       onClick={() => setPicks((v) => ({ ...v, [setting.id]: on ? undefined : option.id }))}
-                      className={`min-h-11 rounded-lg border px-3 text-sm font-medium ${on ? "border-ink bg-ink text-bg" : "border-line bg-bg text-ink"}`}
+                      className={`min-h-11 rounded-lg border px-3 text-sm font-medium ${on ? "border-signal-evidence-fill bg-signal-evidence-fill text-on-signal-evidence-fill" : "border-line bg-bg text-ink"}`}
                     >
                       {option.label}
                     </button>
