@@ -179,6 +179,10 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       15 HTTP, 103 browser tests; 18 breaks; live check passed (`docs/evidence/reader-inputs/`).
 - [ ] Run the coverage pass on the 4 existing papers, so their checklist rows stop showing
       "not found" (`extract` re-run into scratch; merge only the coverage facts after review).
+      Not started. Found 2026-11-19 (BUILD-LOG): `extract` re-runs the whole first pass, and its
+      coverage pass then lists the model's new fact ids, not the hand-checked ids, so merging
+      means mapping every id by hand. A coverage-only run against the existing facts avoids that.
+      Owner to choose before the model is called.
 - [ ] 2E. Rewrite the three `editorial.json` files; concept files listed; `prompts.ts` updated
       with an old-shape refusal test; allowlist deleted; before/after table per paper.
 - [ ] ⏸ Stop. Owner approves concepts and reads all three. Phase 9 is not done until then.

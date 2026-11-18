@@ -83,6 +83,16 @@ Totals on 2026-11-18 (after the draft-stage menu of figure kinds): 700 unit test
 not re-run: no SQL touched since 2026-11-14).
 Outputs are in `docs/evidence/`.
 
+### Deployment state (2026-11-19, after reader inputs)
+
+- `main` is at the reader-inputs handoff commit. Vercel deployed `2cceeaf` about 75 s after the
+  push: every read, `/`, `/me`, `/privacy` and `/today` return 200, a missing paper 404, and the
+  visitor-only check passed (stored answers come back, an out-of-range one is dropped, no request
+  carries an answer, no page error): `docs/evidence/reader-inputs/live-check.txt`.
+- Hosted database: unchanged. No migration pending; **the hosted seed is still behind `main`**
+  (the sketches; this item changed no content). The real push still waits on the owner's second
+  "go" (MANUAL 3.3; the published count should be 4).
+
 ### Deployment state (2026-11-18, after the sketches)
 
 - `main` is at the sketches handoff commit. Vercel deployed `838430a` (the four sketches): the
@@ -371,18 +381,20 @@ paper; streak protection ("rest day") rules; sharing a finished day as an image.
 
 ```text
 Resume Science Digest. Read CLAUDE.md, docs/HANDOFF.md, docs/MASTER-PROMPT.md (including
-its Amendments), docs/PROGRESS.md, docs/SIMULATORS.md, docs/FIGURE-DESIGN.md and the latest
-BUILD-LOG entries. Run git status and git log --oneline -5. If the tree is not clean, tell me
-what is uncommitted before doing anything. Then continue with the item marked "Next" in
+its Amendments), docs/PROGRESS.md and the latest BUILD-LOG entries. Run git status and
+git log --oneline -5. If the tree is not clean, tell me what is uncommitted before doing
+anything. Then continue the master prompt from the first unchecked item in
 docs/PROGRESS.md, with the same working rules and the same ⏸ stops.
 
-Next item: Build the figures from docs/FIGURE-DESIGN.md, two per paper (A "why it happens",
-B "what happens to you"), ahead of the older open items. Data figures first (steps 3A in the
-audit layer and 3B; HIIT 4B; turmeric 2A); the sketches (caffeine 1A/1B, turmeric 2B, HIIT 4A)
-only once their concept is approved. Feed cards draw figure B's still view (R7). Every figure
-obeys the orange budget and the sketch rule.
-Waiting on the owner: review of the 4 question headlines and the 3 concepts (adenosine,
-post-meal-blood-sugar, fat-free-mass; the owner runs approve-concept); "go" for the hosted seed.
+Next unchecked item: Run the coverage pass on the 4 existing papers, so their checklist rows
+stop showing "not found" (`extract` re-run into scratch; merge only the coverage facts after
+review). Then 2E. Rewrite the three `editorial.json` files; concept files listed; `prompts.ts`
+updated with an old-shape refusal test; allowlist deleted; before/after table per paper.
+Waiting on the owner: how to run the coverage pass (BUILD-LOG 2026-11-19: a full `extract` gives
+new model ids that must be mapped by hand; a coverage-only run against the hand-checked facts
+does not); second "go" for the hosted seed push; wip/colour-figures; five-readings in the
+turmeric receipts; the five FIGURE-DESIGN departures; the clear-control labels and the turmeric
+meal picker's default (BUILD-LOG 2026-11-19).
 ```
 
 ---

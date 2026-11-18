@@ -1878,3 +1878,22 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   (`scripts/reader-input-shots.mts`); `breaks.txt` (each rule broken once and caught);
   `members-check.txt` (HIIT in a demo-mode build, `scripts/reader-inputs-members-check.mts`);
   `gates.txt` (lint, typecheck, unit, build, HTTP, browser).
+
+## 2026-11-19: handoff after reader inputs; how to run the coverage pass
+
+- Stopped after reader inputs (`2cceeaf`, live check passed) because the context was long; the
+  coverage pass and 2E start in a fresh session.
+- **Found while reading `scripts/paper.mts` for the coverage pass.** `extract` first writes a new
+  first-pass extraction (the model's own facts and ids), then runs the conditions & confounds pass
+  against *those* facts (`coveragePrompt({ source, facts: extraction.facts })`). The coverage map
+  it returns lists the new model ids, not the ids in the four hand-checked `extraction.json`
+  files. So a full re-run in scratch gives coverage facts that must be matched to the hand-checked
+  ids one by one before anything can be merged, and the first pass is spent for nothing.
+- **Option for the owner.** A coverage-only run: the same `COVERAGE_SYSTEM` request, fed the
+  hand-checked facts, writing to a scratch copy (a small flag on `paper extract`, no new
+  dependency). Its new facts arrive with quotes for the gate, and its coverage map points at
+  existing ids, so the review is "these new facts, these items ticked" and the merge is a copy.
+  One model request per paper part instead of two. Not done: the owner's instruction says
+  "re-run extract", and either way calls the model with `AI_API_KEY`.
+- Still the owner's to decide from this item: one clear label everywhere ("Clear my numbers")
+  instead of per simulator; whether turmeric's breakfast picker should open with no meal chosen.
