@@ -73,7 +73,7 @@ export function MemberExtras({ paper }: { paper: PaperMeta }) {
   return (
     <section aria-label="Membership extras" className="rounded-2xl border border-line p-4">
       <div className="flex items-baseline justify-between gap-3">
-        <h2 className="headline">Going further</h2>
+        <h2 data-rail className="headline">Going further</h2>
         <span className="rounded-full border border-line px-2.5 py-0.5 text-xs font-medium text-ink">Members</span>
       </div>
 

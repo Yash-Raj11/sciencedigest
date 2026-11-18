@@ -1699,3 +1699,19 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - Evidence: unit, HTTP and browser output saved in `docs/evidence/`; screenshots in
   `docs/evidence/premium/` (`scripts/premium-shots.mts`). Database tests not re-run: no SQL
   touched since 2026-11-14.
+
+## 2026-11-18: section rail on reads
+
+- Owner: replicate the outline marker of Claude's document view, in orange: a small stack of
+  hairline ticks at the top of a read, nothing else ("there should not be that opaque white
+  slide", so no label or panel). `components/read/SectionRail.tsx`, mounted at the end of the
+  read's `<article>`, fixed at the top right (below the safe area), inside the 16 px gutter.
+- One tick per `[data-rail]` heading (the read's h2 sections, "Who this was tested in", "Going
+  further" for members), read from the page so late-loading sections join. The section above
+  30% of the screen is `aria-current="location"`; its tick is longer and `--signal-evidence-text`
+  (one orange item, inside the budget). Tap a tick to jump; press and slide along the stack to
+  scrub. Fewer than three headings: no rail. Rows are 10 px tall and 24 px wide, so the slide is
+  the main way in; each tick is still a labelled button for keyboard and screen readers.
+- Tests: `tests/browser/section-rail.spec.ts` (order matches the headings, tap jumps and marks
+  current, at the top of the screen, slide reaches the last section, the rail holds no text, no
+  rail on the feed).

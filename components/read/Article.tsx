@@ -26,6 +26,7 @@ import { RANDOMIZED_DESIGNS, type Design } from "@/lib/pipeline/grade";
 import { loadRead, type Gated } from "@/lib/content/gated";
 import { contextSourceList } from "@/lib/content/source-line";
 import { LEGACY_RECEIPTS, SLOTS, glanceView } from "@/lib/content/glance";
+import { SectionRail } from "./SectionRail";
 import type { PaperContent, PaperMeta, Sentence } from "@/lib/content/types";
 import { useStore } from "@/lib/store";
 import { isDemo } from "@/lib/supabase/client";
@@ -57,7 +58,7 @@ function WhoWasTested({ paper, content }: { paper: PaperMeta; content: PaperCont
   const observational = !RANDOMIZED_DESIGNS.has(paper.design as Design);
   return (
     <section aria-label="Who was studied" className="rounded-2xl border border-signal-evidence-pale bg-signal-evidence-soft p-4">
-      <h3 className="headline">Who this was tested in</h3>
+      <h3 data-rail className="headline">Who this was tested in</h3>
       <div className="mt-2">
         <Para sentences={content.populationPanel} facts={content.facts} context={content.context} className={AUDIT} />
       </div>
@@ -93,12 +94,12 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
 
       {layers ? (
         <section aria-label="Why it happens" id={SLOTS.why} className={`space-y-4 ${SLOT}`}>
-          <h2 className={LAYER}>Why it happens</h2>
+          <h2 data-rail className={LAYER}>Why it happens</h2>
           <Paragraphs slug={paper.slug} paragraphs={layers.mechanism.paragraphs} figure={layers.mechanism.figure} facts={facts} context={context} />
         </section>
       ) : first ? (
         <section aria-label={first.heading} id={SLOTS.why} className={`space-y-4 ${SLOT}`}>
-          <h2 className={LAYER}>{first.heading}</h2>
+          <h2 data-rail className={LAYER}>{first.heading}</h2>
           <Paragraphs slug={paper.slug} paragraphs={first.paragraphs} figure={content.figure} facts={facts} context={context} />
         </section>
       ) : null}
@@ -107,7 +108,7 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
 
       {rest.map((section) => (
         <section key={section.id} aria-label={section.heading} className="space-y-4">
-          <h2 className={LAYER}>{section.heading}</h2>
+          <h2 data-rail className={LAYER}>{section.heading}</h2>
           <Paragraphs slug={paper.slug} paragraphs={section.paragraphs} facts={facts} context={context} />
         </section>
       ))}
@@ -115,7 +116,7 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
       <section aria-label="What was tested" className="space-y-4">
         {layers ? (
           <>
-            <h2 className={LAYER}>What was tested</h2>
+            <h2 data-rail className={LAYER}>What was tested</h2>
             <Paragraphs slug={paper.slug} paragraphs={layers.protocol.paragraphs} figure={layers.protocol.figure} facts={facts} context={context} />
           </>
         ) : null}
@@ -123,7 +124,7 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
       </section>
 
       <section aria-label="Simulator" id={SLOTS.try} className={`space-y-3 ${SLOT}`}>
-        <h2 className="headline">Try it</h2>
+        <h2 data-rail className="headline">Try it</h2>
         {content.simulator.spec
           ? <KindSimulator content={content} observational={!RANDOMIZED_DESIGNS.has(paper.design as Design)} />
           : content.protocolFigure
@@ -187,7 +188,7 @@ function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent 
     <section aria-label="The receipts" id={SLOTS.receipts} className={`overflow-hidden rounded-3xl border border-line bg-surface ${SLOT}`}>
       <header className="border-b border-line bg-signal-evidence-soft px-4 pb-4 pt-5">
         <p className="text-xs font-medium tracking-wider text-signal-evidence-text">The audit</p>
-        <h2 className="headline mt-1">The receipts</h2>
+        <h2 data-rail className="headline mt-1">The receipts</h2>
         <dl className="mt-4 grid grid-cols-2 gap-2.5 text-sm leading-snug">
           <div className="rounded-2xl border border-line bg-surface px-3.5 py-3">
             <dt className="text-xs font-medium text-muted">Design</dt>
@@ -349,7 +350,7 @@ export function Article({ paper }: { paper: PaperMeta }) {
       )}
 
       <section aria-label="Protocol" id={SLOTS.protocol} className={`space-y-3 ${SLOT}`}>
-        <h2 className="headline">Put it in your Life Game</h2>
+        <h2 data-rail className="headline">Put it in your Life Game</h2>
         <WidgetFor slug={paper.slug} variant="article" />
       </section>
 
@@ -377,6 +378,7 @@ export function Article({ paper }: { paper: PaperMeta }) {
           The paper is published under a {paper.license.replace("-", " ")} licence. Passages in quotation marks are the authors&apos; words; the rest is our summary of them. This is not medical advice.
         </p>
       </footer>
+      <SectionRail />
     </article>
     </SourceLineContext.Provider>
   );
