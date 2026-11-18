@@ -30,6 +30,8 @@ const REAL = `content/papers/${SLUG}/extraction.json`;
 const hash = (path: string) => createHash("sha256").update(readFileSync(path)).digest("hex");
 
 const hand = JSON.parse(readFileSync(REAL, "utf8"));
+// The file as it was hand-checked: the coverage pass was merged into it on 2026-11-19.
+delete hand.coverage;
 const sugar = hand.facts.find((f: { id: string }) => f.id === "sugar_row");
 /** The hand-checked facts without one the pass is then asked to find. */
 const base = { ...hand, facts: hand.facts.filter((f: { id: string }) => f.id !== "sugar_row") };

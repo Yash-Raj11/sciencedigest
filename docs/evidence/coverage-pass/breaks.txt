@@ -69,3 +69,9 @@ B10 reviewCoverage ignores a dropped fact
   content/ after the break: UNCHANGED
   restored: exit 0; Tests  15 passed (15)
 
+B11 a coverage id that names no gated fact (steps funding: no_such_fact)
+  ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+   FAIL  lib/pipeline/coverage.test.ts > the coverage maps merged into content/papers (2026-11-19) > steps-days-per-week: every id in its coverage map is one of its gated facts
+        Tests  1 failed | 18 passed (19)
+  restored, hash matches
+  after restore:       Tests  19 passed (19)

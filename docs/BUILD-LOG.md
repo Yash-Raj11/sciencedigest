@@ -1962,3 +1962,27 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   `coverage-pass.json`, `run.txt`), `gates.txt`, `breaks.txt`, `build-check.txt`.
 - Not mine, left alone: `components/read/SectionRail.tsx` and `tests/browser/section-rail.spec.ts`
   were modified by another session working in the same folder during this one; not committed here.
+
+## 2026-11-19: the 71 coverage facts merged (owner: "Merge all 71")
+
+- **How.** For each paper, the saved model answer (`docs/evidence/coverage-pass/<slug>/coverage-pass.json`)
+  replayed onto the hand-checked `extraction.json` with `mergeCoverage`. Before writing a paper,
+  the script required `reviewCoverage` to report no problem, the result to equal the scratch copy
+  the owner reviewed character for character, and the gate to pass. Facts: caffeine 22 → 32,
+  HIIT 52 → 59, steps 34 → 73, turmeric 42 → 57; no relabels.
+- **The one change to hand-checked lines.** `JSON.stringify` writes `-2.0` as `-2`: four numbers
+  (HIIT `ciLow` -2.0; steps `ciLow` -20.0, `point` -23.0, `ciLow` -23.0) lost a trailing zero.
+  Same values; the gate compares numbers, not text.
+- **What a reader sees: nothing new.** `content:build` passes and leaves `lib/content/generated.ts`,
+  `content/generated/` and `supabase/seed.sql` unchanged (only cited facts are bundled), so the
+  hosted seed falls no further behind. The change shows in `/admin/queue` (local only): rows
+  found per paper, of nine, caffeine 7, HIIT 6, steps 6, turmeric 9 (before: 3 each, the gate's
+  design, n and limitations). Still "not found": caffeine furtherInvestigation and funding; HIIT
+  conditions, confounds, funding; steps conditions, dosing, funding.
+- **Not answered, so unchanged:** the caffeine design label ("Randomized crossover trial") beside
+  the paper's "pseudo-randomization" sentence, now gated as `pseudo_randomization`.
+- **Tests.** Three tests used a real extraction as "a file without the pass": the coverage and
+  coverage-only tests now strip the merged map from their turmeric fixture, and the context-build
+  test reads the steps fact count from the file instead of pinning 34. New: every id in each
+  paper's coverage map names one of its gated facts, and all six items are present (break B11
+  caught, `breaks.txt`).

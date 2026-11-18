@@ -1,0 +1,200 @@
+
+> sciencedigest@0.1.0 lint
+> eslint
+
+
+> sciencedigest@0.1.0 typecheck
+> tsc --noEmit
+
+
+> sciencedigest@0.1.0 test
+> vitest run
+
+
+ RUN  v5.1.0 /Users/yash/Game/sciencedigest
+
+
+ Test Files  50 passed (50)
+      Tests  752 passed (752)
+   Start at  01:05:18
+   Duration  4.17s (tests 76%, import 20%, transform 3%, worker 1%)
+
+    Isolate  50 workers spawned · ~84ms startup each (spawn + environment, per file)
+             at least ~516ms faster with isolate: false — reuses workers across files instead of one per file
+
+
+> sciencedigest@0.1.0 build
+> npm run content:check && next build
+
+
+> sciencedigest@0.1.0 content:check
+> tsx scripts/content-build.mts --check --quiet
+
+▲ Next.js 16.4.6 (Turbopack)
+- Environments: .env.local
+✓ Running next.config.ts took 52ms
+- Cache Components enabled
+- Partial Prefetching enabled
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 532ms
+  Running TypeScript ...
+  Finished TypeScript in 1414ms ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/16) ...
+  Generating static pages using 7 workers (4/16) 
+  Generating static pages using 7 workers (8/16) 
+  Generating static pages using 7 workers (12/16) 
+✓ Generating static pages using 7 workers (16/16) in 410ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /admin/queue
+├ ƒ /api/admin/queue
+├ ƒ /api/demo/gated/[slug]
+├ ○ /manifest.webmanifest
+├ ○ /me
+├   /papers/[slug]
+│ ├ ◐ /papers/[slug]
+│ ├ ○ /papers/turmeric-pepper-breakfast
+│ ├ ○ /papers/steps-days-per-week
+│ └ ◐ [+2 more paths]
+├ ○ /privacy
+├ ○ /today
+└ ○ /upgrade
+
+
+○  (Static)             prerendered as static content
+◐  (Partial Prerender)  prerendered as static HTML with dynamic server-streamed content
+ƒ  (Dynamic)            server-rendered on demand
+
+
+> sciencedigest@0.1.0 test:http
+> vitest run --config vitest.http.config.mts
+
+
+ RUN  v5.1.0 /Users/yash/Game/sciencedigest
+
+
+ Test Files  2 passed (2)
+      Tests  15 passed (15)
+   Start at  01:05:26
+   Duration  597ms (tests 90%, import 7%, transform 2%, worker 1%)
+
+
+> sciencedigest@0.1.0 test:browser
+> playwright test
+
+
+Running 105 tests using 4 workers
+
+  ✓    2 [chromium] › tests/browser/held-writes.spec.ts:16:1 › Me shows the held changes, with the reason and Try again; a reload keeps them (754ms)
+  ✓    4 [chromium] › tests/browser/article-redesign.spec.ts:21:3 › the feed › shows every paper as a card with the key idea at a glance (773ms)
+  ✓    6 [chromium] › tests/browser/article-redesign.spec.ts:55:3 › the feed › a tap on a post opens the full read (309ms)
+  ✓    5 [chromium] › tests/browser/privacy.spec.ts:38:3 › the privacy page renders in dark (403ms)
+  ✓    7 [chromium] › tests/browser/article-redesign.spec.ts:66:3 › the read › runs in order: hook, mechanism with its figure, number, protocol, simulator, Life Game, receipts (265ms)
+  ✓    9 [chromium] › tests/browser/article-redesign.spec.ts:100:3 › the read › the finding card gives the headline result and its source line (175ms)
+  ✓    8 [chromium] › tests/browser/privacy.spec.ts:38:3 › the privacy page renders in light (366ms)
+  ✓   11 [chromium] › tests/browser/privacy.spec.ts:38:3 › the privacy page renders in bedtime (417ms)
+  ✓   10 [chromium] › tests/browser/article-redesign.spec.ts:108:3 › the read › a glossary word opens the sheet with its plain text and source line (565ms)
+  ✓   13 [chromium] › tests/browser/article-redesign.spec.ts:124:3 › the read › every glossary entry of the read can be reached from the text (186ms)
+  ✓   12 [chromium] › tests/browser/privacy.spec.ts:57:1 › Me and Membership both link to the privacy page (456ms)
+  ✓   14 [chromium] › tests/browser/article-redesign.spec.ts:130:3 › the read › the limitation is bold without a tap; Full receipts holds the rest (281ms)
+  ✓   16 [chromium] › tests/browser/article-redesign.spec.ts:152:3 › the readings grid (the one interactive figure) › first view: nothing picked, the finding already drawn (233ms)
+  ✓   17 [chromium] › tests/browser/article-redesign.spec.ts:161:3 › the readings grid (the one interactive figure) › touch at 360 px: every dot is a target of at least 44 px, and none overlap (186ms)
+  ✓   15 [chromium] › tests/browser/readability.spec.ts:87:7 › orange budget (dark) › /: at most 10 orange items on any screen (744ms)
+  ✓   18 [chromium] › tests/browser/article-redesign.spec.ts:178:3 › the readings grid (the one interactive figure) › a tap shows that reading's passage, word for word, with its source line (350ms)
+  ✓   20 [chromium] › tests/browser/article-redesign.spec.ts:199:3 › the readings grid (the one interactive figure) › keyboard: Tab reaches each dot, and each state is announced (189ms)
+  ✓   19 [chromium] › tests/browser/readability.spec.ts:87:7 › orange budget (dark) › /papers/daytime-caffeine-sleep: at most 10 orange items on any screen (686ms)
+  ✓   21 [chromium] › tests/browser/article-redesign.spec.ts:224:3 › quiet motion for toggles › a picked option, the sheet and Full receipts settle once, in 120 to 180 ms (363ms)
+  ✓    1 [chromium] › tests/browser/captcha-blocked.spec.ts:26:1 › a blocked Turnstile script never blocks ticking; sync shows offline (4.0s)
+  ✓   23 [chromium] › tests/browser/article-redesign.spec.ts:248:3 › quiet motion for toggles › under reduced motion every one of them changes at once, and nothing in a figure moves (336ms)
+  ✓   25 [chromium] › tests/browser/article-redesign.spec.ts:264:3 › feed first › the home page is the feed, with the Life Game slot on top; /library moved there for good (257ms)
+  ✓   22 [chromium] › tests/browser/readability.spec.ts:87:7 › orange budget (dark) › /papers/steps-days-per-week: at most 10 orange items on any screen (686ms)
+  ✓   26 [chromium] › tests/browser/article-redesign.spec.ts:284:3 › feed first › the slot counts today's steps (382ms)
+  ✓   27 [chromium] › tests/browser/readability.spec.ts:87:7 › orange budget (dark) › /papers/turmeric-pepper-breakfast: at most 10 orange items on any screen (709ms)
+  ✓   24 [chromium] › tests/browser/reader-inputs.spec.ts:38:3 › caffeine: the reader's evening comes back › dose time, bedtime and amount typed, the page reloaded: all three are back, with the estimate (1.4s)
+  ✓   28 [chromium] › tests/browser/article-redesign.spec.ts:301:3 › feed first › Start on: Feed is the default; Life Game opens /today once, and the Feed tab still works (655ms)
+  ✓   29 [chromium] › tests/browser/readability.spec.ts:87:7 › orange budget (dark) › /papers/hiit-body-composition: at most 10 orange items on any screen (679ms)
+  ✓    3 [chromium] › tests/browser/paper-routes-dev.spec.ts:85:3 › /papers/turmeric-pepper-breakfast opens in dev with no route error (4.4s)
+  ✓   31 [chromium] › tests/browser/section-rail.spec.ts:13:3 › the section rail › lists the read's section headings in page order (676ms)
+  ✓   32 [chromium] › tests/browser/readability.spec.ts:95:5 › orange budget (dark) › the feed: one focal orange item per card (668ms)
+  ✓   34 [chromium] › tests/browser/section-rail.spec.ts:24:3 › the section rail › a tap jumps to the section and marks it as the one being read (773ms)
+  ✓   35 [chromium] › tests/browser/readability.spec.ts:102:5 › orange budget (dark) › caffeine, used: still within the budget (687ms)
+  ✓   30 [chromium] › tests/browser/reader-inputs.spec.ts:59:3 › caffeine: the reader's evening comes back › Clear my numbers: every field empty, both sliders Not set, and still so after a reload (1.9s)
+  ✓   37 [chromium] › tests/browser/readability.spec.ts:87:7 › orange budget (light) › /: at most 10 orange items on any screen (688ms)
+  ✓   36 [chromium] › tests/browser/section-rail.spec.ts:35:3 › the section rail › ticks of sections scrolled past turn orange, and turn back on the way up (1.2s)
+  ✓   38 [chromium] › tests/browser/reader-inputs.spec.ts:73:3 › caffeine: the reader's evening comes back › only what was typed comes back: an empty field stays empty and its slider stays Not set (1.3s)
+  ✓   39 [chromium] › tests/browser/readability.spec.ts:87:7 › orange budget (light) › /papers/daytime-caffeine-sleep: at most 10 orange items on any screen (724ms)
+  ✓   40 [chromium] › tests/browser/section-rail.spec.ts:65:3 › the section rail › a last section too short to reach the reading line still fills the rail at the end of the page (694ms)
+  ✓   42 [chromium] › tests/browser/readability.spec.ts:87:7 › orange budget (light) › /papers/steps-days-per-week: at most 10 orange items on any screen (684ms)
+  ✓   33 [chromium] › tests/browser/paper-routes-dev.spec.ts:85:3 › /papers/steps-days-per-week opens in dev with no route error (3.6s)
+  ✓   43 [chromium] › tests/browser/section-rail.spec.ts:85:3 › the section rail › press and slide scrubs through the read; ticks only, no label or panel (821ms)
+  ✓   44 [chromium] › tests/browser/readability.spec.ts:87:7 › orange budget (light) › /papers/turmeric-pepper-breakfast: at most 10 orange items on any screen (706ms)
+  ✓   46 [chromium] › tests/browser/section-rail.spec.ts:107:3 › the section rail › the feed has no rail (738ms)
+  ✓   48 [chromium] › tests/browser/simulators.spec.ts:8:3 › caffeine: the decay simulator › first view: the curve and the half-life band, empty fields, no presets, no estimate (172ms)
+  ✓   47 [chromium] › tests/browser/readability.spec.ts:87:7 › orange budget (light) › /papers/hiit-body-composition: at most 10 orange items on any screen (663ms)
+  ✓   41 [chromium] › tests/browser/reader-inputs.spec.ts:86:3 › caffeine: the reader's evening comes back › no request carries an answer: nothing goes to Supabase, and no URL or body holds the typed values (2.4s)
+  ✓   49 [chromium] › tests/browser/simulators.spec.ts:26:3 › caffeine: the decay simulator › the two time sliders set the caffeine time and the bedtime, and the estimate follows (713ms)
+  ✓   50 [chromium] › tests/browser/readability.spec.ts:95:5 › orange budget (light) › the feed: one focal orange item per card (693ms)
+  ✓   52 [chromium] › tests/browser/simulators.spec.ts:40:3 › caffeine: the decay simulator › the worked example: 95 mg at 4 pm, bed at 11 pm, about 28 to 44 mg, with its labels and the paper's finding (722ms)
+  ✓   53 [chromium] › tests/browser/readability.spec.ts:102:5 › orange budget (light) › caffeine, used: still within the budget (722ms)
+  ✓   51 [chromium] › tests/browser/reader-inputs.spec.ts:125:3 › bad storage never breaks a read › junk under the key: the read opens, every field Not set, no error on the page (1.3s)
+  ✓   54 [chromium] › tests/browser/simulators.spec.ts:58:3 › caffeine: the decay simulator › the half-life study is listed in Full receipts (208ms)
+  ✓   55 [chromium] › tests/browser/readability.spec.ts:87:7 › orange budget (bedtime) › /: at most 10 orange items on any screen (728ms)
+  ✓   56 [chromium] › tests/browser/reader-inputs.spec.ts:139:3 › bad storage never breaks a read › a stored value outside the simulator's range is dropped, not clamped: only the good field comes back (723ms)
+  ✓   57 [chromium] › tests/browser/simulators.spec.ts:67:3 › steps: the association-curve simulator (FIGURE-DESIGN 3B) › a week of two days: that group's grid at full strength, the raw shares with counts, the adjusted difference, who straight under (807ms)
+  ✓   45 [chromium] › tests/browser/paper-routes-dev.spec.ts:85:3 › /papers/daytime-caffeine-sleep opens in dev with no route error (3.6s)
+  ✓   58 [chromium] › tests/browser/readability.spec.ts:87:7 › orange budget (bedtime) › /papers/daytime-caffeine-sleep: at most 10 orange items on any screen (703ms)
+  ✓   60 [chromium] › tests/browser/simulators.spec.ts:92:3 › steps: the association-curve simulator (FIGURE-DESIGN 3B) › No days: the comparison group, no adjusted number, both bands outlined (694ms)
+  ✓   62 [chromium] › tests/browser/readability.spec.ts:87:7 › orange budget (bedtime) › /papers/steps-days-per-week: at most 10 orange items on any screen (691ms)
+  ✓   59 [chromium] › tests/browser/reader-inputs.spec.ts:151:3 › bad storage never breaks a read › storage that refuses writes: the simulator still works for this visit, without an error (1.4s)
+  ✓   63 [chromium] › tests/browser/simulators.spec.ts:104:3 › steps: figure 3A sits at the top of the receipts (R3) › three columns with the printed ages; the mechanism section draws no figure (690ms)
+  ✓   66 [chromium] › tests/browser/source-line.spec.ts:16:1 › tapping a dot shows the passage with its source line (198ms)
+  ✓   67 [chromium] › tests/browser/source-line.spec.ts:31:1 › each read's finding card names who, the design and how long (319ms)
+  ✓   64 [chromium] › tests/browser/readability.spec.ts:87:7 › orange budget (bedtime) › /papers/turmeric-pepper-breakfast: at most 10 orange items on any screen (723ms)
+  ✓   68 [chromium] › tests/browser/source-line.spec.ts:42:1 › the grade is words and a meter; a tap says why; the sentence matches the design (334ms)
+  ✓   69 [chromium] › tests/browser/readability.spec.ts:87:7 › orange budget (bedtime) › /papers/hiit-body-composition: at most 10 orange items on any screen (712ms)
+  ✓   71 [chromium] › tests/browser/readability.spec.ts:95:5 › orange budget (bedtime) › the feed: one focal orange item per card (652ms)
+  ✓   61 [chromium] › tests/browser/paper-routes-dev.spec.ts:85:3 › /papers/hiit-body-composition opens in dev with no route error (3.5s)
+  ✓   65 [chromium] › tests/browser/reader-inputs.spec.ts:172:3 › each read keeps its own answers › steps: the days come back on their own read, and caffeine's answers are not seen there (2.5s)
+  ✓   72 [chromium] › tests/browser/readability.spec.ts:102:5 › orange budget (bedtime) › caffeine, used: still within the budget (715ms)
+  ✓   75 [chromium] › tests/browser/readability.spec.ts:115:1 › the budget check catches one orange item over the budget (711ms)
+  ✓   73 [chromium] › tests/browser/paper-routes-dev.spec.ts:153:3 › /papers/turmeric-pepper-breakfast draws its figures (1.2s)
+  ✓   76 [chromium] › tests/browser/readability.spec.ts:131:1 › the Life Game exemption covers only [data-life-game]: an orange number outside it counts (690ms)
+  ✓   74 [chromium] › tests/browser/reader-inputs.spec.ts:192:3 › each read keeps its own answers › turmeric: the switches come back in the read, while the feed card keeps the paper's own comparison (2.0s)
+  ✓   77 [chromium] › tests/browser/paper-routes-dev.spec.ts:199:3 › /papers/turmeric-pepper-breakfast: its figures fit a 360 px screen and hold still under reduced motion (1.2s)
+  ✓   78 [chromium] › tests/browser/readability.spec.ts:143:1 › the source-dot exemption covers only the dot itself: an orange item inside or around it counts (720ms)
+  ✓   70 [chromium] › tests/browser/source-line.spec.ts:58:1 › no screen shows an evidence weight (4.3s)
+  ✓   81 [chromium] › tests/browser/readability.spec.ts:158:1 › every source dot is a small, empty, hidden mark (840ms)
+  ✓   83 [chromium] › tests/browser/readability.spec.ts:171:3 › finding cards: plain headline, one supporting line, source line › steps: the headline states its own number (no minus with 'lower'), the range as a bar, no CI in words (165ms)
+  ✓   80 [chromium] › tests/browser/paper-routes-dev.spec.ts:153:3 › /papers/steps-days-per-week draws its figure (1.2s)
+  ✓   84 [chromium] › tests/browser/readability.spec.ts:180:3 › finding cards: plain headline, one supporting line, source line › caffeine: the finding as the headline, what was checked under it (200ms)
+  ✓   82 [chromium] › tests/browser/source-line.spec.ts:65:1 › the Life Game shows weights only inside the tap-to-open explainer, with a worked sum (838ms)
+  ✓   86 [chromium] › tests/browser/readability.spec.ts:188:3 › finding cards: plain headline, one supporting line, source line › turmeric: neutral wording, and the size it does not give (179ms)
+  ✓   87 [chromium] › tests/browser/readability.spec.ts:200:3 › daytime-caffeine-sleep: no "significant", p-value, CI or effect size outside the Receipts (695ms)
+  ✓   85 [chromium] › tests/browser/paper-routes-dev.spec.ts:199:3 › /papers/steps-days-per-week: its figures fit a 360 px screen and hold still under reduced motion (1.3s)
+  ✓   79 [chromium] › tests/browser/reader-inputs.spec.ts:212:3 › Me: one line to forget every simulator's answers › nothing kept, then kept, then cleared; the theme stays (2.7s)
+  ✓   88 [chromium] › tests/browser/readability.spec.ts:200:3 › steps-days-per-week: no "significant", p-value, CI or effect size outside the Receipts (664ms)
+  ✓   90 [chromium] › tests/browser/readability.spec.ts:200:3 › turmeric-pepper-breakfast: no "significant", p-value, CI or effect size outside the Receipts (656ms)
+  ✓   89 [chromium] › tests/browser/paper-routes-dev.spec.ts:153:3 › /papers/daytime-caffeine-sleep draws its figures (1.1s)
+  ✓   91 [chromium] › tests/browser/readability.spec.ts:211:1 › the page check catches a CI in the read (689ms)
+  ✓   92 [chromium] › tests/browser/paper-routes-dev.spec.ts:199:3 › /papers/daytime-caffeine-sleep: its figures fit a 360 px screen and hold still under reduced motion (1.1s)
+  ✓   93 [chromium] › tests/browser/readability.spec.ts:221:3 › feed card: the key idea at a glance › order: meta, question, finding, one sentence, still figure, What's inside, source line (726ms)
+  ✓   95 [chromium] › tests/browser/readability.spec.ts:232:3 › feed card: the key idea at a glance › the still figure prints no number on any card but steps' 3B and HIIT's 4B stills (685ms)
+  ✓   96 [chromium] › tests/browser/readability.spec.ts:239:3 › feed card: the key idea at a glance › the Try it row is the card's focal orange (676ms)
+  ✓   94 [chromium] › tests/browser/paper-routes-dev.spec.ts:153:3 › /papers/hiit-body-composition draws its figures (2.6s)
+  ✓   98 [chromium] › tests/browser/paper-routes-dev.spec.ts:199:3 › /papers/hiit-body-composition: its figures fit a 360 px screen and hold still under reduced motion (1.8s)
+  ✓   97 [chromium] › tests/browser/readability.spec.ts:250:5 › feed card: the key idea at a glance › daytime-caffeine-sleep: each row lands on its slot (3.6s)
+  ✓   99 [chromium] › tests/browser/paper-routes-dev.spec.ts:219:1 › /papers/hiit-body-composition: figure 4B shows subgroups for a picked routine, never a combined number (2.2s)
+  ✓  100 [chromium] › tests/browser/readability.spec.ts:250:5 › feed card: the key idea at a glance › steps-days-per-week: each row lands on its slot (3.4s)
+  ✓  101 [chromium] › tests/browser/paper-routes-dev.spec.ts:264:1 › /papers/hiit-body-composition: figure 4B with a full routine, collapsed, fits one phone screen (2.2s)
+  ✓  102 [chromium] › tests/browser/readability.spec.ts:250:5 › feed card: the key idea at a glance › turmeric-pepper-breakfast: each row lands on its slot (3.5s)
+  ✓  103 [chromium] › tests/browser/readability.spec.ts:250:5 › feed card: the key idea at a glance › hiit-body-composition: each row lands on its slot (2.0s)
+  ✓  104 [chromium] › tests/browser/readability.spec.ts:263:3 › feed card: the key idea at a glance › a members' read lists only the slots everyone can open (686ms)
+  ✓  105 [chromium] › tests/browser/readability.spec.ts:270:3 › feed card: the key idea at a glance › the landing check fails for a slot the read does not have (646ms)
+
+  105 passed (44.5s)
+exit 0

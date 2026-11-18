@@ -358,7 +358,7 @@
         "outcome": "Fat mass",
         "measure": "WMD",
         "point": -1.24,
-        "ciLow": -2.0,
+        "ciLow": -2,
         "ciHigh": -0.48,
         "unit": "kg",
         "gradeRef": "grade_fm"
@@ -705,6 +705,75 @@
       "label": "The fat-free-mass result depends on a single trial",
       "value": "eliminated any observed significant overall effect of HIIT on FFM",
       "quote": "the removal of one study [] in particular eliminated any observed significant overall effect of HIIT on FFM (WMD: −0.46, 95% CI: −1.38 to 0.44)"
+    },
+    {
+      "id": "prior_athletes",
+      "kind": "context",
+      "label": "Earlier HIIT studies in athletes",
+      "value": "athletes",
+      "quote": "Unsurprisingly, earlier studies with athletes revealed HIIT promoted significant physiological and performance improvements in submaximal heart rate, VO, repeated sprint ability, and running/jumping performance [,]."
+    },
+    {
+      "id": "prior_older_adults",
+      "kind": "context",
+      "label": "Prior meta-analysis in older adults",
+      "value": "older adults",
+      "quote": "On the other hand, a meta-analysis by Wu et al. found that HIIT involving a combination of cycling and whole-body circuit training led to significant improvements in body fat percentage (BF%) and lean mass compared to continuous endurance training in older adults []."
+    },
+    {
+      "id": "prior_overweight_meta",
+      "kind": "context",
+      "label": "Prior meta-analysis in overweight and obese participants",
+      "value": "overweight and obese participants",
+      "quote": "A previous meta-analysis of RCTs in overweight and obese participants (as opposed to the general population in our current work) showed significant reductions in BF% following HIIT, particularly when incorporating running modalities compared to cycling []."
+    },
+    {
+      "id": "further_modality",
+      "kind": "limitation",
+      "label": "Further investigation on most effective HIIT modality",
+      "value": "Future investigations should endeavor to determine the most effective HIIT exercise modality under well-controlled and similar conditions",
+      "quote": "Future investigations should endeavor to determine the most effective HIIT exercise modality under well-controlled and similar conditions (e.g., intervention duration, relative/absolute intensity, participant characteristics, etc.), notwithstanding any participant limitations."
+    },
+    {
+      "id": "further_cycling_ffm",
+      "kind": "limitation",
+      "label": "More research needed on cycling-induced FFM mechanism",
+      "value": "More research is required on the possible mechanism of enhanced cycling-induced FFM improvements during HIIT compared to other modalities",
+      "quote": "More research is required on the possible mechanism of enhanced cycling-induced FFM improvements during HIIT compared to other modalities before definitive conclusions may be reached."
+    },
+    {
+      "id": "further_active_recovery",
+      "kind": "limitation",
+      "label": "Future studies needed on active recovery and FFM",
+      "value": "Future studies are required to better understand the effect of HIIT with active recovery on FFM changes.",
+      "quote": "Future studies are required to better understand the effect of HIIT with active recovery on FFM changes."
+    },
+    {
+      "id": "further_ideal_models",
+      "kind": "limitation",
+      "label": "Future research needed on ideal HIIT training models",
+      "value": "future research should aim to determine ideal training models for maximizing improvements in body fat and FFM in the general population.",
+      "quote": "In light of the public health implications of maintaining proper body composition for health and well-being, and considering the increasing popularity of HIIT exercises, future research should aim to determine ideal training models for maximizing improvements in body fat and FFM in the general population."
     }
-  ]
+  ],
+  "coverage": {
+    "conditions": [],
+    "dosing": [
+      "trials"
+    ],
+    "confounds": [],
+    "priorEvidence": [
+      "wewege",
+      "prior_athletes",
+      "prior_older_adults",
+      "prior_overweight_meta"
+    ],
+    "furtherInvestigation": [
+      "further_modality",
+      "further_cycling_ffm",
+      "further_active_recovery",
+      "further_ideal_models"
+    ],
+    "funding": []
+  }
 }

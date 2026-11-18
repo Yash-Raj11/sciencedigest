@@ -1,0 +1,4 @@
+daytime-caffeine-sleep: 7 of 9 found; not found: furtherInvestigation, funding
+hiit-body-composition: 6 of 9 found; not found: conditions, confounds, funding
+steps-days-per-week: 6 of 9 found; not found: conditions, dosing, funding
+turmeric-pepper-breakfast: 9 of 9 found; not found: none

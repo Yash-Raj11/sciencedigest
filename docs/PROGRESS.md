@@ -177,7 +177,7 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       turmeric (switches, meal) and HIIT (routine) remember on the device, `sd.sim.<slug>.<simulator>`;
       dropped, never clamped; "Clear my numbers" by the simulator and on Me; privacy line. 734 unit,
       15 HTTP, 103 browser tests; 18 breaks; live check passed (`docs/evidence/reader-inputs/`).
-- [ ] Run the coverage pass on the 4 existing papers, so their checklist rows stop showing
+- [x] Run the coverage pass on the 4 existing papers, so their checklist rows stop showing
       "not found" (`extract` re-run into scratch; merge only the coverage facts after review).
       Not started. Found 2026-11-19 (BUILD-LOG): `extract` re-runs the whole first pass, and its
       coverage pass then lists the model's new fact ids, not the hand-checked ids, so merging
@@ -185,7 +185,9 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       the hand-checked facts, into scratch (MASTER-PROMPT amendment 2026-11-19). Tool `bd71f8f`
       (`--coverage-only`, 10 of 10 breaks). Run 2026-11-19: 71 new facts, 0 relabels, every
       scratch copy gated, dry build passes (`docs/evidence/coverage-pass/`, BUILD-LOG).
-      ⏸ **Not merged: waiting on the owner's review of the new facts** (four questions in BUILD-LOG).
+      Owner's review: "Merge all 71" (2026-11-19). Merged by replaying each saved answer onto the
+      hand-checked file; checklist rows found: caffeine 7 of 9, HIIT 6, steps 6, turmeric 9
+      (`docs/evidence/coverage-pass/checklist-after-merge.txt`, `gates-after-merge.txt`).
 - [ ] 2E. Rewrite the three `editorial.json` files; concept files listed; `prompts.ts` updated
       with an old-shape refusal test; allowlist deleted; before/after table per paper.
 - [ ] ⏸ Stop. Owner approves concepts and reads all three. Phase 9 is not done until then.

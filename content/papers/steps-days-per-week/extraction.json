@@ -161,7 +161,7 @@
         "outcome": "10-year risk of death from any cause",
         "measure": "aRD",
         "point": -15.9,
-        "ciLow": -20.0,
+        "ciLow": -20,
         "ciHigh": -11.8,
         "unit": "points",
         "gradeRef": null
@@ -176,7 +176,7 @@
       "estimate": {
         "outcome": "10-year risk of death from any cause",
         "measure": "aRD",
-        "point": -23.0,
+        "point": -23,
         "ciLow": -26.8,
         "ciHigh": -19.3,
         "unit": "points",
@@ -193,7 +193,7 @@
         "outcome": "10-year risk of death from any cause",
         "measure": "aRD",
         "point": -19.4,
-        "ciLow": -23.0,
+        "ciLow": -23,
         "ciHigh": -15.8,
         "unit": "points",
         "gradeRef": null
@@ -444,6 +444,334 @@
       "label": "People may walk more because they are wearing a tracker",
       "value": "Hawthorne effect",
       "quote": "as a result of knowledge that they are wearing the device, participants might have a tendency to be more active, a phenomenon known as the Hawthorne effect"
+    },
+    {
+      "id": "group_differences",
+      "kind": "descriptive",
+      "label": "Baseline differences across step frequency groups",
+      "value": "more likely to be younger, men, Hispanic, insured, married, and never smokers and less likely to have obesity, use statins, have comorbidities (ie, decreased eGFR, diabetes, hypertension, cardiovascular disease, cancer, emphysema), have mobility limitations, or rate their health as fair or poor",
+      "quote": "Participants with a higher number of days taking 8000 steps or more throughout the week were more likely to be younger, men, Hispanic, insured, married, and never smokers and less likely to have obesity, use statins, have comorbidities (ie, decreased eGFR, diabetes, hypertension, cardiovascular disease, cancer, emphysema), have mobility limitations, or rate their health as fair or poor compared with those with a lower number of days per week taking 8000 steps or more"
+    },
+    {
+      "id": "sex_men",
+      "kind": "descriptive",
+      "label": "Men by step frequency group",
+      "value": "269 (42.6)\n\n219 (41.2)\n\n1030 (53.2)",
+      "quote": "Men\n\n269 (42.6)\n\n219 (41.2)\n\n1030 (53.2)"
+    },
+    {
+      "id": "sex_women",
+      "kind": "descriptive",
+      "label": "Women by step frequency group",
+      "value": "363 (57.4)\n\n313 (58.8)\n\n907 (46.8)",
+      "quote": "Women\n\n363 (57.4)\n\n313 (58.8)\n\n907 (46.8)"
+    },
+    {
+      "id": "race_black",
+      "kind": "descriptive",
+      "label": "Black participants by step frequency group",
+      "value": "158 (25.0)\n\n130 (24.4)\n\n378 (19.5)",
+      "quote": "Black\n\n158 (25.0)\n\n130 (24.4)\n\n378 (19.5)"
+    },
+    {
+      "id": "race_hispanic",
+      "kind": "descriptive",
+      "label": "Hispanic participants by step frequency group",
+      "value": "92 (14.6)\n\n111 (20.9)\n\n531 (27.4)",
+      "quote": "Hispanic\n\n92 (14.6)\n\n111 (20.9)\n\n531 (27.4)"
+    },
+    {
+      "id": "race_white",
+      "kind": "descriptive",
+      "label": "White participants by step frequency group",
+      "value": "361 (57.1)\n\n269 (50.6)\n\n949 (49.0)",
+      "quote": "White\n\n361 (57.1)\n\n269 (50.6)\n\n949 (49.0)"
+    },
+    {
+      "id": "race_other",
+      "kind": "descriptive",
+      "label": "Other race/ethnicity participants by step frequency group",
+      "value": "21 (3.3)\n\n22 (4.1)\n\n79 (4.1)",
+      "quote": "Other\n\n21 (3.3)\n\n22 (4.1)\n\n79 (4.1)"
+    },
+    {
+      "id": "uninsured",
+      "kind": "descriptive",
+      "label": "Uninsured participants by step frequency group",
+      "value": "238 (37.7)\n\n143 (26.9)\n\n292 (15.1)",
+      "quote": "Uninsured\n\n238 (37.7)\n\n143 (26.9)\n\n292 (15.1)"
+    },
+    {
+      "id": "private_insurance",
+      "kind": "descriptive",
+      "label": "Private insurance by step frequency group",
+      "value": "72 (11.4)\n\n98 (18.4)\n\n469 (24.2)",
+      "quote": "Private insurance\n\n72 (11.4)\n\n98 (18.4)\n\n469 (24.2)"
+    },
+    {
+      "id": "public_insurance",
+      "kind": "descriptive",
+      "label": "Public insurance by step frequency group",
+      "value": "322 (50.9)\n\n291 (54.7)\n\n1176 (60.7)",
+      "quote": "Public insurance\n\n322 (50.9)\n\n291 (54.7)\n\n1176 (60.7)"
+    },
+    {
+      "id": "married",
+      "kind": "descriptive",
+      "label": "Married participants by step frequency group",
+      "value": "300 (47.5)\n\n315 (59.2)\n\n1197 (61.8)",
+      "quote": "Married\n\n300 (47.5)\n\n315 (59.2)\n\n1197 (61.8)"
+    },
+    {
+      "id": "not_married",
+      "kind": "descriptive",
+      "label": "Not married participants by step frequency group",
+      "value": "332 (52.5)\n\n217 (40.8)\n\n740 (38.2)",
+      "quote": "Not married\n\n332 (52.5)\n\n217 (40.8)\n\n740 (38.2)"
+    },
+    {
+      "id": "smoking_current",
+      "kind": "descriptive",
+      "label": "Current smokers by step frequency group",
+      "value": "109 (17.3)\n\n96 (18.1)\n\n388 (20.0)",
+      "quote": "Current\n\n109 (17.3)\n\n96 (18.1)\n\n388 (20.0)"
+    },
+    {
+      "id": "smoking_former",
+      "kind": "descriptive",
+      "label": "Former smokers by step frequency group",
+      "value": "223 (35.3)\n\n156 (29.3)\n\n488 (25.2)",
+      "quote": "Former\n\n223 (35.3)\n\n156 (29.3)\n\n488 (25.2)"
+    },
+    {
+      "id": "smoking_never",
+      "kind": "descriptive",
+      "label": "Never smokers by step frequency group",
+      "value": "300 (47.5)\n\n280 (52.6)\n\n1061 (54.8)",
+      "quote": "Never\n\n300 (47.5)\n\n280 (52.6)\n\n1061 (54.8)"
+    },
+    {
+      "id": "bmi",
+      "kind": "descriptive",
+      "label": "BMI by step frequency group",
+      "value": "30.3 (8.6)\n\n29.5 (6.6)\n\n28.0 (5.6)",
+      "quote": "BMI, mean (SD)\n\n30.3 (8.6)\n\n29.5 (6.6)\n\n28.0 (5.6)"
+    },
+    {
+      "id": "egfr",
+      "kind": "descriptive",
+      "label": "eGFR by step frequency group",
+      "value": "77.0 (25.9)\n\n90.4 (24.0)\n\n95.6 (19.8)",
+      "quote": "eGFR, mean (SD), mL/min/1.73 m\n\n77.0 (25.9)\n\n90.4 (24.0)\n\n95.6 (19.8)"
+    },
+    {
+      "id": "statin_use",
+      "kind": "descriptive",
+      "label": "Statin use by step frequency group",
+      "value": "360 (20.7)\n\n179 (13.0)\n\n114 (9.4)",
+      "quote": "Statin use\n\n360 (20.7)\n\n179 (13.0)\n\n114 (9.4)"
+    },
+    {
+      "id": "diabetes",
+      "kind": "descriptive",
+      "label": "Diabetes history by step frequency group",
+      "value": "128 (20.3)\n\n61 (11.5)\n\n146 (7.5)",
+      "quote": "Diabetes\n\n128 (20.3)\n\n61 (11.5)\n\n146 (7.5)"
+    },
+    {
+      "id": "hypertension",
+      "kind": "descriptive",
+      "label": "Hypertension history by step frequency group",
+      "value": "354 (56.0)\n\n214 (40.2)\n\n499 (25.8)",
+      "quote": "Hypertension\n\n354 (56.0)\n\n214 (40.2)\n\n499 (25.8)"
+    },
+    {
+      "id": "cvd_history",
+      "kind": "descriptive",
+      "label": "Cardiovascular disease history by step frequency group",
+      "value": "188 (29.8)\n\n63 (11.8)\n\n99 (5.1)",
+      "quote": "Cardiovascular disease\n\n188 (29.8)\n\n63 (11.8)\n\n99 (5.1)"
+    },
+    {
+      "id": "cancer_history",
+      "kind": "descriptive",
+      "label": "Cancer history by step frequency group",
+      "value": "116 (18.4)\n\n62 (11.7)\n\n112 (5.8)",
+      "quote": "Cancer\n\n116 (18.4)\n\n62 (11.7)\n\n112 (5.8)"
+    },
+    {
+      "id": "emphysema",
+      "kind": "descriptive",
+      "label": "Emphysema history by step frequency group",
+      "value": "35 (5.5)\n\n17 (3.2)\n\n15 (0.8)",
+      "quote": "Emphysema\n\n35 (5.5)\n\n17 (3.2)\n\n15 (0.8)"
+    },
+    {
+      "id": "health_excellent",
+      "kind": "descriptive",
+      "label": "Excellent self-rated health by step frequency group",
+      "value": "34 (5.4)\n\n49 (9.2)\n\n202 (10.4)",
+      "quote": "Excellent\n\n34 (5.4)\n\n49 (9.2)\n\n202 (10.4)"
+    },
+    {
+      "id": "health_very_good",
+      "kind": "descriptive",
+      "label": "Very good self-rated health by step frequency group",
+      "value": "118 (18.7)\n\n153 (28.8)\n\n611 (31.5)",
+      "quote": "Very good\n\n118 (18.7)\n\n153 (28.8)\n\n611 (31.5)"
+    },
+    {
+      "id": "health_good",
+      "kind": "descriptive",
+      "label": "Good self-rated health by step frequency group",
+      "value": "222 (35.1)\n\n195 (36.6)\n\n719 (37.1)",
+      "quote": "Good\n\n222 (35.1)\n\n195 (36.6)\n\n719 (37.1)"
+    },
+    {
+      "id": "health_fair_poor",
+      "kind": "descriptive",
+      "label": "Fair or poor self-rated health by step frequency group",
+      "value": "213 (33.7)\n\n109 (20.5)\n\n298 (15.4)",
+      "quote": "Fair or poor\n\n213 (33.7)\n\n109 (20.5)\n\n298 (15.4)"
+    },
+    {
+      "id": "health_missing",
+      "kind": "descriptive",
+      "label": "Missing self-rated health by step frequency group",
+      "value": "45 (7.1)\n\n26 (4.9)\n\n107 (5.5)",
+      "quote": "Missing\n\n45 (7.1)\n\n26 (4.9)\n\n107 (5.5)"
+    },
+    {
+      "id": "poverty_income_ratio",
+      "kind": "descriptive",
+      "label": "Poverty income ratio by step frequency group",
+      "value": "2.3 (1.5)\n\n2.8 (1.6)\n\n2.9 (1.6)",
+      "quote": "Poverty income ratio, mean (SD), %\n\n2.3 (1.5)\n\n2.8 (1.6)\n\n2.9 (1.6)"
+    },
+    {
+      "id": "pir_missing",
+      "kind": "descriptive",
+      "label": "Missing poverty income ratio by step frequency group",
+      "value": "43 (6.8)\n\n25 (4.7)\n\n61 (3.2)",
+      "quote": "Missing\n\n43 (6.8)\n\n25 (4.7)\n\n61 (3.2)"
+    },
+    {
+      "id": "daily_step_counts",
+      "kind": "descriptive",
+      "label": "Median daily step counts by step frequency group",
+      "value": "4345 (3229-5262)\n\n6657 (5963-7330)\n\n10 746 (9082-13 193)",
+      "quote": "Daily step counts throughout the week, median (IQR)\n\n4345 (3229-5262)\n\n6657 (5963-7330)\n\n10 746 (9082-13 193)"
+    },
+    {
+      "id": "reactivity_misclassification",
+      "kind": "limitation",
+      "label": "Misclassification from Hawthorne reactivity",
+      "value": "misclassification such that some people who are typically physically inactive were categorized as physically active",
+      "quote": "Such reactivity might cause misclassification such that some people who are typically physically inactive were categorized as physically active (based on a reaction to wearing the accelerometer) particularly because NHANES measured their daily step pattern for only 1 week."
+    },
+    {
+      "id": "selection_bias",
+      "kind": "limitation",
+      "label": "Selection bias from accelerometer wear restriction",
+      "value": "selection bias due to restricting study samples to those who wore an accelerometer for 1 week during the survey",
+      "quote": "Fifth, our findings might suffer from selection bias due to restricting study samples to those who wore an accelerometer for 1 week during the survey."
+    },
+    {
+      "id": "harvard_alumni",
+      "kind": "context",
+      "label": "Prior study in Harvard Alumni Health Study men",
+      "value": "8421 men",
+      "quote": "In the Harvard Alumni Health Study that enrolled 8421 men, Lee et alfound that the hazard ratios (HRs) for all-cause mortality among weekend warriors and people engaging in regular exercise compared with those with sedentary behavior were 0.85 (95% CI, 0.65-1.11) and 0.64 (95% CI, 0.55-0.73), respectively."
+    },
+    {
+      "id": "england_scotland",
+      "kind": "context",
+      "label": "Prior study in England and Scotland adult cohorts",
+      "value": "63 591 adults",
+      "quote": "In a population-based cohort of 63 591 adults from the Health Survey for England and the Scottish Health Survey, O’Donovan et alestimated similar-magnitude HRs for all-cause mortality among weekend warriors (HR, 0.70; 95% CI, 0.60-0.82) and regularly active participants (HR, 0.65; 95% CI, 0.58-0.73) compared with inactive participants."
+    },
+    {
+      "id": "nhis_prior",
+      "kind": "context",
+      "label": "Prior study in US National Health Interview Survey",
+      "value": "350 978 participants",
+      "quote": "A more recent study in 350 978 participants from the US National Health Interview Surveysupports these findings, wherein all-cause and cause-specific mortality risks did not differ between weekend warriors and regularly active participants, even after accounting for the total amount of moderate to vigorous physical activity."
+    },
+    {
+      "id": "shiroma_nhanes",
+      "kind": "context",
+      "label": "Prior NHANES accelerometer mortality study",
+      "value": "3438 NHANES participants",
+      "quote": "Shiroma et alused data from 3438 NHANES participants to show protective associations between accelerometer-assessed higher physical activity and mortality."
+    },
+    {
+      "id": "further_longitudinal_studies",
+      "kind": "limitation",
+      "label": "Need for further longitudinal studies",
+      "value": "Further longitudinal studies with larger sample sizes and time-varying measures of physical activity or step counts would be warranted",
+      "quote": "Further longitudinal studies with larger sample sizes and time-varying measures of physical activity or step counts would be warranted to overcome this limitation."
+    },
+    {
+      "id": "future_research_confounding",
+      "kind": "limitation",
+      "label": "Need for future research on residual confounding",
+      "value": "residual confounding that should be addressed in future research",
+      "quote": "Although our findings might suffer from residual confounding that should be addressed in future research, they suggest that people may receive substantial health benefits even if a sufficient number of steps are taken on only a couple days of the week."
     }
-  ]
+  ],
+  "coverage": {
+    "conditions": [],
+    "dosing": [],
+    "confounds": [
+      "ages",
+      "mobility",
+      "confounding",
+      "hawthorne",
+      "group_differences",
+      "sex_men",
+      "sex_women",
+      "race_black",
+      "race_hispanic",
+      "race_white",
+      "race_other",
+      "uninsured",
+      "private_insurance",
+      "public_insurance",
+      "married",
+      "not_married",
+      "smoking_current",
+      "smoking_former",
+      "smoking_never",
+      "bmi",
+      "egfr",
+      "statin_use",
+      "diabetes",
+      "hypertension",
+      "cvd_history",
+      "cancer_history",
+      "emphysema",
+      "health_excellent",
+      "health_very_good",
+      "health_good",
+      "health_fair_poor",
+      "health_missing",
+      "poverty_income_ratio",
+      "pir_missing",
+      "daily_step_counts",
+      "reactivity_misclassification",
+      "selection_bias"
+    ],
+    "priorEvidence": [
+      "parallel_meta",
+      "harvard_alumni",
+      "england_scotland",
+      "nhis_prior",
+      "shiroma_nhanes"
+    ],
+    "furtherInvestigation": [
+      "further_longitudinal_studies",
+      "future_research_confounding"
+    ],
+    "funding": []
+  }
 }

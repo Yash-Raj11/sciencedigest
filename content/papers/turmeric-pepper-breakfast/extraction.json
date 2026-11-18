@@ -380,6 +380,156 @@
       "label": "No long-term data: the authors call for long-term studies",
       "value": "Future long‐term studies",
       "quote": "Future long‐term studies with increased dosage of turmeric and black pepper are considered necessary to understand the advantages of long‐term utilization of turmeric and black pepper supplemented breakfast"
+    },
+    {
+      "id": "no_exertion",
+      "kind": "context",
+      "label": "Pre-visit physical exertion restriction",
+      "value": "abstain from any tiring physical exertion a day prior to their visit",
+      "quote": "Subjects were directed to abstain from any tiring physical exertion a day prior to their visit."
+    },
+    {
+      "id": "prior_evening_diet",
+      "kind": "context",
+      "label": "Pre-visit evening diet control",
+      "value": "maintain a similar dietary pattern the evening before each visit",
+      "quote": "With the intention of reducing the variation in the effect of subsequent meals, subjects were asked to maintain a similar dietary pattern the evening before each visit and to document this in a memoir."
+    },
+    {
+      "id": "fast_water",
+      "kind": "context",
+      "label": "Water limit during overnight fast",
+      "value": "500 mL",
+      "quote": "consumption of water with an upper limit of 500 mL (half a liter) was permissible amid 10:00 p.m. and the next daybreak"
+    },
+    {
+      "id": "no_food_talk",
+      "kind": "context",
+      "label": "Conversation restriction during test",
+      "value": "do not speak of topics related to food and appetite",
+      "quote": "It was acceptable for the study subjects to utter freely to each other provided that they do not speak of topics related to food and appetite."
+    },
+    {
+      "id": "one_meal_per_visit",
+      "kind": "context",
+      "label": "Single dose per assessment day",
+      "value": "one of the experimental meals on each day of assessment",
+      "quote": "The subjects were requested to consume one of the experimental meals on each day of assessment."
+    },
+    {
+      "id": "total_weight_row",
+      "kind": "context",
+      "label": "Total meal weight across arms",
+      "value": "413.4 | 414.4 | 414.4 | 415.4",
+      "quote": "Total weight | 413.4 | 414.4 | 414.4 | 415.4 |"
+    },
+    {
+      "id": "fiber_row",
+      "kind": "context",
+      "label": "Dietary fiber across arms",
+      "value": "1.7 | 1.7 | 1.8 | 1.8",
+      "quote": "Dietary fiber (g) | 1.7 | 1.7 | 1.8 | 1.8 |"
+    },
+    {
+      "id": "curcumin",
+      "kind": "context",
+      "label": "Active ingredient in turmeric",
+      "value": "curcumin",
+      "quote": "Turmeric (Curcuma longa), family Zingiberaceae, in which a vital active ingredient is curcumin, has been revealed to have hypoglycaemic, antioxidant, and lipid‐lowering effects in many investigational studies (Khaliq et al., )."
+    },
+    {
+      "id": "prior_mice_atal",
+      "kind": "context",
+      "label": "Species in prior black pepper study",
+      "value": "alloxan‐induced diabetic mice",
+      "quote": "The observed decrease in postprandial blood glucose after taking BP and BP + TR is consistent with the study of Atal et al. () who determined the bio‐enhancing result of metformin and black pepper in decreasing blood glucose in alloxan‐induced diabetic mice."
+    },
+    {
+      "id": "prior_mice_panda",
+      "kind": "context",
+      "label": "Species in prior piperine study",
+      "value": "normal mice",
+      "quote": "Another study conducted on normal mice also showed the hypoglycemic effect of piperine (Panda & Kar, )."
+    },
+    {
+      "id": "prior_humans_wickenberg",
+      "kind": "context",
+      "label": "Species in prior turmeric study",
+      "value": "normal human beings",
+      "quote": "Wickenberg et al. () investigated the impact of turmeric on plasma glucose and insulin following a meal intake in normal human beings."
+    },
+    {
+      "id": "lim_turmeric_dose",
+      "kind": "limitation",
+      "label": "Need for higher-dose turmeric studies",
+      "value": "Further studies are required to find out the effect of turmeric with increased doses on glycemia with sustained palatability of the experimental meals.",
+      "quote": "Further studies are required to find out the effect of turmeric with increased doses on glycemia with sustained palatability of the experimental meals."
+    },
+    {
+      "id": "lim_appetite_gastric",
+      "kind": "limitation",
+      "label": "Need for appetite hormone and gastric emptying research",
+      "value": "further future scientific research studies should be conducted to find a significant role of these spices including the role in and hormonal mechanisms for appetite regulation and mechanism gastric emptying",
+      "quote": "Besides, further future scientific research studies should be conducted to find a significant role of these spices including the role in and hormonal mechanisms for appetite regulation and mechanism gastric emptying."
+    },
+    {
+      "id": "lim_cholesterol",
+      "kind": "limitation",
+      "label": "Need for blood cholesterol and disease studies",
+      "value": "Further scientific investigations are required for evaluating the effect of turmeric and black pepper‐based products effect on blood cholesterol and other diseases.",
+      "quote": "Further scientific investigations are required for evaluating the effect of turmeric and black pepper‐based products effect on blood cholesterol and other diseases."
+    },
+    {
+      "id": "coi",
+      "kind": "context",
+      "label": "Conflict of interest statement",
+      "value": "No conflict of interest.",
+      "quote": "No conflict of interest."
     }
-  ]
+  ],
+  "coverage": {
+    "conditions": [
+      "fast",
+      "fast_water",
+      "no_exertion",
+      "prior_evening_diet",
+      "in_egg",
+      "plate",
+      "eaten_in",
+      "nothing_else",
+      "no_food_talk"
+    ],
+    "dosing": [
+      "single_meal",
+      "one_meal_per_visit",
+      "washout"
+    ],
+    "confounds": [
+      "sugar_row",
+      "total_weight_row",
+      "fiber_row",
+      "lim_taste",
+      "taste_rank"
+    ],
+    "priorEvidence": [
+      "animals_before",
+      "piperine",
+      "curcumin",
+      "trpv1",
+      "prior_mice_atal",
+      "prior_mice_panda",
+      "prior_humans_wickenberg"
+    ],
+    "furtherInvestigation": [
+      "lim_turmeric_dose",
+      "lim_stated",
+      "lim_appetite_gastric",
+      "lim_cholesterol",
+      "lim_mechanism",
+      "lim_long_term"
+    ],
+    "funding": [
+      "coi"
+    ]
+  }
 }

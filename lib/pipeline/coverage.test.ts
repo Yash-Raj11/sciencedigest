@@ -5,15 +5,18 @@
 
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { CoveragePass, coverageChecklist, mergeCoverage, reviewCoverage } from "./coverage";
+import { COVERAGE_ITEMS, CoveragePass, coverageChecklist, mergeCoverage, reviewCoverage } from "./coverage";
 import { RawExtraction } from "./extraction";
 import { gate } from "./gate";
 
 const dir = new URL("../../content/papers/turmeric-pepper-breakfast/", import.meta.url);
 const source = readFileSync(new URL("source.txt", dir), "utf8");
 const hand = RawExtraction.parse(JSON.parse(readFileSync(new URL("extraction.json", dir), "utf8")));
+/** Turmeric as it was hand-checked: the coverage pass was merged into the file on 2026-11-19. */
+const handChecked: RawExtraction = { ...hand };
+delete handChecked.coverage;
 const sugar = hand.facts.find((f) => f.id === "sugar_row")!;
-const base = { ...hand, facts: hand.facts.filter((f) => f.id !== "sugar_row") };
+const base = { ...handChecked, facts: handChecked.facts.filter((f) => f.id !== "sugar_row") };
 const empty = { conditions: [], dosing: [], confounds: [], priorEvidence: [], furtherInvestigation: [], funding: [] };
 const summary = (x: unknown) => {
   const r = gate(x, source);
@@ -123,5 +126,18 @@ describe("coverageChecklist", () => {
     for (const item of ["conditions", "dosing", "confounds", "priorEvidence", "furtherInvestigation", "funding"]) {
       expect(rows.find((r) => r.item === item)!.found).toBe(false);
     }
+  });
+});
+
+describe("the coverage maps merged into content/papers (2026-11-19)", () => {
+  const papers = new URL("../../content/papers/", import.meta.url);
+  const slugs = ["daytime-caffeine-sleep", "hiit-body-composition", "steps-days-per-week", "turmeric-pepper-breakfast"];
+  it.each(slugs)("%s: every id in its coverage map is one of its gated facts", (slug) => {
+    const raw = JSON.parse(readFileSync(new URL(`${slug}/extraction.json`, papers), "utf8")) as { coverage?: Record<string, string[]> };
+    const result = gate(raw, readFileSync(new URL(`${slug}/source.txt`, papers), "utf8"));
+    if (!result.ok) throw new Error(result.errors.join("\n"));
+    expect(Object.keys(raw.coverage ?? {}).sort()).toEqual([...COVERAGE_ITEMS].sort());
+    const dangling = Object.entries(raw.coverage!).flatMap(([item, ids]) => ids.filter((id) => !Object.hasOwn(result.validated.facts, id)).map((id) => `${item}: ${id}`));
+    expect(dangling).toEqual([]);
   });
 });

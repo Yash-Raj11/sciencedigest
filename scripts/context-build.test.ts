@@ -22,6 +22,7 @@ import { approved, type Concept } from "../lib/pipeline/concepts";
 const TSX = "node_modules/.bin/tsx";
 const OTHER = "inoue-2023-steps";
 const OTHER_DOI = "10.5555/sd-test-context-study";
+const OTHER_FACTS = JSON.parse(readFileSync("content/papers/steps-days-per-week/extraction.json", "utf8")).facts.length;
 const fixture = JSON.parse(readFileSync("lib/pipeline/fixtures/layered-caffeine.json", "utf8"));
 const concept: Concept = fixture.concepts["non-rem-sleep"];
 
@@ -84,7 +85,7 @@ describe("content-build and context sources", () => {
 
   it("builds the same read once the concept is approved, and names the context it used", () => {
     const { status, output } = build(tree({ conceptReviewed: true, citeStudy: true }));
-    expect(output).toContain(`${OTHER}: gate ok (role context): 34 facts, licence CC-BY, design cohort, grade low`);
+    expect(output).toContain(`${OTHER}: gate ok (role context): ${OTHER_FACTS} facts, licence CC-BY, design cohort, grade low`);
     expect(output).toContain("non-rem-sleep: ok, reviewed by the owner");
     expect(output).toContain(`context   2 other studies (caffeine-saliva-half-life, ${OTHER}), 1 background concept (non-rem-sleep)`);
     expect(output).toContain("1 papers would be built (daytime-caffeine-sleep)");
