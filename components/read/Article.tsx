@@ -18,7 +18,7 @@
  */
 
 import Link from "next/link";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { SimulatorFor, WidgetFor } from "@/components/papers/registry";
 import { GradeChip, Notice } from "@/components/protocol/primitives";
 import { DESIGN_LABEL, freeContent } from "@/lib/content";
@@ -26,12 +26,14 @@ import { RANDOMIZED_DESIGNS, type Design } from "@/lib/pipeline/grade";
 import { loadRead, type Gated } from "@/lib/content/gated";
 import { contextSourceList } from "@/lib/content/source-line";
 import { LEGACY_RECEIPTS, SLOTS, glanceView } from "@/lib/content/glance";
+import { simulatorInputs } from "@/lib/reader-inputs";
 import { SectionRail } from "./SectionRail";
 import type { PaperContent, PaperMeta, Sentence } from "@/lib/content/types";
 import { useStore } from "@/lib/store";
 import { isDemo } from "@/lib/supabase/client";
 import { KindSimulator } from "./KindSimulator";
 import { MemberExtras } from "./MemberExtras";
+import { Remembering } from "./remembered";
 import { FindingCard, Glossary, Para, Pictured, SourceLineContext, type Context, type Facts } from "./parts";
 
 const LAYER = "headline";
@@ -69,6 +71,13 @@ function WhoWasTested({ paper, content }: { paper: PaperMeta; content: PaperCont
       </p>
     </section>
   );
+}
+
+/** A hand-built simulator, with what this reader picked last time on this device when it holds input. */
+function TrySimulator({ slug, kind, params }: { slug: string; kind: string; params: Record<string, unknown> }) {
+  const plan = useMemo(() => simulatorInputs(kind, params), [kind, params]);
+  if (!plan) return <SimulatorFor kind={kind} params={params} />;
+  return <Remembering slug={slug} plan={plan} clearClassName="mt-1">{(remembered) => <SimulatorFor kind={kind} params={params} remembered={remembered} />}</Remembering>;
 }
 
 /** Everything above the protocol widget: hook, mechanism, number, what was tested, simulator. */
@@ -128,14 +137,14 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
         {content.simulator.spec
           ? (
             <>
-              <KindSimulator content={content} observational={!RANDOMIZED_DESIGNS.has(paper.design as Design)} />
+              <KindSimulator slug={paper.slug} content={content} observational={!RANDOMIZED_DESIGNS.has(paper.design as Design)} />
               {/* Figure B's second panel under the simulator (caffeine 1B): drawn still, it takes no input. */}
               {content.protocolFigure ? <div data-protocol-figure><Pictured slug={paper.slug} figure={content.protocolFigure} facts={facts} context={context} /></div> : null}
             </>
           )
           : content.protocolFigure
             ? <div data-protocol-figure><Pictured slug={paper.slug} figure={content.protocolFigure} facts={facts} context={context} simulator={content.simulator.params} /></div>
-            : <SimulatorFor kind={content.simulator.kind} params={content.simulator.params} />}
+            : <TrySimulator slug={paper.slug} kind={content.simulator.kind} params={content.simulator.params} />}
       </section>
     </Glossary>
   );

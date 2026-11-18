@@ -14,7 +14,7 @@ export const TURNSTILE_ADDENDUM_URL = "https://www.cloudflare.com/turnstile-priv
 /** Where questions and deletion requests go. The owner's choice (2026-11-13). */
 export const PRIVACY_CONTACT = "work.yash.000@gmail.com";
 
-export const PRIVACY_UPDATED = "13 November 2026";
+export const PRIVACY_UPDATED = "19 November 2026";
 
 export interface PrivacySection {
   heading: string;
@@ -37,7 +37,8 @@ export const PRIVACY_SECTIONS: PrivacySection[] = [
       "Amounts you log, such as glasses of water.",
       "Habits you add, with the names you give them.",
       "Protocols you track and the choices you make in them.",
-      "Your theme: light, dark or match device.",
+      "Your theme and the screen the app opens on.",
+      "What you type into a simulator, such as a caffeine time. It is never sent to our server. Clear it on Me.",
       "Your companion picture, if you choose one. It never leaves this device.",
       "Changes that are waiting to be sent. If the server refuses one, its error code is kept with it.",
     ],

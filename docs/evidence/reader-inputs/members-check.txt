@@ -1,0 +1,11 @@
+$ npx tsx scripts/reader-inputs-members-check.mts http://127.0.0.1:3213   # demo-mode build (.next-shots), 2026-11-19 00:28
+PASS  untouched: no clear control
+PASS  reopened: modality:cycling still picked
+PASS  reopened: weeks:over8 still picked
+PASS  stored under sd.sim.hiit-body-composition.order-flips: {"v":1,"values":{"picks":{"modality":"cycling","weeks":"over8"}}}
+PASS  a Clear my routine control by the figure
+PASS  cleared: no pick left
+PASS  cleared: nothing stored
+PASS  a stored option the read does not offer: nothing picked
+PASS  feed: no routine picker on any card
+all passed

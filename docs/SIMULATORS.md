@@ -54,6 +54,15 @@ Stored on the device only, like the theme (`lib/start.ts` is the pattern): never
 database, never synced. A reader's typed dose is not user history (rule 5 is about what the
 user did; this is a scratchpad).
 
+**Built 2026-11-19.** `lib/reader-inputs.ts` (pure): one key per paper and simulator,
+`sd.sim.<slug>.<simulator>`, holding `{ v: 1, values }`; each simulator's shape lists its fields
+and their checks (the simulator's own range and shape). A stored value that fails is dropped,
+never clamped, so an unset input stays unset (H12). Figures get `remembered` as a prop; the hook
+and the clear control are in `components/read/remembered.tsx`; the feed card never gets
+remembered values (R7). A new kind or figure that holds input adds its shape to `KIND_INPUTS`,
+`figureInputs` or `simulatorInputs`; with no entry it remembers nothing. Clear by the simulator,
+or all of them on Me. BUILD-LOG 2026-11-19.
+
 ## f. Tier
 
 The simulator follows the read's tier. A free read has a free simulator; a members' read's

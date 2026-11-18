@@ -1,4 +1,3 @@
-
 > sciencedigest@0.1.0 test
 > vitest run
 
@@ -6,11 +5,12 @@
  RUN  v5.1.0 /Users/yash/Game/sciencedigest
 
 
- Test Files  47 passed (47)
-      Tests  688 passed (688)
-   Start at  15:50:23
-   Duration  3.79s (tests 73%, import 23%, transform 3%, worker 1%)
+ Test Files  49 passed (49)
+      Tests  734 passed (734)
+   Start at  00:32:46
+   Duration  3.74s (tests 72%, import 23%, transform 5%, worker 1%)
 
-    Isolate  47 workers spawned · ~82ms startup each (spawn + environment, per file)
-             at least ~470ms faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  49 workers spawned · ~82ms startup each (spawn + environment, per file)
+             at least ~493ms faster with isolate: false — reuses workers across files instead of one per file
+
 

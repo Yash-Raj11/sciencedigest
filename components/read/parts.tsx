@@ -12,6 +12,8 @@
 
 import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
 import { FigureFor } from "@/components/papers/registry";
+import { figureKey } from "@/lib/content/figures";
+import { figureInputs, type Remembered } from "@/lib/reader-inputs";
 import { GradeChip } from "@/components/protocol/primitives";
 import { Sheet } from "@/components/shell/Sheet";
 import { BACKGROUND, conceptReference, factSourceLine } from "@/lib/content/source-line";
@@ -19,6 +21,7 @@ import type { FigureRef, GlossaryEntry, PaperContent, ResolvedFact, Sentence } f
 import { formatEstimate, headlineStatesNumber, signed } from "@/lib/pipeline/format";
 import { simulatorBand } from "@/lib/models/spread";
 import { BandStrip } from "@/components/figures/BandStrip";
+import { Remembering } from "./remembered";
 import { SourceLineContext, useSourceLine } from "./source-line-context";
 
 export { SourceLineContext };
@@ -173,13 +176,19 @@ export function Pictured({ slug, figure, facts, context, still = false, simulato
   /** A "Try it" figure's simulator params (the read only). */
   simulator?: Record<string, unknown>;
 }) {
+  // A figure that holds input remembers it on this device, in the read only (never a still or a card).
+  const key = figure ? figureKey(slug, figure.figure) : "";
+  const plan = useMemo(() => (still || !key ? null : figureInputs(key, simulator)), [still, key, simulator]);
   if (!figure) return null;
+  const draw = (remembered?: Remembered<Record<string, unknown>>) => (
+    <FigureFor slug={slug} figure={figure} interactive={!still} simulator={still ? undefined : simulator} remembered={remembered} />
+  );
   return (
     <figure className="rounded-2xl border border-line bg-bg py-3">
       {figure.headline?.length && !still && facts ? (
         <Para sentences={figure.headline} facts={facts} context={context} className="headline mx-4 mb-2 text-[1.0625rem]" />
       ) : null}
-      <FigureFor slug={slug} figure={figure} interactive={!still} simulator={still ? undefined : simulator} />
+      {plan ? <Remembering slug={slug} plan={plan} clearClassName="mx-4 mt-2">{draw}</Remembering> : draw()}
       {!still && facts && (
         <figcaption className="mx-3 mt-2 border-t border-line pt-2">
           <Para sentences={figure.caption} facts={facts} context={context} className="text-sm leading-snug text-muted" />

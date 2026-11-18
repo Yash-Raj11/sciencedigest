@@ -17,7 +17,8 @@
  * reader (no "your risk", no dot marked "you"). An observational study, so nothing points from
  * one group to another: no arrow, no line joining start to end. Every value is printed in the
  * paper; nothing is interpolated. State starts empty and holds only the days the reader ticks;
- * no timers, no motion.
+ * no timers, no motion. The read hands in `remembered` (owner, 2026-11-19): the days this reader
+ * ticked last time on this device. Without it the figure keeps its own state, empty at first.
  */
 
 import { useState, type ReactNode } from "react";
@@ -31,6 +32,7 @@ import { FrequencyGrid, IntervalPlot, Label, WeekStrip, intervalPlotHeight } fro
 import { DASH, INK, META, MUTED } from "../shared";
 import { assertEvidence } from "@/lib/content/figures";
 import type { ResolvedFact } from "@/lib/content/types";
+import type { Remembered, WeekInputs } from "@/lib/reader-inputs";
 
 type Group = GroupEdges & { died?: Cited; total?: Cited };
 
@@ -48,7 +50,7 @@ function DotKey({ x, y, words, size }: { x: number; y: number; words: GridWords;
 
 export type { GridWords };
 
-export function AssociationCurve({ mode, raw, adjusted, groups, alt, sourceLine, ask, headline, who, observational, words, notes, plateau, axis, unit = "days" }: {
+export function AssociationCurve({ mode, raw, adjusted, groups, alt, sourceLine, ask, headline, who, observational, words, notes, plateau, axis, unit = "days", remembered, clearControl }: {
   mode: "card" | "full"; raw: ResolvedFact[]; adjusted: ResolvedFact[]; groups: Group[]; alt: string; sourceLine: string;
   /** The question over the reader's week, as the read wrote it. */
   ask?: ReactNode;
@@ -65,8 +67,15 @@ export function AssociationCurve({ mode, raw, adjusted, groups, alt, sourceLine,
   /** The card's one axis label, in words (the glance view): over the group titles. */
   axis?: string | null;
   unit?: string;
+  /** The days this reader ticked last time on this device (the read only). */
+  remembered?: Remembered<WeekInputs>;
+  /** The read's quiet "Clear my days", under the week. */
+  clearControl?: ReactNode;
 }) {
-  const [week, setWeek] = useState<boolean[] | null>(null);
+  const [own, setOwn] = useState<WeekInputs>({});
+  const save = remembered?.save ?? setOwn;
+  const week = (remembered?.values ?? own).week ?? null;
+  const setWeek = (change: (now: boolean[] | null) => boolean[]) => save((now) => ({ ...now, week: change(now.week ?? null) }));
   const n = figureN(raw);
   if (n === null || raw.length !== groups.length) return null;
   for (const fact of [...raw, ...adjusted]) assertEvidence("measured", fact);
@@ -104,10 +113,11 @@ export function AssociationCurve({ mode, raw, adjusted, groups, alt, sourceLine,
               );
             })}
           </div>
-          <button type="button" onClick={() => setWeek(emptyWeek())} aria-pressed={answered && isComparison(at)}
+          <button type="button" onClick={() => setWeek(() => emptyWeek())} aria-pressed={answered && isComparison(at)}
             className={`mt-2 min-h-11 rounded-lg border px-3 text-sm font-medium ${answered && isComparison(at) ? "border-signal-evidence-text text-signal-evidence-text" : "border-line text-muted"}`}>
             No days
           </button>
+          {clearControl ? <div className="mt-1">{clearControl}</div> : null}
         </fieldset>
       ) : null}
 

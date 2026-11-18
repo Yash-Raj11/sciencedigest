@@ -8,11 +8,15 @@
  * only which meals differed and when, so there is nothing honest to draw.
  * The one thing printed as numbers, the taste scores, is drawn to scale.
  * Simulator kind: "breakfast-meals". Every row is a fact from the paper.
+ *
+ * The read hands in `remembered` (owner, 2026-11-19): the meal this reader picked last time on this
+ * device. With nothing picked it opens on the second meal, as before.
  */
 
 import { useState } from "react";
 import { GradeChip } from "@/components/protocol/primitives";
 import type { ResolvedFact } from "@/lib/content/types";
+import type { MealInputs, Remembered } from "@/lib/reader-inputs";
 import type { SimulatorProps } from "../registry";
 
 interface Num { n: number; ref: string }
@@ -72,10 +76,14 @@ function TasteLine({ score, max, plain }: { score: number; max: number; plain: n
   );
 }
 
-export default function Simulator({ params }: SimulatorProps) {
+export default function Simulator({ params, remembered }: SimulatorProps) {
   const p = params as unknown as Params;
   const meals = p.meals ?? [];
-  const [chosen, setChosen] = useState(meals[1]?.id ?? meals[0]?.id);
+  const [own, setOwn] = useState<MealInputs>({});
+  const mine = remembered as unknown as Remembered<MealInputs> | undefined;
+  const save = mine?.save ?? setOwn;
+  const chosen = (mine?.values ?? own).meal ?? meals[1]?.id ?? meals[0]?.id;
+  const setChosen = (id: string) => save((now) => ({ ...now, meal: id }));
   const meal = meals.find((m) => m.id === chosen) ?? meals[0];
   const plain = meals.find((m) => m.glucoseEarly.result === "reference") ?? meals[0];
   if (!meal) return <p className="text-sm text-muted">This paper&apos;s simulator has no meals to show.</p>;

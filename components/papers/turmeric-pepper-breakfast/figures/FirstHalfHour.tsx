@@ -16,7 +16,9 @@
  * egg?". Two switches, black pepper and turmeric, pick the meal; the chart redraws in place and the
  * sentence under it says what the paper found for that meal. The untouched view is the paper's own
  * comparison (plain egg against egg with pepper), which carries the point alone, and it is the feed
- * card's still. State starts empty and holds only the two switches. No timer, no motion.
+ * card's still. State starts empty and holds only the two switches. No timer, no motion. The read
+ * hands in `remembered` (owner, 2026-11-19): the switches this reader set last time on this device.
+ * The feed card never gets it, so the card stays the paper's own comparison (R7).
  */
 
 import { useState } from "react";
@@ -26,6 +28,7 @@ import { Bracket, Label, SketchPath, SketchTag, assertSketch, sketchLabel } from
 import { INK, LINE, MUTED, SIGNAL_PALE, type Evidence } from "@/components/figures/shared";
 import { assertEvidence } from "@/lib/content/figures";
 import type { ResolvedSketch } from "@/lib/content/types";
+import type { Remembered, SwitchInputs } from "@/lib/reader-inputs";
 import type { FigureProps } from "../../registry";
 
 interface Num { n: number; ref: string }
@@ -48,12 +51,17 @@ interface Params {
   };
 }
 
-export default function FirstHalfHour({ params, alt, interactive = true, glance }: FigureProps) {
+export default function FirstHalfHour({ params, alt, interactive = true, glance, remembered }: FigureProps) {
   const p = params as unknown as Params;
   assertSketch(p.curves);
   for (const e of [p.column, p.bracket, p.results.pepper, p.results.turmeric]) assertEvidence(e.kind, e.fact);
-  const [picked, setPicked] = useState<{ pepper: boolean; turmeric: boolean } | null>(null);
   const full = !glance;
+  const [own, setOwn] = useState<SwitchInputs>({});
+  const mine = full && interactive ? (remembered as unknown as Remembered<SwitchInputs> | undefined) : undefined;
+  const save = mine?.save ?? setOwn;
+  const picked = (mine?.values ?? own).picked ?? null;
+  type Picked = NonNullable<SwitchInputs["picked"]>;
+  const setPicked = (change: (now: Picked | null) => Picked) => save((now) => ({ ...now, picked: change(now.picked ?? null) }));
   // Untouched, the chart is the paper's own comparison: the plain egg against the egg with pepper.
   const meal: Meal = picked ? mealOf(picked.pepper, picked.turmeric) : "pepper";
   const two = differs(meal);

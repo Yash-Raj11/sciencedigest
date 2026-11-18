@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { CompanionFigure, useAvatar } from "@/components/game/Companion";
+import { clearAllInputs, useStoredInputs } from "@/components/read/remembered";
 import { GradeChip, Notice } from "@/components/protocol/primitives";
 import { Sheet } from "@/components/shell/Sheet";
 import { acceptCheckToken, renderVisibleCheck } from "@/lib/captcha/turnstile";
@@ -77,6 +78,30 @@ function StartOn() {
           </button>
         ))}
       </div>
+    </section>
+  );
+}
+
+/**
+ * What readers typed into simulators (docs/SIMULATORS.md e): kept on this device so a reopened
+ * read has its answers, never sent anywhere. One button forgets them all.
+ */
+function SimulatorNumbers() {
+  const stored = useStoredInputs();
+  const [cleared, setCleared] = useState(false);
+  return (
+    <section aria-label="Your simulator numbers" className="rounded-2xl border border-line bg-surface p-4">
+      <h2 className="headline">Your simulator numbers</h2>
+      <p className="mt-1 text-sm leading-snug text-muted">
+        What you type into a read’s simulator, like a caffeine time, is there again when you reopen the read. Kept on this device; never sent to our server.
+      </p>
+      {stored > 0 ? (
+        <button type="button" onClick={() => { clearAllInputs(); setCleared(true); }} className="mt-3 h-11 rounded-lg border border-line px-4 font-medium" data-clear-all-inputs>
+          Clear my numbers
+        </button>
+      ) : (
+        <p className="mt-3 text-sm leading-snug" role="status">{cleared ? "Cleared. Simulators open empty again." : "Nothing kept yet."}</p>
+      )}
     </section>
   );
 }
@@ -351,6 +376,7 @@ export function Settings() {
       </header>
       <Appearance />
       <StartOn />
+      <SimulatorNumbers />
       <CompanionChoice />
       {hydrated && <Account />}
       {hydrated && <Membership />}

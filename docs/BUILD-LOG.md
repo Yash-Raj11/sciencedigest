@@ -1820,3 +1820,61 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - Evidence: `docs/evidence/propose/gates.txt` (lint, typecheck, 700 unit tests, build) and
   `breaks.txt` (9 deliberate breaks, each failing `lib/pipeline/propose.test.ts`, each passing
   again once restored). No screens or routes changed, so browser and HTTP tests were not re-run.
+
+## 2026-11-19: reader inputs stored on the device only
+
+- **What is remembered.** What a reader types or picks in a simulator comes back when they
+  reopen the read on the same device (SIMULATORS.md e): caffeine's dose time, bedtime and amount
+  (decay kind); the steps week (association-curve kind); turmeric's pepper and turmeric switches
+  (figure 2B) and its breakfast picker; HIIT's routine (figure 4B, members). Not remembered:
+  which HIIT outcomes are open (how the page looks, not an input) and the generic
+  `estimate-explorer` toggles (which of the paper's own results are shown, not anything about
+  the reader; no paper uses it yet).
+- **Where.** `localStorage`, one key per paper and simulator, `sd.sim.<slug>.<simulator>`
+  (both parts kebab-case, so two keys cannot run together), holding `{ v: 1, values }`.
+  `lib/reader-inputs.ts` is pure (no imports at all): the field checks, each simulator's shape,
+  and a scratchpad (storage behind a copy in memory). Never Supabase, never the device store or
+  its sync queue, never synced: a test fails if `lib/store`, `lib/supabase` or `supabase/`
+  mention it. `git diff --stat` shows no change to `supabase/`, `lib/score.ts`, `lib/evidence.ts`
+  or `lib/store/reduce.ts`.
+- **Checked on the way in and the way out.** Every field is checked against the simulator's own
+  range and shape (a time is `HH:MM` in a day; an amount a plain number of 0 or more, the field's
+  `min`; a week is seven booleans; a meal, switch or routine pick must be one the read offers
+  today). A field that fails is **dropped, not clamped**, so an unset input stays unset and the
+  caffeine slider rests with "Not set" and `data-unset` (H12). Junk, another version, an
+  oversized value or storage that throws all read as "nothing typed".
+- **Why the copy in memory holds the raw typed values.** If the page showed only checked values,
+  a half-typed or out-of-range amount would be wiped from the field as the reader types. So the
+  page keeps what was typed on this visit exactly as before, and storage gets only the checked
+  values. The copy also keeps a simulator working for the visit where storage refuses writes.
+- **Figures stay visual.** A figure is handed `remembered` (`{ values, save }`, a type from the
+  helper) as a prop and falls back to its own state without it; no figure file touches storage or
+  the scratchpad (test). The hook, `useRemembered`, lives in `components/read/remembered.tsx`
+  (`useSyncExternalStore`; the server renders every simulator empty, so the values arrive on the
+  first render after load). The feed card never gets it, twice over: `FigureFor` drops it for a
+  glance or non-interactive figure, and the figure uses it only in its full, interactive view, so
+  a card keeps the untouched view (R7). A deliberate break of each lock is caught.
+- **Clearing.** By each simulator, once something is typed: "Kept on this device only." and a
+  quiet underlined button. The owner asked for "Clear my numbers"; caffeine has exactly that.
+  The others say what they clear: "Clear my days" (steps), "Clear my choice" (turmeric), "Clear my
+  routine" (HIIT), since they hold picks, not numbers. On Me, under "Start on", a card "Your
+  simulator numbers" with one "Clear my numbers" that forgets every simulator and no other key
+  (theme, start screen, ticks). Flagged for the owner: one label everywhere instead, if preferred.
+- **Privacy page (still a draft for the owner).** "On this device" gains: "What you type into a
+  simulator, such as a caffeine time. It is never sent to our server. Clear it on Me." The theme
+  line was out of date ("light, dark or match device": no Bedtime, no start screen) and now reads
+  "Your theme and the screen the app opens on." Date moved to 19 November 2026. The draft note
+  stays in the source.
+- **Left as it was.** Turmeric's breakfast picker still opens on the second meal when nothing is
+  picked. It shows one tested meal, not a personal estimate; flagged in case the owner wants it
+  to open with no meal chosen.
+- **Testing note.** In the browser-test build the Supabase address does not resolve, and the
+  Supabase client retries the read page's own members' teaser read a second and three seconds
+  after it fails, whether or not anyone types (logged: three requests in an idle page). The
+  network test answers that one read with an empty reply, so that any Supabase request during
+  typing is the simulator's; then it checks that no request in the whole visit, reload included,
+  carries a typed value.
+- Evidence in `docs/evidence/reader-inputs/`: before/after screenshots at 390 px, Dark and Light
+  (`scripts/reader-input-shots.mts`); `breaks.txt` (each rule broken once and caught);
+  `members-check.txt` (HIIT in a demo-mode build, `scripts/reader-inputs-members-check.mts`);
+  `gates.txt` (lint, typecheck, unit, build, HTTP, browser).

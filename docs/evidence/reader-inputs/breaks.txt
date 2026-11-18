@@ -1,0 +1,155 @@
+Reader inputs stored on the device only: each rule broken once, its test run, the file restored
+(byte-identical, checked by hash) and the test run again. 2026-11-19. Runner: a scratch
+script that applies one replacement per break; the replacements are named in each heading.
+
+## Unit tests (npx vitest run lib/reader-inputs.test.ts lib/privacy.test.ts)
+
+=== BREAK: round trip: write keeps the values in memory but never saves them  (lib/reader-inputs.ts)
+ ❯ lib/reader-inputs.test.ts (33 tests | 8 failed) 18ms
+     × what a reader types comes back on a reopened read (a new scratchpad on the same storage) 5ms
+     × every simulator's shape survives the trip 1ms
+     × the stored value is versioned JSON under sd.sim.<slug>.<simulator>, with nothing but the reader's answers 1ms
+     × an unset input stays unset: an empty field is not stored, and a simulator with nothing typed has no key 1ms
+     × blocked storage reads as nothing typed, and the simulator still works for this visit 0ms
+     × a value typed on this visit is kept as typed while the read is open, but only checked values are stored 0ms
+     × caffeine's answers are not seen by another read using the same kind, and clearing one leaves the other 0ms
+     × clear forgets one simulator; clearAll forgets every simulator and nothing else on the device 0ms
+ Test Files  1 failed | 1 passed (2)
+      Tests  8 failed | 29 passed (37)
+--- restored:
+      Tests  37 passed (37)
+=== BREAK: junk: JSON.parse outside try/catch  (lib/reader-inputs.ts)
+ ❯ lib/reader-inputs.test.ts (33 tests | 1 failed) 14ms
+     × not JSON: nothing comes back 2ms
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 36 passed (37)
+--- restored:
+      Tests  37 passed (37)
+=== BREAK: storage that throws: getItem outside try/catch  (lib/reader-inputs.ts)
+ ❯ lib/reader-inputs.test.ts (33 tests | 1 failed) 12ms
+     × blocked storage reads as nothing typed, and the simulator still works for this visit 3ms
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 36 passed (37)
+--- restored:
+      Tests  37 passed (37)
+=== BREAK: out of range clamped, not dropped: a negative amount becomes 0  (lib/reader-inputs.ts)
+ ❯ lib/reader-inputs.test.ts (33 tests | 3 failed) 16ms
+     × caffeine: times must be HH:MM in a day; the amount a plain number of 0 or more 4ms
+     × a value typed on this visit is kept as typed while the read is open, but only checked values are stored 1ms
+     × serialiseInputs never writes a value its check refuses 0ms
+ Test Files  1 failed | 1 passed (2)
+      Tests  3 failed | 34 passed (37)
+--- restored:
+      Tests  37 passed (37)
+=== BREAK: out of range clamped, not dropped: an impossible time becomes 23:59  (lib/reader-inputs.ts)
+ ❯ lib/reader-inputs.test.ts (33 tests | 3 failed) 14ms
+     × an unset input stays unset: an empty field is not stored, and a simulator with nothing typed has no key 4ms
+     × caffeine: times must be HH:MM in a day; the amount a plain number of 0 or more 1ms
+     × serialiseInputs never writes a value its check refuses 0ms
+ Test Files  1 failed | 1 passed (2)
+      Tests  3 failed | 34 passed (37)
+--- restored:
+      Tests  37 passed (37)
+=== BREAK: one key for every paper: the slug left out of the key  (lib/reader-inputs.ts)
+ ❯ lib/reader-inputs.test.ts (33 tests | 3 failed) 15ms
+     × the stored value is versioned JSON under sd.sim.<slug>.<simulator>, with nothing but the reader's answers 4ms
+     × each paper and simulator has its own key 0ms
+     × caffeine's answers are not seen by another read using the same kind, and clearing one leaves the other 1ms
+ Test Files  1 failed | 1 passed (2)
+      Tests  3 failed | 34 passed (37)
+--- restored:
+      Tests  37 passed (37)
+=== BREAK: clearAll forgets every key on the device, theme and ticks included  (lib/reader-inputs.ts)
+ ❯ lib/reader-inputs.test.ts (33 tests | 1 failed) 13ms
+     × clear forgets one simulator; clearAll forgets every simulator and nothing else on the device 3ms
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 36 passed (37)
+--- restored:
+      Tests  37 passed (37)
+=== BREAK: a field the shape does not name is kept  (lib/reader-inputs.ts)
+ ❯ lib/reader-inputs.test.ts (33 tests | 1 failed) 14ms
+     × a field the shape does not name is dropped 4ms
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 36 passed (37)
+--- restored:
+      Tests  37 passed (37)
+=== BREAK: the sync queue reads reader inputs  (lib/store/sync.ts)
+ ❯ lib/reader-inputs.test.ts (33 tests | 1 failed) 12ms
+     × nothing that saves or syncs (lib/store, lib/supabase, supabase/) mentions reader inputs 3ms
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 36 passed (37)
+--- restored:
+      Tests  37 passed (37)
+=== BREAK: a figure reads storage itself  (components/figures/kinds/Decay.tsx)
+ ❯ lib/reader-inputs.test.ts (33 tests | 1 failed) 11ms
+     × figures get remembered values as props: no figure file touches the scratchpad or storage 4ms
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 36 passed (37)
+--- restored:
+      Tests  37 passed (37)
+=== BREAK: privacy page: the simulator sentence left out  (lib/privacy.ts)
+ ❯ lib/privacy.test.ts (4 tests | 1 failed) 9ms
+     × say that simulator answers stay on the device, are never sent, and can be cleared on Me (owner, 2026-11-19) 3ms
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 36 passed (37)
+--- restored:
+      Tests  37 passed (37)
+
+## Browser tests (npx playwright test tests/browser/reader-inputs.spec.ts -g <test>; each break rebuilds the app)
+
+=== BREAK: browser: the read never hands the stored values back (server snapshot on the client too)  (components/read/remembered.tsx)
+  ✘  1 [chromium] › tests/browser/reader-inputs.spec.ts:38:3 › caffeine: the reader's evening comes back › dose time, bedtime and amount typed, the page reloaded: all three are back, with the estimate (5.9s)
+    Error: expect(locator).toContainText(expected) failed
+  1 failed
+--- restored (file byte-identical; the restored browser run follows the last break)
+=== BREAK: browser: Clear my numbers empties the page but leaves storage  (lib/reader-inputs.ts)
+  ✘  1 [chromium] › tests/browser/reader-inputs.spec.ts:59:3 › caffeine: the reader's evening comes back › Clear my numbers: every field empty, both sliders Not set, and still so after a reload (1.6s)
+    Error: expect(received).toBeNull()
+  1 failed
+--- restored (file byte-identical; the restored browser run follows the last break)
+=== BREAK: browser: every write also goes to Supabase  (lib/reader-inputs.ts)
+  ✘  1 [chromium] › tests/browser/reader-inputs.spec.ts:86:3 › caffeine: the reader's evening comes back › no request carries an answer: nothing goes to Supabase, and no URL or body holds the typed values (1.9s)
+    Error: requests to Supabase while typing
+  1 failed
+--- restored (file byte-identical; the restored browser run follows the last break)
+=== BREAK: browser: an unset caffeine time comes back as a preset (the slider's resting time)  (components/figures/kinds/Decay.tsx)
+  ✘  1 [chromium] › tests/browser/reader-inputs.spec.ts:73:3 › caffeine: the reader's evening comes back › only what was typed comes back: an empty field stays empty and its slider stays Not set (6.3s)
+    Error: expect(locator).toHaveValue(expected) failed
+  1 failed
+--- restored (file byte-identical; the restored browser run follows the last break)
+
+Two single-lock breaks: the feed card is protected three times (Feed.tsx never hands a card
+remembered values; FigureFor drops them for a glance or still figure; the figure uses them only
+in its full, interactive view). Removing one lock leaves the others, so the test still passes,
+as designed:
+
+=== BREAK: browser: the feed card draws a remembered choice  (components/papers/turmeric-pepper-breakfast/figures/FirstHalfHour.tsx)
+  1 passed (6.5s)
+--- restored (file byte-identical; the restored browser run follows the last break)
+=== BREAK: browser: the feed card is handed the remembered choice (and the figure honours it)  (components/papers/registry.tsx)
+  1 passed (6.5s)
+--- restored (file byte-identical; the restored browser run follows the last break)
+
+The rule itself broken (all three locks at once):
+
+=== BREAK: browser: the feed card is handed remembered values and both locks are gone (Feed.tsx wires them in; FigureFor and FirstHalfHour pass them through)
+  ✘  1 [chromium] › tests/browser/reader-inputs.spec.ts:192:3 › each read keeps its own answers › turmeric: the switches come back in the read, while the feed card keeps the paper's own comparison (7.1s)
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Expected: "pepper"
+    Received: "turmeric"
+  1 failed
+--- restored (files byte-identical)
+
+## Restored: the whole browser file, after the last break
+
+  ✓   1 [chromium] › tests/browser/reader-inputs.spec.ts:38:3 › caffeine: the reader's evening comes back › dose time, bedtime and amount typed, the page reloaded: all three are back, with the estimate (1.4s)
+  ✓   2 [chromium] › tests/browser/reader-inputs.spec.ts:59:3 › caffeine: the reader's evening comes back › Clear my numbers: every field empty, both sliders Not set, and still so after a reload (1.9s)
+  ✓   3 [chromium] › tests/browser/reader-inputs.spec.ts:73:3 › caffeine: the reader's evening comes back › only what was typed comes back: an empty field stays empty and its slider stays Not set (1.3s)
+  ✓   4 [chromium] › tests/browser/reader-inputs.spec.ts:86:3 › caffeine: the reader's evening comes back › no request carries an answer: nothing goes to Supabase, and no URL or body holds the typed values (2.3s)
+  ✓   5 [chromium] › tests/browser/reader-inputs.spec.ts:125:3 › bad storage never breaks a read › junk under the key: the read opens, every field Not set, no error on the page (1.3s)
+  ✓   6 [chromium] › tests/browser/reader-inputs.spec.ts:139:3 › bad storage never breaks a read › a stored value outside the simulator's range is dropped, not clamped: only the good field comes back (691ms)
+  ✓   7 [chromium] › tests/browser/reader-inputs.spec.ts:151:3 › bad storage never breaks a read › storage that refuses writes: the simulator still works for this visit, without an error (1.3s)
+  ✓   8 [chromium] › tests/browser/reader-inputs.spec.ts:172:3 › each read keeps its own answers › steps: the days come back on their own read, and caffeine's answers are not seen there (2.5s)
+  ✓   9 [chromium] › tests/browser/reader-inputs.spec.ts:192:3 › each read keeps its own answers › turmeric: the switches come back in the read, while the feed card keeps the paper's own comparison (1.9s)
+  ✓  10 [chromium] › tests/browser/reader-inputs.spec.ts:212:3 › Me: one line to forget every simulator's answers › nothing kept, then kept, then cleared; the theme stays (2.5s)
+  10 passed (21.5s)

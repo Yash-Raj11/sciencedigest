@@ -11,6 +11,8 @@
  * A still picture cannot show which of thirty-odd subgroup rows apply to one reader. The untouched
  * view carries the point alone: the pooled rows and, under fat-free mass, the result with one
  * trial left out. State starts empty and holds only the reader's picks and which outcomes are open.
+ * The read hands in `remembered` (owner, 2026-11-19): the routine this reader picked last time on
+ * this device. Which outcomes are open is not remembered: that is how the page looks, not an input.
  *
  * Owner, 2026-11-15: the subgroups are collapsed by default. Each pooled row gets one tap target,
  * "N subgroup results match your routine", that opens only that outcome's subgroups, so a full
@@ -33,6 +35,7 @@ import { CompareRows, compareRowsHeight, Label, type CompareRow } from "@/compon
 import { LINE, SIGNAL_FILL } from "@/components/figures/shared";
 import { assertEvidence } from "@/lib/content/figures";
 import type { ResolvedFact } from "@/lib/content/types";
+import type { Remembered, RoutineInputs } from "@/lib/reader-inputs";
 import type { FigureProps } from "../../registry";
 
 interface Row extends PooledRow { kind: "measured"; pitch: string }
@@ -45,11 +48,16 @@ interface Params {
   sensitivity: { outcome: OutcomeId; lead: string; crosses: string };
 }
 
-export default function OrderFlips({ params, alt, interactive = true, glance, simulator }: FigureProps) {
+export default function OrderFlips({ params, alt, interactive = true, glance, simulator, remembered }: FigureProps) {
   const p = params as unknown as Params;
   const sim = simulator as unknown as CompareSettings | undefined;
   const full = !glance;
-  const [picks, setPicks] = useState<Picks>({});
+  const [own, setOwn] = useState<RoutineInputs>({});
+  // Only the read's own, interactive view remembers: the card keeps the untouched view.
+  const mine = full && interactive ? (remembered as unknown as Remembered<RoutineInputs> | undefined) : undefined;
+  const save = mine?.save ?? setOwn;
+  const picks: Picks = (mine?.values ?? own).picks ?? {};
+  const setPicks = (change: (now: Picks) => Picks) => save((now) => ({ ...now, picks: change(now.picks ?? {}) }));
   const [open, setOpen] = useState<Record<OutcomeId, boolean>>({});
   const picked = Object.values(picks).some(Boolean);
 

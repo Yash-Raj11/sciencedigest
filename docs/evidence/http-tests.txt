@@ -1,3 +1,4 @@
+$ npm run test:http
 
 > sciencedigest@0.1.0 test:http
 > vitest run --config vitest.http.config.mts
@@ -8,6 +9,8 @@
 
  Test Files  2 passed (2)
       Tests  15 passed (15)
-   Start at  15:50:31
-   Duration  588ms (tests 91%, import 7%, transform 2%, worker 1%)
+   Start at  00:32:55
+   Duration  600ms (tests 91%, import 7%, transform 2%, worker 1%)
+
+HTTP exit 0
 

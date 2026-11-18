@@ -27,4 +27,13 @@ describe("the privacy page's words", () => {
     expect(PRIVACY_CONTACT).toMatch(/^[^@\s]+@[^@\s]+$/);
     expect(all).not.toContain("the person who runs this site");
   });
+
+  it("say that simulator answers stay on the device, are never sent, and can be cleared on Me (owner, 2026-11-19)", () => {
+    const device = PRIVACY_SECTIONS.find((s) => s.heading === "On this device")!.points.join(" ");
+    const server = PRIVACY_SECTIONS.find((s) => s.heading === "On our server")!.points.join(" ");
+    expect(device).toContain("What you type into a simulator");
+    expect(device).toContain("never sent to our server");
+    expect(device).toContain("Clear it on Me");
+    expect(server).not.toMatch(/simulator/i);
+  });
 });

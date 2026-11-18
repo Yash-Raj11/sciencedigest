@@ -19,6 +19,11 @@
  * No dose presets: a cup's caffeine is not a gated fact, so the amount field
  * starts empty and is called the reader's own. State starts empty; no timers,
  * no motion.
+ *
+ * Remembered inputs (owner, 2026-11-19): the read hands in `remembered`, what this reader typed
+ * last time on this device, and the figure reads and writes its answers there. Without it (a
+ * preview, a test) the figure keeps its own state, empty at first, as before. Either way an
+ * unset field stays unset: the slider rests with "Not set", never a preset.
  */
 
 import { useId, useState, type CSSProperties, type ReactNode } from "react";
@@ -30,6 +35,7 @@ import { SIGNAL_TEXT, SIGNAL_PALE, INK, LINE } from "../shared";
 import { ESTIMATE_LABEL } from "@/lib/content/figure-kinds";
 import { assertEvidence } from "@/lib/content/figures";
 import type { ResolvedFact } from "@/lib/content/types";
+import type { DecayInputs, Remembered } from "@/lib/reader-inputs";
 
 export interface DecayWords {
   /** The question over the fields. */
@@ -43,18 +49,25 @@ export interface DecayWords {
 
 const WORDS: DecayWords = { ask: "Your evening", dose: "Caffeine at", bed: "Bedtime", amount: "Your amount", unit: "mg" };
 
-export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = WORDS }: {
+export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = WORDS, remembered, clearControl }: {
   mode: "card" | "full"; halfLife: ResolvedFact; alt: string; sourceLine: string;
   /** Where the half-life comes from, in a sentence (full mode, under the source line). */
   note?: ReactNode;
   /** The paper's own finding, shown beside the result and never joined to it. */
   beside?: ReactNode;
   words?: DecayWords;
+  /** What the reader typed last time on this device (the read only). */
+  remembered?: Remembered<DecayInputs>;
+  /** The read's quiet "Clear my numbers", under the fields. */
+  clearControl?: ReactNode;
 }) {
   const id = useId();
-  const [dose, setDose] = useState("");
-  const [bed, setBed] = useState("");
-  const [amount, setAmount] = useState("");
+  const [own, setOwn] = useState<DecayInputs>({});
+  const save = remembered?.save ?? setOwn;
+  const { dose = "", bed = "", amount = "" } = remembered?.values ?? own;
+  const setDose = (value: string) => save((now) => ({ ...now, dose: value }));
+  const setBed = (value: string) => save((now) => ({ ...now, bed: value }));
+  const setAmount = (value: string) => save((now) => ({ ...now, amount: value }));
   const point = halfLife.estimate?.point;
   // No gated number, no figure: nothing is drawn from general knowledge.
   if (point === undefined) return null;
@@ -127,6 +140,7 @@ export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = W
               <input id={`${id}-amount`} type="number" inputMode="decimal" min={0} step="any" value={amount} onChange={(e) => setAmount(e.target.value)} className={DECAY_FIELD} />
             </label>
           </div>
+          {clearControl ? <div className="mt-2">{clearControl}</div> : null}
 
           <div aria-live="polite" className="num mt-4 min-h-[4.5rem]" data-estimate>
             {estimate ? (

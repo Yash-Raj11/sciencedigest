@@ -12,6 +12,7 @@
 import type { ComponentType } from "react";
 import { EVIDENCE_KEY, evidenceKindsIn, figureKey, isFigureKey, type FigureKey } from "@/lib/content/figures";
 import type { FigureRef } from "@/lib/content/types";
+import type { Remembered } from "@/lib/reader-inputs";
 import GenericSimulator from "./_generic/Simulator";
 import GenericWidget from "./_generic/Widget";
 import ParkingSpot from "./daytime-caffeine-sleep/figures/ParkingSpot";
@@ -28,7 +29,11 @@ import FirstHalfHour from "./turmeric-pepper-breakfast/figures/FirstHalfHour";
 import BreakfastSimulator from "./turmeric-pepper-breakfast/Simulator";
 
 export interface WidgetProps { variant: "article" | "card" }
-export interface SimulatorProps { params: Record<string, unknown> }
+export interface SimulatorProps {
+  params: Record<string, unknown>;
+  /** What this reader picked last time on this device (the read hands it in; see lib/reader-inputs.ts). */
+  remembered?: Remembered<Record<string, unknown>>;
+}
 /** `params` is what the picture shows, every value bound to a gated fact; `alt` is its description. */
 export interface FigureProps {
   params: Record<string, unknown>; alt: string;
@@ -44,6 +49,12 @@ export interface FigureProps {
    * the feed card never passes them, so a members' simulator stays out of the public card (rule 7).
    */
   simulator?: Record<string, unknown>;
+  /**
+   * What this reader typed or picked last time on this device, for a figure that holds input
+   * (lib/reader-inputs.ts, figureInputs). The read only, never the feed card: a card shows the
+   * untouched view (R7). Without it the figure keeps its own state, empty at first.
+   */
+  remembered?: Remembered<Record<string, unknown>>;
 }
 
 const WIDGETS: Record<string, ComponentType<WidgetProps>> = {
@@ -76,14 +87,14 @@ const FIGURES: Record<FigureKey, ComponentType<FigureProps>> = {
 };
 
 /** The drawing, and under it the key when the figure mixes measured and proposed. */
-export function FigureFor({ slug, figure, interactive = true, glance, simulator }: { slug: string; figure: FigureRef; interactive?: boolean; glance?: FigureProps["glance"]; simulator?: FigureProps["simulator"] }) {
+export function FigureFor({ slug, figure, interactive = true, glance, simulator, remembered }: { slug: string; figure: FigureRef; interactive?: boolean; glance?: FigureProps["glance"]; simulator?: FigureProps["simulator"]; remembered?: FigureProps["remembered"] }) {
   const key = figureKey(slug, figure.figure);
   if (!isFigureKey(key)) return null;
   const Drawing = FIGURES[key];
   const mixed = evidenceKindsIn(figure.params).length > 1;
   return (
     <div data-figure-key={key}>
-      <Drawing params={figure.params} alt={figure.alt} interactive={glance ? false : interactive} glance={glance} simulator={glance ? undefined : simulator} />
+      <Drawing params={figure.params} alt={figure.alt} interactive={glance ? false : interactive} glance={glance} simulator={glance ? undefined : simulator} remembered={glance || !interactive ? undefined : remembered} />
       {mixed && !glance ? <p data-figure-legend className="mt-1 text-center text-xs text-muted">{EVIDENCE_KEY}</p> : null}
     </div>
   );
@@ -94,8 +105,8 @@ export function WidgetFor({ slug, variant }: { slug: string } & WidgetProps) {
   return Widget ? <Widget variant={variant} /> : <GenericWidget slug={slug} variant={variant} />;
 }
 
-export function SimulatorFor({ kind, params }: { kind: string } & SimulatorProps) {
+export function SimulatorFor({ kind, params, remembered }: { kind: string } & SimulatorProps) {
   const Simulator = SIMULATORS[kind];
   if (!Simulator) return <p className="text-sm text-muted">This paper&apos;s simulator is not available in this version of the app.</p>;
-  return <Simulator params={params} />;
+  return <Simulator params={params} remembered={remembered} />;
 }
