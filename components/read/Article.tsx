@@ -126,7 +126,13 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
       <section aria-label="Simulator" id={SLOTS.try} className={`space-y-3 ${SLOT}`}>
         <h2 data-rail className="headline">Try it</h2>
         {content.simulator.spec
-          ? <KindSimulator content={content} observational={!RANDOMIZED_DESIGNS.has(paper.design as Design)} />
+          ? (
+            <>
+              <KindSimulator content={content} observational={!RANDOMIZED_DESIGNS.has(paper.design as Design)} />
+              {/* Figure B's second panel under the simulator (caffeine 1B): drawn still, it takes no input. */}
+              {content.protocolFigure ? <div data-protocol-figure><Pictured slug={paper.slug} figure={content.protocolFigure} facts={facts} context={context} /></div> : null}
+            </>
+          )
           : content.protocolFigure
             ? <div data-protocol-figure><Pictured slug={paper.slug} figure={content.protocolFigure} facts={facts} context={context} simulator={content.simulator.params} /></div>
             : <SimulatorFor kind={content.simulator.kind} params={content.simulator.params} />}
@@ -212,7 +218,8 @@ function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent 
         <>
           <Receipt n={next()} title="The size of the effect">
             <Para sentences={audit.effect} facts={facts} context={context} className={AUDIT} />
-            <div className="mt-3"><Pictured slug={paper.slug} figure={audit.figure} facts={facts} context={context} /></div>
+            {/* Edge to edge in the card, so an interactive figure keeps 44 px targets at 360 px. */}
+            <div className="-mx-4 mt-3" data-audit-figure><Pictured slug={paper.slug} figure={audit.figure} facts={facts} context={context} /></div>
           </Receipt>
           <Receipt n={next()} title="How weak it could be">
             <Para sentences={audit.weakEnd} facts={facts} context={context} className={AUDIT} />

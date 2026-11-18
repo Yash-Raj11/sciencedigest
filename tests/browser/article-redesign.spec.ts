@@ -146,7 +146,8 @@ test.describe("the read", () => {
 
 test.describe("the readings grid (the one interactive figure)", () => {
   const frame = '[data-figure-key$="/five-readings"]';
-  const params = read.layers!.protocol.figure!.params as { times: { n: number }[]; meals: { label: string; reading: { quote: string } }[]; early: { fact: { quote: string } } };
+  // The grid moved to the receipts (audit layer) when figure 2B took the protocol slot, 2026-11-18.
+  const params = read.layers!.audit.figure!.params as { times: { n: number }[]; meals: { label: string; reading: { quote: string } }[]; early: { fact: { quote: string } } };
 
   test("first view: nothing picked, the finding already drawn", async ({ page }) => {
     await page.goto(`/papers/${SLUG}`);

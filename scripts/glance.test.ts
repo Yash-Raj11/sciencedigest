@@ -117,7 +117,7 @@ describe("the card's words", () => {
     const by = Object.fromEntries(CARDS.map((c) => [c.slug, c.view]));
     expect(by["steps-days-per-week"].headline).toBe("People with 1–2 such days had a 14.9-point lower 10-year risk of death than people with none.");
     expect(by["daytime-caffeine-sleep"].headline).toBe("Sleep showed no clear difference from placebo nights.");
-    expect(by["daytime-caffeine-sleep"].note).toBe("Curve shape from another study. Try it with your own coffee inside.");
+    expect(by["daytime-caffeine-sleep"].note).toBe("The tiredness lines are a sketch, not data. Try it with your own coffee inside.");
   });
 });
 
@@ -174,6 +174,7 @@ describe('lint rule "glance"', () => {
     expect(errors("turmeric-pepper-breakfast", (e) => { e.glance.figure = "parking-spot"; }).join()).toMatch(/not one of the read's figures/);
   });
   it("fails a members' read whose card would draw its simulator", () => {
-    expect(errors("daytime-caffeine-sleep", (e) => { e.accessTier = "premium"; }, true).join()).toMatch(/members' read's card is public/);
+    // Caffeine's card draws figure 1B since 2026-11-18; put it back on the simulator to test the rule.
+    expect(errors("daytime-caffeine-sleep", (e) => { e.accessTier = "premium"; e.glance.figure = "simulator"; }, true).join()).toMatch(/members' read's card is public/);
   });
 });

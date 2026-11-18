@@ -155,7 +155,7 @@ export default function FirstHalfHour({ params, alt, interactive = true, glance 
             {glance?.x ? <Label x={timeX(last, last)} y={F.ticks} anchor="end" tone="muted" size={F.small}>{`${glance.x} →`}</Label> : null}
           </>
         )}
-        <SketchTag sketch={p.curves} x={0} y={F.tag} size={F.small} />
+        <SketchTag sketch={p.curves} x={timeX(0, last)} y={F.tag} size={F.small} />
         {full ? <Label x={timeX(last, last)} y={F.tag} anchor="end" tone="muted" size={F.small}>{p.phases.join(" · ")}</Label> : null}
       </Figure>
 

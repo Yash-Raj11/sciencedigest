@@ -23,11 +23,10 @@
     "span": "10 days per condition [schedule]"
   },
   "glance": {
-    "figure": "simulator",
-    "x": "Time [-]",
-    "y": "Caffeine in your body [-]",
-    "alt": "A curve traces caffeine leaving the body over time, with a shaded band for how much people differed. [caffeine-saliva-half-life/half_life_caffeine]",
-    "note": "Curve shape from another study. Try it with your own coffee inside. [-]",
+    "figure": "hidden-tiredness",
+    "x": "Your waking day [-]",
+    "alt": "Two dotted lines from waking to bed: sleep pressure keeps rising, and how tired you feel runs below it after the first dose, a gap called hidden tiredness. [schedule] Beneath, the study found no clear difference in sleep. [sleep_same]",
+    "note": "The tiredness lines are a sketch, not data. Try it with your own coffee inside. [-]",
     "tryIt": "how much is left at your bedtime [-]"
   },
   "sections": [
@@ -109,6 +108,73 @@
       }
     }
   },
+  "protocolFigure": {
+    "figure": "hidden-tiredness",
+    "headline": "Caffeine hides tiredness. [-] It doesn’t remove it. [-]",
+    "caption": "Dotted: a sketch of tiredness through the day, not data. [-] The day runs from waking to bed, with the study’s three doses and the 8 hours to the sleep recording. [schedule, recording] The box is what the sleep laboratory found. [sleep_same]",
+    "alt": "Two dotted lines run from waking to bed. [-] One, sleep pressure, keeps rising. [-] The other, how tired you feel, follows it until the first dose, then runs below it; the hatched gap between them is hidden tiredness, and it narrows towards bed without closing. [schedule] Nothing is drawn after bed. [-] A box beneath says what the study found: sleep showed no clear difference from placebo nights. [sleep_same]",
+    "params": {
+      "title": "Tiredness through a caffeine day, and what the sleep laboratory found",
+      "tiredness": "sketch:sleep-pressure",
+      "day": {
+        "wake": "wake",
+        "bed": "bed"
+      },
+      "doses": {
+        "times": [
+          {
+            "n": 45,
+            "ref": "schedule"
+          },
+          {
+            "n": 255,
+            "ref": "schedule"
+          },
+          {
+            "n": 475,
+            "ref": "schedule"
+          }
+        ],
+        "lead": "The study’s doses:",
+        "amount": {
+          "text": "150 mg",
+          "ref": "dose"
+        },
+        "rest": "three times a day"
+      },
+      "recording": {
+        "lead": "Sleep recording began",
+        "hours": {
+          "n": 8,
+          "ref": "recording"
+        },
+        "rest": "hours after the last dose"
+      },
+      "phases": [
+        "first dose",
+        "in effect",
+        "fading"
+      ],
+      "found": {
+        "title": "What this study found",
+        "finding": "Sleep showed no clear difference from placebo nights.",
+        "kind": "measured",
+        "fact": "fact:sleep_same",
+        "who": {
+          "lead": "Twenty men aged",
+          "from": {
+            "n": 18,
+            "ref": "who"
+          },
+          "to": {
+            "n": 35,
+            "ref": "who"
+          },
+          "rest": "who drink caffeine every day."
+        }
+      }
+    }
+  },
   "sketches": [
     {
       "id": "tiredness-tokens",
@@ -120,6 +186,23 @@
         "alt": "Small round tokens drawn with dotted outlines: a sketch of the tiredness signal building up, not data. How many are drawn means nothing.",
         "labels": {
           "signal": "Tiredness signal (adenosine). It builds up while you are awake."
+        }
+      }
+    },
+    {
+      "id": "sleep-pressure",
+      "concept": "adenosine",
+      "tag": "Sketch, not data",
+      "ink": "ink",
+      "stroke": "dotted",
+      "words": {
+        "alt": "Two dotted lines through a waking day: a sketch of sleep pressure building and of how tired you feel, not data. Their heights and the gap are not from the paper.",
+        "labels": {
+          "panel": "Two kinds of tiredness",
+          "pressure": "Sleep pressure keeps building",
+          "felt": "How tired you feel",
+          "gap": "Hidden tiredness",
+          "narrows": "The gap narrows as caffeine fades"
         }
       }
     }

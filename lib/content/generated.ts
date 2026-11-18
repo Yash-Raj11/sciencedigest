@@ -874,6 +874,123 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         }
       }
     },
+    "protocolFigure": {
+      "figure": "hidden-tiredness",
+      "headline": [
+        {
+          "text": "Caffeine hides tiredness.",
+          "refs": []
+        },
+        {
+          "text": "It doesn’t remove it.",
+          "refs": []
+        }
+      ],
+      "caption": [
+        {
+          "text": "Dotted: a sketch of tiredness through the day, not data.",
+          "refs": []
+        },
+        {
+          "text": "The day runs from waking to bed, with the study’s three doses and the 8 hours to the sleep recording.",
+          "refs": [
+            "schedule",
+            "recording"
+          ]
+        },
+        {
+          "text": "The box is what the sleep laboratory found.",
+          "refs": [
+            "sleep_same"
+          ]
+        }
+      ],
+      "alt": "Two dotted lines run from waking to bed. One, sleep pressure, keeps rising. The other, how tired you feel, follows it until the first dose, then runs below it; the hatched gap between them is hidden tiredness, and it narrows towards bed without closing. Nothing is drawn after bed. A box beneath says what the study found: sleep showed no clear difference from placebo nights.",
+      "params": {
+        "title": "Tiredness through a caffeine day, and what the sleep laboratory found",
+        "tiredness": {
+          "sketch": "sleep-pressure",
+          "concept": "adenosine",
+          "tag": "Sketch, not data",
+          "ink": "ink",
+          "labels": {
+            "panel": "Two kinds of tiredness",
+            "pressure": "Sleep pressure keeps building",
+            "felt": "How tired you feel",
+            "gap": "Hidden tiredness",
+            "narrows": "The gap narrows as caffeine fades"
+          },
+          "alt": "Two dotted lines through a waking day: a sketch of sleep pressure building and of how tired you feel, not data. Their heights and the gap are not from the paper."
+        },
+        "day": {
+          "wake": "wake",
+          "bed": "bed"
+        },
+        "doses": {
+          "times": [
+            {
+              "n": 45,
+              "ref": "schedule"
+            },
+            {
+              "n": 255,
+              "ref": "schedule"
+            },
+            {
+              "n": 475,
+              "ref": "schedule"
+            }
+          ],
+          "lead": "The study’s doses:",
+          "amount": {
+            "text": "150 mg",
+            "ref": "dose"
+          },
+          "rest": "three times a day"
+        },
+        "recording": {
+          "lead": "Sleep recording began",
+          "hours": {
+            "n": 8,
+            "ref": "recording"
+          },
+          "rest": "hours after the last dose"
+        },
+        "phases": [
+          "first dose",
+          "in effect",
+          "fading"
+        ],
+        "found": {
+          "title": "What this study found",
+          "finding": "Sleep showed no clear difference from placebo nights.",
+          "kind": "measured",
+          "fact": {
+            "id": "sleep_same",
+            "kind": "finding",
+            "label": "no clear difference from placebo; the paper does not say how big any difference was",
+            "quote": "the analyses of the polysomnography (PSG) did not reveal significant differences in total sleep time (TST), sleep efficiency (SE), sleep latencies, or the relative amount of sleep stages among the three conditions (> 0.05)",
+            "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
+            "finding": {
+              "outcome": "Total sleep time, time to fall asleep and sleep stages",
+              "tier": "low"
+            }
+          },
+          "who": {
+            "lead": "Twenty men aged",
+            "from": {
+              "n": 18,
+              "ref": "who"
+            },
+            "to": {
+              "n": 35,
+              "ref": "who"
+            },
+            "rest": "who drink caffeine every day."
+          }
+        }
+      }
+    },
     "primaryEstimate": "sleep_same",
     "finding": {
       "question": [
@@ -1000,30 +1117,129 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       }
     },
     "glance": {
-      "figure": null,
+      "figure": {
+        "figure": "hidden-tiredness",
+        "headline": [
+          {
+            "text": "Caffeine hides tiredness.",
+            "refs": []
+          },
+          {
+            "text": "It doesn’t remove it.",
+            "refs": []
+          }
+        ],
+        "caption": [],
+        "alt": "Two dotted lines from waking to bed: sleep pressure keeps rising, and how tired you feel runs below it after the first dose, a gap called hidden tiredness. Beneath, the study found no clear difference in sleep.",
+        "params": {
+          "title": "Tiredness through a caffeine day, and what the sleep laboratory found",
+          "tiredness": {
+            "sketch": "sleep-pressure",
+            "concept": "adenosine",
+            "tag": "Sketch, not data",
+            "ink": "ink",
+            "labels": {
+              "panel": "Two kinds of tiredness",
+              "pressure": "Sleep pressure keeps building",
+              "felt": "How tired you feel",
+              "gap": "Hidden tiredness",
+              "narrows": "The gap narrows as caffeine fades"
+            },
+            "alt": "Two dotted lines through a waking day: a sketch of sleep pressure building and of how tired you feel, not data. Their heights and the gap are not from the paper."
+          },
+          "day": {
+            "wake": "wake",
+            "bed": "bed"
+          },
+          "doses": {
+            "times": [
+              {
+                "n": 45,
+                "ref": "schedule"
+              },
+              {
+                "n": 255,
+                "ref": "schedule"
+              },
+              {
+                "n": 475,
+                "ref": "schedule"
+              }
+            ],
+            "lead": "The study’s doses:",
+            "amount": {
+              "text": "150 mg",
+              "ref": "dose"
+            },
+            "rest": "three times a day"
+          },
+          "recording": {
+            "lead": "Sleep recording began",
+            "hours": {
+              "n": 8,
+              "ref": "recording"
+            },
+            "rest": "hours after the last dose"
+          },
+          "phases": [
+            "first dose",
+            "in effect",
+            "fading"
+          ],
+          "found": {
+            "title": "What this study found",
+            "finding": "Sleep showed no clear difference from placebo nights.",
+            "kind": "measured",
+            "fact": {
+              "id": "sleep_same",
+              "kind": "finding",
+              "label": "no clear difference from placebo; the paper does not say how big any difference was",
+              "quote": "the analyses of the polysomnography (PSG) did not reveal significant differences in total sleep time (TST), sleep efficiency (SE), sleep latencies, or the relative amount of sleep stages among the three conditions (> 0.05)",
+              "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
+              "finding": {
+                "outcome": "Total sleep time, time to fall asleep and sleep stages",
+                "tier": "low"
+              }
+            },
+            "who": {
+              "lead": "Twenty men aged",
+              "from": {
+                "n": 18,
+                "ref": "who"
+              },
+              "to": {
+                "n": 35,
+                "ref": "who"
+              },
+              "rest": "who drink caffeine every day."
+            }
+          }
+        }
+      },
       "x": [
         {
-          "text": "Time",
+          "text": "Your waking day",
           "refs": []
         }
       ],
-      "y": [
-        {
-          "text": "Caffeine in your body",
-          "refs": []
-        }
-      ],
+      "y": [],
       "alt": [
         {
-          "text": "A curve traces caffeine leaving the body over time, with a shaded band for how much people differed.",
+          "text": "Two dotted lines from waking to bed: sleep pressure keeps rising, and how tired you feel runs below it after the first dose, a gap called hidden tiredness.",
           "refs": [
-            "caffeine-saliva-half-life/half_life_caffeine"
+            "schedule"
+          ]
+        },
+        {
+          "text": "Beneath, the study found no clear difference in sleep.",
+          "refs": [
+            "sleep_same"
           ]
         }
       ],
       "note": [
         {
-          "text": "Curve shape from another study. Try it with your own coffee inside.",
+          "text": "The tiredness lines are a sketch, not data. Try it with your own coffee inside.",
           "refs": []
         }
       ],

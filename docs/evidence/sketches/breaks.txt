@@ -1,0 +1,84 @@
+=== BREAK: a dotted line drawn outside the Sketch primitive
+--- 93a94 >       <path d="M 0 0 H 9" strokeDasharray="1 4" /> 
+     × only the Sketch primitive draws a dotted line 12ms
+ FAIL  scripts/visual-system.test.ts > a dotted line is always a sketch > only the Sketch primitive draws a dotted line
+AssertionError: expected [ Array(1) ] to deeply equal []
+      Tests  1 failed | 95 passed (96)
+--- restored; rerun:
+      Tests  96 passed (96)
+
+=== BREAK: an undeclared sketch is not refused by the lint
+--- 795c795 <       if (!declaredSketches.has(id)) fail("sketch", path, `"${node}" is not declared in sketches; a sketch is drawn only from its declared, checked spec`); --- >       if (false) fail("sketch", path, `"${node}" is not declared in sketches; a sketch is drawn only from its declared, checked spec`); 
+     × a figure that draws an undeclared sketch fails 5ms
+     × a declared sketch that no figure draws fails 4ms
+ FAIL  lib/pipeline/sketch-lint.test.ts > sketches in the lint > a figure that draws an undeclared sketch fails
+AssertionError: expected [ '[sketch] sketches' ] to deeply equal [ …(2) ]
+ FAIL  lib/pipeline/sketch-lint.test.ts > sketches in the lint > a declared sketch that no figure draws fails
+AssertionError: expected [ '[sketch] sketches' ] to deeply equal [ …(2) ]
+      Tests  2 failed | 4 passed (6)
+--- restored; rerun:
+      Tests  6 passed (6)
+
+=== BREAK: a declared sketch that nothing draws is not refused
+--- 913c913 <     if (!drawnSketches.has(id)) fail("sketch", "sketches", `"${id}" is declared but no figure or simulator draws it ("sketch:${id}")`); --- >     if (false) fail("sketch", "sketches", `"${id}" is declared but no figure or simulator draws it ("sketch:${id}")`); 
+     × a figure that draws an undeclared sketch fails 5ms
+     × a declared sketch that no figure draws fails 4ms
+ FAIL  lib/pipeline/sketch-lint.test.ts > sketches in the lint > a figure that draws an undeclared sketch fails
+AssertionError: expected [ '[sketch] figure.params.tokens' ] to deeply equal [ …(2) ]
+ FAIL  lib/pipeline/sketch-lint.test.ts > sketches in the lint > a declared sketch that no figure draws fails
+AssertionError: expected [ '[sketch] figure.params.tokens' ] to deeply equal [ …(2) ]
+      Tests  2 failed | 4 passed (6)
+--- restored; rerun:
+      Tests  6 passed (6)
+
+=== BREAK: sketch shapes (the 4A piles) drawn solid
+--- 49c49 <     <g fill="none" stroke={INKS[sketch.ink]} strokeWidth={1.25} strokeDasharray={DOT} strokeLinecap="round" data-sketch={sketch.sketch} data-concept={sketch.concept}> --- >     <g fill="none" stroke={INKS[sketch.ink]} strokeWidth={1.25} strokeLinecap="round" data-sketch={sketch.sketch} data-concept={sketch.concept}> 
+     × the tiredness tokens are a dotted, monochrome sketch, tagged on the figure 4ms
+     × the piles are dotted, monochrome and the same size in both panels 4ms
+ FAIL  scripts/parking-spot.test.ts > 1A: the parking spot > the tiredness tokens are a dotted, monochrome sketch, tagged on the figure
+AssertionError: expected '<g fill="none" stroke="var(--muted)" …' to contain 'stroke-dasharray="1 4"'
+ FAIL  scripts/two-piles.test.ts > 4A: two piles and a session > the piles are dotted, monochrome and the same size in both panels
+AssertionError: expected '<g fill="none" stroke="var(--ink)" st…' to contain 'stroke-dasharray="1 4"'
+      Tests  2 failed | 9 passed (11)
+--- restored; rerun:
+      Tests  11 passed (11)
+
+=== BREAK: 2B: the dip spreads wider than the 30-minute column
+--- 49c49 <   if (off >= F.column / 2) return 0; --- >   if (off >= F.column * 2) return 0; 
+     × the lines part only inside the 30-minute column and are one line everywhere else 2ms
+ FAIL  scripts/first-half-hour.test.ts > 2B: the first half hour > the lines part only inside the 30-minute column and are one line everywhere else
+AssertionError: x=14: expected 5.512008197995382 to be +0 // Object.is equality
+      Tests  1 failed | 5 passed (6)
+--- restored; rerun:
+      Tests  6 passed (6)
+
+=== BREAK: 1B: the gap closes by bed
+--- 19c19 <   gap: 0.3, gapAtBed: 0.1, opens: 1.5, start: 0.36, rise: 0.96, --- >   gap: 0.3, gapAtBed: 0, opens: 1.5, start: 0.36, rise: 0.96, 
+     × never contradicts the finding: the gap opens after the first dose, never closes, and stops at bed 1ms
+ FAIL  scripts/hidden-tiredness.test.ts > 1B: the hidden tiredness day > never contradicts the finding: the gap opens after the first dose, never closes, and stops at bed
+AssertionError: expected 0 to be greater than 0
+      Tests  1 failed | 5 passed (6)
+--- restored; rerun:
+      Tests  6 passed (6)
+
+=== BREAK: 1B: the lines run past bed
+--- 50c50 <     const m = (i / F.samples) * d.bed; --- >     const m = (i / F.samples) * d.bed * 1.2; 
+     × never contradicts the finding: the gap opens after the first dose, never closes, and stops at bed 2ms
+ FAIL  scripts/hidden-tiredness.test.ts > 1B: the hidden tiredness day > never contradicts the finding: the gap opens after the first dose, never closes, and stops at bed
+AssertionError: expected 358.4 to be less than or equal to 300.05
+      Tests  1 failed | 5 passed (6)
+--- restored; rerun:
+      Tests  6 passed (6)
+
+=== BREAK: orange on a sketch line
+--- 39c39 <       d={d} fill="none" stroke={INKS[ink ?? sketch.ink]} strokeWidth={width} strokeDasharray={DOT} strokeLinecap="round" --- >       d={d} fill="none" stroke="var(--signal-evidence)" strokeWidth={width} strokeDasharray={DOT} strokeLinecap="round" 
+     × the lines and the gap are dotted, monochrome and tagged 2ms
+     × the lines are dotted sketches, monochrome, tagged on the figure 2ms
+ FAIL  scripts/first-half-hour.test.ts > 2B: the first half hour > the lines are dotted sketches, monochrome, tagged on the figure
+AssertionError: expected '<path d="M 14.0 168.0 L 15.1 165.4 L …' not to match /signal-evidence/
+ FAIL  scripts/hidden-tiredness.test.ts > 1B: the hidden tiredness day > the lines and the gap are dotted, monochrome and tagged
+AssertionError: expected '<path d="M 30.8 80.6 V 84.7 M 167.7 5…' not to match /signal-evidence/
+      Tests  2 failed | 10 passed (12)
+--- restored; rerun:
+      Tests  12 passed (12)
+

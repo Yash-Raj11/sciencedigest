@@ -13,6 +13,8 @@ export const PILES_FRAME = {
   title: 14, person: { cx: 17, top: 34, height: 84 },
   block: { dx: 38, width: 30, freeTop: 28, freeHeight: 58, fatHeight: 34, gap: 4 },
   labelGap: { name: 8, change: 18 }, chevronGap: 8, why: 146,
+  /** Text at either edge sits this far in, so an italic tag is not clipped by the card. */
+  inset: 4,
   /** Bottom band: a session as a strip. */
   rule: 158, strip: { height: 26, low: 8, x: 10 },
   shortTitle: 180, shortTop: 190, longTitle: 248, longTop: 258, after: 304,

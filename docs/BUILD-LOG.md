@@ -1715,3 +1715,62 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - Tests: `tests/browser/section-rail.spec.ts` (order matches the headings, tap jumps and marks
   current, at the top of the screen, slide reaches the last section, the rail holds no text, no
   rail on the feed).
+
+## 2026-11-18: the four sketches (caffeine 1A, 1B; turmeric 2B; HIIT 4A)
+
+- **A sketch is referenced, not copied.** Figure and simulator params may hold `"sketch:<id>"`.
+  `assemble.ts` resolves it to the declared spec (tag, ink, labels, alt) and adds the sketch's
+  concept to the read's sources, so the audit lists it as Background. The lint refuses a
+  `sketch:` reference that is not declared, and a declared sketch that nothing draws.
+  `components/figures/primitives/Sketch.tsx` (`SketchPath`, `SketchShape`, `SketchTag`) is the
+  only place a dotted line may be drawn (`scripts/visual-system.test.ts`). It refuses a mark
+  that does not come from a resolved sketch, and a label the sketch does not declare.
+- **1A, parking spot** (caffeine mechanism). This replaces `lock-and-key`: the figure file is
+  deleted, the `LockKey` primitive is kept. The dock, the parked signal and caffeine are dashed,
+  because they are the authors' proposal (`adenosine_block`). The drifting and crowded tiredness
+  tokens are the sketch (concept adenosine). "sleepy" and "alert" are orange, as the spec has
+  them, even though they are not findings (flagged to the owner).
+- **1B, the hidden tiredness day** (caffeine `protocolFigure`). It sits under the decay
+  simulator in `<div data-protocol-figure>` and is the feed card's still image.
+  - Dotted lines: sleep pressure, and how tired you feel. The hatched gap between them is the
+    sketch (concept adenosine).
+  - The gap opens only after the first dose. It narrows after the last dose and never closes,
+    and nothing is drawn after bed.
+  - The day comes from bound facts: the dose times (45, 255 and 475 min) and the 8 hours to the
+    recording.
+  - The result box is the one pastel fill and rests on `sleep_same`.
+  - The card's still shows no digit.
+- **2B, the first half hour** (turmeric protocol layer and feed card). It is interactive, with
+  pepper and turmeric switches. The untouched view is the pepper comparison.
+  - The lines are one shared dotted line except inside the 30-minute column. They part there
+    only (`dipAt` is zero outside the column, and a test checks it).
+  - The column is measured (`glucose_30`). The 3-hour bracket is measured too
+    (`glucose_total`).
+  - `five-readings` moved to the audit layer. Its caption was cut to keep the audit within 250
+    words. The receipts figure now bleeds edge to edge (`-mx-4`), so its targets stay ≥ 44 px.
+- **4A, two piles** (HIIT mechanism).
+  - The piles are the sketch (concept fat-free-mass). They are the same size in both panels,
+    because no amounts are drawn.
+  - The orange words are the pooled results (`fm_all`, `ffm_all`).
+  - The short-burst recipe is dashed, because it is the authors' finding of a more effective
+    pattern. Its 60 s and 90 s cut-offs are bound.
+- **Departures from FIGURE-DESIGN, for the owner:**
+  1. 1B panel 1 is the existing single-dose decay simulator. The spec's three-dose stacked curve
+     is not built.
+  2. 1B has no "midday" word mark, because midday cannot be derived from the facts.
+  3. The 2B phase names sit on one line by the tag, not in a bracket strip.
+  4. Concept citations are taken out of figure markup (`[-]` or fact ids), because the sketch
+     already brings the concept into the audit.
+  5. `five-readings` is kept in the receipts rather than deleted.
+- After the screenshots: the 4A tag was clipped at the card edge, so edge text now sits 4 units
+  in. The 1B phase brackets ran through their names, so they now sit below the doses line. The
+  1B "Hidden tiredness" label sat on a line; it now lies along the gap's slope, and the hatch
+  leaves room for it. The 1B panel title had the same words as the felt line, so it is now "Two
+  kinds of tiredness".
+- Evidence is in `docs/evidence/sketches/`:
+  - `gates.txt`: 688 unit, 15 HTTP and 93 browser tests pass, and the build passes;
+  - `breaks.txt`: eight deliberate breaks, each failing its test and passing again once
+    restored;
+  - screenshots in Dark and Light (`scripts/sketch-shots.mts`).
+- The hosted seed is now out of date (new figures). It is not pushed: that waits on the owner's
+  "go".

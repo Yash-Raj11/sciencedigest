@@ -15,6 +15,7 @@ import type { FigureRef } from "@/lib/content/types";
 import GenericSimulator from "./_generic/Simulator";
 import GenericWidget from "./_generic/Widget";
 import ParkingSpot from "./daytime-caffeine-sleep/figures/ParkingSpot";
+import HiddenTiredness from "./daytime-caffeine-sleep/figures/HiddenTiredness";
 import CaffeineWidget from "./daytime-caffeine-sleep/Widget";
 import OrderFlips from "./hiit-body-composition/figures/OrderFlips";
 import TwoPiles from "./hiit-body-composition/figures/TwoPiles";
@@ -65,6 +66,7 @@ const SIMULATORS: Record<string, ComponentType<SimulatorProps>> = {
  */
 const FIGURES: Record<FigureKey, ComponentType<FigureProps>> = {
   "daytime-caffeine-sleep/parking-spot": ParkingSpot,
+  "daytime-caffeine-sleep/hidden-tiredness": HiddenTiredness,
   "steps-days-per-week/three-crowds": ThreeCrowds,
   "hiit-body-composition/order-flips": OrderFlips,
   "hiit-body-composition/two-piles": TwoPiles,

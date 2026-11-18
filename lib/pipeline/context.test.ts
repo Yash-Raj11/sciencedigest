@@ -61,7 +61,7 @@ function contextWith(change: Partial<LintContext> = {}): LintContext {
   return { studies: { [OTHER]: study() }, concepts: { ...REAL_CONCEPTS, "non-rem-sleep": reviewed(conceptFile) }, ...change };
 }
 function layered(): any {
-  const base = Object.fromEntries(Object.entries(clone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary", "sketches"].includes(key)));
+  const base = Object.fromEntries(Object.entries(clone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary", "sketches", "protocolFigure"].includes(key)));
   // The fixture's layers draw no figure; the card needs one, so the mechanism layer carries the read's own.
   const layers = clone(fixture.layers);
   layers.mechanism.figure = clone(realEditorial.figure);
@@ -235,6 +235,7 @@ describe("what reaches the page", () => {
     // The real read's figure draws a sketch on a concept (Background), so the bare read leaves it out.
     const bare = { ...oldShape, glance: { ...oldShape.glance, figure: "simulator" } };
     delete bare.figure;
+    delete bare.protocolFigure;
     delete bare.sketches;
     const untouched = assemble(validated, bare);
     expect("context" in untouched.content).toBe(false);

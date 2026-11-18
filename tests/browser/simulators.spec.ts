@@ -10,7 +10,7 @@ test.describe("caffeine: the decay simulator", () => {
     const sim = page.locator('section[aria-label="Simulator"]');
     await expect(sim.locator('[data-figure-kind="decay"]')).toBeVisible();
     await expect(sim.locator("[data-half-gone]")).toHaveText("Half of it is gone 3.94 to 6.36 h after you take it.");
-    await expect(sim.locator("[data-band]")).toHaveCount(1);
+    await expect(sim.locator(`[data-figure-kind="decay"] [data-band]`)).toHaveCount(1);
     for (const field of await sim.locator('input:not([type="range"])').all()) await expect(field).toHaveValue("");
     // The time sliders' thumbs rest mid-range, but nothing is chosen until the reader moves them.
     const sliders = sim.locator('input[type="range"]');

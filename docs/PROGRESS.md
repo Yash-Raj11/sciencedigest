@@ -168,8 +168,8 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
         the budget; premium palette (warm paper light, deep soft black dark), orange measured
         marks in figures, receipts card redesigned, caffeine time slider, orange budget raised
         3 → 10 per screen (`92610a6`). Screens: `docs/evidence/premium/`.
-  - [ ] The sketches: caffeine 1A/1B, turmeric 2B, HIIT 4A (fat-free-mass approved 2026-11-14).
-        All four concepts are reviewed (2026-11-18 check), so none is blocked.
+  - [x] The sketches: caffeine 1A/1B, turmeric 2B, HIIT 4A (BUILD-LOG 2026-11-18; screens and
+        breaks in `docs/evidence/sketches/`). Departures from the spec are listed there for the owner.
 - [ ] The pipeline proposes the figure kind and the simulator inputs (`prompts.ts`).
 - [ ] Reader inputs stored on the device only (like the theme).
 - [ ] Run the coverage pass on the 4 existing papers, so their checklist rows stop showing

@@ -29,7 +29,8 @@ const withConcept = (reviewed: boolean): LintContext => ({
 const sketch = { id: "tiredness-tokens", concept: "adenosine", words: { alt: "Small dotted tokens: a sketch of the tiredness signal, not data.", labels: { signal: "Tiredness signal (adenosine). It builds up while you are awake." } }, tag: SKETCH_TAG, ink: "muted", stroke: "dotted" };
 
 function sketchErrors(change: Record<string, unknown>, reviewed = true, edit: (ed: any) => void = () => {}): string[] {
-  const ed = { ...JSON.parse(JSON.stringify(editorial)), sketches: [{ ...sketch, ...change }] };
+  const ed = JSON.parse(JSON.stringify(editorial));
+  ed.sketches = [{ ...sketch, ...change }, ...ed.sketches.filter((s: { id: string }) => s.id !== sketch.id)];
   edit(ed);
   const report = lint(validated, ed, source, { context: withConcept(reviewed), figures: FIGURE_KEYS, allowLegacyShape: true });
   return report.errors.filter((e) => e.rule.startsWith("sketch")).map((e) => `[${e.rule}] ${e.where}`);
@@ -43,7 +44,8 @@ describe("sketches in the lint", () => {
     expect(sketchErrors({ words: { alt: "Rises over 16 hours." } })).toContain("[sketch-number] sketches[0].words.alt");
   });
   it("a sketch without a reviewed concept fails", () => {
-    expect(sketchErrors({}, false)).toEqual(["[sketch-concept] sketches[0].concept"]);
+    // The read's other sketch (1B) rests on the same concept, so it is refused too.
+    expect(sketchErrors({}, false)).toEqual(["[sketch-concept] sketches[0].concept", "[sketch-concept] sketches[1].concept"]);
   });
   it("a figure that draws an undeclared sketch fails", () => {
     expect(sketchErrors({}, true, (ed) => { ed.figure.params.tokens = "sketch:made-up"; }))

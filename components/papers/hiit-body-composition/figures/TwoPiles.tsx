@@ -97,8 +97,8 @@ export default function TwoPiles({ params, alt }: FigureProps) {
       {panel("before")}
       <line x1={F.mid} x2={F.mid} y1={F.title - F.size} y2={F.why - F.line} stroke={LINE} strokeWidth={1} />
       {panel("after")}
-      <Label x={0} y={F.why} size={F.size}>{p.why}</Label>
-      <SketchTag sketch={p.body} x={F.right} y={F.why} anchor="end" size={F.size} />
+      <Label x={F.inset} y={F.why} size={F.size}>{p.why}</Label>
+      <SketchTag sketch={p.body} x={F.right - F.inset} y={F.why} anchor="end" size={F.size} />
 
       <line x1={0} x2={F.right} y1={F.rule} y2={F.rule} stroke={LINE} strokeWidth={1} />
 

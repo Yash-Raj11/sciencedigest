@@ -43,7 +43,8 @@ const context: LintContext = {
 
 /** The passing three-layer read. */
 function layered(): any {
-  return { ...without(oldShape, ["sections", "limitations", "figure", "layers", "glossary", "sketches"]), layers: clone(fixture.layers), glossary: clone(fixture.glossary) };
+  // Without figure B the card draws the simulator's still, as it did before 1B.
+  return { ...without(oldShape, ["sections", "limitations", "figure", "layers", "glossary", "sketches", "protocolFigure"]), glance: { ...oldShape.glance, figure: "simulator" }, layers: clone(fixture.layers), glossary: clone(fixture.glossary) };
 }
 function run(mutate: (editorial: any) => void = () => {}) {
   const editorial = layered();

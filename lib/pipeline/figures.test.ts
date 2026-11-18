@@ -47,7 +47,9 @@ const FIGURE = {
 };
 
 function read(): any {
-  const base = Object.fromEntries(Object.entries(clone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary", "sketches"].includes(key)));
+  const base = Object.fromEntries(Object.entries(clone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary", "sketches", "protocolFigure"].includes(key)));
+  // Without figure B the card draws the simulator's still, as it did before 1B.
+  (base as { glance: object }).glance = { ...(base as { glance: object }).glance, figure: "simulator" };
   const layers = clone(fixture.layers);
   layers.mechanism.figure = clone(FIGURE);
   return { ...base, layers, glossary: clone(fixture.glossary) };

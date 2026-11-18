@@ -21,6 +21,7 @@
 
 export const FIGURE_KEYS = [
   "daytime-caffeine-sleep/parking-spot",
+  "daytime-caffeine-sleep/hidden-tiredness",
   "steps-days-per-week/three-crowds",
   "hiit-body-composition/order-flips",
   "hiit-body-composition/two-piles",
