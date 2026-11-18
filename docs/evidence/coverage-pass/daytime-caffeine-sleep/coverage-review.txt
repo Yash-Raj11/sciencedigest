@@ -1,0 +1,46 @@
+daytime-caffeine-sleep: coverage-only run
+gate on the scratch copy: ok
+
+New facts (10):
+  capsules  [context]  value: "gelatin capsules"
+    label: Treatment delivery
+    quote: "participants took either caffeine (150 mg) or placebo (mannitol) in identical appearing gelatin capsules (Hänseler AG, Herisau, Switzerland)"
+  refrain_substances  [context]  value: "caffeinated beverages and food (e.g. coffee, tea, soda drinks, and chocolate), alcohol, nicotine, and medications"
+    label: Forbidden substances
+    quote: "Furthermore, volunteers were requested to refrain from caffeinated beverages and food (e.g. coffee, tea, soda drinks, and chocolate), alcohol, nicotine, and medications."
+  light_exposure  [context]  value: "dim-light (< 8 lx) during scheduled wakefulness and 0 lx during sleep"
+    label: Light conditions
+    quote: "volunteers were housed in single apartments under dim-light (< 8 lx) during scheduled wakefulness and 0 lx during sleep."
+  posture  [context]  value: "semi-recumbent position during wakefulness, except for restroom breaks"
+    label: Posture requirement
+    quote: "Volunteers were asked to maintain a semi-recumbent position during wakefulness, except for restroom breaks."
+  standardized_meals  [context]  value: "standardized meals in regular intervals"
+    label: Meal standardization
+    quote: "In addition, volunteers received standardized meals in regular intervals."
+  social_time_cues  [context]  value: "Social interactions were restricted to team members and no time-of-day cues were provided"
+    label: Social and time cues
+    quote: "Social interactions were restricted to team members and no time-of-day cues were provided throughout the in-lab protocol."
+  pseudo_randomization  [context]  value: "pseudo-randomization"
+    label: Condition order allocation
+    quote: "Volunteers were allocated to the order of the three conditions based on pseudo-randomization, for more details see Weibel et al.."
+  excluded_nights  [context]  value: "Ten nights were excluded from sleep analyses due to technical problems (placebo:= 3; caffeine:= 4; withdrawal:= 3)"
+    label: Excluded sleep nights
+    quote: "Ten nights were excluded from sleep analyses due to technical problems (placebo:= 3; caffeine:= 4; withdrawal:= 3)."
+  excluded_noncompliance  [context]  value: "One dataset has been excluded from all the analyses due to non-compliance with the treatment requirements"
+    label: Excluded non-compliant dataset
+    quote: "One dataset has been excluded from all the analyses due to non-compliance with the treatment requirements (caffeine:= 1)."
+  prior_mice  [context]  value: "mice"
+    label: Prior evidence species
+    quote: "However, during conditions of chronic caffeine intake, mice showed a deeper sleep compared to placebo."
+
+Hand-checked facts relabelled as limitations (0): none
+
+Coverage map (item: facts that cover it):
+  conditions: schedule, recording, regular, capsules, refrain_substances, light_exposure, posture, standardized_meals, social_time_cues
+  dosing: dose, schedule
+  confounds: later_bed, pseudo_randomization, excluded_nights, excluded_noncompliance
+  priorEvidence: adenosine_block, prior_mice
+  furtherInvestigation: not found
+  funding: not found
+
+Problems (must be none before a merge): none

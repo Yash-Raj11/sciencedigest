@@ -182,7 +182,10 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       Not started. Found 2026-11-19 (BUILD-LOG): `extract` re-runs the whole first pass, and its
       coverage pass then lists the model's new fact ids, not the hand-checked ids, so merging
       means mapping every id by hand. **Owner's choice (2026-11-19): a coverage-only run** against
-      the hand-checked facts, into scratch (MASTER-PROMPT amendment 2026-11-19). Not run yet.
+      the hand-checked facts, into scratch (MASTER-PROMPT amendment 2026-11-19). Tool `bd71f8f`
+      (`--coverage-only`, 10 of 10 breaks). Run 2026-11-19: 71 new facts, 0 relabels, every
+      scratch copy gated, dry build passes (`docs/evidence/coverage-pass/`, BUILD-LOG).
+      ⏸ **Not merged: waiting on the owner's review of the new facts** (four questions in BUILD-LOG).
 - [ ] 2E. Rewrite the three `editorial.json` files; concept files listed; `prompts.ts` updated
       with an old-shape refusal test; allowlist deleted; before/after table per paper.
 - [ ] ⏸ Stop. Owner approves concepts and reads all three. Phase 9 is not done until then.

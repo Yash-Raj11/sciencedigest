@@ -1,0 +1,133 @@
+steps-days-per-week: coverage-only run
+gate on the scratch copy: ok
+
+New facts (39):
+  group_differences  [descriptive]  value: "more likely to be younger, men, Hispanic, insured, married, and never smokers and less likely to have obesity, use statins, have comorbidities (ie, decreased eGFR, diabetes, hypertension, cardiovascular disease, cancer, emphysema), have mobility limitations, or rate their health as fair or poor"
+    label: Baseline differences across step frequency groups
+    quote: "Participants with a higher number of days taking 8000 steps or more throughout the week were more likely to be younger, men, Hispanic, insured, married, and never smokers and less likely to have obesity, use statins, have comorbidities (ie, decreased eGFR, diabetes, hypertension, cardiovascular disease, cancer, emphysema), have mobility limitations, or rate their health as fair or poor compared with those with a lower number of days per week taking 8000 steps or more"
+  sex_men  [descriptive]  value: "269 (42.6)\n\n219 (41.2)\n\n1030 (53.2)"
+    label: Men by step frequency group
+    quote: "Men\n\n269 (42.6)\n\n219 (41.2)\n\n1030 (53.2)"
+  sex_women  [descriptive]  value: "363 (57.4)\n\n313 (58.8)\n\n907 (46.8)"
+    label: Women by step frequency group
+    quote: "Women\n\n363 (57.4)\n\n313 (58.8)\n\n907 (46.8)"
+  race_black  [descriptive]  value: "158 (25.0)\n\n130 (24.4)\n\n378 (19.5)"
+    label: Black participants by step frequency group
+    quote: "Black\n\n158 (25.0)\n\n130 (24.4)\n\n378 (19.5)"
+  race_hispanic  [descriptive]  value: "92 (14.6)\n\n111 (20.9)\n\n531 (27.4)"
+    label: Hispanic participants by step frequency group
+    quote: "Hispanic\n\n92 (14.6)\n\n111 (20.9)\n\n531 (27.4)"
+  race_white  [descriptive]  value: "361 (57.1)\n\n269 (50.6)\n\n949 (49.0)"
+    label: White participants by step frequency group
+    quote: "White\n\n361 (57.1)\n\n269 (50.6)\n\n949 (49.0)"
+  race_other  [descriptive]  value: "21 (3.3)\n\n22 (4.1)\n\n79 (4.1)"
+    label: Other race/ethnicity participants by step frequency group
+    quote: "Other\n\n21 (3.3)\n\n22 (4.1)\n\n79 (4.1)"
+  uninsured  [descriptive]  value: "238 (37.7)\n\n143 (26.9)\n\n292 (15.1)"
+    label: Uninsured participants by step frequency group
+    quote: "Uninsured\n\n238 (37.7)\n\n143 (26.9)\n\n292 (15.1)"
+  private_insurance  [descriptive]  value: "72 (11.4)\n\n98 (18.4)\n\n469 (24.2)"
+    label: Private insurance by step frequency group
+    quote: "Private insurance\n\n72 (11.4)\n\n98 (18.4)\n\n469 (24.2)"
+  public_insurance  [descriptive]  value: "322 (50.9)\n\n291 (54.7)\n\n1176 (60.7)"
+    label: Public insurance by step frequency group
+    quote: "Public insurance\n\n322 (50.9)\n\n291 (54.7)\n\n1176 (60.7)"
+  married  [descriptive]  value: "300 (47.5)\n\n315 (59.2)\n\n1197 (61.8)"
+    label: Married participants by step frequency group
+    quote: "Married\n\n300 (47.5)\n\n315 (59.2)\n\n1197 (61.8)"
+  not_married  [descriptive]  value: "332 (52.5)\n\n217 (40.8)\n\n740 (38.2)"
+    label: Not married participants by step frequency group
+    quote: "Not married\n\n332 (52.5)\n\n217 (40.8)\n\n740 (38.2)"
+  smoking_current  [descriptive]  value: "109 (17.3)\n\n96 (18.1)\n\n388 (20.0)"
+    label: Current smokers by step frequency group
+    quote: "Current\n\n109 (17.3)\n\n96 (18.1)\n\n388 (20.0)"
+  smoking_former  [descriptive]  value: "223 (35.3)\n\n156 (29.3)\n\n488 (25.2)"
+    label: Former smokers by step frequency group
+    quote: "Former\n\n223 (35.3)\n\n156 (29.3)\n\n488 (25.2)"
+  smoking_never  [descriptive]  value: "300 (47.5)\n\n280 (52.6)\n\n1061 (54.8)"
+    label: Never smokers by step frequency group
+    quote: "Never\n\n300 (47.5)\n\n280 (52.6)\n\n1061 (54.8)"
+  bmi  [descriptive]  value: "30.3 (8.6)\n\n29.5 (6.6)\n\n28.0 (5.6)"
+    label: BMI by step frequency group
+    quote: "BMI, mean (SD)\n\n30.3 (8.6)\n\n29.5 (6.6)\n\n28.0 (5.6)"
+  egfr  [descriptive]  value: "77.0 (25.9)\n\n90.4 (24.0)\n\n95.6 (19.8)"
+    label: eGFR by step frequency group
+    quote: "eGFR, mean (SD), mL/min/1.73 m\n\n77.0 (25.9)\n\n90.4 (24.0)\n\n95.6 (19.8)"
+  statin_use  [descriptive]  value: "360 (20.7)\n\n179 (13.0)\n\n114 (9.4)"
+    label: Statin use by step frequency group
+    quote: "Statin use\n\n360 (20.7)\n\n179 (13.0)\n\n114 (9.4)"
+  diabetes  [descriptive]  value: "128 (20.3)\n\n61 (11.5)\n\n146 (7.5)"
+    label: Diabetes history by step frequency group
+    quote: "Diabetes\n\n128 (20.3)\n\n61 (11.5)\n\n146 (7.5)"
+  hypertension  [descriptive]  value: "354 (56.0)\n\n214 (40.2)\n\n499 (25.8)"
+    label: Hypertension history by step frequency group
+    quote: "Hypertension\n\n354 (56.0)\n\n214 (40.2)\n\n499 (25.8)"
+  cvd_history  [descriptive]  value: "188 (29.8)\n\n63 (11.8)\n\n99 (5.1)"
+    label: Cardiovascular disease history by step frequency group
+    quote: "Cardiovascular disease\n\n188 (29.8)\n\n63 (11.8)\n\n99 (5.1)"
+  cancer_history  [descriptive]  value: "116 (18.4)\n\n62 (11.7)\n\n112 (5.8)"
+    label: Cancer history by step frequency group
+    quote: "Cancer\n\n116 (18.4)\n\n62 (11.7)\n\n112 (5.8)"
+  emphysema  [descriptive]  value: "35 (5.5)\n\n17 (3.2)\n\n15 (0.8)"
+    label: Emphysema history by step frequency group
+    quote: "Emphysema\n\n35 (5.5)\n\n17 (3.2)\n\n15 (0.8)"
+  health_excellent  [descriptive]  value: "34 (5.4)\n\n49 (9.2)\n\n202 (10.4)"
+    label: Excellent self-rated health by step frequency group
+    quote: "Excellent\n\n34 (5.4)\n\n49 (9.2)\n\n202 (10.4)"
+  health_very_good  [descriptive]  value: "118 (18.7)\n\n153 (28.8)\n\n611 (31.5)"
+    label: Very good self-rated health by step frequency group
+    quote: "Very good\n\n118 (18.7)\n\n153 (28.8)\n\n611 (31.5)"
+  health_good  [descriptive]  value: "222 (35.1)\n\n195 (36.6)\n\n719 (37.1)"
+    label: Good self-rated health by step frequency group
+    quote: "Good\n\n222 (35.1)\n\n195 (36.6)\n\n719 (37.1)"
+  health_fair_poor  [descriptive]  value: "213 (33.7)\n\n109 (20.5)\n\n298 (15.4)"
+    label: Fair or poor self-rated health by step frequency group
+    quote: "Fair or poor\n\n213 (33.7)\n\n109 (20.5)\n\n298 (15.4)"
+  health_missing  [descriptive]  value: "45 (7.1)\n\n26 (4.9)\n\n107 (5.5)"
+    label: Missing self-rated health by step frequency group
+    quote: "Missing\n\n45 (7.1)\n\n26 (4.9)\n\n107 (5.5)"
+  poverty_income_ratio  [descriptive]  value: "2.3 (1.5)\n\n2.8 (1.6)\n\n2.9 (1.6)"
+    label: Poverty income ratio by step frequency group
+    quote: "Poverty income ratio, mean (SD), %\n\n2.3 (1.5)\n\n2.8 (1.6)\n\n2.9 (1.6)"
+  pir_missing  [descriptive]  value: "43 (6.8)\n\n25 (4.7)\n\n61 (3.2)"
+    label: Missing poverty income ratio by step frequency group
+    quote: "Missing\n\n43 (6.8)\n\n25 (4.7)\n\n61 (3.2)"
+  daily_step_counts  [descriptive]  value: "4345 (3229-5262)\n\n6657 (5963-7330)\n\n10 746 (9082-13 193)"
+    label: Median daily step counts by step frequency group
+    quote: "Daily step counts throughout the week, median (IQR)\n\n4345 (3229-5262)\n\n6657 (5963-7330)\n\n10 746 (9082-13 193)"
+  reactivity_misclassification  [limitation]  value: "misclassification such that some people who are typically physically inactive were categorized as physically active"
+    label: Misclassification from Hawthorne reactivity
+    quote: "Such reactivity might cause misclassification such that some people who are typically physically inactive were categorized as physically active (based on a reaction to wearing the accelerometer) particularly because NHANES measured their daily step pattern for only 1 week."
+  selection_bias  [limitation]  value: "selection bias due to restricting study samples to those who wore an accelerometer for 1 week during the survey"
+    label: Selection bias from accelerometer wear restriction
+    quote: "Fifth, our findings might suffer from selection bias due to restricting study samples to those who wore an accelerometer for 1 week during the survey."
+  harvard_alumni  [context]  value: "8421 men"
+    label: Prior study in Harvard Alumni Health Study men
+    quote: "In the Harvard Alumni Health Study that enrolled 8421 men, Lee et alfound that the hazard ratios (HRs) for all-cause mortality among weekend warriors and people engaging in regular exercise compared with those with sedentary behavior were 0.85 (95% CI, 0.65-1.11) and 0.64 (95% CI, 0.55-0.73), respectively."
+  england_scotland  [context]  value: "63 591 adults"
+    label: Prior study in England and Scotland adult cohorts
+    quote: "In a population-based cohort of 63 591 adults from the Health Survey for England and the Scottish Health Survey, O’Donovan et alestimated similar-magnitude HRs for all-cause mortality among weekend warriors (HR, 0.70; 95% CI, 0.60-0.82) and regularly active participants (HR, 0.65; 95% CI, 0.58-0.73) compared with inactive participants."
+  nhis_prior  [context]  value: "350 978 participants"
+    label: Prior study in US National Health Interview Survey
+    quote: "A more recent study in 350 978 participants from the US National Health Interview Surveysupports these findings, wherein all-cause and cause-specific mortality risks did not differ between weekend warriors and regularly active participants, even after accounting for the total amount of moderate to vigorous physical activity."
+  shiroma_nhanes  [context]  value: "3438 NHANES participants"
+    label: Prior NHANES accelerometer mortality study
+    quote: "Shiroma et alused data from 3438 NHANES participants to show protective associations between accelerometer-assessed higher physical activity and mortality."
+  further_longitudinal_studies  [limitation]  value: "Further longitudinal studies with larger sample sizes and time-varying measures of physical activity or step counts would be warranted"
+    label: Need for further longitudinal studies
+    quote: "Further longitudinal studies with larger sample sizes and time-varying measures of physical activity or step counts would be warranted to overcome this limitation."
+  future_research_confounding  [limitation]  value: "residual confounding that should be addressed in future research"
+    label: Need for future research on residual confounding
+    quote: "Although our findings might suffer from residual confounding that should be addressed in future research, they suggest that people may receive substantial health benefits even if a sufficient number of steps are taken on only a couple days of the week."
+
+Hand-checked facts relabelled as limitations (0): none
+
+Coverage map (item: facts that cover it):
+  conditions: not found
+  dosing: not found
+  confounds: ages, mobility, confounding, hawthorne, group_differences, sex_men, sex_women, race_black, race_hispanic, race_white, race_other, uninsured, private_insurance, public_insurance, married, not_married, smoking_current, smoking_former, smoking_never, bmi, egfr, statin_use, diabetes, hypertension, cvd_history, cancer_history, emphysema, health_excellent, health_very_good, health_good, health_fair_poor, health_missing, poverty_income_ratio, pir_missing, daily_step_counts, reactivity_misclassification, selection_bias
+  priorEvidence: parallel_meta, harvard_alumni, england_scotland, nhis_prior, shiroma_nhanes
+  furtherInvestigation: further_longitudinal_studies, future_research_confounding
+  funding: not found
+
+Problems (must be none before a merge): none

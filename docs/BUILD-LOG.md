@@ -1905,3 +1905,60 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   run yet: the next session adds the run (a flag on `paper extract`, or a step beside it; no new
   dependency, `content/papers/` untouched), says before it calls the model, and shows the owner the
   new facts and ticked items before merging.
+
+## 2026-11-19: the coverage-only run on the four papers (run, not merged)
+
+- **The tool (`bd71f8f`).** `npm run paper -- extract <slug> --coverage-only` sends only the
+  `COVERAGE_SYSTEM` request, fed the hand-checked facts, so the coverage map names existing ids.
+  It refuses, before any request, when `SD_PAPERS_DIR` is unset or lies inside `content/` (a
+  roundabout path included), on a context study, and on a copy that already has a coverage map.
+  It merges onto the file as written (not the parsed one, which would add defaults such as
+  `gradeRef: null`), saves the model's answer as `coverage-pass.json` and a review as
+  `coverage-review.txt`, and runs the gate. `reviewCoverage` (pure, `lib/pipeline/coverage.ts`)
+  reports any change to a hand-checked fact other than a statement or context relabelled as a
+  limitation, and any change to the identifiers, design, population or n.
+- **Tests.** `scripts/coverage-only.test.ts` runs the real script against a fake model on
+  127.0.0.1. 10 of 10 deliberate breaks caught (`docs/evidence/coverage-pass/breaks.txt`).
+- **A mistake, corrected.** In the first round of breaks the fake model answered every request,
+  so with the scratch guard broken (B1, B5) the script wrote its test answer into
+  `content/papers/turmeric-pepper-breakfast/extraction.json` and
+  `content/context/caffeine-saliva-half-life/extraction.json`, plus a `coverage-pass.json` and
+  `coverage-review.txt` beside each. The diff was checked (the fake answer only; the tree was
+  clean at the start of the session), both files restored from git and the four files deleted.
+  The fake model now refuses (403) every request a test does not expect, so a broken guard is
+  counted and writes nothing; the second round checked `content/` after each break: unchanged.
+- **The run.** Four requests to the extract model (Gemini 4 Hydrogen, `AI_API_KEY`), one per
+  paper, each sending the paper's text and its hand-checked fact list. Each needed one JSON retry
+  (the first reply failed the schema; the reason is not logged). Times: caffeine 245 s, steps
+  186 s, HIIT 67 s, turmeric 103 s. Written to a scratch copy only; `content/` untouched.
+
+  | Paper | Facts before → after | New | Relabelled | Pass items found |
+  |---|---|---|---|---|
+  | daytime-caffeine-sleep | 22 → 32 | 10 context | 0 | conditions, dosing, confounds, priorEvidence (not: furtherInvestigation, funding) |
+  | steps-days-per-week | 34 → 73 | 31 descriptive, 4 limitation, 4 context | 0 | confounds, priorEvidence, furtherInvestigation (not: conditions, dosing, funding) |
+  | hiit-body-composition | 52 → 59 | 3 context, 4 limitation | 0 | dosing, priorEvidence, furtherInvestigation (not: conditions, confounds, funding) |
+  | turmeric-pepper-breakfast | 42 → 57 | 12 context, 3 limitation | 0 | all six |
+
+  No new estimate or finding: nothing the pass added is a result.
+- **Checked.** Every scratch copy passes the gate. A dry content build with the new extractions
+  (`--report-only`, a second scratch tree) passes with the same warnings as `main`
+  (`build-check.txt`). Replaying each saved `coverage-pass.json` onto the hand-checked file with
+  `mergeCoverage` reproduces the scratch result exactly, so a merge with some facts dropped is the
+  same replay with those facts left out.
+- **For the owner, before any merge.**
+  1. Caffeine `pseudo_randomization`: the paper's design sentence says "randomized", and the next
+     sentence says the order of conditions was "based on pseudo-randomization". The read says
+     "Randomized crossover trial". The pass filed it under confounds; the design label is the
+     owner's ruling (2026-11-14) and is unchanged.
+  2. Steps: 31 of the 39 are Table 1 rows (baseline characteristics by group), each value holding
+     the three groups' figures in one run (0, 1–2, 3–7 days). They tick "confounds" (the groups
+     differed at the start in health, insurance, smoking). Keep all, keep a few, or none.
+  3. Funding: the caffeine, HIIT and steps source texts hold no funding or conflict-of-interest
+     statement, so "not found" is right for them; turmeric's (`coi`) was found.
+  4. Rows still "not found" after a merge: caffeine furtherInvestigation; steps conditions and
+     dosing; HIIT conditions and confounds. No hand-checked fact was cited for them; none is added
+     by hand without the owner.
+- Evidence: `docs/evidence/coverage-pass/<slug>/` (`coverage-review.txt` with every quote,
+  `coverage-pass.json`, `run.txt`), `gates.txt`, `breaks.txt`, `build-check.txt`.
+- Not mine, left alone: `components/read/SectionRail.tsx` and `tests/browser/section-rail.spec.ts`
+  were modified by another session working in the same folder during this one; not committed here.

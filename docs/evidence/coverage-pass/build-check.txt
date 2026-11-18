@@ -1,0 +1,50 @@
+
+context studies (content/context/)
+  caffeine-saliva-half-life: gate ok (role context): 87 facts (5 excluded from use), licence CC-BY, design crossover, grade low
+
+background concepts (content/concepts/)
+  adenosine: ok, reviewed by the owner
+  fat-free-mass: ok, reviewed by the owner
+  glucagon-like-peptide: ok, reviewed by the owner
+  post-meal-blood-sugar: ok, reviewed by the owner
+
+fact library (content/library.json)
+  caffeine-half-life: caffeine-saliva-half-life/half_life_caffeine, approved by the owner on 2026-11-14
+
+daytime-caffeine-sleep
+  gate   ok: 32 facts verified against the source, licence CC-BY, design crossover
+    warning: no estimate with a confidence interval was extracted; the read must say the paper reports none (H5)
+  shape  old flat shape, on the temporary allowlist (scripts/legacy-shape.ts): rewrite in step 2E
+  lint   ok: 591 words
+    context   1 other study (caffeine-saliva-half-life), 1 background concept (adenosine)
+    warning: [H5] primaryEstimate: the headline result has no confidence interval; check the read says what that leaves unknown
+  steps  last-caffeine-8h=low, regular-bedtime=none
+
+hiit-body-composition
+  gate   ok: 59 facts verified against the source, licence CC-BY, design meta_analysis_rct
+  shape  old flat shape, on the temporary allowlist (scripts/legacy-shape.ts): rewrite in step 2E
+  lint   ok: 601 words
+    context   0 other studies, 1 background concept (fat-free-mass)
+  steps  log-session=none, lean-three-sessions=high, lean-cycling=high, lean-eight-weeks=high, fat-three-sessions=low, fat-running=low, fat-eight-weeks=low
+
+steps-days-per-week
+  gate   ok: 73 facts verified against the source, licence CC-BY, design cohort
+  shape  old flat shape, on the temporary allowlist (scripts/legacy-shape.ts): rewrite in step 2E
+  lint   ok: 597 words
+  steps  log-8000-day=none, one-day=low, three-days=low
+
+turmeric-pepper-breakfast
+  gate   ok: 57 facts verified against the source, licence CC-BY, design crossover
+    warning: no estimate with a confidence interval was extracted; the read must say the paper reports none (H5)
+  lint   ok: 746 words
+    mechanism 199 words, 20 sentences, average 10, longest 20
+    protocol  135 words, 12 sentences, average 11.3, longest 17
+    audit     249 words, 22 sentences, average 11.3, longest 19
+    context   0 other studies, 2 background concepts (glucagon-like-peptide, post-meal-blood-sugar)
+    warning: [H5] primaryEstimate: the headline result has no confidence interval; check the read says what that leaves unknown
+    warning: [H11] populationPanel: possibly passive ("was tested"); say who did it if you can: "Who this was tested in: 20 healthy adults, 10 men and 10 women."
+    warning: [H11] layers.protocol.figure.caption: possibly passive ("was checked"); say who did it if you can: "The dots are when blood sugar was checked, and the shaded column is the one clear difference."
+    warning: [H11] layers.audit.figure.alt: possibly passive ("are marked"); say who did it if you can: "At 30 minutes, the pepper meal and the both-spices meal are marked as differing from the plain meal."
+  steps  pepper-in-breakfast=low, turmeric-with-pepper=none
+
+content report: 4 papers would be built (daytime-caffeine-sleep, hiit-body-composition, steps-days-per-week, turmeric-pepper-breakfast). Nothing was written.

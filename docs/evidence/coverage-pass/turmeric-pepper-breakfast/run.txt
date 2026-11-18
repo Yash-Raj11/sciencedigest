@@ -1,0 +1,71 @@
+the hand-checked extraction, before the pass:
+gate ok: 42 facts verified against the source
+  warning: no estimate with a confidence interval was extracted; the read must say the paper reports none (H5)
+saved <scratch>/turmeric-pepper-breakfast/extraction.json and coverage-pass.json (parts: 1, JSON retries: 1, 103.3 s)
+
+after the pass:
+gate ok: 57 facts verified against the source
+  warning: no estimate with a confidence interval was extracted; the read must say the paper reports none (H5)
+
+turmeric-pepper-breakfast: coverage-only run
+gate on the scratch copy: ok
+
+New facts (15):
+  no_exertion  [context]  value: "abstain from any tiring physical exertion a day prior to their visit"
+    label: Pre-visit physical exertion restriction
+    quote: "Subjects were directed to abstain from any tiring physical exertion a day prior to their visit."
+  prior_evening_diet  [context]  value: "maintain a similar dietary pattern the evening before each visit"
+    label: Pre-visit evening diet control
+    quote: "With the intention of reducing the variation in the effect of subsequent meals, subjects were asked to maintain a similar dietary pattern the evening before each visit and to document this in a memoir."
+  fast_water  [context]  value: "500 mL"
+    label: Water limit during overnight fast
+    quote: "consumption of water with an upper limit of 500 mL (half a liter) was permissible amid 10:00 p.m. and the next daybreak"
+  no_food_talk  [context]  value: "do not speak of topics related to food and appetite"
+    label: Conversation restriction during test
+    quote: "It was acceptable for the study subjects to utter freely to each other provided that they do not speak of topics related to food and appetite."
+  one_meal_per_visit  [context]  value: "one of the experimental meals on each day of assessment"
+    label: Single dose per assessment day
+    quote: "The subjects were requested to consume one of the experimental meals on each day of assessment."
+  total_weight_row  [context]  value: "413.4 | 414.4 | 414.4 | 415.4"
+    label: Total meal weight across arms
+    quote: "Total weight | 413.4 | 414.4 | 414.4 | 415.4 |"
+  fiber_row  [context]  value: "1.7 | 1.7 | 1.8 | 1.8"
+    label: Dietary fiber across arms
+    quote: "Dietary fiber (g) | 1.7 | 1.7 | 1.8 | 1.8 |"
+  curcumin  [context]  value: "curcumin"
+    label: Active ingredient in turmeric
+    quote: "Turmeric (Curcuma longa), family Zingiberaceae, in which a vital active ingredient is curcumin, has been revealed to have hypoglycaemic, antioxidant, and lipid‐lowering effects in many investigational studies (Khaliq et al., )."
+  prior_mice_atal  [context]  value: "alloxan‐induced diabetic mice"
+    label: Species in prior black pepper study
+    quote: "The observed decrease in postprandial blood glucose after taking BP and BP + TR is consistent with the study of Atal et al. () who determined the bio‐enhancing result of metformin and black pepper in decreasing blood glucose in alloxan‐induced diabetic mice."
+  prior_mice_panda  [context]  value: "normal mice"
+    label: Species in prior piperine study
+    quote: "Another study conducted on normal mice also showed the hypoglycemic effect of piperine (Panda & Kar, )."
+  prior_humans_wickenberg  [context]  value: "normal human beings"
+    label: Species in prior turmeric study
+    quote: "Wickenberg et al. () investigated the impact of turmeric on plasma glucose and insulin following a meal intake in normal human beings."
+  lim_turmeric_dose  [limitation]  value: "Further studies are required to find out the effect of turmeric with increased doses on glycemia with sustained palatability of the experimental meals."
+    label: Need for higher-dose turmeric studies
+    quote: "Further studies are required to find out the effect of turmeric with increased doses on glycemia with sustained palatability of the experimental meals."
+  lim_appetite_gastric  [limitation]  value: "further future scientific research studies should be conducted to find a significant role of these spices including the role in and hormonal mechanisms for appetite regulation and mechanism gastric emptying"
+    label: Need for appetite hormone and gastric emptying research
+    quote: "Besides, further future scientific research studies should be conducted to find a significant role of these spices including the role in and hormonal mechanisms for appetite regulation and mechanism gastric emptying."
+  lim_cholesterol  [limitation]  value: "Further scientific investigations are required for evaluating the effect of turmeric and black pepper‐based products effect on blood cholesterol and other diseases."
+    label: Need for blood cholesterol and disease studies
+    quote: "Further scientific investigations are required for evaluating the effect of turmeric and black pepper‐based products effect on blood cholesterol and other diseases."
+  coi  [context]  value: "No conflict of interest."
+    label: Conflict of interest statement
+    quote: "No conflict of interest."
+
+Hand-checked facts relabelled as limitations (0): none
+
+Coverage map (item: facts that cover it):
+  conditions: fast, fast_water, no_exertion, prior_evening_diet, in_egg, plate, eaten_in, nothing_else, no_food_talk
+  dosing: single_meal, one_meal_per_visit, washout
+  confounds: sugar_row, total_weight_row, fiber_row, lim_taste, taste_rank
+  priorEvidence: animals_before, piperine, curcumin, trpv1, prior_mice_atal, prior_mice_panda, prior_humans_wickenberg
+  furtherInvestigation: lim_turmeric_dose, lim_stated, lim_appetite_gastric, lim_cholesterol, lim_mechanism, lim_long_term
+  funding: coi
+
+Problems (must be none before a merge): none
+

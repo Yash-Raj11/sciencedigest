@@ -1,0 +1,46 @@
+the hand-checked extraction, before the pass:
+gate ok: 52 facts verified against the source
+AI server answered 503 (busy or rate-limited); asking again in 5 s (try 2 of 4).
+saved <scratch>/hiit-body-composition/extraction.json and coverage-pass.json (parts: 1, JSON retries: 1, 66.9 s)
+
+after the pass:
+gate ok: 59 facts verified against the source
+
+hiit-body-composition: coverage-only run
+gate on the scratch copy: ok
+
+New facts (7):
+  prior_athletes  [context]  value: "athletes"
+    label: Earlier HIIT studies in athletes
+    quote: "Unsurprisingly, earlier studies with athletes revealed HIIT promoted significant physiological and performance improvements in submaximal heart rate, VO, repeated sprint ability, and running/jumping performance [,]."
+  prior_older_adults  [context]  value: "older adults"
+    label: Prior meta-analysis in older adults
+    quote: "On the other hand, a meta-analysis by Wu et al. found that HIIT involving a combination of cycling and whole-body circuit training led to significant improvements in body fat percentage (BF%) and lean mass compared to continuous endurance training in older adults []."
+  prior_overweight_meta  [context]  value: "overweight and obese participants"
+    label: Prior meta-analysis in overweight and obese participants
+    quote: "A previous meta-analysis of RCTs in overweight and obese participants (as opposed to the general population in our current work) showed significant reductions in BF% following HIIT, particularly when incorporating running modalities compared to cycling []."
+  further_modality  [limitation]  value: "Future investigations should endeavor to determine the most effective HIIT exercise modality under well-controlled and similar conditions"
+    label: Further investigation on most effective HIIT modality
+    quote: "Future investigations should endeavor to determine the most effective HIIT exercise modality under well-controlled and similar conditions (e.g., intervention duration, relative/absolute intensity, participant characteristics, etc.), notwithstanding any participant limitations."
+  further_cycling_ffm  [limitation]  value: "More research is required on the possible mechanism of enhanced cycling-induced FFM improvements during HIIT compared to other modalities"
+    label: More research needed on cycling-induced FFM mechanism
+    quote: "More research is required on the possible mechanism of enhanced cycling-induced FFM improvements during HIIT compared to other modalities before definitive conclusions may be reached."
+  further_active_recovery  [limitation]  value: "Future studies are required to better understand the effect of HIIT with active recovery on FFM changes."
+    label: Future studies needed on active recovery and FFM
+    quote: "Future studies are required to better understand the effect of HIIT with active recovery on FFM changes."
+  further_ideal_models  [limitation]  value: "future research should aim to determine ideal training models for maximizing improvements in body fat and FFM in the general population."
+    label: Future research needed on ideal HIIT training models
+    quote: "In light of the public health implications of maintaining proper body composition for health and well-being, and considering the increasing popularity of HIIT exercises, future research should aim to determine ideal training models for maximizing improvements in body fat and FFM in the general population."
+
+Hand-checked facts relabelled as limitations (0): none
+
+Coverage map (item: facts that cover it):
+  conditions: not found
+  dosing: trials
+  confounds: not found
+  priorEvidence: wewege, prior_athletes, prior_older_adults, prior_overweight_meta
+  furtherInvestigation: further_modality, further_cycling_ffm, further_active_recovery, further_ideal_models
+  funding: not found
+
+Problems (must be none before a merge): none
+
