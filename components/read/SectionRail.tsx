@@ -1,11 +1,15 @@
 "use client";
 
 /**
- * The section rail (owner, 2026-11-18): a small stack of hairline ticks at the top right of a
- * read, one per section heading (`[data-rail]` inside the article), like an editor's outline
- * marker. The tick of the section being read is longer and in the finding's orange. Tap a tick to
- * jump there; press and slide along the stack to scrub through the read. No label, no panel: the
- * orange tick and the page itself show where you are (owner: "just the ticks").
+ * The section rail (owner, 2026-11-18): a stack of short ticks in the middle of a read's right
+ * edge, where a thumb reaches it (moved there from the top, 2026-11-19), one per section heading
+ * (`[data-rail]` inside the article), like an editor's outline marker. The tick of the section
+ * being read is longer and orange, and so are the ticks of the sections already scrolled past:
+ * the rail fills as you read and empties as you scroll back, and at the end of the page every
+ * tick is orange (owner, 2026-11-19). The rail is one
+ * [data-signal-item], so it counts as one orange item. Tap a tick to jump there; press and slide
+ * along the stack to scrub through the read. No label, no panel (owner: "just the ticks"). The
+ * ticks stay inside the page's 16 px gutter, so they never sit over the text.
  *
  * Headings are read from the page, so a section that arrives later (members' content) joins the
  * rail by itself. Fewer than three headings: no rail. It sits in the page's right gutter so it
@@ -18,6 +22,8 @@ interface Mark { el: HTMLElement; label: string }
 
 /** A heading above this share of the screen height is the section being read. */
 const READ_LINE = 0.3;
+/** Scrolled to within this many px of the page's end counts as the end. */
+const END_SLACK = 4;
 /** Space kept above a heading when the rail jumps to it, in px. */
 const JUMP_GAP = 16;
 
@@ -55,6 +61,9 @@ export function SectionRail() {
       const line = window.innerHeight * READ_LINE;
       let at = -1;
       marks.forEach((m, i) => { if (m.el.getBoundingClientRect().top <= line) at = i; });
+      // The last sections may be too short to reach the line: at the end of the page, all are read.
+      const end = document.documentElement;
+      if (window.scrollY + window.innerHeight >= end.scrollHeight - END_SLACK) at = marks.length - 1;
       setActive(at);
     };
     const later = () => { if (!frame) frame = requestAnimationFrame(update); };
@@ -99,23 +108,24 @@ export function SectionRail() {
   return (
     <nav
       ref={nav} aria-label="Sections of this read" data-section-rail
-      className={`fixed right-0 top-[calc(env(safe-area-inset-top)+0.75rem)] z-30 ${rows < 3 ? "hidden" : ""}`}
+      className={`fixed right-0 top-1/2 z-30 -translate-y-1/2 ${rows < 3 ? "hidden" : ""}`}
     >
       <ol
-        ref={list} className="flex touch-none select-none flex-col py-1.5"
+        ref={list} className="flex touch-none select-none flex-col py-2" data-signal-item
         onPointerDown={press} onPointerMove={slide} onPointerUp={lift} onPointerCancel={lift}
       >
         {marks.map((m, i) => (
           <li key={i}>
             <button
               type="button" onClick={() => jump(i)} aria-label={m.label}
-              aria-current={i === active ? "location" : undefined} data-rail-tick={i === shown ? "on" : undefined}
-              className="flex h-2.5 w-6 items-center justify-end pr-0.5"
+              aria-current={i === active ? "location" : undefined}
+              data-rail-tick={i === shown ? "on" : i < shown ? "passed" : undefined}
+              className="flex h-4 w-7 items-center justify-end pr-0.5"
             >
               <span
                 aria-hidden
-                className={`block h-0.5 rounded-full transition-[width,background-color] duration-[var(--motion)] ease-[var(--ease-out)] motion-reduce:transition-none ${
-                  i === shown ? "w-3.5 bg-signal-evidence-text" : "w-2.5 bg-muted/60"
+                className={`block h-[3px] rounded-full transition-[width,background-color] duration-[var(--motion)] ease-[var(--ease-out)] motion-reduce:transition-none ${
+                  i === shown ? "w-3.5 bg-signal-evidence-text" : i < shown ? "w-3 bg-signal-evidence-text" : "w-3 bg-muted/60"
                 }`}
               />
             </button>
