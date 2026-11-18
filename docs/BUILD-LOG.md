@@ -1623,3 +1623,17 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - Kept from the readability pass: weights 400/500 and serif headlines (type, not colour); the
   equal-width life bar and the "How scoring works" explainer (owner rulings, not looks). The tab
   bar stays ink: it sits on every read, inside the budget.
+
+## 2026-11-18: orange colour and figure swaps parked on `wip/colour-figures`
+
+- 26 uncommitted files swapped ink for the pastel orange across reads, figures, simulators, the
+  tab bar, buttons, chips, cards and `globals.css` (focus outline, slider accent, glossary
+  underline). They were committed as `981b7cf` on `wip/colour-figures` (pushed) and kept off main.
+- Why: they break the orange budget (owner, 2026-11-15: reads, figures and feed cards stay
+  monochrome apart from the finding; the tab bar stays ink; the ring in a read stays ink; taste
+  in the turmeric simulator is context, so monochrome) and they fail
+  `scripts/visual-system.test.ts` › "the pastel fill is a surface" (pastel used as a border or
+  `accent-color` in 7 files, 12 lines).
+- Rule for any later cherry-pick from that branch: it must pass the visual-system test as it
+  stands. Do not loosen, skip or exempt the test to land it; change the swap instead, or get
+  the owner to change the budget first and record that here.
