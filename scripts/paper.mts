@@ -19,6 +19,15 @@
  *
  *   npm run paper -- approve-concept adenosine
  *
+ * The conditions & confounds pass alone, on a paper whose facts were checked by hand
+ * (owner, 2026-11-19). It runs only on a scratch copy, never on content/papers/:
+ *
+ *   SD_PAPERS_DIR=/some/scratch npm run paper -- extract my-slug --coverage-only
+ *
+ * The scratch folder holds my-slug/source.txt and the hand-checked extraction.json. The run
+ * adds the pass's facts and coverage map to that copy, saves the model's answer as
+ * coverage-pass.json and the review as coverage-review.txt, and runs the gate.
+ *
  * After approve, unpublish or approve-concept, run `npm run content:build`.
  *
  * The two model stages need AI_API_KEY in .env.local. Nothing here publishes on
@@ -26,7 +35,8 @@
  * refuses a paper that fails the gate or the lint.
  */
 
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, realpathSync, writeFileSync } from "node:fs";
+import { relative, resolve } from "node:path";
 import { createInterface } from "node:readline/promises";
 import { fileURLToPath } from "node:url";
 import { completeJson, contextTokens, replyTokens, zodCheck } from "../lib/ai/provider";
@@ -40,7 +50,8 @@ import { gate } from "../lib/pipeline/gate";
 import { checkLicense } from "../lib/pipeline/license";
 import { lint } from "../lib/pipeline/lint";
 import { COVERAGE_SYSTEM, EDITORIAL_SYSTEM, EXTRACT_SYSTEM, coveragePrompt, editorialPrompt, extractPrompt } from "../lib/pipeline/prompts";
-import { CoveragePass, mergeCoverage } from "../lib/pipeline/coverage";
+import { COVERAGE_ITEMS, CoveragePass, mergeCoverage, reviewCoverage } from "../lib/pipeline/coverage";
+import type { Coverage, CoverageReview } from "../lib/pipeline/coverage";
 import { findRetracted, parseRetractionWatch } from "../lib/pipeline/retractions";
 import type { GateRole } from "../lib/pipeline/gate";
 import { loadContext } from "./context-load";
@@ -65,7 +76,8 @@ const die = (message: string): never => { console.error(`\n${message}\n`); proce
 // `--role context` anywhere after the command sends fetch and extract to content/context/.
 const roleAt = rawArgs.indexOf("--role");
 const roleArg = roleAt >= 0 ? rawArgs[roleAt + 1] : "paper";
-const args = roleAt >= 0 ? rawArgs.filter((_, i) => i !== roleAt && i !== roleAt + 1) : rawArgs;
+const coverageOnly = rawArgs.includes("--coverage-only");
+const args = (roleAt >= 0 ? rawArgs.filter((_, i) => i !== roleAt && i !== roleAt + 1) : rawArgs).filter((a) => a !== "--coverage-only");
 const role = (roleArg === "paper" || roleArg === "context" ? roleArg : "invalid") as GateRole;
 const dirOf = (slug: string) => `${role === "context" ? CONTEXT : PAPERS}/${slug}`;
 const folder = () => (role === "context" ? "content/context" : "content/papers");
@@ -135,6 +147,97 @@ async function fetchPaper(pmcid: string | undefined, slug: string | undefined) {
   console.log(`next: npm run paper -- extract ${slug}${role === "context" ? " --role context" : ""}`);
 }
 
+/** Does the whole paper fit beside the instructions? If not, it is read in parts. Never cut short. */
+function partsOf(source: string, instructionTokens: number): string[] {
+  const room = contextTokens() - replyTokens() - instructionTokens - 500;
+  if (room < 2000) die("The model's context window is too small for the instructions and the example. Use a model with a larger window (AI_CONTEXT_TOKENS).");
+  const parts = tokensOf(source) <= room ? [source] : splitSource(source, Math.floor(room * 3.5));
+  if (parts.length > 1) {
+    console.warn(`warning: the paper (~${tokensOf(source).toLocaleString("en")} tokens) does not fit the model's window; reading it in ${parts.length} parts and merging.`);
+  }
+  return parts;
+}
+
+/** The conditions & confounds pass: one narrower request per part (lib/pipeline/coverage.ts). */
+async function runCoveragePass(start: RawExtraction, parts: string[]) {
+  let extraction = start as RawExtraction & { coverage?: Coverage };
+  let retries = 0;
+  const answers: CoveragePass[] = [];
+  const coverageCheck = zodCheck(CoveragePass);
+  for (const part of parts) {
+    const result = await completeJson({ stage: "extract", system: COVERAGE_SYSTEM, prompt: coveragePrompt({ source: part, facts: extraction.facts }) }, coverageCheck);
+    retries += result.retries;
+    const answer = CoveragePass.parse(result.value);
+    answers.push(answer);
+    const { extraction: next, notes } = mergeCoverage(extraction, answer);
+    const earlier = extraction.coverage;
+    if (earlier) for (const item of COVERAGE_ITEMS) next.coverage[item] = [...new Set([...(earlier[item] ?? []), ...next.coverage[item]])];
+    for (const line of notes) console.log(`coverage: ${line}`);
+    extraction = next;
+  }
+  return { extraction: extraction as RawExtraction & { coverage: Coverage }, answers, retries };
+}
+
+/**
+ * A coverage-only run writes to a scratch copy and never over content/ (owner, 2026-11-19):
+ * SD_PAPERS_DIR must be set and must lie outside the repository's content folder.
+ */
+export function coverageOnlyRefusal(env: { SD_PAPERS_DIR?: string }, role: GateRole, root: string): string | null {
+  if (role !== "paper") return "--coverage-only runs on a paper, not on a context study.";
+  if (!env.SD_PAPERS_DIR) return "--coverage-only writes to a scratch copy only. Set SD_PAPERS_DIR to a folder that holds <slug>/source.txt and a copy of the hand-checked <slug>/extraction.json.";
+  const real = (p: string) => (existsSync(p) ? realpathSync(p) : resolve(p));
+  const inside = relative(real(`${root}content`), real(env.SD_PAPERS_DIR));
+  if (!inside.startsWith("..") && !inside.startsWith("/")) return `SD_PAPERS_DIR is inside content/ (${env.SD_PAPERS_DIR}). A coverage-only run never writes there; point it at a scratch copy.`;
+  return null;
+}
+
+function formatReview(slug: string, review: CoverageReview, gateOk: boolean): string {
+  const lines = [`${slug}: coverage-only run`, `gate on the scratch copy: ${gateOk ? "ok" : "REJECTED (see above)"}`, ""];
+  lines.push(`New facts (${review.added.length}):`);
+  for (const f of review.added) {
+    lines.push(`  ${f.id}  [${f.kind}]  value: ${JSON.stringify(f.value)}`);
+    lines.push(`    label: ${f.label}`);
+    lines.push(`    quote: ${JSON.stringify(f.quote)}`);
+    if (f.estimate) lines.push(`    estimate: ${JSON.stringify(f.estimate)}`);
+    if (f.spread) lines.push(`    spread: ${JSON.stringify(f.spread)}`);
+  }
+  lines.push("", `Hand-checked facts relabelled as limitations (${review.relabelled.length}): ${review.relabelled.join(", ") || "none"}`);
+  lines.push("", "Coverage map (item: facts that cover it):");
+  for (const item of COVERAGE_ITEMS) lines.push(`  ${item}: ${review.coverage[item].join(", ") || "not found"}`);
+  lines.push("", `Problems (must be none before a merge): ${review.problems.join("; ") || "none"}`);
+  return `${lines.join("\n")}\n`;
+}
+
+async function extractCoverageOnly(slugArg: string | undefined) {
+  const refusal = coverageOnlyRefusal({ SD_PAPERS_DIR: process.env.SD_PAPERS_DIR }, role, ROOT);
+  if (refusal) die(refusal);
+  const slug = needSlug(slugArg, "extraction.json");
+  needSlug(slug, "source.txt");
+  const started = Date.now();
+  const handChecked = readJson(`${dirOf(slug)}/extraction.json`);
+  if (handChecked.coverage) die(`${PAPERS}/${slug}/extraction.json already has a coverage map. Copy the hand-checked extraction.json in again first.`);
+  const valid = RawExtraction.safeParse(handChecked);
+  if (!valid.success) die(`The hand-checked extraction.json does not match the schema: ${valid.error.message}`);
+  console.log("the hand-checked extraction, before the pass:");
+  if (!runGate(slug)) die("The hand-checked extraction fails the gate. Fix that first.");
+
+  const source = readFileSync(`${dirOf(slug)}/source.txt`, "utf8");
+  const parts = partsOf(source, tokensOf(COVERAGE_SYSTEM + coveragePrompt({ source: "", facts: handChecked.facts })));
+  // The raw file, not the parsed one, so every hand-checked fact stays exactly as written.
+  const { extraction, answers, retries } = await runCoveragePass(handChecked as RawExtraction, parts);
+  writeJson(`${dirOf(slug)}/coverage-pass.json`, answers);
+  writeJson(`${dirOf(slug)}/extraction.json`, extraction);
+  console.log(`saved ${PAPERS}/${slug}/extraction.json and coverage-pass.json (parts: ${parts.length}, JSON retries: ${retries}, ${((Date.now() - started) / 1000).toFixed(1)} s)`);
+
+  console.log("\nafter the pass:");
+  const gateOk = runGate(slug) !== null;
+  const review = reviewCoverage(handChecked as RawExtraction, extraction);
+  const text = formatReview(slug, review, gateOk);
+  writeFileSync(`${dirOf(slug)}/coverage-review.txt`, text);
+  console.log(`\n${text}`);
+  if (review.problems.length > 0) die("The run changed the hand-checked facts. Do not merge it.");
+}
+
 async function extract(slugArg: string | undefined) {
   const slug = needSlug(slugArg, "source.txt");
   const started = Date.now();
@@ -143,14 +246,7 @@ async function extract(slugArg: string | undefined) {
   const exampleExtraction = readFileSync(`${EXAMPLE}/extraction.json`, "utf8");
   const check = zodCheck(RawExtraction);
 
-  // Does the whole paper fit? If not, read it in parts and merge. Never cut it short.
-  const overhead = tokensOf(EXTRACT_SYSTEM + extractPrompt({ meta, source: "", exampleExtraction })) + 500;
-  const room = contextTokens() - replyTokens() - overhead;
-  if (room < 2000) die("The model's context window is too small for the instructions and the example. Use a model with a larger window (AI_CONTEXT_TOKENS).");
-  const parts = tokensOf(source) <= room ? [source] : splitSource(source, Math.floor(room * 3.5));
-  if (parts.length > 1) {
-    console.warn(`warning: the paper (~${tokensOf(source).toLocaleString("en")} tokens) does not fit the model's window; reading it in ${parts.length} parts and merging.`);
-  }
+  const parts = partsOf(source, tokensOf(EXTRACT_SYSTEM + extractPrompt({ meta, source: "", exampleExtraction })));
 
   let retries = 0;
   const extractions = [];
@@ -167,18 +263,9 @@ async function extract(slugArg: string | undefined) {
 
   // Saved before the second request, so a server failure there does not lose the first pass.
   writeJson(`${dirOf(slug)}/extraction.json`, merged);
-  // The conditions & confounds pass: a second, narrower request per part (lib/pipeline/coverage.ts).
-  let extraction: RawExtraction = merged;
-  const coverageCheck = zodCheck(CoveragePass);
-  for (const part of parts) {
-    const result = await completeJson({ stage: "extract", system: COVERAGE_SYSTEM, prompt: coveragePrompt({ source: part, facts: extraction.facts }) }, coverageCheck);
-    retries += result.retries;
-    const { extraction: next, notes: coverageNotes } = mergeCoverage(extraction, CoveragePass.parse(result.value));
-    const earlier = (extraction as { coverage?: Record<string, string[]> }).coverage;
-    if (earlier) for (const [item, ids] of Object.entries(earlier)) next.coverage[item as keyof typeof next.coverage] = [...new Set([...ids, ...next.coverage[item as keyof typeof next.coverage]])];
-    for (const line of coverageNotes) console.log(`coverage: ${line}`);
-    extraction = next;
-  }
+  const pass = await runCoveragePass(merged, parts);
+  retries += pass.retries;
+  const extraction = pass.extraction;
   const added = extraction.facts.length - merged.facts.length;
   // Saved as the model wrote it (parsed to the schema's shape); the gate judges it next.
   writeJson(`${dirOf(slug)}/extraction.json`, extraction);
@@ -268,7 +355,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   if ((role as string) === "invalid") die('--role is "paper" or "context".');
   switch (command) {
     case "fetch": await fetchPaper(args[0], args[1]); break;
-    case "extract": await extract(args[0]); break;
+    case "extract": await (coverageOnly ? extractCoverageOnly(args[0]) : extract(args[0])); break;
     case "draft": await draft(args[0]); break;
     case "approve": setPublished(args[0], true); break;
     case "unpublish": setPublished(args[0], false); break;

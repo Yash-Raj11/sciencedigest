@@ -80,6 +80,46 @@ export function mergeCoverage(extraction: RawExtraction, pass: CoveragePass): { 
   return { extraction: { ...extraction, facts, coverage }, notes };
 }
 
+/** What a coverage-only run changed in a hand-checked extraction, for the owner's review. */
+export interface CoverageReview {
+  /** Facts the pass added, as they will be merged. */
+  added: RawExtraction["facts"];
+  /** Hand-checked statement or context facts the pass turned into limitations. */
+  relabelled: string[];
+  coverage: Coverage;
+  /** Anything else the run changed in the hand-checked extraction. Must be empty before a merge. */
+  problems: string[];
+}
+
+const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
+
+/**
+ * Compares a hand-checked extraction with the result of a coverage-only run (owner, 2026-11-19).
+ * The run may add facts, write the coverage map and relabel a statement or context fact as a
+ * limitation. It may not drop, rename, reorder or edit a hand-checked fact, nor touch the
+ * identifiers, design, population or n: each of those is reported as a problem.
+ */
+export function reviewCoverage(before: RawExtraction, after: RawExtraction & { coverage: Coverage }): CoverageReview {
+  const problems: string[] = [];
+  const relabelled: string[] = [];
+  const { facts: beforeFacts, coverage: beforeCoverage, ...beforeRest } = before;
+  const { facts: afterFacts, coverage, ...afterRest } = after;
+  if (beforeCoverage) problems.push("the hand-checked extraction already had a coverage map");
+  for (const key of new Set([...Object.keys(beforeRest), ...Object.keys(afterRest)])) {
+    if (!same(beforeRest[key as keyof typeof beforeRest], afterRest[key as keyof typeof afterRest])) problems.push(`"${key}" changed`);
+  }
+  for (const [i, fact] of beforeFacts.entries()) {
+    const now = afterFacts[i];
+    if (!now || now.id !== fact.id) { problems.push(`hand-checked fact "${fact.id}" is missing or moved`); continue; }
+    if (now.kind !== fact.kind) {
+      if ((fact.kind === "statement" || fact.kind === "context") && now.kind === "limitation") relabelled.push(fact.id);
+      else problems.push(`hand-checked fact "${fact.id}" changed kind from ${fact.kind} to ${now.kind}`);
+    }
+    if (!same({ ...fact, kind: undefined }, { ...now, kind: undefined })) problems.push(`hand-checked fact "${fact.id}" was edited`);
+  }
+  return { added: afterFacts.slice(beforeFacts.length), relabelled, coverage, problems };
+}
+
 export const CHECKLIST_LABEL: Record<"design" | "sampleSize" | "limitations" | CoverageItem, string> = {
   design: "Design",
   sampleSize: "Number of people (n)",

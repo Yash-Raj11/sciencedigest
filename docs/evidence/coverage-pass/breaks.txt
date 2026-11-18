@@ -1,0 +1,71 @@
+Coverage-only run: each guard broken once (scripts/paper.mts, lib/pipeline/coverage.ts), its tests run, the file restored and the tests run again. content/ is checked after every break.
+Run 2026-11-19. The failing test names are listed under each break.
+
+B1 the content/ check removed from the scratch guard
+  broken in scripts/paper.mts; ran scripts/coverage-only.test.ts: exit 1; Tests  4 failed | 4 passed (8)
+    FAIL  scripts/coverage-only.test.ts > paper extract --coverage-only > refuses SD_PAPERS_DIR = content/papers, before any request
+    FAIL  scripts/coverage-only.test.ts > paper extract --coverage-only > refuses SD_PAPERS_DIR = content/papers by a roundabout path, before any request
+    FAIL  scripts/coverage-only.test.ts > paper extract --coverage-only > refuses SD_PAPERS_DIR = content itself, before any request
+    FAIL  scripts/coverage-only.test.ts > paper extract --coverage-only > refuses SD_PAPERS_DIR = a folder inside content/papers, before any request
+  content/ after the break: UNCHANGED
+  restored: exit 0; Tests  8 passed (8)
+
+B2 the 'SD_PAPERS_DIR must be set' check removed
+  broken in scripts/paper.mts; ran scripts/coverage-only.test.ts: exit 1; Tests  1 failed | 7 passed (8)
+    FAIL  scripts/coverage-only.test.ts > paper extract --coverage-only > refuses without a scratch folder, before any request
+  content/ after the break: UNCHANGED
+  restored: exit 0; Tests  8 passed (8)
+
+B3 --coverage-only falls through to the full extract
+  broken in scripts/paper.mts; ran scripts/coverage-only.test.ts: exit 1; Tests  8 failed (8)
+    FAIL  scripts/coverage-only.test.ts > paper extract --coverage-only > runs only the coverage pass, on the scratch copy, and leaves every hand-checked fact as written
+    FAIL  scripts/coverage-only.test.ts > paper extract --coverage-only > refuses without a scratch folder, before any request
+    FAIL  scripts/coverage-only.test.ts > paper extract --coverage-only > refuses SD_PAPERS_DIR = content/papers, before any request
+    FAIL  scripts/coverage-only.test.ts > paper extract --coverage-only > refuses SD_PAPERS_DIR = content/papers by a roundabout path, before any request
+    FAIL  scripts/coverage-only.test.ts > paper extract --coverage-only > refuses SD_PAPERS_DIR = content itself, before any request
+    FAIL  scripts/coverage-only.test.ts > paper extract --coverage-only > refuses SD_PAPERS_DIR = a folder inside content/papers, before any request
+  content/ after the break: UNCHANGED
+  restored: exit 0; Tests  8 passed (8)
+
+B4 a copy that already has a coverage map is not refused
+  broken in scripts/paper.mts; ran scripts/coverage-only.test.ts: exit 1; Tests  1 failed | 7 passed (8)
+    FAIL  scripts/coverage-only.test.ts > paper extract --coverage-only > refuses a copy that already has a coverage map
+  content/ after the break: UNCHANGED
+  restored: exit 0; Tests  8 passed (8)
+
+B5 the context-study refusal removed
+  broken in scripts/paper.mts; ran scripts/coverage-only.test.ts: exit 1; Tests  1 failed | 7 passed (8)
+    FAIL  scripts/coverage-only.test.ts > paper extract --coverage-only > refuses a context study
+  content/ after the break: UNCHANGED
+  restored: exit 0; Tests  8 passed (8)
+
+B6 the run merges onto the parsed extraction instead of the file as written
+  broken in scripts/paper.mts; ran scripts/coverage-only.test.ts: exit 1; Tests  1 failed | 7 passed (8)
+    FAIL  scripts/coverage-only.test.ts > paper extract --coverage-only > runs only the coverage pass, on the scratch copy, and leaves every hand-checked fact as written
+  content/ after the break: UNCHANGED
+  restored: exit 0; Tests  8 passed (8)
+
+B7 reviewCoverage ignores an edited hand-checked fact
+  broken in lib/pipeline/coverage.ts; ran lib/pipeline/coverage.test.ts: exit 1; Tests  1 failed | 14 passed (15)
+    FAIL  lib/pipeline/coverage.test.ts > reviewCoverage (the coverage-only run, owner 2026-11-19) > reports a hand-checked fact whose value was edited
+  content/ after the break: UNCHANGED
+  restored: exit 0; Tests  15 passed (15)
+
+B8 reviewCoverage lets a result become a limitation
+  broken in lib/pipeline/coverage.ts; ran lib/pipeline/coverage.test.ts: exit 1; Tests  1 failed | 14 passed (15)
+    FAIL  lib/pipeline/coverage.test.ts > reviewCoverage (the coverage-only run, owner 2026-11-19) > reports a result whose kind changed (only a statement or context may become a limitation)
+  content/ after the break: UNCHANGED
+  restored: exit 0; Tests  15 passed (15)
+
+B9 reviewCoverage ignores the design, n and identifiers
+  broken in lib/pipeline/coverage.ts; ran lib/pipeline/coverage.test.ts: exit 1; Tests  1 failed | 14 passed (15)
+    FAIL  lib/pipeline/coverage.test.ts > reviewCoverage (the coverage-only run, owner 2026-11-19) > reports a change to the design, n or identifiers
+  content/ after the break: UNCHANGED
+  restored: exit 0; Tests  15 passed (15)
+
+B10 reviewCoverage ignores a dropped fact
+  broken in lib/pipeline/coverage.ts; ran lib/pipeline/coverage.test.ts: exit 1; Tests  1 failed | 14 passed (15)
+    FAIL  lib/pipeline/coverage.test.ts > reviewCoverage (the coverage-only run, owner 2026-11-19) > reports a hand-checked fact that was dropped or moved
+  content/ after the break: UNCHANGED
+  restored: exit 0; Tests  15 passed (15)
+

@@ -5,7 +5,7 @@
 
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { CoveragePass, coverageChecklist, mergeCoverage } from "./coverage";
+import { CoveragePass, coverageChecklist, mergeCoverage, reviewCoverage } from "./coverage";
 import { RawExtraction } from "./extraction";
 import { gate } from "./gate";
 
@@ -58,6 +58,43 @@ describe("mergeCoverage", () => {
   it("drops a coverage id that names no fact", () => {
     const { extraction } = mergeCoverage(base, CoveragePass.parse({ coverage: { ...empty, funding: ["made_up"] } }));
     expect(extraction.coverage.funding).toEqual([]);
+  });
+});
+
+describe("reviewCoverage (the coverage-only run, owner 2026-11-19)", () => {
+  const pass = CoveragePass.parse({ facts: [sugar], relabelAsLimitation: ["glp1"], coverage: { ...empty, confounds: ["sugar_row"], dosing: ["single_meal"] } });
+  const after = mergeCoverage(base, pass).extraction;
+
+  it("lists the added facts, the relabels and the map, with no problem, for a clean run", () => {
+    const review = reviewCoverage(base, after);
+    expect(review.added.map((f) => f.id)).toEqual(["sugar_row"]);
+    expect(review.relabelled).toEqual(["glp1"]);
+    expect(review.coverage.confounds).toEqual(["sugar_row"]);
+    expect(review.problems).toEqual([]);
+  });
+
+  it("reports a hand-checked fact whose value was edited", () => {
+    const edited = { ...after, facts: after.facts.map((f) => (f.id === "plate" ? { ...f, value: "something else" } : f)) };
+    expect(reviewCoverage(base, edited).problems).toEqual(['hand-checked fact "plate" was edited']);
+  });
+
+  it("reports a hand-checked fact that was dropped or moved", () => {
+    const dropped = { ...after, facts: after.facts.filter((f) => f.id !== "plate") };
+    expect(reviewCoverage(base, dropped).problems.join(" ")).toMatch(/"plate" is missing or moved/);
+  });
+
+  it("reports a result whose kind changed (only a statement or context may become a limitation)", () => {
+    const relabelled = { ...after, facts: after.facts.map((f) => (f.id === "glucose_30" ? { ...f, kind: "limitation" as const } : f)) };
+    expect(reviewCoverage(base, relabelled).problems).toEqual(['hand-checked fact "glucose_30" changed kind from finding to limitation']);
+  });
+
+  it("reports a change to the design, n or identifiers", () => {
+    const design = { ...after, sampleSize: { ...after.sampleSize, value: "99" } };
+    expect(reviewCoverage(base, design).problems).toEqual(['"sampleSize" changed']);
+  });
+
+  it("reports an extraction that already had a coverage map", () => {
+    expect(reviewCoverage({ ...base, coverage: empty }, after).problems).toEqual(["the hand-checked extraction already had a coverage map"]);
   });
 });
 
