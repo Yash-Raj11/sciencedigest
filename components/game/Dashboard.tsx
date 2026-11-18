@@ -110,7 +110,7 @@ function ProtocolTiles({ game }: { game: Game }) {
             >
               <span className="flex items-start justify-between gap-2">
                 <span className="line-clamp-2 font-medium leading-snug">{view.paper.category}</span>
-                <ProgressRing pct={view.progress.pct} size={44} label={view.paper.category} lifeGame />
+                <ProgressRing pct={view.progress.pct} size={44} label={view.paper.category} />
               </span>
               <span className="num mt-auto pt-3 text-sm text-muted">
                 {view.dormant ? "Paused. Open to resume." : `${view.progress.done} of ${view.progress.total} in place`}

@@ -74,7 +74,7 @@ export function IntervalPlot({ rows, lowLabel, highLabel }: { rows: PlotRow[]; l
                   )}
                   <span
                     aria-hidden
-                    className={`absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-bg ${grey ? "bg-muted" : "bg-ink"}`}
+                    className={`absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-bg ${grey ? "bg-muted" : "bg-signal-evidence-text"}`}
                     style={{ left: at(e.point), transition: "left 240ms" }}
                   />
                 </div>

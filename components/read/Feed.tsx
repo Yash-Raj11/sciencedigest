@@ -76,7 +76,7 @@ export function PostCard({ paper }: { paper: PaperMeta }) {
       <Link href={href} className="block space-y-3 p-4 pb-3" data-glance-link>
         <p className="label flex items-center justify-between gap-3">
           <span className="min-w-0 truncate">{paper.category} · <span className="num">{paper.readMinutes} min read</span></span>
-          {members ? <span className="rounded-full border border-line px-2.5 py-0.5 text-ink">Members</span> : null}
+          {members ? <span className="rounded-full border border-signal-evidence-fill px-2.5 py-0.5 text-signal-evidence-text">Members</span> : null}
         </p>
         {view ? (
           <hgroup className="space-y-1.5">

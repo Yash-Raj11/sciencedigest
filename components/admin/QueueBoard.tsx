@@ -28,7 +28,7 @@ function CoverageChecklist({ card }: { card: CoverageCard }) {
       <ul className="mt-3 space-y-1.5">
         {card.rows.map((row) => (
           <li key={row.item} className="flex gap-2 text-sm leading-snug">
-            <span aria-hidden className={row.found ? "text-ink" : "text-muted"}>{row.found ? "✓" : "–"}</span>
+            <span aria-hidden className={row.found ? "text-signal-evidence-text" : "text-muted"}>{row.found ? "✓" : "–"}</span>
             <span className="min-w-0">
               {row.label}:{" "}
               {row.found ? <code className="break-words text-muted">{row.facts.join(", ")}</code> : <strong>not found</strong>}
@@ -71,7 +71,7 @@ function DeckCard({ item, onAct }: { item: Item; onAct: (slug: string, action: "
       <header className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h2 className="headline">{deck.slug}</h2>
-          <p className={`text-sm leading-snug ${item.status === "approved" ? "text-ink" : "text-muted"}`}>{STATUS_TEXT[item.status]}</p>
+          <p className={`text-sm leading-snug ${item.status === "approved" ? "text-signal-evidence-text" : "text-muted"}`}>{STATUS_TEXT[item.status]}</p>
         </div>
         <span className="num shrink-0 text-sm text-muted">{deck.slides.length} slides</span>
       </header>
@@ -86,7 +86,7 @@ function DeckCard({ item, onAct }: { item: Item; onAct: (slug: string, action: "
             </div>
             <p className="num flex items-center justify-between text-xs text-neutral-400">
               <span>{i + 1} / {deck.slides.length}</span>
-              <span aria-hidden className="h-1.5 w-8 rounded-sm bg-ink" />
+              <span aria-hidden className="h-1.5 w-8 rounded-sm bg-signal-evidence-fill" />
             </p>
           </li>
         ))}
@@ -108,7 +108,7 @@ function DeckCard({ item, onAct }: { item: Item; onAct: (slug: string, action: "
         {item.status === "approved" ? (
           <button type="button" onClick={() => onAct(deck.slug, "withdraw")} className="h-11 flex-1 rounded-lg border border-line font-medium">Withdraw approval</button>
         ) : (
-          <button type="button" disabled={problems.length > 0} onClick={() => onAct(deck.slug, "approve")} className="h-11 flex-1 rounded-lg bg-ink font-medium text-bg disabled:opacity-40">
+          <button type="button" disabled={problems.length > 0} onClick={() => onAct(deck.slug, "approve")} className="h-11 flex-1 rounded-lg bg-signal-evidence-fill font-medium text-on-signal-evidence-fill disabled:opacity-40">
             I have read every slide: approve
           </button>
         )}

@@ -25,7 +25,7 @@ export function GradeChip({ grade, why, className = "" }: { grade: EvidenceGrade
     <span className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-xs font-medium text-muted ${className}`} data-grade={grade}>
       <span aria-hidden className="flex items-end gap-[2px]">
         {[0, 1, 2].map((i) => (
-          <span key={i} data-bar data-filled={i < GRADE_BARS[grade] ? "" : undefined} className={`w-[3px] rounded-[1px] ${i < GRADE_BARS[grade] ? "bg-ink" : "bg-line"}`} style={{ height: `${6 + i * 3}px` }} />
+          <span key={i} data-bar data-filled={i < GRADE_BARS[grade] ? "" : undefined} className={`w-[3px] rounded-[1px] ${i < GRADE_BARS[grade] ? "bg-signal-evidence-fill" : "bg-line"}`} style={{ height: `${6 + i * 3}px` }} />
         ))}
       </span>
       <span>{GRADE_WORDS[grade]}</span>
@@ -48,8 +48,7 @@ export function GradeChip({ grade, why, className = "" }: { grade: EvidenceGrade
 }
 
 /** Percentage of protocol completed, drawn as a ring. `pct` always comes from useProtocol. */
-/** `lifeGame`: the ring on a Life Game tile, which keeps its pastel orange (owner, 2026-11-15). In a read it stays ink. */
-export function ProgressRing({ pct, size = 56, label, lifeGame = false }: { pct: number; size?: number; label: string; lifeGame?: boolean }) {
+export function ProgressRing({ pct, size = 56, label }: { pct: number; size?: number; label: string }) {
   const r = (size - 8) / 2;
   const c = 2 * Math.PI * r;
   return (
@@ -57,7 +56,7 @@ export function ProgressRing({ pct, size = 56, label, lifeGame = false }: { pct:
       <svg viewBox={`0 0 ${size} ${size}`} className="h-full w-full -rotate-90">
         <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--line)" strokeWidth="6" />
         <circle
-          cx={size / 2} cy={size / 2} r={r} fill="none" stroke={lifeGame ? "var(--signal-evidence-fill)" : "var(--ink)"} strokeWidth="6" strokeLinecap="butt"
+          cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--signal-evidence-fill)" strokeWidth="6" strokeLinecap="butt"
           strokeDasharray={c} strokeDashoffset={c - (c * pct) / 100}
           style={{ transition: "stroke-dashoffset 320ms cubic-bezier(0.2,0.8,0.2,1)" }}
         />
@@ -71,7 +70,7 @@ export function CheckBox({ checked }: { checked: boolean }) {
   return (
     <span
       aria-hidden
-      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-md border-2 transition-colors ${checked ? "border-ink bg-ink text-bg" : "border-muted/60 bg-transparent text-transparent"}`}
+      className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-md border-2 transition-colors ${checked ? "border-signal-evidence-fill bg-signal-evidence-fill text-on-signal-evidence-fill" : "border-muted/60 bg-transparent text-transparent"}`}
     >
       <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M5 12.5 10 17 19 7" />
@@ -107,7 +106,7 @@ function DerivedRow(props: { met: boolean; label: string; status: string; traili
     <div className="flex items-start gap-3 py-3">
       <span
         aria-hidden
-        className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 ${props.met ? "border-ink bg-ink text-bg" : "border-dashed border-muted/60 text-transparent"}`}
+        className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 ${props.met ? "border-signal-evidence-fill bg-signal-evidence-fill text-on-signal-evidence-fill" : "border-dashed border-muted/60 text-transparent"}`}
       >
         <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M5 12.5 10 17 19 7" />
@@ -137,7 +136,7 @@ function WeekPips({ count, target }: { count: number; target: number }) {
   return (
     <span aria-hidden className="mt-1.5 flex gap-1">
       {Array.from({ length: Math.max(target, count) }, (_, i) => (
-        <span key={i} className={`h-2 w-5 rounded-sm ${i < count ? "bg-ink" : "bg-line"}`} />
+        <span key={i} className={`h-2 w-5 rounded-sm ${i < count ? "bg-signal-evidence-fill" : "bg-line"}`} />
       ))}
     </span>
   );
@@ -232,7 +231,7 @@ export function ChoicePicker({ choices, values, onChange }: { choices: Choice[];
                 <span className="block font-medium leading-snug">{choice.label}</span>
                 {choice.help && <span className="block text-sm leading-snug text-muted">{choice.help}</span>}
               </span>
-              <span aria-hidden className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${on ? "bg-ink" : "bg-line"}`}>
+              <span aria-hidden className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${on ? "bg-signal-evidence-fill" : "bg-line"}`}>
                 <span className={`absolute top-1 h-5 w-5 rounded-full bg-bg transition-[left] ${on ? "left-6" : "left-1"}`} />
               </span>
             </button>
@@ -248,7 +247,7 @@ export function ChoicePicker({ choices, values, onChange }: { choices: Choice[];
                 return (
                   <label
                     key={option.value}
-                    className={`cursor-pointer rounded-full border px-3.5 py-1.5 text-sm font-medium has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-ink ${selected ? "border-ink bg-ink text-bg" : "border-line text-ink"}`}
+                    className={`cursor-pointer rounded-full border px-3.5 py-1.5 text-sm font-medium has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-signal-evidence-text ${selected ? "border-signal-evidence-fill bg-signal-evidence-fill text-on-signal-evidence-fill" : "border-line text-ink"}`}
                   >
                     <input
                       type="radio" name={`${base}-${choice.key}`} className="sr-only" checked={selected}
@@ -283,7 +282,7 @@ function BlockStart({ protocol }: { protocol: Protocol }) {
           className="h-9 rounded-md border border-line bg-bg px-2 text-sm text-ink"
         />
         {!started && (
-          <button type="button" onClick={() => protocol.startBlock(protocol.today)} className="h-9 rounded-md bg-ink px-3 text-sm font-medium text-bg">
+          <button type="button" onClick={() => protocol.startBlock(protocol.today)} className="h-9 rounded-md bg-signal-evidence-fill px-3 text-sm font-medium text-on-signal-evidence-fill">
             Start today
           </button>
         )}
@@ -294,7 +293,7 @@ function BlockStart({ protocol }: { protocol: Protocol }) {
 
 export function Notice({ children, tone = "plain" }: { children: ReactNode; tone?: "plain" | "warn" }) {
   return (
-    <div className={`rounded-lg border px-3.5 py-3 text-sm leading-snug ${tone === "warn" ? "border-muted bg-surface text-ink" : "border-line bg-surface text-ink"}`}>
+    <div className={`rounded-lg border px-3.5 py-3 text-sm leading-snug ${tone === "warn" ? "border-signal-evidence-fill bg-signal-evidence-soft text-ink" : "border-line bg-surface text-ink"}`}>
       {children}
     </div>
   );
@@ -337,7 +336,7 @@ export function ProtocolPanel({ protocol, variant, title, intro }: { protocol: P
         <div className="mt-4 space-y-3">
           <Notice>A protocol left alone for more than seven days stops counting against your score. Nothing is lost: your history is kept.</Notice>
           <div className="flex gap-2">
-            <button type="button" onClick={protocol.equip} className="h-11 flex-1 rounded-lg bg-ink font-medium text-bg">Resume</button>
+            <button type="button" onClick={protocol.equip} className="h-11 flex-1 rounded-lg bg-signal-evidence-fill font-medium text-on-signal-evidence-fill">Resume</button>
             <button type="button" onClick={protocol.unequip} className="h-11 rounded-lg border border-line px-4 font-medium">Remove</button>
           </div>
         </div>
@@ -376,9 +375,9 @@ export function ProtocolPanel({ protocol, variant, title, intro }: { protocol: P
                 <button type="button" onClick={protocol.unequip} className={`${variant === "card" ? "h-10 text-sm" : "h-11"} rounded-lg px-3 font-medium text-muted`}>Remove</button>
               </>
             ) : protocol.locked ? (
-              <Link href="/upgrade" className="flex h-11 flex-1 items-center justify-center rounded-lg border border-line font-medium text-ink">Members only: see what membership adds</Link>
+              <Link href="/upgrade" className="flex h-11 flex-1 items-center justify-center rounded-lg border border-signal-evidence-fill font-medium text-signal-evidence-text">Members only: see what membership adds</Link>
             ) : (
-              <button type="button" onClick={protocol.equip} className="h-12 flex-1 rounded-lg bg-ink text-base font-medium text-bg">
+              <button type="button" onClick={protocol.equip} className="h-12 flex-1 rounded-lg bg-signal-evidence-fill text-base font-medium text-on-signal-evidence-fill">
                 Add to Life Game
               </button>
             )}

@@ -85,7 +85,7 @@ export function Decay({ mode, halfLife, alt, sourceLine, note, beside, words = W
             ))}
             <line x1={left} x2={left + width} y1={bottom} y2={bottom} stroke={INK} strokeWidth={1.5} />
             {paths.area ? <path d={paths.area} fill={SIGNAL_FILL} data-band /> : null}
-            <path d={paths.line} fill="none" stroke={INK} strokeWidth={3} strokeLinejoin="round" strokeLinecap="round" />
+            <path d={paths.line} fill="none" stroke={SIGNAL_TEXT} strokeWidth={3} strokeLinejoin="round" strokeLinecap="round" />
           </g>
           {times.map((time, i) => (
             <g key={time}>
@@ -171,7 +171,7 @@ export function DecayGlance({ halfLife, alt, x, y }: { halfLife: ResolvedFact; a
       <Figure title={DECAY_TITLE} desc={alt} height={GLANCE_FRAME.figureHeight}>
         <g data-evidence="measured" data-fact={halfLife.id}>
           {paths.area ? <path d={paths.area} fill={SIGNAL_FILL} data-band /> : null}
-          <path d={paths.line} fill="none" stroke={INK} strokeWidth={3} strokeLinejoin="round" strokeLinecap="round" />
+          <path d={paths.line} fill="none" stroke={SIGNAL_TEXT} strokeWidth={3} strokeLinejoin="round" strokeLinecap="round" />
         </g>
         <GlanceAxes x={x} y={y} />
       </Figure>

@@ -30,7 +30,7 @@ function RegimenChart({ regimen }: { regimen: Regimen }) {
             <span className="num text-xs font-medium">{week.sessions}</span>
             <span className="flex h-20 w-full items-end rounded-sm bg-line/50">
               <span
-                className={`w-full rounded-sm ${week.met ? "bg-ink" : "bg-muted/60"}`}
+                className={`w-full rounded-sm ${week.met ? "bg-signal-evidence-fill" : "bg-muted/60"}`}
                 style={{ height: `${(week.sessions / tallest) * 100}%` }}
               />
             </span>
@@ -74,7 +74,7 @@ export function MemberExtras({ paper }: { paper: PaperMeta }) {
     <section aria-label="Membership extras" className="rounded-2xl border border-line p-4">
       <div className="flex items-baseline justify-between gap-3">
         <h2 className="headline">Going further</h2>
-        <span className="rounded-full border border-line px-2.5 py-0.5 text-xs font-medium text-ink">Members</span>
+        <span className="rounded-full border border-signal-evidence-fill px-2.5 py-0.5 text-xs font-medium text-signal-evidence-text">Members</span>
       </div>
 
       {locked ? (
@@ -84,7 +84,7 @@ export function MemberExtras({ paper }: { paper: PaperMeta }) {
             {hasWeeklyTarget && <li><strong>Your last eight weeks.</strong> Sessions logged each week against the protocol&apos;s target.</li>}
           </ul>
           <p className="mt-3 text-sm leading-snug text-muted">Tracking, your streak and your history stay free whether or not you join.</p>
-          <Link href="/upgrade" className="mt-3 flex h-11 items-center justify-center rounded-lg border border-line font-medium text-ink">
+          <Link href="/upgrade" className="mt-3 flex h-11 items-center justify-center rounded-lg border border-signal-evidence-fill font-medium text-signal-evidence-text">
             See what membership adds
           </Link>
         </>
@@ -96,7 +96,7 @@ export function MemberExtras({ paper }: { paper: PaperMeta }) {
               <ul className="mt-2 space-y-2">
                 {takeaways.value.map((note, i) => (
                   <li key={i} className="flex gap-3 text-[0.9375rem] leading-relaxed">
-                    <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
+                    <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-signal-evidence-fill" />
                     <span>{note.map((s) => s.text).join(" ")}</span>
                   </li>
                 ))}

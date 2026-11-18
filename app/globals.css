@@ -186,13 +186,13 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--signal-evidence-text);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
 input[type="range"] {
-  accent-color: var(--ink);
+  accent-color: var(--signal-evidence-fill);
 }
 
 @keyframes fill-in {
@@ -215,7 +215,7 @@ input[type="range"] {
 @keyframes burst { from { transform: scale(0.4); opacity: 0.9; } to { transform: scale(1.5); opacity: 0; } }
 .day-burst::before {
   content: ""; position: absolute; inset: -0.5rem; border-radius: 9999px;
-  border: 3px solid var(--ink); animation: burst 900ms cubic-bezier(0.2, 0.8, 0.2, 1) 2 both;
+  border: 3px solid var(--signal-evidence-fill); animation: burst 900ms cubic-bezier(0.2, 0.8, 0.2, 1) 2 both;
 }
 
 /* Bottom sheet: the maximised view of a widget. */
@@ -257,7 +257,7 @@ details[open] > .ui-reveal,
 
 /* A word with a plain-language entry: tap it. */
 .term {
-  text-decoration: underline dotted var(--meta);
+  text-decoration: underline dotted var(--signal-evidence-text);
   text-decoration-thickness: 2px;
   text-underline-offset: 0.22em;
   cursor: pointer;

@@ -4,7 +4,7 @@
  * simulator's result and on a finding card, where the range replaces the words "95% CI" (owner,
  * 2026-11-14: no confidence intervals outside the Receipts; the bar shows the range instead).
  *
- * `signal` draws the point in the bright orange of the paper's finding.
+ * `signal` (the default) draws the point in the orange of the paper's finding; false draws it in ink.
  */
 
 import { BAND_FRAME, bandPlace } from "./association-layout";
@@ -12,7 +12,7 @@ import { Label } from "./primitives";
 import { SIGNAL_TEXT, SIGNAL_FILL, INK, MUTED } from "./shared";
 import type { Band } from "@/lib/models/spread";
 
-export function BandStrip({ band, point, label, signal = false }: { band: Band; point: number; label: string; signal?: boolean }) {
+export function BandStrip({ band, point, label, signal = true }: { band: Band; point: number; label: string; signal?: boolean }) {
   const place = bandPlace(band, point);
   const { y, thickness, size, labelY, height } = BAND_FRAME;
   return (

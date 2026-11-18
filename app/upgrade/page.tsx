@@ -46,7 +46,7 @@ export default function UpgradePage() {
         </p>
       </section>
 
-      <p className="rounded-2xl border border-line bg-surface p-4 text-[0.9375rem] leading-relaxed">
+      <p className="rounded-2xl border border-signal-evidence-fill bg-signal-evidence-soft p-4 text-[0.9375rem] leading-relaxed">
         <strong>Joining is not open yet.</strong> Payments have not been switched on in this version.
       </p>
 

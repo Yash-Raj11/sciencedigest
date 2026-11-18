@@ -128,7 +128,7 @@ export function Para({ sentences, facts, context, className = "read", as: Tag = 
                   aria-label="Show the passage in the paper this sentence rests on"
                   className="relative ml-0.5 inline-flex h-6 w-6 translate-y-[3px] items-center justify-center rounded-full align-baseline after:absolute after:-inset-2.5 after:content-['']"
                 >
-                  <span aria-hidden className={`h-2.5 w-2.5 rounded-full border-[1.5px] border-meta ${open === i ? "bg-ink border-ink" : ""}`} />
+                  <span aria-hidden className={`h-2.5 w-2.5 rounded-full border-2 border-signal-evidence-fill ${open === i ? "bg-signal-evidence-fill" : ""}`} />
                 </button>
               </span>{" "}
             </span>
@@ -209,7 +209,7 @@ export function FindingCard({ content, plain = false }: { content: Pick<PaperCon
   const tier = e?.tier ?? fact.finding?.tier;
   const band = e ? simulatorBand({ point: e.point, ciLow: e.ciLow, ciHigh: e.ciHigh, spread: fact.spread ?? null }) : null;
   return (
-    <aside aria-label="The key finding" data-finding-card className="rounded-2xl border border-line bg-surface p-4">
+    <aside aria-label="The key finding" data-finding-card className="rounded-2xl border-2 border-signal-evidence-fill bg-signal-evidence-soft p-4">
       {e && !headlineStatesNumber(finding.headline, e.point) ? <p className="figure text-[2.75rem]" data-finding-number>{formatEstimate({ ...e, ciLow: null, ciHigh: null })}</p> : null}
       <Para sentences={finding.headline} facts={facts} context={context} className={`headline${e && !headlineStatesNumber(finding.headline, e.point) ? " mt-1" : ""}`} plain={plain} />
       <Para sentences={finding.support} facts={facts} context={context} className="mt-2 text-[0.9375rem] leading-relaxed text-muted" plain={plain} />
@@ -220,7 +220,7 @@ export function FindingCard({ content, plain = false }: { content: Pick<PaperCon
           <p className="label mt-1">{sentenceCase(band.label)}</p>
         </div>
       ) : null}
-      <p className="label mt-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-line pt-2.5">
+      <p className="label mt-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 border-t border-signal-evidence-fill pt-2.5">
         <span data-source-line>{factSourceLine(fact, content)}</span>
         {tier ? <GradeChip grade={tier} why={plain ? undefined : fact.why} /> : null}
       </p>

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-import { SIGNAL_TEXT, BG, FONT, INK, MUTED } from "../shared";
+import { SIGNAL_TEXT, ON_SIGNAL_FILL, BG, FONT, INK, MUTED } from "../shared";
 
-const FILL = { ink: INK, muted: MUTED, signal: SIGNAL_TEXT, onInk: BG };
+const FILL = { ink: INK, muted: MUTED, signal: SIGNAL_TEXT, onInk: BG, onSignal: ON_SIGNAL_FILL };
 
 /** One line of text. `lines` stacks several, since SVG text does not wrap. */
 export function Label({ x, y, anchor = "start", tone = "ink", size = 12, bold = false, lines, children }: {

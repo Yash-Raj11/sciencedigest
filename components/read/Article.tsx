@@ -85,7 +85,7 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
         <p className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
           <span className="num font-medium" data-read-minutes>{paper.readMinutes} min read</span>
           <span className="flex items-center gap-1.5">
-            <span aria-hidden className="h-2.5 w-2.5 shrink-0 rounded-full border-[1.5px] border-meta" />
+            <span aria-hidden className="h-2.5 w-2.5 shrink-0 rounded-full border-2 border-signal-evidence-fill" />
             Tap a dot for the passage in the paper{hasGlossary ? "; tap an underlined word for what it means" : ""}.
           </span>
         </p>
@@ -178,7 +178,7 @@ function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent 
   const sources = contextSourceList(content);
 
   return (
-    <section aria-label="The receipts" id={SLOTS.receipts} className={`space-y-4 rounded-2xl border border-line bg-surface p-4 ${SLOT}`}>
+    <section aria-label="The receipts" id={SLOTS.receipts} className={`space-y-4 rounded-2xl border border-signal-evidence-fill bg-signal-evidence-soft p-4 ${SLOT}`}>
       <h2 className="headline">The receipts</h2>
       <dl className="grid grid-cols-2 gap-3 text-sm leading-snug">
         <div>
@@ -217,13 +217,13 @@ function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent 
         <ul className="mt-1 space-y-3">
           {limitations.map((limitation, i) => (
             <li key={i} className="flex gap-3">
-              <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink" />
+              <span aria-hidden className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-signal-evidence-fill" />
               <div className="min-w-0 flex-1"><Para sentences={limitation} facts={facts} context={context} className={`${AUDIT} font-medium`} /></div>
             </li>
           ))}
         </ul>
       </Receipt>
-      <details className="border-t border-line pt-3">
+      <details className="border-t border-signal-evidence-fill pt-3">
         <summary className="flex min-h-11 cursor-pointer items-center font-medium">Full receipts</summary>
         <div className="ui-reveal mt-2 space-y-4">
           {audit && (
@@ -321,7 +321,7 @@ export function Article({ paper }: { paper: PaperMeta }) {
           <p className="read">{paper.teaser}</p>
           <Notice tone="warn">
             <strong>This read is for members.</strong> The summary above and the protocol below are open to everyone; the full read, its simulator and the implementation notes come with membership.
-            <Link href="/upgrade" className="mt-3 flex h-11 items-center justify-center rounded-lg bg-ink font-medium text-bg">See what membership adds</Link>
+            <Link href="/upgrade" className="mt-3 flex h-11 items-center justify-center rounded-lg bg-signal-evidence-fill font-medium text-on-signal-evidence-fill">See what membership adds</Link>
           </Notice>
         </>
       )}
@@ -344,13 +344,13 @@ export function Article({ paper }: { paper: PaperMeta }) {
       <footer className="space-y-2 border-t border-line pt-4 text-sm leading-snug text-muted">
         <p>{paper.citation}</p>
         <p>
-          <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noreferrer" className="font-medium text-ink underline underline-offset-4">
+          <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noreferrer" className="font-medium text-signal-evidence-text underline underline-offset-4">
             Read the original paper
           </a>
           {paper.pmcid && (
             <>
               {" or the "}
-              <a href={`https://pmc.ncbi.nlm.nih.gov/articles/${paper.pmcid}/`} target="_blank" rel="noreferrer" className="font-medium text-ink underline underline-offset-4">
+              <a href={`https://pmc.ncbi.nlm.nih.gov/articles/${paper.pmcid}/`} target="_blank" rel="noreferrer" className="font-medium text-signal-evidence-text underline underline-offset-4">
                 free full text
               </a>
             </>
