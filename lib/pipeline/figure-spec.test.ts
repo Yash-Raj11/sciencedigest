@@ -89,7 +89,7 @@ describe("through the content lint, on the caffeine paper", () => {
     },
   };
   function run(figureSpec: unknown): string[] {
-    const base = Object.fromEntries(Object.entries(structuredClone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary"].includes(key)));
+    const base = Object.fromEntries(Object.entries(structuredClone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary", "sketches"].includes(key)));
     const layers = structuredClone(fixture.layers);
     layers.mechanism.figure = { figure: "decay", caption: "How long it stays. [-]", alt: "A line that falls by half at each step. [-]", params: {}, spec: figureSpec };
     return lint(validated, { ...base, layers, glossary: structuredClone(fixture.glossary) } as never, source, { context, figures: FIGURE_KEYS })
@@ -132,7 +132,7 @@ describe("through the content lint, on the caffeine paper", () => {
   });
 
   it("the study fed to a spec is listed for the audit", () => {
-    const base = Object.fromEntries(Object.entries(structuredClone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary"].includes(key)));
+    const base = Object.fromEntries(Object.entries(structuredClone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary", "sketches"].includes(key)));
     const layers = structuredClone(fixture.layers);
     layers.mechanism.figure = { figure: "decay", caption: "How long it stays. [-]", alt: "A line that falls by half at each step. [-]", params: {}, spec: studySpec };
     const report = lint(validated, { ...base, layers, glossary: structuredClone(fixture.glossary) } as never, source, { context: { ...context, studies: { ...REAL_STUDIES, [OTHER]: contextStudy(false) } }, figures: FIGURE_KEYS });

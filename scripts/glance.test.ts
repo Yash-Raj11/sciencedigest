@@ -98,12 +98,12 @@ describe("the still figure prints no number, and its shape is the study's", () =
     expect(html).not.toMatch(/data-subgroup|data-row="sensitivity"|ffm_loo|_cycling|_3wk|_over8/);
     expect(JSON.stringify(view.figure!.params)).not.toMatch(/ffm_loo|_cycling|_3wk|_over8|_le60/);
   });
-  it("a range is a peach band: caffeine and HIIT draw one; turmeric has none; steps' raw grids take no pastel (R4)", () => {
+  it("a range is a peach band: caffeine and HIIT draw one; turmeric's is its 30-minute column (2B); steps' raw grids take no pastel (R4)", () => {
     const bands = Object.fromEntries(CARDS.map((c) => [c.slug, (c.html.match(/data-band/g) ?? []).length]));
     expect(bands["daytime-caffeine-sleep"]).toBe(1);
     expect(bands["steps-days-per-week"]).toBe(0);
     expect(bands["hiit-body-composition"]).toBe(3);
-    expect(bands["turmeric-pepper-breakfast"]).toBe(0);
+    expect(bands["turmeric-pepper-breakfast"]).toBe(1);
   });
   it("the full figure does print numbers, so the check is not vacuous", () => {
     const turmeric = CARDS.find((c) => c.slug === "turmeric-pepper-breakfast")!;
@@ -171,7 +171,7 @@ describe('lint rule "glance"', () => {
   });
   it('fails "simulator" on a read with a hand-built simulator, and a figure the read does not draw', () => {
     expect(errors("turmeric-pepper-breakfast", (e) => { e.glance.figure = "simulator"; }).join()).toMatch(/needs a simulator drawn by kind/);
-    expect(errors("turmeric-pepper-breakfast", (e) => { e.glance.figure = "lock-and-key"; }).join()).toMatch(/not one of the read's figures/);
+    expect(errors("turmeric-pepper-breakfast", (e) => { e.glance.figure = "parking-spot"; }).join()).toMatch(/not one of the read's figures/);
   });
   it("fails a members' read whose card would draw its simulator", () => {
     expect(errors("daytime-caffeine-sleep", (e) => { e.accessTier = "premium"; }, true).join()).toMatch(/members' read's card is public/);

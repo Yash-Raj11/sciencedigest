@@ -15,3 +15,4 @@ export { WeekStrip, weekStripHeight } from "./WeekStrip";
 export { Person } from "./Person";
 export { CompareRows, compareRowsHeight, type CompareRow } from "./CompareRows";
 export { Gut, Plate, Tongue, Vessel } from "./Pictograms";
+export { SketchPath, SketchShape, SketchTag, assertSketch, sketchLabel } from "./Sketch";

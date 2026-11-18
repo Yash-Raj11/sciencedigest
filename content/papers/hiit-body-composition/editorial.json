@@ -74,7 +74,64 @@
     "Body composition was measured with different tools from trial to trial, from skinfold calipers to DEXA scans. [lim_methods]",
     "The fat-free-mass result disappears when a single trial is removed. [lim_loo]"
   ],
-  "figure": null,
+  "figure": {
+    "figure": "two-piles",
+    "headline": "The scale weighs two things. [-] In these trials, interval training moved them in opposite directions. [fm_all, ffm_all]",
+    "caption": "Dotted: a sketch of the idea, not data. [-] Orange words: what the pooled trials measured. [fm_all, ffm_all] Dashed: the pattern the authors found more effective. [recipe]",
+    "alt": "Two panels, before and after 3 to 15 weeks of training, each with a standing outline beside two stacked blocks: fat below, everything else above. [trials] After training, the fat block is marked less, on average, and the other block a little more, on average. [fm_all, ffm_all] The blocks are drawn the same size in both panels, because the paper gives no sizes. [-] Below, two strips show two ways to build a session: short hard bursts with short easy rests, and long bursts with long still rests. [ffm_le60, ffm_rest_le90, ffm_active] The authors found the first pattern more effective. [recipe]",
+    "params": {
+      "title": "Fat and fat-free mass, before and after interval training",
+      "body": "sketch:two-piles",
+      "before": "Before",
+      "after": {
+        "lead": "After",
+        "span": {
+          "text": "3 to 15 weeks",
+          "ref": "trials"
+        }
+      },
+      "fat": {
+        "change": "Less, on average",
+        "kind": "measured",
+        "fact": "fact:fm_all"
+      },
+      "free": {
+        "change": "A little more, on average",
+        "kind": "measured",
+        "fact": "fact:ffm_all"
+      },
+      "why": "The trials did not test why.",
+      "short": {
+        "title": "Short bursts, short active rests",
+        "kind": "measured",
+        "fact": "fact:ffm_le60",
+        "burst": {
+          "lead": "Hard effort,",
+          "n": {
+            "n": 60,
+            "ref": "ffm_le60"
+          },
+          "unit": "seconds or less"
+        },
+        "rest": {
+          "lead": "Easy movement,",
+          "n": {
+            "n": 90,
+            "ref": "ffm_rest_le90"
+          },
+          "unit": "seconds or less"
+        }
+      },
+      "long": {
+        "title": "Long bursts, long still rests"
+      },
+      "recipe": {
+        "words": "The authors found the first pattern more effective.",
+        "kind": "proposed",
+        "fact": "fact:recipe"
+      }
+    }
+  },
   "protocolFigure": {
     "figure": "order-flips",
     "headline": "Sold on fat loss. [-] The surest result is that fat-free mass held up. [ffm_all, grade_ffm]",
@@ -122,6 +179,22 @@
       }
     }
   },
+  "sketches": [
+    {
+      "id": "two-piles",
+      "concept": "fat-free-mass",
+      "tag": "Sketch, not data",
+      "ink": "ink",
+      "stroke": "dotted",
+      "words": {
+        "alt": "Two stacked blocks beside a standing outline: a sketch of the body as a fat pile and a pile of everything else. The blocks are the same size in both panels; their sizes are not data.",
+        "labels": {
+          "fat": "Fat",
+          "free": "Fat-free mass: everything else (muscle, bone, water)"
+        }
+      }
+    }
+  ],
   "takeaways": [
     "If lean mass is the aim, the supported combination in these trials was cycling intervals, three sessions a week, for more than 8 weeks. [ffm_cycling, ffm_3wk, ffm_over8]",
     "Keep work bursts to 60 seconds or less: longer bursts showed no clear gain in fat-free mass, with an interval from 2.28 kg lost to 0.57 kg gained. [ffm_le60, ffm_gt60]",

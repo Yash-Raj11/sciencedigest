@@ -23,11 +23,11 @@
     "span": "four breakfasts each [crossover]"
   },
   "glance": {
-    "figure": "five-readings",
+    "figure": "first-half-hour",
     "x": "Time after breakfast [-]",
-    "alt": "Four rows of dots, one row for each breakfast. Two dots stand out early on: the readings that differed from the plain meal. [glucose_30]",
-    "note": "Readings from the study. Try it with your own breakfast inside. [-]",
-    "tryIt": "pick a breakfast [-]"
+    "alt": "Two dotted lines rise after breakfast and settle; they part only in one shaded column early on, where the clear difference was. [glucose_30]",
+    "note": "Line shapes are a sketch; the readings are from the study. Try it with your own egg inside. [-]",
+    "tryIt": "pick what is in your egg [-]"
   },
   "layers": {
     "mechanism": {
@@ -114,8 +114,144 @@
         "Each version was eaten once. [single_meal, washout] The trial did not test a daily habit. [lim_long_term]"
       ],
       "figure": {
+        "figure": "first-half-hour",
+        "headline": "With pepper, blood sugar was lower. [glucose_lower] The clear difference was at 30 minutes; across 3 hours, no clear difference. [glucose_30, glucose_total, nothing_else]",
+        "caption": "Dotted lines: a sketch of the shape, not data. [-] The dots are when blood sugar was checked, and the shaded column is the one clear difference. [timepoints, glucose_30]",
+        "alt": "Two dotted lines rise after breakfast, peak and settle, one for the plain egg and one for the egg with black pepper. [in_egg] They part only around the 30-minute reading, where a shaded column says the clear difference was, and run together after it. [glucose_30] A bracket over all five readings, from the meal to 180 minutes, says the whole 3 hours showed no clear difference. [timepoints, glucose_total, nothing_else] The paper prints no blood sugar values, so the size of the gap is not from the paper. [-]",
+        "params": {
+          "title": "Blood sugar after breakfast: a sketch of the shape over the measured readings",
+          "curves": "sketch:blood-sugar-wave",
+          "times": [
+            {
+              "n": 0,
+              "ref": "timepoints"
+            },
+            {
+              "n": 30,
+              "ref": "timepoints"
+            },
+            {
+              "n": 60,
+              "ref": "timepoints"
+            },
+            {
+              "n": 120,
+              "ref": "timepoints"
+            },
+            {
+              "n": 180,
+              "ref": "timepoints"
+            }
+          ],
+          "unit": "min",
+          "start": "Meal",
+          "column": {
+            "label": "Clear difference here",
+            "kind": "measured",
+            "fact": "fact:glucose_30",
+            "at": {
+              "n": 30,
+              "ref": "glucose_30"
+            }
+          },
+          "bracket": {
+            "lead": "Whole",
+            "n": {
+              "n": 3,
+              "ref": "nothing_else"
+            },
+            "rest": "hours: no clear difference",
+            "still": "The whole time: no clear difference",
+            "kind": "measured",
+            "fact": "fact:glucose_total"
+          },
+          "dots": {
+            "label": "Blood sugar was checked at these times"
+          },
+          "phases": [
+            "eat",
+            "the first rise",
+            "settling"
+          ],
+          "notes": {
+            "shape": "The paper prints no blood sugar values, so the lines show shape only.",
+            "people": {
+              "n": {
+                "n": 20,
+                "ref": "sample"
+              },
+              "rest": "healthy adults, one meal each way."
+            }
+          },
+          "switches": {
+            "legend": "What is in your egg? Pick to see that meal.",
+            "pepper": "Black pepper",
+            "turmeric": "Turmeric"
+          },
+          "results": {
+            "plain": "This is the plain meal the others were compared with.",
+            "pepper": {
+              "words": "After this meal, blood sugar was lower than after the plain egg.",
+              "kind": "measured",
+              "fact": "fact:glucose_lower",
+              "at": {
+                "lead": "The clear difference was at",
+                "n": {
+                  "n": 30,
+                  "ref": "glucose_30"
+                },
+                "rest": "minutes."
+              },
+              "total": {
+                "lead": "Over",
+                "n": {
+                  "n": 3,
+                  "ref": "nothing_else"
+                },
+                "rest": "hours: no clear difference."
+              }
+            },
+            "turmeric": {
+              "words": "Turmeric alone: no clear difference in blood sugar from the plain egg.",
+              "kind": "measured",
+              "fact": "fact:turmeric_none"
+            },
+            "sugar": {
+              "lead": "This meal’s tea had more sugar:",
+              "more": {
+                "n": 10,
+                "ref": "sugar_row"
+              },
+              "mid": "g, not",
+              "less": {
+                "n": 8,
+                "ref": "sugar_row"
+              },
+              "end": "g."
+            }
+          }
+        }
+      }
+    },
+    "audit": {
+      "effect": "The paper's text gives no size for the glucose difference. [glucose_30] It says only that the two pepper meals differed from the plain meal at 30 minutes, with p = .023. [glucose_30]",
+      "weakEnd": "The paper reports no confidence interval for any glucose result. [glucose_30] The gap could be wide or barely there; the text cannot say. [glucose_30] Over the full 3 hours, total blood glucose did not differ between the four meals. [glucose_total, nothing_else]",
+      "limitations": [
+        "The trial measured no hormones. [lim_hormones] The sensor-and-hormone story is the authors' idea, not a result. [lim_hormones, lim_mechanism]",
+        "Hunger and fullness were self-reported on paper scales. [appetite_scale] The authors say the lower hunger might come from the spiced meals tasting worse. [lim_taste]",
+        "One breakfast per version, in 20 young adults: nothing here speaks to long-term use. [single_meal, sample, ages, lim_long_term]"
+      ],
+      "missed": "The easy summary: these spices are good for blood sugar. [-] The paper found no clear difference in glucose for turmeric alone. [turmeric_none] The 3-hour total did not differ for any meal. [glucose_total, nothing_else] Only healthy people took part, so the trial cannot speak to diabetes. [criteria, sample]",
+      "more": [
+        "The paper does not say whether the participants knew which meal they had. [-]",
+        "The ingredient table lists 10 g of sugar for the combined meal and 8 g for the others. [sugar_row] It still gives all four the same 50 g of carbohydrate. [carb_row]",
+        "Overall taste scores out of 9: plain 6.5, pepper 6.2, turmeric 6.1, both spices 6.6. [taste_scale, taste_c, taste_bp, taste_tr, taste_both]",
+        "Stomach and gut symptoms, also self-rated, did not differ between meals. [gut, gut_scale]",
+        "The authors name one weakness: they never measured the meals' glycemic index. [lim_stated]"
+      ],
+      "figure": {
         "figure": "five-readings",
-        "caption": "Each dot is one reading. [timepoints] Orange marks the readings that differed from the plain meal. [glucose_30]",
+        "caption": "One dot per reading. [timepoints] Orange: differed from the plain meal. [glucose_30]",
         "alt": "Four rows of five dots, one row for each meal. [-] The readings were at 0, 30, 60, 120 and 180 minutes. [timepoints] At 30 minutes, the pepper meal and the both-spices meal are marked as differing from the plain meal. [glucose_30] A bracket over all five readings says the total showed no difference. [glucose_total]",
         "params": {
           "times": [
@@ -187,24 +323,6 @@
           }
         }
       }
-    },
-    "audit": {
-      "effect": "The paper's text gives no size for the glucose difference. [glucose_30] It says only that the two pepper meals differed from the plain meal at 30 minutes, with p = .023. [glucose_30]",
-      "weakEnd": "The paper reports no confidence interval for any glucose result. [glucose_30] The gap could be wide or barely there; the text cannot say. [glucose_30] Over the full 3 hours, total blood glucose did not differ between the four meals. [glucose_total, nothing_else]",
-      "limitations": [
-        "The trial measured no hormones. [lim_hormones] The sensor-and-hormone story is the authors' idea, not a result. [lim_hormones, lim_mechanism]",
-        "Hunger and fullness were self-reported on paper scales. [appetite_scale] The authors say the lower hunger might come from the spiced meals tasting worse. [lim_taste]",
-        "One breakfast per version, in 20 young adults: nothing here speaks to long-term use. [single_meal, sample, ages, lim_long_term]"
-      ],
-      "missed": "The easy summary: these spices are good for blood sugar. [-] The paper found no clear difference in glucose for turmeric alone. [turmeric_none] The 3-hour total did not differ for any meal. [glucose_total, nothing_else] Only healthy people took part, so the trial cannot speak to diabetes. [criteria, sample]",
-      "more": [
-        "The paper does not say whether the participants knew which meal they had. [-]",
-        "The ingredient table lists 10 g of sugar for the combined meal and 8 g for the others. [sugar_row] It still gives all four the same 50 g of carbohydrate. [carb_row]",
-        "Overall taste scores out of 9: plain 6.5, pepper 6.2, turmeric 6.1, both spices 6.6. [taste_scale, taste_c, taste_bp, taste_tr, taste_both]",
-        "Stomach and gut symptoms, also self-rated, did not differ between meals. [gut, gut_scale]",
-        "The authors name one weakness: they never measured the meals' glycemic index. [lim_stated]"
-      ],
-      "figure": null
     }
   },
   "glossary": [
@@ -239,6 +357,24 @@
       "refs": [
         "finger_prick"
       ]
+    }
+  ],
+  "sketches": [
+    {
+      "id": "blood-sugar-wave",
+      "concept": "post-meal-blood-sugar",
+      "tag": "Sketch, not data",
+      "ink": "ink",
+      "stroke": "dotted",
+      "words": {
+        "alt": "Dotted lines that climb after a meal, peak and ebb: a sketch of the shape of blood sugar after eating, not data. Their heights and the gap between them are not from the paper.",
+        "labels": {
+          "plain": "Plain egg",
+          "pepper": "Egg with pepper",
+          "both": "Egg with pepper and turmeric",
+          "turmeric": "Plain egg and egg with turmeric"
+        }
+      }
     }
   ],
   "takeaways": [

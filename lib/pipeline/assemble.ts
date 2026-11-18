@@ -4,7 +4,7 @@
  */
 
 import { createHash } from "node:crypto";
-import type { BuiltPaper, ContentStep, ContextConcept, ContextStudy, FigureRef, GlossaryEntry, PaperContent, ResolvedFact, Sentence } from "../content/types";
+import type { BuiltPaper, ContentStep, ContextConcept, ContextStudy, FigureRef, GlossaryEntry, PaperContent, ResolvedFact, ResolvedSketch, Sentence } from "../content/types";
 import type { EvidenceGrade } from "../evidence";
 import { WEIGHT_TENTHS } from "../evidence";
 import { FigureSpec } from "../content/figure-kinds";
@@ -178,9 +178,19 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
     };
   };
 
+  // A sketch: "sketch:<id>" becomes its checked spec, and its concept is listed as Background.
+  const sketchOf = (id: string): ResolvedSketch => {
+    const spec = (ed.sketches ?? []).find((sk) => (sk as { id?: unknown } | null)?.id === id) as
+      { id: string; concept: string; tag: string; ink: ResolvedSketch["ink"]; words: { alt: string; labels?: Record<string, string> } } | undefined;
+    if (!spec) throw new Error(`unknown sketch "${id}" (the lint should have caught this)`);
+    used.add(conceptRef(spec.concept));
+    return { sketch: spec.id, concept: spec.concept, tag: spec.tag, ink: spec.ink, labels: spec.words.labels ?? {}, alt: spec.words.alt };
+  };
+
   // Simulator params: "fact:<id>" strings become the resolved fact.
   const expand = (node: unknown): unknown => {
     if (typeof node === "string" && node.startsWith("fact:")) return resolve(node.slice(5));
+    if (typeof node === "string" && node.startsWith("sketch:")) return sketchOf(node.slice(7));
     if (Array.isArray(node)) return node.map(expand);
     if (node !== null && typeof node === "object") {
       return Object.fromEntries(Object.entries(node as Record<string, unknown>).map(([k, v]) => [k, expand(v)]));

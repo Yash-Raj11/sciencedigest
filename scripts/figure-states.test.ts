@@ -9,7 +9,8 @@ import { freeContent } from "@/lib/content";
 import { allCells, cellName, factAt, isFlagged, type Params } from "@/components/papers/turmeric-pepper-breakfast/figures/readings";
 
 const read = freeContent("turmeric-pepper-breakfast")!;
-const figure = read.layers!.protocol.figure!;
+// The grid moved to the receipts when figure 2B took the protocol slot (2026-11-18).
+const figure = read.layers!.audit.figure!;
 const p = figure.params as unknown as Params;
 
 describe("the readings grid, in every state", () => {

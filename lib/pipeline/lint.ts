@@ -784,9 +784,16 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
    * { text, ref } and appear word for word in the cited passage, and anything
    * drawn as measured or proposed must cite a fact of the right kind.
    */
+  const declaredSketches = new Set((ed.sketches ?? []).map((sk) => (sk as { id?: unknown } | null)?.id).filter((id): id is string => typeof id === "string"));
+  const drawnSketches = new Set<string>();
   function walkParams(node: unknown, path: string, what: "simulator" | "figure"): void {
     if (typeof node === "number") {
       fail("H7", path, `a bare number in ${what} params; use "fact:<id>" or { n, ref } so it traces to the paper`);
+    } else if (typeof node === "string" && node.startsWith("sketch:")) {
+      // A sketch drawn by a figure or a simulator: declared in `sketches`, checked there.
+      const id = node.slice(7);
+      if (!declaredSketches.has(id)) fail("sketch", path, `"${node}" is not declared in sketches; a sketch is drawn only from its declared, checked spec`);
+      else drawnSketches.add(id);
     } else if (typeof node === "string" && node.startsWith("fact:")) {
       if (isContextRef(node.slice(5))) fail("context", path, `"${node}" is a context source; a ${what} draws only the paper's own facts`);
       else if (!facts[node.slice(5)]) fail("H7", path, `"${node}" is not in the validated extraction`);
@@ -900,6 +907,10 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
     try { altWords = countWords(parseMarkup(def.alt).map((s) => s.text).join(" ")); } catch { /* reported as markup above */ }
     if (altWords < 4) fail("figure", `${where}.alt`, "empty alt text: describe in a sentence what the picture shows, for a reader who cannot see it");
     walkParams(def.params, `${where}.params`, "figure");
+  }
+  // A declared sketch that no figure draws is a sketch nobody can check against the finding.
+  for (const id of declaredSketches) {
+    if (!drawnSketches.has(id)) fail("sketch", "sketches", `"${id}" is declared but no figure or simulator draws it ("sketch:${id}")`);
   }
 
   // Copying from the source ---------------------------------------------------------

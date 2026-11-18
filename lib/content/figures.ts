@@ -20,11 +20,13 @@
  */
 
 export const FIGURE_KEYS = [
-  "daytime-caffeine-sleep/lock-and-key",
+  "daytime-caffeine-sleep/parking-spot",
   "steps-days-per-week/three-crowds",
   "hiit-body-composition/order-flips",
+  "hiit-body-composition/two-piles",
   "turmeric-pepper-breakfast/tongue-to-blood",
   "turmeric-pepper-breakfast/five-readings",
+  "turmeric-pepper-breakfast/first-half-hour",
 ] as const;
 
 export type FigureKey = (typeof FIGURE_KEYS)[number];

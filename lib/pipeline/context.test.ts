@@ -15,7 +15,7 @@ import { assemble, shortCite } from "./assemble";
 import { approved, checkConcept, conceptFingerprint, isReviewed, type Concept } from "./concepts";
 import { gate } from "./gate";
 import { BANNED_TERMS, SENTENCE_WORDS, THROAT_CLEARING, lint, type ContextStudyState, type LintContext } from "./lint";
-import { HALF_LIFE_STUDY, REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
+import { HALF_LIFE_STUDY, REAL_CONCEPTS, REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
 import { FIGURE_KEYS } from "../content/figures";
 import { parseRef } from "./refs";
 import { parseRetractionWatch, screenSources } from "./retractions";
@@ -38,7 +38,7 @@ const oldShape = {
   ...realEditorial,
   simulator: { kind: "estimate-explorer", params: {} },
   // Its card draws the read's own figure, since this simulator is hand-built.
-  glance: { ...realEditorial.glance, figure: "lock-and-key", alt: "A lock and two keys. [-]", note: "Shapes from the paper. [-]" },
+  glance: { ...realEditorial.glance, figure: "parking-spot", alt: "A dock on a brain cell, without and with caffeine. [-]", note: "Shapes from the paper. [-]" },
 };
 const fixture = JSON.parse(readFileSync(new URL("fixtures/layered-caffeine.json", import.meta.url), "utf8"));
 
@@ -58,13 +58,15 @@ const reviewed = (concept: Concept) => checkConcept(approved(concept, "2026-11-1
 
 function contextWith(change: Partial<LintContext> = {}): LintContext {
   // The real half-life study and library ride along: the caffeine read's simulator draws on them.
-  return { studies: { [OTHER]: study() }, concepts: { "non-rem-sleep": reviewed(conceptFile) }, ...change };
+  return { studies: { [OTHER]: study() }, concepts: { ...REAL_CONCEPTS, "non-rem-sleep": reviewed(conceptFile) }, ...change };
 }
 function layered(): any {
-  const base = Object.fromEntries(Object.entries(clone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary"].includes(key)));
+  const base = Object.fromEntries(Object.entries(clone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary", "sketches"].includes(key)));
   // The fixture's layers draw no figure; the card needs one, so the mechanism layer carries the read's own.
   const layers = clone(fixture.layers);
   layers.mechanism.figure = clone(realEditorial.figure);
+  // Without its sketch: these tests count the context a read cites, and the sketch's concept is not one of theirs.
+  delete layers.mechanism.figure.params.tokens;
   return { ...base, layers, glossary: clone(fixture.glossary) };
 }
 function run(mutate: (editorial: any) => void = () => {}, context: LintContext = contextWith()) {
@@ -224,21 +226,28 @@ describe("what reaches the page", () => {
       { label: "Another study", citation: expect.stringContaining("Inoue K, Tsugawa Y"), id: "doi:10.1001/jamanetworkopen.2023.5174", grade: "Early evidence" },
       { label: "Background", citation: "non-REM sleep: The impact of daily caffeine intake on nighttime sleep in young adult men", id: "doi:10.1038/s41598-021-84088-x", grade: null },
     ]);
-    expect(contextSourceList(assemble(validated, oldShape).content)).toEqual([]);
+    // The real read's own figure draws a sketch, so its list holds that concept, as Background.
+    expect(contextSourceList(assemble(validated, oldShape, contextWith()).content)).toEqual([
+      { label: "Background", citation: expect.stringContaining("adenosine: Adenosine"), id: "doi:10.1126/science.276.5316.1265", grade: null },
+    ]);
   });
   it("adds nothing to a read that cites no context (the old papers' files do not change)", () => {
-    const untouched = assemble(validated, oldShape);
+    // The real read's figure draws a sketch on a concept (Background), so the bare read leaves it out.
+    const bare = { ...oldShape, glance: { ...oldShape.glance, figure: "simulator" } };
+    delete bare.figure;
+    delete bare.sketches;
+    const untouched = assemble(validated, bare);
     expect("context" in untouched.content).toBe(false);
     expect(Object.values(untouched.content.facts).some((f) => "source" in f)).toBe(false);
   });
 });
 
 describe("a simulator drawn by kind (the caffeine read as it is built)", () => {
-  const real = assemble(validated, realEditorial, { studies: REAL_STUDIES, concepts: {}, library: REAL_LIBRARY });
+  const real = assemble(validated, realEditorial, { studies: REAL_STUDIES, concepts: REAL_CONCEPTS, library: REAL_LIBRARY });
   it("passes the lint with the real half-life study and library, and fails without the library", () => {
     const options = { allowLegacyShape: true, figures: FIGURE_KEYS };
-    expect(lint(validated, realEditorial, source, { ...options, context: { studies: REAL_STUDIES, concepts: {}, library: REAL_LIBRARY } }).errors).toEqual([]);
-    expect(lint(validated, realEditorial, source, { ...options, context: { studies: REAL_STUDIES, concepts: {} } }).errors.map((e) => e.where))
+    expect(lint(validated, realEditorial, source, { ...options, context: { studies: REAL_STUDIES, concepts: REAL_CONCEPTS, library: REAL_LIBRARY } }).errors).toEqual([]);
+    expect(lint(validated, realEditorial, source, { ...options, context: { studies: REAL_STUDIES, concepts: REAL_CONCEPTS } }).errors.map((e) => e.where))
       .toEqual(["simulator.spec.simulator.halfLife"]);
   });
   it("resolves the spec to the gated fact, lists the study for the audit, and keeps the words with their refs", () => {

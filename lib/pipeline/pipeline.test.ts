@@ -15,7 +15,7 @@ import { gate, locate, type Validated } from "./gate";
 import { deriveTier } from "./grade";
 import { canonicalLicense, checkLicense } from "./license";
 import { lint } from "./lint";
-import { REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
+import { REAL_CONCEPTS, REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
 import { parseMarkup } from "./markup";
 import { findRetracted, parseRetractionWatch } from "./retractions";
 import { numbersIn, sharedShingles, wordNumbersIn } from "./text";
@@ -38,7 +38,7 @@ const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
  */
 // The real papers each carry a figure now, so the lint needs the list of figures the app can draw.
 // The real context studies and library ride along: caffeine's simulator draws on the half-life study.
-const LEGACY = { allowLegacyShape: true, figures: FIGURE_KEYS, context: { studies: REAL_STUDIES, concepts: {}, library: REAL_LIBRARY } };
+const LEGACY = { allowLegacyShape: true, figures: FIGURE_KEYS, context: { studies: REAL_STUDIES, concepts: REAL_CONCEPTS, library: REAL_LIBRARY } };
 
 const steps = load("steps-days-per-week");
 const hiit = load("hiit-body-composition");
@@ -193,7 +193,7 @@ describe("derived tiers: the model never grades", () => {
     const fatStep = editorial.steps.find((s: any) => s.key === "fat-running");
     fatStep.grade = "high";
     fatStep.evidence_grade = "high";
-    const paper = assemble(validated(hiit), editorial);
+    const paper = assemble(validated(hiit), editorial, LEGACY.context);
     expect(paper.steps.find((s) => s.key === "fat-running")?.grade).toBe("low");
     expect(paper.steps.find((s) => s.key === "lean-cycling")?.grade).toBe("high");
   });
@@ -297,7 +297,7 @@ describe("lint (stage 4)", () => {
 });
 
 describe("assemble", () => {
-  const paper = assemble(validated(hiit), hiit.editorial);
+  const paper = assemble(validated(hiit), hiit.editorial, LEGACY.context);
   it("derives stable ids: same slug and key, same id, every time", () => {
     expect(stableId("paper:hiit-body-composition")).toBe(paper.meta.id);
     expect(paper.meta.id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);

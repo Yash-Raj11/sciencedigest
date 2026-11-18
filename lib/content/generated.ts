@@ -808,24 +808,42 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       ]
     ],
     "figure": {
-      "figure": "lock-and-key",
+      "figure": "parking-spot",
+      "headline": [
+        {
+          "text": "Caffeine takes the tiredness signal’s parking spot.",
+          "refs": [
+            "adenosine_block"
+          ]
+        }
+      ],
       "caption": [
         {
-          "text": "How caffeine acts, as the paper describes it.",
+          "text": "Dashed: how the authors describe caffeine acting, not measured in this study.",
           "refs": [
             "adenosine_block"
           ]
         },
         {
-          "text": "The filled box is what the sleep laboratory recorded.",
-          "refs": [
-            "sleep_same"
-          ]
+          "text": "Dotted: a sketch of the tiredness signal building up, not data.",
+          "refs": []
         }
       ],
-      "alt": "A lock with its own key in it, labelled adenosine. Below it, the same lock holds a blank key, labelled caffeine. The real key waits outside. Two boxes follow. The first, outlined, says the authors expected lighter sleep. The second, filled, says the sleep laboratory found no difference from placebo nights.",
+      "alt": "Two panels, each showing the surface of a brain cell with one cup-shaped dock. Without caffeine, round tokens, the tiredness signal, drift down and one sits in the dock: you feel sleepy. With caffeine, a hexagon, caffeine, sits in the dock; the round tokens crowd above it and cannot land: you feel alert. How many tokens are drawn means nothing; they are a sketch, not data.",
       "params": {
-        "lock": {
+        "title": "Caffeine in the tiredness signal’s dock",
+        "tokens": {
+          "sketch": "tiredness-tokens",
+          "concept": "adenosine",
+          "tag": "Sketch, not data",
+          "ink": "muted",
+          "labels": {
+            "signal": "Tiredness signal (adenosine). It builds up while you are awake."
+          },
+          "alt": "Small round tokens drawn with dotted outlines: a sketch of the tiredness signal building up, not data. How many are drawn means nothing."
+        },
+        "block": {
+          "tag": "How the authors describe it, not measured in this study",
           "kind": "proposed",
           "fact": {
             "id": "adenosine_block",
@@ -834,27 +852,24 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
             "quote": "Caffeine is an adenosine receptor antagonist, which blocks the Aand Aadenosine receptors in the central nervous system. It may, thus, attenuate the increase in sleep pressure during wakefulness"
           }
         },
-        "expected": {
-          "kind": "proposed",
-          "fact": {
-            "id": "no_depth_change",
-            "kind": "statement",
-            "label": "The predicted loss of deep sleep was not found",
-            "quote": "Taken together, we could not confirm our assumption of a caffeine-induced reduction of sleep depth, neither in terms of shorter SWS nor in terms of reduced SWA in the caffeine compared to the placebo condition."
+        "without": {
+          "title": "Without caffeine",
+          "dock": "The dock on a brain cell",
+          "feeling": {
+            "lead": "Signal lands. You feel",
+            "word": "sleepy",
+            "end": "."
           }
         },
-        "found": {
-          "kind": "measured",
-          "fact": {
-            "id": "sleep_same",
-            "kind": "finding",
-            "label": "no clear difference from placebo; the paper does not say how big any difference was",
-            "quote": "the analyses of the polysomnography (PSG) did not reveal significant differences in total sleep time (TST), sleep efficiency (SE), sleep latencies, or the relative amount of sleep stages among the three conditions (> 0.05)",
-            "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
-            "finding": {
-              "outcome": "Total sleep time, time to fall asleep and sleep stages",
-              "tier": "low"
-            }
+        "with": {
+          "title": "With caffeine",
+          "caffeine": "Caffeine",
+          "dock": "Caffeine sits in the dock",
+          "crowd": "The signal is still there. It just can’t land.",
+          "feeling": {
+            "lead": "You feel",
+            "word": "alert",
+            "end": "."
           }
         }
       }
@@ -1214,7 +1229,18 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
           "why": "People were assigned at random, but only 12 took part, so a bigger trial could change the picture."
         }
       ],
-      "concepts": []
+      "concepts": [
+        {
+          "slug": "adenosine",
+          "term": "adenosine",
+          "plain": "A tiredness signal made in the brain. It builds up the longer you stay awake, as brain cells burn energy. When it settles onto brain cells it slows them down, and you feel sleepy. Sleep clears it away.",
+          "model": "Tokens that pile up through the waking day and park on brain cells. The more that park, the sleepier you feel. A night's sleep sweeps the car park clear.",
+          "reference": {
+            "doi": "10.1126/science.276.5316.1265",
+            "title": "Adenosine: a mediator of the sleep-inducing effects of prolonged wakefulness"
+          }
+        }
+      ]
     }
   },
   "steps-days-per-week": {
@@ -2577,23 +2603,52 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
           ]
         ],
         "figure": {
-          "figure": "five-readings",
-          "caption": [
+          "figure": "first-half-hour",
+          "headline": [
             {
-              "text": "Each dot is one reading.",
+              "text": "With pepper, blood sugar was lower.",
               "refs": [
-                "timepoints"
+                "glucose_lower"
               ]
             },
             {
-              "text": "Orange marks the readings that differed from the plain meal.",
+              "text": "The clear difference was at 30 minutes; across 3 hours, no clear difference.",
               "refs": [
+                "glucose_30",
+                "glucose_total",
+                "nothing_else"
+              ]
+            }
+          ],
+          "caption": [
+            {
+              "text": "Dotted lines: a sketch of the shape, not data.",
+              "refs": []
+            },
+            {
+              "text": "The dots are when blood sugar was checked, and the shaded column is the one clear difference.",
+              "refs": [
+                "timepoints",
                 "glucose_30"
               ]
             }
           ],
-          "alt": "Four rows of five dots, one row for each meal. The readings were at 0, 30, 60, 120 and 180 minutes. At 30 minutes, the pepper meal and the both-spices meal are marked as differing from the plain meal. A bracket over all five readings says the total showed no difference.",
+          "alt": "Two dotted lines rise after breakfast, peak and settle, one for the plain egg and one for the egg with black pepper. They part only around the 30-minute reading, where a shaded column says the clear difference was, and run together after it. A bracket over all five readings, from the meal to 180 minutes, says the whole 3 hours showed no clear difference. The paper prints no blood sugar values, so the size of the gap is not from the paper.",
           "params": {
+            "title": "Blood sugar after breakfast: a sketch of the shape over the measured readings",
+            "curves": {
+              "sketch": "blood-sugar-wave",
+              "concept": "post-meal-blood-sugar",
+              "tag": "Sketch, not data",
+              "ink": "ink",
+              "labels": {
+                "plain": "Plain egg",
+                "pepper": "Egg with pepper",
+                "both": "Egg with pepper and turmeric",
+                "turmeric": "Plain egg and egg with turmeric"
+              },
+              "alt": "Dotted lines that climb after a meal, peak and ebb: a sketch of the shape of blood sugar after eating, not data. Their heights and the gap between them are not from the paper."
+            },
             "times": [
               {
                 "n": 0,
@@ -2617,64 +2672,9 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               }
             ],
             "unit": "min",
-            "meals": [
-              {
-                "label": "Plain",
-                "differed": [],
-                "reading": {
-                  "id": "timepoints",
-                  "kind": "context",
-                  "label": "When blood glucose was measured",
-                  "quote": "blood glucose levels were recorded at 0, 30, 60, 120, and 180 min"
-                }
-              },
-              {
-                "label": "Pepper",
-                "differed": [
-                  {
-                    "n": 30,
-                    "ref": "glucose_30"
-                  }
-                ],
-                "reading": {
-                  "id": "timepoints",
-                  "kind": "context",
-                  "label": "When blood glucose was measured",
-                  "quote": "blood glucose levels were recorded at 0, 30, 60, 120, and 180 min"
-                }
-              },
-              {
-                "label": "Turmeric",
-                "differed": [],
-                "reading": {
-                  "id": "turmeric_none",
-                  "kind": "finding",
-                  "label": "turmeric alone: no clear difference in blood glucose from the control meal",
-                  "quote": "Contradictory to the assumption of this current approach, no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed.",
-                  "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
-                  "finding": {
-                    "outcome": "Blood glucose after the turmeric-only meal",
-                    "tier": "low"
-                  }
-                }
-              },
-              {
-                "label": "Both spices",
-                "differed": [
-                  {
-                    "n": 30,
-                    "ref": "glucose_30"
-                  }
-                ],
-                "reading": {
-                  "id": "timepoints",
-                  "kind": "context",
-                  "label": "When blood glucose was measured",
-                  "quote": "blood glucose levels were recorded at 0, 30, 60, 120, and 180 min"
-                }
-              }
-            ],
-            "early": {
+            "start": "Meal",
+            "column": {
+              "label": "Clear difference here",
               "kind": "measured",
               "fact": {
                 "id": "glucose_30",
@@ -2692,7 +2692,14 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "ref": "glucose_30"
               }
             },
-            "total": {
+            "bracket": {
+              "lead": "Whole",
+              "n": {
+                "n": 3,
+                "ref": "nothing_else"
+              },
+              "rest": "hours: no clear difference",
+              "still": "The whole time: no clear difference",
               "kind": "measured",
               "fact": {
                 "id": "glucose_total",
@@ -2704,6 +2711,91 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                   "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
                   "tier": "low"
                 }
+              }
+            },
+            "dots": {
+              "label": "Blood sugar was checked at these times"
+            },
+            "phases": [
+              "eat",
+              "the first rise",
+              "settling"
+            ],
+            "notes": {
+              "shape": "The paper prints no blood sugar values, so the lines show shape only.",
+              "people": {
+                "n": {
+                  "n": 20,
+                  "ref": "sample"
+                },
+                "rest": "healthy adults, one meal each way."
+              }
+            },
+            "switches": {
+              "legend": "What is in your egg? Pick to see that meal.",
+              "pepper": "Black pepper",
+              "turmeric": "Turmeric"
+            },
+            "results": {
+              "plain": "This is the plain meal the others were compared with.",
+              "pepper": {
+                "words": "After this meal, blood sugar was lower than after the plain egg.",
+                "kind": "measured",
+                "fact": {
+                  "id": "glucose_lower",
+                  "kind": "finding",
+                  "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal; direction stated in the abstract, no size given",
+                  "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
+                  "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
+                  "finding": {
+                    "outcome": "Blood glucose after the meal",
+                    "tier": "low"
+                  }
+                },
+                "at": {
+                  "lead": "The clear difference was at",
+                  "n": {
+                    "n": 30,
+                    "ref": "glucose_30"
+                  },
+                  "rest": "minutes."
+                },
+                "total": {
+                  "lead": "Over",
+                  "n": {
+                    "n": 3,
+                    "ref": "nothing_else"
+                  },
+                  "rest": "hours: no clear difference."
+                }
+              },
+              "turmeric": {
+                "words": "Turmeric alone: no clear difference in blood sugar from the plain egg.",
+                "kind": "measured",
+                "fact": {
+                  "id": "turmeric_none",
+                  "kind": "finding",
+                  "label": "turmeric alone: no clear difference in blood glucose from the control meal",
+                  "quote": "Contradictory to the assumption of this current approach, no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed.",
+                  "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
+                  "finding": {
+                    "outcome": "Blood glucose after the turmeric-only meal",
+                    "tier": "low"
+                  }
+                }
+              },
+              "sugar": {
+                "lead": "This meal’s tea had more sugar:",
+                "more": {
+                  "n": 10,
+                  "ref": "sugar_row"
+                },
+                "mid": "g, not",
+                "less": {
+                  "n": 8,
+                  "ref": "sugar_row"
+                },
+                "end": "g."
               }
             }
           }
@@ -2864,7 +2956,138 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
             }
           ]
         ],
-        "figure": null
+        "figure": {
+          "figure": "five-readings",
+          "caption": [
+            {
+              "text": "One dot per reading.",
+              "refs": [
+                "timepoints"
+              ]
+            },
+            {
+              "text": "Orange: differed from the plain meal.",
+              "refs": [
+                "glucose_30"
+              ]
+            }
+          ],
+          "alt": "Four rows of five dots, one row for each meal. The readings were at 0, 30, 60, 120 and 180 minutes. At 30 minutes, the pepper meal and the both-spices meal are marked as differing from the plain meal. A bracket over all five readings says the total showed no difference.",
+          "params": {
+            "times": [
+              {
+                "n": 0,
+                "ref": "timepoints"
+              },
+              {
+                "n": 30,
+                "ref": "timepoints"
+              },
+              {
+                "n": 60,
+                "ref": "timepoints"
+              },
+              {
+                "n": 120,
+                "ref": "timepoints"
+              },
+              {
+                "n": 180,
+                "ref": "timepoints"
+              }
+            ],
+            "unit": "min",
+            "meals": [
+              {
+                "label": "Plain",
+                "differed": [],
+                "reading": {
+                  "id": "timepoints",
+                  "kind": "context",
+                  "label": "When blood glucose was measured",
+                  "quote": "blood glucose levels were recorded at 0, 30, 60, 120, and 180 min"
+                }
+              },
+              {
+                "label": "Pepper",
+                "differed": [
+                  {
+                    "n": 30,
+                    "ref": "glucose_30"
+                  }
+                ],
+                "reading": {
+                  "id": "timepoints",
+                  "kind": "context",
+                  "label": "When blood glucose was measured",
+                  "quote": "blood glucose levels were recorded at 0, 30, 60, 120, and 180 min"
+                }
+              },
+              {
+                "label": "Turmeric",
+                "differed": [],
+                "reading": {
+                  "id": "turmeric_none",
+                  "kind": "finding",
+                  "label": "turmeric alone: no clear difference in blood glucose from the control meal",
+                  "quote": "Contradictory to the assumption of this current approach, no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed.",
+                  "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
+                  "finding": {
+                    "outcome": "Blood glucose after the turmeric-only meal",
+                    "tier": "low"
+                  }
+                }
+              },
+              {
+                "label": "Both spices",
+                "differed": [
+                  {
+                    "n": 30,
+                    "ref": "glucose_30"
+                  }
+                ],
+                "reading": {
+                  "id": "timepoints",
+                  "kind": "context",
+                  "label": "When blood glucose was measured",
+                  "quote": "blood glucose levels were recorded at 0, 30, 60, 120, and 180 min"
+                }
+              }
+            ],
+            "early": {
+              "kind": "measured",
+              "fact": {
+                "id": "glucose_30",
+                "kind": "finding",
+                "label": "differed from the control meal 30 minutes after eating, for the pepper meal and the pepper-plus-turmeric meal; the paper does not say by how much",
+                "quote": "So test meals (BP and BP + TR) show a significant effect for blood glucose level at the time point 30 min as compared to reference meal (C) (p = .023).",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
+                "finding": {
+                  "outcome": "Blood glucose 30 minutes after the meal",
+                  "tier": "low"
+                }
+              },
+              "at": {
+                "n": 30,
+                "ref": "glucose_30"
+              }
+            },
+            "total": {
+              "kind": "measured",
+              "fact": {
+                "id": "glucose_total",
+                "kind": "finding",
+                "label": "no clear difference between the four meals over the whole 3 hours",
+                "quote": "Incremental area under the curves (iAUCs) among the test meals shows a non‐significant effect.",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
+                "finding": {
+                  "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
+                  "tier": "low"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "glossary": [
@@ -3182,10 +3405,40 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
     },
     "glance": {
       "figure": {
-        "figure": "five-readings",
+        "figure": "first-half-hour",
+        "headline": [
+          {
+            "text": "With pepper, blood sugar was lower.",
+            "refs": [
+              "glucose_lower"
+            ]
+          },
+          {
+            "text": "The clear difference was at 30 minutes; across 3 hours, no clear difference.",
+            "refs": [
+              "glucose_30",
+              "glucose_total",
+              "nothing_else"
+            ]
+          }
+        ],
         "caption": [],
-        "alt": "Four rows of dots, one row for each breakfast. Two dots stand out early on: the readings that differed from the plain meal.",
+        "alt": "Two dotted lines rise after breakfast and settle; they part only in one shaded column early on, where the clear difference was.",
         "params": {
+          "title": "Blood sugar after breakfast: a sketch of the shape over the measured readings",
+          "curves": {
+            "sketch": "blood-sugar-wave",
+            "concept": "post-meal-blood-sugar",
+            "tag": "Sketch, not data",
+            "ink": "ink",
+            "labels": {
+              "plain": "Plain egg",
+              "pepper": "Egg with pepper",
+              "both": "Egg with pepper and turmeric",
+              "turmeric": "Plain egg and egg with turmeric"
+            },
+            "alt": "Dotted lines that climb after a meal, peak and ebb: a sketch of the shape of blood sugar after eating, not data. Their heights and the gap between them are not from the paper."
+          },
           "times": [
             {
               "n": 0,
@@ -3209,64 +3462,9 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
             }
           ],
           "unit": "min",
-          "meals": [
-            {
-              "label": "Plain",
-              "differed": [],
-              "reading": {
-                "id": "timepoints",
-                "kind": "context",
-                "label": "When blood glucose was measured",
-                "quote": "blood glucose levels were recorded at 0, 30, 60, 120, and 180 min"
-              }
-            },
-            {
-              "label": "Pepper",
-              "differed": [
-                {
-                  "n": 30,
-                  "ref": "glucose_30"
-                }
-              ],
-              "reading": {
-                "id": "timepoints",
-                "kind": "context",
-                "label": "When blood glucose was measured",
-                "quote": "blood glucose levels were recorded at 0, 30, 60, 120, and 180 min"
-              }
-            },
-            {
-              "label": "Turmeric",
-              "differed": [],
-              "reading": {
-                "id": "turmeric_none",
-                "kind": "finding",
-                "label": "turmeric alone: no clear difference in blood glucose from the control meal",
-                "quote": "Contradictory to the assumption of this current approach, no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed.",
-                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
-                "finding": {
-                  "outcome": "Blood glucose after the turmeric-only meal",
-                  "tier": "low"
-                }
-              }
-            },
-            {
-              "label": "Both spices",
-              "differed": [
-                {
-                  "n": 30,
-                  "ref": "glucose_30"
-                }
-              ],
-              "reading": {
-                "id": "timepoints",
-                "kind": "context",
-                "label": "When blood glucose was measured",
-                "quote": "blood glucose levels were recorded at 0, 30, 60, 120, and 180 min"
-              }
-            }
-          ],
-          "early": {
+          "start": "Meal",
+          "column": {
+            "label": "Clear difference here",
             "kind": "measured",
             "fact": {
               "id": "glucose_30",
@@ -3284,7 +3482,14 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
               "ref": "glucose_30"
             }
           },
-          "total": {
+          "bracket": {
+            "lead": "Whole",
+            "n": {
+              "n": 3,
+              "ref": "nothing_else"
+            },
+            "rest": "hours: no clear difference",
+            "still": "The whole time: no clear difference",
             "kind": "measured",
             "fact": {
               "id": "glucose_total",
@@ -3296,6 +3501,91 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
                 "outcome": "Total rise in blood glucose over 3 hours (incremental area under the curve)",
                 "tier": "low"
               }
+            }
+          },
+          "dots": {
+            "label": "Blood sugar was checked at these times"
+          },
+          "phases": [
+            "eat",
+            "the first rise",
+            "settling"
+          ],
+          "notes": {
+            "shape": "The paper prints no blood sugar values, so the lines show shape only.",
+            "people": {
+              "n": {
+                "n": 20,
+                "ref": "sample"
+              },
+              "rest": "healthy adults, one meal each way."
+            }
+          },
+          "switches": {
+            "legend": "What is in your egg? Pick to see that meal.",
+            "pepper": "Black pepper",
+            "turmeric": "Turmeric"
+          },
+          "results": {
+            "plain": "This is the plain meal the others were compared with.",
+            "pepper": {
+              "words": "After this meal, blood sugar was lower than after the plain egg.",
+              "kind": "measured",
+              "fact": {
+                "id": "glucose_lower",
+                "kind": "finding",
+                "label": "lower than the control meal after the pepper meal and the pepper-plus-turmeric meal; direction stated in the abstract, no size given",
+                "quote": "Experimental meals BP and BP + TR resulted in lower blood glycemia (p < .05) significantly compared to control meal.",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
+                "finding": {
+                  "outcome": "Blood glucose after the meal",
+                  "tier": "low"
+                }
+              },
+              "at": {
+                "lead": "The clear difference was at",
+                "n": {
+                  "n": 30,
+                  "ref": "glucose_30"
+                },
+                "rest": "minutes."
+              },
+              "total": {
+                "lead": "Over",
+                "n": {
+                  "n": 3,
+                  "ref": "nothing_else"
+                },
+                "rest": "hours: no clear difference."
+              }
+            },
+            "turmeric": {
+              "words": "Turmeric alone: no clear difference in blood sugar from the plain egg.",
+              "kind": "measured",
+              "fact": {
+                "id": "turmeric_none",
+                "kind": "finding",
+                "label": "turmeric alone: no clear difference in blood glucose from the control meal",
+                "quote": "Contradictory to the assumption of this current approach, no remarkable effect of TR (1 g) meal on postprandial blood sugar level was noticed.",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
+                "finding": {
+                  "outcome": "Blood glucose after the turmeric-only meal",
+                  "tier": "low"
+                }
+              }
+            },
+            "sugar": {
+              "lead": "This meal’s tea had more sugar:",
+              "more": {
+                "n": 10,
+                "ref": "sugar_row"
+              },
+              "mid": "g, not",
+              "less": {
+                "n": 8,
+                "ref": "sugar_row"
+              },
+              "end": "g."
             }
           }
         }
@@ -3309,7 +3599,7 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       "y": [],
       "alt": [
         {
-          "text": "Four rows of dots, one row for each breakfast. Two dots stand out early on: the readings that differed from the plain meal.",
+          "text": "Two dotted lines rise after breakfast and settle; they part only in one shaded column early on, where the clear difference was.",
           "refs": [
             "glucose_30"
           ]
@@ -3317,13 +3607,13 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
       ],
       "note": [
         {
-          "text": "Readings from the study. Try it with your own breakfast inside.",
+          "text": "Line shapes are a sketch; the readings are from the study. Try it with your own egg inside.",
           "refs": []
         }
       ],
       "tryIt": [
         {
-          "text": "pick a breakfast",
+          "text": "pick what is in your egg",
           "refs": []
         }
       ]
@@ -3677,6 +3967,16 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
           "reference": {
             "doi": "10.1152/physrev.00034.2006",
             "title": "The physiology of glucagon-like peptide 1"
+          }
+        },
+        {
+          "slug": "post-meal-blood-sugar",
+          "term": "blood sugar after a meal",
+          "plain": "After you eat, sugar from the food passes from the gut into the blood, so the level rises. The body then moves that sugar into muscle and other cells, and the level falls back towards where it started.",
+          "model": "A wave after each meal: it climbs as the food is absorbed, peaks, then ebbs as the body tucks the sugar away.",
+          "reference": {
+            "doi": "10.1177/193229680700100513",
+            "title": "Continuous glucose profiles in healthy subjects under everyday life conditions and after different meals"
           }
         }
       ]

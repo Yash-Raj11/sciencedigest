@@ -56,6 +56,19 @@ export interface ContextStudy {
 }
 
 /** Background knowledge the owner has reviewed. Carries no numbers. */
+/**
+ * A sketch as a figure receives it (`"sketch:<id>"` in params, lib/content/sketch.ts): a shape
+ * only. It carries the words to draw beside the shape and the concept it rests on; never a value.
+ */
+export interface ResolvedSketch {
+  sketch: string;
+  concept: string;
+  tag: string;
+  ink: "ink" | "muted" | "meta" | "line";
+  labels: Record<string, string>;
+  alt: string;
+}
+
 export interface ContextConcept {
   slug: string;
   term: string;

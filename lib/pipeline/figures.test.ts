@@ -12,7 +12,7 @@ import { EVIDENCE_KEY, FIGURE_KEYS, assertEvidence, evidenceKindProblem, evidenc
 import { assemble } from "./assemble";
 import { approved, checkConcept } from "./concepts";
 import { gate } from "./gate";
-import { REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
+import { REAL_CONCEPTS, REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
 import { BANNED_TERMS, SENTENCE_WORDS, THROAT_CLEARING, lint, type LintContext } from "./lint";
 
 const dir = new URL("../../content/papers/daytime-caffeine-sleep/", import.meta.url);
@@ -29,14 +29,14 @@ const context: LintContext = {
   // The real half-life study and library: caffeine's simulator draws on them.
   studies: { ...REAL_STUDIES },
   library: REAL_LIBRARY,
-  concepts: {
+  concepts: { ...REAL_CONCEPTS,
     "non-rem-sleep": checkConcept(approved(fixture.concepts["non-rem-sleep"], "2026-11-13T00:00:00Z"),
       { banned: BANNED_TERMS, throatClearing: THROAT_CLEARING, maxSentenceWords: SENTENCE_WORDS.fail }),
   },
 };
 
 const FIGURE = {
-  figure: "lock-and-key",
+  figure: "parking-spot",
   caption: "How caffeine acts, as the paper describes it. [adenosine_block]",
   alt: "A lock holding a blank key, with the real key left outside. [-]",
   params: {
@@ -47,7 +47,7 @@ const FIGURE = {
 };
 
 function read(): any {
-  const base = Object.fromEntries(Object.entries(clone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary"].includes(key)));
+  const base = Object.fromEntries(Object.entries(clone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary", "sketches"].includes(key)));
   const layers = clone(fixture.layers);
   layers.mechanism.figure = clone(FIGURE);
   return { ...base, layers, glossary: clone(fixture.glossary) };

@@ -75,24 +75,55 @@
     "Twenty participants is a small trial, and the text gives no effect sizes to show how small a difference it could have missed. [sample, lim_n]"
   ],
   "figure": {
-    "figure": "lock-and-key",
-    "caption": "How caffeine acts, as the paper describes it. [adenosine_block] The filled box is what the sleep laboratory recorded. [sleep_same]",
-    "alt": "A lock with its own key in it, labelled adenosine. [-] Below it, the same lock holds a blank key, labelled caffeine. [-] The real key waits outside. [-] Two boxes follow. [-] The first, outlined, says the authors expected lighter sleep. [-] The second, filled, says the sleep laboratory found no difference from placebo nights. [-]",
+    "figure": "parking-spot",
+    "headline": "Caffeine takes the tiredness signal’s parking spot. [adenosine_block]",
+    "caption": "Dashed: how the authors describe caffeine acting, not measured in this study. [adenosine_block] Dotted: a sketch of the tiredness signal building up, not data. [-]",
+    "alt": "Two panels, each showing the surface of a brain cell with one cup-shaped dock. [-] Without caffeine, round tokens, the tiredness signal, drift down and one sits in the dock: you feel sleepy. [adenosine_block] With caffeine, a hexagon, caffeine, sits in the dock; the round tokens crowd above it and cannot land: you feel alert. [adenosine_block] How many tokens are drawn means nothing; they are a sketch, not data. [-]",
     "params": {
-      "lock": {
+      "title": "Caffeine in the tiredness signal’s dock",
+      "tokens": "sketch:tiredness-tokens",
+      "block": {
+        "tag": "How the authors describe it, not measured in this study",
         "kind": "proposed",
         "fact": "fact:adenosine_block"
       },
-      "expected": {
-        "kind": "proposed",
-        "fact": "fact:no_depth_change"
+      "without": {
+        "title": "Without caffeine",
+        "dock": "The dock on a brain cell",
+        "feeling": {
+          "lead": "Signal lands. You feel",
+          "word": "sleepy",
+          "end": "."
+        }
       },
-      "found": {
-        "kind": "measured",
-        "fact": "fact:sleep_same"
+      "with": {
+        "title": "With caffeine",
+        "caffeine": "Caffeine",
+        "dock": "Caffeine sits in the dock",
+        "crowd": "The signal is still there. It just can’t land.",
+        "feeling": {
+          "lead": "You feel",
+          "word": "alert",
+          "end": "."
+        }
       }
     }
   },
+  "sketches": [
+    {
+      "id": "tiredness-tokens",
+      "concept": "adenosine",
+      "tag": "Sketch, not data",
+      "ink": "muted",
+      "stroke": "dotted",
+      "words": {
+        "alt": "Small round tokens drawn with dotted outlines: a sketch of the tiredness signal building up, not data. How many are drawn means nothing.",
+        "labels": {
+          "signal": "Tiredness signal (adenosine). It builds up while you are awake."
+        }
+      }
+    }
+  ],
   "takeaways": [
     "The schedule tested was three doses, the last one 475 minutes after waking, which came 8 hours before bed. [schedule, recording]",
     "The finding covers a steady daily habit. [who] The authors caution that it may not hold after several days without caffeine. [not_after_abstinence]",

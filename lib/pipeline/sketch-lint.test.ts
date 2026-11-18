@@ -25,10 +25,12 @@ const withConcept = (reviewed: boolean): LintContext => ({
   studies: { ...REAL_STUDIES }, library: REAL_LIBRARY,
   concepts: { adenosine: { ok: true, concept: { ...adenosine, reviewed_by_owner: reviewed }, reviewed } },
 });
-const sketch = { id: "sleep-pressure", concept: "adenosine", tag: SKETCH_TAG, ink: "muted", stroke: "dotted", words: { alt: "A dotted line rises through the day: a sketch of a shape, not data." } };
+// The read's own sketch, drawn by its mechanism figure ("sketch:tiredness-tokens"), changed per test.
+const sketch = { id: "tiredness-tokens", concept: "adenosine", words: { alt: "Small dotted tokens: a sketch of the tiredness signal, not data.", labels: { signal: "Tiredness signal (adenosine). It builds up while you are awake." } }, tag: SKETCH_TAG, ink: "muted", stroke: "dotted" };
 
-function sketchErrors(change: Record<string, unknown>, reviewed = true): string[] {
+function sketchErrors(change: Record<string, unknown>, reviewed = true, edit: (ed: any) => void = () => {}): string[] {
   const ed = { ...JSON.parse(JSON.stringify(editorial)), sketches: [{ ...sketch, ...change }] };
+  edit(ed);
   const report = lint(validated, ed, source, { context: withConcept(reviewed), figures: FIGURE_KEYS, allowLegacyShape: true });
   return report.errors.filter((e) => e.rule.startsWith("sketch")).map((e) => `[${e.rule}] ${e.where}`);
 }
@@ -42,6 +44,14 @@ describe("sketches in the lint", () => {
   });
   it("a sketch without a reviewed concept fails", () => {
     expect(sketchErrors({}, false)).toEqual(["[sketch-concept] sketches[0].concept"]);
+  });
+  it("a figure that draws an undeclared sketch fails", () => {
+    expect(sketchErrors({}, true, (ed) => { ed.figure.params.tokens = "sketch:made-up"; }))
+      .toEqual(["[sketch] figure.params.tokens", "[sketch] sketches"]);
+  });
+  it("a declared sketch that no figure draws fails", () => {
+    expect(sketchErrors({ id: "spare-shape" })).toEqual(["[sketch] figure.params.tokens", "[sketch] sketches"]);
+    expect(sketchErrors({}, true, (ed) => { ed.sketches.push({ ...sketch, id: "spare-shape" }); })).toEqual(["[sketch] sketches"]);
   });
   it("a sketch in orange fails", () => {
     expect(sketchErrors({ ink: "signal-evidence-text" })).toContain("[sketch-colour] sketches[0].ink");

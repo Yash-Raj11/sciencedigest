@@ -13,7 +13,7 @@ import { assemble } from "./assemble";
 import { approved, checkConcept } from "./concepts";
 import { Editorial, editorialShape } from "./editorial";
 import { gate } from "./gate";
-import { REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
+import { REAL_CONCEPTS, REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
 import { JARGON, glossaryCovers, jargonIn } from "./jargon";
 import { BANNED_TERMS, CAVEAT_TERMS, LAYER_WORDS, SENTENCE_WORDS, THROAT_CLEARING, lint, type LintContext } from "./lint";
 import { splitSentences, wordCount } from "./sentences";
@@ -35,7 +35,7 @@ const context: LintContext = {
   // The real half-life study and library: caffeine's simulator draws on them.
   studies: { ...REAL_STUDIES },
   library: REAL_LIBRARY,
-  concepts: {
+  concepts: { ...REAL_CONCEPTS,
     "non-rem-sleep": checkConcept(approved(fixture.concepts["non-rem-sleep"], "2026-11-13T00:00:00Z"),
       { banned: BANNED_TERMS, throatClearing: THROAT_CLEARING, maxSentenceWords: SENTENCE_WORDS.fail }),
   },
@@ -43,7 +43,7 @@ const context: LintContext = {
 
 /** The passing three-layer read. */
 function layered(): any {
-  return { ...without(oldShape, ["sections", "limitations", "figure", "layers", "glossary"]), layers: clone(fixture.layers), glossary: clone(fixture.glossary) };
+  return { ...without(oldShape, ["sections", "limitations", "figure", "layers", "glossary", "sketches"]), layers: clone(fixture.layers), glossary: clone(fixture.glossary) };
 }
 function run(mutate: (editorial: any) => void = () => {}) {
   const editorial = layered();

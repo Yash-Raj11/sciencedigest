@@ -14,14 +14,16 @@ import { EVIDENCE_KEY, evidenceKindsIn, figureKey, isFigureKey, type FigureKey }
 import type { FigureRef } from "@/lib/content/types";
 import GenericSimulator from "./_generic/Simulator";
 import GenericWidget from "./_generic/Widget";
-import LockAndKey from "./daytime-caffeine-sleep/figures/LockAndKey";
+import ParkingSpot from "./daytime-caffeine-sleep/figures/ParkingSpot";
 import CaffeineWidget from "./daytime-caffeine-sleep/Widget";
 import OrderFlips from "./hiit-body-composition/figures/OrderFlips";
+import TwoPiles from "./hiit-body-composition/figures/TwoPiles";
 import HiitWidget from "./hiit-body-composition/Widget";
 import ThreeCrowds from "./steps-days-per-week/figures/ThreeCrowds";
 import StepsWidget from "./steps-days-per-week/Widget";
 import TongueToBlood from "./turmeric-pepper-breakfast/figures/TongueToBlood";
 import FiveReadings from "./turmeric-pepper-breakfast/figures/FiveReadings";
+import FirstHalfHour from "./turmeric-pepper-breakfast/figures/FirstHalfHour";
 import BreakfastSimulator from "./turmeric-pepper-breakfast/Simulator";
 
 export interface WidgetProps { variant: "article" | "card" }
@@ -62,11 +64,13 @@ const SIMULATORS: Record<string, ComponentType<SimulatorProps>> = {
  * build fails when a read names a figure that is not listed.
  */
 const FIGURES: Record<FigureKey, ComponentType<FigureProps>> = {
-  "daytime-caffeine-sleep/lock-and-key": LockAndKey,
+  "daytime-caffeine-sleep/parking-spot": ParkingSpot,
   "steps-days-per-week/three-crowds": ThreeCrowds,
   "hiit-body-composition/order-flips": OrderFlips,
+  "hiit-body-composition/two-piles": TwoPiles,
   "turmeric-pepper-breakfast/tongue-to-blood": TongueToBlood,
   "turmeric-pepper-breakfast/five-readings": FiveReadings,
+  "turmeric-pepper-breakfast/first-half-hour": FirstHalfHour,
 };
 
 /** The drawing, and under it the key when the figure mixes measured and proposed. */

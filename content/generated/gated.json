@@ -256,6 +256,157 @@
           }
         ]
       ],
+      "figure": {
+        "figure": "two-piles",
+        "headline": [
+          {
+            "text": "The scale weighs two things.",
+            "refs": []
+          },
+          {
+            "text": "In these trials, interval training moved them in opposite directions.",
+            "refs": [
+              "fm_all",
+              "ffm_all"
+            ]
+          }
+        ],
+        "caption": [
+          {
+            "text": "Dotted: a sketch of the idea, not data.",
+            "refs": []
+          },
+          {
+            "text": "Orange words: what the pooled trials measured.",
+            "refs": [
+              "fm_all",
+              "ffm_all"
+            ]
+          },
+          {
+            "text": "Dashed: the pattern the authors found more effective.",
+            "refs": [
+              "recipe"
+            ]
+          }
+        ],
+        "alt": "Two panels, before and after 3 to 15 weeks of training, each with a standing outline beside two stacked blocks: fat below, everything else above. After training, the fat block is marked less, on average, and the other block a little more, on average. The blocks are drawn the same size in both panels, because the paper gives no sizes. Below, two strips show two ways to build a session: short hard bursts with short easy rests, and long bursts with long still rests. The authors found the first pattern more effective.",
+        "params": {
+          "title": "Fat and fat-free mass, before and after interval training",
+          "body": {
+            "sketch": "two-piles",
+            "concept": "fat-free-mass",
+            "tag": "Sketch, not data",
+            "ink": "ink",
+            "labels": {
+              "fat": "Fat",
+              "free": "Fat-free mass: everything else (muscle, bone, water)"
+            },
+            "alt": "Two stacked blocks beside a standing outline: a sketch of the body as a fat pile and a pile of everything else. The blocks are the same size in both panels; their sizes are not data."
+          },
+          "before": "Before",
+          "after": {
+            "lead": "After",
+            "span": {
+              "text": "3 to 15 weeks",
+              "ref": "trials"
+            }
+          },
+          "fat": {
+            "change": "Less, on average",
+            "kind": "measured",
+            "fact": {
+              "id": "fm_all",
+              "kind": "estimate",
+              "label": "Fat mass, all interval training vs control",
+              "quote": "HIIT resulted in a significant reduction in FM (WMD: −1.86 kg, 95% CI: −2.55 to −1.18",
+              "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it moderate.",
+              "estimate": {
+                "outcome": "Fat mass",
+                "measure": "WMD",
+                "point": -1.86,
+                "ciLow": -2.55,
+                "ciHigh": -1.18,
+                "unit": "kg",
+                "absolute": true,
+                "tier": "moderate"
+              }
+            }
+          },
+          "free": {
+            "change": "A little more, on average",
+            "kind": "measured",
+            "fact": {
+              "id": "ffm_all",
+              "kind": "estimate",
+              "label": "Fat-free mass, all interval training vs control",
+              "quote": "HIIT induced an overall significant improvement in FFM (WMD: 0.51 kg, 95% CI: 0.06 to 0.95",
+              "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
+              "estimate": {
+                "outcome": "Fat-free mass",
+                "measure": "WMD",
+                "point": 0.51,
+                "ciLow": 0.06,
+                "ciHigh": 0.95,
+                "unit": "kg",
+                "absolute": true,
+                "tier": "high"
+              }
+            }
+          },
+          "why": "The trials did not test why.",
+          "short": {
+            "title": "Short bursts, short active rests",
+            "kind": "measured",
+            "fact": {
+              "id": "ffm_le60",
+              "kind": "estimate",
+              "label": "Fat-free mass, work bursts of 60 s or less",
+              "quote": "≤60 s produced a significant increase in FFM (WMD: 0.57 kg, 95% CI: 0.29 to 1.44",
+              "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
+              "estimate": {
+                "outcome": "Fat-free mass",
+                "measure": "WMD",
+                "point": 0.57,
+                "ciLow": 0.29,
+                "ciHigh": 1.44,
+                "unit": "kg",
+                "absolute": true,
+                "tier": "high"
+              }
+            },
+            "burst": {
+              "lead": "Hard effort,",
+              "n": {
+                "n": 60,
+                "ref": "ffm_le60"
+              },
+              "unit": "seconds or less"
+            },
+            "rest": {
+              "lead": "Easy movement,",
+              "n": {
+                "n": 90,
+                "ref": "ffm_rest_le90"
+              },
+              "unit": "seconds or less"
+            }
+          },
+          "long": {
+            "title": "Long bursts, long still rests"
+          },
+          "recipe": {
+            "words": "The authors found the first pattern more effective.",
+            "kind": "proposed",
+            "fact": {
+              "id": "recipe",
+              "kind": "statement",
+              "label": "The programme settings the authors found more effective",
+              "quote": "These data suggest that training for more than 8 weeks, at least three sessions per week, lower than 60 s work intervals separated by ≤90 s recovery periods, and active rest (instead of passive) are more effective on body composition."
+            }
+          }
+        }
+      },
       "protocolFigure": {
         "figure": "order-flips",
         "headline": [
@@ -1545,6 +1696,23 @@
             "tier": "high"
           }
         },
+        "ffm_rest_le90": {
+          "id": "ffm_rest_le90",
+          "kind": "estimate",
+          "label": "Fat-free mass, rests of 90 s or less",
+          "quote": "The rest time subgroup for ≤90 s and active rest showed a significant increase in FFM (WMD: 0.70 kg, 95% CI: 0.22 to 1.18,0.004 and WMD: 0.68 kg, 95% CI: 0.20 to 1.17",
+          "why": "The authors rated how sure they are of this pooled result with a standard checklist, and rated it high.",
+          "estimate": {
+            "outcome": "Fat-free mass",
+            "measure": "WMD",
+            "point": 0.7,
+            "ciLow": 0.22,
+            "ciHigh": 1.18,
+            "unit": "kg",
+            "absolute": true,
+            "tier": "high"
+          }
+        },
         "fm_all": {
           "id": "fm_all",
           "kind": "estimate",
@@ -1663,6 +1831,21 @@
           "label": "An earlier meta-analysis with a different result for cycling",
           "quote": "a systematic review and meta-analysis by Wewege et al. [] found no significant effect of cycling on measures of body composition (whole-body FM) in overweight and obese adults"
         }
+      },
+      "context": {
+        "studies": [],
+        "concepts": [
+          {
+            "slug": "fat-free-mass",
+            "term": "fat-free mass",
+            "plain": "Everything in your body that is not fat: muscle, bone, organs, blood and the water in and around your cells. A body scan can split your weight into fat and this rest; an ordinary bathroom scale cannot.",
+            "model": "Two piles on the scale: a fat pile and a pile of everything else. An ordinary bathroom scale only reads the two together.",
+            "reference": {
+              "doi": "10.1093/ajcn/56.1.19",
+              "title": "The five-level model: a new approach to organizing body-composition research"
+            }
+          }
+        ]
       }
     }
   },

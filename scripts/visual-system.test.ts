@@ -211,6 +211,24 @@ describe("a sketch is monochrome", () => {
   });
 });
 
+describe("a dotted line is always a sketch", () => {
+  // DOT is defined in shared.ts and drawn only by the Sketch primitive, which refuses to draw
+  // without a declared, tagged sketch. A dotted dash written by hand anywhere else fails.
+  const HOMES = new Set(["components/figures/shared.ts", "components/figures/primitives/Sketch.tsx"]);
+  const DOTTED = /\bDOT\b|strokeDasharray=["{]\s*["'`]?1[ ,]\s*[2-6]["'`]?/;
+
+  it("only the Sketch primitive draws a dotted line", () => {
+    const leaks = source(["components", "app"]).filter((f) => !HOMES.has(f) && DOTTED.test(readFileSync(f, "utf8")));
+    expect(leaks).toEqual([]);
+  });
+
+  it("the check fails on a hand-drawn dotted line", () => {
+    expect(DOTTED.test('<path d={d} stroke={MUTED} strokeDasharray={DOT} />')).toBe(true);
+    expect(DOTTED.test('<path d={d} stroke={MUTED} strokeDasharray="1 4" />')).toBe(true);
+    expect(DOTTED.test('<path d={d} stroke={MUTED} strokeDasharray={DASH} />')).toBe(false);
+  });
+});
+
 describe("no bar sized by evidence grade", () => {
   const SIZED = /flexGrow:\s*\w*\.?(tenths|weight|grade)|width:\s*`?\$?\{?\w*\.?(tenths|weight)/;
 
