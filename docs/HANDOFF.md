@@ -71,21 +71,22 @@ The interactive part is the product; the text is what justifies it.
 | The four sketches of FIGURE-DESIGN.md (2026-11-18): caffeine 1A parking spot (replaces lock-and-key) and 1B hidden tiredness day (under the simulator; the feed card), turmeric 2B first half hour (protocol layer; the feed card; five-readings moved to the receipts), HIIT 4A two piles. `"sketch:<id>"` references, Sketch primitive the only dotted line | Built; departures from the spec listed in BUILD-LOG 2026-11-18 for the owner. Hosted seed not pushed | `docs/evidence/sketches/` (gates.txt, breaks.txt 8 of 8, screenshots), `scripts/two-piles.test.ts`, `parking-spot.test.ts`, `first-half-hour.test.ts`, `hidden-tiredness.test.ts` |
 | Documents: `CLAUDE.md`, `docs/MANUAL.md`, `ARCHITECTURE.md`, `data-model.md`, `BUILD-LOG.md` | Written | — |
 
-Totals on 2026-11-18 (after the sketches): 688 unit tests (`docs/evidence/sketches/gates.txt`; 660 after the design pass:
-`docs/evidence/unit-tests.txt`); 15 HTTP tests (`http-tests.txt`) and 93 browser tests
+Totals on 2026-11-18 (after the sketches): 688 unit tests
+(`docs/evidence/unit-tests.txt`); 15 HTTP tests (`http-tests.txt`) and 93 browser tests
 (`browser-tests.txt`); 191 database assertions per pass and 16 of 16 mutations (unchanged and
 not re-run: no SQL touched since 2026-11-14).
 Outputs are in `docs/evidence/`.
 
-### Deployment state (2026-11-18)
+### Deployment state (2026-11-18, after the sketches)
 
-- `main` is at the 2026-11-18 handoff commit; Vercel deployed `92610a6` (both projects success,
-  live `/` 200 with the new palette). The branch `wip/colour-figures` is on GitHub and is not
-  deployed or merged; its figure swaps are already on `main`, the rest stays parked.
-- Hosted database: no migration since `20261114000100_set_step_amount.sql`. `supabase/seed.sql`
-  last changed in `a0059a7` (2026-11-15, turmeric 2A); the BUILD-LOG records one hosted push on
-  2026-11-15 but not whether it came after `3492dea`, `3a4dfbb` and `a0059a7`. Run the dry run
-  (MANUAL 3.3) on the owner's "go" to see if it is behind. Nothing changed the seed on 2026-11-18.
+- `main` is at the sketches handoff commit. Vercel deployed `838430a` (the four sketches): the
+  live reads return 200, a missing paper returns 404, and the page throws no errors
+  (Playwright, as a visitor). `wip/colour-figures` is on GitHub, not merged or deployed; the
+  owner has still to decide on it.
+- Hosted database: no migration pending (`20261114000100_set_step_amount.sql` is still the
+  last). **The hosted seed is behind `main`.** The dry run on the owner's "go" printed `seed.sql`
+  as "hash update" (`docs/evidence/sketches/hosted-seed-dry-run.txt`). The real push needs a
+  second "go". It is the three commands in MANUAL 3.3; the published count should be 4.
 
 ### Deployment state (2026-11-15)
 
