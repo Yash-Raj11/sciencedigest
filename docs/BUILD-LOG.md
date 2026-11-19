@@ -2160,3 +2160,30 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   step's source line show the fact's outcome wording, "Difference in change in energy intake
   (sleep extension minus control)". It is accurate but stiff, and could be reworded in
   `extraction.json`.
+
+## 2026-11-19: hosted seed pushed; the sleep-extension read released and live
+
+- Owner: **"Go: seed, then release"**, the second "go" for the hosted seed push, pending since
+  2026-11-18.
+- Hosted project, in order (`docs/evidence/phase10-3b-release/`):
+  1. A dry run showed no pending migrations and a seed hash update only (`hosted-seed-dry-run.txt`).
+  2. A read-only count before: 4 papers, 4 published (`hosted-count-before.txt`).
+  3. `scripts/seed-safety.test.ts` passed: 11 tests.
+  4. `db push --remote --include-seed --yes`: "Schema migrations are up to date. Updating seed
+     hash" (`hosted-seed-push.txt`).
+  5. `db query --remote --yes -f supabase/seed.sql` wrote the rows (`hosted-seed-rows.txt`).
+  6. A read-only count after: 5 papers, 5 published; the sleep read published, with 1 content
+     row and 2 protocol steps (`hosted-count-after.txt`). This matches `content:build`.
+- That seed also brought the hosted reads up to `main`: the three layered 2E reads, and HIIT's
+  members' text in the three-layer shape.
+- Then pushed `4be4d63` to `main`. Vercel served the new page about 50 s later.
+- **Live check, as a visitor** (`live-check.txt`, screenshots `live-*-375.jpg`):
+  - every route answers 200, and an unknown paper 404;
+  - the sleep read's question, finding, ledger figure, weight lines, both steps, a limitation,
+    the citation and the medical-advice line are all on the live page;
+  - the feed lists it;
+  - at 375 px the figure draws as in the local build, with no console errors.
+  - Nothing was ticked or added: a visitor reading only.
+- **Now unblocked (owner, 2E handoff):** with the hosted seed in the three-layer shape, the
+  old-shape branches in `components/read/Article.tsx` and the old-shape fields of
+  `PaperContent` in `lib/content/types.ts` can be removed.

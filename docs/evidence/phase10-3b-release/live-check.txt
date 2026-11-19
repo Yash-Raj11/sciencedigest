@@ -1,0 +1,28 @@
+# Live check after the sleep-extension release (2026-11-19T06:48Z), as a visitor, curl
+
+200 /
+200 /today
+200 /me
+200 /privacy
+200 /papers/daytime-caffeine-sleep
+200 /papers/steps-days-per-week
+200 /papers/hiit-body-composition
+200 /papers/turmeric-pepper-breakfast
+200 /papers/sleep-extension-energy-intake
+404 /papers/no-such-paper
+
+## the sleep read on the live page (one fetch; tags stripped, no-break spaces read as spaces)
+found: "Do adults eat less when they sleep longer at home?"
+found: "adults who slept longer ate 270.4 kcal a day less"
+found: "Food in, energy out"
+found: "Think of your weight as a ledger with two columns"
+found: "Weight: −0.48 kg"
+found: "8.5 hours in bed tonight"
+found: "Devices away before bed"
+found: "The control group’s rise in intake and weight may have added to the gap"
+found: "Tasali E"
+found: "This is not medical advice"
+
+## the feed lists it
+found on /: "Do adults eat less when they sleep longer at home?"
+found on /: "sleep-extension-energy-intake"

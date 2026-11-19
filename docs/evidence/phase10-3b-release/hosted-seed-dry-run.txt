@@ -1,0 +1,8 @@
+Target: project Science Digest (takhienzcshgkytbvaii) · production
+Initialising login role...
+DRY RUN: migrations will *not* be pushed to the database.
+Would seed these files:
+ • supabase/seed.sql (hash update)
+{"upToDate":false,"dryRun":true,"migrations":[],"seeds":["supabase/seed.sql"],"roles":[],"message":"Finished supabase db push.","target":{"kind":"linked","project_ref":"takhienzcshgkytbvaii","project_name":"Science Digest","environment":"production"}}
+A new version of Supabase CLI is available: v3.2.0 (currently installed v3.1.0)
+We recommend updating regularly for new features and bug fixes: https://supabase.com/docs/guides/cli/getting-started#updating-the-supabase-cli

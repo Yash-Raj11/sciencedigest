@@ -1,0 +1,6 @@
+Target: project Science Digest (takhienzcshgkytbvaii) · production
+Initialising login role...
+Confirmed by --yes: Seed 1 file on project Science Digest (takhienzcshgkytbvaii) · production
+Schema migrations are up to date.
+Updating seed hash to supabase/seed.sql...
+{"upToDate":false,"dryRun":false,"migrations":[],"seeds":["supabase/seed.sql"],"roles":[],"message":"Finished supabase db push.","target":{"kind":"linked","project_ref":"takhienzcshgkytbvaii","project_name":"Science Digest","environment":"production"}}
