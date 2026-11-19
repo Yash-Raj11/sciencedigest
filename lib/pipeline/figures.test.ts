@@ -21,7 +21,7 @@ const gated = gate(JSON.parse(readFileSync(new URL("extraction.json", dir), "utf
 if (!gated.ok) throw new Error(gated.errors.join("\n"));
 const validated = gated.validated;
 
-const oldShape = JSON.parse(readFileSync(new URL("editorial.json", dir), "utf8"));
+const realEditorial = JSON.parse(readFileSync(new URL("editorial.json", dir), "utf8"));
 const fixture = JSON.parse(readFileSync(new URL("fixtures/layered-caffeine.json", import.meta.url), "utf8"));
 const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
 
@@ -47,7 +47,7 @@ const FIGURE = {
 };
 
 function read(): any {
-  const base = Object.fromEntries(Object.entries(clone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary", "sketches", "protocolFigure"].includes(key)));
+  const base = Object.fromEntries(Object.entries(clone(realEditorial)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary", "sketches", "protocolFigure"].includes(key)));
   // Without figure B the card draws the simulator's still, as it did before 1B.
   (base as { glance: object }).glance = { ...(base as { glance: object }).glance, figure: "simulator" };
   const layers = clone(fixture.layers);
@@ -132,13 +132,13 @@ describe("a read with a figure", () => {
   });
 });
 
-describe("the old flat shape", () => {
-  it("may carry one figure, held to the same rules", () => {
-    const legacy = clone(oldShape);
-    expect(lint(validated, legacy, source, { allowLegacyShape: true, context, figures: FIGURE_KEYS }).errors).toEqual([]);
-    legacy.figure.params.found = { kind: "measured", fact: "fact:no_depth_change" };
-    expect(lint(validated, legacy, source, { allowLegacyShape: true, context, figures: FIGURE_KEYS }).errors.map((e) => e.message).join("\n"))
-      .toContain('drawn as measured, but "no_depth_change" is a statement, not a result');
+describe("the real caffeine read, in layers (step 2E)", () => {
+  it("carries its figures in the layers, held to the same rules", () => {
+    const real = clone(realEditorial);
+    expect(lint(validated, real, source, { context, figures: FIGURE_KEYS }).errors).toEqual([]);
+    real.layers.mechanism.figure.params.found = { kind: "measured", fact: "fact:no_depth_change" };
+    expect(lint(validated, real, source, { context, figures: FIGURE_KEYS }).errors.map((e) => `${e.where}: ${e.message}`).join("\n"))
+      .toContain('layers.mechanism.figure.params.found: drawn as measured, but "no_depth_change" is a statement, not a result');
   });
 });
 

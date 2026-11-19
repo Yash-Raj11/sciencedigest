@@ -1,0 +1,30 @@
+# Each new rule shown failing once with the rule broken, then passing (step 2E)
+
+## scripts/legacy-shape.test.ts, with scripts/legacy-shape.ts restored from fa176eb and the caffeine read put back in the old shape
+```
+     × has no allowlist file and no source file that names it
+     × daytime-caffeine-sleep is in the three-layer shape
+     × the lint refuses daytime-caffeine-sleep in the old shape
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: expected true to be false // Object.is equality
+AssertionError: expected 'legacy' to be 'layered' // Object.is equality
+      Tests  3 failed | 7 passed (10)
+      Tests  10 passed (10)
+```
+
+## scripts/draft-shape.test.ts, with the draft's shape check in scripts/paper.mts replaced by () => null
+```
+     × refuses an old-shape reply, says why on the retry, and saves nothing 259ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+AssertionError: expected +0 to be 1 // Object.is equality
+      Tests  1 failed | 1 passed (2)
+      (restored) Tests  2 passed (2)
+```
+
+## lib/pipeline/propose.test.ts, with contextMenu's excluded-fact and reviewed-concept checks removed
+```
+     × leaves out a fact the owner excluded
+     × leaves out a withdrawn study and an unreviewed concept
+      Tests  2 failed | 13 passed (15)
+      (restored) Tests  15 passed (15)
+```

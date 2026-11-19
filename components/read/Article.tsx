@@ -84,9 +84,12 @@ function TrySimulator({ slug, kind, params }: { slug: string; kind: string; para
 function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }) {
   const { facts, context, layers } = content;
   const hasGlossary = (content.glossary ?? []).length > 0;
-  // An old-shape read (until step 2E): its first section stands where the mechanism will.
-  // Its "lower-bound" and "missed" sections are receipts: they show in the Receipts box.
+  // An old-shape row from the hosted database (until its seed is pushed; lib/content/types.ts):
+  // its first section stands where the mechanism does, and its "lower-bound" and "missed"
+  // sections are receipts, shown in the Receipts box.
   const [first, ...rest] = content.sections.filter((section) => !LEGACY_RECEIPTS.has(section.id));
+  // Figure B (FIGURE-DESIGN): the protocol layer's figure, drawn in the Try it slot when it hosts the simulator.
+  const tryFigure = layers ? (layers.protocol.figureSlot === "try" ? layers.protocol.figure : null) : content.protocolFigure ?? null;
 
   return (
     <Glossary content={content}>
@@ -126,7 +129,7 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
         {layers ? (
           <>
             <h2 data-rail className={LAYER}>What was tested</h2>
-            <Paragraphs slug={paper.slug} paragraphs={layers.protocol.paragraphs} figure={layers.protocol.figure} facts={facts} context={context} />
+            <Paragraphs slug={paper.slug} paragraphs={layers.protocol.paragraphs} figure={tryFigure ? null : layers.protocol.figure} facts={facts} context={context} />
           </>
         ) : null}
         <WhoWasTested paper={paper} content={content} />
@@ -139,11 +142,11 @@ function ReadTop({ paper, content }: { paper: PaperMeta; content: PaperContent }
             <>
               <KindSimulator slug={paper.slug} content={content} observational={!RANDOMIZED_DESIGNS.has(paper.design as Design)} />
               {/* Figure B's second panel under the simulator (caffeine 1B): drawn still, it takes no input. */}
-              {content.protocolFigure ? <div data-protocol-figure><Pictured slug={paper.slug} figure={content.protocolFigure} facts={facts} context={context} /></div> : null}
+              {tryFigure ? <div data-protocol-figure><Pictured slug={paper.slug} figure={tryFigure} facts={facts} context={context} /></div> : null}
             </>
           )
-          : content.protocolFigure
-            ? <div data-protocol-figure><Pictured slug={paper.slug} figure={content.protocolFigure} facts={facts} context={context} simulator={content.simulator.params} /></div>
+          : tryFigure
+            ? <div data-protocol-figure><Pictured slug={paper.slug} figure={tryFigure} facts={facts} context={context} simulator={content.simulator.params} /></div>
             : <TrySimulator slug={paper.slug} kind={content.simulator.kind} params={content.simulator.params} />}
       </section>
     </Glossary>
@@ -191,6 +194,8 @@ function Primer() {
 function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent }) {
   const { facts, context } = content;
   const audit = content.layers?.audit;
+  // A titled audit figure is its own receipt at the top (steps 3A); an untitled one sits in "The size of the effect".
+  const titled = audit?.figure?.title ? { title: audit.figure.title, figure: audit.figure } : content.auditFigure;
   const legacy = (id: string) => (audit ? undefined : content.sections.find((section) => section.id === id));
   const legacyWeak = legacy("lower-bound");
   const legacyMissed = legacy("missed");
@@ -218,9 +223,9 @@ function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent 
         </dl>
       </header>
       <div className="space-y-4 p-4">
-      {content.auditFigure && (
-        <Receipt n={next()} title={content.auditFigure.title.map((s) => s.text).join(" ")}>
-          <div className="mt-2" data-audit-figure><Pictured slug={paper.slug} figure={content.auditFigure.figure} facts={facts} context={context} /></div>
+      {titled && (
+        <Receipt n={next()} title={titled.title.map((s) => s.text).join(" ")}>
+          <div className="mt-2" data-audit-figure><Pictured slug={paper.slug} figure={titled.figure} facts={facts} context={context} /></div>
         </Receipt>
       )}
       {audit && (
@@ -228,7 +233,7 @@ function Receipts({ paper, content }: { paper: PaperMeta; content: PaperContent 
           <Receipt n={next()} title="The size of the effect">
             <Para sentences={audit.effect} facts={facts} context={context} className={AUDIT} />
             {/* Edge to edge in the card, so an interactive figure keeps 44 px targets at 360 px. */}
-            <div className="-mx-4 mt-3" data-audit-figure><Pictured slug={paper.slug} figure={audit.figure} facts={facts} context={context} /></div>
+            {audit.figure && !audit.figure.title ? <div className="-mx-4 mt-3" data-audit-figure><Pictured slug={paper.slug} figure={audit.figure} facts={facts} context={context} /></div> : null}
           </Receipt>
           <Receipt n={next()} title="How weak it could be">
             <Para sentences={audit.weakEnd} facts={facts} context={context} className={AUDIT} />

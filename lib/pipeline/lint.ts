@@ -10,7 +10,7 @@
  * approval queue shows the same report).
  */
 
-import { Editorial, LAYERS, LegacyEditorial, OLD_SHAPE_MESSAGE, editorialShape, type Layer } from "./editorial";
+import { Editorial, LAYERS, MIXED_SHAPE_MESSAGE, OLD_SHAPE_MESSAGE, editorialShape, type Layer } from "./editorial";
 import type { ConceptState } from "./concepts";
 import type { Validated, ValidatedFact } from "./gate";
 import { NON_HUMAN_DISCLAIMER } from "./grade";
@@ -43,7 +43,7 @@ export interface LintReport {
   errors: LintIssue[];
   warnings: LintIssue[];
   wordCount: number;
-  /** Three-layer reads only: the size and sentence length of each layer (H10, H11). */
+  /** The size and sentence length of each layer (H10, H11). Absent when the read failed its schema. */
   layers?: Record<Layer, LayerStats>;
   /** The context sources the read cites, and which concepts the owner has not reviewed yet. */
   context?: { studies: string[]; concepts: string[]; unreviewed: string[] };
@@ -71,11 +71,6 @@ export interface LintContext {
 }
 
 export interface LintOptions {
-  /**
-   * Accept the old flat shape. Only content-build and the paper command pass
-   * this, and only for a slug on the temporary allowlist (scripts/legacy-shape.ts).
-   */
-  allowLegacyShape?: boolean;
   /** The gated context studies and the concept files. Without it, any context reference fails. */
   context?: LintContext;
   /** Every figure the app can draw, as "<slug>/<figure>" (lib/content/figures.ts). Without it, any figure fails. */
@@ -132,8 +127,7 @@ const MAGNITUDE_WORD =
 // Plain language (owner, 2026-11-14) ---------------------------------------------
 /**
  * Research words a reader outside a statistics class misreads. Outside the Receipts (the
- * audit layer; in an old-shape read, its "lower-bound" and "missed" sections and its
- * limitations) a read says "a clear difference" or "no clear difference" instead.
+ * audit layer) a read says "a clear difference" or "no clear difference" instead.
  */
 export const PLAIN_SIGNIFICANT = /\b(?:statistically\s+)?(?:non-?\s?|in)?significan(?:t|tly|ce)\b/i;
 export const PLAIN_STATS: [string, RegExp][] = [
@@ -229,7 +223,7 @@ interface Located {
   headline: boolean;
   /** Set for text inside one of the three layers. */
   layer?: Layer;
-  /** In the Receipts: the audit layer, or an old-shape read's lower-bound, missed and limitations. */
+  /** In the Receipts: the audit layer. */
   receipts: boolean;
 }
 
@@ -266,23 +260,23 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   const fail = (rule: string, where: string, message: string) => errors.push({ rule, where, message });
   const warn = (rule: string, where: string, message: string) => warnings.push({ rule, where, message });
 
-  // Which shape? The old flat one is refused unless the caller vouches for it.
+  // Which shape? The old flat one is refused, for every paper (step 2E removed its allowlist).
   const shape = editorialShape(editorialInput);
   if (shape === "mixed") {
-    fail("schema", "layers", "this read carries both shapes: remove sections and the top-level limitations once layers is written");
+    fail("schema", "layers", MIXED_SHAPE_MESSAGE);
     return { errors, warnings, wordCount: 0 };
   }
-  if (shape === "legacy" && !options.allowLegacyShape) {
+  if (shape === "legacy") {
     fail("schema", "layers", OLD_SHAPE_MESSAGE);
     return { errors, warnings, wordCount: 0 };
   }
-  const parsed = shape === "legacy" ? LegacyEditorial.safeParse(editorialInput) : Editorial.safeParse(editorialInput);
+  const parsed = Editorial.safeParse(editorialInput);
   if (!parsed.success) {
     for (const issue of parsed.error.issues) fail("schema", issue.path.join("."), issue.message);
     return { errors, warnings, wordCount: 0 };
   }
   const ed = parsed.data;
-  const layers = "layers" in ed ? ed.layers : null;
+  const layers = ed.layers;
   const facts = validated.facts;
 
   // Context: other studies and background concepts ------------------------------
@@ -343,12 +337,11 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   // Collect every sentence a reader could see ----------------------------------
   const all: Located[] = [];
   const read: Located[] = [];
-  const LEGACY_RECEIPTS = /^(sections\.(lower-bound|missed)\[|limitations\[|auditFigure\.)/;
   function take(where: string, markup: string, opts: { headline?: boolean; inRead?: boolean; layer?: Layer } = {}): Sentence[] {
     try {
       const sentences = parseMarkup(markup);
       for (const sentence of sentences) {
-        const receipts = opts.layer === "audit" || (!layers && LEGACY_RECEIPTS.test(where));
+        const receipts = opts.layer === "audit";
         const item: Located = { where, sentence, headline: opts.headline ?? false, layer: opts.layer, receipts };
         all.push(item);
         if (opts.inRead) read.push(item);
@@ -392,9 +385,7 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
     if (take(where, markup).some((sentence) => /\p{N}/u.test(sentence.text))) fail("glance", where, "the feed card's figure shows no number: no digit in its axis labels, alt text, note or Try-it words");
   }
   {
-    const own = layers
-      ? [layers.mechanism.figure, layers.protocol.figure, layers.audit.figure]
-      : ["figure" in ed ? ed.figure : undefined, "auditFigure" in ed ? ed.auditFigure : undefined, "protocolFigure" in ed ? ed.protocolFigure : undefined];
+    const own = [layers.mechanism.figure, layers.protocol.figure, layers.audit.figure];
     const ids = own.filter((f) => f != null).map((f) => f!.figure);
     if (ed.glance.figure === "simulator") {
       if (ed.simulator.spec === undefined) fail("glance", "glance.figure", `"simulator" needs a simulator drawn by kind (simulator.spec); name one of the read's figures instead: ${ids.join(", ") || "none"}`);
@@ -406,63 +397,33 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   // A simulator's own sentences (drawn by kind): every rule, outside the word budget, like alt text.
   for (const [name, markup] of Object.entries(ed.simulator.words ?? {})) take(`simulator.words.${name}`, markup);
 
-  /** Where the weak end of the headline range must be spelled out (H5), and the sentences found there. */
-  let weakEndWhere = "sections.lower-bound";
-  let weakEnd: Sentence[] = [];
-  let limitationSentences: Sentence[][] = [];
-  let limitationsWhere = "limitations";
-  const bySection = new Map<string, Sentence[]>();
-
-  if (layers) {
-    for (const layer of LAYERS) {
-      const body = layers[layer];
-      if ("paragraphs" in body) {
-        body.paragraphs.forEach((p, i) => take(`layers.${layer}[${i}]`, p, { inRead: true, layer }));
-      }
-      if (body.figure) {
-        if (body.figure.headline) take(`layers.${layer}.figure.headline`, body.figure.headline, { inRead: true, layer });
-        take(`layers.${layer}.figure.caption`, body.figure.caption, { inRead: true, layer });
-        // Alt text is read aloud, not shown: held to every rule, but outside the word budget.
-        take(`layers.${layer}.figure.alt`, body.figure.alt);
-      }
-    }
-    const audit = layers.audit;
-    const effect = take("layers.audit.effect", audit.effect, { inRead: true, layer: "audit" });
-    if (!effect.some((s) => s.refs.includes(ed.primaryEstimate))) {
-      fail("H5", "layers.audit.effect", `the raw effect size must cite the headline result "${ed.primaryEstimate}"`);
-    }
-    weakEndWhere = "layers.audit.weakEnd";
-    weakEnd = take(weakEndWhere, audit.weakEnd, { inRead: true, layer: "audit" });
-    limitationsWhere = "layers.audit.limitations";
-    limitationSentences = audit.limitations.map((l, i) => take(`${limitationsWhere}[${i}]`, l, { inRead: true, layer: "audit" }));
-    take("layers.audit.missed", audit.missed, { inRead: true, layer: "audit" });
-    audit.more.forEach((p, i) => take(`layers.audit.more[${i}]`, p, { inRead: true, layer: "audit" }));
-  } else {
-    const legacy = ed as LegacyEditorial;
-    for (const section of legacy.sections) {
-      const collected: Sentence[] = [];
-      section.paragraphs.forEach((p, i) => collected.push(...take(`sections.${section.id}[${i}]`, p, { inRead: true })));
-      bySection.set(section.id, collected);
-    }
-    weakEnd = bySection.get("lower-bound") ?? [];
-    limitationSentences = legacy.limitations.map((l, i) => take(`limitations[${i}]`, l, { inRead: true }));
-    if (legacy.figure) {
-      if (legacy.figure.headline) take("figure.headline", legacy.figure.headline, { inRead: true });
-      take("figure.caption", legacy.figure.caption, { inRead: true });
-      take("figure.alt", legacy.figure.alt);
-    }
-    if (legacy.auditFigure) {
-      take("auditFigure.title", legacy.auditFigure.title, { inRead: true });
-      if (legacy.auditFigure.headline) take("auditFigure.headline", legacy.auditFigure.headline, { inRead: true });
-      take("auditFigure.caption", legacy.auditFigure.caption, { inRead: true });
-      take("auditFigure.alt", legacy.auditFigure.alt);
-    }
-    if (legacy.protocolFigure) {
-      if (legacy.protocolFigure.headline) take("protocolFigure.headline", legacy.protocolFigure.headline, { inRead: true });
-      take("protocolFigure.caption", legacy.protocolFigure.caption, { inRead: true });
-      take("protocolFigure.alt", legacy.protocolFigure.alt);
+  for (const layer of LAYERS) {
+    const body = layers[layer];
+    if ("paragraphs" in body) body.paragraphs.forEach((p, i) => take(`layers.${layer}[${i}]`, p, { inRead: true, layer }));
+    if (body.figure) {
+      // An audit figure with a title is its own receipt; the title is read like any receipt text.
+      if ("title" in body.figure && body.figure.title) take(`layers.${layer}.figure.title`, body.figure.title, { inRead: true, layer });
+      if (body.figure.headline) take(`layers.${layer}.figure.headline`, body.figure.headline, { inRead: true, layer });
+      take(`layers.${layer}.figure.caption`, body.figure.caption, { inRead: true, layer });
+      // Alt text is read aloud, not shown: held to every rule, but outside the word budget.
+      take(`layers.${layer}.figure.alt`, body.figure.alt);
     }
   }
+  if (layers.protocol.figureSlot === "try" && !layers.protocol.figure) {
+    fail("figure", "layers.protocol.figureSlot", "\"try\" places the protocol layer's figure in the Try it slot, but the layer has no figure");
+  }
+  const audit = layers.audit;
+  const effect = take("layers.audit.effect", audit.effect, { inRead: true, layer: "audit" });
+  if (!effect.some((s) => s.refs.includes(ed.primaryEstimate))) {
+    fail("H5", "layers.audit.effect", `the raw effect size must cite the headline result "${ed.primaryEstimate}"`);
+  }
+  /** Where the weak end of the headline range must be spelled out (H5), and the sentences found there. */
+  const weakEndWhere = "layers.audit.weakEnd";
+  const weakEnd = take(weakEndWhere, audit.weakEnd, { inRead: true, layer: "audit" });
+  const limitationsWhere = "layers.audit.limitations";
+  const limitationSentences = audit.limitations.map((l, i) => take(`${limitationsWhere}[${i}]`, l, { inRead: true, layer: "audit" }));
+  take("layers.audit.missed", audit.missed, { inRead: true, layer: "audit" });
+  audit.more.forEach((p, i) => take(`layers.audit.more[${i}]`, p, { inRead: true, layer: "audit" }));
 
   ed.takeaways.forEach((t, i) => take(`takeaways[${i}]`, t));
   ed.carousel.slides.forEach((slide, i) => {
@@ -633,11 +594,6 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
     }
     warn("H5", "primaryEstimate", "the headline result has no confidence interval; check the read says what that leaves unknown");
   }
-  if (!layers) {
-    for (const id of ["lower-bound", "missed"]) {
-      if (!bySection.has(id)) fail("structure", "sections", `a section with id "${id}" is required`);
-    }
-  }
 
   // H6: limitations ---------------------------------------------------------------
   limitationSentences.forEach((sentences, i) => {
@@ -646,9 +602,9 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   });
 
   // H9, H10, H11: the three-layer read --------------------------------------------
-  let layerStats: Record<Layer, LayerStats> | undefined;
-  if (layers) {
-    const glossary = "glossary" in ed ? ed.glossary : [];
+  let layerStats: Record<Layer, LayerStats>;
+  {
+    const glossary = ed.glossary;
 
     // H11: voice. Every sentence a reader sees.
     for (const { where, sentence } of all) {
@@ -847,13 +803,8 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   });
 
   // Figures: known to the app, described for people who cannot see them, and drawn only from facts.
-  const figureDefs: [string, { figure: string; alt: string; params: Record<string, unknown>; spec?: unknown }][] = layers
-    ? LAYERS.flatMap((layer) => (layers[layer].figure ? [[`layers.${layer}.figure`, layers[layer].figure!] as [string, typeof layers.mechanism.figure & object]] : []))
-    : [
-      ...((ed as LegacyEditorial).figure ? [["figure", (ed as LegacyEditorial).figure!] as [string, LegacyEditorial["figure"] & object]] : []),
-      ...((ed as LegacyEditorial).auditFigure ? [["auditFigure", (ed as LegacyEditorial).auditFigure!] as [string, LegacyEditorial["figure"] & object]] : []),
-      ...((ed as LegacyEditorial).protocolFigure ? [["protocolFigure", (ed as LegacyEditorial).protocolFigure!] as [string, LegacyEditorial["figure"] & object]] : []),
-    ];
+  const figureDefs: [string, { figure: string; alt: string; params: Record<string, unknown>; spec?: unknown }][] =
+    LAYERS.flatMap((layer) => (layers[layer].figure ? [[`layers.${layer}.figure`, layers[layer].figure!] as [string, typeof layers.mechanism.figure & object]] : []));
   /**
    * A figure drawn by kind: the spec names facts only, the kind must exist, and a simulator needs a
    * range (H12). A fact of a gated context study may feed it (H7 amended): checked like any citation,
@@ -946,5 +897,5 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   const cites = usedStudies.size + usedConcepts.size > 0
     ? { context: { studies: [...usedStudies].sort(), concepts: [...usedConcepts].sort(), unreviewed: [...unreviewed].sort() } }
     : {};
-  return { errors, warnings, wordCount, ...(layerStats ? { layers: layerStats } : {}), ...cites };
+  return { errors, warnings, wordCount, layers: layerStats, ...cites };
 }

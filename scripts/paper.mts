@@ -41,7 +41,7 @@ import { createInterface } from "node:readline/promises";
 import { fileURLToPath } from "node:url";
 import { completeJson, contextTokens, replyTokens, zodCheck } from "../lib/ai/provider";
 import { mergeExtractions, splitSource, tokensOf } from "../lib/pipeline/chunks";
-import { Editorial, LegacyEditorial } from "../lib/pipeline/editorial";
+import { draftReplyProblem } from "../lib/pipeline/editorial";
 import { RawExtraction } from "../lib/pipeline/extraction";
 import { CONCEPT_SLUG, approved } from "../lib/pipeline/concepts";
 import { readSearchRecord, xmlToText } from "../lib/pipeline/europepmc";
@@ -55,8 +55,7 @@ import type { Coverage, CoverageReview } from "../lib/pipeline/coverage";
 import { findRetracted, parseRetractionWatch } from "../lib/pipeline/retractions";
 import type { GateRole } from "../lib/pipeline/gate";
 import { loadContext } from "./context-load";
-import { kindMenu, proposeKinds } from "../lib/pipeline/propose";
-import { LEGACY_SHAPE_ALLOWLIST } from "./legacy-shape";
+import { contextMenu, kindMenu, proposeKinds } from "../lib/pipeline/propose";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
 // For benchmarks and tests only: SD_PAPERS_DIR points extract and draft at a scratch folder.
@@ -107,7 +106,7 @@ function runGate(slug: string) {
 function runLint(slug: string, validated: NonNullable<ReturnType<typeof runGate>>): { ok: boolean; unreviewed: string[] } {
   const { context } = loadContext(CONTEXT, CONCEPTS);
   const report = lint(validated, readJson(`${dirOf(slug)}/editorial.json`), readFileSync(`${dirOf(slug)}/source.txt`, "utf8"),
-    { allowLegacyShape: LEGACY_SHAPE_ALLOWLIST.includes(slug), context, figures: FIGURE_KEYS });
+    { context, figures: FIGURE_KEYS });
   for (const issue of report.errors) console.log(`  - [${issue.rule}] ${issue.where}: ${issue.message}`);
   for (const issue of report.warnings) console.log(`  warning: [${issue.rule}] ${issue.where}: ${issue.message}`);
   console.log(report.errors.length === 0 ? `lint ok: ${report.wordCount} words` : `LINT FAILED (${report.errors.length})`);
@@ -286,13 +285,13 @@ async function draft(slugArg: string | undefined) {
   const kinds = kindMenu(proposeKinds(validated!.facts, context));
   console.log(`figure kinds offered:\n${kinds}`);
   const started = Date.now();
-  // The JSON check is the schema only (either shape, so the lint can name a wrong one); the lint judges the content.
-  const shape = zodCheck(Editorial.or(LegacyEditorial));
+  // The JSON check: the three-layer shape, with an old-shape or mixed reply refused by name so the
+  // retry says what to fix (draftReplyProblem). The lint judges the content afterwards.
   const { value, retries } = await completeJson({
     stage: "editorial",
     system: EDITORIAL_SYSTEM,
-    prompt: editorialPrompt({ slug, validated: validated!, exampleEditorial: readFileSync(`${EXAMPLE}/editorial.json`, "utf8"), kinds }),
-  }, (reply) => shape({ ...(reply as object), slug, publishedAt: null }));
+    prompt: editorialPrompt({ slug, validated: validated!, exampleEditorial: readFileSync(`${EXAMPLE}/editorial.json`, "utf8"), kinds, context: contextMenu(context) }),
+  }, (reply) => draftReplyProblem({ ...(reply as object), slug, publishedAt: null }));
   const editorial = value as Record<string, unknown>;
   console.log(`JSON retries: ${retries}, ${((Date.now() - started) / 1000).toFixed(1)} s`);
   writeJson(`${dirOf(slug)}/editorial.json`, { ...editorial, slug, publishedAt: null });

@@ -25,7 +25,7 @@ const errors = (slug: string, mutate: (e: any) => void) => {
   const r = reads[slug];
   const e = JSON.parse(JSON.stringify(r.editorial));
   mutate(e);
-  return lint(r.validated, e, r.source, { context, figures: FIGURE_KEYS, allowLegacyShape: true }).errors
+  return lint(r.validated, e, r.source, { context, figures: FIGURE_KEYS }).errors
     .filter((x) => x.rule === "one-claim").map((x) => `${x.where}: ${x.message}`);
 };
 

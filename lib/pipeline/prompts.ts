@@ -81,13 +81,16 @@ Rules (a program checks every one and rejects the draft if any is broken):
 - Open with the counter-intuitive number or the named mechanism, not with hype.
 - card: {"headline": "...", "support": "..."}, the key finding at a glance. The headline cites primaryEstimate; for an estimate it says what the number is, in plain words; for a finding it states the finding. One supporting line.
 - source: {"who": "...", "span": "..."}, the source line around the design: who took part and how many ("20 healthy adults [sample]"), and how long or how often ("four breakfasts each [crossover]"). Each cites the fact that states it.
-- Plain language: outside the "lower-bound" and "missed" sections and the limitations, never write "significant", a p-value, a confidence interval or "effect size": say "a clear difference" or "no clear difference". Never write "no effect" or "did not change" for a result the study could not tell from zero. Write "lower", "higher", "rose" or "fell" only when a cited fact states that direction; otherwise "differed".
-- Include a section with id "lower-bound" that states both ends of the main estimate's 95% interval and says in plain words what the weak end means. If the paper gives no interval, say so in so many words.
-- Include a section with id "missed": what most summaries of this study leave out.
-- Include a section with id "parallel": a related idea, drawn only from the context facts.
-- limitations: at least one, each resting on a limitation fact.
+- Shape: three separate layers and a glossary (H10). "layers": {"mechanism": {"paragraphs": [...], "figure": null}, "protocol": {"paragraphs": [...], "figure": null}, "audit": {"effect": "...", "weakEnd": "...", "limitations": [...], "missed": "...", "more": [...], "figure": null}}, and "glossary": [{"term": "...", "plain": "...", "refs": ["fact_id"]}] or [{"term": "...", "concept": "<slug>"}]. Never write "sections" or a top-level "limitations" or "figure": that old shape is refused.
+- mechanism: why it happens, at most 350 words. Give the mental model first, then the name (H9). No caveats here: never limitation, confound, self-reported, p =, p <, 95%, CI, sample size, dropout or funded.
+- protocol: what the data supports, at most 150 words: the tested parameters.
+- audit: the receipts, at most 250 words. effect: the raw effect size, citing primaryEstimate. weakEnd: both ends of its 95% interval and what the weak end means; if there is none, say "no confidence interval" in so many words. limitations: at least one, each citing a limitation fact. missed: what most summaries leave out. more: the rest.
+- Plain language: outside the audit layer, never write "significant", a p-value, a confidence interval or "effect size": say "a clear difference" or "no clear difference". Never write "no effect" or "did not change" for a result the study could not tell from zero. Write "lower", "higher", "rose" or "fell" only when a cited fact states that direction; otherwise "differed".
+- Glossary (H9): any of adenosine, receptor, antagonist, upregulate, downregulate, attenuate, modulate, AMPK, mTOR, cortisol, circadian, REM, hypertrophy, VO2max, insulin sensitivity, all-cause mortality, hazard ratio, confidence interval, meta-analysis, cohort, randomized used in the hook, the population panel, the mechanism or the protocol needs a glossary entry saying in plain words what it physically does. A plain entry cites the facts it rests on in refs and uses none of those words and no number they do not hold.
+- Voice (H11): short sentences, never over 30 words, aim for 22. Active voice. Never "it is worth noting", "it should be noted", "it is important to note", "interestingly", "notably", "the authors observed that", "the results suggest that it may".
+- Other sources: cite a fact of another study only by its id, [<study>/<fact_id>], and a background concept only as [concept:<slug>] or a glossary "concept". Never write a number from another study without its id, and never cite an id you were not given. A concept carries no number.
 - Every number you write must appear in a fact you cite for that sentence.
-- 350 to 1000 words in total. Short sentences. Define any technical word the first time you use it.
+- 350 to 1000 words in total.
 - steps: the protocol a reader can track. Only genuine daily choices are "action" steps. "N times a week" is a weekly_target that counts an action step. A step's evidenceRef names the estimate or finding that supports it; leave it null if nothing does. Never write a grade or a weight: those are derived by code.
 - simulator: choose it from FIGURE KINDS AVAILABLE, below the facts. That list was worked out by a program from these facts; it is the only list.
   - Prefer a kind filled from this paper's own facts. A kind marked ANOTHER STUDY ONLY rests on an owner-approved fact from another study: use it only when this read is about what that fact measures, and say in words.halfLifeNote (or the kind's note) that the number comes from another study.
@@ -119,11 +122,12 @@ Figure kinds (what each one draws, the params it needs, the words it reads):
 ${Object.values(KIND_GUIDE).join("\n")}`;
 
 /**
- * The draft request. `kinds` is the menu from lib/pipeline/propose.ts (kindMenu(proposeKinds(...))),
+ * The draft request. `context` lists the other sources the read may cite, by id (contextMenu).
+ * `kinds` is the menu from lib/pipeline/propose.ts (kindMenu(proposeKinds(...))),
  * worked out from the same validated facts: the model picks its figure kind and simulator inputs
  * from it, and the lint checks the spec it writes.
  */
-export function editorialPrompt(input: { slug: string; validated: unknown; exampleEditorial: string; kinds: string }): string {
+export function editorialPrompt(input: { slug: string; validated: unknown; exampleEditorial: string; kinds: string; context: string }): string {
   return `EXAMPLE OUTPUT (a different paper; copy the shape, not the content):
 ${input.exampleEditorial}
 
@@ -131,6 +135,9 @@ SLUG TO USE: ${input.slug}
 
 VALIDATED FACTS FOR THE PAPER TO WRITE ABOUT:
 ${JSON.stringify(input.validated, null, 2)}
+
+OTHER SOURCES YOU MAY CITE (by these ids only; from lib/pipeline/propose.ts contextMenu):
+${input.context}
 
 FIGURE KINDS AVAILABLE (worked out from these facts; pick the simulator from this list only):
 ${input.kinds}`;

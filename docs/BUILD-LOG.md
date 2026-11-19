@@ -1993,3 +1993,47 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   of the three conditions was "based on pseudo-randomization" (now gated as
   `pseudo_randomization`). Owner: **keep the label.** The design stays `crossover` with the
   randomized audit wording of 2026-11-14; nothing in the read or the gate changes.
+
+## 2026-11-19: step 2E: the three starter reads in three layers; the allowlist deleted
+
+- **The reads.** Caffeine, HIIT and steps rewritten into mechanism, protocol and audit with a
+  glossary (H9–H11), from facts already in each `extraction.json`. Words per layer (budget
+  350 / 150 / 250): caffeine 169 / 129 / 227, HIIT 133 / 116 / 246, steps 124 / 87 / 230; longest
+  sentence 21, 21, 22. Before/after per paper: `docs/evidence/phase9-2e/before-after.md`.
+- **No new concept files.** A published read may not use an unreviewed concept, so the reads rest
+  only on the two the owner has reviewed (`adenosine`, `fat-free-mass`). Every other glossary
+  entry is plain text citing the fact it rests on (placebo, interval training, randomized, step
+  counter, adjustments). No parallel study added or proposed: the steps read's earlier pooled
+  analysis and the US survey are already gated facts of the paper.
+- **Two schema fields, so the figures keep the places FIGURE-DESIGN gave them.**
+  `layers.protocol.figureSlot: "try"` puts the protocol layer's figure in the Try it slot, under
+  the simulator (caffeine figure B, HIIT figure 4B); without it the figure stays in the text. A
+  `title` on `layers.audit.figure` makes that figure its own receipt at the top of the audit
+  (steps figure A, "Why the raw gap is so wide", owner ruling R3); untitled, it sits inside "The
+  size of the effect". The lint fails `figureSlot: "try"` with no figure.
+- **Owner-approved lines outside the layers that changed.** Steps population panel: "step counter"
+  for "accelerometer", and its 27-word first sentence split in two. Steps carousel caption: a
+  31-word first sentence split in two. Caffeine figure B alt text: a 31-word sentence split in
+  two. Same facts, same citations.
+- **The allowlist is gone.** `scripts/legacy-shape.ts` deleted; `allowLegacyShape` and
+  `LegacyEditorial` removed from the lint and the schema. An old-shape read now fails the lint for
+  every slug; content-build reports an old-shape draft and stops on an old-shape published paper.
+  `scripts/legacy-shape.test.ts` now fails if the file or either name comes back, if any paper
+  is old-shape, or if the lint lets an old-shape starter paper through (shown failing:
+  `docs/evidence/phase9-2e/rules-broken.txt`).
+- **The draft stage.** `prompts.ts` asks for the layers and the glossary, the H9 jargon list, H11
+  voice, and other sources cited only by `[<study>/<fact_id>]` or `[concept:<slug>]`; the old
+  lower-bound / missed / limitations instructions are gone. The prompt now lists the ids it may
+  cite (`contextMenu` in `propose.ts`: gated context facts minus withdrawn studies and excluded
+  facts, plus reviewed concepts). `paper draft` checks each reply with `draftReplyProblem`, which
+  names the old or the mixed shape so the one retry says what to fix.
+  `scripts/draft-shape.test.ts` runs the real script against a fake model on 127.0.0.1: an
+  old-shape reply is refused twice, exit 1, nothing saved; a layered reply is saved first time.
+- **Kept on purpose until the hosted seed push.** HIIT's members' text is served from the hosted
+  `paper_content` row, which is still old-shape. `Article.tsx` and the `PaperContent` type keep
+  their old-shape branches (`sections`, `limitations`, `protocolFigure`, `auditFigure`) for that
+  row only. `supabase/seed.sql` now holds the layered HIIT read; it reaches members only after
+  the owner's go for the push. Then remove those branches and fields.
+- **One browser test changed.** The caffeine simulator's "no presets" check counted only
+  source-passage buttons. The finding now carries a glossary button ("placebo: what it means",
+  H9), so the check allows that button by name and still refuses any other.

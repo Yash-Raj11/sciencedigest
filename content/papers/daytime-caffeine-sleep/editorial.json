@@ -29,152 +29,155 @@
     "note": "The tiredness lines are a sketch, not data. Try it with your own coffee inside. [-]",
     "tryIt": "how much is left at your bedtime [-]"
   },
-  "sections": [
-    {
-      "id": "did",
-      "heading": "What they did",
+  "layers": {
+    "mechanism": {
       "paragraphs": [
-        "For 10 days at a time the men swallowed a capsule three times a day: 45, 255 and 475 minutes after waking. [schedule] In one condition every capsule held 150 mg of caffeine. [dose] In another, all were placebo. [dose] In a third, caffeine was swapped for placebo near the end, to see what stopping does. [dose]",
-        "After 9 days they slept in the laboratory wired to an EEG, with bedtime falling 8 hours after the last caffeine capsule. [recording]"
-      ]
-    },
-    {
-      "id": "found",
-      "heading": "What they found",
-      "paragraphs": [
-        "Total sleep time, the time taken to fall asleep and the share of each sleep stage did not differ between the caffeine nights and the placebo nights. [sleep_same] The men's own ratings of how they slept did not differ either. [quality_same] The researchers had expected to see less deep sleep on caffeine and did not find it. [no_depth_change]"
-      ]
-    },
-    {
-      "id": "lower-bound",
-      "heading": "How sure is that?",
-      "paragraphs": [
-        "Here the paper gives less than we would like. [-] Its text reports these comparisons only as not statistically significant, with p above 0.05, and gives no effect size and no confidence interval. [sleep_same] With twenty people, a real difference of a few minutes could sit inside that result unnoticed. [sample, lim_n] Read it as: no large disruption was detected in this group. [sleep_same] It is not proof that there is none. [-]"
-      ]
-    },
-    {
-      "id": "missed",
-      "heading": "What most summaries miss",
-      "paragraphs": [
-        "One measure did change. [-] During non-REM sleep, brain activity in the sigma band was lower on caffeine nights than on placebo nights. [sigma] The authors read this as an early sign of withdrawal, already present 8 hours after the last dose. [sigma_meaning] In other words, a daily habit may mean beginning a small withdrawal every night and undoing it with the first cup every morning. [daily_reverse]",
-        "A second detail comes from the nights at home: on caffeine, the men went to bed about 25 minutes later than on placebo. [later_bed]"
-      ]
-    },
-    {
-      "id": "parallel",
-      "heading": "A related idea",
-      "paragraphs": [
-        "Tolerance ties this together. [-] The authors cite earlier work in which a week of regular caffeine blunted its effect on sleep, even at high evening doses. [tolerance] They also warn that the same morning cup could still disturb sleep in someone coming off several days without any. [not_after_abstinence] The habit, not just the cup, shapes the night. [-]"
-      ]
-    }
-  ],
-  "limitations": [
-    "Only men took part, so the result may not hold for women. [lim_male]",
-    "All were aged 18 to 35. [who] The authors note that middle-aged people are more vulnerable to what caffeine does to sleep. [lim_young]",
-    "Twenty participants is a small trial, and the text gives no effect sizes to show how small a difference it could have missed. [sample, lim_n]"
-  ],
-  "figure": {
-    "figure": "parking-spot",
-    "headline": "Caffeine takes the tiredness signal’s parking spot. [adenosine_block]",
-    "caption": "Dashed: how the authors describe caffeine acting, not measured in this study. [adenosine_block] Dotted: a sketch of the tiredness signal building up, not data. [-]",
-    "alt": "Two panels, each showing the surface of a brain cell with one cup-shaped dock. [-] Without caffeine, round tokens, the tiredness signal, drift down and one sits in the dock: you feel sleepy. [adenosine_block] With caffeine, a hexagon, caffeine, sits in the dock; the round tokens crowd above it and cannot land: you feel alert. [adenosine_block] How many tokens are drawn means nothing; they are a sketch, not data. [-]",
-    "params": {
-      "title": "Caffeine in the tiredness signal’s dock",
-      "tokens": "sketch:tiredness-tokens",
-      "block": {
-        "tag": "How the authors describe it, not measured in this study",
-        "kind": "proposed",
-        "fact": "fact:adenosine_block"
-      },
-      "without": {
-        "title": "Without caffeine",
-        "dock": "The dock on a brain cell",
-        "feeling": {
-          "lead": "Signal lands. You feel",
-          "word": "sleepy",
-          "end": "."
-        }
-      },
-      "with": {
-        "title": "With caffeine",
-        "caffeine": "Caffeine",
-        "dock": "Caffeine sits in the dock",
-        "crowd": "The signal is still there. It just can’t land.",
-        "feeling": {
-          "lead": "You feel",
-          "word": "alert",
-          "end": "."
-        }
-      }
-    }
-  },
-  "protocolFigure": {
-    "figure": "hidden-tiredness",
-    "headline": "Caffeine hides tiredness. [-] It doesn’t remove it. [-]",
-    "caption": "Dotted: a sketch of tiredness through the day, not data. [-] The day runs from waking to bed, with the study’s three doses and the 8 hours to the sleep recording. [schedule, recording] The box is what the sleep laboratory found. [sleep_same]",
-    "alt": "Two dotted lines run from waking to bed. [-] One, sleep pressure, keeps rising. [-] The other, how tired you feel, follows it until the first dose, then runs below it; the hatched gap between them is hidden tiredness, and it narrows towards bed without closing. [schedule] Nothing is drawn after bed. [-] A box beneath says what the study found: sleep showed no clear difference from placebo nights. [sleep_same]",
-    "params": {
-      "title": "Tiredness through a caffeine day, and what the sleep laboratory found",
-      "tiredness": "sketch:sleep-pressure",
-      "day": {
-        "wake": "wake",
-        "bed": "bed"
-      },
-      "doses": {
-        "times": [
-          {
-            "n": 45,
-            "ref": "schedule"
-          },
-          {
-            "n": 255,
-            "ref": "schedule"
-          },
-          {
-            "n": 475,
-            "ref": "schedule"
-          }
-        ],
-        "lead": "The study’s doses:",
-        "amount": {
-          "text": "150 mg",
-          "ref": "dose"
-        },
-        "rest": "three times a day"
-      },
-      "recording": {
-        "lead": "Sleep recording began",
-        "hours": {
-          "n": 8,
-          "ref": "recording"
-        },
-        "rest": "hours after the last dose"
-      },
-      "phases": [
-        "first dose",
-        "in effect",
-        "fading"
+        "All day, a tiredness signal collects in your brain. [concept:adenosine] It settles onto brain cells and slows them down, so you feel sleepy. [concept:adenosine] Caffeine takes its parking spot. [adenosine_block] The signal is still there; it just cannot land. [adenosine_block] Its name is adenosine. [adenosine_block]",
+        "Late in the day, that block can cost you sleep. [evening] Earlier studies found that evening caffeine made sleep slower to come and shorter, with less deep sleep. [evening]",
+        "A daily habit changes the picture. [tolerance] In earlier work the authors cite, a week of regular caffeine blunted its effect on sleep, even with large evening doses. [tolerance] That fits what this trial saw. [-] On caffeine, measured sleep showed no clear difference from placebo nights. [sleep_same]",
+        "The authors also suggest a daily loop. [daily_reverse] Each night, as the last dose wears off, a small withdrawal may begin. [sigma_meaning] The first dose next morning would undo it. [daily_reverse]"
       ],
-      "found": {
-        "title": "What this study found",
-        "finding": "Sleep showed no clear difference from placebo nights.",
-        "kind": "measured",
-        "fact": "fact:sleep_same",
-        "who": {
-          "lead": "Twenty men aged",
-          "from": {
-            "n": 18,
-            "ref": "who"
+      "figure": {
+        "figure": "parking-spot",
+        "headline": "Caffeine takes the tiredness signal’s parking spot. [adenosine_block]",
+        "caption": "Dashed: how the authors describe caffeine acting, not measured in this study. [adenosine_block] Dotted: a sketch of the tiredness signal building up, not data. [-]",
+        "alt": "Two panels, each showing the surface of a brain cell with one cup-shaped dock. [-] Without caffeine, round tokens, the tiredness signal, drift down and one sits in the dock: you feel sleepy. [adenosine_block] With caffeine, a hexagon, caffeine, sits in the dock; the round tokens crowd above it and cannot land: you feel alert. [adenosine_block] How many tokens are drawn means nothing; they are a sketch, not data. [-]",
+        "params": {
+          "title": "Caffeine in the tiredness signal’s dock",
+          "tokens": "sketch:tiredness-tokens",
+          "block": {
+            "tag": "How the authors describe it, not measured in this study",
+            "kind": "proposed",
+            "fact": "fact:adenosine_block"
           },
-          "to": {
-            "n": 35,
-            "ref": "who"
+          "without": {
+            "title": "Without caffeine",
+            "dock": "The dock on a brain cell",
+            "feeling": {
+              "lead": "Signal lands. You feel",
+              "word": "sleepy",
+              "end": "."
+            }
           },
-          "rest": "who drink caffeine every day."
+          "with": {
+            "title": "With caffeine",
+            "caffeine": "Caffeine",
+            "dock": "Caffeine sits in the dock",
+            "crowd": "The signal is still there. It just can’t land.",
+            "feeling": {
+              "lead": "You feel",
+              "word": "alert",
+              "end": "."
+            }
+          }
         }
       }
+    },
+    "protocol": {
+      "paragraphs": [
+        "For 10 days, the men took a capsule three times a day: 45, 255 and 475 minutes after waking. [schedule] In one condition every capsule held 150 mg of caffeine; in another, every capsule was a placebo. [dose] The third switched from caffeine to placebo after 8 days. [dose]",
+        "After 9 days, they slept in the laboratory with sensors on the scalp recording the brain. [recording] On caffeine, the night began 8 hours after the last capsule. [recording] The trial did not try a last dose closer to bed. [recording]"
+      ],
+      "figure": {
+        "figure": "hidden-tiredness",
+        "headline": "Caffeine hides tiredness. [-] It doesn’t remove it. [-]",
+        "caption": "Dotted: a sketch of tiredness through the day, not data. [-] The day runs from waking to bed, with the study’s three doses and the 8 hours to the sleep recording. [schedule, recording] The box is what the sleep laboratory found. [sleep_same]",
+        "alt": "Two dotted lines run from waking to bed. [-] One, sleep pressure, keeps rising. [-] The other, how tired you feel, follows it until the first dose, then runs below it. [schedule] The hatched gap between them is hidden tiredness, and it narrows towards bed without closing. [schedule] Nothing is drawn after bed. [-] A box beneath says what the study found: sleep showed no clear difference from placebo nights. [sleep_same]",
+        "params": {
+          "title": "Tiredness through a caffeine day, and what the sleep laboratory found",
+          "tiredness": "sketch:sleep-pressure",
+          "day": {
+            "wake": "wake",
+            "bed": "bed"
+          },
+          "doses": {
+            "times": [
+              {
+                "n": 45,
+                "ref": "schedule"
+              },
+              {
+                "n": 255,
+                "ref": "schedule"
+              },
+              {
+                "n": 475,
+                "ref": "schedule"
+              }
+            ],
+            "lead": "The study’s doses:",
+            "amount": {
+              "text": "150 mg",
+              "ref": "dose"
+            },
+            "rest": "three times a day"
+          },
+          "recording": {
+            "lead": "Sleep recording began",
+            "hours": {
+              "n": 8,
+              "ref": "recording"
+            },
+            "rest": "hours after the last dose"
+          },
+          "phases": [
+            "first dose",
+            "in effect",
+            "fading"
+          ],
+          "found": {
+            "title": "What this study found",
+            "finding": "Sleep showed no clear difference from placebo nights.",
+            "kind": "measured",
+            "fact": "fact:sleep_same",
+            "who": {
+              "lead": "Twenty men aged",
+              "from": {
+                "n": 18,
+                "ref": "who"
+              },
+              "to": {
+                "n": 35,
+                "ref": "who"
+              },
+              "rest": "who drink caffeine every day."
+            }
+          }
+        }
+      },
+      "figureSlot": "try"
+    },
+    "audit": {
+      "effect": "The paper checked total sleep, time to fall asleep and the share of each sleep stage. [sleep_same] For each, it reports no clear difference between conditions, with p above 0.05. [sleep_same] It gives no size for any of these differences. [sleep_same]",
+      "weakEnd": "The paper gives no confidence interval for these results. [sleep_same] With twenty men, a real difference of a few minutes could hide inside “no clear difference”. [sample, lim_n] Read it as no large disruption found in this group, not proof that there is none. [sleep_same]",
+      "limitations": [
+        "Only men took part, so the result may not hold for women. [lim_male]",
+        "Everyone was 18 to 35. [who] The authors say middle-aged people are more sensitive to what caffeine does to sleep. [lim_young]",
+        "Twenty men make a small trial. [sample, lim_n] Without effect sizes, nobody can say how small a difference it could have missed. [lim_n]"
+      ],
+      "missed": "One measure did change. [-] A band of the brain’s electrical activity in sleep, called sigma, was lower on caffeine nights than on placebo nights. [sigma] The authors read it as early withdrawal, already there 8 hours after the last dose. [sigma_meaning]",
+      "more": [
+        "At home, the men went to bed about 25 minutes later on caffeine than on placebo. [later_bed]",
+        "Their own ratings of how they slept showed no clear difference between conditions either. [quality_same]",
+        "The researchers expected less deep sleep on caffeine and did not find it. [no_depth_change]",
+        "The authors warn that morning caffeine could still disturb sleep after several days without any. [not_after_abstinence]"
+      ],
+      "figure": null
     }
   },
+  "glossary": [
+    {
+      "term": "adenosine",
+      "concept": "adenosine"
+    },
+    {
+      "term": "placebo",
+      "plain": "A capsule that looked the same as the caffeine one but held no caffeine.",
+      "refs": [
+        "capsules"
+      ]
+    }
+  ],
   "sketches": [
     {
       "id": "tiredness-tokens",

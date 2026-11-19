@@ -1,47 +1,77 @@
 /**
- * The guard on the temporary allowlist (scripts/legacy-shape.ts).
+ * Step 2E: the temporary old-shape allowlist is gone, and it must not come back.
  *
- * The allowlist lets the three starter papers keep building in the old flat
- * shape until step 2E rewrites them. It must not outlive that step, and it must
- * never be used to wave a new paper through. Three rules:
- *
- *   1. It names only the three starter papers. Nothing is ever added.
- *   2. Every slug on it is a paper that is still in the old shape. Rewrite a
- *      paper and its entry has to go.
- *   3. Once 2E is ticked in docs/PROGRESS.md, the list must be empty (in 2E the
- *      file is deleted, and this test is replaced by one that fails if it comes back).
- *
- * To see rule 3 fail without touching the real file:
- *   PROGRESS_PATH=/path/to/copy.md npx vitest run scripts/legacy-shape.test.ts
+ *   1. scripts/legacy-shape.ts (the allowlist) does not exist, and no source file names it,
+ *      the allowLegacyShape option or the LegacyEditorial schema.
+ *   2. Every read in content/papers/ is in the three-layer shape.
+ *   3. The lint refuses an old-shape read for every slug, the three starter papers included.
+ *   4. The draft stage refuses a fake old-shape model reply (and a mixed one) before saving it,
+ *      and the draft prompt asks for the layers, not sections.
  */
 
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { editorialShape } from "../lib/pipeline/editorial";
-import { LEGACY_SHAPE_ALLOWLIST } from "./legacy-shape";
+import { FIGURE_KEYS } from "../lib/content/figures";
+import { MIXED_SHAPE_MESSAGE, OLD_SHAPE_MESSAGE, draftReplyProblem, editorialShape } from "../lib/pipeline/editorial";
+import { gate } from "../lib/pipeline/gate";
+import { lint } from "../lib/pipeline/lint";
+import { EDITORIAL_SYSTEM } from "../lib/pipeline/prompts";
 
-const PROGRESS_PATH = process.env.PROGRESS_PATH ?? "docs/PROGRESS.md";
-const STARTERS = ["daytime-caffeine-sleep", "hiit-body-composition", "steps-days-per-week"];
+const PAPERS = "content/papers";
+const slugs = readdirSync(PAPERS).filter((s) => existsSync(`${PAPERS}/${s}/editorial.json`));
+const read = (slug: string) => JSON.parse(readFileSync(`${PAPERS}/${slug}/editorial.json`, "utf8"));
 
-describe("the temporary old-shape allowlist", () => {
-  it("names only the three starter papers", () => {
-    expect(LEGACY_SHAPE_ALLOWLIST.filter((slug) => !STARTERS.includes(slug))).toEqual([]);
+/** What a model copying the pre-2E example would return: the read's text in sections. */
+function oldShape(editorial: Record<string, unknown>): Record<string, unknown> {
+  const { layers, ...rest } = editorial as { layers: { mechanism: { paragraphs: string[] }; audit: { weakEnd: string; missed: string; limitations: string[] } }; glossary?: unknown };
+  delete rest.glossary;
+  return {
+    ...rest,
+    sections: [
+      { id: "found", heading: "What they found", paragraphs: layers.mechanism.paragraphs },
+      { id: "lower-bound", heading: "How sure is that?", paragraphs: [layers.audit.weakEnd] },
+      { id: "missed", heading: "What most summaries miss", paragraphs: [layers.audit.missed] },
+    ],
+    limitations: layers.audit.limitations,
+  };
+}
+
+function walk(dir: string): string[] {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(`${dir}/${e.name}`) : [`${dir}/${e.name}`]));
+}
+
+describe("the old flat shape after step 2E", () => {
+  it("has no allowlist file and no source file that names it", () => {
+    expect(existsSync("scripts/legacy-shape.ts")).toBe(false);
+    const sources = [...walk("lib"), ...walk("scripts"), ...walk("components")]
+      .filter((f) => /\.(ts|tsx|mts)$/.test(f) && f !== "scripts/legacy-shape.test.ts" && !f.endsWith("generated.ts"));
+    const naming = sources.filter((f) => /LEGACY_SHAPE_ALLOWLIST|allowLegacyShape|LegacyEditorial|legacy-shape"/.test(readFileSync(f, "utf8")));
+    expect(naming).toEqual([]);
   });
 
-  it("names only papers that exist and are still in the old flat shape", () => {
-    const stale = LEGACY_SHAPE_ALLOWLIST.filter((slug) => {
-      const path = `content/papers/${slug}/editorial.json`;
-      return !existsSync(path) || editorialShape(JSON.parse(readFileSync(path, "utf8"))) !== "legacy";
-    });
-    expect(stale, "these papers are no longer in the old shape: remove them from scripts/legacy-shape.ts").toEqual([]);
+  it.each(slugs)("%s is in the three-layer shape", (slug) => {
+    expect(editorialShape(read(slug))).toBe("layered");
   });
 
-  it("is empty once step 2E is ticked in docs/PROGRESS.md", () => {
-    const progress = readFileSync(PROGRESS_PATH, "utf8");
-    const line = progress.split("\n").find((l) => /^- \[[ x]\] 2E\./.test(l));
-    expect(line, "docs/PROGRESS.md must keep its 2E line, so this guard knows when the allowlist is due").toBeDefined();
-    if (line!.startsWith("- [x]")) {
-      expect(LEGACY_SHAPE_ALLOWLIST, "2E is ticked: delete scripts/legacy-shape.ts and the allowLegacyShape option").toEqual([]);
+  it.each(["daytime-caffeine-sleep", "hiit-body-composition", "steps-days-per-week"])("the lint refuses %s in the old shape", (slug) => {
+    const gated = gate(JSON.parse(readFileSync(`${PAPERS}/${slug}/extraction.json`, "utf8")), readFileSync(`${PAPERS}/${slug}/source.txt`, "utf8"));
+    expect(gated.ok).toBe(true);
+    if (!gated.ok) return;
+    const report = lint(gated.validated, oldShape(read(slug)), "", { figures: FIGURE_KEYS });
+    expect(report.errors.map((e) => e.message)).toEqual([OLD_SHAPE_MESSAGE]);
+  });
+
+  it("the draft stage refuses a fake old-shape model reply, and a mixed one", () => {
+    const reply = { ...read("steps-days-per-week"), publishedAt: null };
+    expect(draftReplyProblem(reply)).toBeNull();
+    expect(draftReplyProblem(oldShape(reply))).toBe(OLD_SHAPE_MESSAGE);
+    expect(draftReplyProblem({ ...reply, sections: (oldShape(reply) as { sections: unknown }).sections })).toBe(MIXED_SHAPE_MESSAGE);
+  });
+
+  it("the draft prompt asks for the three layers and the glossary, never sections", () => {
+    for (const word of ['"layers"', '"mechanism"', '"protocol"', '"audit"', '"glossary"', "H9", "H10", "H11", "[<study>/<fact_id>]"]) {
+      expect(EDITORIAL_SYSTEM).toContain(word);
     }
+    expect(EDITORIAL_SYSTEM).not.toMatch(/section with id|"lower-bound"/);
   });
 });

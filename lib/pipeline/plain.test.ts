@@ -30,10 +30,10 @@ const turmeric = paper("turmeric-pepper-breakfast");
 const caffeine = paper("daytime-caffeine-sleep");
 const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
 
-function plainErrors(read: ReturnType<typeof paper>, mutate: (editorial: any) => void, allowLegacyShape = false): string[] {
+function plainErrors(read: ReturnType<typeof paper>, mutate: (editorial: any) => void): string[] {
   const editorial = clone(read.editorial);
   mutate(editorial);
-  const report = lint(read.validated, editorial, read.source, { context, figures: FIGURE_KEYS, allowLegacyShape });
+  const report = lint(read.validated, editorial, read.source, { context, figures: FIGURE_KEYS });
   return report.errors.filter((e) => e.rule === "plain").map((e) => `${e.where}: ${e.message}`);
 }
 const addProtocol = (sentence: string) => (e: any) => { e.layers.protocol.paragraphs[0] += ` ${sentence}`; };
@@ -43,8 +43,8 @@ describe("the passing read", () => {
   it("turmeric has no plain-language error", () => {
     expect(plainErrors(turmeric, () => {})).toEqual([]);
   });
-  it("caffeine (old shape) has none", () => {
-    expect(plainErrors(caffeine, () => {}, true)).toEqual([]);
+  it("caffeine (three layers since step 2E) has none", () => {
+    expect(plainErrors(caffeine, () => {})).toEqual([]);
   });
 });
 
@@ -64,11 +64,10 @@ describe('"significant" stays in the Receipts', () => {
   it("passes in the audit layer", () => {
     expect(plainErrors(turmeric, addMissed("The 30-minute reading was significantly different. [glucose_30]"))).toEqual([]);
   });
-  it("old shape: passes in lower-bound, fails in found", () => {
+  it("caffeine: passes in the audit's weak end, fails in the mechanism layer", () => {
     const sentence = "The differences were not statistically significant. [sleep_same]";
-    const add = (id: string) => (e: any) => { e.sections.find((s: any) => s.id === id).paragraphs[0] += ` ${sentence}`; };
-    expect(plainErrors(caffeine, add("lower-bound"), true)).toEqual([]);
-    expect(plainErrors(caffeine, add("found"), true).join()).toMatch(/sections\.found\[0\]: "significant" outside/);
+    expect(plainErrors(caffeine, (e) => { e.layers.audit.weakEnd += ` ${sentence}`; })).toEqual([]);
+    expect(plainErrors(caffeine, (e) => { e.layers.mechanism.paragraphs[0] += ` ${sentence}`; }).join()).toMatch(/layers\.mechanism\[0\]: "significant" outside/);
   });
 });
 
@@ -146,7 +145,7 @@ describe("a direction word needs a fact that states the direction", () => {
   it("two printed levels that differ state a direction between them", () => {
     expect(plainErrors(paper("steps-days-per-week"), (e) => {
       e.carousel.caption += " The share who died was lower in the 1-2-day group. [crude_1_2, crude_0]";
-    }, true)).toEqual([]);
+    })).toEqual([]);
   });
 });
 

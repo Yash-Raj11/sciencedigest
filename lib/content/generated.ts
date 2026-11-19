@@ -12,7 +12,7 @@ export const PAPERS: PaperMeta[] = [
     "category": "Sleep",
     "accessTier": "free",
     "publishedAt": "2026-11-12T00:00:00Z",
-    "readMinutes": 2,
+    "readMinutes": 3,
     "doi": "10.1038/s41598-021-84088-x",
     "pmid": "33633278",
     "pmcid": "PMC7907384",
@@ -43,7 +43,7 @@ export const PAPERS: PaperMeta[] = [
     "category": "Body composition",
     "accessTier": "premium",
     "publishedAt": "2026-11-12T00:00:00Z",
-    "readMinutes": 2,
+    "readMinutes": 3,
     "doi": "10.3390/jcm12062291",
     "pmid": "36983289",
     "pmcid": "PMC10054577",
@@ -191,7 +191,7 @@ export const PAPERS: PaperMeta[] = [
     "category": "Movement",
     "accessTier": "free",
     "publishedAt": "2026-11-12T00:00:00Z",
-    "readMinutes": 3,
+    "readMinutes": 2,
     "doi": "10.1001/jamanetworkopen.2023.5174",
     "pmid": "36976556",
     "pmcid": "PMC10051082",
@@ -605,32 +605,187 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         ]
       }
     ],
-    "sections": [
-      {
-        "id": "did",
-        "heading": "What they did",
+    "sections": [],
+    "limitations": [],
+    "layers": {
+      "mechanism": {
         "paragraphs": [
           [
             {
-              "text": "For 10 days at a time the men swallowed a capsule three times a day: 45, 255 and 475 minutes after waking.",
+              "text": "All day, a tiredness signal collects in your brain.",
+              "refs": [
+                "concept:adenosine"
+              ]
+            },
+            {
+              "text": "It settles onto brain cells and slows them down, so you feel sleepy.",
+              "refs": [
+                "concept:adenosine"
+              ]
+            },
+            {
+              "text": "Caffeine takes its parking spot.",
+              "refs": [
+                "adenosine_block"
+              ]
+            },
+            {
+              "text": "The signal is still there; it just cannot land.",
+              "refs": [
+                "adenosine_block"
+              ]
+            },
+            {
+              "text": "Its name is adenosine.",
+              "refs": [
+                "adenosine_block"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "Late in the day, that block can cost you sleep.",
+              "refs": [
+                "evening"
+              ]
+            },
+            {
+              "text": "Earlier studies found that evening caffeine made sleep slower to come and shorter, with less deep sleep.",
+              "refs": [
+                "evening"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "A daily habit changes the picture.",
+              "refs": [
+                "tolerance"
+              ]
+            },
+            {
+              "text": "In earlier work the authors cite, a week of regular caffeine blunted its effect on sleep, even with large evening doses.",
+              "refs": [
+                "tolerance"
+              ]
+            },
+            {
+              "text": "That fits what this trial saw.",
+              "refs": []
+            },
+            {
+              "text": "On caffeine, measured sleep showed no clear difference from placebo nights.",
+              "refs": [
+                "sleep_same"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "The authors also suggest a daily loop.",
+              "refs": [
+                "daily_reverse"
+              ]
+            },
+            {
+              "text": "Each night, as the last dose wears off, a small withdrawal may begin.",
+              "refs": [
+                "sigma_meaning"
+              ]
+            },
+            {
+              "text": "The first dose next morning would undo it.",
+              "refs": [
+                "daily_reverse"
+              ]
+            }
+          ]
+        ],
+        "figure": {
+          "figure": "parking-spot",
+          "headline": [
+            {
+              "text": "Caffeine takes the tiredness signal’s parking spot.",
+              "refs": [
+                "adenosine_block"
+              ]
+            }
+          ],
+          "caption": [
+            {
+              "text": "Dashed: how the authors describe caffeine acting, not measured in this study.",
+              "refs": [
+                "adenosine_block"
+              ]
+            },
+            {
+              "text": "Dotted: a sketch of the tiredness signal building up, not data.",
+              "refs": []
+            }
+          ],
+          "alt": "Two panels, each showing the surface of a brain cell with one cup-shaped dock. Without caffeine, round tokens, the tiredness signal, drift down and one sits in the dock: you feel sleepy. With caffeine, a hexagon, caffeine, sits in the dock; the round tokens crowd above it and cannot land: you feel alert. How many tokens are drawn means nothing; they are a sketch, not data.",
+          "params": {
+            "title": "Caffeine in the tiredness signal’s dock",
+            "tokens": {
+              "sketch": "tiredness-tokens",
+              "concept": "adenosine",
+              "tag": "Sketch, not data",
+              "ink": "muted",
+              "labels": {
+                "signal": "Tiredness signal (adenosine). It builds up while you are awake."
+              },
+              "alt": "Small round tokens drawn with dotted outlines: a sketch of the tiredness signal building up, not data. How many are drawn means nothing."
+            },
+            "block": {
+              "tag": "How the authors describe it, not measured in this study",
+              "kind": "proposed",
+              "fact": {
+                "id": "adenosine_block",
+                "kind": "context",
+                "label": "How caffeine acts, as the authors describe it: it blocks adenosine receptors and may hold back sleep pressure",
+                "quote": "Caffeine is an adenosine receptor antagonist, which blocks the Aand Aadenosine receptors in the central nervous system. It may, thus, attenuate the increase in sleep pressure during wakefulness"
+              }
+            },
+            "without": {
+              "title": "Without caffeine",
+              "dock": "The dock on a brain cell",
+              "feeling": {
+                "lead": "Signal lands. You feel",
+                "word": "sleepy",
+                "end": "."
+              }
+            },
+            "with": {
+              "title": "With caffeine",
+              "caffeine": "Caffeine",
+              "dock": "Caffeine sits in the dock",
+              "crowd": "The signal is still there. It just can’t land.",
+              "feeling": {
+                "lead": "You feel",
+                "word": "alert",
+                "end": "."
+              }
+            }
+          }
+        }
+      },
+      "protocol": {
+        "paragraphs": [
+          [
+            {
+              "text": "For 10 days, the men took a capsule three times a day: 45, 255 and 475 minutes after waking.",
               "refs": [
                 "schedule"
               ]
             },
             {
-              "text": "In one condition every capsule held 150 mg of caffeine.",
+              "text": "In one condition every capsule held 150 mg of caffeine; in another, every capsule was a placebo.",
               "refs": [
                 "dose"
               ]
             },
             {
-              "text": "In another, all were placebo.",
-              "refs": [
-                "dose"
-              ]
-            },
-            {
-              "text": "In a third, caffeine was swapped for placebo near the end, to see what stopping does.",
+              "text": "The third switched from caffeine to placebo after 8 days.",
               "refs": [
                 "dose"
               ]
@@ -638,359 +793,296 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
           ],
           [
             {
-              "text": "After 9 days they slept in the laboratory wired to an EEG, with bedtime falling 8 hours after the last caffeine capsule.",
+              "text": "After 9 days, they slept in the laboratory with sensors on the scalp recording the brain.",
+              "refs": [
+                "recording"
+              ]
+            },
+            {
+              "text": "On caffeine, the night began 8 hours after the last capsule.",
+              "refs": [
+                "recording"
+              ]
+            },
+            {
+              "text": "The trial did not try a last dose closer to bed.",
               "refs": [
                 "recording"
               ]
             }
           ]
-        ]
-      },
-      {
-        "id": "found",
-        "heading": "What they found",
-        "paragraphs": [
-          [
+        ],
+        "figure": {
+          "figure": "hidden-tiredness",
+          "headline": [
             {
-              "text": "Total sleep time, the time taken to fall asleep and the share of each sleep stage did not differ between the caffeine nights and the placebo nights.",
-              "refs": [
-                "sleep_same"
-              ]
-            },
-            {
-              "text": "The men's own ratings of how they slept did not differ either.",
-              "refs": [
-                "quality_same"
-              ]
-            },
-            {
-              "text": "The researchers had expected to see less deep sleep on caffeine and did not find it.",
-              "refs": [
-                "no_depth_change"
-              ]
-            }
-          ]
-        ]
-      },
-      {
-        "id": "lower-bound",
-        "heading": "How sure is that?",
-        "paragraphs": [
-          [
-            {
-              "text": "Here the paper gives less than we would like.",
+              "text": "Caffeine hides tiredness.",
               "refs": []
             },
             {
-              "text": "Its text reports these comparisons only as not statistically significant, with p above 0.05, and gives no effect size and no confidence interval.",
+              "text": "It doesn’t remove it.",
+              "refs": []
+            }
+          ],
+          "caption": [
+            {
+              "text": "Dotted: a sketch of tiredness through the day, not data.",
+              "refs": []
+            },
+            {
+              "text": "The day runs from waking to bed, with the study’s three doses and the 8 hours to the sleep recording.",
               "refs": [
-                "sleep_same"
+                "schedule",
+                "recording"
               ]
             },
             {
-              "text": "With twenty people, a real difference of a few minutes could sit inside that result unnoticed.",
+              "text": "The box is what the sleep laboratory found.",
+              "refs": [
+                "sleep_same"
+              ]
+            }
+          ],
+          "alt": "Two dotted lines run from waking to bed. One, sleep pressure, keeps rising. The other, how tired you feel, follows it until the first dose, then runs below it. The hatched gap between them is hidden tiredness, and it narrows towards bed without closing. Nothing is drawn after bed. A box beneath says what the study found: sleep showed no clear difference from placebo nights.",
+          "params": {
+            "title": "Tiredness through a caffeine day, and what the sleep laboratory found",
+            "tiredness": {
+              "sketch": "sleep-pressure",
+              "concept": "adenosine",
+              "tag": "Sketch, not data",
+              "ink": "ink",
+              "labels": {
+                "panel": "Two kinds of tiredness",
+                "pressure": "Sleep pressure keeps building",
+                "felt": "How tired you feel",
+                "gap": "Hidden tiredness",
+                "narrows": "The gap narrows as caffeine fades"
+              },
+              "alt": "Two dotted lines through a waking day: a sketch of sleep pressure building and of how tired you feel, not data. Their heights and the gap are not from the paper."
+            },
+            "day": {
+              "wake": "wake",
+              "bed": "bed"
+            },
+            "doses": {
+              "times": [
+                {
+                  "n": 45,
+                  "ref": "schedule"
+                },
+                {
+                  "n": 255,
+                  "ref": "schedule"
+                },
+                {
+                  "n": 475,
+                  "ref": "schedule"
+                }
+              ],
+              "lead": "The study’s doses:",
+              "amount": {
+                "text": "150 mg",
+                "ref": "dose"
+              },
+              "rest": "three times a day"
+            },
+            "recording": {
+              "lead": "Sleep recording began",
+              "hours": {
+                "n": 8,
+                "ref": "recording"
+              },
+              "rest": "hours after the last dose"
+            },
+            "phases": [
+              "first dose",
+              "in effect",
+              "fading"
+            ],
+            "found": {
+              "title": "What this study found",
+              "finding": "Sleep showed no clear difference from placebo nights.",
+              "kind": "measured",
+              "fact": {
+                "id": "sleep_same",
+                "kind": "finding",
+                "label": "no clear difference from placebo; the paper does not say how big any difference was",
+                "quote": "the analyses of the polysomnography (PSG) did not reveal significant differences in total sleep time (TST), sleep efficiency (SE), sleep latencies, or the relative amount of sleep stages among the three conditions (> 0.05)",
+                "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
+                "finding": {
+                  "outcome": "Total sleep time, time to fall asleep and sleep stages",
+                  "tier": "low"
+                }
+              },
+              "who": {
+                "lead": "Twenty men aged",
+                "from": {
+                  "n": 18,
+                  "ref": "who"
+                },
+                "to": {
+                  "n": 35,
+                  "ref": "who"
+                },
+                "rest": "who drink caffeine every day."
+              }
+            }
+          }
+        },
+        "figureSlot": "try"
+      },
+      "audit": {
+        "effect": [
+          {
+            "text": "The paper checked total sleep, time to fall asleep and the share of each sleep stage.",
+            "refs": [
+              "sleep_same"
+            ]
+          },
+          {
+            "text": "For each, it reports no clear difference between conditions, with p above 0.05.",
+            "refs": [
+              "sleep_same"
+            ]
+          },
+          {
+            "text": "It gives no size for any of these differences.",
+            "refs": [
+              "sleep_same"
+            ]
+          }
+        ],
+        "weakEnd": [
+          {
+            "text": "The paper gives no confidence interval for these results.",
+            "refs": [
+              "sleep_same"
+            ]
+          },
+          {
+            "text": "With twenty men, a real difference of a few minutes could hide inside “no clear difference”.",
+            "refs": [
+              "sample",
+              "lim_n"
+            ]
+          },
+          {
+            "text": "Read it as no large disruption found in this group, not proof that there is none.",
+            "refs": [
+              "sleep_same"
+            ]
+          }
+        ],
+        "limitations": [
+          [
+            {
+              "text": "Only men took part, so the result may not hold for women.",
+              "refs": [
+                "lim_male"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "Everyone was 18 to 35.",
+              "refs": [
+                "who"
+              ]
+            },
+            {
+              "text": "The authors say middle-aged people are more sensitive to what caffeine does to sleep.",
+              "refs": [
+                "lim_young"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "Twenty men make a small trial.",
               "refs": [
                 "sample",
                 "lim_n"
               ]
             },
             {
-              "text": "Read it as: no large disruption was detected in this group.",
+              "text": "Without effect sizes, nobody can say how small a difference it could have missed.",
               "refs": [
-                "sleep_same"
+                "lim_n"
               ]
-            },
-            {
-              "text": "It is not proof that there is none.",
-              "refs": []
             }
           ]
-        ]
-      },
-      {
-        "id": "missed",
-        "heading": "What most summaries miss",
-        "paragraphs": [
+        ],
+        "missed": [
+          {
+            "text": "One measure did change.",
+            "refs": []
+          },
+          {
+            "text": "A band of the brain’s electrical activity in sleep, called sigma, was lower on caffeine nights than on placebo nights.",
+            "refs": [
+              "sigma"
+            ]
+          },
+          {
+            "text": "The authors read it as early withdrawal, already there 8 hours after the last dose.",
+            "refs": [
+              "sigma_meaning"
+            ]
+          }
+        ],
+        "more": [
           [
             {
-              "text": "One measure did change.",
-              "refs": []
-            },
-            {
-              "text": "During non-REM sleep, brain activity in the sigma band was lower on caffeine nights than on placebo nights.",
-              "refs": [
-                "sigma"
-              ]
-            },
-            {
-              "text": "The authors read this as an early sign of withdrawal, already present 8 hours after the last dose.",
-              "refs": [
-                "sigma_meaning"
-              ]
-            },
-            {
-              "text": "In other words, a daily habit may mean beginning a small withdrawal every night and undoing it with the first cup every morning.",
-              "refs": [
-                "daily_reverse"
-              ]
-            }
-          ],
-          [
-            {
-              "text": "A second detail comes from the nights at home: on caffeine, the men went to bed about 25 minutes later than on placebo.",
+              "text": "At home, the men went to bed about 25 minutes later on caffeine than on placebo.",
               "refs": [
                 "later_bed"
               ]
             }
-          ]
-        ]
-      },
-      {
-        "id": "parallel",
-        "heading": "A related idea",
-        "paragraphs": [
+          ],
           [
             {
-              "text": "Tolerance ties this together.",
-              "refs": []
-            },
-            {
-              "text": "The authors cite earlier work in which a week of regular caffeine blunted its effect on sleep, even at high evening doses.",
+              "text": "Their own ratings of how they slept showed no clear difference between conditions either.",
               "refs": [
-                "tolerance"
+                "quality_same"
               ]
-            },
+            }
+          ],
+          [
             {
-              "text": "They also warn that the same morning cup could still disturb sleep in someone coming off several days without any.",
+              "text": "The researchers expected less deep sleep on caffeine and did not find it.",
+              "refs": [
+                "no_depth_change"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "The authors warn that morning caffeine could still disturb sleep after several days without any.",
               "refs": [
                 "not_after_abstinence"
               ]
-            },
-            {
-              "text": "The habit, not just the cup, shapes the night.",
-              "refs": []
             }
           ]
-        ]
-      }
-    ],
-    "limitations": [
-      [
-        {
-          "text": "Only men took part, so the result may not hold for women.",
-          "refs": [
-            "lim_male"
-          ]
-        }
-      ],
-      [
-        {
-          "text": "All were aged 18 to 35.",
-          "refs": [
-            "who"
-          ]
-        },
-        {
-          "text": "The authors note that middle-aged people are more vulnerable to what caffeine does to sleep.",
-          "refs": [
-            "lim_young"
-          ]
-        }
-      ],
-      [
-        {
-          "text": "Twenty participants is a small trial, and the text gives no effect sizes to show how small a difference it could have missed.",
-          "refs": [
-            "sample",
-            "lim_n"
-          ]
-        }
-      ]
-    ],
-    "figure": {
-      "figure": "parking-spot",
-      "headline": [
-        {
-          "text": "Caffeine takes the tiredness signal’s parking spot.",
-          "refs": [
-            "adenosine_block"
-          ]
-        }
-      ],
-      "caption": [
-        {
-          "text": "Dashed: how the authors describe caffeine acting, not measured in this study.",
-          "refs": [
-            "adenosine_block"
-          ]
-        },
-        {
-          "text": "Dotted: a sketch of the tiredness signal building up, not data.",
-          "refs": []
-        }
-      ],
-      "alt": "Two panels, each showing the surface of a brain cell with one cup-shaped dock. Without caffeine, round tokens, the tiredness signal, drift down and one sits in the dock: you feel sleepy. With caffeine, a hexagon, caffeine, sits in the dock; the round tokens crowd above it and cannot land: you feel alert. How many tokens are drawn means nothing; they are a sketch, not data.",
-      "params": {
-        "title": "Caffeine in the tiredness signal’s dock",
-        "tokens": {
-          "sketch": "tiredness-tokens",
-          "concept": "adenosine",
-          "tag": "Sketch, not data",
-          "ink": "muted",
-          "labels": {
-            "signal": "Tiredness signal (adenosine). It builds up while you are awake."
-          },
-          "alt": "Small round tokens drawn with dotted outlines: a sketch of the tiredness signal building up, not data. How many are drawn means nothing."
-        },
-        "block": {
-          "tag": "How the authors describe it, not measured in this study",
-          "kind": "proposed",
-          "fact": {
-            "id": "adenosine_block",
-            "kind": "context",
-            "label": "How caffeine acts, as the authors describe it: it blocks adenosine receptors and may hold back sleep pressure",
-            "quote": "Caffeine is an adenosine receptor antagonist, which blocks the Aand Aadenosine receptors in the central nervous system. It may, thus, attenuate the increase in sleep pressure during wakefulness"
-          }
-        },
-        "without": {
-          "title": "Without caffeine",
-          "dock": "The dock on a brain cell",
-          "feeling": {
-            "lead": "Signal lands. You feel",
-            "word": "sleepy",
-            "end": "."
-          }
-        },
-        "with": {
-          "title": "With caffeine",
-          "caffeine": "Caffeine",
-          "dock": "Caffeine sits in the dock",
-          "crowd": "The signal is still there. It just can’t land.",
-          "feeling": {
-            "lead": "You feel",
-            "word": "alert",
-            "end": "."
-          }
-        }
-      }
-    },
-    "protocolFigure": {
-      "figure": "hidden-tiredness",
-      "headline": [
-        {
-          "text": "Caffeine hides tiredness.",
-          "refs": []
-        },
-        {
-          "text": "It doesn’t remove it.",
-          "refs": []
-        }
-      ],
-      "caption": [
-        {
-          "text": "Dotted: a sketch of tiredness through the day, not data.",
-          "refs": []
-        },
-        {
-          "text": "The day runs from waking to bed, with the study’s three doses and the 8 hours to the sleep recording.",
-          "refs": [
-            "schedule",
-            "recording"
-          ]
-        },
-        {
-          "text": "The box is what the sleep laboratory found.",
-          "refs": [
-            "sleep_same"
-          ]
-        }
-      ],
-      "alt": "Two dotted lines run from waking to bed. One, sleep pressure, keeps rising. The other, how tired you feel, follows it until the first dose, then runs below it; the hatched gap between them is hidden tiredness, and it narrows towards bed without closing. Nothing is drawn after bed. A box beneath says what the study found: sleep showed no clear difference from placebo nights.",
-      "params": {
-        "title": "Tiredness through a caffeine day, and what the sleep laboratory found",
-        "tiredness": {
-          "sketch": "sleep-pressure",
-          "concept": "adenosine",
-          "tag": "Sketch, not data",
-          "ink": "ink",
-          "labels": {
-            "panel": "Two kinds of tiredness",
-            "pressure": "Sleep pressure keeps building",
-            "felt": "How tired you feel",
-            "gap": "Hidden tiredness",
-            "narrows": "The gap narrows as caffeine fades"
-          },
-          "alt": "Two dotted lines through a waking day: a sketch of sleep pressure building and of how tired you feel, not data. Their heights and the gap are not from the paper."
-        },
-        "day": {
-          "wake": "wake",
-          "bed": "bed"
-        },
-        "doses": {
-          "times": [
-            {
-              "n": 45,
-              "ref": "schedule"
-            },
-            {
-              "n": 255,
-              "ref": "schedule"
-            },
-            {
-              "n": 475,
-              "ref": "schedule"
-            }
-          ],
-          "lead": "The study’s doses:",
-          "amount": {
-            "text": "150 mg",
-            "ref": "dose"
-          },
-          "rest": "three times a day"
-        },
-        "recording": {
-          "lead": "Sleep recording began",
-          "hours": {
-            "n": 8,
-            "ref": "recording"
-          },
-          "rest": "hours after the last dose"
-        },
-        "phases": [
-          "first dose",
-          "in effect",
-          "fading"
         ],
-        "found": {
-          "title": "What this study found",
-          "finding": "Sleep showed no clear difference from placebo nights.",
-          "kind": "measured",
-          "fact": {
-            "id": "sleep_same",
-            "kind": "finding",
-            "label": "no clear difference from placebo; the paper does not say how big any difference was",
-            "quote": "the analyses of the polysomnography (PSG) did not reveal significant differences in total sleep time (TST), sleep efficiency (SE), sleep latencies, or the relative amount of sleep stages among the three conditions (> 0.05)",
-            "why": "People were assigned at random, but only 20 took part, so a bigger trial could change the picture.",
-            "finding": {
-              "outcome": "Total sleep time, time to fall asleep and sleep stages",
-              "tier": "low"
-            }
-          },
-          "who": {
-            "lead": "Twenty men aged",
-            "from": {
-              "n": 18,
-              "ref": "who"
-            },
-            "to": {
-              "n": 35,
-              "ref": "who"
-            },
-            "rest": "who drink caffeine every day."
-          }
-        }
+        "figure": null
       }
     },
+    "glossary": [
+      {
+        "term": "adenosine",
+        "plain": "A tiredness signal made in the brain. It builds up the longer you stay awake, as brain cells burn energy. When it settles onto brain cells it slows them down, and you feel sleepy. Sleep clears it away.",
+        "refs": [],
+        "concept": "adenosine"
+      },
+      {
+        "term": "placebo",
+        "plain": "A capsule that looked the same as the caffeine one but held no caffeine.",
+        "refs": [
+          "capsules"
+        ],
+        "concept": null
+      }
+    ],
     "primaryEstimate": "sleep_same",
     "finding": {
       "question": [
@@ -1307,6 +1399,12 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "quote": "Post-administration, subjects collected saliva samples at fixed times (4, 8, 12, 16, 20, 25, 30, 35, 40, 50, 60, 90, 120, 180, 240, 360, 480, 600 and 1440 min) over 24 h.",
         "source": "caffeine-saliva-half-life"
       },
+      "capsules": {
+        "id": "capsules",
+        "kind": "context",
+        "label": "Treatment delivery",
+        "quote": "participants took either caffeine (150 mg) or placebo (mannitol) in identical appearing gelatin capsules (Hänseler AG, Herisau, Switzerland)"
+      },
       "daily_reverse": {
         "id": "daily_reverse",
         "kind": "statement",
@@ -1318,6 +1416,12 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "context",
         "label": "The three conditions and the dose",
         "quote": "caffeine (3 × 150 mg caffeine daily), withdrawal (3 × 150 mg caffeine for 8 days, then switch to placebo), and placebo (3 × placebo daily)"
+      },
+      "evening": {
+        "id": "evening",
+        "kind": "context",
+        "label": "What earlier work reports for caffeine taken in the evening",
+        "quote": "caffeine consumed in the evening hours prolongs sleep latency, reduces total sleep time (TST), shortens deep sleep"
       },
       "good_sleepers": {
         "id": "good_sleepers",
@@ -1474,9 +1578,15 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
     ],
     "populationPanel": [
       {
-        "text": "Who was studied: 3,101 US adults aged 20 or older who wore an accelerometer for 1 week in 2005-2006 and were then traced through national death records.",
+        "text": "Who was studied: 3,101 US adults aged 20 or older who wore a step counter for 1 week in 2005-2006.",
         "refs": [
           "sample",
+          "cohort"
+        ]
+      },
+      {
+        "text": "National death records then followed them.",
+        "refs": [
           "cohort"
         ]
       },
@@ -1491,325 +1601,383 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "refs": []
       }
     ],
-    "sections": [
-      {
-        "id": "found",
-        "heading": "What they found",
+    "sections": [],
+    "limitations": [],
+    "layers": {
+      "mechanism": {
         "paragraphs": [
           [
             {
-              "text": "Researchers sorted people by how many days that week they reached 8,000 steps: none, 1 to 2 days, or 3 to 7 days.",
+              "text": "Picture a ramp that falls steeply, then levels off.",
+              "refs": []
+            },
+            {
+              "text": "The biggest gap in risk sits between people with no 8,000-step days and people with one or two.",
               "refs": [
+                "ard_1_2",
+                "ard_3_7",
                 "threshold"
               ]
             },
             {
-              "text": "Within 10 years, 40.7% of the people with no such days had died, against 14.1% of those with 1 to 2 days and 5.5% of those with 3 to 7.",
-              "refs": [
-                "followup",
-                "threshold",
-                "crude_0",
-                "crude_1_2",
-                "crude_3_7"
-              ]
-            }
-          ],
-          [
-            {
-              "text": "Those raw figures flatter walking, because the three groups were very different people.",
-              "refs": []
-            },
-            {
-              "text": "After the researchers accounted for age, sex, smoking, existing illness and average daily steps, the 1-to-2-day group still had a 10-year risk of death 14.9 points lower than the zero-day group.",
-              "refs": [
-                "ard_1_2",
-                "followup",
-                "models"
-              ]
-            },
-            {
-              "text": "For 3 to 7 days the figure was 16.5 points.",
-              "refs": [
-                "ard_3_7"
-              ]
-            },
-            {
-              "text": "That is only a little more, and the curve went flat at 3 to 4 days.",
+              "text": "Past three or four such days a week, the curve was nearly flat.",
               "refs": [
                 "plateau"
               ]
             }
-          ]
-        ]
-      },
-      {
-        "id": "lower-bound",
-        "heading": "How sure is that number?",
-        "paragraphs": [
-          [
-            {
-              "text": "The 95% confidence interval for the 1-to-2-day group runs from 18.8 points down to 10.9 points.",
-              "refs": [
-                "ard_1_2"
-              ]
-            },
-            {
-              "text": "So even the weakest reading that fits the data is a 10.9-point gap, which is wide for a study of deaths.",
-              "refs": [
-                "ard_1_2"
-              ]
-            },
-            {
-              "text": "What the interval cannot tell you is whether the walking is the reason for the gap.",
-              "refs": []
-            }
-          ]
-        ]
-      },
-      {
-        "id": "missed",
-        "heading": "What most summaries miss",
-        "paragraphs": [
-          [
-            {
-              "text": "The zero-day group had a mean age of 63.7.",
-              "refs": [
-                "ages"
-              ]
-            },
-            {
-              "text": "The 3-to-7-day group had a mean age of 46.0.",
-              "refs": [
-                "ages",
-                "threshold"
-              ]
-            },
-            {
-              "text": "Half of the zero-day group, 50.5%, said they had difficulty walking 0.25 miles or climbing 10 stairs, against 6.8% of the most active group.",
-              "refs": [
-                "mobility",
-                "mobility_def"
-              ]
-            }
           ],
           [
             {
-              "text": "People who are already unwell walk less and die sooner, so part of the gap is illness, not walking.",
-              "refs": [
-                "confounding"
-              ]
-            },
-            {
-              "text": "The authors adjusted for this and say plainly that some of it remains.",
-              "refs": [
-                "confounding"
-              ]
-            }
-          ],
-          [
-            {
-              "text": "One more detail: the gap was 7.4 points in adults under 65 and 19.9 points in those 65 and over.",
-              "refs": [
-                "ard_1_2_under65",
-                "ard_1_2_65plus"
-              ]
-            }
-          ]
-        ]
-      },
-      {
-        "id": "parallel",
-        "heading": "A related idea",
-        "paragraphs": [
-          [
-            {
-              "text": "The authors point to an earlier pooled analysis in which risk stopped falling at 6,000 to 8,000 steps a day for adults over 60, and at 8,000 to 10,000 for younger adults.",
+              "text": "The same shape shows up for steps per day.",
               "refs": [
                 "parallel_meta"
               ]
             },
             {
-              "text": "Both findings describe the same shape from two directions: steep at the bottom, flat at the top.",
+              "text": "In an earlier pooled analysis, risk stopped falling at 6,000 to 8,000 steps a day for adults over 60.",
               "refs": [
-                "parallel_meta",
-                "plateau"
+                "parallel_meta"
+              ]
+            },
+            {
+              "text": "For younger adults it stopped at 8,000 to 10,000.",
+              "refs": [
+                "parallel_meta"
               ]
             }
           ],
           [
             {
-              "text": "Moving the daily threshold anywhere between 6,000 and 10,000 steps gave similar results, so 8,000 is a convenient marker, not a magic line.",
+              "text": "Studies of exercise point the same way.",
+              "refs": [
+                "nhis_prior"
+              ]
+            },
+            {
+              "text": "In a large US survey, death risks showed no clear difference between weekend-only exercisers and people active all week.",
+              "refs": [
+                "nhis_prior"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "So 8,000 is a handy marker, not a magic line.",
               "refs": [
                 "thresholds",
                 "threshold"
               ]
+            },
+            {
+              "text": "Any daily cut-off from 6,000 to 10,000 steps gave similar results.",
+              "refs": [
+                "thresholds"
+              ]
             }
           ]
-        ]
-      }
-    ],
-    "limitations": [
-      [
-        {
-          "text": "Steps were measured for only 1 week, at the start.",
-          "refs": [
-            "one_week"
-          ]
-        },
-        {
-          "text": "How these people walked over the following 10 years is unknown.",
-          "refs": [
-            "one_week",
-            "followup"
-          ]
-        }
-      ],
-      [
-        {
-          "text": "This is an observational study.",
-          "refs": [
-            "cohort"
-          ]
-        },
-        {
-          "text": "People in poor health walk less and are more likely to die, and no adjustment removes that completely.",
-          "refs": [
-            "confounding"
-          ]
-        }
-      ],
-      [
-        {
-          "text": "Wearing a tracker can make people more active for that week, which would place some usually inactive people in the wrong group.",
-          "refs": [
-            "hawthorne"
-          ]
-        }
-      ]
-    ],
-    "auditFigure": {
-      "title": [
-        {
-          "text": "Why the raw gap is so wide",
-          "refs": []
-        }
-      ],
-      "figure": {
-        "figure": "three-crowds",
-        "headline": [
-          {
-            "text": "The three groups were different people before anyone counted a step.",
-            "refs": [
-              "ages",
-              "mobility"
-            ]
-          }
         ],
-        "caption": [
-          {
-            "text": "Poor health can affect both step counts and survival.",
-            "refs": [
-              "confounding"
-            ]
-          },
-          {
-            "text": "The study adjusted for much of this, not all.",
-            "refs": [
-              "models",
-              "confounding"
-            ]
-          },
-          {
-            "text": "Steps were counted for one week only.",
-            "refs": [
-              "one_week"
-            ]
-          }
-        ],
-        "alt": "Three columns, one for each group: no days, 1 to 2 days and 3 to 7 days a week at 8,000 steps or more. The average ages are 63.7, 51.5 and 46.0 years. The shares with trouble walking or climbing stairs are 50.5%, 20.3% and 6.8%.",
-        "params": {
-          "threshold": {
-            "n": 8000,
-            "ref": "threshold"
-          },
-          "mobilityWords": "had trouble walking or with stairs",
-          "groups": [
+        "figure": null
+      },
+      "protocol": {
+        "paragraphs": [
+          [
             {
-              "from": {
-                "n": 0,
-                "ref": "threshold"
-              },
-              "to": {
-                "n": 0,
-                "ref": "threshold"
-              },
-              "age": {
-                "n": 63.7,
-                "ref": "ages"
-              },
-              "mobility": {
-                "n": 50.5,
-                "ref": "mobility"
-              }
+              "text": "The study counted days, not daily totals.",
+              "refs": [
+                "threshold"
+              ]
             },
             {
-              "from": {
-                "n": 1,
-                "ref": "threshold"
-              },
-              "to": {
-                "n": 2,
-                "ref": "threshold"
-              },
-              "age": {
-                "n": 51.5,
-                "ref": "ages"
-              },
-              "mobility": {
-                "n": 20.3,
-                "ref": "mobility"
-              }
+              "text": "People wore a step counter for one week.",
+              "refs": [
+                "cohort"
+              ]
             },
             {
-              "from": {
-                "n": 3,
-                "ref": "threshold"
-              },
-              "to": {
-                "n": 7,
-                "ref": "threshold"
-              },
-              "age": {
-                "n": 46,
-                "ref": "ages"
-              },
-              "mobility": {
-                "n": 6.8,
-                "ref": "mobility"
-              }
+              "text": "Researchers then sorted them by how many days they reached 8,000 steps: none, 1 to 2, or 3 to 7.",
+              "refs": [
+                "threshold"
+              ]
+            },
+            {
+              "text": "National death records followed them for about 10 years.",
+              "refs": [
+                "cohort",
+                "followup"
+              ]
             }
           ],
-          "ages": {
-            "kind": "measured",
-            "fact": {
-              "id": "ages",
-              "kind": "descriptive",
-              "label": "Mean age of the three groups (0, 1-2, 3-7 days)",
-              "quote": "Age, mean (SD), y\n\n63.7 (19.3)\n\n51.5 (19.0)\n\n46.0 (15.5)"
+          [
+            {
+              "text": "The researchers allowed for age, health and habits.",
+              "refs": [
+                "models"
+              ]
+            },
+            {
+              "text": "After that, people with 1 to 2 such days had a 10-year risk of death 14.9 points lower than people with none.",
+              "refs": [
+                "ard_1_2",
+                "followup"
+              ]
+            },
+            {
+              "text": "With 3 to 7 days it was 16.5 points, only a little more.",
+              "refs": [
+                "ard_3_7"
+              ]
+            }
+          ]
+        ],
+        "figure": null
+      },
+      "audit": {
+        "effect": [
+          {
+            "text": "Adjusted risk difference, 1 to 2 days against none: a 10-year risk of death 14.9 points lower.",
+            "refs": [
+              "ard_1_2",
+              "followup"
+            ]
+          }
+        ],
+        "weakEnd": [
+          {
+            "text": "The 95% confidence interval runs from 18.8 points to 10.9 points lower.",
+            "refs": [
+              "ard_1_2"
+            ]
+          },
+          {
+            "text": "Even the weak end, 10.9 points, is a wide gap for a study of deaths.",
+            "refs": [
+              "ard_1_2"
+            ]
+          },
+          {
+            "text": "The range cannot say whether the walking is the reason.",
+            "refs": [
+              "ard_1_2"
+            ]
+          }
+        ],
+        "limitations": [
+          [
+            {
+              "text": "The study counted steps for one week only, at the start.",
+              "refs": [
+                "one_week"
+              ]
+            },
+            {
+              "text": "How these people walked over the next 10 years is unknown.",
+              "refs": [
+                "one_week",
+                "followup"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "This is an observational study.",
+              "refs": [
+                "cohort"
+              ]
+            },
+            {
+              "text": "Poor health can mean fewer steps and an earlier death, and no adjustment removes that fully.",
+              "refs": [
+                "confounding"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "Wearing a tracker can make people more active that week, putting some usually inactive people in the wrong group.",
+              "refs": [
+                "hawthorne",
+                "reactivity_misclassification"
+              ]
+            }
+          ]
+        ],
+        "missed": [
+          {
+            "text": "The adjusted gap was 7.4 points in adults under 65 and 19.9 points in those 65 and over.",
+            "refs": [
+              "ard_1_2_under65",
+              "ard_1_2_65plus"
+            ]
+          },
+          {
+            "text": "The adjustments shrank it: 18.7 points with age and sex alone, 14.9 with everything.",
+            "refs": [
+              "ard_1_2_agesex",
+              "ard_1_2"
+            ]
+          }
+        ],
+        "more": [
+          [
+            {
+              "text": "Heart and blood vessel deaths showed the same pattern: 8.1 points lower for 1 to 2 days, 8.4 for 3 to 7.",
+              "refs": [
+                "cv_ard_1_2",
+                "cv_ard_3_7",
+                "threshold"
+              ]
+            }
+          ],
+          [
+            {
+              "text": "The study kept only people who wore the tracker for the week, which may bias the sample.",
+              "refs": [
+                "selection_bias"
+              ]
+            }
+          ]
+        ],
+        "figure": {
+          "figure": "three-crowds",
+          "headline": [
+            {
+              "text": "The three groups were different people before anyone counted a step.",
+              "refs": [
+                "ages",
+                "mobility"
+              ]
+            }
+          ],
+          "caption": [
+            {
+              "text": "Poor health can affect both step counts and survival.",
+              "refs": [
+                "confounding"
+              ]
+            },
+            {
+              "text": "The study adjusted for much of this, not all.",
+              "refs": [
+                "models",
+                "confounding"
+              ]
+            },
+            {
+              "text": "Steps were counted for one week only.",
+              "refs": [
+                "one_week"
+              ]
+            }
+          ],
+          "alt": "Three columns, one for each group: no days, 1 to 2 days and 3 to 7 days a week at 8,000 steps or more. The average ages are 63.7, 51.5 and 46.0 years. The shares with trouble walking or climbing stairs are 50.5%, 20.3% and 6.8%.",
+          "params": {
+            "threshold": {
+              "n": 8000,
+              "ref": "threshold"
+            },
+            "mobilityWords": "had trouble walking or with stairs",
+            "groups": [
+              {
+                "from": {
+                  "n": 0,
+                  "ref": "threshold"
+                },
+                "to": {
+                  "n": 0,
+                  "ref": "threshold"
+                },
+                "age": {
+                  "n": 63.7,
+                  "ref": "ages"
+                },
+                "mobility": {
+                  "n": 50.5,
+                  "ref": "mobility"
+                }
+              },
+              {
+                "from": {
+                  "n": 1,
+                  "ref": "threshold"
+                },
+                "to": {
+                  "n": 2,
+                  "ref": "threshold"
+                },
+                "age": {
+                  "n": 51.5,
+                  "ref": "ages"
+                },
+                "mobility": {
+                  "n": 20.3,
+                  "ref": "mobility"
+                }
+              },
+              {
+                "from": {
+                  "n": 3,
+                  "ref": "threshold"
+                },
+                "to": {
+                  "n": 7,
+                  "ref": "threshold"
+                },
+                "age": {
+                  "n": 46,
+                  "ref": "ages"
+                },
+                "mobility": {
+                  "n": 6.8,
+                  "ref": "mobility"
+                }
+              }
+            ],
+            "ages": {
+              "kind": "measured",
+              "fact": {
+                "id": "ages",
+                "kind": "descriptive",
+                "label": "Mean age of the three groups (0, 1-2, 3-7 days)",
+                "quote": "Age, mean (SD), y\n\n63.7 (19.3)\n\n51.5 (19.0)\n\n46.0 (15.5)"
+              }
+            },
+            "mobility": {
+              "kind": "measured",
+              "fact": {
+                "id": "mobility",
+                "kind": "descriptive",
+                "label": "Number (%) with a mobility limitation in the three groups",
+                "quote": "Mobility limitation\n\n319 (50.5)\n\n108 (20.3)\n\n132 (6.8)"
+              }
             }
           },
-          "mobility": {
-            "kind": "measured",
-            "fact": {
-              "id": "mobility",
-              "kind": "descriptive",
-              "label": "Number (%) with a mobility limitation in the three groups",
-              "quote": "Mobility limitation\n\n319 (50.5)\n\n108 (20.3)\n\n132 (6.8)"
+          "title": [
+            {
+              "text": "Why the raw gap is so wide",
+              "refs": []
             }
-          }
+          ]
         }
       }
     },
+    "glossary": [
+      {
+        "term": "step counter",
+        "plain": "A small device worn on the body that records movement; here it counted steps for a week.",
+        "refs": [
+          "cohort"
+        ],
+        "concept": null
+      },
+      {
+        "term": "adjustments",
+        "plain": "Allowances the researchers made for how the groups differed, such as age, smoking and illness, so that like is compared with like.",
+        "refs": [
+          "models"
+        ],
+        "concept": null
+      }
+    ],
     "primaryEstimate": "ard_1_2",
     "finding": {
       "question": [
@@ -2273,6 +2441,23 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
           "tier": "low"
         }
       },
+      "ard_1_2_agesex": {
+        "id": "ard_1_2_agesex",
+        "kind": "estimate",
+        "label": "Risk difference adjusted for age and sex only, 1-2 days, all-cause",
+        "quote": "−18.7 (−23.2 to −14.4)",
+        "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
+        "estimate": {
+          "outcome": "10-year risk of death from any cause",
+          "measure": "aRD",
+          "point": -18.7,
+          "ciLow": -23.2,
+          "ciHigh": -14.4,
+          "unit": "points",
+          "absolute": true,
+          "tier": "low"
+        }
+      },
       "ard_1_2_under65": {
         "id": "ard_1_2_under65",
         "kind": "estimate",
@@ -2370,6 +2555,40 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
           "tier": "low"
         }
       },
+      "cv_ard_1_2": {
+        "id": "cv_ard_1_2",
+        "kind": "estimate",
+        "label": "Fully adjusted risk difference, 1-2 days, cardiovascular",
+        "quote": "(aRD, −8.1%; 95% CI, −11.8% to −4.4%)",
+        "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
+        "estimate": {
+          "outcome": "10-year risk of cardiovascular death",
+          "measure": "aRD",
+          "point": -8.1,
+          "ciLow": -11.8,
+          "ciHigh": -4.4,
+          "unit": "points",
+          "absolute": true,
+          "tier": "low"
+        }
+      },
+      "cv_ard_3_7": {
+        "id": "cv_ard_3_7",
+        "kind": "estimate",
+        "label": "Fully adjusted risk difference, 3-7 days, cardiovascular",
+        "quote": "(aRD, −8.4%; 95% CI, −12.5% to −4.4%)",
+        "why": "The study watched people without assigning anything, so other differences between them could explain the result.",
+        "estimate": {
+          "outcome": "10-year risk of cardiovascular death",
+          "measure": "aRD",
+          "point": -8.4,
+          "ciLow": -12.5,
+          "ciHigh": -4.4,
+          "unit": "points",
+          "absolute": true,
+          "tier": "low"
+        }
+      },
       "followup": {
         "id": "followup",
         "kind": "context",
@@ -2400,6 +2619,12 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "label": "What each adjustment model added",
         "quote": "Model 1 included age; sex; race and ethnicity; insurance status; marital status; smoking; body mass index; estimated glomerular filtration rate; statin use; and history of diabetes, hypertension, cardiovascular disease, cancer, and emphysema. Model 2 included average daily step counts in addition to the covariates in model 1."
       },
+      "nhis_prior": {
+        "id": "nhis_prior",
+        "kind": "context",
+        "label": "Prior study in US National Health Interview Survey",
+        "quote": "A more recent study in 350 978 participants from the US National Health Interview Surveysupports these findings, wherein all-cause and cause-specific mortality risks did not differ between weekend warriors and regularly active participants, even after accounting for the total amount of moderate to vigorous physical activity."
+      },
       "one_week": {
         "id": "one_week",
         "kind": "limitation",
@@ -2418,11 +2643,23 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "label": "Where the curve flattened",
         "quote": "the risk of mortality at 10 years rapidly decreased as the number of days per week taking 8000 steps or more increased and plateaued at 3 to 4 days"
       },
+      "reactivity_misclassification": {
+        "id": "reactivity_misclassification",
+        "kind": "limitation",
+        "label": "Misclassification from Hawthorne reactivity",
+        "quote": "Such reactivity might cause misclassification such that some people who are typically physically inactive were categorized as physically active (based on a reaction to wearing the accelerometer) particularly because NHANES measured their daily step pattern for only 1 week."
+      },
       "sample": {
         "id": "sample",
         "kind": "context",
         "label": "Number of participants",
         "quote": "Among 3101 participants (mean [SD] age, 50.5 [18.4] years"
+      },
+      "selection_bias": {
+        "id": "selection_bias",
+        "kind": "limitation",
+        "label": "Selection bias from accelerometer wear restriction",
+        "quote": "Fifth, our findings might suffer from selection bias due to restricting study samples to those who wore an accelerometer for 1 week during the survey."
       },
       "threshold": {
         "id": "threshold",

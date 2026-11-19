@@ -45,7 +45,7 @@ export interface FigureProps {
    */
   glance?: { x: string | null; y: string | null };
   /**
-   * The read's simulator params, for a "Try it" figure (protocolFigure) only, and only in the read:
+   * The read's simulator params, for a "Try it" figure (the protocol layer's figure with figureSlot "try") only, and only in the read:
    * the feed card never passes them, so a members' simulator stays out of the public card (rule 7).
    */
   simulator?: Record<string, unknown>;
@@ -66,7 +66,7 @@ const WIDGETS: Record<string, ComponentType<WidgetProps>> = {
 /** Keyed by the `simulator.kind` written in the paper's editorial.json. */
 const SIMULATORS: Record<string, ComponentType<SimulatorProps>> = {
   "estimate-explorer": GenericSimulator,
-  // "hiit-forest" has no component: its params feed figure 4B (protocolFigure) in the read.
+  // "hiit-forest" has no component: its params feed figure 4B (the protocol layer's Try it figure) in the read.
   "breakfast-meals": BreakfastSimulator,
 };
 

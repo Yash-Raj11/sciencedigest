@@ -8,7 +8,7 @@ import type { BuiltPaper, ContentStep, ContextConcept, ContextStudy, FigureRef, 
 import type { EvidenceGrade } from "../evidence";
 import { WEIGHT_TENTHS } from "../evidence";
 import { FigureSpec } from "../content/figure-kinds";
-import { Editorial, LegacyEditorial, editorialShape, type FigureRef as FigureDef } from "./editorial";
+import { Editorial, type FigureRef as FigureDef } from "./editorial";
 import { formatEstimate } from "./format";
 import type { Validated, ValidatedFact } from "./gate";
 import { deriveTier } from "./grade";
@@ -47,8 +47,8 @@ export function shortCite(id: Validated["identifiers"]): string {
  * used; a bad one here is a bug, so it throws.
  */
 export function assemble(validated: Validated, editorialInput: unknown, context: LintContext = { studies: {}, concepts: {} }): BuiltPaper {
-  // The lint has already decided whether this shape is allowed; assemble only builds.
-  const ed = editorialShape(editorialInput) === "legacy" ? LegacyEditorial.parse(editorialInput) : Editorial.parse(editorialInput);
+  // The lint has already refused the old flat shape and anything else wrong; assemble only builds.
+  const ed = Editorial.parse(editorialInput);
   const paperId = stableId(`paper:${ed.slug}`);
   const stepId = (key: string) => stableId(`step:${ed.slug}:${key}`);
 
@@ -96,51 +96,45 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
     return ref;
   };
 
-  // Key order is kept as it was for the old flat shape, so its generated files do not change.
-  const content: Omit<PaperContent, "facts" | "sourceLine" | "glance"> = "layers" in ed
-    ? {
-      hook: sentences(ed.hook),
-      populationPanel: sentences(ed.populationPanel),
-      sections: [],
-      limitations: [],
-      layers: {
-        mechanism: { paragraphs: ed.layers.mechanism.paragraphs.map(sentences), figure: figure(ed.layers.mechanism.figure) },
-        protocol: { paragraphs: ed.layers.protocol.paragraphs.map(sentences), figure: figure(ed.layers.protocol.figure) },
-        audit: {
-          effect: sentences(ed.layers.audit.effect),
-          weakEnd: sentences(ed.layers.audit.weakEnd),
-          limitations: ed.layers.audit.limitations.map(sentences),
-          missed: sentences(ed.layers.audit.missed),
-          more: ed.layers.audit.more.map(sentences),
-          figure: figure(ed.layers.audit.figure),
-        },
+  // `sections` and `limitations` stay as empty lists: the page also reads old-shape rows from the
+  // hosted database until its seed is pushed (lib/content/types.ts, PaperContent).
+  const auditFigure = ed.layers.audit.figure;
+  const content: Omit<PaperContent, "facts" | "sourceLine" | "glance"> = {
+    hook: sentences(ed.hook),
+    populationPanel: sentences(ed.populationPanel),
+    sections: [],
+    limitations: [],
+    layers: {
+      mechanism: { paragraphs: ed.layers.mechanism.paragraphs.map(sentences), figure: figure(ed.layers.mechanism.figure) },
+      protocol: {
+        paragraphs: ed.layers.protocol.paragraphs.map(sentences),
+        figure: figure(ed.layers.protocol.figure),
+        ...(ed.layers.protocol.figureSlot === "try" ? { figureSlot: "try" as const } : {}),
       },
-      glossary: ed.glossary.map((entry): GlossaryEntry => {
-        if (entry.concept === null) {
-          for (const ref of entry.refs) used.add(ref);
-          return { term: entry.term, plain: entry.plain ?? "", refs: entry.refs, concept: null };
-        }
-        used.add(conceptRef(entry.concept));
-        const concept = context.concepts[entry.concept];
-        if (!concept?.ok) throw new Error(`unknown concept "${entry.concept}" (the lint should have caught this)`);
-        return { term: entry.term, plain: concept.concept.plain, refs: [], concept: entry.concept };
-      }),
-      primaryEstimate: ed.primaryEstimate,
-      finding: { question: sentences(ed.card.question), headline: sentences(ed.card.headline), support: sentences(ed.card.support) },
-      simulator: { kind: ed.simulator.kind, params: {} },
-    }
-    : {
-      hook: sentences(ed.hook),
-      populationPanel: sentences(ed.populationPanel),
-      sections: ed.sections.map((s) => ({ id: s.id, heading: s.heading, paragraphs: s.paragraphs.map(sentences) })),
-      limitations: ed.limitations.map(sentences),
-      ...(ed.figure ? { figure: figure(ed.figure)! } : {}),
-      ...(ed.auditFigure ? { auditFigure: { title: sentences(ed.auditFigure.title), figure: figure(ed.auditFigure)! } } : {}),
-      ...(ed.protocolFigure ? { protocolFigure: figure(ed.protocolFigure)! } : {}),
-      primaryEstimate: ed.primaryEstimate,
-      finding: { question: sentences(ed.card.question), headline: sentences(ed.card.headline), support: sentences(ed.card.support) },
-      simulator: { kind: ed.simulator.kind, params: {} },
-    };
+      audit: {
+        effect: sentences(ed.layers.audit.effect),
+        weakEnd: sentences(ed.layers.audit.weakEnd),
+        limitations: ed.layers.audit.limitations.map(sentences),
+        missed: sentences(ed.layers.audit.missed),
+        more: ed.layers.audit.more.map(sentences),
+        // Object.assign, not a copy: `drawn` keeps this same object and fills its params below.
+        figure: auditFigure ? Object.assign(figure(auditFigure)!, auditFigure.title ? { title: sentences(auditFigure.title) } : {}) : null,
+      },
+    },
+    glossary: ed.glossary.map((entry): GlossaryEntry => {
+      if (entry.concept === null) {
+        for (const ref of entry.refs) used.add(ref);
+        return { term: entry.term, plain: entry.plain ?? "", refs: entry.refs, concept: null };
+      }
+      used.add(conceptRef(entry.concept));
+      const concept = context.concepts[entry.concept];
+      if (!concept?.ok) throw new Error(`unknown concept "${entry.concept}" (the lint should have caught this)`);
+      return { term: entry.term, plain: concept.concept.plain, refs: [], concept: entry.concept };
+    }),
+    primaryEstimate: ed.primaryEstimate,
+    finding: { question: sentences(ed.card.question), headline: sentences(ed.card.headline), support: sentences(ed.card.support) },
+    simulator: { kind: ed.simulator.kind, params: {} },
+  };
   used.add(ed.primaryEstimate);
 
   /** The study a context reference points into. Throws on anything the lint would have refused. */

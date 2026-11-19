@@ -14,7 +14,7 @@ import type { PaperContent, ResolvedSketch } from "../lib/content/types";
 
 const gated = JSON.parse(readFileSync("content/generated/gated.json", "utf8")).content as Record<string, PaperContent>;
 const read = gated["hiit-body-composition"];
-const figure = read.figure!;
+const figure = read.layers!.mechanism.figure!;
 const render = (params = figure.params) => renderToStaticMarkup(createElement(FigureFor, { slug: "hiit-body-composition", figure: { ...figure, params } }));
 const html = render();
 const texts = (markup: string) => [...markup.matchAll(/<text[^>]*>([\s\S]*?)<\/text>/g)].map((m) => m[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim());

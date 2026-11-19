@@ -152,22 +152,22 @@ describe('lint rule "glance"', () => {
     if (!result.ok) throw new Error(result.errors.join("\n"));
     return { source, validated: result.validated, editorial: JSON.parse(readFileSync(`${dir}editorial.json`, "utf8")) };
   };
-  const errors = (slug: string, mutate: (e: any) => void, legacy = false) => {
+  const errors = (slug: string, mutate: (e: any) => void) => {
     const r = read(slug);
     mutate(r.editorial);
-    return lint(r.validated, r.editorial, r.source, { context: { studies: { ...REAL_STUDIES }, library: REAL_LIBRARY, concepts: {} }, figures: FIGURE_KEYS, allowLegacyShape: legacy })
+    return lint(r.validated, r.editorial, r.source, { context: { studies: { ...REAL_STUDIES }, library: REAL_LIBRARY, concepts: {} }, figures: FIGURE_KEYS })
       .errors.filter((e) => e.rule === "glance").map((e) => `${e.where}: ${e.message}`);
   };
   it("the four reads pass", () => {
     expect(errors("turmeric-pepper-breakfast", () => {})).toEqual([]);
-    expect(errors("daytime-caffeine-sleep", () => {}, true)).toEqual([]);
-    expect(errors("steps-days-per-week", () => {}, true)).toEqual([]);
-    expect(errors("hiit-body-composition", () => {}, true)).toEqual([]);
+    expect(errors("daytime-caffeine-sleep", () => {})).toEqual([]);
+    expect(errors("steps-days-per-week", () => {})).toEqual([]);
+    expect(errors("hiit-body-composition", () => {})).toEqual([]);
   });
   it("fails a digit in an axis label, the note or the Try-it words", () => {
     expect(errors("turmeric-pepper-breakfast", (e) => { e.glance.x = "Minutes after breakfast, 0 to 180 [timepoints]"; }).join()).toMatch(/^glance\.x: the feed card's figure shows no number/);
-    expect(errors("daytime-caffeine-sleep", (e) => { e.glance.note = "Half-life of 5.15 hours. [caffeine-saliva-half-life/half_life_caffeine]"; }, true)).toHaveLength(1);
-    expect(errors("steps-days-per-week", (e) => { e.glance.tryIt = "pick 0 to 7 days [threshold]"; }, true)).toHaveLength(1);
+    expect(errors("daytime-caffeine-sleep", (e) => { e.glance.note = "Half-life of 5.15 hours. [caffeine-saliva-half-life/half_life_caffeine]"; })).toHaveLength(1);
+    expect(errors("steps-days-per-week", (e) => { e.glance.tryIt = "pick 0 to 7 days [threshold]"; })).toHaveLength(1);
   });
   it('fails "simulator" on a read with a hand-built simulator, and a figure the read does not draw', () => {
     expect(errors("turmeric-pepper-breakfast", (e) => { e.glance.figure = "simulator"; }).join()).toMatch(/needs a simulator drawn by kind/);
@@ -175,6 +175,6 @@ describe('lint rule "glance"', () => {
   });
   it("fails a members' read whose card would draw its simulator", () => {
     // Caffeine's card draws figure 1B since 2026-11-18; put it back on the simulator to test the rule.
-    expect(errors("daytime-caffeine-sleep", (e) => { e.accessTier = "premium"; e.glance.figure = "simulator"; }, true).join()).toMatch(/members' read's card is public/);
+    expect(errors("daytime-caffeine-sleep", (e) => { e.accessTier = "premium"; e.glance.figure = "simulator"; }).join()).toMatch(/members' read's card is public/);
   });
 });

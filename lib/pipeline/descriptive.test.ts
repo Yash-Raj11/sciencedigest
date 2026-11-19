@@ -37,7 +37,7 @@ function lintErrors(mutate: (e: any) => void, rule?: string) {
   if (!gated.ok) throw new Error(gated.errors.join("\n"));
   const e = clone(editorial);
   mutate(e);
-  const report = lint(gated.validated, e, source, { context, figures: FIGURE_KEYS, allowLegacyShape: true });
+  const report = lint(gated.validated, e, source, { context, figures: FIGURE_KEYS });
   return report.errors.filter((x) => !rule || x.rule === rule).map((x) => `${x.rule} ${x.where}: ${x.message}`);
 }
 
@@ -56,8 +56,8 @@ describe("rule 1: drawn as measured, never as proposed", () => {
     expect(lintErrors(() => {})).toEqual([]);
   });
   it("the lint refuses 3A's ages drawn as proposed", () => {
-    const errors = lintErrors((e) => { e.auditFigure.params.ages.kind = "proposed"; }, "figure");
-    expect(errors.join()).toMatch(/auditFigure\.params\.ages: drawn as proposed/);
+    const errors = lintErrors((e) => { e.layers.audit.figure.params.ages.kind = "proposed"; }, "figure");
+    expect(errors.join()).toMatch(/layers\.audit\.figure\.params\.ages: drawn as proposed/);
   });
 });
 

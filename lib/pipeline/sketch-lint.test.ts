@@ -32,7 +32,7 @@ function sketchErrors(change: Record<string, unknown>, reviewed = true, edit: (e
   const ed = JSON.parse(JSON.stringify(editorial));
   ed.sketches = [{ ...sketch, ...change }, ...ed.sketches.filter((s: { id: string }) => s.id !== sketch.id)];
   edit(ed);
-  const report = lint(validated, ed, source, { context: withConcept(reviewed), figures: FIGURE_KEYS, allowLegacyShape: true });
+  const report = lint(validated, ed, source, { context: withConcept(reviewed), figures: FIGURE_KEYS });
   return report.errors.filter((e) => e.rule.startsWith("sketch")).map((e) => `[${e.rule}] ${e.where}`);
 }
 
@@ -48,11 +48,11 @@ describe("sketches in the lint", () => {
     expect(sketchErrors({}, false)).toEqual(["[sketch-concept] sketches[0].concept", "[sketch-concept] sketches[1].concept"]);
   });
   it("a figure that draws an undeclared sketch fails", () => {
-    expect(sketchErrors({}, true, (ed) => { ed.figure.params.tokens = "sketch:made-up"; }))
-      .toEqual(["[sketch] figure.params.tokens", "[sketch] sketches"]);
+    expect(sketchErrors({}, true, (ed) => { ed.layers.mechanism.figure.params.tokens = "sketch:made-up"; }))
+      .toEqual(["[sketch] layers.mechanism.figure.params.tokens", "[sketch] sketches"]);
   });
   it("a declared sketch that no figure draws fails", () => {
-    expect(sketchErrors({ id: "spare-shape" })).toEqual(["[sketch] figure.params.tokens", "[sketch] sketches"]);
+    expect(sketchErrors({ id: "spare-shape" })).toEqual(["[sketch] layers.mechanism.figure.params.tokens", "[sketch] sketches"]);
     expect(sketchErrors({}, true, (ed) => { ed.sketches.push({ ...sketch, id: "spare-shape" }); })).toEqual(["[sketch] sketches"]);
   });
   it("a sketch in orange fails", () => {

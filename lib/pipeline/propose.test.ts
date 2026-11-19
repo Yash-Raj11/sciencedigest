@@ -9,11 +9,11 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { FIGURE_KINDS, specProblems, type FigureKind } from "../content/figure-kinds";
-import { HALF_LIFE_STUDY, REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
+import { HALF_LIFE_STUDY, REAL_CONCEPTS, REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
 import { gate, type ValidatedFact } from "./gate";
 import type { LintContext } from "./lint";
 import { EDITORIAL_SYSTEM, KIND_GUIDE, editorialPrompt } from "./prompts";
-import { kindMenu, proposeKinds, specFactOf, type KindOffer } from "./propose";
+import { contextMenu, kindMenu, proposeKinds, specFactOf, type KindOffer } from "./propose";
 
 const PAPERS = new URL("../../content/papers/", import.meta.url);
 const SLUGS = ["daytime-caffeine-sleep", "steps-days-per-week", "hiit-body-composition", "turmeric-pepper-breakfast"];
@@ -184,7 +184,37 @@ describe("the draft prompt", () => {
   it("carries the menu worked out from the same facts", () => {
     const facts = paperFacts("steps-days-per-week");
     const kinds = kindMenu(proposeKinds(facts, REAL));
-    const prompt = editorialPrompt({ slug: "x", validated: { facts }, exampleEditorial: "{}", kinds });
+    const context = contextMenu({ studies: REAL_STUDIES, concepts: REAL_CONCEPTS });
+    const prompt = editorialPrompt({ slug: "x", validated: { facts }, exampleEditorial: "{}", kinds, context });
     expect(prompt.endsWith(`FIGURE KINDS AVAILABLE (worked out from these facts; pick the simulator from this list only):\n${kinds}`)).toBe(true);
+    expect(prompt).toContain(`OTHER SOURCES YOU MAY CITE (by these ids only; from lib/pipeline/propose.ts contextMenu):\n${context}`);
+  });
+});
+
+describe("the other sources a draft may cite (step 2E)", () => {
+  const studies = REAL_STUDIES;
+  const concepts = REAL_CONCEPTS;
+
+  it("lists a context study's facts by full id, and the owner-reviewed concepts", () => {
+    const menu = contextMenu({ studies, concepts });
+    expect(menu).toContain(`[${HALF_LIFE_STUDY}/t12_caffeine_a]`);
+    expect(menu).toContain("[concept:adenosine]");
+    expect(menu).toContain("[concept:fat-free-mass]");
+  });
+
+  it("leaves out a fact the owner excluded", () => {
+    const study = studies[HALF_LIFE_STUDY];
+    expect(study.ok && study.excluded && Object.hasOwn(study.excluded, "t12_caffeine_d")).toBe(true);
+    expect(contextMenu({ studies, concepts })).not.toContain(`${HALF_LIFE_STUDY}/t12_caffeine_d]`);
+  });
+
+  it("leaves out a withdrawn study and an unreviewed concept", () => {
+    const study = studies[HALF_LIFE_STUDY];
+    if (!study.ok) throw new Error("the half-life study should gate");
+    const withdrawn = { ...study, withdrawn: { nature: "Retraction", date: null, reason: "test" } };
+    expect(contextMenu({ studies: { [HALF_LIFE_STUDY]: withdrawn }, concepts: {} })).toBe("None. Cite this paper's facts only.");
+    const adenosine = concepts.adenosine;
+    if (!adenosine.ok) throw new Error("the adenosine concept should load");
+    expect(contextMenu({ studies: {}, concepts: { adenosine: { ...adenosine, reviewed: false } } })).not.toContain("concept:adenosine");
   });
 });

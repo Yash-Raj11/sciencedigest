@@ -172,7 +172,12 @@ export interface ReadLayers {
   /** Why it happens. */
   mechanism: { paragraphs: Sentence[][]; figure: FigureRef | null };
   /** What the data supports. */
-  protocol: { paragraphs: Sentence[][]; figure: FigureRef | null };
+  /**
+   * What the data supports. `figureSlot` says where its figure is drawn: after the first paragraph
+   * ("text"), or in the Try it slot ("try"; FIGURE-DESIGN B, the figure that hosts the simulator).
+   * Absent means "text".
+   */
+  protocol: { paragraphs: Sentence[][]; figure: FigureRef | null; figureSlot?: "text" | "try" };
   /** The receipts. Design and sample size come from PaperMeta. */
   audit: {
     effect: Sentence[];
@@ -180,7 +185,8 @@ export interface ReadLayers {
     limitations: Sentence[][];
     missed: Sentence[];
     more: Sentence[][];
-    figure: FigureRef | null;
+    /** With a title, drawn as its own receipt at the top; without, inside "The size of the effect". */
+    figure: (FigureRef & { title?: Sentence[] }) | null;
   };
 }
 
@@ -197,16 +203,19 @@ export interface GlossaryEntry {
 export interface PaperContent {
   hook: Sentence[];
   populationPanel: Sentence[];
-  /** Old flat shape. Empty for a three-layer read; removed with the allowlist in step 2E. */
+  /**
+   * The old flat shape (sections, limitations, figure, auditFigure, protocolFigure). Since step 2E
+   * the build writes only the three layers (`sections` and `limitations` stay as empty lists).
+   * The page still draws the old shape for one reason: a members' read comes from the hosted
+   * `paper_content` row, which keeps the old shape until the hosted seed is pushed. Remove these,
+   * and their branches in components/read/Article.tsx, once it has been.
+   */
   sections: ReadSection[];
   limitations: Sentence[][];
-  /** Old flat shape only: its one figure. Moves into layers.mechanism in step 2E. */
   figure?: FigureRef;
-  /** Old flat shape only: a figure at the top of the receipts, under its title. Moves into layers.audit.figure in step 2E. */
   auditFigure?: { title: Sentence[]; figure: FigureRef };
-  /** Old flat shape only: the "Try it" figure, drawn with the simulator's params. Moves into layers.protocol.figure in step 2E. */
   protocolFigure?: FigureRef;
-  /** The three-layer read (H10). Absent only on the old flat shape. */
+  /** The three-layer read (H10). Absent only on an old-shape row from the hosted database. */
   layers?: ReadLayers;
   glossary?: GlossaryEntry[];
   /** Every source the read uses besides its own paper. Absent when there is none. */

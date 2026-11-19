@@ -140,3 +140,27 @@ export function kindMenu(offers: readonly KindOffer[]): string {
   }
   return lines.join("\n");
 }
+
+/**
+ * The other sources a draft may cite, as the prompt shows them (step 2E): every fact of a gated
+ * context study by its full id, "<study>/<fact_id>", and every concept the owner has reviewed,
+ * by "concept:<slug>". A withdrawn study, a fact the owner excluded and an unreviewed concept are
+ * left out, so the model is never handed an id the lint would refuse.
+ */
+export function contextMenu(context?: Pick<LintContext, "studies" | "concepts">): string {
+  const lines: string[] = [];
+  for (const [slug, study] of Object.entries(context?.studies ?? {}).sort(([a], [b]) => a.localeCompare(b))) {
+    if (!study.ok || study.withdrawn) continue;
+    const observational = !study.validated.causalLanguagePermitted;
+    lines.push(`- study ${slug} (${study.validated.design}${observational ? ", observational: no causal verb may rest on it" : ""}):`);
+    for (const [id, fact] of Object.entries(study.validated.facts)) {
+      if (study.excluded && Object.hasOwn(study.excluded, id)) continue;
+      lines.push(`    [${slug}/${id}] ${fact.kind}: ${fact.label}: ${fact.value}`);
+    }
+  }
+  for (const [slug, state] of Object.entries(context?.concepts ?? {}).sort(([a], [b]) => a.localeCompare(b))) {
+    if (!state.ok || !state.reviewed) continue;
+    lines.push(`- concept [concept:${slug}] (no numbers): ${state.concept.term}: ${state.concept.plain}`);
+  }
+  return lines.length > 0 ? lines.join("\n") : "None. Cite this paper's facts only.";
+}

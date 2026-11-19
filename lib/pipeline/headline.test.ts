@@ -32,7 +32,7 @@ function headlineErrors(slug: string, mutate: (editorial: any) => void): string[
   const read = reads[slug];
   const editorial = clone(read.editorial);
   mutate(editorial);
-  const report = lint(read.validated, editorial, read.source, { context, figures: FIGURE_KEYS, allowLegacyShape: true });
+  const report = lint(read.validated, editorial, read.source, { context, figures: FIGURE_KEYS });
   return report.errors.filter((e) => e.rule === "headline").map((e) => e.message);
 }
 
@@ -84,7 +84,7 @@ describe("rule broken → the lint objects", () => {
     const read = reads[caffeine];
     const editorial = clone(read.editorial);
     delete editorial.card.question;
-    const report = lint(read.validated, editorial, read.source, { context, figures: FIGURE_KEYS, allowLegacyShape: true });
+    const report = lint(read.validated, editorial, read.source, { context, figures: FIGURE_KEYS });
     expect(report.errors.some((e) => e.rule === "schema" && e.where.includes("card.question"))).toBe(true);
   });
 });

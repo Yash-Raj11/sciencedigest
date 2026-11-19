@@ -15,7 +15,7 @@ import { FREE_CONTENT } from "../lib/content/generated";
 import type { ResolvedSketch } from "../lib/content/types";
 
 const read = FREE_CONTENT["daytime-caffeine-sleep"]!;
-const figure = read.protocolFigure!;
+const figure = read.layers!.protocol.figure!;
 const render = (glance?: { x: string | null; y: string | null }) => renderToStaticMarkup(createElement(FigureFor, { slug: "daytime-caffeine-sleep", figure, glance }));
 const full = render();
 const still = render({ x: "Your waking day", y: null });

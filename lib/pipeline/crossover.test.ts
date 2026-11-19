@@ -123,8 +123,8 @@ describe("the excluded arm: only caffeine alone (arm A) is usable", () => {
   const editorial = JSON.parse(readFileSync(new URL("editorial.json", paper), "utf8"));
   const contextErrors = (sentence: string, state: ContextStudyState = loaded) => {
     const ed = clone(editorial);
-    ed.sections.find((x: { id: string }) => x.id === "parallel").paragraphs.push(sentence);
-    return lint(gated.validated, ed, paperSource, { allowLegacyShape: true, context: { studies: { [SLUG]: state }, concepts: REAL_CONCEPTS, library: REAL_LIBRARY } })
+    ed.layers.audit.more.push(sentence);
+    return lint(gated.validated, ed, paperSource, { context: { studies: { [SLUG]: state }, concepts: REAL_CONCEPTS, library: REAL_LIBRARY } })
       .errors.filter((e) => e.rule === "context").map((e) => e.message);
   };
 

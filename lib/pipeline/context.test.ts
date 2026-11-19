@@ -34,7 +34,7 @@ const validated = gated.validated;
  * plain hand-built one. The simulator's citation is tested below ("a simulator drawn by kind").
  */
 const realEditorial = JSON.parse(read("daytime-caffeine-sleep", "editorial.json"));
-const oldShape = {
+const handBuilt = {
   ...realEditorial,
   simulator: { kind: "estimate-explorer", params: {} },
   // Its card draws the read's own figure, since this simulator is hand-built.
@@ -61,10 +61,10 @@ function contextWith(change: Partial<LintContext> = {}): LintContext {
   return { studies: { [OTHER]: study() }, concepts: { ...REAL_CONCEPTS, "non-rem-sleep": reviewed(conceptFile) }, ...change };
 }
 function layered(): any {
-  const base = Object.fromEntries(Object.entries(clone(oldShape)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary", "sketches", "protocolFigure"].includes(key)));
+  const base = Object.fromEntries(Object.entries(clone(handBuilt)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary", "sketches", "protocolFigure"].includes(key)));
   // The fixture's layers draw no figure; the card needs one, so the mechanism layer carries the read's own.
   const layers = clone(fixture.layers);
-  layers.mechanism.figure = clone(realEditorial.figure);
+  layers.mechanism.figure = clone(realEditorial.layers.mechanism.figure);
   // Without its sketch: these tests count the context a read cites, and the sketch's concept is not one of theirs.
   delete layers.mechanism.figure.params.tokens;
   return { ...base, layers, glossary: clone(fixture.glossary) };
@@ -227,15 +227,20 @@ describe("what reaches the page", () => {
       { label: "Background", citation: "non-REM sleep: The impact of daily caffeine intake on nighttime sleep in young adult men", id: "doi:10.1038/s41598-021-84088-x", grade: null },
     ]);
     // The real read's own figure draws a sketch, so its list holds that concept, as Background.
-    expect(contextSourceList(assemble(validated, oldShape, contextWith()).content)).toEqual([
+    expect(contextSourceList(assemble(validated, handBuilt, contextWith()).content)).toEqual([
       { label: "Background", citation: expect.stringContaining("adenosine: Adenosine"), id: "doi:10.1126/science.276.5316.1265", grade: null },
     ]);
   });
   it("adds nothing to a read that cites no context (the old papers' files do not change)", () => {
-    // The real read's figure draws a sketch on a concept (Background), so the bare read leaves it out.
-    const bare = { ...oldShape, glance: { ...oldShape.glance, figure: "simulator" } };
-    delete bare.figure;
-    delete bare.protocolFigure;
+    // The real read rests on a concept (Background): its model paragraph, its glossary entry and
+    // its figure's sketch. The bare read leaves all three out, and draws no figure.
+    const bare = clone(handBuilt);
+    bare.glance.figure = "simulator";
+    bare.layers.mechanism.paragraphs = bare.layers.mechanism.paragraphs.filter((p: string) => !p.includes("[concept:"));
+    bare.layers.mechanism.figure = null;
+    bare.layers.protocol.figure = null;
+    delete bare.layers.protocol.figureSlot;
+    bare.glossary = bare.glossary.filter((g: { concept?: string }) => !g.concept);
     delete bare.sketches;
     const untouched = assemble(validated, bare);
     expect("context" in untouched.content).toBe(false);
@@ -246,7 +251,7 @@ describe("what reaches the page", () => {
 describe("a simulator drawn by kind (the caffeine read as it is built)", () => {
   const real = assemble(validated, realEditorial, { studies: REAL_STUDIES, concepts: REAL_CONCEPTS, library: REAL_LIBRARY });
   it("passes the lint with the real half-life study and library, and fails without the library", () => {
-    const options = { allowLegacyShape: true, figures: FIGURE_KEYS };
+    const options = { figures: FIGURE_KEYS };
     expect(lint(validated, realEditorial, source, { ...options, context: { studies: REAL_STUDIES, concepts: REAL_CONCEPTS, library: REAL_LIBRARY } }).errors).toEqual([]);
     expect(lint(validated, realEditorial, source, { ...options, context: { studies: REAL_STUDIES, concepts: REAL_CONCEPTS } }).errors.map((e) => e.where))
       .toEqual(["simulator.spec.simulator.halfLife"]);

@@ -38,7 +38,7 @@ const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
  */
 // The real papers each carry a figure now, so the lint needs the list of figures the app can draw.
 // The real context studies and library ride along: caffeine's simulator draws on the half-life study.
-const LEGACY = { allowLegacyShape: true, figures: FIGURE_KEYS, context: { studies: REAL_STUDIES, concepts: REAL_CONCEPTS, library: REAL_LIBRARY } };
+const OPTIONS = { figures: FIGURE_KEYS, context: { studies: REAL_STUDIES, concepts: REAL_CONCEPTS, library: REAL_LIBRARY } };
 
 const steps = load("steps-days-per-week");
 const hiit = load("hiit-body-composition");
@@ -62,14 +62,14 @@ function gateErrors(mutate: (extraction: any) => void, source = steps.source): s
 function lintErrors(paper: typeof steps, mutate: (editorial: any) => void): string[] {
   const editorial = clone(paper.editorial);
   mutate(editorial);
-  return lint(validated(paper), editorial, paper.source, LEGACY).errors.map((e) => `${e.rule} ${e.where}: ${e.message}`);
+  return lint(validated(paper), editorial, paper.source, OPTIONS).errors.map((e) => `${e.rule} ${e.where}: ${e.message}`);
 }
 const fact = (extraction: any, id: string) => extraction.facts.find((f: any) => f.id === id);
 
 describe("the three starter papers", () => {
   it.each([["steps", steps], ["hiit", hiit], ["caffeine", caffeine]])("%s passes the gate and the lint", (_name, paper) => {
     const v = validated(paper);
-    expect(lint(v, paper.editorial, paper.source, LEGACY).errors).toEqual([]);
+    expect(lint(v, paper.editorial, paper.source, OPTIONS).errors).toEqual([]);
   });
 });
 
@@ -193,7 +193,7 @@ describe("derived tiers: the model never grades", () => {
     const fatStep = editorial.steps.find((s: any) => s.key === "fat-running");
     fatStep.grade = "high";
     fatStep.evidence_grade = "high";
-    const paper = assemble(validated(hiit), editorial, LEGACY.context);
+    const paper = assemble(validated(hiit), editorial, OPTIONS.context);
     expect(paper.steps.find((s) => s.key === "fat-running")?.grade).toBe("low");
     expect(paper.steps.find((s) => s.key === "lean-cycling")?.grade).toBe("high");
   });
@@ -231,17 +231,17 @@ describe("lint (stage 4)", () => {
       ]);
   });
   it("H5: the interval of the headline estimate must be spelled out", () => {
-    expect(lintErrors(steps, (e) => { e.sections = e.sections.filter((s: any) => s.id !== "lower-bound"); }))
-      .toEqual(expect.arrayContaining([expect.stringContaining("H5 sections.lower-bound: must state both ends"), expect.stringContaining('structure sections: a section with id "lower-bound"')]));
+    expect(lintErrors(steps, (e) => { e.layers.audit.weakEnd = "The range around this gap is wide. [ard_1_2]"; }))
+      .toEqual([expect.stringContaining("H5 layers.audit.weakEnd: must state both ends")]);
   });
   it("H5: a result with no interval must say so in words", () => {
     expect(lintErrors(caffeine, (e) => {
-      e.sections.find((s: any) => s.id === "lower-bound").paragraphs = ["Sleep was the same on both kinds of night. [sleep_same]"];
-    })).toEqual([expect.stringContaining('H5 sections.lower-bound: "sleep_same" has no interval')]);
+      e.layers.audit.weakEnd = "Sleep was the same on both kinds of night. [sleep_same]";
+    })).toEqual([expect.stringContaining('H5 layers.audit.weakEnd: "sleep_same" has no interval')]);
   });
   it("H6: a limitation that cites no limitation from the paper", () => {
-    expect(lintErrors(steps, (e) => { e.limitations = ["More research is needed. [-]"]; }))
-      .toEqual([expect.stringContaining("H6 limitations[0]")]);
+    expect(lintErrors(steps, (e) => { e.layers.audit.limitations = ["More research is needed. [-]"]; }))
+      .toEqual([expect.stringContaining("H6 layers.audit.limitations[0]")]);
   });
   it("orphans: a number with no citation, a number not in the cited passage, an unknown fact", () => {
     expect(lintErrors(steps, (e) => { e.hook = "Most people walk 5,000 steps a day. [-]"; }))
@@ -289,7 +289,7 @@ describe("lint (stage 4)", () => {
     const inSource = steps.source.includes("Our study has 2 major strengths");
     expect(inSource).toBe(true);
     const errors = lintErrors(steps, (e) => {
-      e.sections[0].paragraphs.push("Our study has two major strengths. First, we used objective measurements of daily steps throughout a week based on accelerometer data, which allowed us to avoid potential bias from exposure misclassification due to faulty self-report. [cohort]");
+      e.layers.audit.more.push("Our study has two major strengths. First, we used objective measurements of daily steps throughout a week based on accelerometer data, which allowed us to avoid potential bias from exposure misclassification due to faulty self-report. [cohort]");
     });
     expect(errors.some((e) => e.startsWith("copy read"))).toBe(true);
     expect(lifted.length).toBeGreaterThan(0);
@@ -297,7 +297,7 @@ describe("lint (stage 4)", () => {
 });
 
 describe("assemble", () => {
-  const paper = assemble(validated(hiit), hiit.editorial, LEGACY.context);
+  const paper = assemble(validated(hiit), hiit.editorial, OPTIONS.context);
   it("derives stable ids: same slug and key, same id, every time", () => {
     expect(stableId("paper:hiit-body-composition")).toBe(paper.meta.id);
     expect(paper.meta.id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);

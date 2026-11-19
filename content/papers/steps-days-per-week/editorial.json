@@ -11,7 +11,7 @@
     "participants",
     "people"
   ],
-  "populationPanel": "Who was studied: 3,101 US adults aged 20 or older who wore an accelerometer for 1 week in 2005-2006 and were then traced through national death records. [sample, cohort] Nobody was assigned to walk more or less, so this is an observational study. [cohort] It describes these adults. It is not a prescription. [-]",
+  "populationPanel": "Who was studied: 3,101 US adults aged 20 or older who wore a step counter for 1 week in 2005-2006. [sample, cohort] National death records then followed them. [cohort] Nobody was assigned to walk more or less, so this is an observational study. [cohort] It describes these adults. It is not a prescription. [-]",
   "primaryEstimate": "ard_1_2",
   "card": {
     "question": "Do one or two 8,000-step days a week go with a longer life? [threshold]",
@@ -29,124 +29,132 @@
     "note": "Each dot is a person, before any adjustment. Try it with your own week inside. [-]",
     "tryIt": "find your group [-]"
   },
-  "sections": [
-    {
-      "id": "found",
-      "heading": "What they found",
+  "layers": {
+    "mechanism": {
       "paragraphs": [
-        "Researchers sorted people by how many days that week they reached 8,000 steps: none, 1 to 2 days, or 3 to 7 days. [threshold] Within 10 years, 40.7% of the people with no such days had died, against 14.1% of those with 1 to 2 days and 5.5% of those with 3 to 7. [followup, threshold, crude_0, crude_1_2, crude_3_7]",
-        "Those raw figures flatter walking, because the three groups were very different people. [-] After the researchers accounted for age, sex, smoking, existing illness and average daily steps, the 1-to-2-day group still had a 10-year risk of death 14.9 points lower than the zero-day group. [ard_1_2, followup, models] For 3 to 7 days the figure was 16.5 points. [ard_3_7] That is only a little more, and the curve went flat at 3 to 4 days. [plateau]"
-      ]
+        "Picture a ramp that falls steeply, then levels off. [-] The biggest gap in risk sits between people with no 8,000-step days and people with one or two. [ard_1_2, ard_3_7, threshold] Past three or four such days a week, the curve was nearly flat. [plateau]",
+        "The same shape shows up for steps per day. [parallel_meta] In an earlier pooled analysis, risk stopped falling at 6,000 to 8,000 steps a day for adults over 60. [parallel_meta] For younger adults it stopped at 8,000 to 10,000. [parallel_meta]",
+        "Studies of exercise point the same way. [nhis_prior] In a large US survey, death risks showed no clear difference between weekend-only exercisers and people active all week. [nhis_prior]",
+        "So 8,000 is a handy marker, not a magic line. [thresholds, threshold] Any daily cut-off from 6,000 to 10,000 steps gave similar results. [thresholds]"
+      ],
+      "figure": null
     },
-    {
-      "id": "lower-bound",
-      "heading": "How sure is that number?",
+    "protocol": {
       "paragraphs": [
-        "The 95% confidence interval for the 1-to-2-day group runs from 18.8 points down to 10.9 points. [ard_1_2] So even the weakest reading that fits the data is a 10.9-point gap, which is wide for a study of deaths. [ard_1_2] What the interval cannot tell you is whether the walking is the reason for the gap. [-]"
-      ]
+        "The study counted days, not daily totals. [threshold] People wore a step counter for one week. [cohort] Researchers then sorted them by how many days they reached 8,000 steps: none, 1 to 2, or 3 to 7. [threshold] National death records followed them for about 10 years. [cohort, followup]",
+        "The researchers allowed for age, health and habits. [models] After that, people with 1 to 2 such days had a 10-year risk of death 14.9 points lower than people with none. [ard_1_2, followup] With 3 to 7 days it was 16.5 points, only a little more. [ard_3_7]"
+      ],
+      "figure": null
     },
-    {
-      "id": "missed",
-      "heading": "What most summaries miss",
-      "paragraphs": [
-        "The zero-day group had a mean age of 63.7. [ages] The 3-to-7-day group had a mean age of 46.0. [ages, threshold] Half of the zero-day group, 50.5%, said they had difficulty walking 0.25 miles or climbing 10 stairs, against 6.8% of the most active group. [mobility, mobility_def]",
-        "People who are already unwell walk less and die sooner, so part of the gap is illness, not walking. [confounding] The authors adjusted for this and say plainly that some of it remains. [confounding]",
-        "One more detail: the gap was 7.4 points in adults under 65 and 19.9 points in those 65 and over. [ard_1_2_under65, ard_1_2_65plus]"
-      ]
-    },
-    {
-      "id": "parallel",
-      "heading": "A related idea",
-      "paragraphs": [
-        "The authors point to an earlier pooled analysis in which risk stopped falling at 6,000 to 8,000 steps a day for adults over 60, and at 8,000 to 10,000 for younger adults. [parallel_meta] Both findings describe the same shape from two directions: steep at the bottom, flat at the top. [parallel_meta, plateau]",
-        "Moving the daily threshold anywhere between 6,000 and 10,000 steps gave similar results, so 8,000 is a convenient marker, not a magic line. [thresholds, threshold]"
-      ]
-    }
-  ],
-  "limitations": [
-    "Steps were measured for only 1 week, at the start. [one_week] How these people walked over the following 10 years is unknown. [one_week, followup]",
-    "This is an observational study. [cohort] People in poor health walk less and are more likely to die, and no adjustment removes that completely. [confounding]",
-    "Wearing a tracker can make people more active for that week, which would place some usually inactive people in the wrong group. [hawthorne]"
-  ],
-  "figure": null,
-  "auditFigure": {
-    "figure": "three-crowds",
-    "title": "Why the raw gap is so wide [-]",
-    "headline": "The three groups were different people before anyone counted a step. [ages, mobility]",
-    "caption": "Poor health can affect both step counts and survival. [confounding] The study adjusted for much of this, not all. [models, confounding] Steps were counted for one week only. [one_week]",
-    "alt": "Three columns, one for each group: no days, 1 to 2 days and 3 to 7 days a week at 8,000 steps or more. [threshold] The average ages are 63.7, 51.5 and 46.0 years. [ages] The shares with trouble walking or climbing stairs are 50.5%, 20.3% and 6.8%. [mobility, mobility_def]",
-    "params": {
-      "threshold": {
-        "n": 8000,
-        "ref": "threshold"
-      },
-      "mobilityWords": "had trouble walking or with stairs",
-      "groups": [
-        {
-          "from": {
-            "n": 0,
+    "audit": {
+      "effect": "Adjusted risk difference, 1 to 2 days against none: a 10-year risk of death 14.9 points lower. [ard_1_2, followup]",
+      "weakEnd": "The 95% confidence interval runs from 18.8 points to 10.9 points lower. [ard_1_2] Even the weak end, 10.9 points, is a wide gap for a study of deaths. [ard_1_2] The range cannot say whether the walking is the reason. [ard_1_2]",
+      "limitations": [
+        "The study counted steps for one week only, at the start. [one_week] How these people walked over the next 10 years is unknown. [one_week, followup]",
+        "This is an observational study. [cohort] Poor health can mean fewer steps and an earlier death, and no adjustment removes that fully. [confounding]",
+        "Wearing a tracker can make people more active that week, putting some usually inactive people in the wrong group. [hawthorne, reactivity_misclassification]"
+      ],
+      "missed": "The adjusted gap was 7.4 points in adults under 65 and 19.9 points in those 65 and over. [ard_1_2_under65, ard_1_2_65plus] The adjustments shrank it: 18.7 points with age and sex alone, 14.9 with everything. [ard_1_2_agesex, ard_1_2]",
+      "more": [
+        "Heart and blood vessel deaths showed the same pattern: 8.1 points lower for 1 to 2 days, 8.4 for 3 to 7. [cv_ard_1_2, cv_ard_3_7, threshold]",
+        "The study kept only people who wore the tracker for the week, which may bias the sample. [selection_bias]"
+      ],
+      "figure": {
+        "title": "Why the raw gap is so wide [-]",
+        "figure": "three-crowds",
+        "headline": "The three groups were different people before anyone counted a step. [ages, mobility]",
+        "caption": "Poor health can affect both step counts and survival. [confounding] The study adjusted for much of this, not all. [models, confounding] Steps were counted for one week only. [one_week]",
+        "alt": "Three columns, one for each group: no days, 1 to 2 days and 3 to 7 days a week at 8,000 steps or more. [threshold] The average ages are 63.7, 51.5 and 46.0 years. [ages] The shares with trouble walking or climbing stairs are 50.5%, 20.3% and 6.8%. [mobility, mobility_def]",
+        "params": {
+          "threshold": {
+            "n": 8000,
             "ref": "threshold"
           },
-          "to": {
-            "n": 0,
-            "ref": "threshold"
-          },
-          "age": {
-            "n": 63.7,
-            "ref": "ages"
+          "mobilityWords": "had trouble walking or with stairs",
+          "groups": [
+            {
+              "from": {
+                "n": 0,
+                "ref": "threshold"
+              },
+              "to": {
+                "n": 0,
+                "ref": "threshold"
+              },
+              "age": {
+                "n": 63.7,
+                "ref": "ages"
+              },
+              "mobility": {
+                "n": 50.5,
+                "ref": "mobility"
+              }
+            },
+            {
+              "from": {
+                "n": 1,
+                "ref": "threshold"
+              },
+              "to": {
+                "n": 2,
+                "ref": "threshold"
+              },
+              "age": {
+                "n": 51.5,
+                "ref": "ages"
+              },
+              "mobility": {
+                "n": 20.3,
+                "ref": "mobility"
+              }
+            },
+            {
+              "from": {
+                "n": 3,
+                "ref": "threshold"
+              },
+              "to": {
+                "n": 7,
+                "ref": "threshold"
+              },
+              "age": {
+                "n": 46.0,
+                "ref": "ages"
+              },
+              "mobility": {
+                "n": 6.8,
+                "ref": "mobility"
+              }
+            }
+          ],
+          "ages": {
+            "kind": "measured",
+            "fact": "fact:ages"
           },
           "mobility": {
-            "n": 50.5,
-            "ref": "mobility"
-          }
-        },
-        {
-          "from": {
-            "n": 1,
-            "ref": "threshold"
-          },
-          "to": {
-            "n": 2,
-            "ref": "threshold"
-          },
-          "age": {
-            "n": 51.5,
-            "ref": "ages"
-          },
-          "mobility": {
-            "n": 20.3,
-            "ref": "mobility"
-          }
-        },
-        {
-          "from": {
-            "n": 3,
-            "ref": "threshold"
-          },
-          "to": {
-            "n": 7,
-            "ref": "threshold"
-          },
-          "age": {
-            "n": 46.0,
-            "ref": "ages"
-          },
-          "mobility": {
-            "n": 6.8,
-            "ref": "mobility"
+            "kind": "measured",
+            "fact": "fact:mobility"
           }
         }
-      ],
-      "ages": {
-        "kind": "measured",
-        "fact": "fact:ages"
-      },
-      "mobility": {
-        "kind": "measured",
-        "fact": "fact:mobility"
       }
     }
   },
+  "glossary": [
+    {
+      "term": "step counter",
+      "plain": "A small device worn on the body that records movement; here it counted steps for a week.",
+      "refs": [
+        "cohort"
+      ]
+    },
+    {
+      "term": "adjustments",
+      "plain": "Allowances the researchers made for how the groups differed, such as age, smoking and illness, so that like is compared with like.",
+      "refs": [
+        "models"
+      ]
+    }
+  ],
   "takeaways": [
     "If a daily target keeps failing, the study's lowest active group is a reasonable place to start: 8,000 steps on 1 to 2 days a week. [threshold, ard_1_2]",
     "Past 3 to 4 such days the association flattened, so a missed day is no reason to write off the week. [plateau]",
@@ -340,7 +348,7 @@
         "body": "Open the simulator to watch the gap change as each adjustment is added, then add the weekly target to your Life Game. [-]"
       }
     ],
-    "caption": "A 10-year follow-up of 3,101 US adults: reaching 8,000 steps on 1 to 2 days a week was associated with a risk of death 14.9 points lower than never reaching it. [followup, sample, threshold, ard_1_2] An observational study, and the groups differed in age and health. [confounding, ages] Source and simulator at the link in bio. [-]",
+    "caption": "A 10-year follow-up of 3,101 US adults. [followup, sample] Reaching 8,000 steps on 1 to 2 days a week was associated with a risk of death 14.9 points lower than never reaching it. [threshold, ard_1_2] An observational study, and the groups differed in age and health. [confounding, ages] Source and simulator at the link in bio. [-]",
     "hashtags": [
       "steps",
       "walking",

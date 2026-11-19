@@ -56,7 +56,7 @@ const SlideDef = z.object({
   body: Markup.nullable().default(null),
 });
 
-/** Fields both shapes share. */
+/** Every field of a read outside its three layers and its glossary. */
 const Base = {
   slug: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
   category: z.string().min(1),
@@ -185,6 +185,15 @@ const Layers = z.object({
   protocol: z.object({
     paragraphs: z.array(Markup).min(1),
     figure: FigureRef.nullable().default(null),
+    /**
+     * Where the protocol figure is drawn (FIGURE-DESIGN B, "what happens to you": it sits in the
+     * protocol layer and hosts the simulator):
+     *   "text"  after the layer's first paragraph (turmeric 2B);
+     *   "try"   in the Try it slot: under a simulator drawn by kind (caffeine 1B), or in place of a
+     *           hand-built one, which then hands the figure its params in the read only, so a
+     *           members' simulator never reaches the public card (HIIT 4B).
+     */
+    figureSlot: z.enum(["text", "try"]).default("text"),
   }),
   audit: z.object({
     /** The raw effect size of the headline result. Must cite primaryEstimate. */
@@ -200,7 +209,12 @@ const Layers = z.object({
     missed: Markup,
     /** The rest, shown behind "Full receipts". */
     more: z.array(Markup).default([]),
-    figure: FigureRef.nullable().default(null),
+    /**
+     * Untitled, it is drawn inside "The size of the effect" (turmeric's readings). With a title, it
+     * is its own receipt at the top (FIGURE-DESIGN 3A: a figure that needs a caveat to be honest
+     * sits in the audit, never the mechanism, H10).
+     */
+    figure: FigureRef.extend({ title: Markup.optional() }).nullable().default(null),
   }),
 });
 
@@ -229,51 +243,25 @@ export const Editorial = z.object({
   glossary: z.array(GlossaryEntry),
 });
 
-/**
- * The old flat shape. Refused for every paper except the ones named on the
- * temporary allowlist (scripts/legacy-shape.ts), which goes when they are
- * rewritten in step 2E.
- */
-export const LegacyEditorial = z.object({
-  ...Base,
-  /** Must include sections with ids "lower-bound" and "missed". */
-  sections: z.array(z.object({
-    id: z.string().regex(/^[a-z-]+$/),
-    heading: z.string().min(1),
-    paragraphs: z.array(Markup).min(1),
-  })).min(3),
-  limitations: z.array(Markup).min(1),
-  /** One figure, shown after the first paragraph. Temporary: it moves into layers.mechanism in step 2E. */
-  figure: FigureRef.nullable().default(null),
-  /**
-   * A figure at the top of the receipts, under its own title (FIGURE-DESIGN 3A: a figure that needs
-   * a caveat to be honest sits in the audit, never the mechanism, H10). Temporary, like the shape:
-   * it moves into layers.audit.figure in step 2E.
-   */
-  auditFigure: FigureRef.extend({ title: Markup }).nullable().default(null),
-  /**
-   * The figure of the "Try it" slot (FIGURE-DESIGN 4B: "what happens to you"), drawn in place of
-   * the simulator, which hands it its params in the read only, so a members' simulator never
-   * reaches the public card. Temporary, like the shape: it moves into layers.protocol.figure in 2E.
-   */
-  protocolFigure: FigureRef.nullable().default(null),
-});
-
 export type Editorial = z.infer<typeof Editorial>;
-export type LegacyEditorial = z.infer<typeof LegacyEditorial>;
 export type StepDef = z.infer<typeof StepDef>;
 export type FigureRef = z.infer<typeof FigureRef>;
 
 export const LAYERS = ["mechanism", "protocol", "audit"] as const;
 export type Layer = (typeof LAYERS)[number];
 
+/**
+ * The keys of the old flat shape, refused since step 2E (it had no allowlist after that). A
+ * layered read keeps its figures in its layers, so a top-level figure of any kind is old shape too.
+ */
+const OLD_SHAPE_KEYS = ["sections", "limitations", "figure", "auditFigure", "protocolFigure"] as const;
+
 /** Which shape a piece of JSON is written in, judged by its keys alone. */
 export function editorialShape(input: unknown): "layered" | "legacy" | "mixed" | "unknown" {
   if (input === null || typeof input !== "object") return "unknown";
   const record = input as Record<string, unknown>;
   const layered = "layers" in record;
-  // "figure" at the top level belongs to the old shape too; a layered read keeps its figures in its layers.
-  const legacy = "sections" in record || "limitations" in record || "figure" in record;
+  const legacy = OLD_SHAPE_KEYS.some((key) => key in record);
   if (layered && legacy) return "mixed";
   if (layered) return "layered";
   return legacy ? "legacy" : "unknown";
@@ -281,3 +269,20 @@ export function editorialShape(input: unknown): "layered" | "legacy" | "mixed" |
 
 export const OLD_SHAPE_MESSAGE =
   "this read is in the old flat shape (sections, limitations). A read needs layers { mechanism, protocol, audit } and a glossary (H10)";
+export const MIXED_SHAPE_MESSAGE =
+  "this read carries both shapes: remove sections, limitations and any top-level figure once layers is written";
+
+/**
+ * The draft stage's check on the model's reply, before anything is saved (scripts/paper.mts).
+ * An old-shape or mixed reply is refused by name, so the retry tells the model what to fix;
+ * zod alone would drop the old keys of a mixed reply without a word. Then the schema. The lint
+ * judges the content afterwards.
+ */
+export function draftReplyProblem(reply: unknown): string | null {
+  const shape = editorialShape(reply);
+  if (shape === "legacy") return OLD_SHAPE_MESSAGE;
+  if (shape === "mixed") return MIXED_SHAPE_MESSAGE;
+  const parsed = Editorial.safeParse(reply);
+  if (parsed.success) return null;
+  return parsed.error.issues.slice(0, 12).map((i) => `${i.path.map(String).join(".") || "(root)"}: ${i.message}`).join("; ");
+}

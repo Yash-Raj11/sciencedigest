@@ -33,12 +33,10 @@ import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import type { BuiltPaper, PaperMeta } from "../lib/content/types";
 import { assemble } from "../lib/pipeline/assemble";
-import { editorialShape } from "../lib/pipeline/editorial";
 import { FIGURE_KEYS } from "../lib/content/figures";
 import { gate } from "../lib/pipeline/gate";
 import { lint } from "../lib/pipeline/lint";
 import { loadContext } from "./context-load";
-import { LEGACY_SHAPE_ALLOWLIST } from "./legacy-shape";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const flag = (name: string, fallback: string) => {
@@ -86,12 +84,9 @@ for (const slug of readdirSync(PAPERS_DIR).sort()) {
   for (const w of gated.warnings) say(`    warning: ${w}`);
 
   if (editorial.slug !== slug) { failed = true; say(`  editorial.slug is "${editorial.slug}" but the folder is "${slug}"`); continue; }
-  // Old flat shape: built only for the slugs on the temporary allowlist. Any
-  // other paper in that shape is refused; a draft is reported and not built.
-  const oldShape = editorialShape(editorial) === "legacy";
-  const allowLegacyShape = oldShape && LEGACY_SHAPE_ALLOWLIST.includes(slug);
-  if (allowLegacyShape) say("  shape  old flat shape, on the temporary allowlist (scripts/legacy-shape.ts): rewrite in step 2E");
-  const report = lint(gated.validated, editorial, source, { allowLegacyShape, context: loaded.context, figures: FIGURE_KEYS });
+  // A read in the old flat shape is refused by the lint like any other problem: a published one
+  // stops the build, a draft is reported and not built (step 2A; no allowlist since step 2E).
+  const report = lint(gated.validated, editorial, source, { context: loaded.context, figures: FIGURE_KEYS });
   if (report.errors.length > 0) {
     if (!isDraft) failed = true;
     say(`  LINT FAILED (${report.errors.length})${isDraft ? ": reported, not built" : ""}`);

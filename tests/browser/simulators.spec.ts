@@ -19,7 +19,10 @@ test.describe("caffeine: the decay simulator", () => {
       await expect(slider).toHaveAttribute("data-unset", "");
       await expect(slider).toHaveAttribute("aria-valuetext", "Not set");
     }
-    await expect(sim.getByRole("button")).toHaveCount(await sim.getByRole("button", { name: /Show the passage/ }).count());
+    // No presets: the only buttons are a sentence's source passage and, since step 2E, a glossary
+    // term's plain meaning (H9: "placebo" in the finding).
+    await expect(sim.getByRole("button", { name: "placebo: what it means" })).toHaveCount(1);
+    await expect(sim.getByRole("button")).toHaveCount(await sim.getByRole("button", { name: /^Show the passage|: what it means$/ }).count());
     await expect(sim.locator("[data-marker]")).toHaveCount(0);
   });
 

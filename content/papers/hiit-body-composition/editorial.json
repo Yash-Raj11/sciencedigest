@@ -29,156 +29,168 @@
     "note": "Ranges from the pooled trials. Members can try it with their own training inside. [-]",
     "tryIt": "pick your training [-]"
   },
-  "sections": [
-    {
-      "id": "found",
-      "heading": "What the pooled trials show",
+  "layers": {
+    "mechanism": {
       "paragraphs": [
-        "Compared with no exercise, interval training in these adults reduced fat mass by 1.86 kg and body fat percentage by 1.53 points. [fm_all, bf_all] Fat-free mass, the weight of everything in the body that is not fat, went up by 0.51 kg. [ffm_all]",
-        "Then the authors rated how far each result can be trusted, using a system called GRADE. [grade_ffm] Fat-free mass: high. [grade_ffm] Fat mass: moderate. [grade_fm] Body fat percentage: low. [grade_bf] The body-fat trials disagreed with one another heavily; the fat-free-mass trials did not. [heterogeneity_bf, ffm_no_het]"
+        "Picture your weight as two piles on one scale. [concept:fat-free-mass] One pile is fat; the other is everything else: muscle, bone, organs, blood and water. [concept:fat-free-mass] A bathroom scale reads only the two together. [concept:fat-free-mass] The second pile has a name: fat-free mass. [ffm_all]",
+        "Interval training means bursts of hard work with rests between them. [recipe]",
+        "In these trials, interval training moved the two piles in opposite directions. [fm_all, ffm_all] Compared with no exercise, the fat pile shrank by 1.86 kg on average, and the other pile grew by 0.51 kg. [fm_all, ffm_all]",
+        "So a bathroom scale would show less than what changed underneath. [fm_all, ffm_all]"
+      ],
+      "figure": {
+        "figure": "two-piles",
+        "headline": "The scale weighs two things. [-] In these trials, interval training moved them in opposite directions. [fm_all, ffm_all]",
+        "caption": "Dotted: a sketch of the idea, not data. [-] Orange words: what the pooled trials measured. [fm_all, ffm_all] Dashed: the pattern the authors found more effective. [recipe]",
+        "alt": "Two panels, before and after 3 to 15 weeks of training, each with a standing outline beside two stacked blocks: fat below, everything else above. [trials] After training, the fat block is marked less, on average, and the other block a little more, on average. [fm_all, ffm_all] The blocks are drawn the same size in both panels, because the paper gives no sizes. [-] Below, two strips show two ways to build a session: short hard bursts with short easy rests, and long bursts with long still rests. [ffm_le60, ffm_rest_le90, ffm_active] The authors found the first pattern more effective. [recipe]",
+        "params": {
+          "title": "Fat and fat-free mass, before and after interval training",
+          "body": "sketch:two-piles",
+          "before": "Before",
+          "after": {
+            "lead": "After",
+            "span": {
+              "text": "3 to 15 weeks",
+              "ref": "trials"
+            }
+          },
+          "fat": {
+            "change": "Less, on average",
+            "kind": "measured",
+            "fact": "fact:fm_all"
+          },
+          "free": {
+            "change": "A little more, on average",
+            "kind": "measured",
+            "fact": "fact:ffm_all"
+          },
+          "why": "The trials did not test why.",
+          "short": {
+            "title": "Short bursts, short active rests",
+            "kind": "measured",
+            "fact": "fact:ffm_le60",
+            "burst": {
+              "lead": "Hard effort,",
+              "n": {
+                "n": 60,
+                "ref": "ffm_le60"
+              },
+              "unit": "seconds or less"
+            },
+            "rest": {
+              "lead": "Easy movement,",
+              "n": {
+                "n": 90,
+                "ref": "ffm_rest_le90"
+              },
+              "unit": "seconds or less"
+            }
+          },
+          "long": {
+            "title": "Long bursts, long still rests"
+          },
+          "recipe": {
+            "words": "The authors found the first pattern more effective.",
+            "kind": "proposed",
+            "fact": "fact:recipe"
+          }
+        }
+      }
+    },
+    "protocol": {
+      "paragraphs": [
+        "The trials compared interval training with no exercise, for 3 to 15 weeks. [trials] Then the authors rated how far they could trust each result. [grade_ffm] Fat-free mass rated high, fat mass moderate and body fat percentage low. [grade_ffm, grade_fm, grade_bf]",
+        "Some settings kept coming out ahead. [recipe] More than 8 weeks, three sessions a week, bursts under 60 seconds, and rests of 90 seconds or less, spent moving. [recipe] These leads come from comparing groups of trials, not from testing one setting against another. [subgroups]",
+        "For fat-free mass, only cycling showed a clear gain; running did not. [ffm_cycling, ffm_only_cycling]"
+      ],
+      "figure": {
+        "figure": "order-flips",
+        "headline": "Sold on fat loss. [-] The surest result is that fat-free mass held up. [ffm_all, grade_ffm]",
+        "caption": "Compared with people who did no training. [ffm_all, fm_all, bf_all] Mostly inactive adults carrying extra weight. [lim_population]",
+        "alt": "Three rows, surest evidence first. [grade_ffm, grade_fm, grade_bf] Fat-free mass: 0.51 kg more, strong evidence. [ffm_all] Fat: 1.86 kg less, decent evidence. [fm_all] Body fat share: 1.53 points less, early evidence. [bf_all] With one trial left out, the fat-free-mass range crosses no change. [ffm_loo, lim_loo]",
+        "params": {
+          "title": "What thirty-six trials found, surest first",
+          "pitchTitle": "How it's sold",
+          "after": {
+            "text": "3 to 15 weeks",
+            "ref": "trials"
+          },
+          "rows": [
+            {
+              "outcome": "ffm",
+              "label": "Fat-free mass",
+              "pitch": "lean mass",
+              "kind": "measured",
+              "fact": "fact:ffm_all"
+            },
+            {
+              "outcome": "fm",
+              "label": "Fat",
+              "pitch": "fat loss",
+              "kind": "measured",
+              "fact": "fact:fm_all"
+            },
+            {
+              "outcome": "bf",
+              "label": "Body fat share",
+              "pitch": "body fat share",
+              "kind": "measured",
+              "fact": "fact:bf_all"
+            }
+          ],
+          "pitch": [
+            "fm",
+            "bf",
+            "ffm"
+          ],
+          "sensitivity": {
+            "outcome": "ffm",
+            "lead": "With one trial left out",
+            "crosses": "and the range crosses no change."
+          }
+        }
+      },
+      "figureSlot": "try"
+    },
+    "audit": {
+      "effect": "Fat-free mass: 0.51 kg more than with no exercise, pooled across the trials. [ffm_all] Fat mass: 1.86 kg less. [fm_all] Body fat percentage: 1.53 points less. [bf_all]",
+      "weakEnd": "The 95% confidence interval for fat-free mass runs from 0.06 kg to 0.95 kg. [ffm_all] At its weak end, 0.06 kg is an amount no bathroom scale would register. [ffm_all] High certainty means the trials agree that the average is above zero, not that it is big. [grade_ffm, ffm_no_het]",
+      "limitations": [
+        "Most trials enrolled inactive adults who were overweight or obese. [lim_population] People who already train may respond differently. [lim_population]",
+        "The trials disagreed with one another, most of all on body fat percentage, which is why the authors graded it low. [lim_heterogeneity, grade_bf]",
+        "The trials measured body composition in different ways, from skinfold calipers to DEXA scans. [lim_methods]",
+        "Take one trial out and the fat-free-mass result is no longer clear. [lim_loo]"
+      ],
+      "missed": "Leave that trial out and the estimate becomes 0.46 kg lost, ranging from 1.38 kg lost to 0.44 kg gained. [ffm_loo] So the best-graded result also rests on a single study. [ffm_loo, grade_ffm]",
+      "more": [
+        "Cycling’s fat-free-mass gain was 0.63 kg (95% CI 0.17 to 1.09). [ffm_cycling]",
+        "Overground running showed the widest drop in body fat percentage, 2.80 points (95% CI 3.89 to 1.71), on the outcome graded low. [bf_overground, grade_bf]",
+        "Treadmill running showed no clear difference in fat mass: from 2.82 kg lost to 0.62 kg gained. [fm_treadmill]",
+        "An earlier pooled analysis found no clear effect of cycling on fat mass in overweight and obese adults. [wewege]",
+        "Heavier bodies load the joints differently when running, one reason cycling may suit some people. [joints]"
+      ],
+      "figure": null
+    }
+  },
+  "glossary": [
+    {
+      "term": "fat-free mass",
+      "concept": "fat-free-mass"
+    },
+    {
+      "term": "interval training",
+      "plain": "Exercise in bursts of hard work, with rests between them.",
+      "refs": [
+        "recipe"
       ]
     },
     {
-      "id": "lower-bound",
-      "heading": "How sure is the lean-mass number?",
-      "paragraphs": [
-        "The 95% confidence interval for fat-free mass runs from 0.06 kg to 0.95 kg. [ffm_all] At its weak end that is 0.06 kg, an amount no bathroom scale would register. [ffm_all] High certainty here means the trials agree that the average effect is above zero. [grade_ffm, ffm_no_het] It does not mean the effect is big. [-]"
-      ]
-    },
-    {
-      "id": "missed",
-      "heading": "What most summaries miss",
-      "paragraphs": [
-        "Take one trial out of the pool and the lean-mass effect is gone: the estimate becomes 0.46 kg lost, with an interval from 1.38 kg lost to 0.44 kg gained. [ffm_loo] So the result graded most certain also rests on a single study. [ffm_loo, grade_ffm]",
-        "The second surprise is which kind of training did what. [-] Only cycling raised fat-free mass in these trials, by 0.63 kg (95% CI 0.17 to 1.09). [ffm_cycling] Running did not. [ffm_only_cycling] Overground running showed the widest drop in body fat percentage, 2.80 points (95% CI 3.89 to 1.71), but that is the low-certainty outcome. [bf_overground, grade_bf] Treadmill running did not clearly change fat mass at all: its interval runs from 2.82 kg lost to 0.62 kg gained. [fm_treadmill]"
-      ]
-    },
-    {
-      "id": "pattern",
-      "heading": "The pattern in the programmes",
-      "paragraphs": [
-        "Across outcomes the same settings kept landing on the favourable side: more than 8 weeks, three sessions a week, work bursts under 60 seconds, rests of 90 seconds or less, and moving during the rest. [recipe] These come from comparing subgroups of trials, not from testing one setting directly against another, so treat them as leads. [subgroups]"
-      ]
-    },
-    {
-      "id": "parallel",
-      "heading": "A related idea",
-      "paragraphs": [
-        "The authors note an earlier pooled analysis that found no clear effect of cycling on fat mass in overweight and obese adults. [wewege] They also raise a practical point: heavier bodies load the joints differently when running, which is one reason cycling may suit some people whatever the averages say. [joints]"
+      "term": "randomized",
+      "plain": "Chance decided who did the training and who did not, not the researchers.",
+      "refs": [
+        "trials"
       ]
     }
   ],
-  "limitations": [
-    "Most trials enrolled inactive adults who were overweight or obese. [lim_population] The results may not carry over to people who already train. [lim_population]",
-    "The trials disagreed with each other, most of all on body fat percentage, which is why that result is graded low. [lim_heterogeneity, grade_bf]",
-    "Body composition was measured with different tools from trial to trial, from skinfold calipers to DEXA scans. [lim_methods]",
-    "The fat-free-mass result disappears when a single trial is removed. [lim_loo]"
-  ],
-  "figure": {
-    "figure": "two-piles",
-    "headline": "The scale weighs two things. [-] In these trials, interval training moved them in opposite directions. [fm_all, ffm_all]",
-    "caption": "Dotted: a sketch of the idea, not data. [-] Orange words: what the pooled trials measured. [fm_all, ffm_all] Dashed: the pattern the authors found more effective. [recipe]",
-    "alt": "Two panels, before and after 3 to 15 weeks of training, each with a standing outline beside two stacked blocks: fat below, everything else above. [trials] After training, the fat block is marked less, on average, and the other block a little more, on average. [fm_all, ffm_all] The blocks are drawn the same size in both panels, because the paper gives no sizes. [-] Below, two strips show two ways to build a session: short hard bursts with short easy rests, and long bursts with long still rests. [ffm_le60, ffm_rest_le90, ffm_active] The authors found the first pattern more effective. [recipe]",
-    "params": {
-      "title": "Fat and fat-free mass, before and after interval training",
-      "body": "sketch:two-piles",
-      "before": "Before",
-      "after": {
-        "lead": "After",
-        "span": {
-          "text": "3 to 15 weeks",
-          "ref": "trials"
-        }
-      },
-      "fat": {
-        "change": "Less, on average",
-        "kind": "measured",
-        "fact": "fact:fm_all"
-      },
-      "free": {
-        "change": "A little more, on average",
-        "kind": "measured",
-        "fact": "fact:ffm_all"
-      },
-      "why": "The trials did not test why.",
-      "short": {
-        "title": "Short bursts, short active rests",
-        "kind": "measured",
-        "fact": "fact:ffm_le60",
-        "burst": {
-          "lead": "Hard effort,",
-          "n": {
-            "n": 60,
-            "ref": "ffm_le60"
-          },
-          "unit": "seconds or less"
-        },
-        "rest": {
-          "lead": "Easy movement,",
-          "n": {
-            "n": 90,
-            "ref": "ffm_rest_le90"
-          },
-          "unit": "seconds or less"
-        }
-      },
-      "long": {
-        "title": "Long bursts, long still rests"
-      },
-      "recipe": {
-        "words": "The authors found the first pattern more effective.",
-        "kind": "proposed",
-        "fact": "fact:recipe"
-      }
-    }
-  },
-  "protocolFigure": {
-    "figure": "order-flips",
-    "headline": "Sold on fat loss. [-] The surest result is that fat-free mass held up. [ffm_all, grade_ffm]",
-    "caption": "Compared with people who did no training. [ffm_all, fm_all, bf_all] Mostly inactive adults carrying extra weight. [lim_population]",
-    "alt": "Three rows, surest evidence first. [grade_ffm, grade_fm, grade_bf] Fat-free mass: 0.51 kg more, strong evidence. [ffm_all] Fat: 1.86 kg less, decent evidence. [fm_all] Body fat share: 1.53 points less, early evidence. [bf_all] With one trial left out, the fat-free-mass range crosses no change. [ffm_loo, lim_loo]",
-    "params": {
-      "title": "What thirty-six trials found, surest first",
-      "pitchTitle": "How it's sold",
-      "after": {
-        "text": "3 to 15 weeks",
-        "ref": "trials"
-      },
-      "rows": [
-        {
-          "outcome": "ffm",
-          "label": "Fat-free mass",
-          "pitch": "lean mass",
-          "kind": "measured",
-          "fact": "fact:ffm_all"
-        },
-        {
-          "outcome": "fm",
-          "label": "Fat",
-          "pitch": "fat loss",
-          "kind": "measured",
-          "fact": "fact:fm_all"
-        },
-        {
-          "outcome": "bf",
-          "label": "Body fat share",
-          "pitch": "body fat share",
-          "kind": "measured",
-          "fact": "fact:bf_all"
-        }
-      ],
-      "pitch": [
-        "fm",
-        "bf",
-        "ffm"
-      ],
-      "sensitivity": {
-        "outcome": "ffm",
-        "lead": "With one trial left out",
-        "crosses": "and the range crosses no change."
-      }
-    }
-  },
   "sketches": [
     {
       "id": "two-piles",

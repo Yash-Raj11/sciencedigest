@@ -32,7 +32,7 @@ function directionErrors(slug: string, mutate: (editorial: any) => void): string
   const read = reads[slug];
   const editorial = clone(read.editorial);
   mutate(editorial);
-  const report = lint(read.validated, editorial, read.source, { context, figures: FIGURE_KEYS, allowLegacyShape: true });
+  const report = lint(read.validated, editorial, read.source, { context, figures: FIGURE_KEYS });
   return report.errors.filter((e) => e.rule === "direction").map((e) => `${e.where}: ${e.message}`);
 }
 

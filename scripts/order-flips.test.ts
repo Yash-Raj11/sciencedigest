@@ -18,7 +18,7 @@ import type { PaperContent, ResolvedFact } from "../lib/content/types";
 
 const gated = JSON.parse(readFileSync("content/generated/gated.json", "utf8")).content as Record<string, PaperContent>;
 const hiit = gated["hiit-body-composition"];
-const figure = hiit.protocolFigure!;
+const figure = hiit.layers!.protocol.figure!;
 const sim = hiit.simulator.params as unknown as CompareSettings;
 const rows = figure.params.rows as { outcome: string; label: string; fact: ResolvedFact }[];
 const fact = (id: string) => hiit.facts[id];

@@ -24,7 +24,7 @@ const gated = gate(JSON.parse(readFileSync(new URL("extraction.json", dir), "utf
 if (!gated.ok) throw new Error(gated.errors.join("\n"));
 const validated = gated.validated;
 
-const oldShape = JSON.parse(readFileSync(new URL("editorial.json", dir), "utf8"));
+const realEditorial = JSON.parse(readFileSync(new URL("editorial.json", dir), "utf8"));
 const fixture = JSON.parse(readFileSync(new URL("fixtures/layered-caffeine.json", import.meta.url), "utf8"));
 const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
 /** A copy of an object without some of its keys. */
@@ -44,7 +44,7 @@ const context: LintContext = {
 /** The passing three-layer read. */
 function layered(): any {
   // Without figure B the card draws the simulator's still, as it did before 1B.
-  return { ...without(oldShape, ["sections", "limitations", "figure", "layers", "glossary", "sketches", "protocolFigure"]), glance: { ...oldShape.glance, figure: "simulator" }, layers: clone(fixture.layers), glossary: clone(fixture.glossary) };
+  return { ...without(realEditorial, ["sections", "limitations", "figure", "layers", "glossary", "sketches", "protocolFigure"]), glance: { ...realEditorial.glance, figure: "simulator" }, layers: clone(fixture.layers), glossary: clone(fixture.glossary) };
 }
 function run(mutate: (editorial: any) => void = () => {}) {
   const editorial = layered();
@@ -67,14 +67,14 @@ describe("the three-layer fixture", () => {
 });
 
 describe("check 1, schema: layers { mechanism, protocol, audit } and a glossary", () => {
-  it("refuses the old flat shape", () => {
-    const errors = lint(validated, oldShape, source).errors.map((e) => `${e.rule} ${e.where}: ${e.message}`);
-    expect(errors).toEqual([expect.stringContaining("schema layers: this read is in the old flat shape")]);
-  });
-  it("accepts the old flat shape only when the caller vouches for it (the temporary allowlist)", () => {
-    // After step 2E this paper is itself three-layer, and this option is deleted with the allowlist.
-    if (editorialShape(oldShape) !== "legacy") return;
-    expect(lint(validated, oldShape, source, { allowLegacyShape: true, context, figures: FIGURE_KEYS }).errors).toEqual([]);
+  it("refuses the old flat shape, with every option the build passes (no allowlist after step 2E)", () => {
+    const read = layered();
+    const oldShape = { ...without(read, ["layers", "glossary"]), sections: [{ id: "found", heading: "What they found", paragraphs: read.layers.mechanism.paragraphs }], limitations: read.layers.audit.limitations };
+    expect(editorialShape(oldShape)).toBe("legacy");
+    for (const options of [{}, { context, figures: FIGURE_KEYS }]) {
+      const errors = lint(validated, oldShape, source, options).errors.map((e) => `${e.rule} ${e.where}: ${e.message}`);
+      expect(errors).toEqual([expect.stringContaining("schema layers: this read is in the old flat shape")]);
+    }
   });
   it("zod rejects the old flat shape outright", () => {
     const parsed = Editorial.safeParse({ ...without(layered(), ["layers", "glossary"]), sections: [], limitations: [] });

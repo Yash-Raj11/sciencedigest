@@ -14,7 +14,7 @@ import { FREE_CONTENT } from "../lib/content/generated";
 import type { ResolvedSketch } from "../lib/content/types";
 
 const read = FREE_CONTENT["daytime-caffeine-sleep"]!;
-const figure = read.figure!;
+const figure = read.layers!.mechanism.figure!;
 const render = (params = figure.params) => renderToStaticMarkup(createElement(FigureFor, { slug: "daytime-caffeine-sleep", figure: { ...figure, params } }));
 const html = render();
 const texts = [...html.matchAll(/<text[^>]*>([\s\S]*?)<\/text>/g)].map((m) => m[1].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim());
