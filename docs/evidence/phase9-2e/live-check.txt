@@ -1,0 +1,24 @@
+# Live check after 2E (2026-11-19T05:43Z), as a visitor, curl
+
+200 /
+200 /today
+200 /me
+200 /privacy
+200 /papers/daytime-caffeine-sleep
+200 /papers/steps-days-per-week
+200 /papers/hiit-body-composition
+200 /papers/turmeric-pepper-breakfast
+404 /papers/no-such-paper
+
+## new three-layer text on the live pages (one fetch per page; tags stripped, no-break spaces read as spaces)
+/papers/daytime-caffeine-sleep: found: "That fits what this trial saw"
+/papers/daytime-caffeine-sleep: found: "The authors also suggest a daily loop"
+/papers/daytime-caffeine-sleep: found: "Its name is adenosine"
+/papers/daytime-caffeine-sleep: found: "adenosine: what it means"
+/papers/daytime-caffeine-sleep: found: "placebo: what it means"
+/papers/steps-days-per-week: found: "Picture a ramp that falls steeply"
+/papers/steps-days-per-week: found: "Why the raw gap is so wide"
+/papers/steps-days-per-week: found: "wore a step counter for 1 week"
+
+A plain grep missed some phrases: the page joins a sentence's last two words with a no-break
+space and wraps glossary terms in buttons, so the text is checked with tags stripped.

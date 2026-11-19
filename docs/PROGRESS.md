@@ -196,7 +196,9 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       a fake model (`scripts/draft-shape.test.ts`); guard `scripts/legacy-shape.test.ts`; each
       shown failing once (`rules-broken.txt`). Gates: 764 unit, 15 HTTP, 105 browser. The
       members' HIIT text stays old-shape on the hosted row until the seed push (BUILD-LOG).
-- [ ] ⏸ Stop. Owner approves concepts and reads all three. Phase 9 is not done until then.
+- [x] ⏸ Stop. Owner approves concepts and reads all three. Phase 9 is not done until then.
+      Owner: "Approve all three" (2026-11-19). No new concepts were written in 2E, so none to
+      approve. Phase 9 done.
 
 ## Step 3: Phase 10, first live pipeline run
 

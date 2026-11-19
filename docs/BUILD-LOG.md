@@ -2037,3 +2037,16 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - **One browser test changed.** The caffeine simulator's "no presets" check counted only
   source-passage buttons. The finding now carries a glossary button ("placebo: what it means",
   H9), so the check allows that button by name and still refuses any other.
+
+## 2026-11-19: owner approved the three 2E reads; Phase 9 done
+
+- Owner: **"Approve all three"** (caffeine, HIIT, steps as rewritten in 2E, `8bfaed2`). No new
+  concept was written in 2E, so there was none to approve. Phase 9 (2A–2E) is done.
+- Live check after the deploy, as a visitor: every route 200, a missing paper 404, and the new
+  layered text on the caffeine and steps pages (`docs/evidence/phase9-2e/live-check.txt`).
+- **Still for the owner to decide:** the second "go" for the hosted seed push (now also carries
+  the three layered reads; members get HIIT's old-shape text until then); `wip/colour-figures`;
+  five-readings in the turmeric receipts; the five FIGURE-DESIGN departures; the clear-control
+  labels and the turmeric meal picker's default (BUILD-LOG 2026-11-19).
+- **After the seed push:** remove the old-shape branches in `components/read/Article.tsx` and the
+  old-shape fields of `PaperContent` in `lib/content/types.ts`.

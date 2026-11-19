@@ -57,7 +57,7 @@ The interactive part is the product; the text is what justifies it.
 | A write the server keeps refusing is set aside (held list), never lost; retried by itself and from Me | Built | 162 unit tests, browser test |
 | `/privacy` (a draft the owner still has to review; not seen by a lawyer) | Live | HTTP and browser tests |
 | Three project skills: `science-content`, `db-change`, `phase-handoff` (`.claude/skills/`) | Written 2026-11-13 | — |
-| Phase 9, 2A: reads in three layers (mechanism, protocol, audit) with a glossary; H9–H11 in the lint. The three starter papers still build in the old shape through a temporary allowlist, removed in 2E | Built, no reader-visible change yet | `docs/evidence/phase9-2a-rules-broken.txt` (19 of 19) |
+| Phase 9, 2A: reads in three layers (mechanism, protocol, audit) with a glossary; H9–H11 in the lint. The three starter papers built in the old shape through a temporary allowlist until 2E | Built; the allowlist is gone (2E) | `docs/evidence/phase9-2a-rules-broken.txt` (19 of 19) |
 | Phase 9, 2B: context sources. A read may cite another gated study (`content/context/`) and owner-reviewed background concepts (`content/concepts/`); neither can back a step or a weight; retraction check covers context | Built; `content/concepts/` holds one reviewed concept (`glucagon-like-peptide`); `content/context/` is empty | `docs/evidence/phase9-2b-gate.txt` (20 of 20) |
 | Phase 9, 2C: figures drawn in code (10 primitives, one mechanism figure per paper; solid = measured, dashed = proposed), figure guard in eslint | Built; shown in the interim article layout | `docs/evidence/phase9-2c-rules-broken.txt` (16), `phase9-2c-browser-rules-broken.txt` (5), `docs/evidence/figures/` |
 | Phase 9, 2D: the read rebuilt (hook, mechanism, number card, protocol, receipts), the feed of whole posts at `/library`, one interactive figure (turmeric's readings grid), motion tokens for toggles | Built; round 2 of the review done 2026-11-14 (next row) | `docs/evidence/article-redesign/` (before/after, dark/light), `phase9-2d-search-the-build.txt` (0 matches), `tests/browser/article-redesign.spec.ts` |
@@ -71,8 +71,13 @@ The interactive part is the product; the text is what justifies it.
 | The four sketches of FIGURE-DESIGN.md (2026-11-18): caffeine 1A parking spot (replaces lock-and-key) and 1B hidden tiredness day (under the simulator; the feed card), turmeric 2B first half hour (protocol layer; the feed card; five-readings moved to the receipts), HIIT 4A two piles. `"sketch:<id>"` references, Sketch primitive the only dotted line | Built; departures from the spec listed in BUILD-LOG 2026-11-18 for the owner. Hosted seed not pushed | `docs/evidence/sketches/` (gates.txt, breaks.txt 8 of 8, screenshots), `scripts/two-piles.test.ts`, `parking-spot.test.ts`, `first-half-hour.test.ts`, `hidden-tiredness.test.ts` |
 | The draft stage proposes the figure kind and the simulator inputs: code lists the kinds the gated facts (and the owner-approved library) can feed, the prompt carries that menu and a guide per kind, the lint still checks the spec | Built; not yet run against the model | `lib/pipeline/propose.ts`, `lib/pipeline/propose.test.ts`, `docs/evidence/propose/` (breaks 9 of 9) |
 | Reader inputs stored on the device only (2026-11-19): what a reader types or picks in a simulator (caffeine, steps, turmeric switches and meal, HIIT routine) comes back on a reopened read; `sd.sim.<slug>.<simulator>` in localStorage, checked in and out (dropped, never clamped); "Clear my numbers" by the simulator and on Me; a privacy line | Built; never synced, no change to `supabase/`, scoring or the store | `lib/reader-inputs.ts`, `lib/reader-inputs.test.ts`, `tests/browser/reader-inputs.spec.ts`, `docs/evidence/reader-inputs/` |
+| Phase 9, 2E: caffeine, HIIT and steps rewritten into three layers with a glossary (words per layer 169/129/227, 133/116/246, 124/87/230); the old-shape allowlist deleted; the draft prompt asks for the layers and lists the context ids it may cite; `paper draft` refuses an old-shape reply. New schema fields `layers.protocol.figureSlot: "try"` and `layers.audit.figure.title` keep figures B, 4B and steps A in place | **Owner approved all three, 2026-11-19. Phase 9 done.** Live on `main` for caffeine and steps; HIIT's members' text is still the old shape on the hosted row until the seed push | `docs/evidence/phase9-2e/` (before-after.md, rules-broken.txt, gates, screenshots), `scripts/legacy-shape.test.ts`, `scripts/draft-shape.test.ts` |
 | Documents: `CLAUDE.md`, `docs/MANUAL.md`, `ARCHITECTURE.md`, `data-model.md`, `BUILD-LOG.md` | Written | — |
 
+Totals on 2026-11-19 (after 2E): 764 unit, 15 HTTP and 105 browser tests
+(`docs/evidence/phase9-2e/gates.txt`, `test-http.txt`, `test-browser.txt`, copied to
+`unit-tests.txt`, `http-tests.txt`, `browser-tests.txt`); database not re-run (no SQL touched;
+`supabase/seed.sql` is regenerated content, not a schema change).
 Totals on 2026-11-19 (after the coverage pass was merged): 752 unit, 15 HTTP and 105 browser
 tests (`docs/evidence/coverage-pass/gates-after-merge.txt`, copied to `unit-tests.txt`,
 `http-tests.txt`, `browser-tests.txt`); database not re-run (no SQL touched).
@@ -85,6 +90,17 @@ Totals on 2026-11-18 (after the draft-stage menu of figure kinds): 700 unit test
 (`browser-tests.txt`); 191 database assertions per pass and 16 of 16 mutations (unchanged and
 not re-run: no SQL touched since 2026-11-14).
 Outputs are in `docs/evidence/`.
+
+### Deployment state (2026-11-19, after 2E)
+
+- `main` is at the Phase 9 handoff commit. Vercel deployed `8bfaed2` (2E): the live caffeine and
+  steps reads carry the new three-layer text and the glossary buttons
+  (`docs/evidence/phase9-2e/live-check.txt`, as a visitor).
+- Hosted database: no migration pending. **The hosted seed is further behind `main`**: the
+  sketches, and now the three layered reads. Members still get HIIT's old-shape text from the
+  hosted `paper_content` row, which `components/read/Article.tsx` still renders. The push waits
+  on the owner's second "go" (MANUAL 3.3; the published count should be 4). After it, remove the
+  old-shape branches in `Article.tsx` and the old-shape fields in `lib/content/types.ts`.
 
 ### Deployment state (2026-11-19, after the coverage pass)
 
