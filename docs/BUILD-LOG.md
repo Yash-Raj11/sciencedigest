@@ -2187,3 +2187,23 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - **Now unblocked (owner, 2E handoff):** with the hosted seed in the three-layer shape, the
   old-shape branches in `components/read/Article.tsx` and the old-shape fields of
   `PaperContent` in `lib/content/types.ts` can be removed.
+
+## 2026-11-19: Phase 10 handoff
+
+- Phase 10 (Step 3) is done. Its gate is met: a paper that went through every stage with the
+  model is live (the sleep read), and the gate and the lint refused things along the way, each
+  fixed in the JSON, never by loosening a rule.
+- `docs/HANDOFF.md` section 2 now has the 3A and 3B rows, the pipeline row (all four commands run
+  live), the totals after the 3B release (776 unit, 16 HTTP, 108 browser) and the deployment state
+  (hosted seed pushed, 5 published). The latest outputs are copied to `docs/evidence/unit-tests.txt`,
+  `http-tests.txt` and `browser-tests.txt`. Database tests were not re-run: no SQL changed.
+- **Still for the owner:**
+  - `AI_MAX_TOKENS=65536` in `.env.local`;
+  - `wip/colour-figures`;
+  - five-readings in the turmeric receipts;
+  - the five FIGURE-DESIGN departures;
+  - the clear-control labels and the meal picker's default;
+  - optionally, plainer outcome wording on the sleep read's card.
+- **Next:** Step 4 (Phase 11), 4A, which starts with a ⏸ question: where the owner's 12 carousel
+  Studio files are. Also now possible, though no step asks for it: removing the old-shape
+  branches in `Article.tsx` and `types.ts`.

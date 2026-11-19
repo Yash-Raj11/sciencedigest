@@ -43,7 +43,7 @@ The interactive part is the product; the text is what justifies it.
 | Day-complete moment | Built | Browser test (shows once a day) |
 | Three papers with simulators + a generic simulator for new papers | Built | Content build passes gate and lint |
 | Content pipeline: gate, lint, licence and retraction checks | Built | Unit tests |
-| Pipeline commands (`npm run paper -- fetch / extract / draft / approve`) | `fetch` and `extract` run live 2026-11-14; `draft` never run live | BUILD-LOG 2026-11-14 (three turmeric benchmarks, one context study) |
+| Pipeline commands (`npm run paper -- fetch / extract / draft / approve`) | All four run live. `fetch` and `extract` first ran 2026-11-14; the whole chain, `draft` and `approve` included, ran on the sleep read 2026-11-19 (3B). Extract needs `AI_MAX_TOKENS=65536` for a paper that size | BUILD-LOG 2026-11-14 (three turmeric benchmarks, one context study), 2026-11-19 (3B) |
 | Extract model: Gemini 4 Hydrogen, Gemini API free tier, through the openai-compatible adapter (per-stage thinking level, 429/503 retry); Groq and Ollama are fallbacks | **Adopted for extract** 2026-11-14; editorial not benchmarked (2E) | BUILD-LOG 2026-11-14; `lib/ai/provider.test.ts` |
 | Extract: the six fact kinds, one value per passage, a second "conditions & confounds" pass writing `coverage`; the gate refuses a p-value filed as background | Built | Turmeric round 3: 35/42 strict, 41 with equivalents, 0 wrong numbers; `lib/pipeline/coverage.test.ts` |
 | Coverage checklist per paper in `/admin/queue` (drafts included; ticked only by gated facts) | Built. The four existing papers got the pass coverage-only (`paper extract --coverage-only`, scratch copies only) and the owner merged all 71 new facts, 2026-11-19: rows found of nine, caffeine 7, HIIT 6, steps 6, turmeric 9. Nothing a reader sees changed (only cited facts are bundled) | `docs/evidence/coverage-pass/` (each paper's review with every quote, breaks 11 of 11, checklist-after-merge.txt), `scripts/coverage-only.test.ts`, `lib/pipeline/coverage.test.ts` |
@@ -71,9 +71,15 @@ The interactive part is the product; the text is what justifies it.
 | The four sketches of FIGURE-DESIGN.md (2026-11-18): caffeine 1A parking spot (replaces lock-and-key) and 1B hidden tiredness day (under the simulator; the feed card), turmeric 2B first half hour (protocol layer; the feed card; five-readings moved to the receipts), HIIT 4A two piles. `"sketch:<id>"` references, Sketch primitive the only dotted line | Built; departures from the spec listed in BUILD-LOG 2026-11-18 for the owner. Hosted seed not pushed | `docs/evidence/sketches/` (gates.txt, breaks.txt 8 of 8, screenshots), `scripts/two-piles.test.ts`, `parking-spot.test.ts`, `first-half-hour.test.ts`, `hidden-tiredness.test.ts` |
 | The draft stage proposes the figure kind and the simulator inputs: code lists the kinds the gated facts (and the owner-approved library) can feed, the prompt carries that menu and a guide per kind, the lint still checks the spec | Built; not yet run against the model | `lib/pipeline/propose.ts`, `lib/pipeline/propose.test.ts`, `docs/evidence/propose/` (breaks 9 of 9) |
 | Reader inputs stored on the device only (2026-11-19): what a reader types or picks in a simulator (caffeine, steps, turmeric switches and meal, HIIT routine) comes back on a reopened read; `sd.sim.<slug>.<simulator>` in localStorage, checked in and out (dropped, never clamped); "Clear my numbers" by the simulator and on Me; a privacy line | Built; never synced, no change to `supabase/`, scoring or the store | `lib/reader-inputs.ts`, `lib/reader-inputs.test.ts`, `tests/browser/reader-inputs.spec.ts`, `docs/evidence/reader-inputs/` |
-| Phase 9, 2E: caffeine, HIIT and steps rewritten into three layers with a glossary (words per layer 169/129/227, 133/116/246, 124/87/230); the old-shape allowlist deleted; the draft prompt asks for the layers and lists the context ids it may cite; `paper draft` refuses an old-shape reply. New schema fields `layers.protocol.figureSlot: "try"` and `layers.audit.figure.title` keep figures B, 4B and steps A in place | **Owner approved all three, 2026-11-19. Phase 9 done.** Live on `main` for caffeine and steps; HIIT's members' text is still the old shape on the hosted row until the seed push | `docs/evidence/phase9-2e/` (before-after.md, rules-broken.txt, gates, screenshots), `scripts/legacy-shape.test.ts`, `scripts/draft-shape.test.ts` |
+| Phase 9, 2E: caffeine, HIIT and steps rewritten into three layers with a glossary (words per layer 169/129/227, 133/116/246, 124/87/230); the old-shape allowlist deleted; the draft prompt asks for the layers and lists the context ids it may cite; `paper draft` refuses an old-shape reply. New schema fields `layers.protocol.figureSlot: "try"` and `layers.audit.figure.title` keep figures B, 4B and steps A in place | **Owner approved all three, 2026-11-19. Phase 9 done.** Live on `main`. The hosted seed was pushed 2026-11-19 (3B release), so HIIT's members' text is in three layers too | `docs/evidence/phase9-2e/` (before-after.md, rules-broken.txt, gates, screenshots), `scripts/legacy-shape.test.ts`, `scripts/draft-shape.test.ts` |
+| Phase 10, 3A: `npm run retractions` (67,951 records, none of the papers retracted); 3 candidates from Europe PMC, each licence checked with `checkLicense` | Done; the owner picked B, sleep, free | `docs/evidence/phase10-3a/` (retractions.txt, search-log.txt, search-results.csv, candidates.md) |
+| Phase 10, 3B: fifth paper `sleep-extension-energy-intake` (Tasali 2022, JAMA IM, RCT, 80, CC-BY, free), the first read through every stage with the model. The gate refused 3 quotes and the lint refused 15 + 10 + 1 + 1 items, each fixed in the JSON; 7 more errors fixed from reading it against the paper. Figure `energy-ledger` (mechanism layer and the feed card), with 10 tests | **Owner approved 2026-11-19; live, and on the hosted database.** Phase 10 gate met | `docs/evidence/phase10-3b/` (gate-fixes.md, lint-fixes.md, draft-for-review.md, figure/, figure-test-fail.txt), `phase10-3b-release/` (hosted counts, live-check.txt), `scripts/energy-ledger.test.ts` |
 | Documents: `CLAUDE.md`, `docs/MANUAL.md`, `ARCHITECTURE.md`, `data-model.md`, `BUILD-LOG.md` | Written | — |
 
+Totals on 2026-11-19 (after the 3B release): 776 unit, 16 HTTP and 108 browser tests
+(`docs/evidence/phase10-3b-release/gates.txt`, `test-http.txt`, `test-browser.txt`, copied to
+`unit-tests.txt`, `http-tests.txt`, `browser-tests.txt`); database not re-run (no SQL touched;
+`supabase/seed.sql` is regenerated content, not a schema change).
 Totals on 2026-11-19 (after 2E): 764 unit, 15 HTTP and 105 browser tests
 (`docs/evidence/phase9-2e/gates.txt`, `test-http.txt`, `test-browser.txt`, copied to
 `unit-tests.txt`, `http-tests.txt`, `browser-tests.txt`); database not re-run (no SQL touched;
@@ -90,6 +96,17 @@ Totals on 2026-11-18 (after the draft-stage menu of figure kinds): 700 unit test
 (`browser-tests.txt`); 191 database assertions per pass and 16 of 16 mutations (unchanged and
 not re-run: no SQL touched since 2026-11-14).
 Outputs are in `docs/evidence/`.
+
+### Deployment state (2026-11-19, after the 3B release; Phase 10 done)
+
+- `main` is at the Phase 10 handoff commit. Vercel deployed `4be4d63`, and the sleep read is
+  live (`docs/evidence/phase10-3b-release/live-check.txt`, as a visitor: every route 200, an
+  unknown paper 404, and the feed lists the read).
+- Hosted database: no migration pending. **The seed was pushed on the owner's second "go"**: the
+  published count is 5, and the sleep read has its content row and 2 steps. The hosted reads now
+  match `main`: the three layered 2E reads, HIIT's members' text, the sketches and the sleep read.
+- Now unblocked: remove the old-shape branches in `components/read/Article.tsx` and the
+  old-shape fields of `PaperContent` in `lib/content/types.ts`.
 
 ### Deployment state (2026-11-19, after 2E)
 
