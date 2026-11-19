@@ -188,8 +188,14 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       Owner's review: "Merge all 71" (2026-11-19). Merged by replaying each saved answer onto the
       hand-checked file; checklist rows found: caffeine 7 of 9, HIIT 6, steps 6, turmeric 9
       (`docs/evidence/coverage-pass/checklist-after-merge.txt`, `gates-after-merge.txt`).
-- [ ] 2E. Rewrite the three `editorial.json` files; concept files listed; `prompts.ts` updated
+- [x] 2E. Rewrite the three `editorial.json` files; concept files listed; `prompts.ts` updated
       with an old-shape refusal test; allowlist deleted; before/after table per paper.
+      Done `8bfaed2`: words per layer caffeine 169/129/227, HIIT 133/116/246, steps 124/87/230
+      (`docs/evidence/phase9-2e/before-after.md`). No new concept files (only the reviewed
+      adenosine and fat-free-mass are used), so none to list. Refusal: unit + end to end against
+      a fake model (`scripts/draft-shape.test.ts`); guard `scripts/legacy-shape.test.ts`; each
+      shown failing once (`rules-broken.txt`). Gates: 764 unit, 15 HTTP, 105 browser. The
+      members' HIIT text stays old-shape on the hosted row until the seed push (BUILD-LOG).
 - [ ] ⏸ Stop. Owner approves concepts and reads all three. Phase 9 is not done until then.
 
 ## Step 3: Phase 10, first live pipeline run
