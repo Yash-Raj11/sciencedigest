@@ -1,0 +1,6 @@
+
+> sciencedigest@0.1.0 paper
+> tsx scripts/paper.mts fetch PMC8822469 sleep-extension-energy-intake
+
+saved content/papers/sleep-extension-energy-intake/source.txt (37,888 characters), licence cc by
+next: npm run paper -- extract sleep-extension-energy-intake

@@ -1,0 +1,2340 @@
+{
+  "identifiers": {
+    "doi": "10.1001/jamainternmed.2021.8098",
+    "pmid": "35129580",
+    "pmcid": "PMC8822469",
+    "title": "Effect of Sleep Extension on Objectively Assessed Energy Intake Among Adults With Overweight in Real-life Settings: A Randomized Clinical Trial",
+    "authors": "Tasali E, Wroblewski K, Kahn E, Kilkus J, Schoeller DA",
+    "journal": "JAMA Internal Medicine",
+    "year": 2022,
+    "citation": "Tasali E, Wroblewski K, Kahn E, Kilkus J, Schoeller DA. Effect of Sleep Extension on Objectively Assessed Energy Intake Among Adults With Overweight in Real-life Settings: A Randomized Clinical Trial. JAMA Intern Med. 2022;182(4):365-374."
+  },
+  "license": "CC-BY",
+  "design": {
+    "value": "rct",
+    "quote": "After a 2-week habitual sleep period at baseline, participants were randomized to either 2-week sleep extension (sleep extension group) or 2-week continued habitual sleep (control group) (Figure 1)."
+  },
+  "species": {
+    "value": "human",
+    "quote": "Adult men and women aged 21 to 40 years with a body mass index (calculated as weight in kilograms divided by height in meters squared) between 25.0 and 29.9 and a mean habitual sleep duration of less than 6.5 hours per night were eligible."
+  },
+  "population": {
+    "value": "Adult men and women aged 21 to 40 years with BMI 25.0 to 29.9 and habitual sleep duration less than 6.5 hours per night",
+    "quote": "Adult men and women aged 21 to 40 years with a body mass index (calculated as weight in kilograms divided by height in meters squared) between 25.0 and 29.9 and a mean habitual sleep duration of less than 6.5 hours per night were eligible."
+  },
+  "sampleSize": {
+    "value": "80",
+    "quote": "Data from 80 randomized participants (mean [SD] age, 29.8 [5.1] years; 41 men [51.3%]) were analyzed."
+  },
+  "facts": [
+    {
+      "id": "study_dates_setting",
+      "kind": "context",
+      "label": "Study design and dates",
+      "value": "November 1, 2014, to October 30, 2020",
+      "quote": "This single-center, parallel-group RCT was conducted from November 1, 2014, to October 30, 2020."
+    },
+    {
+      "id": "trial_registration",
+      "kind": "context",
+      "label": "ClinicalTrials.gov registration",
+      "value": "NCT02253368",
+      "quote": "ClinicalTrials.gov Identifier: NCT02253368"
+    },
+    {
+      "id": "funding_sources",
+      "kind": "context",
+      "label": "Study funding sources",
+      "value": "grants R01DK100426, CTSA-UL1 TR0002389, and UL1TR002389 from the National Institutes of Health",
+      "quote": "Funding/Support: This study was funded by grants R01DK100426, CTSA-UL1 TR0002389, and UL1TR002389 from the National Institutes of Health and by the Diabetes Research and Training Center at The University of Chicago."
+    },
+    {
+      "id": "eligibility_age_bmi_sleep",
+      "kind": "context",
+      "label": "Inclusion criteria for age, BMI, and habitual sleep",
+      "value": "aged 21 to 40 years with a body mass index (calculated as weight in kilograms divided by height in meters squared) between 25.0 and 29.9 and a mean habitual sleep duration of less than 6.5 hours per night",
+      "quote": "Adult men and women aged 21 to 40 years with a body mass index (calculated as weight in kilograms divided by height in meters squared) between 25.0 and 29.9 and a mean habitual sleep duration of less than 6.5 hours per night were eligible."
+    },
+    {
+      "id": "eligibility_stable_sleep",
+      "kind": "context",
+      "label": "Required duration of stable sleep habits",
+      "value": "stable self-reported sleep habits for the past 6 months",
+      "quote": "Individuals were required to have stable self-reported sleep habits for the past 6 months."
+    },
+    {
+      "id": "screening_actigraphy",
+      "kind": "context",
+      "label": "Screening confirmation of habitual sleep",
+      "value": "1-week screening wrist actigraphy at home",
+      "quote": "Habitual sleep duration was confirmed by a 1-week screening wrist actigraphy at home."
+    },
+    {
+      "id": "exclusion_sleep_disorders_shift",
+      "kind": "context",
+      "label": "Exclusion criteria for sleep disorders and shift work",
+      "value": "obstructive sleep apnea confirmed by laboratory polysomnography (apnea-hypopnea index >5), insomnia or history of any other sleep disorder, or night shift and rotating shift work (current or in the past 2 years)",
+      "quote": "Those who had obstructive sleep apnea confirmed by laboratory polysomnography (apnea-hypopnea index >5), insomnia or history of any other sleep disorder, or night shift and rotating shift work (current or in the past 2 years) were excluded."
+    },
+    {
+      "id": "baseline_and_intervention_periods",
+      "kind": "context",
+      "label": "Baseline and intervention arm durations",
+      "value": "2-week habitual sleep period at baseline",
+      "quote": "After a 2-week habitual sleep period at baseline, participants were randomized to either 2-week sleep extension (sleep extension group) or 2-week continued habitual sleep (control group) (Figure 1)."
+    },
+    {
+      "id": "free_living_routine",
+      "kind": "context",
+      "label": "No prescribed diet or physical activity",
+      "value": "without any prescribed diet or physical activity",
+      "quote": "Participants continued their daily routine activities at home without any prescribed diet or physical activity."
+    },
+    {
+      "id": "participant_blinding",
+      "kind": "context",
+      "label": "Timing of participant blinding",
+      "value": "sleep extension group was blinded to randomization until after the 2-week baseline assessments, and the control group was blinded until the end of the 4-week study",
+      "quote": "The sleep extension group was blinded to randomization until after the 2-week baseline assessments, and the control group was blinded until the end of the 4-week study."
+    },
+    {
+      "id": "randomization_method",
+      "kind": "context",
+      "label": "Randomization blocking and stratification",
+      "value": "Block randomization, stratified by sex",
+      "quote": "Block randomization, stratified by sex, was performed using computer-generated random numbers."
+    },
+    {
+      "id": "actigraphy_device",
+      "kind": "context",
+      "label": "Wrist actigraphy device and software",
+      "value": "Actiwatch Spectrum Plus; Philips",
+      "quote": "Participants were asked to wear an accelerometer (motion)-based monitor (Actiwatch Spectrum Plus; Philips) and to press a built-in event marker button when they went to bed to sleep each night and when they got out of bed each morning."
+    },
+    {
+      "id": "sleep_extension_target",
+      "kind": "context",
+      "label": "Sleep extension counseling and bedtime target",
+      "value": "extending their bedtime duration to 8.5 hours",
+      "quote": "At the end of the interview, participants were provided with individualized recommendations to follow at home for 2 weeks, with the aim of extending their bedtime duration to 8.5 hours."
+    },
+    {
+      "id": "day22_followup",
+      "kind": "context",
+      "label": "Mid-intervention follow-up visit",
+      "value": "On day 22, participants returned for a brief follow-up visit",
+      "quote": "On day 22, participants returned for a brief follow-up visit. Actigraphy data from the first intervention week were reviewed, and further sleep counseling was provided as needed."
+    },
+    {
+      "id": "control_contact_matching",
+      "kind": "context",
+      "label": "Control group investigator contact schedule",
+      "value": "days 15 and 22",
+      "quote": "To minimize any imbalance in contact with the investigators between the 2 groups, we asked participants in the control group to meet with the study investigators on days 15 and 22."
+    },
+    {
+      "id": "energy_intake_method",
+      "kind": "context",
+      "label": "Objective assessment of energy intake",
+      "value": "sum of total energy expenditure and change in body energy stores",
+      "quote": "For each 2-week period, the energy intake was calculated from the sum of total energy expenditure and change in body energy stores using the principle of energy balance."
+    },
+    {
+      "id": "dlw_method",
+      "kind": "context",
+      "label": "Measurement of total energy expenditure",
+      "value": "doubly labeled water method",
+      "quote": "Total energy expenditure was measured by the doubly labeled water method."
+    },
+    {
+      "id": "body_energy_stores_method",
+      "kind": "context",
+      "label": "Assessment of change in body energy stores",
+      "value": "regression (slope, grams per day) of daily home weights and change in body composition (ie, fat mass and fat-free mass) using dual-energy x-ray absorptiometry",
+      "quote": "For each 2-week period, the change in body energy stores was computed from the regression (slope, grams per day) of daily home weights and change in body composition (ie, fat mass and fat-free mass) using dual-energy x-ray absorptiometry."
+    },
+    {
+      "id": "hidden_scale_weights",
+      "kind": "context",
+      "label": "Blinded home weight scale protocol",
+      "value": "Weight values were hidden from the participants",
+      "quote": "Participants were provided a cellular-enabled weight scale (BodyTrace; BodyTrace Inc) and instructed to take their nude weights twice every morning after awakening before eating or drinking. Weight values were hidden from the participants to minimize potential influence on behavior."
+    },
+    {
+      "id": "energy_coefficients",
+      "kind": "context",
+      "label": "Energy coefficients for fat and fat-free mass",
+      "value": "9.5 kcal/g as the energy coefficient of fat mass and 1.0 kcal/g as the energy coefficient of fat-free mass",
+      "quote": "Changes in body composition were converted to changes in energy stores using 9.5 kcal/g as the energy coefficient of fat mass and 1.0 kcal/g as the energy coefficient of fat-free mass."
+    },
+    {
+      "id": "rmr_measurement",
+      "kind": "context",
+      "label": "Indirect calorimetry protocol for metabolic rate",
+      "value": "30 minutes after fasting and for 4 hours after eating a standardized breakfast",
+      "quote": "Resting metabolic rate was measured by indirect calorimetry for 30 minutes after fasting and for 4 hours after eating a standardized breakfast."
+    },
+    {
+      "id": "power_calculation",
+      "kind": "context",
+      "label": "Sample size and statistical power calculation",
+      "value": "80% power to detect a true difference in energy intake between groups of 207 kcal/d using a 2-sided α = .05 significance threshold",
+      "quote": "A total final sample size of 80 participants (40 per group) was originally planned and provided 80% power to detect a true difference in energy intake between groups of 207 kcal/d using a 2-sided α = .05 significance threshold (trial protocol in Supplement 1)."
+    },
+    {
+      "id": "statistical_analysis_itt",
+      "kind": "context",
+      "label": "Intention-to-treat analysis",
+      "value": "intention-to-treat analysis",
+      "quote": "An intention-to-treat analysis was conducted in Stata, version 16 (StataCorp LLC) using 2-tailed tests"
+    },
+    {
+      "id": "mixed_models_and_covariates",
+      "kind": "context",
+      "label": "Secondary analyses adjusting for sex or menstrual cycle",
+      "value": "mixed models that adjusted for sex or menstrual cycle",
+      "quote": "In secondary analyses, mixed models that adjusted for sex or menstrual cycle were also fit; these covariates were chosen because of the known influence of menstrual cycle on short-term changes in weight."
+    },
+    {
+      "id": "no_multiplicity_or_imputation",
+      "kind": "context",
+      "label": "Handling of multiple comparisons and missing data",
+      "value": "No adjustments were made to P values or CIs for multiple comparisons",
+      "quote": "No adjustments were made to P values or CIs for multiple comparisons."
+    },
+    {
+      "id": "no_imputation",
+      "kind": "context",
+      "label": "Missing value imputation policy",
+      "value": "No imputation for missing values was performed",
+      "quote": "No imputation for missing values was performed."
+    },
+    {
+      "id": "screening_and_randomization_counts",
+      "kind": "context",
+      "label": "Number consented, screened, and initially randomized",
+      "value": "210 adults who provided consent and were assessed for eligibility, 81 were randomized (41 to the control group and 40 to the sleep extension group)",
+      "quote": "Of the 210 adults who provided consent and were assessed for eligibility, 81 were randomized (41 to the control group and 40 to the sleep extension group) initially (Figure 1)."
+    },
+    {
+      "id": "post_randomization_exclusion",
+      "kind": "context",
+      "label": "Post-randomization ineligibility in control group",
+      "value": "One participant in the control group revealed adhering to a weight loss regimen",
+      "quote": "One participant in the control group revealed adhering to a weight loss regimen and thus did not meet the study inclusion criteria and was deemed ineligible after randomization."
+    },
+    {
+      "id": "overall_mean_age",
+      "kind": "context",
+      "label": "Overall mean (SD) age of analyzed participants",
+      "value": "29.8 (5.1) years",
+      "quote": "The 80 participants had a mean (SD) age of 29.8 (5.1) years and consisted of 41 men (51.3%) and 39 women (48.7%)."
+    },
+    {
+      "id": "overall_sex_men",
+      "kind": "context",
+      "label": "Overall number and percentage of men",
+      "value": "41 men (51.3%)",
+      "quote": "The 80 participants had a mean (SD) age of 29.8 (5.1) years and consisted of 41 men (51.3%) and 39 women (48.7%)."
+    },
+    {
+      "id": "overall_sex_women",
+      "kind": "context",
+      "label": "Overall number and percentage of women",
+      "value": "39 women (48.7%)",
+      "quote": "The 80 participants had a mean (SD) age of 29.8 (5.1) years and consisted of 41 men (51.3%) and 39 women (48.7%)."
+    },
+    {
+      "id": "no_interfering_medications",
+      "kind": "context",
+      "label": "Absence of interfering medications at baseline",
+      "value": "None of the participants were using any antihypertensive or lipid-lowering agents or any prescription medication that can affect sleep or metabolism",
+      "quote": "None of the participants were using any antihypertensive or lipid-lowering agents or any prescription medication that can affect sleep or metabolism."
+    },
+    {
+      "id": "t1_age_ctrl",
+      "kind": "context",
+      "label": "Control group baseline age, mean (SD)",
+      "value": "30.3 (5.5)",
+      "quote": "Age, mean (SD), y | 30.3 (5.5) | 29.3 (4.7) |"
+    },
+    {
+      "id": "t1_age_ext",
+      "kind": "context",
+      "label": "Sleep extension group baseline age, mean (SD)",
+      "value": "29.3 (4.7)",
+      "quote": "Age, mean (SD), y | 30.3 (5.5) | 29.3 (4.7) |"
+    },
+    {
+      "id": "t1_male_ctrl",
+      "kind": "context",
+      "label": "Control group male participants, No. (%)",
+      "value": "21 (52.5)",
+      "quote": "Male | 21 (52.5) | 20 (50.0) |"
+    },
+    {
+      "id": "t1_male_ext",
+      "kind": "context",
+      "label": "Sleep extension group male participants, No. (%)",
+      "value": "20 (50.0)",
+      "quote": "Male | 21 (52.5) | 20 (50.0) |"
+    },
+    {
+      "id": "t1_female_ctrl",
+      "kind": "context",
+      "label": "Control group female participants, No. (%)",
+      "value": "19 (47.5)",
+      "quote": "Female | 19 (47.5) | 20 (50.0) |"
+    },
+    {
+      "id": "t1_female_ext",
+      "kind": "context",
+      "label": "Sleep extension group female participants, No. (%)",
+      "value": "20 (50.0)",
+      "quote": "Female | 19 (47.5) | 20 (50.0) |"
+    },
+    {
+      "id": "t1_bmi_ctrl",
+      "kind": "context",
+      "label": "Control group baseline BMI, mean (SD)",
+      "value": "28.1 (1.5)",
+      "quote": "BMI, mean (SD) | 28.1 (1.5) | 28.1 (1.3) |"
+    },
+    {
+      "id": "t1_bmi_ext",
+      "kind": "context",
+      "label": "Sleep extension group baseline BMI, mean (SD)",
+      "value": "28.1 (1.3)",
+      "quote": "BMI, mean (SD) | 28.1 (1.5) | 28.1 (1.3) |"
+    },
+    {
+      "id": "t1_asian_ctrl",
+      "kind": "context",
+      "label": "Control group Asian participants, No. (%)",
+      "value": "3 (7.5)",
+      "quote": "Asian | 3 (7.5) | 1 (2.5) |"
+    },
+    {
+      "id": "t1_asian_ext",
+      "kind": "context",
+      "label": "Sleep extension group Asian participants, No. (%)",
+      "value": "1 (2.5)",
+      "quote": "Asian | 3 (7.5) | 1 (2.5) |"
+    },
+    {
+      "id": "t1_black_ctrl",
+      "kind": "context",
+      "label": "Control group Black or African American participants, No. (%)",
+      "value": "9 (22.5)",
+      "quote": "Black or African American | 9 (22.5) | 11 (27.5) |"
+    },
+    {
+      "id": "t1_black_ext",
+      "kind": "context",
+      "label": "Sleep extension group Black or African American participants, No. (%)",
+      "value": "11 (27.5)",
+      "quote": "Black or African American | 9 (22.5) | 11 (27.5) |"
+    },
+    {
+      "id": "t1_hispanic_ctrl",
+      "kind": "context",
+      "label": "Control group Hispanic participants, No. (%)",
+      "value": "3 (7.5)",
+      "quote": "Hispanic | 3 (7.5) | 3 (7.5) |"
+    },
+    {
+      "id": "t1_hispanic_ext",
+      "kind": "context",
+      "label": "Sleep extension group Hispanic participants, No. (%)",
+      "value": "3 (7.5)",
+      "quote": "Hispanic | 3 (7.5) | 3 (7.5) |"
+    },
+    {
+      "id": "t1_white_ctrl",
+      "kind": "context",
+      "label": "Control group White participants, No. (%)",
+      "value": "21 (52.5)",
+      "quote": "White | 21 (52.5) | 20 (50.0) |"
+    },
+    {
+      "id": "t1_white_ext",
+      "kind": "context",
+      "label": "Sleep extension group White participants, No. (%)",
+      "value": "20 (50.0)",
+      "quote": "White | 21 (52.5) | 20 (50.0) |"
+    },
+    {
+      "id": "t1_multiracial_ctrl",
+      "kind": "context",
+      "label": "Control group >1 race and ethnicity participants, No. (%)",
+      "value": "4 (10.0)",
+      "quote": ">1 Race and ethnicity | 4 (10.0) | 5 (12.5) |"
+    },
+    {
+      "id": "t1_multiracial_ext",
+      "kind": "context",
+      "label": "Sleep extension group >1 race and ethnicity participants, No. (%)",
+      "value": "5 (12.5)",
+      "quote": ">1 Race and ethnicity | 4 (10.0) | 5 (12.5) |"
+    },
+    {
+      "id": "t1_fulltime_ctrl",
+      "kind": "context",
+      "label": "Control group full-time employed participants, No. (%)",
+      "value": "26 (65.0)",
+      "quote": "Full-time | 26 (65.0) | 23 (57.5) |"
+    },
+    {
+      "id": "t1_fulltime_ext",
+      "kind": "context",
+      "label": "Sleep extension group full-time employed participants, No. (%)",
+      "value": "23 (57.5)",
+      "quote": "Full-time | 26 (65.0) | 23 (57.5) |"
+    },
+    {
+      "id": "t1_parttime_ctrl",
+      "kind": "context",
+      "label": "Control group part-time employed participants, No. (%)",
+      "value": "3 (7.5)",
+      "quote": "Part-time | 3 (7.5) | 3 (7.5) |"
+    },
+    {
+      "id": "t1_parttime_ext",
+      "kind": "context",
+      "label": "Sleep extension group part-time employed participants, No. (%)",
+      "value": "3 (7.5)",
+      "quote": "Part-time | 3 (7.5) | 3 (7.5) |"
+    },
+    {
+      "id": "t1_student_ctrl",
+      "kind": "context",
+      "label": "Control group student participants, No. (%)",
+      "value": "5 (12.5)",
+      "quote": "Student | 5 (12.5) | 8 (20.0) |"
+    },
+    {
+      "id": "t1_student_ext",
+      "kind": "context",
+      "label": "Sleep extension group student participants, No. (%)",
+      "value": "8 (20.0)",
+      "quote": "Student | 5 (12.5) | 8 (20.0) |"
+    },
+    {
+      "id": "t1_wfh_ctrl",
+      "kind": "context",
+      "label": "Control group working from home participants, No. (%)",
+      "value": "3 (7.5)",
+      "quote": "Working from home | 3 (7.5) | 4 (10.0) |"
+    },
+    {
+      "id": "t1_wfh_ext",
+      "kind": "context",
+      "label": "Sleep extension group working from home participants, No. (%)",
+      "value": "4 (10.0)",
+      "quote": "Working from home | 3 (7.5) | 4 (10.0) |"
+    },
+    {
+      "id": "t1_unemployed_ctrl",
+      "kind": "context",
+      "label": "Control group unemployed participants, No. (%)",
+      "value": "3 (7.5)",
+      "quote": "Unemployed | 3 (7.5) | 2 (5.0) |"
+    },
+    {
+      "id": "t1_unemployed_ext",
+      "kind": "context",
+      "label": "Sleep extension group unemployed participants, No. (%)",
+      "value": "2 (5.0)",
+      "quote": "Unemployed | 3 (7.5) | 2 (5.0) |"
+    },
+    {
+      "id": "t1_meq_ctrl",
+      "kind": "context",
+      "label": "Control group MEQ score, mean (SD)",
+      "value": "51.7 (7.4)",
+      "quote": "MEQ score, mean (SD)b | 51.7 (7.4) | 50.8 (7.7) |"
+    },
+    {
+      "id": "t1_meq_ext",
+      "kind": "context",
+      "label": "Sleep extension group MEQ score, mean (SD)",
+      "value": "50.8 (7.7)",
+      "quote": "MEQ score, mean (SD)b | 51.7 (7.4) | 50.8 (7.7) |"
+    },
+    {
+      "id": "t1_cesd_ctrl",
+      "kind": "context",
+      "label": "Control group CES-D depression score, mean (SD)",
+      "value": "5.1 (4.7)",
+      "quote": "CES-D score, mean (SD)c | 5.1 (4.7) | 6.2 (5.7) |"
+    },
+    {
+      "id": "t1_cesd_ext",
+      "kind": "context",
+      "label": "Sleep extension group CES-D depression score, mean (SD)",
+      "value": "6.2 (5.7)",
+      "quote": "CES-D score, mean (SD)c | 5.1 (4.7) | 6.2 (5.7) |"
+    },
+    {
+      "id": "t1_tfeq_restraint_ctrl",
+      "kind": "context",
+      "label": "Control group TFEQ cognitive restraint score, mean (SD)",
+      "value": "8.9 (2.7)",
+      "quote": "Cognitive restraint | 8.9 (2.7) | 8.8 (3.7) |"
+    },
+    {
+      "id": "t1_tfeq_restraint_ext",
+      "kind": "context",
+      "label": "Sleep extension group TFEQ cognitive restraint score, mean (SD)",
+      "value": "8.8 (3.7)",
+      "quote": "Cognitive restraint | 8.9 (2.7) | 8.8 (3.7) |"
+    },
+    {
+      "id": "t1_tfeq_disinhibition_ctrl",
+      "kind": "context",
+      "label": "Control group TFEQ disinhibition score, mean (SD)",
+      "value": "4.9 (3.0)",
+      "quote": "Disinhibition | 4.9 (3.0) | 5.7 (3.3) |"
+    },
+    {
+      "id": "t1_tfeq_disinhibition_ext",
+      "kind": "context",
+      "label": "Sleep extension group TFEQ disinhibition score, mean (SD)",
+      "value": "5.7 (3.3)",
+      "quote": "Disinhibition | 4.9 (3.0) | 5.7 (3.3) |"
+    },
+    {
+      "id": "t1_tfeq_hunger_ctrl",
+      "kind": "context",
+      "label": "Control group TFEQ hunger score, mean (SD)",
+      "value": "4.0 (2.7)",
+      "quote": "Hunger | 4.0 (2.7) | 4.1 (2.8) |"
+    },
+    {
+      "id": "t1_tfeq_hunger_ext",
+      "kind": "context",
+      "label": "Sleep extension group TFEQ hunger score, mean (SD)",
+      "value": "4.1 (2.8)",
+      "quote": "Hunger | 4.0 (2.7) | 4.1 (2.8) |"
+    },
+    {
+      "id": "t1_exercise_ctrl",
+      "kind": "context",
+      "label": "Control group regular exercise, No. (%)",
+      "value": "20 (50.0)",
+      "quote": "Regular exercisee | 20 (50.0) | 18 (45.0) |"
+    },
+    {
+      "id": "t1_exercise_ext",
+      "kind": "context",
+      "label": "Sleep extension group regular exercise, No. (%)",
+      "value": "18 (45.0)",
+      "quote": "Regular exercisee | 20 (50.0) | 18 (45.0) |"
+    },
+    {
+      "id": "t1_sleep_ctrl",
+      "kind": "context",
+      "label": "Control group screening habitual sleep duration, mean (SD), h",
+      "value": "6.0 (0.5)",
+      "quote": "Habitual sleep duration, mean (SD), hf | 6.0 (0.5) | 5.9 (0.6) |"
+    },
+    {
+      "id": "t1_sleep_ext",
+      "kind": "context",
+      "label": "Sleep extension group screening habitual sleep duration, mean (SD), h",
+      "value": "5.9 (0.6)",
+      "quote": "Habitual sleep duration, mean (SD), hf | 6.0 (0.5) | 5.9 (0.6) |"
+    },
+    {
+      "id": "sleep_duration_diff",
+      "kind": "estimate",
+      "label": "Between-group difference in change in mean sleep duration",
+      "value": "1.2 hours; 95% CI, 1.0-1.4 hours",
+      "quote": "Participants in the sleep extension group had a significant increase from baseline in mean sleep duration by actigraphy compared with those in the control group (1.2 hours; 95% CI, 1.0-1.4 hours; P < .001).",
+      "estimate": {
+        "outcome": "Change from baseline in mean nightly sleep duration by actigraphy",
+        "measure": "MD",
+        "point": 1.2,
+        "ciLow": 1,
+        "ciHigh": 1.4,
+        "unit": "hours",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "sleep_duration_workdays_diff",
+      "kind": "estimate",
+      "label": "Between-group difference in change in sleep duration on workdays",
+      "value": "1.3 hours; 95% CI, 1.0-1.5 hours",
+      "quote": "The findings were similar with regard to change in sleep duration when only participants' workdays (1.3 hours; 95% CI, 1.0-1.5 hours; P < .001) or free days (1.1 hours; 95% CI, 0.7-1.5 hours; P < .001) were considered (eTable 1 in Supplement 2).",
+      "estimate": {
+        "outcome": "Change from baseline in sleep duration on workdays",
+        "measure": "MD",
+        "point": 1.3,
+        "ciLow": 1,
+        "ciHigh": 1.5,
+        "unit": "hours",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "sleep_duration_freedays_diff",
+      "kind": "estimate",
+      "label": "Between-group difference in change in sleep duration on free days",
+      "value": "1.1 hours; 95% CI, 0.7-1.5 hours",
+      "quote": "The findings were similar with regard to change in sleep duration when only participants' workdays (1.3 hours; 95% CI, 1.0-1.5 hours; P < .001) or free days (1.1 hours; 95% CI, 0.7-1.5 hours; P < .001) were considered (eTable 1 in Supplement 2).",
+      "estimate": {
+        "outcome": "Change from baseline in sleep duration on free days",
+        "measure": "MD",
+        "point": 1.1,
+        "ciLow": 0.7,
+        "ciHigh": 1.5,
+        "unit": "hours",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "sleep_efficiency_diff",
+      "kind": "estimate",
+      "label": "Between-group difference in change in sleep efficiency",
+      "value": "–0.6 hours; 95% CI, –2.1 to 1.0 hours",
+      "quote": "No difference was found in change in sleep efficiency (percentage of time spent asleep during time in bed) between the 2 groups (–0.6 hours; 95% CI, –2.1 to 1.0 hours; P = .48), confirming the success of the intervention (eTable 2 in Supplement 2).",
+      "estimate": {
+        "outcome": "Change in sleep efficiency between groups",
+        "measure": "MD",
+        "point": -0.6,
+        "ciLow": -2.1,
+        "ciHigh": 1,
+        "unit": "hours",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "sleep_efficiency_ns",
+      "kind": "finding",
+      "label": "No clear difference in sleep efficiency change",
+      "value": "P = .48",
+      "quote": "No difference was found in change in sleep efficiency (percentage of time spent asleep during time in bed) between the 2 groups (–0.6 hours; 95% CI, –2.1 to 1.0 hours; P = .48), confirming the success of the intervention (eTable 2 in Supplement 2).",
+      "outcome": "Sleep efficiency"
+    },
+    {
+      "id": "sleep_energy_correlation",
+      "kind": "finding",
+      "label": "Correlation between change in sleep duration and change in energy intake",
+      "value": "r = −0.41; 95% CI, −0.59 to −0.20; P < .001",
+      "quote": "Considering all participants, the change in sleep duration was inversely correlated with the change in energy intake (r = −0.41; 95% CI, −0.59 to −0.20; P < .001) (Figure 3E).",
+      "outcome": "Correlation between sleep duration change and energy intake change"
+    },
+    {
+      "id": "energy_intake_per_hour_sleep",
+      "kind": "finding",
+      "label": "Change in energy intake per 1-hour increase in sleep duration",
+      "value": "−162.3 kcal/d; 95% CI, −246.8 to −77.7 kcal/d; P < .001",
+      "quote": "Each 1-hour increase in sleep duration was associated with a decrease in energy intake of approximately 162 kcal/d (−162.3 kcal/d; 95% CI, −246.8 to −77.7 kcal/d; P < .001).",
+      "outcome": "Energy intake change per 1-hour sleep duration increase"
+    },
+    {
+      "id": "ei_ctrl_baseline",
+      "kind": "estimate",
+      "label": "Control group baseline energy intake",
+      "value": "2665.0 (2468.4 to 2861.6)",
+      "quote": "Energy intake, kcal/d | 2665.0 (2468.4 to 2861.6) | 2779.9 (2583.3 to 2976.5) | 114.9 (29.6 to 200.2) | 2976.6 (2782.5 to 3170.7) | 2821.1 (2625.1 to 3017.2) | −155.5 (−244.1 to −66.9) | −270.4 (−393.4 to −147.4) | <.001 |",
+      "estimate": {
+        "outcome": "Energy intake, control group baseline",
+        "measure": "mean",
+        "point": 2665,
+        "ciLow": 2468.4,
+        "ciHigh": 2861.6,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ei_ctrl_period2",
+      "kind": "estimate",
+      "label": "Control group habitual sleep period 2 energy intake",
+      "value": "2779.9 (2583.3 to 2976.5)",
+      "quote": "Energy intake, kcal/d | 2665.0 (2468.4 to 2861.6) | 2779.9 (2583.3 to 2976.5) | 114.9 (29.6 to 200.2) | 2976.6 (2782.5 to 3170.7) | 2821.1 (2625.1 to 3017.2) | −155.5 (−244.1 to −66.9) | −270.4 (−393.4 to −147.4) | <.001 |",
+      "estimate": {
+        "outcome": "Energy intake, control group period 2",
+        "measure": "mean",
+        "point": 2779.9,
+        "ciLow": 2583.3,
+        "ciHigh": 2976.5,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ei_ctrl_change",
+      "kind": "estimate",
+      "label": "Control group change from baseline in energy intake",
+      "value": "114.9 (29.6 to 200.2)",
+      "quote": "Energy intake, kcal/d | 2665.0 (2468.4 to 2861.6) | 2779.9 (2583.3 to 2976.5) | 114.9 (29.6 to 200.2) | 2976.6 (2782.5 to 3170.7) | 2821.1 (2625.1 to 3017.2) | −155.5 (−244.1 to −66.9) | −270.4 (−393.4 to −147.4) | <.001 |",
+      "estimate": {
+        "outcome": "Change from baseline in energy intake, control group",
+        "measure": "MD",
+        "point": 114.9,
+        "ciLow": 29.6,
+        "ciHigh": 200.2,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ei_ext_baseline",
+      "kind": "estimate",
+      "label": "Sleep extension group baseline energy intake",
+      "value": "2976.6 (2782.5 to 3170.7)",
+      "quote": "Energy intake, kcal/d | 2665.0 (2468.4 to 2861.6) | 2779.9 (2583.3 to 2976.5) | 114.9 (29.6 to 200.2) | 2976.6 (2782.5 to 3170.7) | 2821.1 (2625.1 to 3017.2) | −155.5 (−244.1 to −66.9) | −270.4 (−393.4 to −147.4) | <.001 |",
+      "estimate": {
+        "outcome": "Energy intake, sleep extension group baseline",
+        "measure": "mean",
+        "point": 2976.6,
+        "ciLow": 2782.5,
+        "ciHigh": 3170.7,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ei_ext_period2",
+      "kind": "estimate",
+      "label": "Sleep extension group intervention period energy intake",
+      "value": "2821.1 (2625.1 to 3017.2)",
+      "quote": "Energy intake, kcal/d | 2665.0 (2468.4 to 2861.6) | 2779.9 (2583.3 to 2976.5) | 114.9 (29.6 to 200.2) | 2976.6 (2782.5 to 3170.7) | 2821.1 (2625.1 to 3017.2) | −155.5 (−244.1 to −66.9) | −270.4 (−393.4 to −147.4) | <.001 |",
+      "estimate": {
+        "outcome": "Energy intake, sleep extension group period 2",
+        "measure": "mean",
+        "point": 2821.1,
+        "ciLow": 2625.1,
+        "ciHigh": 3017.2,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ei_ext_change",
+      "kind": "estimate",
+      "label": "Sleep extension group change from baseline in energy intake",
+      "value": "−155.5 (−244.1 to −66.9)",
+      "quote": "Energy intake, kcal/d | 2665.0 (2468.4 to 2861.6) | 2779.9 (2583.3 to 2976.5) | 114.9 (29.6 to 200.2) | 2976.6 (2782.5 to 3170.7) | 2821.1 (2625.1 to 3017.2) | −155.5 (−244.1 to −66.9) | −270.4 (−393.4 to −147.4) | <.001 |",
+      "estimate": {
+        "outcome": "Change from baseline in energy intake, sleep extension group",
+        "measure": "MD",
+        "point": -155.5,
+        "ciLow": -244.1,
+        "ciHigh": -66.9,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ei_diff_in_changes",
+      "kind": "estimate",
+      "label": "Between-group difference in energy intake change",
+      "value": "−270.4 (−393.4 to −147.4)",
+      "quote": "Energy intake, kcal/d | 2665.0 (2468.4 to 2861.6) | 2779.9 (2583.3 to 2976.5) | 114.9 (29.6 to 200.2) | 2976.6 (2782.5 to 3170.7) | 2821.1 (2625.1 to 3017.2) | −155.5 (−244.1 to −66.9) | −270.4 (−393.4 to −147.4) | <.001 |",
+      "estimate": {
+        "outcome": "Difference in change in energy intake (sleep extension minus control)",
+        "measure": "MD",
+        "point": -270.4,
+        "ciLow": -393.4,
+        "ciHigh": -147.4,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ei_p_value",
+      "kind": "finding",
+      "label": "P value for difference in energy intake change",
+      "value": "<.001",
+      "quote": "Energy intake, kcal/d | 2665.0 (2468.4 to 2861.6) | 2779.9 (2583.3 to 2976.5) | 114.9 (29.6 to 200.2) | 2976.6 (2782.5 to 3170.7) | 2821.1 (2625.1 to 3017.2) | −155.5 (−244.1 to −66.9) | −270.4 (−393.4 to −147.4) | <.001 |",
+      "outcome": "Energy intake"
+    },
+    {
+      "id": "tee_ctrl_baseline",
+      "kind": "estimate",
+      "label": "Control group baseline total energy expenditure",
+      "value": "2693.5 (2499.9 to 2887.1)",
+      "quote": "Total energy expenditure, kcal/d | 2693.5 (2499.9 to 2887.1) | 2700.7 (2507.1 to 2894.3) | 7.2 (−49.0 to 63.3) | 2871.1 (2677.6 to 3064.7) | 2824.4 (2630.2 to 3018.6) | −46.7 (−105.1 to 11.6) | −53.9 (−134.9 to 27.1) | .19 |",
+      "estimate": {
+        "outcome": "Total energy expenditure, control group baseline",
+        "measure": "mean",
+        "point": 2693.5,
+        "ciLow": 2499.9,
+        "ciHigh": 2887.1,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "tee_ctrl_period2",
+      "kind": "estimate",
+      "label": "Control group period 2 total energy expenditure",
+      "value": "2700.7 (2507.1 to 2894.3)",
+      "quote": "Total energy expenditure, kcal/d | 2693.5 (2499.9 to 2887.1) | 2700.7 (2507.1 to 2894.3) | 7.2 (−49.0 to 63.3) | 2871.1 (2677.6 to 3064.7) | 2824.4 (2630.2 to 3018.6) | −46.7 (−105.1 to 11.6) | −53.9 (−134.9 to 27.1) | .19 |",
+      "estimate": {
+        "outcome": "Total energy expenditure, control group period 2",
+        "measure": "mean",
+        "point": 2700.7,
+        "ciLow": 2507.1,
+        "ciHigh": 2894.3,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "tee_ctrl_change",
+      "kind": "estimate",
+      "label": "Control group change from baseline in total energy expenditure",
+      "value": "7.2 (−49.0 to 63.3)",
+      "quote": "Total energy expenditure, kcal/d | 2693.5 (2499.9 to 2887.1) | 2700.7 (2507.1 to 2894.3) | 7.2 (−49.0 to 63.3) | 2871.1 (2677.6 to 3064.7) | 2824.4 (2630.2 to 3018.6) | −46.7 (−105.1 to 11.6) | −53.9 (−134.9 to 27.1) | .19 |",
+      "estimate": {
+        "outcome": "Change from baseline in total energy expenditure, control group",
+        "measure": "MD",
+        "point": 7.2,
+        "ciLow": -49,
+        "ciHigh": 63.3,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "tee_ext_baseline",
+      "kind": "estimate",
+      "label": "Sleep extension group baseline total energy expenditure",
+      "value": "2871.1 (2677.6 to 3064.7)",
+      "quote": "Total energy expenditure, kcal/d | 2693.5 (2499.9 to 2887.1) | 2700.7 (2507.1 to 2894.3) | 7.2 (−49.0 to 63.3) | 2871.1 (2677.6 to 3064.7) | 2824.4 (2630.2 to 3018.6) | −46.7 (−105.1 to 11.6) | −53.9 (−134.9 to 27.1) | .19 |",
+      "estimate": {
+        "outcome": "Total energy expenditure, sleep extension group baseline",
+        "measure": "mean",
+        "point": 2871.1,
+        "ciLow": 2677.6,
+        "ciHigh": 3064.7,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "tee_ext_period2",
+      "kind": "estimate",
+      "label": "Sleep extension group period 2 total energy expenditure",
+      "value": "2824.4 (2630.2 to 3018.6)",
+      "quote": "Total energy expenditure, kcal/d | 2693.5 (2499.9 to 2887.1) | 2700.7 (2507.1 to 2894.3) | 7.2 (−49.0 to 63.3) | 2871.1 (2677.6 to 3064.7) | 2824.4 (2630.2 to 3018.6) | −46.7 (−105.1 to 11.6) | −53.9 (−134.9 to 27.1) | .19 |",
+      "estimate": {
+        "outcome": "Total energy expenditure, sleep extension group period 2",
+        "measure": "mean",
+        "point": 2824.4,
+        "ciLow": 2630.2,
+        "ciHigh": 3018.6,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "tee_ext_change",
+      "kind": "estimate",
+      "label": "Sleep extension group change from baseline in total energy expenditure",
+      "value": "−46.7 (−105.1 to 11.6)",
+      "quote": "Total energy expenditure, kcal/d | 2693.5 (2499.9 to 2887.1) | 2700.7 (2507.1 to 2894.3) | 7.2 (−49.0 to 63.3) | 2871.1 (2677.6 to 3064.7) | 2824.4 (2630.2 to 3018.6) | −46.7 (−105.1 to 11.6) | −53.9 (−134.9 to 27.1) | .19 |",
+      "estimate": {
+        "outcome": "Change from baseline in total energy expenditure, sleep extension group",
+        "measure": "MD",
+        "point": -46.7,
+        "ciLow": -105.1,
+        "ciHigh": 11.6,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "tee_diff_in_changes",
+      "kind": "estimate",
+      "label": "Between-group difference in total energy expenditure change",
+      "value": "−53.9 (−134.9 to 27.1)",
+      "quote": "Total energy expenditure, kcal/d | 2693.5 (2499.9 to 2887.1) | 2700.7 (2507.1 to 2894.3) | 7.2 (−49.0 to 63.3) | 2871.1 (2677.6 to 3064.7) | 2824.4 (2630.2 to 3018.6) | −46.7 (−105.1 to 11.6) | −53.9 (−134.9 to 27.1) | .19 |",
+      "estimate": {
+        "outcome": "Difference in change in total energy expenditure",
+        "measure": "MD",
+        "point": -53.9,
+        "ciLow": -134.9,
+        "ciHigh": 27.1,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "tee_p_value",
+      "kind": "finding",
+      "label": "P value for difference in total energy expenditure change",
+      "value": ".19",
+      "quote": "Total energy expenditure, kcal/d | 2693.5 (2499.9 to 2887.1) | 2700.7 (2507.1 to 2894.3) | 7.2 (−49.0 to 63.3) | 2871.1 (2677.6 to 3064.7) | 2824.4 (2630.2 to 3018.6) | −46.7 (−105.1 to 11.6) | −53.9 (−134.9 to 27.1) | .19 |",
+      "outcome": "Total energy expenditure"
+    },
+    {
+      "id": "eb_ctrl_baseline",
+      "kind": "estimate",
+      "label": "Control group baseline energy balance",
+      "value": "−0.6 (−69.9 to 68.8)",
+      "quote": "Energy balance, kcal/d | −0.6 (−69.9 to 68.8) | 105.4 (36.0 to 174.8) | 106.0 (19.0 to 193.0) | 105.4 (36.9 to 174.0) | 0.4 (−71.7 to 72.4) | −105.1 (−193.8 to −16.3) | −211.1 (−335.4 to −86.8) | .001 |",
+      "estimate": {
+        "outcome": "Energy balance, control group baseline",
+        "measure": "mean",
+        "point": -0.6,
+        "ciLow": -69.9,
+        "ciHigh": 68.8,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "eb_ctrl_period2",
+      "kind": "estimate",
+      "label": "Control group period 2 energy balance",
+      "value": "105.4 (36.0 to 174.8)",
+      "quote": "Energy balance, kcal/d | −0.6 (−69.9 to 68.8) | 105.4 (36.0 to 174.8) | 106.0 (19.0 to 193.0) | 105.4 (36.9 to 174.0) | 0.4 (−71.7 to 72.4) | −105.1 (−193.8 to −16.3) | −211.1 (−335.4 to −86.8) | .001 |",
+      "estimate": {
+        "outcome": "Energy balance, control group period 2",
+        "measure": "mean",
+        "point": 105.4,
+        "ciLow": 36,
+        "ciHigh": 174.8,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "eb_ctrl_change",
+      "kind": "estimate",
+      "label": "Control group change from baseline in energy balance",
+      "value": "106.0 (19.0 to 193.0)",
+      "quote": "Energy balance, kcal/d | −0.6 (−69.9 to 68.8) | 105.4 (36.0 to 174.8) | 106.0 (19.0 to 193.0) | 105.4 (36.9 to 174.0) | 0.4 (−71.7 to 72.4) | −105.1 (−193.8 to −16.3) | −211.1 (−335.4 to −86.8) | .001 |",
+      "estimate": {
+        "outcome": "Change from baseline in energy balance, control group",
+        "measure": "MD",
+        "point": 106,
+        "ciLow": 19,
+        "ciHigh": 193,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "eb_ext_baseline",
+      "kind": "estimate",
+      "label": "Sleep extension group baseline energy balance",
+      "value": "105.4 (36.9 to 174.0)",
+      "quote": "Energy balance, kcal/d | −0.6 (−69.9 to 68.8) | 105.4 (36.0 to 174.8) | 106.0 (19.0 to 193.0) | 105.4 (36.9 to 174.0) | 0.4 (−71.7 to 72.4) | −105.1 (−193.8 to −16.3) | −211.1 (−335.4 to −86.8) | .001 |",
+      "estimate": {
+        "outcome": "Energy balance, sleep extension group baseline",
+        "measure": "mean",
+        "point": 105.4,
+        "ciLow": 36.9,
+        "ciHigh": 174,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "eb_ext_period2",
+      "kind": "estimate",
+      "label": "Sleep extension group period 2 energy balance",
+      "value": "0.4 (−71.7 to 72.4)",
+      "quote": "Energy balance, kcal/d | −0.6 (−69.9 to 68.8) | 105.4 (36.0 to 174.8) | 106.0 (19.0 to 193.0) | 105.4 (36.9 to 174.0) | 0.4 (−71.7 to 72.4) | −105.1 (−193.8 to −16.3) | −211.1 (−335.4 to −86.8) | .001 |",
+      "estimate": {
+        "outcome": "Energy balance, sleep extension group period 2",
+        "measure": "mean",
+        "point": 0.4,
+        "ciLow": -71.7,
+        "ciHigh": 72.4,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "eb_ext_change",
+      "kind": "estimate",
+      "label": "Sleep extension group change from baseline in energy balance",
+      "value": "−105.1 (−193.8 to −16.3)",
+      "quote": "Energy balance, kcal/d | −0.6 (−69.9 to 68.8) | 105.4 (36.0 to 174.8) | 106.0 (19.0 to 193.0) | 105.4 (36.9 to 174.0) | 0.4 (−71.7 to 72.4) | −105.1 (−193.8 to −16.3) | −211.1 (−335.4 to −86.8) | .001 |",
+      "estimate": {
+        "outcome": "Change from baseline in energy balance, sleep extension group",
+        "measure": "MD",
+        "point": -105.1,
+        "ciLow": -193.8,
+        "ciHigh": -16.3,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "eb_diff_in_changes",
+      "kind": "estimate",
+      "label": "Between-group difference in energy balance change",
+      "value": "−211.1 (−335.4 to −86.8)",
+      "quote": "Energy balance, kcal/d | −0.6 (−69.9 to 68.8) | 105.4 (36.0 to 174.8) | 106.0 (19.0 to 193.0) | 105.4 (36.9 to 174.0) | 0.4 (−71.7 to 72.4) | −105.1 (−193.8 to −16.3) | −211.1 (−335.4 to −86.8) | .001 |",
+      "estimate": {
+        "outcome": "Difference in change in energy balance",
+        "measure": "MD",
+        "point": -211.1,
+        "ciLow": -335.4,
+        "ciHigh": -86.8,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "eb_p_value",
+      "kind": "finding",
+      "label": "P value for difference in energy balance change",
+      "value": ".001",
+      "quote": "Energy balance, kcal/d | −0.6 (−69.9 to 68.8) | 105.4 (36.0 to 174.8) | 106.0 (19.0 to 193.0) | 105.4 (36.9 to 174.0) | 0.4 (−71.7 to 72.4) | −105.1 (−193.8 to −16.3) | −211.1 (−335.4 to −86.8) | .001 |",
+      "outcome": "Energy balance"
+    },
+    {
+      "id": "rmr_fast_ctrl_baseline",
+      "kind": "estimate",
+      "label": "Control group baseline fasting resting metabolic rate",
+      "value": "1563.6 (1487.3 to 1640.0)",
+      "quote": "Fasting | 1563.6 (1487.3 to 1640.0) | 1581.1 (1504.5 to 1657.6) | 17.4 (−4.9 to 39.7) | 1667.8 (1591.3 to 1744.2) | 1652.7 (1576.2 to 1729.3) | −15.1 (−38.0 to 7.9) | −32.5 (−64.5 to −0.5) | .047 |",
+      "estimate": {
+        "outcome": "Fasting resting metabolic rate, control group baseline",
+        "measure": "mean",
+        "point": 1563.6,
+        "ciLow": 1487.3,
+        "ciHigh": 1640,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "rmr_fast_ctrl_period2",
+      "kind": "estimate",
+      "label": "Control group period 2 fasting resting metabolic rate",
+      "value": "1581.1 (1504.5 to 1657.6)",
+      "quote": "Fasting | 1563.6 (1487.3 to 1640.0) | 1581.1 (1504.5 to 1657.6) | 17.4 (−4.9 to 39.7) | 1667.8 (1591.3 to 1744.2) | 1652.7 (1576.2 to 1729.3) | −15.1 (−38.0 to 7.9) | −32.5 (−64.5 to −0.5) | .047 |",
+      "estimate": {
+        "outcome": "Fasting resting metabolic rate, control group period 2",
+        "measure": "mean",
+        "point": 1581.1,
+        "ciLow": 1504.5,
+        "ciHigh": 1657.6,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "rmr_fast_ctrl_change",
+      "kind": "estimate",
+      "label": "Control group change from baseline in fasting resting metabolic rate",
+      "value": "17.4 (−4.9 to 39.7)",
+      "quote": "Fasting | 1563.6 (1487.3 to 1640.0) | 1581.1 (1504.5 to 1657.6) | 17.4 (−4.9 to 39.7) | 1667.8 (1591.3 to 1744.2) | 1652.7 (1576.2 to 1729.3) | −15.1 (−38.0 to 7.9) | −32.5 (−64.5 to −0.5) | .047 |",
+      "estimate": {
+        "outcome": "Change from baseline in fasting resting metabolic rate, control group",
+        "measure": "MD",
+        "point": 17.4,
+        "ciLow": -4.9,
+        "ciHigh": 39.7,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "rmr_fast_ext_baseline",
+      "kind": "estimate",
+      "label": "Sleep extension group baseline fasting resting metabolic rate",
+      "value": "1667.8 (1591.3 to 1744.2)",
+      "quote": "Fasting | 1563.6 (1487.3 to 1640.0) | 1581.1 (1504.5 to 1657.6) | 17.4 (−4.9 to 39.7) | 1667.8 (1591.3 to 1744.2) | 1652.7 (1576.2 to 1729.3) | −15.1 (−38.0 to 7.9) | −32.5 (−64.5 to −0.5) | .047 |",
+      "estimate": {
+        "outcome": "Fasting resting metabolic rate, sleep extension group baseline",
+        "measure": "mean",
+        "point": 1667.8,
+        "ciLow": 1591.3,
+        "ciHigh": 1744.2,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "rmr_fast_ext_period2",
+      "kind": "estimate",
+      "label": "Sleep extension group period 2 fasting resting metabolic rate",
+      "value": "1652.7 (1576.2 to 1729.3)",
+      "quote": "Fasting | 1563.6 (1487.3 to 1640.0) | 1581.1 (1504.5 to 1657.6) | 17.4 (−4.9 to 39.7) | 1667.8 (1591.3 to 1744.2) | 1652.7 (1576.2 to 1729.3) | −15.1 (−38.0 to 7.9) | −32.5 (−64.5 to −0.5) | .047 |",
+      "estimate": {
+        "outcome": "Fasting resting metabolic rate, sleep extension group period 2",
+        "measure": "mean",
+        "point": 1652.7,
+        "ciLow": 1576.2,
+        "ciHigh": 1729.3,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "rmr_fast_ext_change",
+      "kind": "estimate",
+      "label": "Sleep extension group change from baseline in fasting resting metabolic rate",
+      "value": "−15.1 (−38.0 to 7.9)",
+      "quote": "Fasting | 1563.6 (1487.3 to 1640.0) | 1581.1 (1504.5 to 1657.6) | 17.4 (−4.9 to 39.7) | 1667.8 (1591.3 to 1744.2) | 1652.7 (1576.2 to 1729.3) | −15.1 (−38.0 to 7.9) | −32.5 (−64.5 to −0.5) | .047 |",
+      "estimate": {
+        "outcome": "Change from baseline in fasting resting metabolic rate, sleep extension group",
+        "measure": "MD",
+        "point": -15.1,
+        "ciLow": -38,
+        "ciHigh": 7.9,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "rmr_fast_diff_in_changes",
+      "kind": "estimate",
+      "label": "Between-group difference in fasting resting metabolic rate change",
+      "value": "−32.5 (−64.5 to −0.5)",
+      "quote": "Fasting | 1563.6 (1487.3 to 1640.0) | 1581.1 (1504.5 to 1657.6) | 17.4 (−4.9 to 39.7) | 1667.8 (1591.3 to 1744.2) | 1652.7 (1576.2 to 1729.3) | −15.1 (−38.0 to 7.9) | −32.5 (−64.5 to −0.5) | .047 |",
+      "estimate": {
+        "outcome": "Difference in change in fasting resting metabolic rate",
+        "measure": "MD",
+        "point": -32.5,
+        "ciLow": -64.5,
+        "ciHigh": -0.5,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "rmr_fast_p_value",
+      "kind": "finding",
+      "label": "P value for difference in fasting resting metabolic rate change",
+      "value": ".047",
+      "quote": "Fasting | 1563.6 (1487.3 to 1640.0) | 1581.1 (1504.5 to 1657.6) | 17.4 (−4.9 to 39.7) | 1667.8 (1591.3 to 1744.2) | 1652.7 (1576.2 to 1729.3) | −15.1 (−38.0 to 7.9) | −32.5 (−64.5 to −0.5) | .047 |",
+      "outcome": "Fasting resting metabolic rate"
+    },
+    {
+      "id": "rmr_post_ctrl_baseline",
+      "kind": "estimate",
+      "label": "Control group baseline postprandial resting metabolic rate",
+      "value": "1837.9 (1746.6 to 1929.2)",
+      "quote": "Postprandial | 1837.9 (1746.6 to 1929.2) | 1859.7 (1768.0 to 1951.4) | 21.8 (−6.5 to 50.1) | 1944.9 (1853.4 to 2036.5) | 1949.8 (1858.1 to 2041.4) | 4.8 (−24.2 to 33.9) | −17.0 (−57.5 to 23.6) | .41 |",
+      "estimate": {
+        "outcome": "Postprandial resting metabolic rate, control group baseline",
+        "measure": "mean",
+        "point": 1837.9,
+        "ciLow": 1746.6,
+        "ciHigh": 1929.2,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "rmr_post_ctrl_period2",
+      "kind": "estimate",
+      "label": "Control group period 2 postprandial resting metabolic rate",
+      "value": "1859.7 (1768.0 to 1951.4)",
+      "quote": "Postprandial | 1837.9 (1746.6 to 1929.2) | 1859.7 (1768.0 to 1951.4) | 21.8 (−6.5 to 50.1) | 1944.9 (1853.4 to 2036.5) | 1949.8 (1858.1 to 2041.4) | 4.8 (−24.2 to 33.9) | −17.0 (−57.5 to 23.6) | .41 |",
+      "estimate": {
+        "outcome": "Postprandial resting metabolic rate, control group period 2",
+        "measure": "mean",
+        "point": 1859.7,
+        "ciLow": 1768,
+        "ciHigh": 1951.4,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "rmr_post_ctrl_change",
+      "kind": "estimate",
+      "label": "Control group change from baseline in postprandial resting metabolic rate",
+      "value": "21.8 (−6.5 to 50.1)",
+      "quote": "Postprandial | 1837.9 (1746.6 to 1929.2) | 1859.7 (1768.0 to 1951.4) | 21.8 (−6.5 to 50.1) | 1944.9 (1853.4 to 2036.5) | 1949.8 (1858.1 to 2041.4) | 4.8 (−24.2 to 33.9) | −17.0 (−57.5 to 23.6) | .41 |",
+      "estimate": {
+        "outcome": "Change from baseline in postprandial resting metabolic rate, control group",
+        "measure": "MD",
+        "point": 21.8,
+        "ciLow": -6.5,
+        "ciHigh": 50.1,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "rmr_post_ext_baseline",
+      "kind": "estimate",
+      "label": "Sleep extension group baseline postprandial resting metabolic rate",
+      "value": "1944.9 (1853.4 to 2036.5)",
+      "quote": "Postprandial | 1837.9 (1746.6 to 1929.2) | 1859.7 (1768.0 to 1951.4) | 21.8 (−6.5 to 50.1) | 1944.9 (1853.4 to 2036.5) | 1949.8 (1858.1 to 2041.4) | 4.8 (−24.2 to 33.9) | −17.0 (−57.5 to 23.6) | .41 |",
+      "estimate": {
+        "outcome": "Postprandial resting metabolic rate, sleep extension group baseline",
+        "measure": "mean",
+        "point": 1944.9,
+        "ciLow": 1853.4,
+        "ciHigh": 2036.5,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "rmr_post_ext_period2",
+      "kind": "estimate",
+      "label": "Sleep extension group period 2 postprandial resting metabolic rate",
+      "value": "1949.8 (1858.1 to 2041.4)",
+      "quote": "Postprandial | 1837.9 (1746.6 to 1929.2) | 1859.7 (1768.0 to 1951.4) | 21.8 (−6.5 to 50.1) | 1944.9 (1853.4 to 2036.5) | 1949.8 (1858.1 to 2041.4) | 4.8 (−24.2 to 33.9) | −17.0 (−57.5 to 23.6) | .41 |",
+      "estimate": {
+        "outcome": "Postprandial resting metabolic rate, sleep extension group period 2",
+        "measure": "mean",
+        "point": 1949.8,
+        "ciLow": 1858.1,
+        "ciHigh": 2041.4,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "rmr_post_ext_change",
+      "kind": "estimate",
+      "label": "Sleep extension group change from baseline in postprandial resting metabolic rate",
+      "value": "4.8 (−24.2 to 33.9)",
+      "quote": "Postprandial | 1837.9 (1746.6 to 1929.2) | 1859.7 (1768.0 to 1951.4) | 21.8 (−6.5 to 50.1) | 1944.9 (1853.4 to 2036.5) | 1949.8 (1858.1 to 2041.4) | 4.8 (−24.2 to 33.9) | −17.0 (−57.5 to 23.6) | .41 |",
+      "estimate": {
+        "outcome": "Change from baseline in postprandial resting metabolic rate, sleep extension group",
+        "measure": "MD",
+        "point": 4.8,
+        "ciLow": -24.2,
+        "ciHigh": 33.9,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "rmr_post_diff_in_changes",
+      "kind": "estimate",
+      "label": "Between-group difference in postprandial resting metabolic rate change",
+      "value": "−17.0 (−57.5 to 23.6)",
+      "quote": "Postprandial | 1837.9 (1746.6 to 1929.2) | 1859.7 (1768.0 to 1951.4) | 21.8 (−6.5 to 50.1) | 1944.9 (1853.4 to 2036.5) | 1949.8 (1858.1 to 2041.4) | 4.8 (−24.2 to 33.9) | −17.0 (−57.5 to 23.6) | .41 |",
+      "estimate": {
+        "outcome": "Difference in change in postprandial resting metabolic rate",
+        "measure": "MD",
+        "point": -17,
+        "ciLow": -57.5,
+        "ciHigh": 23.6,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "rmr_post_p_value",
+      "kind": "finding",
+      "label": "P value for difference in postprandial resting metabolic rate change",
+      "value": ".41",
+      "quote": "Postprandial | 1837.9 (1746.6 to 1929.2) | 1859.7 (1768.0 to 1951.4) | 21.8 (−6.5 to 50.1) | 1944.9 (1853.4 to 2036.5) | 1949.8 (1858.1 to 2041.4) | 4.8 (−24.2 to 33.9) | −17.0 (−57.5 to 23.6) | .41 |",
+      "outcome": "Postprandial resting metabolic rate"
+    },
+    {
+      "id": "tem_ctrl_baseline",
+      "kind": "estimate",
+      "label": "Control group baseline thermic effect of meal",
+      "value": "45.7 (41.4 to 50.1)",
+      "quote": "Thermic effect of meal, kcalb | 45.7 (41.4 to 50.1) | 46.6 (42.2 to 51.1) | 0.9 (−3.2 to 5.0) | 46.3 (41.9 to 50.8) | 49.1 (44.6 to 53.6) | 2.8 (−1.5 to 7.0) | 1.8 (−4.0 to 7.7) | .54 |",
+      "estimate": {
+        "outcome": "Thermic effect of meal, control group baseline",
+        "measure": "mean",
+        "point": 45.7,
+        "ciLow": 41.4,
+        "ciHigh": 50.1,
+        "unit": "kcal",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "tem_ctrl_period2",
+      "kind": "estimate",
+      "label": "Control group period 2 thermic effect of meal",
+      "value": "46.6 (42.2 to 51.1)",
+      "quote": "Thermic effect of meal, kcalb | 45.7 (41.4 to 50.1) | 46.6 (42.2 to 51.1) | 0.9 (−3.2 to 5.0) | 46.3 (41.9 to 50.8) | 49.1 (44.6 to 53.6) | 2.8 (−1.5 to 7.0) | 1.8 (−4.0 to 7.7) | .54 |",
+      "estimate": {
+        "outcome": "Thermic effect of meal, control group period 2",
+        "measure": "mean",
+        "point": 46.6,
+        "ciLow": 42.2,
+        "ciHigh": 51.1,
+        "unit": "kcal",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "tem_ctrl_change",
+      "kind": "estimate",
+      "label": "Control group change from baseline in thermic effect of meal",
+      "value": "0.9 (−3.2 to 5.0)",
+      "quote": "Thermic effect of meal, kcalb | 45.7 (41.4 to 50.1) | 46.6 (42.2 to 51.1) | 0.9 (−3.2 to 5.0) | 46.3 (41.9 to 50.8) | 49.1 (44.6 to 53.6) | 2.8 (−1.5 to 7.0) | 1.8 (−4.0 to 7.7) | .54 |",
+      "estimate": {
+        "outcome": "Change from baseline in thermic effect of meal, control group",
+        "measure": "MD",
+        "point": 0.9,
+        "ciLow": -3.2,
+        "ciHigh": 5,
+        "unit": "kcal",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "tem_ext_baseline",
+      "kind": "estimate",
+      "label": "Sleep extension group baseline thermic effect of meal",
+      "value": "46.3 (41.9 to 50.8)",
+      "quote": "Thermic effect of meal, kcalb | 45.7 (41.4 to 50.1) | 46.6 (42.2 to 51.1) | 0.9 (−3.2 to 5.0) | 46.3 (41.9 to 50.8) | 49.1 (44.6 to 53.6) | 2.8 (−1.5 to 7.0) | 1.8 (−4.0 to 7.7) | .54 |",
+      "estimate": {
+        "outcome": "Thermic effect of meal, sleep extension group baseline",
+        "measure": "mean",
+        "point": 46.3,
+        "ciLow": 41.9,
+        "ciHigh": 50.8,
+        "unit": "kcal",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "tem_ext_period2",
+      "kind": "estimate",
+      "label": "Sleep extension group period 2 thermic effect of meal",
+      "value": "49.1 (44.6 to 53.6)",
+      "quote": "Thermic effect of meal, kcalb | 45.7 (41.4 to 50.1) | 46.6 (42.2 to 51.1) | 0.9 (−3.2 to 5.0) | 46.3 (41.9 to 50.8) | 49.1 (44.6 to 53.6) | 2.8 (−1.5 to 7.0) | 1.8 (−4.0 to 7.7) | .54 |",
+      "estimate": {
+        "outcome": "Thermic effect of meal, sleep extension group period 2",
+        "measure": "mean",
+        "point": 49.1,
+        "ciLow": 44.6,
+        "ciHigh": 53.6,
+        "unit": "kcal",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "tem_ext_change",
+      "kind": "estimate",
+      "label": "Sleep extension group change from baseline in thermic effect of meal",
+      "value": "2.8 (−1.5 to 7.0)",
+      "quote": "Thermic effect of meal, kcalb | 45.7 (41.4 to 50.1) | 46.6 (42.2 to 51.1) | 0.9 (−3.2 to 5.0) | 46.3 (41.9 to 50.8) | 49.1 (44.6 to 53.6) | 2.8 (−1.5 to 7.0) | 1.8 (−4.0 to 7.7) | .54 |",
+      "estimate": {
+        "outcome": "Change from baseline in thermic effect of meal, sleep extension group",
+        "measure": "MD",
+        "point": 2.8,
+        "ciLow": -1.5,
+        "ciHigh": 7,
+        "unit": "kcal",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "tem_diff_in_changes",
+      "kind": "estimate",
+      "label": "Between-group difference in thermic effect of meal change",
+      "value": "1.8 (−4.0 to 7.7)",
+      "quote": "Thermic effect of meal, kcalb | 45.7 (41.4 to 50.1) | 46.6 (42.2 to 51.1) | 0.9 (−3.2 to 5.0) | 46.3 (41.9 to 50.8) | 49.1 (44.6 to 53.6) | 2.8 (−1.5 to 7.0) | 1.8 (−4.0 to 7.7) | .54 |",
+      "estimate": {
+        "outcome": "Difference in change in thermic effect of meal",
+        "measure": "MD",
+        "point": 1.8,
+        "ciLow": -4,
+        "ciHigh": 7.7,
+        "unit": "kcal",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "tem_p_value",
+      "kind": "finding",
+      "label": "P value for difference in thermic effect of meal change",
+      "value": ".54",
+      "quote": "Thermic effect of meal, kcalb | 45.7 (41.4 to 50.1) | 46.6 (42.2 to 51.1) | 0.9 (−3.2 to 5.0) | 46.3 (41.9 to 50.8) | 49.1 (44.6 to 53.6) | 2.8 (−1.5 to 7.0) | 1.8 (−4.0 to 7.7) | .54 |",
+      "outcome": "Thermic effect of meal"
+    },
+    {
+      "id": "aee_day_ctrl_baseline",
+      "kind": "estimate",
+      "label": "Control group baseline activity energy expenditure (kcal/d)",
+      "value": "878.9 (759.7 to 998.0)",
+      "quote": "Activity energy expenditure, kcal/d | 878.9 (759.7 to 998.0) | 863.7 (743.2 to 984.1) | −15.2 (−81.0 to 50.5) | 951.2 (832.8 to 1069.7) | 918.1 (798.8 to 1037.5) | −33.1 (−100.5 to 34.3) | −17.9 (−112.1 to 76.3) | .71 |",
+      "estimate": {
+        "outcome": "Activity energy expenditure, control group baseline",
+        "measure": "mean",
+        "point": 878.9,
+        "ciLow": 759.7,
+        "ciHigh": 998,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "aee_day_ctrl_period2",
+      "kind": "estimate",
+      "label": "Control group period 2 activity energy expenditure (kcal/d)",
+      "value": "863.7 (743.2 to 984.1)",
+      "quote": "Activity energy expenditure, kcal/d | 878.9 (759.7 to 998.0) | 863.7 (743.2 to 984.1) | −15.2 (−81.0 to 50.5) | 951.2 (832.8 to 1069.7) | 918.1 (798.8 to 1037.5) | −33.1 (−100.5 to 34.3) | −17.9 (−112.1 to 76.3) | .71 |",
+      "estimate": {
+        "outcome": "Activity energy expenditure, control group period 2",
+        "measure": "mean",
+        "point": 863.7,
+        "ciLow": 743.2,
+        "ciHigh": 984.1,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "aee_day_ctrl_change",
+      "kind": "estimate",
+      "label": "Control group change from baseline in activity energy expenditure (kcal/d)",
+      "value": "−15.2 (−81.0 to 50.5)",
+      "quote": "Activity energy expenditure, kcal/d | 878.9 (759.7 to 998.0) | 863.7 (743.2 to 984.1) | −15.2 (−81.0 to 50.5) | 951.2 (832.8 to 1069.7) | 918.1 (798.8 to 1037.5) | −33.1 (−100.5 to 34.3) | −17.9 (−112.1 to 76.3) | .71 |",
+      "estimate": {
+        "outcome": "Change from baseline in activity energy expenditure, control group",
+        "measure": "MD",
+        "point": -15.2,
+        "ciLow": -81,
+        "ciHigh": 50.5,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "aee_day_ext_baseline",
+      "kind": "estimate",
+      "label": "Sleep extension group baseline activity energy expenditure (kcal/d)",
+      "value": "951.2 (832.8 to 1069.7)",
+      "quote": "Activity energy expenditure, kcal/d | 878.9 (759.7 to 998.0) | 863.7 (743.2 to 984.1) | −15.2 (−81.0 to 50.5) | 951.2 (832.8 to 1069.7) | 918.1 (798.8 to 1037.5) | −33.1 (−100.5 to 34.3) | −17.9 (−112.1 to 76.3) | .71 |",
+      "estimate": {
+        "outcome": "Activity energy expenditure, sleep extension group baseline",
+        "measure": "mean",
+        "point": 951.2,
+        "ciLow": 832.8,
+        "ciHigh": 1069.7,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "aee_day_ext_period2",
+      "kind": "estimate",
+      "label": "Sleep extension group period 2 activity energy expenditure (kcal/d)",
+      "value": "918.1 (798.8 to 1037.5)",
+      "quote": "Activity energy expenditure, kcal/d | 878.9 (759.7 to 998.0) | 863.7 (743.2 to 984.1) | −15.2 (−81.0 to 50.5) | 951.2 (832.8 to 1069.7) | 918.1 (798.8 to 1037.5) | −33.1 (−100.5 to 34.3) | −17.9 (−112.1 to 76.3) | .71 |",
+      "estimate": {
+        "outcome": "Activity energy expenditure, sleep extension group period 2",
+        "measure": "mean",
+        "point": 918.1,
+        "ciLow": 798.8,
+        "ciHigh": 1037.5,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "aee_day_ext_change",
+      "kind": "estimate",
+      "label": "Sleep extension group change from baseline in activity energy expenditure (kcal/d)",
+      "value": "−33.1 (−100.5 to 34.3)",
+      "quote": "Activity energy expenditure, kcal/d | 878.9 (759.7 to 998.0) | 863.7 (743.2 to 984.1) | −15.2 (−81.0 to 50.5) | 951.2 (832.8 to 1069.7) | 918.1 (798.8 to 1037.5) | −33.1 (−100.5 to 34.3) | −17.9 (−112.1 to 76.3) | .71 |",
+      "estimate": {
+        "outcome": "Change from baseline in activity energy expenditure, sleep extension group",
+        "measure": "MD",
+        "point": -33.1,
+        "ciLow": -100.5,
+        "ciHigh": 34.3,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "aee_day_diff_in_changes",
+      "kind": "estimate",
+      "label": "Between-group difference in activity energy expenditure change (kcal/d)",
+      "value": "−17.9 (−112.1 to 76.3)",
+      "quote": "Activity energy expenditure, kcal/d | 878.9 (759.7 to 998.0) | 863.7 (743.2 to 984.1) | −15.2 (−81.0 to 50.5) | 951.2 (832.8 to 1069.7) | 918.1 (798.8 to 1037.5) | −33.1 (−100.5 to 34.3) | −17.9 (−112.1 to 76.3) | .71 |",
+      "estimate": {
+        "outcome": "Difference in change in activity energy expenditure",
+        "measure": "MD",
+        "point": -17.9,
+        "ciLow": -112.1,
+        "ciHigh": 76.3,
+        "unit": "kcal/d",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "aee_day_p_value",
+      "kind": "finding",
+      "label": "P value for difference in activity energy expenditure change (kcal/d)",
+      "value": ".71",
+      "quote": "Activity energy expenditure, kcal/d | 878.9 (759.7 to 998.0) | 863.7 (743.2 to 984.1) | −15.2 (−81.0 to 50.5) | 951.2 (832.8 to 1069.7) | 918.1 (798.8 to 1037.5) | −33.1 (−100.5 to 34.3) | −17.9 (−112.1 to 76.3) | .71 |",
+      "outcome": "Activity energy expenditure (kcal/d)"
+    },
+    {
+      "id": "aee_wake_ctrl_baseline",
+      "kind": "estimate",
+      "label": "Control group baseline activity energy expenditure (kcal/wake hour)",
+      "value": "51.3 (44.3 to 58.4)",
+      "quote": "Activity energy expenditure, kcal/wake hour | 51.3 (44.3 to 58.4) | 50.7 (43.6 to 57.7) | −0.7 (−4.6 to 3.2) | 55.1 (48.1 to 62.1) | 57.9 (50.9 to 65.0) | 2.9 (−1.1 to 6.8) | 3.6 (−2.0 to 9.1) | .21 |",
+      "estimate": {
+        "outcome": "Activity energy expenditure per wake hour, control group baseline",
+        "measure": "mean",
+        "point": 51.3,
+        "ciLow": 44.3,
+        "ciHigh": 58.4,
+        "unit": "kcal/wake hour",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "aee_wake_ctrl_period2",
+      "kind": "estimate",
+      "label": "Control group period 2 activity energy expenditure (kcal/wake hour)",
+      "value": "50.7 (43.6 to 57.7)",
+      "quote": "Activity energy expenditure, kcal/wake hour | 51.3 (44.3 to 58.4) | 50.7 (43.6 to 57.7) | −0.7 (−4.6 to 3.2) | 55.1 (48.1 to 62.1) | 57.9 (50.9 to 65.0) | 2.9 (−1.1 to 6.8) | 3.6 (−2.0 to 9.1) | .21 |",
+      "estimate": {
+        "outcome": "Activity energy expenditure per wake hour, control group period 2",
+        "measure": "mean",
+        "point": 50.7,
+        "ciLow": 43.6,
+        "ciHigh": 57.7,
+        "unit": "kcal/wake hour",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "aee_wake_ctrl_change",
+      "kind": "estimate",
+      "label": "Control group change from baseline in activity energy expenditure (kcal/wake hour)",
+      "value": "−0.7 (−4.6 to 3.2)",
+      "quote": "Activity energy expenditure, kcal/wake hour | 51.3 (44.3 to 58.4) | 50.7 (43.6 to 57.7) | −0.7 (−4.6 to 3.2) | 55.1 (48.1 to 62.1) | 57.9 (50.9 to 65.0) | 2.9 (−1.1 to 6.8) | 3.6 (−2.0 to 9.1) | .21 |",
+      "estimate": {
+        "outcome": "Change from baseline in activity energy expenditure per wake hour, control group",
+        "measure": "MD",
+        "point": -0.7,
+        "ciLow": -4.6,
+        "ciHigh": 3.2,
+        "unit": "kcal/wake hour",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "aee_wake_ext_baseline",
+      "kind": "estimate",
+      "label": "Sleep extension group baseline activity energy expenditure (kcal/wake hour)",
+      "value": "55.1 (48.1 to 62.1)",
+      "quote": "Activity energy expenditure, kcal/wake hour | 51.3 (44.3 to 58.4) | 50.7 (43.6 to 57.7) | −0.7 (−4.6 to 3.2) | 55.1 (48.1 to 62.1) | 57.9 (50.9 to 65.0) | 2.9 (−1.1 to 6.8) | 3.6 (−2.0 to 9.1) | .21 |",
+      "estimate": {
+        "outcome": "Activity energy expenditure per wake hour, sleep extension group baseline",
+        "measure": "mean",
+        "point": 55.1,
+        "ciLow": 48.1,
+        "ciHigh": 62.1,
+        "unit": "kcal/wake hour",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "aee_wake_ext_period2",
+      "kind": "estimate",
+      "label": "Sleep extension group period 2 activity energy expenditure (kcal/wake hour)",
+      "value": "57.9 (50.9 to 65.0)",
+      "quote": "Activity energy expenditure, kcal/wake hour | 51.3 (44.3 to 58.4) | 50.7 (43.6 to 57.7) | −0.7 (−4.6 to 3.2) | 55.1 (48.1 to 62.1) | 57.9 (50.9 to 65.0) | 2.9 (−1.1 to 6.8) | 3.6 (−2.0 to 9.1) | .21 |",
+      "estimate": {
+        "outcome": "Activity energy expenditure per wake hour, sleep extension group period 2",
+        "measure": "mean",
+        "point": 57.9,
+        "ciLow": 50.9,
+        "ciHigh": 65,
+        "unit": "kcal/wake hour",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "aee_wake_ext_change",
+      "kind": "estimate",
+      "label": "Sleep extension group change from baseline in activity energy expenditure (kcal/wake hour)",
+      "value": "2.9 (−1.1 to 6.8)",
+      "quote": "Activity energy expenditure, kcal/wake hour | 51.3 (44.3 to 58.4) | 50.7 (43.6 to 57.7) | −0.7 (−4.6 to 3.2) | 55.1 (48.1 to 62.1) | 57.9 (50.9 to 65.0) | 2.9 (−1.1 to 6.8) | 3.6 (−2.0 to 9.1) | .21 |",
+      "estimate": {
+        "outcome": "Change from baseline in activity energy expenditure per wake hour, sleep extension group",
+        "measure": "MD",
+        "point": 2.9,
+        "ciLow": -1.1,
+        "ciHigh": 6.8,
+        "unit": "kcal/wake hour",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "aee_wake_diff_in_changes",
+      "kind": "estimate",
+      "label": "Between-group difference in activity energy expenditure change (kcal/wake hour)",
+      "value": "3.6 (−2.0 to 9.1)",
+      "quote": "Activity energy expenditure, kcal/wake hour | 51.3 (44.3 to 58.4) | 50.7 (43.6 to 57.7) | −0.7 (−4.6 to 3.2) | 55.1 (48.1 to 62.1) | 57.9 (50.9 to 65.0) | 2.9 (−1.1 to 6.8) | 3.6 (−2.0 to 9.1) | .21 |",
+      "estimate": {
+        "outcome": "Difference in change in activity energy expenditure per wake hour",
+        "measure": "MD",
+        "point": 3.6,
+        "ciLow": -2,
+        "ciHigh": 9.1,
+        "unit": "kcal/wake hour",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "aee_wake_p_value",
+      "kind": "finding",
+      "label": "P value for difference in activity energy expenditure change (kcal/wake hour)",
+      "value": ".21",
+      "quote": "Activity energy expenditure, kcal/wake hour | 51.3 (44.3 to 58.4) | 50.7 (43.6 to 57.7) | −0.7 (−4.6 to 3.2) | 55.1 (48.1 to 62.1) | 57.9 (50.9 to 65.0) | 2.9 (−1.1 to 6.8) | 3.6 (−2.0 to 9.1) | .21 |",
+      "outcome": "Activity energy expenditure per wake hour"
+    },
+    {
+      "id": "wt_ctrl_baseline",
+      "kind": "estimate",
+      "label": "Control group baseline 2-week weight change",
+      "value": "−0.04 (−0.33 to 0.25)",
+      "quote": "Weight change, kgc | −0.04 (−0.33 to 0.25) | 0.35 (0.06 to 0.64) | 0.39 (0.02 to 0.76) | 0.45 (0.16 to 0.73) | −0.03 (−0.33 to 0.27) | −0.48 (−0.85 to −0.11) | −0.87 (−1.39 to −0.35) | .001 |",
+      "estimate": {
+        "outcome": "Weight change, control group baseline",
+        "measure": "mean",
+        "point": -0.04,
+        "ciLow": -0.33,
+        "ciHigh": 0.25,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "wt_ctrl_period2",
+      "kind": "estimate",
+      "label": "Control group period 2 weight change",
+      "value": "0.35 (0.06 to 0.64)",
+      "quote": "Weight change, kgc | −0.04 (−0.33 to 0.25) | 0.35 (0.06 to 0.64) | 0.39 (0.02 to 0.76) | 0.45 (0.16 to 0.73) | −0.03 (−0.33 to 0.27) | −0.48 (−0.85 to −0.11) | −0.87 (−1.39 to −0.35) | .001 |",
+      "estimate": {
+        "outcome": "Weight change, control group period 2",
+        "measure": "mean",
+        "point": 0.35,
+        "ciLow": 0.06,
+        "ciHigh": 0.64,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "wt_ctrl_change",
+      "kind": "estimate",
+      "label": "Control group change from baseline in weight",
+      "value": "0.39 (0.02 to 0.76)",
+      "quote": "Weight change, kgc | −0.04 (−0.33 to 0.25) | 0.35 (0.06 to 0.64) | 0.39 (0.02 to 0.76) | 0.45 (0.16 to 0.73) | −0.03 (−0.33 to 0.27) | −0.48 (−0.85 to −0.11) | −0.87 (−1.39 to −0.35) | .001 |",
+      "estimate": {
+        "outcome": "Change from baseline in weight, control group",
+        "measure": "MD",
+        "point": 0.39,
+        "ciLow": 0.02,
+        "ciHigh": 0.76,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "wt_ext_baseline",
+      "kind": "estimate",
+      "label": "Sleep extension group baseline 2-week weight change",
+      "value": "0.45 (0.16 to 0.73)",
+      "quote": "Weight change, kgc | −0.04 (−0.33 to 0.25) | 0.35 (0.06 to 0.64) | 0.39 (0.02 to 0.76) | 0.45 (0.16 to 0.73) | −0.03 (−0.33 to 0.27) | −0.48 (−0.85 to −0.11) | −0.87 (−1.39 to −0.35) | .001 |",
+      "estimate": {
+        "outcome": "Weight change, sleep extension group baseline",
+        "measure": "mean",
+        "point": 0.45,
+        "ciLow": 0.16,
+        "ciHigh": 0.73,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "wt_ext_period2",
+      "kind": "estimate",
+      "label": "Sleep extension group period 2 weight change",
+      "value": "−0.03 (−0.33 to 0.27)",
+      "quote": "Weight change, kgc | −0.04 (−0.33 to 0.25) | 0.35 (0.06 to 0.64) | 0.39 (0.02 to 0.76) | 0.45 (0.16 to 0.73) | −0.03 (−0.33 to 0.27) | −0.48 (−0.85 to −0.11) | −0.87 (−1.39 to −0.35) | .001 |",
+      "estimate": {
+        "outcome": "Weight change, sleep extension group period 2",
+        "measure": "mean",
+        "point": -0.03,
+        "ciLow": -0.33,
+        "ciHigh": 0.27,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "wt_ext_change",
+      "kind": "estimate",
+      "label": "Sleep extension group change from baseline in weight",
+      "value": "−0.48 (−0.85 to −0.11)",
+      "quote": "Weight change, kgc | −0.04 (−0.33 to 0.25) | 0.35 (0.06 to 0.64) | 0.39 (0.02 to 0.76) | 0.45 (0.16 to 0.73) | −0.03 (−0.33 to 0.27) | −0.48 (−0.85 to −0.11) | −0.87 (−1.39 to −0.35) | .001 |",
+      "estimate": {
+        "outcome": "Change from baseline in weight, sleep extension group",
+        "measure": "MD",
+        "point": -0.48,
+        "ciLow": -0.85,
+        "ciHigh": -0.11,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "wt_diff_in_changes",
+      "kind": "estimate",
+      "label": "Between-group difference in weight change",
+      "value": "−0.87 (−1.39 to −0.35)",
+      "quote": "Weight change, kgc | −0.04 (−0.33 to 0.25) | 0.35 (0.06 to 0.64) | 0.39 (0.02 to 0.76) | 0.45 (0.16 to 0.73) | −0.03 (−0.33 to 0.27) | −0.48 (−0.85 to −0.11) | −0.87 (−1.39 to −0.35) | .001 |",
+      "estimate": {
+        "outcome": "Difference in weight change (sleep extension minus control)",
+        "measure": "MD",
+        "point": -0.87,
+        "ciLow": -1.39,
+        "ciHigh": -0.35,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "wt_p_value",
+      "kind": "finding",
+      "label": "P value for difference in weight change",
+      "value": ".001",
+      "quote": "Weight change, kgc | −0.04 (−0.33 to 0.25) | 0.35 (0.06 to 0.64) | 0.39 (0.02 to 0.76) | 0.45 (0.16 to 0.73) | −0.03 (−0.33 to 0.27) | −0.48 (−0.85 to −0.11) | −0.87 (−1.39 to −0.35) | .001 |",
+      "outcome": "Body weight"
+    },
+    {
+      "id": "ffm_ctrl_baseline",
+      "kind": "estimate",
+      "label": "Control group baseline fat-free mass change",
+      "value": "−0.05 (−0.27 to 0.17)",
+      "quote": "Fat-free mass change, kg | −0.05 (−0.27 to 0.17) | 0.22 (−0.003 to 0.44) | 0.26 (−0.01 to 0.54) | 0.32 (0.11 to 0.54) | −0.03 (−0.26 to 0.19) | −0.36 (−0.64 to −0.08) | −0.62 (−1.02 to −0.23) | .002 |",
+      "estimate": {
+        "outcome": "Fat-free mass change, control group baseline",
+        "measure": "mean",
+        "point": -0.05,
+        "ciLow": -0.27,
+        "ciHigh": 0.17,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ffm_ctrl_period2",
+      "kind": "estimate",
+      "label": "Control group period 2 fat-free mass change",
+      "value": "0.22 (−0.003 to 0.44)",
+      "quote": "Fat-free mass change, kg | −0.05 (−0.27 to 0.17) | 0.22 (−0.003 to 0.44) | 0.26 (−0.01 to 0.54) | 0.32 (0.11 to 0.54) | −0.03 (−0.26 to 0.19) | −0.36 (−0.64 to −0.08) | −0.62 (−1.02 to −0.23) | .002 |",
+      "estimate": {
+        "outcome": "Fat-free mass change, control group period 2",
+        "measure": "mean",
+        "point": 0.22,
+        "ciLow": -0.003,
+        "ciHigh": 0.44,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ffm_ctrl_change",
+      "kind": "estimate",
+      "label": "Control group change from baseline in fat-free mass",
+      "value": "0.26 (−0.01 to 0.54)",
+      "quote": "Fat-free mass change, kg | −0.05 (−0.27 to 0.17) | 0.22 (−0.003 to 0.44) | 0.26 (−0.01 to 0.54) | 0.32 (0.11 to 0.54) | −0.03 (−0.26 to 0.19) | −0.36 (−0.64 to −0.08) | −0.62 (−1.02 to −0.23) | .002 |",
+      "estimate": {
+        "outcome": "Change from baseline in fat-free mass, control group",
+        "measure": "MD",
+        "point": 0.26,
+        "ciLow": -0.01,
+        "ciHigh": 0.54,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ffm_ext_baseline",
+      "kind": "estimate",
+      "label": "Sleep extension group baseline fat-free mass change",
+      "value": "0.32 (0.11 to 0.54)",
+      "quote": "Fat-free mass change, kg | −0.05 (−0.27 to 0.17) | 0.22 (−0.003 to 0.44) | 0.26 (−0.01 to 0.54) | 0.32 (0.11 to 0.54) | −0.03 (−0.26 to 0.19) | −0.36 (−0.64 to −0.08) | −0.62 (−1.02 to −0.23) | .002 |",
+      "estimate": {
+        "outcome": "Fat-free mass change, sleep extension group baseline",
+        "measure": "mean",
+        "point": 0.32,
+        "ciLow": 0.11,
+        "ciHigh": 0.54,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ffm_ext_period2",
+      "kind": "estimate",
+      "label": "Sleep extension group period 2 fat-free mass change",
+      "value": "−0.03 (−0.26 to 0.19)",
+      "quote": "Fat-free mass change, kg | −0.05 (−0.27 to 0.17) | 0.22 (−0.003 to 0.44) | 0.26 (−0.01 to 0.54) | 0.32 (0.11 to 0.54) | −0.03 (−0.26 to 0.19) | −0.36 (−0.64 to −0.08) | −0.62 (−1.02 to −0.23) | .002 |",
+      "estimate": {
+        "outcome": "Fat-free mass change, sleep extension group period 2",
+        "measure": "mean",
+        "point": -0.03,
+        "ciLow": -0.26,
+        "ciHigh": 0.19,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ffm_ext_change",
+      "kind": "estimate",
+      "label": "Sleep extension group change from baseline in fat-free mass",
+      "value": "−0.36 (−0.64 to −0.08)",
+      "quote": "Fat-free mass change, kg | −0.05 (−0.27 to 0.17) | 0.22 (−0.003 to 0.44) | 0.26 (−0.01 to 0.54) | 0.32 (0.11 to 0.54) | −0.03 (−0.26 to 0.19) | −0.36 (−0.64 to −0.08) | −0.62 (−1.02 to −0.23) | .002 |",
+      "estimate": {
+        "outcome": "Change from baseline in fat-free mass, sleep extension group",
+        "measure": "MD",
+        "point": -0.36,
+        "ciLow": -0.64,
+        "ciHigh": -0.08,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ffm_diff_in_changes",
+      "kind": "estimate",
+      "label": "Between-group difference in fat-free mass change",
+      "value": "−0.62 (−1.02 to −0.23)",
+      "quote": "Fat-free mass change, kg | −0.05 (−0.27 to 0.17) | 0.22 (−0.003 to 0.44) | 0.26 (−0.01 to 0.54) | 0.32 (0.11 to 0.54) | −0.03 (−0.26 to 0.19) | −0.36 (−0.64 to −0.08) | −0.62 (−1.02 to −0.23) | .002 |",
+      "estimate": {
+        "outcome": "Difference in fat-free mass change",
+        "measure": "MD",
+        "point": -0.62,
+        "ciLow": -1.02,
+        "ciHigh": -0.23,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ffm_p_value",
+      "kind": "finding",
+      "label": "P value for difference in fat-free mass change",
+      "value": ".002",
+      "quote": "Fat-free mass change, kg | −0.05 (−0.27 to 0.17) | 0.22 (−0.003 to 0.44) | 0.26 (−0.01 to 0.54) | 0.32 (0.11 to 0.54) | −0.03 (−0.26 to 0.19) | −0.36 (−0.64 to −0.08) | −0.62 (−1.02 to −0.23) | .002 |",
+      "outcome": "Fat-free mass"
+    },
+    {
+      "id": "fm_ctrl_baseline",
+      "kind": "estimate",
+      "label": "Control group baseline fat mass change",
+      "value": "0.004 (−0.08 to 0.09)",
+      "quote": "Fat mass change, kg | 0.004 (−0.08 to 0.09) | 0.13 (0.05 to 0.21) | 0.13 (0.03 to 0.23) | 0.12 (0.04 to 0.20) | −0.00 (−0.08 to 0.08) | −0.12 (−0.22 to −0.02) | −0.25 (−0.39 to −0.10) | .001 |",
+      "estimate": {
+        "outcome": "Fat mass change, control group baseline",
+        "measure": "mean",
+        "point": 0.004,
+        "ciLow": -0.08,
+        "ciHigh": 0.09,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "fm_ctrl_period2",
+      "kind": "estimate",
+      "label": "Control group period 2 fat mass change",
+      "value": "0.13 (0.05 to 0.21)",
+      "quote": "Fat mass change, kg | 0.004 (−0.08 to 0.09) | 0.13 (0.05 to 0.21) | 0.13 (0.03 to 0.23) | 0.12 (0.04 to 0.20) | −0.00 (−0.08 to 0.08) | −0.12 (−0.22 to −0.02) | −0.25 (−0.39 to −0.10) | .001 |",
+      "estimate": {
+        "outcome": "Fat mass change, control group period 2",
+        "measure": "mean",
+        "point": 0.13,
+        "ciLow": 0.05,
+        "ciHigh": 0.21,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "fm_ctrl_change",
+      "kind": "estimate",
+      "label": "Control group change from baseline in fat mass",
+      "value": "0.13 (0.03 to 0.23)",
+      "quote": "Fat mass change, kg | 0.004 (−0.08 to 0.09) | 0.13 (0.05 to 0.21) | 0.13 (0.03 to 0.23) | 0.12 (0.04 to 0.20) | −0.00 (−0.08 to 0.08) | −0.12 (−0.22 to −0.02) | −0.25 (−0.39 to −0.10) | .001 |",
+      "estimate": {
+        "outcome": "Change from baseline in fat mass, control group",
+        "measure": "MD",
+        "point": 0.13,
+        "ciLow": 0.03,
+        "ciHigh": 0.23,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "fm_ext_baseline",
+      "kind": "estimate",
+      "label": "Sleep extension group baseline fat mass change",
+      "value": "0.12 (0.04 to 0.20)",
+      "quote": "Fat mass change, kg | 0.004 (−0.08 to 0.09) | 0.13 (0.05 to 0.21) | 0.13 (0.03 to 0.23) | 0.12 (0.04 to 0.20) | −0.00 (−0.08 to 0.08) | −0.12 (−0.22 to −0.02) | −0.25 (−0.39 to −0.10) | .001 |",
+      "estimate": {
+        "outcome": "Fat mass change, sleep extension group baseline",
+        "measure": "mean",
+        "point": 0.12,
+        "ciLow": 0.04,
+        "ciHigh": 0.2,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "fm_ext_period2",
+      "kind": "estimate",
+      "label": "Sleep extension group period 2 fat mass change",
+      "value": "−0.00 (−0.08 to 0.08)",
+      "quote": "Fat mass change, kg | 0.004 (−0.08 to 0.09) | 0.13 (0.05 to 0.21) | 0.13 (0.03 to 0.23) | 0.12 (0.04 to 0.20) | −0.00 (−0.08 to 0.08) | −0.12 (−0.22 to −0.02) | −0.25 (−0.39 to −0.10) | .001 |",
+      "estimate": {
+        "outcome": "Fat mass change, sleep extension group period 2",
+        "measure": "mean",
+        "point": 0,
+        "ciLow": -0.08,
+        "ciHigh": 0.08,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "fm_ext_change",
+      "kind": "estimate",
+      "label": "Sleep extension group change from baseline in fat mass",
+      "value": "−0.12 (−0.22 to −0.02)",
+      "quote": "Fat mass change, kg | 0.004 (−0.08 to 0.09) | 0.13 (0.05 to 0.21) | 0.13 (0.03 to 0.23) | 0.12 (0.04 to 0.20) | −0.00 (−0.08 to 0.08) | −0.12 (−0.22 to −0.02) | −0.25 (−0.39 to −0.10) | .001 |",
+      "estimate": {
+        "outcome": "Change from baseline in fat mass, sleep extension group",
+        "measure": "MD",
+        "point": -0.12,
+        "ciLow": -0.22,
+        "ciHigh": -0.02,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "fm_diff_in_changes",
+      "kind": "estimate",
+      "label": "Between-group difference in fat mass change",
+      "value": "−0.25 (−0.39 to −0.10)",
+      "quote": "Fat mass change, kg | 0.004 (−0.08 to 0.09) | 0.13 (0.05 to 0.21) | 0.13 (0.03 to 0.23) | 0.12 (0.04 to 0.20) | −0.00 (−0.08 to 0.08) | −0.12 (−0.22 to −0.02) | −0.25 (−0.39 to −0.10) | .001 |",
+      "estimate": {
+        "outcome": "Difference in fat mass change",
+        "measure": "MD",
+        "point": -0.25,
+        "ciLow": -0.39,
+        "ciHigh": -0.1,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "fm_p_value",
+      "kind": "finding",
+      "label": "P value for difference in fat mass change",
+      "value": ".001",
+      "quote": "Fat mass change, kg | 0.004 (−0.08 to 0.09) | 0.13 (0.05 to 0.21) | 0.13 (0.03 to 0.23) | 0.12 (0.04 to 0.20) | −0.00 (−0.08 to 0.08) | −0.12 (−0.22 to −0.02) | −0.25 (−0.39 to −0.10) | .001 |",
+      "outcome": "Fat mass"
+    },
+    {
+      "id": "adjustment_sex_menstrual",
+      "kind": "finding",
+      "label": "Robustness to sex and menstrual cycle adjustment",
+      "value": "similar after adjustment for the effects of sex or menstrual cycle",
+      "quote": "The findings on energy intake, energy expenditure, and weight were similar after adjustment for the effects of sex or menstrual cycle.",
+      "outcome": "Energy intake, energy expenditure, and weight"
+    },
+    {
+      "id": "complete_ei_data_overall",
+      "kind": "finding",
+      "label": "Participants with complete primary outcome data",
+      "value": "75 participants (93.8%)",
+      "quote": "No statistically significant differences in baseline characteristics were found between the 75 participants (93.8%) who had complete data on energy intake (primary outcome) vs participants with missing data on energy intake.",
+      "outcome": "Baseline characteristics by primary outcome completeness"
+    },
+    {
+      "id": "complete_ei_by_group",
+      "kind": "finding",
+      "label": "Completeness of energy intake data by group",
+      "value": "90.0% vs 97.5%; P = .36",
+      "quote": "The proportion of participants with complete data on energy intake was not significantly different between the sleep extension and control groups (90.0% vs 97.5%; P = .36).",
+      "outcome": "Completeness of energy intake data"
+    },
+    {
+      "id": "complete_all_outcomes_baseline_diff",
+      "kind": "finding",
+      "label": "Baseline differences by completeness of all outcomes",
+      "value": "no significant differences (except for depressive symptoms) in baseline characteristics",
+      "quote": "When all reported outcomes were considered, no significant differences (except for depressive symptoms) in baseline characteristics were found between participants with complete data and participants with incomplete or missing data (eTable 3 in Supplement 2).",
+      "outcome": "Baseline characteristics by all-outcome completeness"
+    },
+    {
+      "id": "complete_all_outcomes_by_group",
+      "kind": "finding",
+      "label": "Completeness of all reported outcomes by group",
+      "value": "82.5% vs 85.0%; P > .99",
+      "quote": "The proportion of participants with complete data on all reported outcomes was similar between the sleep extension and control groups (82.5% vs 85.0%; P > .99).",
+      "outcome": "Completeness of all reported outcomes"
+    },
+    {
+      "id": "missing_sleep_change_counts",
+      "kind": "context",
+      "label": "Missing sleep duration change data by group",
+      "value": "One participant in the control group and 3 participants in the sleep extension group",
+      "quote": "One participant in the control group and 3 participants in the sleep extension group had missing data in change in sleep duration (ie, missing mean data in at least 1 of 2 study periods)."
+    },
+    {
+      "id": "missing_ei_change_counts",
+      "kind": "context",
+      "label": "Missing energy intake change data by group",
+      "value": "One participant in the control group and 4 participants in the sleep extension group",
+      "quote": "One participant in the control group and 4 participants in the sleep extension group had missing data in change in energy intake."
+    },
+    {
+      "id": "correlation_sample_size",
+      "kind": "context",
+      "label": "Sample size for sleep-energy correlation",
+      "value": "74 participants",
+      "quote": "E, Data were from 74 participants."
+    },
+    {
+      "id": "daytime_activity_counts_ns",
+      "kind": "finding",
+      "label": "No clear change in total energy burned or daytime activity counts",
+      "value": "did not observe a statistically significant change in total energy expenditure by doubly labeled water method or mean daytime activity counts by actigraphy",
+      "quote": "We did not observe a statistically significant change in total energy expenditure by doubly labeled water method or mean daytime activity counts by actigraphy (eTable 2 in Supplement 2).",
+      "outcome": "Mean daytime activity counts by actigraphy"
+    },
+    {
+      "id": "subjective_sleep_alertness_mood",
+      "kind": "finding",
+      "label": "Subjective sleep sufficiency, energy, alertness, and mood",
+      "value": "significantly higher subjective scores in obtaining sufficient sleep, with more daytime energy and alertness and better mood",
+      "quote": "Overall, the sleep extension group compared with the control group had significantly higher subjective scores in obtaining sufficient sleep, with more daytime energy and alertness and better mood (eTable 4 in Supplement 2).",
+      "outcome": "Subjective sleep sufficiency, daytime energy, alertness, and mood"
+    },
+    {
+      "id": "prior_us_short_sleep",
+      "kind": "statement",
+      "label": "US population prevalence of short sleep",
+      "value": "one-third of the US population reported not getting the recommended 7 to 9 hours of sleep per night",
+      "quote": "For example, one-third of the US population reported not getting the recommended 7 to 9 hours of sleep per night."
+    },
+    {
+      "id": "prior_dynamic_model_100kcal",
+      "kind": "statement",
+      "label": "Dynamic prediction model for 100 kcal/d increase",
+      "value": "weight gain of about 4.5 kg over 3 years",
+      "quote": "According to dynamic prediction models, a sustained increase in energy intake of even 100 kcal/d would result in a weight gain of about 4.5 kg over 3 years.,"
+    },
+    {
+      "id": "prior_lab_sleep_restriction_range",
+      "kind": "statement",
+      "label": "Earlier lab sleep restriction studies on energy intake",
+      "value": "increased mean energy intake of about 250 to 350 kcal/d with minimal to no change in energy expenditure",
+      "quote": "Short-term experimental laboratory studies have found that sleep restriction in healthy individuals is associated with an increased mean energy intake of about 250 to 350 kcal/d with minimal to no change in energy expenditure.,,, "
+    },
+    {
+      "id": "hall_model_prediction",
+      "kind": "statement",
+      "label": "Hall dynamic prediction model for 270 kcal/d reduction",
+      "value": "approximately 12-kg weight loss over 3 years if the effects were sustained over a long term",
+      "quote": "According to the Hall dynamic prediction model, a decrease in energy intake of approximately 270 kcal/d, which we observed after short-term sleep extension, would predict an approximately 12-kg weight loss over 3 years if the effects were sustained over a long term.,"
+    },
+    {
+      "id": "prior_meta_lab_restriction",
+      "kind": "statement",
+      "label": "Meta-analysis of lab sleep restriction RCTs",
+      "value": "increases of mean energy intake by approximately 253 kcal/d",
+      "quote": "A recent meta-analysis of randomized controlled laboratory studies found that short-term sleep restriction over 1 to 14 days of duration in healthy individuals was associated with increases of mean energy intake by approximately 253 kcal/d, as assessed during a single meal."
+    },
+    {
+      "id": "prior_meta_cohort_obesity",
+      "kind": "statement",
+      "label": "Meta-analysis of prospective cohorts on sleep and obesity",
+      "value": "risk of obesity increased by 9% for each 1-hour decrease in sleep duration",
+      "quote": "Another meta-analysis of prospective cohort studies found that the risk of obesity increased by 9% for each 1-hour decrease in sleep duration."
+    },
+    {
+      "id": "prior_calorimeter_tee",
+      "kind": "statement",
+      "label": "Prior whole-room calorimeter studies on total energy expenditure",
+      "value": "increase in total energy expenditure of approximately 92 to 111 kcal/d",
+      "quote": "Although some laboratory sleep-restriction studies reported an increase in total energy expenditure of approximately 92 to 111 kcal/d, using a whole-room calorimeter,, other studies observed no change.,"
+    },
+    {
+      "id": "prior_weight_loss_sleep_obs",
+      "kind": "statement",
+      "label": "Prior observations on 7 to 8 hours sleep and weight loss success",
+      "value": "sleeping 7 to 8 hours per night is associated with greater success in weight loss interventions",
+      "quote": "A few observations suggest that sleeping 7 to 8 hours per night is associated with greater success in weight loss interventions.,,, "
+    },
+    {
+      "id": "limit_generalizability",
+      "kind": "limitation",
+      "label": "Limited generalizability due to selective eligibility",
+      "value": "enrolled adults with overweight and used selective eligibility criteria, which may limit generalizability to more diverse populations",
+      "quote": "We enrolled adults with overweight and used selective eligibility criteria, which may limit generalizability to more diverse populations."
+    },
+    {
+      "id": "limit_control_increase",
+      "kind": "limitation",
+      "label": "Control group increases may have contributed to treatment effects",
+      "value": "increase in energy intake and weight from baseline that we observed in the control group may have contributed to the significant treatment effects",
+      "quote": "The increase in energy intake and weight from baseline that we observed in the control group may have contributed to the significant treatment effects."
+    },
+    {
+      "id": "limit_short_duration_sustainability",
+      "kind": "limitation",
+      "label": "Unknown long-term sustainability of sleep habits",
+      "value": "did not provide information on how long healthy sleep habits could be maintained over longer periods",
+      "quote": "The study did not provide information on how long healthy sleep habits could be maintained over longer periods."
+    },
+    {
+      "id": "limit_sleep_factors_unassessed",
+      "kind": "limitation",
+      "label": "Factors influencing sleep behavior not systematically assessed",
+      "value": "did not systematically assess the factors that may have influenced sleep behavior",
+      "quote": "We did not systematically assess the factors that may have influenced sleep behavior, but limiting the use of electronic devices appeared to be a key intervention among the participants (eTable 4 in Supplement 2)."
+    },
+    {
+      "id": "limit_dlw_precision",
+      "kind": "limitation",
+      "label": "Precision limit of doubly labeled water method",
+      "value": "doubly labeled water method has a precision of 5%, which may translate into some degree of uncertainty in the energy intake calculations",
+      "quote": "The doubly labeled water method has a precision of 5%, which may translate into some degree of uncertainty in the energy intake calculations."
+    },
+    {
+      "id": "limit_mechanisms_unassessed",
+      "kind": "limitation",
+      "label": "Biological mechanisms, meal frequency, and circadian timing not assessed",
+      "value": "did not assess the underlying biological mechanisms of food frequency and the circadian timing of food intake",
+      "quote": "We did not assess the underlying biological mechanisms of food frequency and the circadian timing of food intake."
+    },
+    {
+      "id": "further_longer_studies",
+      "kind": "limitation",
+      "label": "Need for longer-duration studies in diverse populations",
+      "value": "Future similarly rigorous intervention studies of longer duration and using objective assessments of energy balance under real-life conditions are warranted",
+      "quote": "Future similarly rigorous intervention studies of longer duration and using objective assessments of energy balance under real-life conditions are warranted to elucidate the underlying mechanisms and to investigate whether sleep extension could be an effective, scalable strategy for reversing obesity in diverse populations."
+    },
+    {
+      "id": "sleep_hygiene_counseling_delivery",
+      "kind": "context",
+      "label": "Sleep hygiene counseling delivery",
+      "value": "individualized sleep hygiene counseling through a structured interview",
+      "quote": "Those who were randomized to the sleep extension group received individualized sleep hygiene counseling through a structured interview (E.T.) (eMethods in Supplement 2)."
+    },
+    {
+      "id": "control_group_instructions",
+      "kind": "context",
+      "label": "Control group instructions",
+      "value": "did not receive any specific sleep recommendations and were instructed to continue their daily routine and habitual sleep behaviors",
+      "quote": "Actigraphy data of these participants were downloaded, but the participants did not receive any specific sleep recommendations and were instructed to continue their daily routine and habitual sleep behaviors until the end of the study."
+    },
+    {
+      "id": "sleep_monitoring_duration",
+      "kind": "context",
+      "label": "Sleep monitoring duration",
+      "value": "throughout the 4-week study",
+      "quote": "Sleep-wake patterns were continuously monitored at home by wrist actigraphy throughout the 4-week study."
+    },
+    {
+      "id": "baseline_habitual_sleep_instruction",
+      "kind": "context",
+      "label": "Baseline habitual sleep instruction",
+      "value": "2-week baseline",
+      "quote": "During the 2-week baseline, all participants were instructed to continue their habitual sleep patterns at home."
+    },
+    {
+      "id": "prior_bedtime_extension_study",
+      "kind": "statement",
+      "label": "Prior real-life bedtime extension study",
+      "value": "obtained variable benefits on sleep",
+      "quote": "Another study used bedtime extension in habitual short sleepers in real-life conditions but obtained variable benefits on sleep, likely because of a lack of an individualized approach or appropriate blinding."
+    },
+    {
+      "id": "further_population_factors",
+      "kind": "limitation",
+      "label": "Further understanding of population energy intake factors",
+      "value": "need to be better understood",
+      "quote": "Factors that underlie the observed persistent increase in energy intake and mean weight gain at the population level need to be better understood."
+    },
+    {
+      "id": "conflict_of_interest",
+      "kind": "context",
+      "label": "Conflict of interest disclosures",
+      "value": "None reported.",
+      "quote": "Conflict of Interest Disclosures: None reported."
+    },
+    {
+      "id": "role_of_funder",
+      "kind": "context",
+      "label": "Role of the funder/sponsor",
+      "value": "had no role in the design and conduct of the study",
+      "quote": "Role of the Funder/Sponsor: The funders had no role in the design and conduct of the study; collection, management, analysis, and interpretation of the data; preparation, review, or approval of the manuscript; and decision to submit the manuscript for publication."
+    }
+  ],
+  "coverage": {
+    "conditions": [
+      "study_dates_setting",
+      "trial_registration",
+      "eligibility_age_bmi_sleep",
+      "eligibility_stable_sleep",
+      "screening_actigraphy",
+      "exclusion_sleep_disorders_shift",
+      "free_living_routine",
+      "participant_blinding",
+      "randomization_method",
+      "actigraphy_device",
+      "energy_intake_method",
+      "dlw_method",
+      "body_energy_stores_method",
+      "hidden_scale_weights",
+      "energy_coefficients",
+      "rmr_measurement",
+      "power_calculation",
+      "statistical_analysis_itt",
+      "mixed_models_and_covariates",
+      "no_multiplicity_or_imputation",
+      "no_imputation",
+      "screening_and_randomization_counts",
+      "post_randomization_exclusion",
+      "baseline_habitual_sleep_instruction",
+      "sleep_hygiene_counseling_delivery",
+      "sleep_extension_target",
+      "day22_followup",
+      "control_group_instructions",
+      "sleep_monitoring_duration",
+      "no_interfering_medications"
+    ],
+    "dosing": [
+      "baseline_and_intervention_periods",
+      "sleep_extension_target",
+      "day22_followup",
+      "control_contact_matching",
+      "sleep_monitoring_duration"
+    ],
+    "confounds": [
+      "overall_mean_age",
+      "overall_sex_men",
+      "overall_sex_women",
+      "no_interfering_medications",
+      "t1_age_ctrl",
+      "t1_age_ext",
+      "t1_male_ctrl",
+      "t1_male_ext",
+      "t1_female_ctrl",
+      "t1_female_ext",
+      "t1_bmi_ctrl",
+      "t1_bmi_ext",
+      "t1_asian_ctrl",
+      "t1_asian_ext",
+      "t1_black_ctrl",
+      "t1_black_ext",
+      "t1_hispanic_ctrl",
+      "t1_hispanic_ext",
+      "t1_white_ctrl",
+      "t1_white_ext",
+      "t1_multiracial_ctrl",
+      "t1_multiracial_ext",
+      "t1_fulltime_ctrl",
+      "t1_fulltime_ext",
+      "t1_parttime_ctrl",
+      "t1_parttime_ext",
+      "t1_student_ctrl",
+      "t1_student_ext",
+      "t1_wfh_ctrl",
+      "t1_wfh_ext",
+      "t1_unemployed_ctrl",
+      "t1_unemployed_ext",
+      "t1_meq_ctrl",
+      "t1_meq_ext",
+      "t1_cesd_ctrl",
+      "t1_cesd_ext",
+      "t1_tfeq_restraint_ctrl",
+      "t1_tfeq_restraint_ext",
+      "t1_tfeq_disinhibition_ctrl",
+      "t1_tfeq_disinhibition_ext",
+      "t1_tfeq_hunger_ctrl",
+      "t1_tfeq_hunger_ext",
+      "t1_exercise_ctrl",
+      "t1_exercise_ext",
+      "t1_sleep_ctrl",
+      "t1_sleep_ext",
+      "missing_sleep_change_counts",
+      "missing_ei_change_counts",
+      "correlation_sample_size",
+      "limit_generalizability",
+      "limit_control_increase",
+      "limit_short_duration_sustainability",
+      "limit_sleep_factors_unassessed",
+      "limit_dlw_precision",
+      "limit_mechanisms_unassessed",
+      "participant_blinding",
+      "control_contact_matching",
+      "control_group_instructions",
+      "post_randomization_exclusion",
+      "complete_all_outcomes_baseline_diff",
+      "ei_ctrl_baseline",
+      "ei_ext_baseline",
+      "tee_ctrl_baseline",
+      "tee_ext_baseline",
+      "eb_ctrl_baseline",
+      "eb_ext_baseline",
+      "rmr_fast_ctrl_baseline",
+      "rmr_fast_ext_baseline",
+      "rmr_post_ctrl_baseline",
+      "rmr_post_ext_baseline",
+      "tem_ctrl_baseline",
+      "tem_ext_baseline",
+      "aee_day_ctrl_baseline",
+      "aee_day_ext_baseline",
+      "aee_wake_ctrl_baseline",
+      "aee_wake_ext_baseline",
+      "wt_ctrl_baseline",
+      "wt_ext_baseline",
+      "ffm_ctrl_baseline",
+      "ffm_ext_baseline",
+      "fm_ctrl_baseline",
+      "fm_ext_baseline"
+    ],
+    "priorEvidence": [
+      "prior_us_short_sleep",
+      "prior_dynamic_model_100kcal",
+      "prior_lab_sleep_restriction_range",
+      "hall_model_prediction",
+      "prior_meta_lab_restriction",
+      "prior_meta_cohort_obesity",
+      "prior_calorimeter_tee",
+      "prior_weight_loss_sleep_obs",
+      "prior_bedtime_extension_study"
+    ],
+    "furtherInvestigation": [
+      "further_longer_studies",
+      "further_population_factors"
+    ],
+    "funding": [
+      "funding_sources",
+      "conflict_of_interest",
+      "role_of_funder"
+    ]
+  }
+}

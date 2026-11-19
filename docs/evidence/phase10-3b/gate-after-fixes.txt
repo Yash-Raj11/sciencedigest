@@ -1,0 +1,1 @@
+gate ok: 202 facts, design rct, n 80, causal language true

@@ -28,6 +28,7 @@ export const FIGURE_KEYS = [
   "turmeric-pepper-breakfast/tongue-to-blood",
   "turmeric-pepper-breakfast/five-readings",
   "turmeric-pepper-breakfast/first-half-hour",
+  "sleep-extension-energy-intake/energy-ledger",
 ] as const;
 
 export type FigureKey = (typeof FIGURE_KEYS)[number];

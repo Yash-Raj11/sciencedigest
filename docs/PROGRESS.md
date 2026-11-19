@@ -208,8 +208,14 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       meta-analysis, 12,197; licence line also says "No commercial re-use"), B sleep extension
       and energy intake (JAMA IM 2022, RCT, 80), C early vs midday time-restricted eating
       (Nat Commun 2022, RCT, 90). `docs/evidence/phase10-3a/candidates.md`.
-- [ ] ⏸ Stop. Owner picks one and its tier.
-- [ ] 3B. fetch, extract, draft on the pick; a regression fixture for each break; figure and concepts.
+- [x] ⏸ Stop. Owner picks one and its tier.
+      Owner, 2026-11-19: "B, sleep, free".
+- [x] 3B. fetch, extract, draft on the pick; a regression fixture for each break; figure and concepts.
+      Done 2026-11-19, as a draft (`publishedAt` null): `content/papers/sleep-extension-energy-intake/`.
+      The gate refused 3 quotes and the lint refused 15 + 10 + 1 + 1 items. All were fixed in the
+      JSON, never the rule (`docs/evidence/phase10-3b/gate-fixes.md`, `lint-fixes.md`). No code
+      broke, so there is no new fixture: the out-of-room, 503 and JSON-retry stops already have
+      tests. Figure `energy-ledger`, with 10 tests. No new concept. Review sheet: `draft-for-review.md`.
 - [ ] ⏸ Stop. Owner reads the draft; then approve, content:build, release, live check.
 
 ## Step 4: Phase 11, Instagram carousels with their own art

@@ -1,0 +1,12 @@
+
+> sciencedigest@0.1.0 paper
+> tsx scripts/paper.mts extract sleep-extension-energy-intake
+
+AI server answered 503 (busy or rate-limited); asking again in 5 s (try 2 of 4).
+saved content/papers/sleep-extension-energy-intake/extraction.json (parts: 1, coverage pass added 8 facts, JSON retries: 1, 208.1 s)
+GATE REJECTED (3)
+  - design: the quoted passage does not support "rct"
+  - fact statistical_analysis_itt: the quote carries a p-value, so it reports a result of this study; use kind "finding" (or "estimate"), not "context"
+  - fact prior_us_short_sleep: quote not found in the source: "For example, one-third of the US population reported not getting the r"
+Fix extraction.json by hand against source.txt, or run extract again. The gate must pass before anything cites it.
+AI_MAX_TOKENS=65536 npm run paper -- extract sleep-extension-energy-intake  0.71s user 0.21s system 0% cpu 3:28.59 total

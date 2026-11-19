@@ -1,0 +1,18 @@
+
+> sciencedigest@0.1.0 paper
+> tsx scripts/paper.mts extract sleep-extension-energy-intake
+
+/Users/yash/Game/sciencedigest/lib/ai/provider.ts:173
+  if (choice?.finish_reason === "length") throw new Error("The model ran out of room before finishing. Raise AI_MAX_TOKENS in .env.local.");
+                                                ^
+
+
+Error: The model ran out of room before finishing. Raise AI_MAX_TOKENS in .env.local.
+    at openaiCompatible (/Users/yash/Game/sciencedigest/lib/ai/provider.ts:173:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async completeJson (/Users/yash/Game/sciencedigest/lib/ai/provider.ts:210:19)
+    at async extract (/Users/yash/Game/sciencedigest/scripts/paper.mts:256:20)
+    at async <anonymous> (/Users/yash/Game/sciencedigest/scripts/paper.mts:357:21)
+
+Node.js v22.20.0
+npm run paper -- extract sleep-extension-energy-intake  0.67s user 0.29s system 0% cpu 1:41.20 total

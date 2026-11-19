@@ -1,0 +1,28 @@
+# Mutation 1: values drawn in the glance view too ({full ? → {true ?)
+1
+     × the glance view draws the same bars with no number at all 5ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  scripts/energy-ledger.test.ts > the energy ledger > the glance view draws the same bars with no number at all
+      Tests  1 failed | 8 passed (9)
+
+# Mutation 2: the bar drawn dashed (proposed style) while bound to a result
+1
+     × nothing is dashed, and the orange is the four bars only 2ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  scripts/energy-ledger.test.ts > the energy ledger > nothing is dashed, and the orange is the four bars only
+      Tests  1 failed | 8 passed (9)
+
+# Restored
+identical
+      Tests  9 passed (9)
+
+
+# Mutation 3: the first draft's divider geometry (gap 18 and a fixed offset above the next group's name), the overlap seen in the glance screenshot
+2
+     × the rule between the groups clears every bar and the next group's name, in both views 4ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  scripts/energy-ledger.test.ts > the energy ledger > the rule between the groups clears every bar and the next group's name, in both views
+      Tests  1 failed | 9 passed (10)
+# Restored
+identical
+      Tests  10 passed (10)

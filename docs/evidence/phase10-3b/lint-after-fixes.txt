@@ -1,0 +1,12 @@
+sleep-extension-energy-intake (draft, not in the app)
+  gate   ok: 202 facts verified against the source, licence CC-BY, design rct
+  lint   ok: 596 words
+    mechanism 141 words, 11 sentences, average 12.8, longest 22
+    protocol   85 words, 7 sentences, average 12.1, longest 18
+    audit     248 words, 14 sentences, average 17.7, longest 27
+    context   0 other studies, 1 background concept (fat-free-mass)
+    warning: [H11] populationPanel: possibly passive ("was studied"); say who did it if you can: "Who was studied: 80 adults aged 21 to 40 with overweight (a BMI of 25.0 to 29.9)."
+    warning: [H11] layers.audit.more[1]: a sentence of 27 words; aim for 22 or fewer: "At rest while fasting, participants in the sleep group burned 32.5 kcal a day less (P = .047); after a meal there was no clear difference (P = .41)."
+    warning: [H11] layers.audit.more[3]: a sentence of 27 words; aim for 22 or fewer: "A weight model predicts about 12 kg lost over 3 years if a drop of about 270 kcal a day lasted; the trial did not test that."
+  skipped: publishedAt is null (not approved yet)
+

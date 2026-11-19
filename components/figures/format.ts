@@ -11,9 +11,14 @@ type Sized = Pick<ResolvedEstimate, "point" | "ciLow" | "ciHigh" | "unit">;
 
 const unitOf = (e: Sized) => (e.unit === "%" ? "%" : ` ${e.unit}`);
 
+/** "+114.9", "−155.5": the change without its unit, for a figure that names the unit once. */
+export function signedPoint(e: Pick<Sized, "point">): string {
+  return `${e.point > 0 ? "+" : ""}${signed(e.point)}`;
+}
+
 /** "+0.51 kg", "−1.86 kg". */
 export function change(e: Sized): string {
-  return `${e.point > 0 ? "+" : ""}${signed(e.point)}${unitOf(e)}`;
+  return `${signedPoint(e)}${unitOf(e)}`;
 }
 
 /** "14.9 points lower", "0.51 kg higher". */

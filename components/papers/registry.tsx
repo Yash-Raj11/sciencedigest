@@ -27,6 +27,7 @@ import TongueToBlood from "./turmeric-pepper-breakfast/figures/TongueToBlood";
 import FiveReadings from "./turmeric-pepper-breakfast/figures/FiveReadings";
 import FirstHalfHour from "./turmeric-pepper-breakfast/figures/FirstHalfHour";
 import BreakfastSimulator from "./turmeric-pepper-breakfast/Simulator";
+import EnergyLedger from "./sleep-extension-energy-intake/figures/EnergyLedger";
 
 export interface WidgetProps { variant: "article" | "card" }
 export interface SimulatorProps {
@@ -84,6 +85,7 @@ const FIGURES: Record<FigureKey, ComponentType<FigureProps>> = {
   "turmeric-pepper-breakfast/tongue-to-blood": TongueToBlood,
   "turmeric-pepper-breakfast/five-readings": FiveReadings,
   "turmeric-pepper-breakfast/first-half-hour": FirstHalfHour,
+  "sleep-extension-energy-intake/energy-ledger": EnergyLedger,
 };
 
 /** The drawing, and under it the key when the figure mixes measured and proposed. */

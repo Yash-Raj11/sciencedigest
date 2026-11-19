@@ -1,0 +1,197 @@
+{
+  "slug": "sleep-extension-energy-intake",
+  "category": "Sleep",
+  "accessTier": "free",
+  "publishedAt": null,
+  "title": "Adding 1.2 hours of sleep cut daily intake by 270.4 kcal without a diet [sleep_duration_diff, ei_diff_in_changes, free_living_routine]",
+  "teaser": "In a 4-week trial of 80 adults with overweight, extending sleep by 1.2 hours a night reduced daily energy intake by 270.4 kcal compared with habitual sleep. [overall_mean_age, eligibility_age_bmi_sleep, sleep_monitoring_duration, sleep_duration_diff, ei_diff_in_changes] Look closer, and half of that gap came from the control group eating more. [ei_ctrl_change, ei_ext_change, limit_control_increase]",
+  "hook": "Most weight trials tell people what to eat or how much to move. [-] This trial gave 80 adults no diet or exercise plan at all and only changed their bedtime. [overall_mean_age, free_living_routine, sleep_extension_target]",
+  "populationTerms": [
+    "adults",
+    "participants",
+    "people"
+  ],
+  "populationPanel": "Who was studied: 80 adults aged 21 to 40 with a BMI between 25.0 and 29.9 who usually slept less than 6.5 hours a night. [overall_mean_age, eligibility_age_bmi_sleep] All 80 were randomized to extend their sleep or keep their usual schedule for 2 weeks at home. [baseline_and_intervention_periods, free_living_routine] People with sleep apnea, insomnia, or recent night-shift work were excluded. [exclusion_sleep_disorders_shift]",
+  "primaryEstimate": "ei_diff_in_changes",
+  "card": {
+    "question": "Does sleeping longer at home reduce how many calories adults eat? [sleep_extension_target, ei_diff_in_changes]",
+    "headline": "Adults who extended their sleep took in 270.4 fewer kcal a day than the control group, relative to baseline. [ei_diff_in_changes]",
+    "support": "Energy burned did not show a clear difference between groups. [tee_diff_in_changes, tee_p_value]"
+  },
+  "source": {
+    "who": "80 adults aged 21 to 40 [overall_mean_age, eligibility_age_bmi_sleep]",
+    "span": "2 weeks baseline, 2 weeks intervention [baseline_and_intervention_periods]"
+  },
+  "glance": {
+    "figure": "estimate-explorer",
+    "x": "Difference from control (kcal/d) [-]",
+    "alt": "Five horizontal interval bars comparing daily energy intake, energy balance, total energy expenditure, activity expenditure, and fasting metabolic rate between sleep extension and control groups. [ei_diff_in_changes, eb_diff_in_changes, tee_diff_in_changes, aee_day_diff_in_changes, rmr_fast_diff_in_changes]",
+    "note": "Compare the energy and weight changes inside. [-]",
+    "tryIt": "explore the estimates [-]"
+  },
+  "layers": {
+    "mechanism": {
+      "paragraphs": [
+        "Think of body weight as a two-sided ledger: calories coming in through food versus calories going out through movement and resting metabolism. [energy_intake_method] The trial tracked both sides in real life without asking adults to count calories. [free_living_routine, energy_intake_method]",
+        "When adults in the sleep extension group slept 1.2 hours longer a night, their daily energy intake fell while their daily energy burn showed no clear difference. [sleep_duration_diff, ei_ext_change, tee_diff_in_changes, tee_p_value] Across all participants, each 1-hour gain in sleep went with 162.3 fewer kcal eaten per day. [energy_intake_per_hour_sleep]",
+        "Because intake dropped and burn stayed steady, adults in the sleep extension group shifted into a lower energy balance and lost 0.48 kg over 2 weeks, compared with a 0.39 kg gain in the control group. [eb_diff_in_changes, wt_ext_change, wt_ctrl_change, baseline_and_intervention_periods] Most of the 0.87 kg gap between groups was fat-free mass rather than fat mass. [wt_diff_in_changes, ffm_diff_in_changes, fm_diff_in_changes] [concept:fat-free-mass]"
+      ],
+      "figure": null
+    },
+    "protocol": {
+      "paragraphs": [
+        "After 2 weeks of tracking their usual sleep at home, 80 adults were randomized to 2 weeks of sleep extension or continued usual sleep. [baseline_and_intervention_periods, overall_mean_age] The sleep extension group received one-on-one sleep hygiene counseling aiming for 8.5 hours in bed, plus a brief check-in on day 22. [sleep_hygiene_counseling_delivery, sleep_extension_target, day22_followup]",
+        "Both groups continued their normal daily routines with no prescribed diet or physical activity. [free_living_routine] Wrist actigraphy tracked sleep continuously for all 4 weeks. [sleep_monitoring_duration, actigraphy_device] Researchers calculated energy intake from doubly labeled water, body scans, and twice-daily hidden home scale weights. [energy_intake_method, dlw_method, body_energy_stores_method, hidden_scale_weights]"
+      ],
+      "figure": null
+    },
+    "audit": {
+      "effect": "Between-group difference in energy intake change (sleep extension minus control): −270.4 kcal/d (P < .001). [ei_diff_in_changes, ei_p_value]",
+      "weakEnd": "The 95% confidence interval runs from −393.4 to −147.4 kcal/d. [ei_diff_in_changes] Even the weak end, 147.4 kcal/d lower, is a meaningful daily gap over 2 weeks. [ei_diff_in_changes, baseline_and_intervention_periods]",
+      "limitations": [
+        "The control group's energy intake and weight rose from baseline, which contributed to the between-group gap. [limit_control_increase]",
+        "The intervention lasted 2 weeks, so it cannot show how long adults can keep up extended sleep. [baseline_and_intervention_periods, limit_short_duration_sustainability]",
+        "The doubly labeled water method has a 5% precision limit, adding uncertainty to energy intake estimates. [limit_dlw_precision]",
+        "Strict eligibility criteria in adults with overweight limit how widely these numbers apply. [limit_generalizability]"
+      ],
+      "missed": "The 270.4 kcal/d gap is a difference of two moves: intake fell by 155.5 kcal/d with sleep extension but rose by 114.9 kcal/d in controls. [ei_ext_change, ei_ctrl_change, ei_diff_in_changes] Also, fat-free mass accounted for 0.62 kg of the 0.87 kg weight difference, versus 0.25 kg for fat mass. [ffm_diff_in_changes, wt_diff_in_changes, fm_diff_in_changes]",
+      "more": [
+        "Total energy expenditure (−53.9 kcal/d, P = .19) and activity energy expenditure showed no clear difference between groups. [tee_diff_in_changes, tee_p_value, aee_day_diff_in_changes, aee_day_p_value]",
+        "Fasting resting metabolic rate differed slightly (−32.5 kcal/d, P = .047), while post-meal metabolic rate did not (P = .41). [rmr_fast_diff_in_changes, rmr_fast_p_value, rmr_post_p_value]",
+        "Primary outcome data were complete for 75 participants (93.8%), with 90.0% in sleep extension and 97.5% in controls. [complete_ei_data_overall, complete_ei_by_group]",
+        "Funded by the National Institutes of Health, with no conflicts of interest reported. [funding_sources, conflict_of_interest]"
+      ],
+      "figure": null
+    }
+  },
+  "glossary": [
+    {
+      "term": "randomized",
+      "plain": "Participants were placed into the sleep extension group or the control group by chance, like flipping a coin, so the two groups started out similar.",
+      "refs": [
+        "randomization_method",
+        "baseline_and_intervention_periods"
+      ]
+    },
+    {
+      "term": "wrist actigraphy",
+      "plain": "A motion-sensing watch worn on the wrist that records when a person goes to bed, wakes up, and how long they sleep at home.",
+      "refs": [
+        "actigraphy_device",
+        "sleep_monitoring_duration"
+      ]
+    },
+    {
+      "term": "fat-free mass",
+      "concept": "fat-free-mass"
+    }
+  ],
+  "takeaways": [
+    "In adults with overweight sleeping under 6.5 hours, aiming for 8.5 hours in bed added 1.2 hours of sleep and reduced daily intake by 270.4 kcal compared with controls. [eligibility_age_bmi_sleep, sleep_extension_target, sleep_duration_diff, ei_diff_in_changes]",
+    "Limiting electronic devices before bed appeared to be a key habit for participants who extended their sleep. [limit_sleep_factors_unassessed]",
+    "Weight changed over 2 weeks without any prescribed diet, though most of the short-term difference was fat-free mass rather than fat mass. [free_living_routine, baseline_and_intervention_periods, ffm_diff_in_changes, fm_diff_in_changes]"
+  ],
+  "choices": [],
+  "steps": [
+    {
+      "key": "aim-8-5-bed",
+      "label": "Aim for 8.5 hours in bed tonight",
+      "detail": "Set a bedtime that gives you an 8.5-hour window in bed, matching the trial's target.",
+      "kind": "action",
+      "refs": [
+        "sleep_extension_target"
+      ]
+    },
+    {
+      "key": "limit-screens-bed",
+      "label": "Limit electronic devices before bed",
+      "detail": "Put phones and screens away before sleep, a key habit reported by participants.",
+      "kind": "action",
+      "refs": [
+        "limit_sleep_factors_unassessed"
+      ]
+    },
+    {
+      "key": "five-nights-bedtime",
+      "label": "8.5 hours in bed on at least 5 nights this week",
+      "detail": "Consistent longer nights were linked to lower daily calorie intake in the trial.",
+      "kind": "weekly_target",
+      "targetPerWeek": 5,
+      "countsKey": "aim-8-5-bed",
+      "refs": [
+        "sleep_extension_target"
+      ],
+      "evidenceRef": "sleep_duration_diff"
+    }
+  ],
+  "simulator": {
+    "kind": "estimate-explorer",
+    "params": {
+      "lowLabel": "Sleep extension lower",
+      "highLabel": "Sleep extension higher",
+      "rows": [
+        {
+          "label": "Daily energy intake difference (kcal/d)",
+          "fact": "fact:ei_diff_in_changes"
+        },
+        {
+          "label": "Daily energy balance difference (kcal/d)",
+          "fact": "fact:eb_diff_in_changes"
+        },
+        {
+          "label": "Total energy expenditure difference (kcal/d)",
+          "fact": "fact:tee_diff_in_changes"
+        },
+        {
+          "label": "Activity energy expenditure difference (kcal/d)",
+          "fact": "fact:aee_day_diff_in_changes"
+        },
+        {
+          "label": "Fasting resting metabolic rate difference (kcal/d)",
+          "fact": "fact:rmr_fast_diff_in_changes"
+        }
+      ]
+    }
+  },
+  "carousel": {
+    "slides": [
+      {
+        "kind": "hook",
+        "heading": "1.2 extra hours of sleep cut daily intake by 270.4 kcal without a diet [sleep_duration_diff, ei_diff_in_changes, free_living_routine]"
+      },
+      {
+        "kind": "finding",
+        "heading": "What changed in 2 weeks [-]",
+        "body": "Adults who extended their sleep took in 270.4 fewer kcal a day than the control group, relative to baseline. [ei_diff_in_changes] Energy burned showed no clear difference. [tee_diff_in_changes, tee_p_value]"
+      },
+      {
+        "kind": "population",
+        "heading": "Who took part [-]",
+        "body": "80 adults aged 21 to 40 with a BMI of 25.0 to 29.9 who usually slept under 6.5 hours a night. [overall_mean_age, eligibility_age_bmi_sleep] Randomized at home with no diet or exercise plan. [baseline_and_intervention_periods, free_living_routine]"
+      },
+      {
+        "kind": "nuance",
+        "heading": "Both groups moved [-]",
+        "body": "Sleep extension cut intake by 155.5 kcal/d, while the control group's intake rose by 114.9 kcal/d. [ei_ext_change, ei_ctrl_change] Most of the 0.87 kg weight gap was fat-free mass. [wt_diff_in_changes, ffm_diff_in_changes]"
+      },
+      {
+        "kind": "limitation",
+        "heading": "What this cannot show [-]",
+        "body": "The intervention lasted only 2 weeks, so long-term sleep habits remain unknown. [baseline_and_intervention_periods, limit_short_duration_sustainability] The doubly labeled water method also has a 5% precision limit. [limit_dlw_precision]"
+      },
+      {
+        "kind": "cta",
+        "heading": "Explore the numbers [-]",
+        "body": "Compare all energy and metabolism estimates in the study read and add the 8.5-hour bedtime step to your week. [sleep_extension_target]"
+      }
+    ],
+    "caption": "In a 4-week randomized trial of 80 adults with overweight, extending sleep by 1.2 hours a night reduced daily energy intake by 270.4 kcal compared with controls, with no prescribed diet. [sleep_monitoring_duration, overall_mean_age, eligibility_age_bmi_sleep, sleep_duration_diff, ei_diff_in_changes, free_living_routine] The control group also ate 114.9 kcal/d more, and the intervention lasted 2 weeks. [ei_ctrl_change, baseline_and_intervention_periods] Full read and estimate explorer at the link in bio. [-]",
+    "hashtags": [
+      "sleep",
+      "nutrition",
+      "metabolism",
+      "evidencebased",
+      "clinicaltrial"
+    ]
+  }
+}

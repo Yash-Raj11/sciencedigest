@@ -1,0 +1,232 @@
+{
+  "slug": "sleep-extension-energy-intake",
+  "category": "Sleep",
+  "accessTier": "free",
+  "publishedAt": null,
+  "title": "Two weeks of longer sleep at home: what 80 adults then ate [baseline_and_intervention_periods, overall_mean_age]",
+  "teaser": "The trial took 80 adults with overweight who slept under 6.5 hours a night. [overall_mean_age, eligibility_age_bmi_sleep] Sleep advice gave the sleep group 1.2 hours more sleep a night than the control group. [sleep_duration_diff] Over 2 weeks they ate 270.4 kcal a day less than the control group, with no diet. [baseline_and_intervention_periods, ei_diff_in_changes, free_living_routine] Part of that gap came from the control group eating more than before. [ei_ctrl_change, limit_control_increase]",
+  "hook": "This trial gave 80 adults no diet and no exercise plan. [overall_mean_age, free_living_routine] It aimed to change one thing, their time in bed, and then measured what they ate. [sleep_extension_target, energy_intake_method]",
+  "populationTerms": [
+    "adults",
+    "participants",
+    "people"
+  ],
+  "populationPanel": "Who was studied: 80 adults aged 21 to 40 with overweight (a BMI of 25.0 to 29.9). [overall_mean_age, eligibility_age_bmi_sleep] They usually slept less than 6.5 hours a night. [eligibility_age_bmi_sleep] Chance put each of them into longer sleep or their usual schedule, for 2 weeks at home. [randomization_method, baseline_and_intervention_periods, free_living_routine] People with sleep apnea, insomnia or recent shift work could not take part. [exclusion_sleep_disorders_shift]",
+  "primaryEstimate": "ei_diff_in_changes",
+  "card": {
+    "question": "Do adults eat less when they sleep longer at home? [sleep_extension_target, ei_diff_in_changes]",
+    "headline": "Compared with the control group, adults who slept longer ate 270.4 kcal a day less. [ei_diff_in_changes]",
+    "support": "The energy adults burned showed no clear difference between the groups. [tee_diff_in_changes, tee_p_value]"
+  },
+  "source": {
+    "who": "80 adults aged 21 to 40 with overweight [overall_mean_age, eligibility_age_bmi_sleep]",
+    "span": "2 weeks of usual sleep, then 2 weeks of the change [baseline_and_intervention_periods]"
+  },
+  "glance": {
+    "figure": "energy-ledger",
+    "x": "Change from their usual weeks [-]",
+    "alt": "Food eaten and energy burned by adults in each group, drawn as bars. [energy_intake_method, dlw_method]",
+    "note": "Drawn from the paper’s own measurements. [-]",
+    "tryIt": "compare every energy estimate [-]"
+  },
+  "layers": {
+    "mechanism": {
+      "paragraphs": [
+        "Think of your weight as a ledger with two columns. [-] Food goes into one column. [-] The energy people burn, at rest and on the move, goes into the other. [energy_intake_method]",
+        "Short sleep tips that ledger. [prior_lab_sleep_restriction_range] In laboratory studies, people whose sleep was cut ate about 250 to 350 kcal a day more, and burned about the same. [prior_lab_sleep_restriction_range]",
+        "This trial asked the question the other way round, at home. [free_living_routine] Adults who extended their sleep ate less, while the energy they burned showed no clear difference. [ei_ext_change, tee_diff_in_changes] Each extra hour of sleep went with about 162 kcal a day less food. [energy_intake_per_hour_sleep]",
+        "With less coming in and no clear change going out, the ledger moved the other way. [eb_diff_in_changes] Over 2 weeks, the sleep group lost 0.48 kg, while the control group gained 0.39 kg. [baseline_and_intervention_periods, wt_ext_change, wt_ctrl_change]"
+      ],
+      "figure": {
+        "figure": "energy-ledger",
+        "caption": "Change from each group’s usual 2 weeks, as the paper measured it. [baseline_and_intervention_periods]",
+        "alt": "Two groups of adults, one above the other, each with a bar for food eaten and a bar for energy burned. [energy_intake_method, dlw_method] In the longer-sleep group, the food bar falls below no change and the energy-burned bar dips much less. [ei_ext_change, tee_ext_change] In the usual-sleep group, the food bar rises and the energy-burned bar barely moves. [ei_ctrl_change, tee_ctrl_change] Under each group sits its change in weight. [wt_ext_change, wt_ctrl_change]",
+        "params": {
+          "title": "Food in, energy out",
+          "unit": "Change from each group’s usual weeks, kcal a day",
+          "less": "Less",
+          "noChange": "No change",
+          "more": "More",
+          "food": "Food eaten",
+          "burned": "Energy burned",
+          "weight": "Weight",
+          "groups": [
+            {
+              "label": "Longer sleep",
+              "food": {
+                "kind": "measured",
+                "fact": "fact:ei_ext_change"
+              },
+              "burned": {
+                "kind": "measured",
+                "fact": "fact:tee_ext_change"
+              },
+              "weight": {
+                "kind": "measured",
+                "fact": "fact:wt_ext_change"
+              }
+            },
+            {
+              "label": "Usual sleep (the control group)",
+              "food": {
+                "kind": "measured",
+                "fact": "fact:ei_ctrl_change"
+              },
+              "burned": {
+                "kind": "measured",
+                "fact": "fact:tee_ctrl_change"
+              },
+              "weight": {
+                "kind": "measured",
+                "fact": "fact:wt_ctrl_change"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "protocol": {
+      "paragraphs": [
+        "For 2 weeks, everyone kept their usual sleep at home. [baseline_and_intervention_periods] Then chance split them into 2 groups for 2 more weeks. [randomization_method, baseline_and_intervention_periods] The sleep group had a personal sleep advice session, aiming for 8.5 hours in bed each night. [sleep_hygiene_counseling_delivery, sleep_extension_target]",
+        "Nobody got a diet or an exercise plan. [free_living_routine] A wrist sensor recorded sleep for all 4 weeks. [sleep_monitoring_duration, actigraphy_device] A home scale they could not read weighed them twice every morning. [hidden_scale_weights] Researchers measured the energy participants burned, and worked out food eaten from that plus changes in body stores. [dlw_method, energy_intake_method, body_energy_stores_method]"
+      ],
+      "figure": null
+    },
+    "audit": {
+      "effect": "Change in daily energy intake, sleep group against control: 270.4 kcal a day lower (P < .001). [ei_diff_in_changes, ei_p_value]",
+      "weakEnd": "The 95% confidence interval runs from 393.4 to 147.4 kcal a day lower. [ei_diff_in_changes] Even at the weak end, the sleep group ate 147.4 kcal a day less. [ei_diff_in_changes]",
+      "limitations": [
+        "The control group’s rise in intake and weight may have added to the gap. [limit_control_increase]",
+        "The change lasted 2 weeks, so nobody knows how long people keep the longer nights. [baseline_and_intervention_periods, limit_short_duration_sustainability]",
+        "The method that measured the energy participants burned is precise to about 5%, which adds uncertainty to each intake figure. [limit_dlw_precision]",
+        "Only adults with overweight who met strict rules took part, so the result may not hold for others. [limit_generalizability]"
+      ],
+      "missed": "Both groups moved: intake fell by 155.5 kcal a day in the sleep group and rose by 114.9 in the control group. [ei_ext_change, ei_ctrl_change] Of the 0.87 kg weight gap, 0.62 kg was fat-free mass and 0.25 kg was fat. [wt_diff_in_changes, ffm_diff_in_changes, fm_diff_in_changes]",
+      "more": [
+        "Total energy participants burned (53.9 kcal a day, P = .19) and energy burned through activity showed no clear difference. [tee_diff_in_changes, tee_p_value, aee_day_p_value]",
+        "At rest while fasting, participants in the sleep group burned 32.5 kcal a day less (P = .047); after a meal there was no clear difference (P = .41). [rmr_fast_diff_in_changes, rmr_fast_p_value, rmr_post_p_value]",
+        "75 of 80 (93.8%) had complete intake data (sleep group 90.0%, control group 97.5%). [overall_mean_age, complete_ei_data_overall, complete_ei_by_group]",
+        "A weight model predicts about 12 kg lost over 3 years if a drop of about 270 kcal a day lasted; the trial did not test that. [hall_model_prediction]",
+        "Funded by the US National Institutes of Health; no conflicts of interest reported. [funding_sources, conflict_of_interest]"
+      ],
+      "figure": null
+    }
+  },
+  "glossary": [
+    {
+      "term": "BMI",
+      "plain": "Body mass index: weight in kilograms divided by height in metres squared, a rough measure of body size.",
+      "refs": [
+        "eligibility_age_bmi_sleep"
+      ]
+    },
+    {
+      "term": "kcal",
+      "plain": "Kilocalories, the unit of food energy that labels usually just call calories.",
+      "refs": [
+        "ei_diff_in_changes"
+      ]
+    },
+    {
+      "term": "fat-free mass",
+      "concept": "fat-free-mass"
+    }
+  ],
+  "takeaways": [
+    "Aiming for 8.5 hours in bed, adults who had slept under 6.5 hours got 1.2 hours more sleep than the control group. [eligibility_age_bmi_sleep, sleep_extension_target, sleep_duration_diff]",
+    "Compared with the control group, they ate 270.4 kcal a day less, with no diet. [ei_diff_in_changes, free_living_routine]",
+    "The authors noted that limiting electronic devices seemed to matter to participants; the trial did not test it on its own. [limit_sleep_factors_unassessed]"
+  ],
+  "choices": [],
+  "steps": [
+    {
+      "key": "aim-8-5-bed",
+      "label": "8.5 hours in bed tonight",
+      "detail": "Set a bedtime that leaves 8.5 hours in bed, the trial’s target. A tick records the bedtime, not your sleep.",
+      "kind": "action",
+      "refs": [
+        "sleep_extension_target"
+      ],
+      "evidenceRef": "ei_diff_in_changes"
+    },
+    {
+      "key": "devices-away-bed",
+      "label": "Devices away before bed",
+      "detail": "The authors noted this seemed to be a key change for participants. The trial did not test it on its own, so it carries no weight.",
+      "kind": "action",
+      "refs": [
+        "limit_sleep_factors_unassessed"
+      ]
+    }
+  ],
+  "simulator": {
+    "kind": "estimate-explorer",
+    "params": {
+      "lowLabel": "Lower with longer sleep",
+      "highLabel": "Higher with longer sleep",
+      "rows": [
+        {
+          "label": "Food eaten (kcal a day)",
+          "fact": "fact:ei_diff_in_changes"
+        },
+        {
+          "label": "Energy balance (kcal a day)",
+          "fact": "fact:eb_diff_in_changes"
+        },
+        {
+          "label": "Total energy burned (kcal a day)",
+          "fact": "fact:tee_diff_in_changes"
+        },
+        {
+          "label": "Energy burned through activity (kcal a day)",
+          "fact": "fact:aee_day_diff_in_changes"
+        },
+        {
+          "label": "Resting energy burned, fasting (kcal a day)",
+          "fact": "fact:rmr_fast_diff_in_changes"
+        }
+      ]
+    }
+  },
+  "carousel": {
+    "slides": [
+      {
+        "kind": "hook",
+        "heading": "Adults who slept longer ate 270.4 kcal a day less [ei_diff_in_changes]"
+      },
+      {
+        "kind": "finding",
+        "heading": "What changed in 2 weeks [baseline_and_intervention_periods]",
+        "body": "Compared with the control group, adults who slept longer ate 270.4 kcal a day less. [ei_diff_in_changes] The energy participants burned showed no clear difference. [tee_diff_in_changes, tee_p_value]"
+      },
+      {
+        "kind": "population",
+        "heading": "Who took part [-]",
+        "body": "80 adults aged 21 to 40 with overweight, who usually slept under 6.5 hours a night. [overall_mean_age, eligibility_age_bmi_sleep] Chance decided who extended their sleep, at home, with no diet or exercise plan. [randomization_method, free_living_routine]"
+      },
+      {
+        "kind": "nuance",
+        "heading": "Both groups moved [-]",
+        "body": "Intake fell by 155.5 kcal a day in the sleep group and rose by 114.9 in the control group. [ei_ext_change, ei_ctrl_change] Of the 0.87 kg weight gap, 0.62 kg was fat-free mass. [wt_diff_in_changes, ffm_diff_in_changes]"
+      },
+      {
+        "kind": "limitation",
+        "heading": "What this cannot show [-]",
+        "body": "The change lasted 2 weeks, so long-term habits are unknown. [baseline_and_intervention_periods, limit_short_duration_sustainability] Only adults with overweight took part. [limit_generalizability]"
+      },
+      {
+        "kind": "cta",
+        "heading": "Try it in the read [-]",
+        "body": "Compare every energy estimate, then add the 8.5-hour bedtime to your Life Game. [sleep_extension_target]"
+      }
+    ],
+    "caption": "A randomized trial of 80 adults with overweight who slept under 6.5 hours a night. [overall_mean_age, eligibility_age_bmi_sleep] Sleep advice gave the sleep group 1.2 hours more sleep a night than the control group. [sleep_duration_diff] Those adults ate 270.4 kcal a day less than the control group, with no diet. [ei_diff_in_changes, free_living_routine] The control group also ate 114.9 kcal a day more than before, and the change lasted 2 weeks. [ei_ctrl_change, baseline_and_intervention_periods] Full read and the estimate explorer: link in bio. [-]",
+    "hashtags": [
+      "sleep",
+      "nutrition",
+      "metabolism",
+      "evidencebased",
+      "clinicaltrial"
+    ]
+  }
+}

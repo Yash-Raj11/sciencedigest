@@ -1,0 +1,53 @@
+
+> sciencedigest@0.1.0 paper
+> tsx scripts/paper.mts draft sleep-extension-energy-intake
+
+gate ok: 202 facts verified against the source
+figure kinds offered:
+- decay: still view and simulator
+  facts.halfLife (one fact id):
+    sleep_duration_diff: Between-group difference in change in mean sleep duration (hours)
+    sleep_duration_workdays_diff: Between-group difference in change in sleep duration on workdays (hours)
+    sleep_duration_freedays_diff: Between-group difference in change in sleep duration on free days (hours)
+    sleep_efficiency_diff: Between-group difference in change in sleep efficiency (hours)
+    caffeine-saliva-half-life/half_life_caffeine: Caffeine half-life in saliva after a single 25 mg dose (arm A), mean ± SD, n = 12 (h, from the owner-approved library)
+  simulator.halfLife (one fact id):
+    sleep_duration_diff: Between-group difference in change in mean sleep duration (hours; band: range for the study average)
+    sleep_duration_workdays_diff: Between-group difference in change in sleep duration on workdays (hours; band: range for the study average)
+    sleep_duration_freedays_diff: Between-group difference in change in sleep duration on free days (hours; band: range for the study average)
+    sleep_efficiency_diff: Between-group difference in change in sleep efficiency (hours; band: range for the study average)
+    caffeine-saliva-half-life/half_life_caffeine: Caffeine half-life in saliva after a single 25 mg dose (arm A), mean ± SD, n = 12 (h, from the owner-approved library; band: typical spread between people in this study)
+- association-curve: not available (no gated fact fits raw)
+AI server answered 503 (busy or rate-limited); asking again in 5 s (try 2 of 4).
+AI server answered 503 (busy or rate-limited); asking again in 15 s (try 3 of 4).
+JSON retries: 1, 138.4 s
+saved content/papers/sleep-extension-energy-intake/editorial.json (a draft: not in the app)
+  - [headline] card.question: "how many" presupposes an answer; ask a yes/no question the finding answers: "Does sleeping longer at home reduce how many calories adults eat?"
+  - [glance] glance.figure: "estimate-explorer" is not one of the read's figures (none)
+  - [one-claim] title: one clause cites 2 results (sleep_duration_diff, ei_diff_in_changes); give each its own clause and marker, so no claim joins two facts: "Adding 1.2 hours of sleep cut daily intake by 270.4 kcal without a diet"
+  - [one-claim] teaser: one clause cites 2 results (sleep_duration_diff, ei_diff_in_changes); give each its own clause and marker, so no claim joins two facts: "In a 4-week trial of 80 adults with overweight, extending sleep by 1.2 hours a night reduced daily energy intake by 270.4 kcal compared with habitual sleep."
+  - [one-claim] teaser: one clause cites 2 results (ei_ctrl_change, ei_ext_change); give each its own clause and marker, so no claim joins two facts: "Look closer, and half of that gap came from the control group eating more."
+  - [orphan] populationPanel: 80 not found in the cited passage(s) [baseline_and_intervention_periods, free_living_routine]: "All 80 were randomized to extend their sleep or keep their usual schedule for 2 weeks at home."
+  - [H3] card.support: causal verb "burned" without the studied population (adults / participants / people): "Energy burned did not show a clear difference between groups."
+  - [one-claim] carousel.slides[0].heading: one clause cites 2 results (sleep_duration_diff, ei_diff_in_changes); give each its own clause and marker, so no claim joins two facts: "1.2 extra hours of sleep cut daily intake by 270.4 kcal without a diet"
+  - [orphan] carousel.slides[1].heading: a sentence with a number must cite a fact: "What changed in 2 weeks"
+  - [H3] carousel.slides[1].body: causal verb "burned" without the studied population (adults / participants / people): "Energy burned showed no clear difference."
+  - [plain] facts.sleep_efficiency_ns.label: "significant" in a fact's label, which shows outside the Receipts; say "a clear difference" or "no clear difference": "No significant difference in sleep efficiency change"
+  - [plain] facts.daytime_activity_counts_ns.label: "significant" in a fact's label, which shows outside the Receipts; say "a clear difference" or "no clear difference": "No significant change in actigraphy daytime activity counts"
+  - [H11] layers.mechanism[2]: a sentence of 36 words; the limit is 30: "Because intake dropped and burn stayed steady, adults in the sleep extension group shifted into a lower energy balance and lost 0.48 kg over 2 weeks, compared with a 0.39 kg gain in the control group."
+  - [H11] carousel.caption: a sentence of 31 words; the limit is 30: "In a 4-week randomized trial of 80 adults with overweight, extending sleep by 1.2 hours a night reduced daily energy intake by 270.4 kcal compared with controls, with no prescribed diet."
+  - [H7] steps.five-nights-bedtime: 5 not found in the cited passage(s)
+  warning: [H11] teaser: a sentence of 27 words; aim for 22 or fewer: "In a 4-week trial of 80 adults with overweight, extending sleep by 1.2 hours a night reduced daily energy intake by 270.4 kcal compared with habitual sleep."
+  warning: [H11] populationPanel: a sentence of 25 words; aim for 22 or fewer: "Who was studied: 80 adults aged 21 to 40 with a BMI between 25.0 and 29.9 who usually slept less than 6.5 hours a night."
+  warning: [H11] populationPanel: possibly passive ("was studied"); say who did it if you can: "Who was studied: 80 adults aged 21 to 40 with a BMI between 25.0 and 29.9 who usually slept less than 6.5 hours a night."
+  warning: [H11] populationPanel: possibly passive ("were randomized"); say who did it if you can: "All 80 were randomized to extend their sleep or keep their usual schedule for 2 weeks at home."
+  warning: [H11] populationPanel: possibly passive ("were excluded"); say who did it if you can: "People with sleep apnea, insomnia, or recent night-shift work were excluded."
+  warning: [H11] glance.alt: a sentence of 25 words; aim for 22 or fewer: "Five horizontal interval bars comparing daily energy intake, energy balance, total energy expenditure, activity expenditure, and fasting metabolic rate between sleep extension and control groups."
+  warning: [H11] layers.mechanism[1]: a sentence of 27 words; aim for 22 or fewer: "When adults in the sleep extension group slept 1.2 hours longer a night, their daily energy intake fell while their daily energy burn showed no clear difference."
+  warning: [H11] layers.protocol[0]: a sentence of 24 words; aim for 22 or fewer: "After 2 weeks of tracking their usual sleep at home, 80 adults were randomized to 2 weeks of sleep extension or continued usual sleep."
+  warning: [H11] layers.protocol[0]: possibly passive ("were randomized"); say who did it if you can: "After 2 weeks of tracking their usual sleep at home, 80 adults were randomized to 2 weeks of sleep extension or continued usual sleep."
+  warning: [H11] layers.audit.missed: a sentence of 25 words; aim for 22 or fewer: "The 270.4 kcal/d gap is a difference of two moves: intake fell by 155.5 kcal/d with sleep extension but rose by 114.9 kcal/d in controls."
+  warning: [H11] takeaways[0]: a sentence of 29 words; aim for 22 or fewer: "In adults with overweight sleeping under 6.5 hours, aiming for 8.5 hours in bed added 1.2 hours of sleep and reduced daily intake by 270.4 kcal compared with controls."
+LINT FAILED (15)
+Edit editorial.json until the lint passes, or run draft again.
+AI_MAX_TOKENS=65536 npm run paper -- draft sleep-extension-energy-intake  0.75s user 0.15s system 0% cpu 2:18.81 total

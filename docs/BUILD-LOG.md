@@ -2075,3 +2075,64 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - **For the owner:** A's licence is CC BY 4.0 in its licence text and link, but its copyright line
   also says "No commercial re-use". It passes `checkLicense`; the owner decides whether that line
   rules it out.
+
+## 2026-11-19: step 3B: the sleep-extension read, fetched, extracted, drafted and corrected
+
+- **Owner's pick: "B, sleep, free".** Tasali E et al., JAMA Internal Medicine 2022,
+  doi:10.1001/jamainternmed.2021.8098 (PMC8822469), randomized clinical trial, 80 adults,
+  CC-BY. `accessTier: "free"`. Slug `sleep-extension-energy-intake`. Draft only: `publishedAt`
+  is null, so `content:build` reports it and builds nothing; no generated file changed.
+- **Fetch** worked on the first try: 37,888 characters, licence cc by (`fetch.txt`).
+- **Extract.** The first run stopped with "The model ran out of room before finishing. Raise
+  AI_MAX_TOKENS" (finish_reason length, default 32000 with thinking on high) and saved nothing.
+  The second run used `AI_MAX_TOKENS=65536` on the command line (`.env.local` is untouched): one
+  503 retry, one JSON retry, coverage pass +8 facts, 202 facts. **For the owner:** set
+  `AI_MAX_TOKENS=65536` in `.env.local`; a paper this size needs it.
+- **No regression fixture was added, because nothing broke.** Every stop on first contact with
+  Europe PMC or the model API took a path that already has a test: running out of room
+  (`lib/ai/provider.test.ts:64`), 503 asked again (`provider.test.ts:52`), and the JSON retry.
+  Each stopped loudly or recovered as designed. The rule asks for a fixture for each break, and
+  there was none.
+- **Gate: 3 refusals, each fixed in `extraction.json`** (`gate-fixes.md`, refusal beside fix). The
+  design quote said "RCT", not "randomized". A value was not inside its quote. A quote had one
+  comma more than the source. Gate ok after: 202 facts, design rct, n 80.
+- **Draft: the lint refused 15 things in the model's draft, then 10, 1 and 1 in my rewrites. Each
+  was fixed in the JSON, never in the rule** (`lint-fixes.md`, refusal beside fix). These were a
+  "how many" card question, one-claim clauses, orphan numbers, "burned" without the population
+  (H3), "significant" in two fact labels, long sentences, a weekly target of 5 nights that no fact
+  holds, "lower" on a range that crosses zero, and an audit layer over 250 words.
+- **Fixed after reading the draft against the paper, where the lint had passed it.** The read
+  called it a "4-week trial": it is 2 weeks of change after 2 weeks of baseline. It said "half of
+  that gap came from the control group": 114.9 of 270.4 is about 42%. The devices step claimed a
+  result the trial never tested; it now carries no weight and says so. It called the Hall model
+  "the authors' model". The hook made a claim about "most weight trials" with no source.
+  "Added 1.2 hours" now reads "1.2 hours more than the control group". "The same going out" now
+  reads "no clear change". A sentence-by-sentence sheet with every cited quote is in
+  `draft-for-review.md`, for the owner's read.
+- **No parallel study and no new concept.** The read rests on the paper alone. The laboratory
+  range (about 250 to 350 kcal a day) and the 12 kg model prediction are the paper's own cited
+  statements. The glossary's "fat-free mass" uses the reviewed concept `fat-free-mass`; BMI and
+  kcal have plain entries resting on facts.
+- **Figure: `energy-ledger`, in the mechanism layer and on the feed card.** It is the mechanism's
+  model drawn from Table 2. For each group, a solid bar for the change in food eaten and in energy
+  burned, with its printed 95% range, all on one scale; under each group, its change in weight.
+  Everything is measured; nothing is dashed or sketched; the orange is the four bars only. The
+  feed-card view drops every number. The layout is `components/figures/ledger-layout.ts`, and a
+  new `signedPoint` in `format.ts` writes a value without its unit.
+  - The figure guard refused three numeric literals in the figure file, and they moved into the
+    layout as named rows.
+  - The screenshots showed the group divider cutting a bar in the feed-card view, so a layout
+    test now checks the divider's clearance; it fails on the first geometry
+    (`figure-test-fail.txt`).
+  - `scripts/energy-ledger.test.ts` has 10 tests, and three deliberate breaks each fail one.
+- **Simulator:** the generic estimate explorer on five between-group differences (intake, energy
+  balance, total, activity and fasting resting energy burned), each with its 95% range (H12).
+- **Steps:** "8.5 hours in bed tonight" (weight from `ei_diff_in_changes`; the detail says a tick
+  records the bedtime, not your sleep) and "Devices away before bed" (no weight: the authors noted
+  it, the trial did not test it).
+- **Gates:** lint, typecheck, 775 unit tests in 52 files, and the build all pass
+  (`docs/evidence/phase10-3b/gates.txt`). No route or screen changed for a reader, because the
+  read is not published, so `test:http` and `test:browser` were not run for this commit.
+- **Waiting on the owner (⏸):** read the draft against the paper and approve the read (no new
+  concept to approve). After that: `approve`, `content:build`, release, and a live check.
+  Publishing also needs the hosted seed push, which still waits on the owner's second "go".
