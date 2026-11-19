@@ -2136,3 +2136,27 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
 - **Waiting on the owner (⏸):** read the draft against the paper and approve the read (no new
   concept to approve). After that: `approve`, `content:build`, release, and a live check.
   Publishing also needs the hosted seed push, which still waits on the owner's second "go".
+
+## 2026-11-19: the owner approved the sleep-extension read; release held for the hosted seed
+
+- Owner: **"Approve the read"** (step 3B, as committed in `1929274`). No concept to approve.
+- `npm run paper -- approve sleep-extension-energy-intake` passed the gate and the lint and set
+  `publishedAt`. `npm run content:build` then wrote 5 papers (4 free, 1 premium). The read's main
+  step `aim-8-5-bed` is graded moderate (a single randomized trial); `devices-away-bed` has none.
+  Output: `docs/evidence/phase10-3b-release/approve-and-build.txt`.
+- `scripts/glance.test.ts` lists every paper with a feed card, so it failed on the fifth paper.
+  The sleep read was added to that list and to the "words only, drawn from gated facts" check,
+  the same check as caffeine and turmeric. This adds coverage; it loosens nothing.
+- Gates: lint, typecheck, 776 unit tests, the build, 16 HTTP tests (the new route answers 200)
+  and 108 browser tests all pass (`phase10-3b-release/`). The local page at 375 px shows the whole
+  read, the figure, the simulator, both steps and the receipts, with no console errors.
+- **Not pushed yet, on purpose.** `equipped_protocols.paper_id` references `public.papers`.
+  Until the hosted database has this paper, adding its protocol to the Life Game is refused with
+  a foreign-key error (23503). `lib/supabase/remote.ts` treats a 23xxx refusal other than 23505
+  as permanent, so the write would be dropped and reported on Me. The seed push therefore comes
+  first, then the push to `main` that Vercel deploys. That seed push is the long-pending second
+  "go"; it now also carries the sleep read (published count after it: 5, not 4).
+- **Worth a later look (not changed, the read is approved as it stands):** the card and the
+  step's source line show the fact's outcome wording, "Difference in change in energy intake
+  (sleep extension minus control)". It is accurate but stiff, and could be reworded in
+  `extraction.json`.

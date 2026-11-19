@@ -50,9 +50,9 @@ const CARDS = PAPERS.map((paper) => {
 
 describe("the still figure prints no number, and its shape is the study's", () => {
   it("every paper has a card view", () => {
-    expect(CARDS.map((c) => c.slug).sort()).toEqual(["daytime-caffeine-sleep", "hiit-body-composition", "steps-days-per-week", "turmeric-pepper-breakfast"]);
+    expect(CARDS.map((c) => c.slug).sort()).toEqual(["daytime-caffeine-sleep", "hiit-body-composition", "sleep-extension-energy-intake", "steps-days-per-week", "turmeric-pepper-breakfast"]);
   });
-  for (const card of ["daytime-caffeine-sleep", "turmeric-pepper-breakfast"]) {
+  for (const card of ["daytime-caffeine-sleep", "turmeric-pepper-breakfast", "sleep-extension-energy-intake"]) {
     it(`${card}: words only, drawn from gated facts`, () => {
       const { html, view } = CARDS.find((c) => c.slug === card)!;
       const text = drawnText(html);

@@ -95,6 +95,50 @@
       "credit": "Khodadadi F, Bagheri R, Negaresh R, et al. The Effect of High-Intensity Interval Training Type on Body Fat Percentage, Fat and Fat-Free Mass: A Systematic Review and Meta-Analysis of Randomized Clinical Trials. J Clin Med. 2023;12(6):2291. doi:10.3390/jcm12062291. Licence: CC-BY."
     },
     {
+      "slug": "sleep-extension-energy-intake",
+      "slides": [
+        {
+          "kind": "hook",
+          "heading": "Adults who slept longer ate 270.4 kcal a day less",
+          "body": null
+        },
+        {
+          "kind": "finding",
+          "heading": "What changed in 2 weeks",
+          "body": "Compared with the control group, adults who slept longer ate 270.4 kcal a day less. The energy participants burned showed no clear difference."
+        },
+        {
+          "kind": "population",
+          "heading": "Who took part",
+          "body": "80 adults aged 21 to 40 with overweight, who usually slept under 6.5 hours a night. Chance decided who extended their sleep, at home, with no diet or exercise plan."
+        },
+        {
+          "kind": "nuance",
+          "heading": "Both groups moved",
+          "body": "Intake fell by 155.5 kcal a day in the sleep group and rose by 114.9 in the control group. Of the 0.87 kg weight gap, 0.62 kg was fat-free mass."
+        },
+        {
+          "kind": "limitation",
+          "heading": "What this cannot show",
+          "body": "The change lasted 2 weeks, so long-term habits are unknown. Only adults with overweight took part."
+        },
+        {
+          "kind": "cta",
+          "heading": "Try it in the read",
+          "body": "Compare every energy estimate, then add the 8.5-hour bedtime to your Life Game."
+        }
+      ],
+      "caption": "A randomized trial of 80 adults with overweight who slept under 6.5 hours a night. Sleep advice gave the sleep group 1.2 hours more sleep a night than the control group. Those adults ate 270.4 kcal a day less than the control group, with no diet. The control group also ate 114.9 kcal a day more than before, and the change lasted 2 weeks. Full read and the estimate explorer: link in bio.",
+      "hashtags": [
+        "sleep",
+        "nutrition",
+        "metabolism",
+        "evidencebased",
+        "clinicaltrial"
+      ],
+      "credit": "Tasali E, Wroblewski K, Kahn E, Kilkus J, Schoeller DA. Effect of Sleep Extension on Objectively Assessed Energy Intake Among Adults With Overweight in Real-life Settings: A Randomized Clinical Trial. JAMA Intern Med. 2022;182(4):365-374. doi:10.1001/jamainternmed.2021.8098. Licence: CC-BY."
+    },
+    {
       "slug": "steps-days-per-week",
       "slides": [
         {

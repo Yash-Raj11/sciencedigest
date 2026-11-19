@@ -1991,6 +1991,35 @@
         }
       ]
     ],
+    "sleep-extension-energy-intake": [
+      [
+        {
+          "text": "Aiming for 8.5 hours in bed, adults who had slept under 6.5 hours got 1.2 hours more sleep than the control group.",
+          "refs": [
+            "eligibility_age_bmi_sleep",
+            "sleep_extension_target",
+            "sleep_duration_diff"
+          ]
+        }
+      ],
+      [
+        {
+          "text": "Compared with the control group, they ate 270.4 kcal a day less, with no diet.",
+          "refs": [
+            "ei_diff_in_changes",
+            "free_living_routine"
+          ]
+        }
+      ],
+      [
+        {
+          "text": "The authors noted that limiting electronic devices seemed to matter to participants; the trial did not test it on its own.",
+          "refs": [
+            "limit_sleep_factors_unassessed"
+          ]
+        }
+      ]
+    ],
     "steps-days-per-week": [
       [
         {

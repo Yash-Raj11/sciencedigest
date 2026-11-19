@@ -2,7 +2,7 @@
   "slug": "sleep-extension-energy-intake",
   "category": "Sleep",
   "accessTier": "free",
-  "publishedAt": null,
+  "publishedAt": "2026-11-19T06:41:02.465Z",
   "title": "Two weeks of longer sleep at home: what 80 adults then ate [baseline_and_intervention_periods, overall_mean_age]",
   "teaser": "The trial took 80 adults with overweight who slept under 6.5 hours a night. [overall_mean_age, eligibility_age_bmi_sleep] Sleep advice gave the sleep group 1.2 hours more sleep a night than the control group. [sleep_duration_diff] Over 2 weeks they ate 270.4 kcal a day less than the control group, with no diet. [baseline_and_intervention_periods, ei_diff_in_changes, free_living_routine] Part of that gap came from the control group eating more than before. [ei_ctrl_change, limit_control_increase]",
   "hook": "This trial gave 80 adults no diet and no exercise plan. [overall_mean_age, free_living_routine] It aimed to change one thing, their time in bed, and then measured what they ate. [sleep_extension_target, energy_intake_method]",

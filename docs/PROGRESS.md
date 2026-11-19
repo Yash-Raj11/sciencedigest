@@ -217,6 +217,9 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       broke, so there is no new fixture: the out-of-room, 503 and JSON-retry stops already have
       tests. Figure `energy-ledger`, with 10 tests. No new concept. Review sheet: `draft-for-review.md`.
 - [ ] ⏸ Stop. Owner reads the draft; then approve, content:build, release, live check.
+      Owner approved the read 2026-11-19. Approve and content:build are done, and the gates, HTTP
+      and browser tests pass. Release is held: the hosted seed push must land first (it needs the
+      owner's second "go"), then push to main, then the live check.
 
 ## Step 4: Phase 11, Instagram carousels with their own art
 
