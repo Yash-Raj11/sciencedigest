@@ -1,0 +1,8 @@
+
+> sciencedigest@0.1.0 retractions
+> tsx scripts/retractions-sync.mts
+
+67,951 retraction records checked against 4 published papers and 1 context study.
+No published paper and no context study has been retracted.
+npm run retractions  9.23s user 2.39s system 119% cpu 9.722 total
+data: gitlab.com/crossref/retraction-watch-data, commit 8107b3a, 2026-11-18 (was 2026-11-12 before this pull)

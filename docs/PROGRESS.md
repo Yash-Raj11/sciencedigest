@@ -202,7 +202,12 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
 
 ## Step 3: Phase 10, first live pipeline run
 
-- [ ] 3A. `npm run retractions` (first real run, show the count); 3 candidate papers from Europe PMC.
+- [x] 3A. `npm run retractions` (first real run, show the count); 3 candidate papers from Europe PMC.
+      Done 2026-11-19: 67,951 retraction records (data of 2026-11-18), none of the 4 papers or
+      the context study retracted. Candidates: A salt dose and blood pressure (BMJ 2020,
+      meta-analysis, 12,197; licence line also says "No commercial re-use"), B sleep extension
+      and energy intake (JAMA IM 2022, RCT, 80), C early vs midday time-restricted eating
+      (Nat Commun 2022, RCT, 90). `docs/evidence/phase10-3a/candidates.md`.
 - [ ] ⏸ Stop. Owner picks one and its tier.
 - [ ] 3B. fetch, extract, draft on the pick; a regression fixture for each break; figure and concepts.
 - [ ] ⏸ Stop. Owner reads the draft; then approve, content:build, release, live check.

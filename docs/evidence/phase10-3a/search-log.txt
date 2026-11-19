@@ -1,0 +1,30 @@
+napping: 16 hits, 16 read, 16 with an allowed licence
+sitting: 3 hits, 3 read, 3 with an allowed licence
+water: 46 hits, 40 read, 40 with an allowed licence
+breakfast: 58 hits, 40 read, 40 with an allowed licence
+nuts: 37 hits, 37 read, 37 with an allowed licence
+eggs: 10 hits, 10 read, 10 with an allowed licence
+timeEating: 103 hits, 40 read, 40 with an allowed licence
+mindfulness: 141 hits, 40 read, 40 with an allowed licence
+phone: 1 hits, 1 read, 1 with an allowed licence
+strength: 47 hits, 40 read, 40 with an allowed licence
+stretching HTTP 500
+coldWater: 13 hits, 13 read, 13 with an allowed licence
+sauna HTTP 503
+alcohol HTTP 503
+fibre HTTP 503
+sleepExtension HTTP 503
+morningLight HTTP 503
+postMealWalk HTTP 503
+salt HTTP 503
+vinegar HTTP 503
+--- retry of the topics that failed, 4 s apart ---
+stretching: 60 hits, 40 read, 40 with an allowed licence
+sauna: 4 hits, 4 read, 4 with an allowed licence
+alcohol: 10 hits, 10 read, 10 with an allowed licence
+fibre: 22 hits, 22 read, 22 with an allowed licence
+sleepExtension: 11 hits, 11 read, 11 with an allowed licence
+morningLight: 23 hits, 23 read, 23 with an allowed licence
+postMealWalk: 4 hits, 4 read, 4 with an allowed licence
+salt: 23 hits, 23 read, 23 with an allowed licence
+vinegar: 7 hits, 7 read, 7 with an allowed licence

@@ -2050,3 +2050,28 @@ number. The simulator labels it by kind and never converts SD to CI or the rever
   labels and the turmeric meal picker's default (BUILD-LOG 2026-11-19).
 - **After the seed push:** remove the old-shape branches in `components/read/Article.tsx` and the
   old-shape fields of `PaperContent` in `lib/content/types.ts`.
+
+## 2026-11-19: step 3A: the retraction check and three candidate papers
+
+- **Retractions.** `npm run retractions` pulled the Retraction Watch data up to date (it had been
+  cloned on 2026-11-13; data now of 2026-11-18): 67,951 records, none of the 4 published papers
+  or the context study retracted. `.env.local` has no service role key, so the run wrote nothing
+  to the hosted database.
+- **Search.** Europe PMC, one query per everyday topic (20 topics; the four existing reads' topics
+  left out), filtered to randomized trials and meta-analyses with a CC-BY, CC-BY-SA or CC0
+  licence and open full text, 2019 onwards. Every record then went through the pipeline's own
+  `checkLicense`. Each finalist was also checked with `findRetracted`, its Europe PMC types and
+  the licence statement in its own full text (read in memory, nothing saved). The search script
+  is a one-off in the session scratchpad; the queries, counts and results are in
+  `docs/evidence/phase10-3a/`.
+- **Europe PMC answered 503/500 on 8 of 20 queries** on the first pass; all came back on a retry
+  4 s apart. Noted for 3B: `paper fetch` makes one request and stops with "Europe PMC search
+  failed (503)"; that is a clear error, not a silent failure, so it was left as is.
+- **Candidates** (details and reasons in `candidates.md`): A, salt dose and blood pressure
+  (BMJ 2020, meta-analysis of 133 randomised trials, 12,197 participants); B, sleep extension and
+  energy intake (JAMA Internal Medicine 2022, RCT, 80); C, early vs midday time-restricted
+  eating (Nature Communications 2022, RCT, 90 randomized, 82 analysed). All three are broad
+  everyday topics for the free tier.
+- **For the owner:** A's licence is CC BY 4.0 in its licence text and link, but its copyright line
+  also says "No commercial re-use". It passes `checkLicense`; the owner decides whether that line
+  rules it out.
