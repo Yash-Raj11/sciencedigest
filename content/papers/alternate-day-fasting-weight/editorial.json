@@ -125,13 +125,12 @@
     {
       "key": "fast-day-one-meal",
       "label": "Fast day: one meal of 400 to 600 kcal",
-      "detail": "On alternate days, as the fasting group did for 12 weeks. A tick records the fast day, not any change in your weight.",
+      "detail": "On alternate days, as the fasting group did for 12 weeks. The trial fasted every other day, not daily, so in a daily tracker the step carries no weight for now. A tick records the fast day, not any change in your weight.",
       "kind": "action",
       "refs": [
         "meal_kcal",
         "fast_day_quarter"
-      ],
-      "evidenceRef": "weight_md"
+      ]
     },
     {
       "key": "fast-day-meal-midday",

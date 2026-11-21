@@ -160,8 +160,8 @@
   "steps": [
     {
       "key": "ten-hours-in-bed",
-      "label": "Give yourself 10 hours in bed",
-      "detail": "The healthy-sleep schedule the teens kept in this trial. A tick records the time you gave to sleep, not what you ate.",
+      "label": "Give yourself 10 hours in bed (tested in teens)",
+      "detail": "The healthy-sleep schedule the teens kept in this trial; adults were not tested. A tick records the time you gave to sleep, not what you ate.",
       "kind": "action",
       "refs": [
         "hs_in_bed"

@@ -25,13 +25,7 @@ export const PAPERS: PaperMeta[] = [
     "species": "human",
     "sampleSize": 30,
     "sourceLine": "30 adults aged 35 to 65 · randomized trial · 12 weeks",
-    "grades": [
-      {
-        "outcome": "Body weight at week 12, fasting against control",
-        "tier": "low",
-        "why": "People were assigned at random, but only 30 took part, so a bigger trial could change the picture."
-      }
-    ],
+    "grades": [],
     "hasBlock": false,
     "simulatorKind": "estimate-explorer"
   },
@@ -81,13 +75,7 @@ export const PAPERS: PaperMeta[] = [
     "species": "human",
     "sampleSize": 100,
     "sourceLine": "100 adults with moderate eczema · randomized trial · 28 days",
-    "grades": [
-      {
-        "outcome": "Water loss through the skin (TEWL)",
-        "tier": "moderate",
-        "why": "People were assigned at random, which rules out most other explanations, in one study."
-      }
-    ],
+    "grades": [],
     "hasBlock": false,
     "simulatorKind": "estimate-explorer"
   },
@@ -460,10 +448,10 @@ export const STEPS: ContentStep[] = [
     "paperId": "c2973302-d38f-5d46-adfb-0bb4720f6d90",
     "position": 1,
     "label": "Fast day: one meal of 400 to 600 kcal",
-    "detail": "On alternate days, as the fasting group did for 12 weeks. A tick records the fast day, not any change in your weight.",
+    "detail": "On alternate days, as the fasting group did for 12 weeks. The trial fasted every other day, not daily, so in a daily tracker the step carries no weight for now. A tick records the fast day, not any change in your weight.",
     "kind": "action",
-    "grade": "low",
-    "sourceEstimate": "Body weight at week 12, fasting against control −5.2 kg",
+    "grade": "none",
+    "sourceEstimate": null,
     "targetPerWeek": null,
     "countsStepId": null,
     "conditionKey": null,
@@ -545,10 +533,10 @@ export const STEPS: ContentStep[] = [
     "paperId": "5f506dec-244c-541c-aee9-adaf2b5cbca8",
     "position": 1,
     "label": "Ceramide cream on the whole body, morning and night",
-    "detail": "As the trial did for 28 days. A tick records that you put it on, not any change in your skin.",
+    "detail": "As the trial did for 28 days. Its main eczema score showed no clear difference, so the step carries no weight. A tick records that you put it on, not any change in your skin.",
     "kind": "action",
-    "grade": "moderate",
-    "sourceEstimate": "Water loss through the skin (TEWL): Water loss through the skin fell more with the ceramide set than with placebo",
+    "grade": "none",
+    "sourceEstimate": null,
     "targetPerWeek": null,
     "countsStepId": null,
     "conditionKey": null,
@@ -785,8 +773,8 @@ export const STEPS: ContentStep[] = [
     "key": "ten-hours-in-bed",
     "paperId": "4e22a431-bda7-540e-898f-f43643660454",
     "position": 1,
-    "label": "Give yourself 10 hours in bed",
-    "detail": "The healthy-sleep schedule the teens kept in this trial. A tick records the time you gave to sleep, not what you ate.",
+    "label": "Give yourself 10 hours in bed (tested in teens)",
+    "detail": "The healthy-sleep schedule the teens kept in this trial; adults were not tested. A tick records the time you gave to sleep, not what you ate.",
     "kind": "action",
     "grade": "low",
     "sourceEstimate": "How appealing sweet and dessert photos looked: After short sleep, sweet and dessert photos were rated more appealing than after healthy sleep",

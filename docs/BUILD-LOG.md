@@ -2511,3 +2511,20 @@ decks exported before the change still match. The six newer decks were then expo
 `docs/evidence/carousel/` (they had only been drawn into the trial evidence); parity passes on all
 11 decks, 320 slides across 4 looks (`docs/evidence/carousel/parity.txt`).
 
+
+## 2026-11-21: owner decisions on the six review sheets
+
+The owner took the recommended answer on each:
+
+- **A. Ceramide cream step: weight 0.** The main eczema score (EASI) showed no clear difference; the
+  barrier and hydration results are secondary. The step stays in the tracker and says why it carries no weight.
+- **B. "10 hours in bed": teen wording, grade kept low.** The label now says it was tested in teens and the
+  detail says adults were not tested.
+- **C. Alternate-day fasting step: weight 0 for now.** The trial fasted every other day; a daily tracker has
+  no way yet to weight an every-other-day action honestly. Revisit if the tracker gains non-daily steps.
+- **D. Toothbrushing and sugar papers keep no weighted step.** Unchanged.
+- The stated defaults stand (no picture on the "why" slides, unknown ± left unknown, no range for SEM-only
+  papers, the toothbrushing "<40%" bar, the "one meal" reading, the sugar figure in the audit layer, the
+  Teeth and Skin categories).
+- All 11 decks approved in `/admin/queue`; the records are in `content/queue/`. Step keys and ids are
+  unchanged, so existing ticks still point at the same steps; only their weights changed.

@@ -139,12 +139,11 @@
     {
       "key": "ceramide-cream-twice",
       "label": "Ceramide cream on the whole body, morning and night",
-      "detail": "As the trial did for 28 days. A tick records that you put it on, not any change in your skin.",
+      "detail": "As the trial did for 28 days. Its main eczema score showed no clear difference, so the step carries no weight. A tick records that you put it on, not any change in your skin.",
       "kind": "action",
       "refs": [
         "cream_twice"
-      ],
-      "evidenceRef": "tewl_lower"
+      ]
     },
     {
       "key": "wash-then-cream",

@@ -16,11 +16,11 @@
 
  Test Files  63 passed (63)
       Tests  918 passed (918)
-   Start at  18:36:07
-   Duration  5.41s (tests 73%, import 23%, transform 3%, worker 1%)
+   Start at  18:43:34
+   Duration  5.72s (tests 75%, import 21%, transform 3%, worker 1%)
 
-    Isolate  63 workers spawned · ~96ms startup each (spawn + environment, per file)
-             at least ~765ms faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  63 workers spawned · ~91ms startup each (spawn + environment, per file)
+             at least ~730ms faster with isolate: false — reuses workers across files instead of one per file
 
 
 > sciencedigest@0.1.0 build
@@ -32,20 +32,20 @@
 
 ▲ Next.js 16.4.6 (Turbopack)
 - Environments: .env.local
-✓ Running next.config.ts took 24ms
+✓ Running next.config.ts took 51ms
 - Cache Components enabled
 - Partial Prefetching enabled
 
   Creating an optimized production build ...
-✓ Compiled successfully in 1560ms
+✓ Compiled successfully in 2.4s
   Running TypeScript ...
-  Finished TypeScript in 1476ms ...
+  Finished TypeScript in 1522ms ...
   Collecting page data using 7 workers ...
   Generating static pages using 7 workers (0/24) ...
   Generating static pages using 7 workers (6/24) 
   Generating static pages using 7 workers (12/24) 
   Generating static pages using 7 workers (18/24) 
-✓ Generating static pages using 7 workers (24/24) in 524ms
+✓ Generating static pages using 7 workers (24/24) in 644ms
   Finalizing page optimization ...
 
 Route (app)
