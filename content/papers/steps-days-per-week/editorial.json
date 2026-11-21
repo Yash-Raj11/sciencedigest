@@ -315,37 +315,180 @@
     "slides": [
       {
         "kind": "hook",
-        "heading": "8,000 steps on 1 or 2 days a week. What happened over 10 years? [threshold, ard_1_2, followup]"
+        "heading": "Do you need 8,000 steps every day? [threshold]",
+        "body": "Most step goals are daily. [-] This study counted how many days a week 3,101 adults reached 8,000. [threshold, sample]",
+        "art": {
+          "motif": "number",
+          "value": {
+            "text": "8000",
+            "ref": "threshold"
+          },
+          "unit": "steps [-]",
+          "label": "on how many days a week? [threshold]"
+        }
       },
       {
         "kind": "finding",
-        "heading": "The headline number [-]",
-        "body": "After adjustment, people with 1 to 2 such days had a 10-year risk of death 14.9 points lower than people with none. [ard_1_2, followup]"
+        "heading": "One or two such days a week went with a lower risk of death. [ard_1_2, threshold]",
+        "body": "Over 10 years, against people with none. [followup]",
+        "art": {
+          "motif": "pair",
+          "a": {
+            "value": {
+              "text": "14.9",
+              "ref": "ard_1_2"
+            },
+            "unit": "points lower [ard_1_2]",
+            "label": "1 or 2 days a week [threshold]"
+          },
+          "b": {
+            "value": {
+              "text": "16.5",
+              "ref": "ard_3_7"
+            },
+            "unit": "points lower [ard_3_7]",
+            "label": "3 to 7 days a week [threshold]"
+          }
+        }
       },
       {
-        "kind": "finding",
-        "heading": "More days added little [-]",
-        "body": "At 3 to 7 days the gap was 16.5 points. [ard_3_7] The curve went flat at 3 to 4 days. [plateau]"
+        "kind": "why",
+        "heading": "The risk gap opens fast, then levels off. [plateau]",
+        "body": "It levelled off at 3 to 4 days a week. [plateau]",
+        "art": {
+          "motif": "plateau",
+          "kind": "measured",
+          "fact": "fact:ard_1_2",
+          "y": "Risk of death [-]",
+          "axis": "Days a week with 8,000 steps [threshold]",
+          "from": {
+            "n": 0,
+            "ref": "threshold"
+          },
+          "to": {
+            "n": 7,
+            "ref": "threshold"
+          },
+          "levels": {
+            "from": {
+              "n": 3,
+              "ref": "plateau"
+            },
+            "to": {
+              "n": 4,
+              "ref": "plateau"
+            },
+            "label": "Levels off here [plateau]"
+          }
+        }
       },
       {
-        "kind": "population",
-        "heading": "Who this describes [-]",
-        "body": "3,101 US adults aged 20 or older, tracked for 1 week, then traced through death records. [sample, cohort] Observational: nobody was assigned to walk. [cohort]"
+        "kind": "who",
+        "heading": "Only if you look like the people tested. [-]",
+        "body": null,
+        "art": {
+          "motif": "who",
+          "tested": [
+            "3,101 US adults [sample]",
+            "Aged 20 and older [cohort]",
+            "Followed for 10 years [followup]"
+          ],
+          "notTested": [
+            "People told to walk more [cohort]",
+            "Changes in steps over time [one_week]"
+          ]
+        }
       },
       {
-        "kind": "nuance",
-        "heading": "The groups were not alike [-]",
-        "body": "Mean age was 63.7 in the zero-day group and 46.0 in the 3-to-7-day group. [ages, threshold] Adjustment narrows that difference. It cannot erase it. [confounding]"
-      },
-      {
-        "kind": "limitation",
-        "heading": "What this cannot show [-]",
-        "body": "Steps were measured for 1 week only. [one_week] People in poor health walk less, so part of the gap is illness, not walking. [confounding]"
+        "kind": "receipts",
+        "heading": "How sure can we be? [-]",
+        "body": null,
+        "art": {
+          "motif": "checks",
+          "strong": "3,101 adults, 10 years of records. [sample, followup]",
+          "weak": "Poor health can mean fewer steps and earlier death. [confounding]",
+          "missing": "Steps counted for one week. [one_week]"
+        }
       },
       {
         "kind": "cta",
-        "heading": "Try the adjustment yourself [-]",
-        "body": "Open the simulator to watch the gap change as each adjustment is added, then add the weekly target to your Life Game. [-]"
+        "heading": "How many 8,000-step days do you get? [threshold]",
+        "body": "Count your step days last week. [-] Find your group in the simulator. [-]",
+        "art": null
+      }
+    ],
+    "altHooks": [
+      {
+        "name": "The number",
+        "kind": "hook",
+        "heading": "What went with one or two 8,000-step days a week? [threshold]",
+        "body": "A risk of death this much lower over 10 years than having none. [ard_1_2, followup]",
+        "art": {
+          "motif": "number",
+          "value": {
+            "text": "14.9",
+            "ref": "ard_1_2"
+          },
+          "unit": "points lower [ard_1_2]",
+          "label": "risk of death, in points [ard_1_2]"
+        }
+      },
+      {
+        "name": "The plateau",
+        "kind": "hook",
+        "heading": "Is more always better for step days? [plateau]",
+        "body": "Among 3,101 adults, the risk gap levelled off at 3 to 4 days a week. [sample, plateau]",
+        "art": {
+          "motif": "plateau",
+          "kind": "measured",
+          "fact": "fact:ard_1_2",
+          "y": "Risk of death [-]",
+          "axis": "Days a week with 8,000 steps [threshold]",
+          "from": {
+            "n": 0,
+            "ref": "threshold"
+          },
+          "to": {
+            "n": 7,
+            "ref": "threshold"
+          },
+          "levels": {
+            "from": {
+              "n": 3,
+              "ref": "plateau"
+            },
+            "to": {
+              "n": 4,
+              "ref": "plateau"
+            },
+            "label": "Levels off here [plateau]"
+          }
+        }
+      },
+      {
+        "name": "Any daily goal",
+        "kind": "hook",
+        "heading": "Does your daily step goal matter much? [-]",
+        "body": "This study also tried goals from 6000 to 10 000 steps a day. [thresholds] They gave similar results. [thresholds]",
+        "art": {
+          "motif": "pair",
+          "a": {
+            "value": {
+              "text": "6000",
+              "ref": "thresholds"
+            },
+            "unit": "steps [-]",
+            "label": "lowest goal tried [thresholds]"
+          },
+          "b": {
+            "value": {
+              "text": "10 000",
+              "ref": "thresholds"
+            },
+            "unit": "steps [-]",
+            "label": "highest goal tried [thresholds]"
+          }
+        }
       }
     ],
     "caption": "A 10-year follow-up of 3,101 US adults. [followup, sample] Reaching 8,000 steps on 1 to 2 days a week was associated with a risk of death 14.9 points lower than never reaching it. [threshold, ard_1_2] An observational study, and the groups differed in age and health. [confounding, ages] Source and simulator at the link in bio. [-]",

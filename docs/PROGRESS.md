@@ -224,11 +224,36 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
 
 ## Step 4: Phase 11, Instagram carousels with their own art
 
-- [ ] 4A. ⏸ Ask where the 12 carousel Studio files are; copy them in, never recreate.
-- [ ] 4B. New deck shape (7 slide kinds, at most 10 slides, 1080×1350); art kit in
+- [x] 4A. ⏸ Ask where the 12 carousel Studio files are; copy them in, never recreate.
+      Owner, 2026-11-19: they do not exist; "Build it fresh" (MASTER-PROMPT amendment).
+- [x] 4B. New deck shape (7 slide kinds, at most 10 slides, 1080×1350); art kit in
       `lib/carousel/art/`; Satori rules and inline-svg check; H1–H11 lint with the hook-caveat
       fixture; export route local-only or secret; verify-parity; PNGs in `docs/evidence/carousel/`.
+      Built 2026-11-19 (BUILD-LOG): Satori 0.29 via `next/og` draws inline svg; 5 decks,
+      35 slides, 0 missing glyphs; verify-parity passed; 12 of 12 breaks caught; 798 unit,
+      16 HTTP, 108 browser. **Not committed: the two font packages were added without asking
+      first; waiting on the owner to keep or drop them.**
+- [x] 4C. Owner's rework, 2026-11-19 to 2026-11-20 (BUILD-LOG entries of those dates), all built,
+      tested and exported; **none of it committed yet**:
+      - Rules 8–11 and the story deck: hook → finding → why → who → receipts → cta.
+      - Owner-approved common knowledge on the deck only (`content/common/`, `[common:<slug>]`).
+      - The why slide's sketch on the caffeine-tolerance concept.
+      - The owner's Claude Design carousel, in the site's colours.
+      - Every deck in 4 looks (black or white × site or bright orange; deck-only `--deck-vivid-*` tokens).
+      - The plateau chart (steps why slide).
+      - A contrast gate in parity; `npm run carousel:sheet` contact sheets.
+      - The `carousel-design` skill.
+      - Alternate openings (`carousel.altHooks`; 3 for steps, 1 each for the others), chosen in the
+        queue and saved in the approval record.
+      Proof: 826 unit tests; parity 5 decks, 148 slides × 4 looks;
+      `docs/evidence/carousel/` (sheet-*.png, openings-*.png, phase11/).
 - [ ] ⏸ Stop. Owner approves decks in `/admin/queue`.
+      Before that, the owner must:
+      - Review the caffeine deck's two new entries (`npm run paper -- approve-concept caffeine-tolerance`,
+        `npm run paper -- approve-common coffee-cup-caffeine`); the queue refuses that deck until then.
+      - Say keep or drop the two font packages.
+      - Say whether to commit the Phase 11 work.
+      Then pick each deck's look and opening, and approve.
 
 ## Finish
 

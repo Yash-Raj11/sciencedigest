@@ -1,0 +1,4 @@
+GATE REJECTED (3)
+  - species: the quoted passage does not support "human"
+  - fact sleep_28: the quote carries a p-value, so it reports a result of this study; use kind "finding" (or "estimate"), not "context"
+  - fact pooled_68: the quote carries a p-value, so it reports a result of this study; use kind "finding" (or "estimate"), not "context"

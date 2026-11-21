@@ -61,7 +61,10 @@ function tree(options: { conceptReviewed: boolean; citeStudy: boolean }) {
   cpSync("content/context/caffeine-saliva-half-life", join(context, "caffeine-saliva-half-life"), { recursive: true });
   cpSync("content/library.json", join(root, "library.json"));
 
+  // The caffeine deck's sketch concept and its common-knowledge fact (content/common/ sits beside context/).
+  cpSync("content/common", join(root, "common"), { recursive: true });
   mkdirSync(concepts, { recursive: true });
+  cpSync("content/concepts/caffeine-tolerance.json", join(concepts, "caffeine-tolerance.json"));
   writeFileSync(join(concepts, "non-rem-sleep.json"), JSON.stringify(options.conceptReviewed ? approved(concept, "2026-11-13T00:00:00Z") : concept, null, 2));
   return { root, papers, context, concepts };
 }
@@ -87,7 +90,7 @@ describe("content-build and context sources", () => {
     const { status, output } = build(tree({ conceptReviewed: true, citeStudy: true }));
     expect(output).toContain(`${OTHER}: gate ok (role context): ${OTHER_FACTS} facts, licence CC-BY, design cohort, grade low`);
     expect(output).toContain("non-rem-sleep: ok, reviewed by the owner");
-    expect(output).toContain(`context   2 other studies (caffeine-saliva-half-life, ${OTHER}), 1 background concept (non-rem-sleep)`);
+    expect(output).toContain(`context   2 other studies (caffeine-saliva-half-life, ${OTHER}), 2 background concepts (caffeine-tolerance, non-rem-sleep)`);
     expect(output).toContain("1 papers would be built (daytime-caffeine-sleep)");
     expect(status).toBe(0);
   }, 30000);

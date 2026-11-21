@@ -532,32 +532,113 @@
     "slides": [
       {
         "kind": "hook",
-        "heading": "1 g of black pepper in a breakfast egg. What did blood glucose do? [in_egg]"
+        "heading": "Can black pepper change your breakfast blood sugar? [-]",
+        "body": "20 healthy adults ate the same egg breakfast, with and without black pepper. [sample, meals]",
+        "art": {
+          "motif": "number",
+          "value": {
+            "text": "1 g",
+            "ref": "in_egg"
+          },
+          "label": "of black pepper, in the egg [in_egg]"
+        }
       },
       {
         "kind": "finding",
-        "heading": "Lower after the pepper meals [glucose_lower]",
-        "body": "After the pepper breakfast, blood glucose was lower than after the plain one. [glucose_lower] The clear difference was at the 30-minute reading. [glucose_30] Added up over 3 hours, the meals did not differ. [glucose_total, nothing_else]"
+        "heading": "Blood sugar ran lower after the pepper meals. [glucose_lower]",
+        "body": "The clear gap was at the 30-minute reading. [glucose_30]",
+        "art": {
+          "motif": "verdicts",
+          "rows": [
+            {
+              "label": "Blood sugar after pepper [-]",
+              "verdict": "lower",
+              "fact": "fact:glucose_lower"
+            },
+            {
+              "label": "Total over the whole test [-]",
+              "verdict": "no-clear-difference",
+              "fact": "fact:glucose_total"
+            },
+            {
+              "label": "Turmeric on its own [-]",
+              "verdict": "no-clear-difference",
+              "fact": "fact:turmeric_none"
+            },
+            {
+              "label": "Hunger after pepper [-]",
+              "verdict": "lower",
+              "fact": "fact:appetite"
+            }
+          ]
+        }
       },
       {
-        "kind": "population",
-        "heading": "Who this describes [-]",
-        "body": "20 healthy adults in their early twenties, one breakfast per version. [sample, ages, single_meal] Nobody with diabetes took part. [criteria]"
+        "kind": "why",
+        "heading": "A doorbell in your mouth [-]",
+        "body": "Food presses it, and the body hears a meal is coming. [-] The authors say pepper might press it. [trpv1]",
+        "art": {
+          "motif": "doorbell",
+          "kind": "proposed",
+          "fact": "fact:trpv1",
+          "labels": [
+            "Pepper [-]",
+            "The bell [-]",
+            "Meal coming [-]"
+          ]
+        }
       },
       {
-        "kind": "nuance",
-        "heading": "Turmeric alone: no clear difference [turmeric_none]",
-        "body": "1 g of turmeric without pepper showed no clear difference in glucose. [turmeric_none] The authors think the dose was too low. [turmeric_dose]"
+        "kind": "who",
+        "heading": "Only if you look like the people tested. [-]",
+        "body": null,
+        "art": {
+          "motif": "who",
+          "tested": [
+            "20 healthy adults [sample]",
+            "In their early twenties [ages]",
+            "A healthy weight [criteria]",
+            "One breakfast at a time [single_meal]"
+          ],
+          "notTested": [
+            "People with diabetes [criteria]",
+            "Daily use over weeks [lim_long_term]"
+          ]
+        }
       },
       {
-        "kind": "limitation",
-        "heading": "How sure? [-]",
-        "body": "A small trial of single meals. [sample, single_meal] The text does not say how big the differences were. [glucose_30] The trial measured no hormones, so the mechanism is a proposal. [lim_hormones]"
+        "kind": "receipts",
+        "heading": "How sure can we be? [-]",
+        "body": null,
+        "art": {
+          "motif": "checks",
+          "strong": "Each person ate all four breakfasts, in random order. [crossover]",
+          "weak": "Single meals; lower hunger may reflect taste. [single_meal, lim_taste]",
+          "missing": "No sizes given for the differences. [glucose_30]"
+        }
       },
       {
         "kind": "cta",
-        "heading": "Compare the four breakfasts [-]",
-        "body": "Pick a meal in the simulator to see what the trial recorded after it. [-]"
+        "heading": "Which breakfast would you pick? [-]",
+        "body": "Pick a meal in the simulator to see what the trial recorded. [-]",
+        "art": null
+      }
+    ],
+    "altHooks": [
+      {
+        "name": "The 30-minute gap",
+        "kind": "hook",
+        "heading": "When did the pepper meals show a blood sugar gap? [glucose_30]",
+        "body": "20 healthy adults ate egg breakfasts with and without black pepper. [sample, meals]",
+        "art": {
+          "motif": "number",
+          "value": {
+            "text": "30",
+            "ref": "glucose_30"
+          },
+          "unit": "minutes [-]",
+          "label": "after eating: the one clear gap [glucose_30]"
+        }
       }
     ],
     "caption": "A crossover trial in 20 healthy young adults tested 1 g of black pepper in a breakfast egg. [crossover, sample, in_egg] Blood glucose was lower at 30 minutes than after the plain meal. [glucose_lower, glucose_30] Over 3 hours the meals showed no clear difference, nor did turmeric alone. [glucose_total, nothing_else, turmeric_none] The text does not say how big any difference was. [glucose_30] Simulator at the link in bio. [-]",

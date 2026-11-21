@@ -7,12 +7,14 @@
  *
  * Nothing is ever posted from here. Approving a deck records that YOU read it;
  * the record is a small file you commit, which makes git the audit trail.
- * A deck whose wording changes after approval drops back to "changed".
+ * A deck whose wording changes after approval drops back to "changed". The record also names the
+ * opening slide you chose (A, the deck's own hook, or an alternate B to D).
  */
 
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { hookChoices, OWN_HOOK } from "@/lib/carousel/hooks";
 import type { CarouselDeck } from "@/lib/content/types";
 import { coverageChecklist, type ChecklistRow } from "@/lib/pipeline/coverage";
 import { gate } from "@/lib/pipeline/gate";
@@ -47,22 +49,26 @@ export async function GET() {
   if (!LOCAL) return new Response("Not found", { status: 404 });
   const items = decks().map((deck) => {
     const file = path.join(QUEUE, `${deck.slug}.json`);
-    const record = existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) as { fingerprint: string; approvedAt: string } : null;
+    const record = existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) as { fingerprint: string; approvedAt: string; hook?: string } : null;
     const status = !record ? "waiting" : record.fingerprint === fingerprint(deck) ? "approved" : "changed";
-    return { deck, status, approvedAt: record?.approvedAt ?? null };
+    return { deck, status, approvedAt: record?.approvedAt ?? null, hook: record?.hook ?? OWN_HOOK };
   });
   return Response.json({ items, coverage: coverage() });
 }
 
 export async function POST(request: Request) {
   if (!LOCAL) return new Response("Not found", { status: 404 });
-  const { slug, action } = (await request.json()) as { slug?: string; action?: string };
+  const { slug, action, hook = OWN_HOOK } = (await request.json()) as { slug?: string; action?: string; hook?: string };
   const deck = decks().find((d) => d.slug === slug);
   if (!deck) return Response.json({ error: "No deck with that slug." }, { status: 400 });
   const file = path.join(QUEUE, `${deck.slug}.json`);
   if (action === "approve") {
+    if ((deck.pending ?? []).length > 0) {
+      return Response.json({ error: `Review ${deck.pending.join(", ")} first (npm run paper -- approve-concept or approve-common).` }, { status: 409 });
+    }
+    if (!hookChoices(deck).includes(hook)) return Response.json({ error: `hook must be one of ${hookChoices(deck).join(", ")}.` }, { status: 400 });
     mkdirSync(QUEUE, { recursive: true });
-    writeFileSync(file, `${JSON.stringify({ slug: deck.slug, fingerprint: fingerprint(deck), approvedAt: new Date().toISOString() }, null, 2)}\n`);
+    writeFileSync(file, `${JSON.stringify({ slug: deck.slug, fingerprint: fingerprint(deck), hook, approvedAt: new Date().toISOString() }, null, 2)}\n`);
   } else if (action === "withdraw") {
     rmSync(file, { force: true });
   } else {

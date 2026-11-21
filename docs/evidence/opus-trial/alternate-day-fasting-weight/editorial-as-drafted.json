@@ -1,0 +1,279 @@
+{
+  "slug": "alternate-day-fasting-weight",
+  "category": "Nutrition",
+  "accessTier": "free",
+  "publishedAt": null,
+  "title": "A quarter of your needs every other day: 12 weeks in adults without obesity [fast_day_quarter, twelve_weeks]",
+  "teaser": "Adults who were normal weight or overweight ate a quarter of their energy needs every other day, and ate freely in between. [inclusion_bmi, fast_day_quarter, feed_day_free] After 12 weeks, they weighed 5.2 kg less than a control group. [weight_md] On free days, they ate about what the control group ate. [feed_w12, ctrl_w12]",
+  "hook": "Every other day, 15 adults ate a single meal of 400 to 600 kcal. [per_group_15, meal_kcal] After 12 weeks, they weighed 5.2 kg less than a control group. [weight_md]",
+  "populationTerms": [
+    "adults",
+    "people",
+    "participants"
+  ],
+  "populationPanel": "Who this was tested in: 30 adults in Chicago aged 35 to 65, with a BMI of 20 to 29.9. [completed_30, recruited, inclusion_age, inclusion_bmi] That is normal weight or overweight, not obese. [inclusion_bmi] Most were women. [sex_table] None had diabetes or heart disease, or smoked, and all were lightly active. [inclusion_health, inclusion_active] A random draw put 15 into fasting and 15 into eating as usual. [stratified, per_group_15]",
+  "primaryEstimate": "weight_md",
+  "card": {
+    "question": "Does fasting every other day help adults without obesity lose weight? [weight_md]",
+    "headline": "After 12 weeks, the fasting group weighed 5.2 kg less than the control group. [weight_md]",
+    "support": "Most of that was fat: 3.6 kg, while lean mass showed no clear difference. [fat_md, lean_ns]"
+  },
+  "source": {
+    "who": "30 adults aged 35 to 65 [completed_30, inclusion_age]",
+    "span": "12 weeks [twelve_weeks]"
+  },
+  "glance": {
+    "figure": "fast-days",
+    "x": "Days [-]",
+    "alt": "Two rows of daily bars: in the fasting group, short fast-day bars alternate with tall feed-day bars; in the control group, every bar is tall. [fast_w12, feed_w12, ctrl_w12]",
+    "note": "Drawn from the paper’s own food records. [-]",
+    "tryIt": "compare weight and fat lost against the control group [-]"
+  },
+  "layers": {
+    "mechanism": {
+      "paragraphs": [
+        "Think of two days as one budget. [-] On a fast day, the fasting group ate one provided meal of 400 to 600 kcal, about a quarter of their needs. [meal_kcal, fast_day_quarter] On the next day, they ate whatever they liked. [feed_day_free]",
+        "The plan only works if the free day does not refill the gap. [-] At week 12, a free day held 1856 kcal and a fast day 489. [feed_w12, fast_w12] The control group ate 1790 kcal a day. [ctrl_w12] So every two days, the fasting group's budget came out well below the control group's. [feed_w12, fast_w12, ctrl_w12]",
+        "The authors saw little or no burst of overeating after a fast, which they call hyperphagia. [no_overeating] Food eaten stayed level on both kinds of day across the 12 weeks. [intake_constant]",
+        "The scale followed. [-] After 12 weeks, the fasting group weighed 5.2 kg less than the control group. [weight_md] Of that, 3.6 kg was fat; lean mass showed no clear difference. [fat_md, lean_ns]",
+        "Fasting got easier to live with, too. [-] Fullness and satisfaction on fast days rose over the trial, and hunger stayed level. [fullness_up, hunger_ns]"
+      ],
+      "figure": {
+        "figure": "fast-days",
+        "caption": "Each bar is the group's average food for that kind of day at week 12, from food records. [feed_w12, fast_w12, ctrl_w12]",
+        "alt": "Two rows of bars on one scale. [-] Fasting group: fast-day bars at 489 kcal alternate with feed-day bars at 1856 kcal. [fast_w12, feed_w12] Control group: every bar at 1790 kcal. [ctrl_w12]",
+        "params": {
+          "title": "Food eaten per day, week 12",
+          "unit": "kcal",
+          "fastWord": "Fast day",
+          "feedWord": "Feed day",
+          "everyWord": "Every day",
+          "fasting": {
+            "label": "Fasting group",
+            "fast": {
+              "kind": "measured",
+              "fact": "fact:fast_w12"
+            },
+            "feed": {
+              "kind": "measured",
+              "fact": "fact:feed_w12"
+            }
+          },
+          "control": {
+            "label": "Control group",
+            "day": {
+              "kind": "measured",
+              "fact": "fact:ctrl_w12"
+            }
+          }
+        }
+      }
+    },
+    "protocol": {
+      "paragraphs": [
+        "The tested plan, for 12 weeks: on a fast day, one meal of 400 to 600 kcal, eaten between 12:00 and 14:00. [twelve_weeks, meal_kcal, meal_window] That was 25% of each person's energy needs. [fast_day_quarter] On the next day, people ate freely. [feed_day_free]",
+        "On fast days, the trial allowed energy-free drinks, tea, coffee and sugar-free gum, and encouraged plenty of water. [fast_drinks] The provided meals were 30% fat, 15% protein and 55% carbohydrate. [meal_menu]"
+      ],
+      "figure": null
+    },
+    "audit": {
+      "effect": "Body weight at week 12: 5.2 kg lower in the fasting group than in the control group (p < 0.001). [weight_md, weight_down] That is 6.5% of body weight. [weight_pct]",
+      "weakEnd": "The paper reports no confidence interval. [weight_md] Its ± figures are standard errors, which the read does not turn into a range. [sem] So how far the true difference strays from 5.2 kg stays unknown. [weight_md]",
+      "limitations": [
+        "Small: 15 people a group, for 12 weeks. [limit_small, limit_twelve]",
+        "Planned as normal weight against overweight; the authors merged the groups after the fact. [limit_post_hoc]",
+        "Nobody measured physical activity. [limit_activity]",
+        "Food eaten came from food records, and people with overweight under-report by about 30%. [limit_food_records]"
+      ],
+      "missed": "The blood-marker claims mix two tests. [-] Triglycerides and LDL particle size differed from controls at week 12, but their changes did not (p = 0.22 and 0.13). [tg_down, ldl_size_up, tg_change_p, ldl_size_change_p] Adiponectin and leptin are the reverse (week 12: p = 0.15 and 0.55). [adiponectin_up, leptin_down, adiponectin_w12_p, leptin_w12_p] The trial was sized for LDL cholesterol, which showed no clear difference from controls. [power_ldl, ldl_ns]",
+      "more": [
+        "Fat mass: 3.6 kg lower than controls (p < 0.001); lean mass showed no clear difference. [fat_md, fat_down, lean_ns]",
+        "CRP was lower than controls on both tests (p = 0.01). [crp_down, crp_change_p]",
+        "Total cholesterol and blood pressure fell within the fasting group, with no clear difference from controls. [chol_ns, bp_ns] HDL, homocysteine and resistin stayed level. [hdl_ns, others_ns]",
+        "Kept to the fast-day plan: 98%, by self-report. [adherence]",
+        "32 randomized, 30 finished; one left because they could not keep to the diet. [randomized_32, completed_30, one_dropout_diet]",
+        "Side effects: two mild headaches and one case of constipation, early on. [side_effects]",
+        "Funded by a departmental grant; no conflicts of interest. [funding, no_competing]"
+      ],
+      "figure": null
+    }
+  },
+  "glossary": [
+    {
+      "term": "hyperphagia",
+      "plain": "Eating much more than usual, here on the day after a fast.",
+      "refs": [
+        "no_overeating"
+      ]
+    },
+    {
+      "term": "kcal",
+      "plain": "Kilocalories, the unit of food energy that labels usually just call calories.",
+      "refs": [
+        "meal_kcal"
+      ]
+    }
+  ],
+  "takeaways": [
+    "Fasting every other day, adults without obesity weighed 5.2 kg less than a control group after 12 weeks. [weight_md]",
+    "Most of the difference was fat; lean mass showed no clear difference. [fat_md, lean_ns]",
+    "Small and short, and the authors merged the groups after the fact. [limit_small, limit_twelve, limit_post_hoc]"
+  ],
+  "choices": [],
+  "steps": [
+    {
+      "key": "fast-day-one-meal",
+      "label": "Fast day: one meal of 400 to 600 kcal",
+      "detail": "On alternate days, as the fasting group did for 12 weeks. A tick records the fast day, not any change in your weight.",
+      "kind": "action",
+      "refs": [
+        "meal_kcal",
+        "fast_day_quarter"
+      ],
+      "evidenceRef": "weight_md"
+    },
+    {
+      "key": "fast-day-meal-midday",
+      "label": "Eat the fast-day meal between 12:00 and 14:00",
+      "detail": "The trial's timing rule, not tested on its own, so it carries no weight.",
+      "kind": "action",
+      "refs": [
+        "meal_window"
+      ]
+    }
+  ],
+  "simulator": {
+    "kind": "estimate-explorer",
+    "params": {
+      "lowLabel": "Less than the control group",
+      "highLabel": "More than the control group",
+      "rows": [
+        {
+          "label": "Body weight (kg)",
+          "fact": "fact:weight_md"
+        },
+        {
+          "label": "Fat mass (kg)",
+          "fact": "fact:fat_md"
+        }
+      ]
+    }
+  },
+  "carousel": {
+    "slides": [
+      {
+        "kind": "hook",
+        "heading": "Does fasting every other day work if you're not obese? [-]",
+        "body": "Adults ate one meal of 400 to 600 kcal every other day, for 12 weeks. [meal_kcal, twelve_weeks]",
+        "art": {
+          "motif": "pair",
+          "a": {
+            "value": {
+              "text": "489",
+              "ref": "fast_w12"
+            },
+            "label": "kcal on a fast day [fast_w12]"
+          },
+          "b": {
+            "value": {
+              "text": "1856",
+              "ref": "feed_w12"
+            },
+            "label": "kcal on a feed day [feed_w12]"
+          }
+        }
+      },
+      {
+        "kind": "finding",
+        "heading": "After 12 weeks, the fasting group weighed 5.2 kg less. [weight_md]",
+        "body": "Most of it was fat: 3.6 kg. [fat_md]",
+        "art": {
+          "motif": "verdicts",
+          "rows": [
+            {
+              "label": "Body weight [-]",
+              "verdict": "lower",
+              "fact": "fact:weight_down"
+            },
+            {
+              "label": "Fat mass [-]",
+              "verdict": "lower",
+              "fact": "fact:fat_down"
+            },
+            {
+              "label": "Lean mass [-]",
+              "verdict": "no-clear-difference",
+              "fact": "fact:lean_ns"
+            }
+          ]
+        }
+      },
+      {
+        "kind": "why",
+        "heading": "Free days did not refill the gap. [no_overeating]",
+        "body": "On free days they ate about what the control group ate, with little catch-up eating (hyperphagia). [feed_w12, ctrl_w12]",
+        "art": null
+      },
+      {
+        "kind": "who",
+        "heading": "Tested in 30 adults without obesity. [completed_30]",
+        "body": null,
+        "art": {
+          "motif": "who",
+          "tested": [
+            "15 fasting, 15 eating as usual [per_group_15]",
+            "Aged 35 to 65 [inclusion_age]",
+            "Normal weight or overweight [inclusion_bmi]"
+          ],
+          "notTested": [
+            "Obesity [inclusion_bmi]",
+            "Diabetes or heart disease [inclusion_health]",
+            "Longer than 12 weeks [limit_twelve]"
+          ]
+        }
+      },
+      {
+        "kind": "receipts",
+        "heading": "How sure can we be? [-]",
+        "body": null,
+        "art": {
+          "motif": "checks",
+          "strong": "Groups set by a random draw; body fat scanned. [stratified, dxa]",
+          "weak": "Small, and groups merged after the fact. [limit_small, limit_post_hoc]",
+          "missing": "Physical activity. [limit_activity]"
+        }
+      },
+      {
+        "kind": "cta",
+        "heading": "Could you eat one small meal every other day? [-]",
+        "body": "Compare weight and fat lost against the control group. [weight_md, fat_md]",
+        "art": null
+      }
+    ],
+    "altHooks": [
+      {
+        "name": "The number",
+        "kind": "hook",
+        "heading": "What do 12 weeks of every-other-day fasting do? [-]",
+        "body": "Adults without obesity ate one small meal on alternate days. [meal_kcal, inclusion_bmi]",
+        "art": {
+          "motif": "number",
+          "value": {
+            "text": "5.2",
+            "ref": "weight_md"
+          },
+          "unit": "kg [-]",
+          "label": "less than the control group [weight_md]"
+        }
+      }
+    ],
+    "caption": "A randomized trial in 30 adults without obesity. [stratified, completed_30, inclusion_bmi] Every other day, the fasting group ate one meal of 400 to 600 kcal. [meal_kcal] After 12 weeks, they weighed 5.2 kg less than the control group. [weight_md] Small, 12 weeks, and the groups were merged after the fact. [limit_small, limit_twelve, limit_post_hoc] Full read and the weight explorer: link in bio. [-]",
+    "hashtags": [
+      "intermittentfasting",
+      "weightloss",
+      "nutrition",
+      "evidencebased",
+      "clinicaltrial"
+    ]
+  }
+}

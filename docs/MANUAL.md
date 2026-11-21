@@ -311,7 +311,9 @@ further investigation, limitations, funding. Each is ticked by a fact that passe
 shows **not found**. It decides nothing: check each line against the paper while you read the
 draft. A hand-made extraction (no coverage pass) shows the pass items as not found.
 
-**Fallback, free: an open-weight model on Groq.** Make a key at console.groq.com, then:
+**Fallback, free: an open-weight model on Groq.** Not for `extract` on the free tier: every
+model there is capped at 8,000 tokens a minute, and one extract request is about 21,000 (checked
+2026-11-20). It needs Groq's paid Dev tier. Make a key at console.groq.com, then:
 
 ```
 AI_PROVIDER=openai-compatible
@@ -331,8 +333,21 @@ machine can hold), then `AI_BASE_URL=http://localhost:11434/v1`, the model names
 lists them, and no `AI_API_KEY`. Set `AI_CONTEXT_TOKENS` to the window you gave the model. If a server refuses
 `reasoning_effort`, the adapter asks again without it; `AI_THINKING_...=off` stops sending it.
 
-**Paid: Anthropic.** Leave `AI_PROVIDER` unset, set `AI_API_KEY` from console.anthropic.com
-and the two `AI_MODEL_...` lines.
+**Paid: Anthropic.** Leave `AI_PROVIDER` and `AI_BASE_URL` unset, set `AI_API_KEY` from
+console.anthropic.com and the two model lines:
+
+```
+AI_API_KEY=<your Anthropic key>
+AI_MODEL_EXTRACT=claude-opus-5-5
+AI_MODEL_EDITORIAL=claude-opus-5-5
+```
+
+The Anthropic path (2026-11-20) streams each reply (no five-minute timeout on a long extraction),
+caches the system prompt and the worked example (the same for every paper), sends the extraction
+schema as structured output (no paid retry for malformed JSON), and gives the reply 64,000 tokens
+of room. `AI_THINKING_EXTRACT` / `AI_THINKING_EDITORIAL` become the model's effort (defaults high
+and medium). Each `extract` and `draft` prints its tokens and, for a Claude model, the list-price
+cost. About $1.50–2.50 a paper on Opus 5.5 (estimate, BUILD-LOG 2026-11-20).
 
 Either way the model is asked for JSON and its reply is checked against the schema. A bad
 reply is sent back once with the error; a second bad reply stops the command. A paper too long

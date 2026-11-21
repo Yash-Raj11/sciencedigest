@@ -1,0 +1,2 @@
+gate ok: 83 facts verified
+grade: undefined design: meta_analysis_rct

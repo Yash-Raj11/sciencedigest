@@ -259,35 +259,145 @@
     "slides": [
       {
         "kind": "hook",
-        "heading": "Caffeine 3 times a day, last dose 8 hours before bed. What did the sleep lab record? [dose, recording]"
+        "heading": "Is coffee after noon bad for your sleep? [-]",
+        "body": "The usual advice: stop by noon. [-] A sleep lab gave caffeine until mid-afternoon, daily for 10 days. [schedule]",
+        "art": {
+          "motif": "day",
+          "start": "Wake [-]",
+          "end": "Bed [-]",
+          "marks": [
+            {
+              "at": {
+                "n": 45,
+                "ref": "schedule",
+                "unit": "min"
+              },
+              "label": "Morning [-]"
+            },
+            {
+              "at": {
+                "n": 255,
+                "ref": "schedule",
+                "unit": "min"
+              },
+              "label": "Midday [-]"
+            },
+            {
+              "at": {
+                "n": 475,
+                "ref": "schedule",
+                "unit": "min"
+              },
+              "label": "Mid-afternoon [-]"
+            }
+          ],
+          "tail": {
+            "length": {
+              "n": 8,
+              "ref": "recording",
+              "unit": "h"
+            },
+            "label": "8 hours to bed [recording]"
+          }
+        }
       },
       {
         "kind": "finding",
-        "heading": "Sleep looked the same [-]",
-        "body": "Total sleep time, time to fall asleep and sleep stages did not differ between caffeine nights and placebo nights. [sleep_same]"
+        "heading": "Their sleep showed no clear difference from placebo nights. [sleep_same]",
+        "body": "Each dose was 150 mg, about a cup and a half of coffee. [dose, common:coffee-cup-caffeine]",
+        "art": {
+          "motif": "verdicts",
+          "rows": [
+            {
+              "label": "Total sleep [-]",
+              "verdict": "no-clear-difference",
+              "fact": "fact:sleep_same"
+            },
+            {
+              "label": "Time to fall asleep [-]",
+              "verdict": "no-clear-difference",
+              "fact": "fact:sleep_same"
+            },
+            {
+              "label": "Deep and dream sleep [-]",
+              "verdict": "no-clear-difference",
+              "fact": "fact:sleep_same"
+            },
+            {
+              "label": "How rested they felt [-]",
+              "verdict": "no-clear-difference",
+              "fact": "fact:quality_same"
+            }
+          ]
+        }
       },
       {
-        "kind": "population",
-        "heading": "Who this describes [-]",
-        "body": "Twenty healthy men aged 18 to 35 who already had 300 to 600 mg of caffeine a day. [sample, who] Not women, not older adults, not occasional drinkers. [lim_male, lim_young]"
+        "kind": "why",
+        "heading": "They were already heavy caffeine users. [who]",
+        "body": "Each had 300 to 600 mg a day. [who] Daily use blunts its effect on sleep. [tolerance]",
+        "art": {
+          "motif": "sketch",
+          "shape": "shrink",
+          "concept": "caffeine-tolerance",
+          "a": "First days [concept:caffeine-tolerance]",
+          "b": "After a week [concept:caffeine-tolerance]",
+          "caption": "How much caffeine disturbs sleep [concept:caffeine-tolerance]"
+        }
       },
       {
-        "kind": "nuance",
-        "heading": "One thing did change [-]",
-        "body": "Sigma-band brain activity in non-REM sleep was lower on caffeine nights. [sigma] The authors read it as withdrawal beginning 8 hours after the last dose. [sigma_meaning]"
+        "kind": "who",
+        "heading": "Only if you look like the people tested. [-]",
+        "body": null,
+        "art": {
+          "motif": "who",
+          "tested": [
+            "Twenty healthy men [sample]",
+            "Aged 18 to 35 [who]",
+            "Heavy daily caffeine users [who]",
+            "Good sleepers [good_sleepers]"
+          ],
+          "notTested": [
+            "Women [lim_male]",
+            "Middle-aged or older adults [lim_young]",
+            "People who rarely have caffeine [not_after_abstinence]"
+          ]
+        }
       },
       {
-        "kind": "limitation",
-        "heading": "How sure? [-]",
-        "body": "A small trial. [lim_n] The text gives no sizes for the differences: the study could not tell caffeine nights from placebo nights. [sleep_same]"
+        "kind": "receipts",
+        "heading": "How sure can we be? [-]",
+        "body": null,
+        "art": {
+          "motif": "checks",
+          "strong": "Double-blind, and each man had every condition. [blind]",
+          "weak": "Only twenty people, all young men. [lim_n, lim_male, sample]",
+          "missing": "No sizes given for the differences. [sleep_same]"
+        }
       },
       {
         "kind": "cta",
-        "heading": "Check your own timing [-]",
-        "body": "Set your wake time and your last coffee in the simulator to see whether you are inside the window this trial tested. [-]"
+        "heading": "When is your last coffee? [-]",
+        "body": "Put in your wake time and coffee times. [-] See how your day compares with the one this lab tested. [-]",
+        "art": null
       }
     ],
-    "caption": "A double-blind crossover trial in twenty young men: caffeine three times a day, ending 8 hours before bed, showed no clear difference in measured sleep from placebo. [blind, sample, recording, sleep_same] A small trial in men aged 18 to 35, and the text gives no sizes for the differences. [lim_n, who, sleep_same] Simulator at the link in bio. [-]",
+    "altHooks": [
+      {
+        "name": "The dose",
+        "kind": "hook",
+        "heading": "How much coffee did the sleep lab give? [dose]",
+        "body": "Three doses a day, each about a cup and a half, for 10 days. [schedule, dose, common:coffee-cup-caffeine]",
+        "art": {
+          "motif": "number",
+          "value": {
+            "text": "150 mg",
+            "ref": "dose"
+          },
+          "label": "of caffeine in each dose [dose]"
+        }
+      }
+    ],
+    "caption": "A double-blind crossover trial in twenty young men: caffeine three times a day, ending 8 hours before bed. [blind, sample, recording] Their measured sleep showed no clear difference from placebo. [sleep_same] A small trial in men aged 18 to 35, and the text gives no sizes for the differences. [lim_n, who, sleep_same] Simulator at the link in bio. [-]",
     "hashtags": [
       "sleep",
       "caffeine",

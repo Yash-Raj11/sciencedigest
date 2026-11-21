@@ -252,18 +252,71 @@ export interface ResolvedSpec {
   simulator: Record<string, ResolvedFact | ResolvedFact[]>;
 }
 
+export type CarouselSlideKind = "hook" | "finding" | "why" | "who" | "receipts" | "cta";
+export type CarouselPicture = "parking-spot" | "two-piles" | "ledger" | "ramp" | "doorbell";
+
+/** One side of a big-number slide: the value as printed in the paper, its unit and label in plain words. */
+export interface CarouselFigure {
+  value: string; unit: string | null; label: string;
+  /** The value's 95% interval when its fact is an estimate that prints one: drawn as a range bar. */
+  interval: ReceiptInterval | null;
+}
+
+/** The receipts slide's range bar: the headline estimate's 95% interval (lib/pipeline/carousel.ts receiptInterval). */
+export interface ReceiptInterval {
+  low: number; point: number; high: number;
+  /** Where "no difference" sits: 1 for a ratio, 0 for a difference. */
+  none: number;
+  /** As drawn: the minus sign is U+2212, as the papers print it. */
+  text: { low: string; point: string; high: string };
+  unit: string | null;
+}
+
+/** A waking day: marks placed by minutes after waking, then the stretch to the end of the day. */
+export interface CarouselDay { start: string; end: string; marks: { minutes: number; label: string }[]; tail: { minutes: number; label: string } }
+
+/** What the art kit draws on a slide (lib/carousel/art/). Every value here is already checked. */
+export type CarouselArt =
+  | { motif: "number"; figure: CarouselFigure }
+  | { motif: "pair"; a: CarouselFigure; b: CarouselFigure }
+  | ({ motif: "day" } & CarouselDay)
+  /** verdict: the fixed words drawn beside the row (lib/pipeline/carousel.ts VERDICTS). */
+  | { motif: "verdicts"; rows: { label: string; verdict: string }[] }
+  /** labels: plain words drawn on the picture beside the part they name, in the motif's slot order. */
+  | { motif: CarouselPicture; line: "solid" | "dashed"; labels: string[] }
+  /** A shape only, monochrome and dotted, tagged "Sketch, not data". */
+  /** A curve that drops, then levels off, on the paper's axis; from, to and levels are the paper's numbers. */
+  | { motif: "plateau"; line: "solid" | "dashed"; axis: string; y: string; from: number; to: number; levels: { from: number; to: number; label: string } }
+  | { motif: "sketch"; shape: "shrink"; a: string; b: string; caption: string }
+  | { motif: "who"; tested: string[]; notTested: string[] }
+  /** design (from the gate), who (the source line), the range bar (the headline estimate). */
+  | { motif: "receipt"; strong: string; weak: string; missing: string | null; design: string; who: string; interval: ReceiptInterval | null }
+  /** The hook's day, drawn again under the invitation when the hook has one. */
+  | { motif: "cta"; day: CarouselDay | null };
+
 export interface CarouselSlide {
-  kind: "hook" | "finding" | "population" | "limitation" | "nuance" | "cta";
+  kind: CarouselSlideKind;
   heading: string;
   body: string | null;
+  art: CarouselArt;
+  /** Every fact the slide's words and art cite, so a check can trace each number it prints. */
+  refs: string[];
 }
 
 export interface CarouselDeck {
   slug: string;
+  /** The read's title, for the queue and the caption; never printed on a slide (the word budget). */
+  title: string;
   slides: CarouselSlide[];
+  /** Other opening slides (B, C, D) the owner may choose in the queue instead of slides[0]. `name` is never drawn. */
+  altHooks: { letter: string; name: string; slide: CarouselSlide }[];
   caption: string;
   hashtags: string[];
   credit: string;
+  /** The study chip and footer: the gate's design, the source line's who and span, and a short cite with no digits. */
+  study: { design: string; who: string; span: string; cite: string; licence: string };
+  /** Concepts and common facts only the deck uses that the owner has not reviewed: the queue will not approve until empty. */
+  pending: string[];
 }
 
 export interface BuiltPaper {

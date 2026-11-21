@@ -12,6 +12,7 @@
  */
 
 import { z } from "zod";
+import { AltHook, SlideDef } from "./carousel";
 
 /** A full UTC timestamp, the form `new Date().toISOString()` writes. */
 export function isTimestamp(value: string): boolean {
@@ -50,11 +51,6 @@ const ChoiceDef = z.object({
   options: z.array(z.object({ value: z.string().min(1), label: z.string().min(1) })).min(1),
 });
 
-const SlideDef = z.object({
-  kind: z.enum(["hook", "finding", "population", "limitation", "nuance", "cta"]),
-  heading: Markup,
-  body: Markup.nullable().default(null),
-});
 
 /** Every field of a read outside its three layers and its glossary. */
 const Base = {
@@ -141,6 +137,8 @@ const Base = {
   }),
   carousel: z.object({
     slides: z.array(SlideDef).min(3),
+    /** Other openings for the owner to choose from in /admin/queue (lib/pipeline/carousel.ts AltHook). */
+    altHooks: z.array(AltHook).default([]),
     caption: Markup,
     hashtags: z.array(z.string().regex(/^[a-z0-9]+$/)).max(30).default([]),
   }),

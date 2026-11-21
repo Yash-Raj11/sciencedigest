@@ -1,0 +1,19 @@
+best-possible-toothbrushing (draft, not in the app)
+  lint   ok: 721 words
+  lint   ok: 646 words
+  lint   ok: 614 words
+  lint   ok: 596 words
+  lint   ok: 578 words
+time-restricted-eating-healthy (draft, not in the app)
+  lint   ok: 713 words
+  lint   ok: 746 words
+content build wrote 5 papers (4 free, 1 premium)
+> sciencedigest@0.1.0 lint
+> eslint
+
+> tsc --noEmit
+
+ Test Files  58 passed (58)
+      Tests  868 passed (868)
+✓ Compiled successfully in 2.0s
+Route (app)

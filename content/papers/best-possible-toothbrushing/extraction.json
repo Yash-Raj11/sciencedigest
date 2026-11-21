@@ -1,0 +1,1050 @@
+{
+  "identifiers": {
+    "doi": "10.1186/s12903-023-03127-3",
+    "pmid": "37415160",
+    "pmcid": "PMC10327354",
+    "title": "“You should brush your teeth better”: a randomized controlled trial comparing best-possible versus as-usual toothbrushing",
+    "authors": "Weik U, Shankar-Subramanian S, Sämann T, Wöstmann B, Margraf-Stiksrud J, Deinzer R",
+    "journal": "BMC Oral Health",
+    "year": 2023,
+    "citation": "Weik U, Shankar-Subramanian S, Sämann T, Wöstmann B, Margraf-Stiksrud J, Deinzer R. “You should brush your teeth better”: a randomized controlled trial comparing best-possible versus as-usual toothbrushing. BMC Oral Health. 2023;23. doi:10.1186/s12903-023-03127-3"
+  },
+  "license": "CC-BY",
+  "design": {
+    "value": "rct",
+    "quote": "Participants were randomized to one out of two conditions, differing with respect to the instruction they received prior to tooth brushing."
+  },
+  "species": {
+    "value": "human",
+    "quote": "Finally, 111 participants were recruited and randomized to the study arms (see Fig. 1)."
+  },
+  "population": {
+    "value": "student-resident of Giessen aged at least 18 to a maximum of 35 years",
+    "quote": "Inclusion criteria were being a student-resident of Giessen aged at least 18 to a maximum of 35 years as well as the predominant use of a manual toothbrush for at least six months (at least two-thirds of all tooth brushing events)."
+  },
+  "sampleSize": {
+    "value": "91",
+    "quote": "However, dropouts and outlying values resulted in only N = 91 available for inferential statistics."
+  },
+  "facts": [
+    {
+      "id": "trial_registration",
+      "kind": "context",
+      "label": "Trial registry entry",
+      "value": "DRKS00017812",
+      "quote": "This randomized controlled study has been registered at the German Clinical Trials Register (www.drks.de; ID: DRKS00017812; 2019)."
+    },
+    {
+      "id": "registration_retrospective",
+      "kind": "limitation",
+      "label": "The trial was registered only after the data were collected",
+      "value": "retrospectively in August 2019 after completion of data assessment",
+      "quote": "Registration was conducted retrospectively in August 2019 after completion of data assessment."
+    },
+    {
+      "id": "study_dates",
+      "kind": "context",
+      "label": "When the appointments took place",
+      "value": "between April 2019 and July 2019",
+      "quote": "All participants provided informed written consent and were scheduled two different appointments between April 2019 and July 2019."
+    },
+    {
+      "id": "first_objective_only",
+      "kind": "context",
+      "label": "This paper reports only the first of the study's two aims",
+      "value": "The data presented here refer to the first objective",
+      "quote": "The data presented here refer to the first objective."
+    },
+    {
+      "id": "recruitment",
+      "kind": "context",
+      "label": "How participants were recruited",
+      "value": "internal mailing list",
+      "quote": "Study participants were recruited via an internal mailing list of the Justus-Liebig-University Giessen and via online announcements of a regional newspaper."
+    },
+    {
+      "id": "inclusion_age",
+      "kind": "context",
+      "label": "Who could join: students of Giessen aged 18 to 35",
+      "value": "aged at least 18 to a maximum of 35 years",
+      "quote": "Inclusion criteria were being a student-resident of Giessen aged at least 18 to a maximum of 35 years as well as the predominant use of a manual toothbrush for at least six months (at least two-thirds of all tooth brushing events)."
+    },
+    {
+      "id": "inclusion_manual_brush",
+      "kind": "context",
+      "label": "Who could join: mainly used a manual toothbrush",
+      "value": "predominant use of a manual toothbrush for at least six months",
+      "quote": "Inclusion criteria were being a student-resident of Giessen aged at least 18 to a maximum of 35 years as well as the predominant use of a manual toothbrush for at least six months (at least two-thirds of all tooth brushing events)."
+    },
+    {
+      "id": "exclusion_criteria",
+      "kind": "context",
+      "label": "Who was excluded (braces, dentures, piercings, recent cleaning, dental or medical training)",
+      "value": "any training in a dental or medical profession",
+      "quote": "Exclusion criteria were fixed orthodontic appliances, removable prostheses/dentures, oral piercings or dental jewelry, dental prophylaxis within the previous four months, pregnancy/lactation or use of antibiotics within the previous three months, and any training in a dental or medical profession."
+    },
+    {
+      "id": "power_calculation",
+      "kind": "context",
+      "label": "Planned sample size",
+      "value": "n = 102 participants",
+      "quote": "Sample size was calculated using G*Power 3, a free available power analysis program [], and resulted in n = 102 participants needed to detect medium effect sizes (Cohen`s d = 0.5–0.8 []) with α = 5% and test-power of 1–β = 0.80."
+    },
+    {
+      "id": "randomized_111",
+      "kind": "context",
+      "label": "Number randomized",
+      "value": "111 participants",
+      "quote": "Finally, 111 participants were recruited and randomized to the study arms (see Fig. 1)."
+    },
+    {
+      "id": "compensation",
+      "kind": "context",
+      "label": "Payment to participants",
+      "value": "30 Euros",
+      "quote": "All participants received a monetary compensation of 30 Euros."
+    },
+    {
+      "id": "no_hygiene_4h",
+      "kind": "context",
+      "label": "No tooth cleaning beforehand",
+      "value": "at least four hours",
+      "quote": "All participants were instructed to refrain from any oral hygiene behavior at least four hours before the appointments."
+    },
+    {
+      "id": "visits_two_weeks",
+      "kind": "context",
+      "label": "Two visits, two weeks apart",
+      "value": "two appointments that were two weeks apart",
+      "quote": "Eligible students were scheduled for two appointments that were two weeks apart."
+    },
+    {
+      "id": "plaque_second_visit",
+      "kind": "context",
+      "label": "Plaque after brushing was measured at the second visit only",
+      "value": "plaque after brushing was only assessed at the second appointment",
+      "quote": "While study participants were asked to brush their teeth at both appointments, plaque after brushing was only assessed at the second appointment."
+    },
+    {
+      "id": "camera_mirror",
+      "kind": "context",
+      "label": "Brushing was filmed through a tablet that also served as the mirror",
+      "value": "served both as a mirror and as a recording tool",
+      "quote": "This front camera served both as a mirror and as a recording tool for video recording of the participants’ tooth brushing performance."
+    },
+    {
+      "id": "stain_hidden",
+      "kind": "context",
+      "label": "Participants could not see the plaque dye while brushing",
+      "value": "make plaque staining invisible",
+      "quote": "A red transparent sheet covered the surface of the tablet display to make plaque staining invisible for the participant."
+    },
+    {
+      "id": "standard_brush",
+      "kind": "context",
+      "label": "Everyone used the same manual toothbrush and toothpaste",
+      "value": "standard manual toothbrush",
+      "quote": "The participants were provided with a standard manual toothbrush (Elmex InterX short brush-head, medium; GABA, Loerrach, Germany) and toothpaste (Elmex; GABA, Loerrach, Germany)."
+    },
+    {
+      "id": "devices_on_table",
+      "kind": "context",
+      "label": "Floss and interdental brushes were set out on a table",
+      "value": "provided on a table beneath the basin",
+      "quote": "Additionally, dental floss (waxed and unwaxed dental floss; Elmex; GABA, Loerrach, Germany), super floss (Meridol Special-Floss; GABA, Loerrach, Germany) and interdental brushes (Elmex interdental brush sizes 2 and 4; GABA, Loerrach, Germany) were provided on a table beneath the basin."
+    },
+    {
+      "id": "devices_available",
+      "kind": "context",
+      "label": "Floss and interdental brushes were on the table for everyone",
+      "value": "at their free disposal",
+      "quote": "A2 informed the participants that these devices were at their free disposal."
+    },
+    {
+      "id": "instruction_bp",
+      "kind": "context",
+      "label": "The best-effort instruction",
+      "value": "brush your teeth as thoroughly as you can so that they are completely clean",
+      "quote": "These were either “brush your teeth as thoroughly as you can so that they are completely clean” (arm 1; best of one’s abilities (BP)) or “brush your teeth as usual” “(arm 2; as usual (AU)) (instructions are translated from German; for original German instructions, see Appendix)."
+    },
+    {
+      "id": "instruction_au",
+      "kind": "context",
+      "label": "The as-usual instruction",
+      "value": "brush your teeth as usual",
+      "quote": "These were either “brush your teeth as thoroughly as you can so that they are completely clean” (arm 1; best of one’s abilities (BP)) or “brush your teeth as usual” “(arm 2; as usual (AU)) (instructions are translated from German; for original German instructions, see Appendix)."
+    },
+    {
+      "id": "randomization_lots",
+      "kind": "context",
+      "label": "How the instruction was assigned",
+      "value": "drew a lot",
+      "quote": "For randomization, A2 drew a lot with the respective instruction out of an opaque box."
+    },
+    {
+      "id": "blinding",
+      "kind": "context",
+      "label": "The dentists did not know which instruction a person got",
+      "value": "kept blind",
+      "quote": "A2 was kept blind regarding the results of the dental examinations, as were the dentists regarding the experimental condition of the participant."
+    },
+    {
+      "id": "stratification",
+      "kind": "context",
+      "label": "Lots split by sex and examining dentist",
+      "value": "four boxes",
+      "quote": "To stratify with respect to participants’ sex and the examining dentist, lots were distributed to four boxes (one box for each dentist and each sex)."
+    },
+    {
+      "id": "video_blinded",
+      "kind": "context",
+      "label": "Video coders did not know the instruction",
+      "value": "All examiners were blinded to the experimental conditions",
+      "quote": "All examiners were blinded to the experimental conditions."
+    },
+    {
+      "id": "video_calibration",
+      "kind": "context",
+      "label": "Video coders were trained to agree",
+      "value": "r ≥ 0.90",
+      "quote": "Calibration was considered successful if an intraclass correlation (ICC) of r ≥ 0.90 was achieved with respect to all behavioral parameters of tooth brushing and interdental hygiene."
+    },
+    {
+      "id": "plaque_twice",
+      "kind": "context",
+      "label": "Plaque measured before and right after brushing",
+      "value": "before and immediately after brushing",
+      "quote": "Dental plaque was assessed twice (before and immediately after brushing)."
+    },
+    {
+      "id": "disclosing_agent",
+      "kind": "context",
+      "label": "Plaque made visible with a dye",
+      "value": "plaque disclosing agent",
+      "quote": "Prior to each plaque assessment, dentists dried the teeth with an air stream and applied a plaque disclosing agent (Mira-2-Ton; Hager & Werken, Duisburg, Germany)."
+    },
+    {
+      "id": "mpi_sections",
+      "kind": "context",
+      "label": "How gumline plaque was scored: four sections per tooth surface",
+      "value": "divides the gum line into four equal sections per surface",
+      "quote": "The MPI divides the gum line into four equal sections per surface (i.e., disto-proximal, disto-cervical, mesio-cervical, mesio-proximal) and assesses the presence (score 1) or absence (score 0) of plaque within each of these sections."
+    },
+    {
+      "id": "mpi_percentage",
+      "kind": "context",
+      "label": "The gumline plaque score is the share of sections with plaque",
+      "value": "The overall MPI is the percentage of positive sections within all sections",
+      "quote": "The overall MPI is the percentage of positive sections within all sections."
+    },
+    {
+      "id": "tqhi_definition",
+      "kind": "context",
+      "label": "A second score: how far plaque spreads up the tooth",
+      "value": "assesses the extension of plaque throughout the tooth surface",
+      "quote": "The TQHI assesses the extension of plaque throughout the tooth surface."
+    },
+    {
+      "id": "spoc_scale",
+      "kind": "context",
+      "label": "How perceived cleanliness was rated: a 0 to 100 slider",
+      "value": "ranging from no cleanliness at all (score 0) to full cleanliness (score 100)",
+      "quote": "Subjective perception of cleanliness is assessed by a visual analog scale (VAS) presented online ranging from no cleanliness at all (score 0) to full cleanliness (score 100)."
+    },
+    {
+      "id": "spoc_dentist_standard",
+      "kind": "context",
+      "label": "Before rating, participants learned a dentist's standard of clean",
+      "value": "a clean surface is only achieved when all plaque deposits, including those at the gum line, are removed",
+      "quote": "They learned that, in dental judgment, a clean surface is only achieved when all plaque deposits, including those at the gum line, are removed."
+    },
+    {
+      "id": "primary_outcomes_a",
+      "kind": "context",
+      "label": "Main behaviour outcomes",
+      "value": "tooth contact time and time at occlusal and outer surfaces",
+      "quote": "The primary outcomes of research Hypothesis a) (brushing to the best of one’s abilities will lead to a different performance) were tooth contact time and time at occlusal and outer surfaces."
+    },
+    {
+      "id": "primary_outcome_b",
+      "kind": "context",
+      "label": "Main cleanliness outcome: gumline plaque",
+      "value": "was the overall MPI",
+      "quote": "The primary outcome of research Hypothesis b) (brushing to the best of one’s abilities will lead to a higher degree of achieved oral cleanliness) was the overall MPI."
+    },
+    {
+      "id": "primary_outcome_c",
+      "kind": "context",
+      "label": "Main perception outcome",
+      "value": "the overall SPOCd score",
+      "quote": "The primary outcome of research Hypothesis c) (brushing to the best of one’s abilities will lead to a higher subjectively perceived oral cleanliness) was the overall SPOCd score."
+    },
+    {
+      "id": "outlier_rule",
+      "kind": "context",
+      "label": "People with extreme behaviour values were left out of the analysis",
+      "value": "three standard deviations from the mean",
+      "quote": "Participants showing outlying values (defined as three standard deviations from the mean) in any of the behavioral parameters were excluded from final analyses to avoid distorted data."
+    },
+    {
+      "id": "bonferroni",
+      "kind": "context",
+      "label": "Correction for testing several main outcomes",
+      "value": "Bonferroni’s correction",
+      "quote": "Bonferroni’s correction was applied for multiple tests within primary outcomes."
+    },
+    {
+      "id": "one_tailed",
+      "kind": "context",
+      "label": "Some tests were one-tailed",
+      "value": "One- and two-tailed tests",
+      "quote": "One- and two-tailed tests were applied depending on whether the hypothesis was directed or undirected."
+    },
+    {
+      "id": "finished_106",
+      "kind": "context",
+      "label": "Number who finished",
+      "value": "One hundred and six participants",
+      "quote": "One hundred and six participants finished the study (see Fig. 1)."
+    },
+    {
+      "id": "excluded_15",
+      "kind": "context",
+      "label": "Number left out for extreme values",
+      "value": "15 participants were excluded",
+      "quote": "Due to outlying value(s) (M ± 3 SD) in at least one of the behavioral parameters, 15 participants were excluded from statistical analyses."
+    },
+    {
+      "id": "groups_similar",
+      "kind": "context",
+      "label": "The two groups were alike at the start",
+      "value": "Groups did not differ with respect to any of these parameters",
+      "quote": "Groups did not differ with respect to any of these parameters (see Table 1)."
+    },
+    {
+      "id": "spoc_one_missing",
+      "kind": "context",
+      "label": "One perception rating lost",
+      "value": "Data from one study participant are missing",
+      "quote": "Data from one study participant are missing due to temporary internet failure."
+    },
+    {
+      "id": "dmft_imbalance",
+      "kind": "context",
+      "label": "More decayed, missing or filled teeth in the as-usual group",
+      "value": "a higher DMFT value in the AU group",
+      "quote": "Descriptive data of the DMFT show differences between the two groups, with a higher DMFT value in the AU group (Table 1)."
+    },
+    {
+      "id": "sensitivity_power",
+      "kind": "context",
+      "label": "What the final sample could detect",
+      "value": "d = 0.52",
+      "quote": "Sensitivity analyses revealed that with the current sample size, an effect size of d = 0.52 (instead of d = 0.50) would be detectable with α = 5% and a power of 1-β = 0.80 []."
+    },
+    {
+      "id": "group_sizes",
+      "kind": "descriptive",
+      "label": "Analysed group sizes: as usual 45, best effort 46",
+      "value": "Brushing as usual (N = 45)",
+      "quote": "Brushing as usual (N = 45) | Brushing to the best of one’s ability (N = 46) | p |"
+    },
+    {
+      "id": "female_male",
+      "kind": "descriptive",
+      "label": "Women/men in each group (as usual, best effort)",
+      "value": "37/8",
+      "quote": "female/male | 37/8 | 40/6 | 0.57 |"
+    },
+    {
+      "id": "age",
+      "kind": "descriptive",
+      "label": "Age in each group, mean ± SD (as usual, best effort)",
+      "value": "23.44 ± 3.0",
+      "quote": "age | 23.44 ± 3.0 [19, 33] | 22.60 ± 2.2 [18, 28] | 0.14 |"
+    },
+    {
+      "id": "mpi_before",
+      "kind": "descriptive",
+      "label": "Gumline plaque before brushing, % of sections (as usual, best effort)",
+      "value": "75.87 ± 15.29",
+      "quote": "MPI overall | 75.87 ± 15.29 [32.1, 99.1] | 74.72 ± 14.03 [33.9, 98.2] | 0.71 |"
+    },
+    {
+      "id": "mpi_inner_before",
+      "kind": "descriptive",
+      "label": "Gumline plaque on inner surfaces before brushing, % (as usual, best effort)",
+      "value": "84.81 ± 14.24",
+      "quote": "MPI inner surfaces | 84.81 ± 14.24 [27.7, 100.0] | 85.23 ± 14.68 [45.5, 100.0] | 0.89 |"
+    },
+    {
+      "id": "bleeding",
+      "kind": "descriptive",
+      "label": "Share of gum sites that bled on probing, % (as usual, best effort)",
+      "value": "42.68 ± 19.31",
+      "quote": "PBI % bleeding full mouth | 42.68 ± 19.31 [4.5, 78.6] | 41.50 ± 19.0 [7.1, 89,3] | 0.77 |"
+    },
+    {
+      "id": "brushed_longer",
+      "kind": "finding",
+      "label": "The best-effort group brushed longer",
+      "value": "brushed their teeth longer (p = 0.008, d = 0.57)",
+      "quote": "Participants in the BP group brushed their teeth longer (p = 0.008, d = 0.57) and used interdental devices more often (p < 0.001).",
+      "outcome": "Total brushing time"
+    },
+    {
+      "id": "time_total",
+      "kind": "finding",
+      "label": "The best-effort group brushed longer in total",
+      "value": "t89 = -2.700; p = 0.008; d = -0.57",
+      "quote": "Analysis of the primary behavioral variables, i.e., total tooth contact time and tooth contact time at the occlusal and outer surfaces, revealed significant group differences in the total tooth contact time (t89 = -2.700; p = 0.008; d = -0.57) and tooth contact time at the outer surfaces (t89 = -3.026; p = 0.003; d = -0.64).",
+      "outcome": "Total time the brush touched the teeth"
+    },
+    {
+      "id": "time_outer",
+      "kind": "finding",
+      "label": "The best-effort group spent longer on the outer surfaces",
+      "value": "t89 = -3.026; p = 0.003; d = -0.64",
+      "quote": "Analysis of the primary behavioral variables, i.e., total tooth contact time and tooth contact time at the occlusal and outer surfaces, revealed significant group differences in the total tooth contact time (t89 = -2.700; p = 0.008; d = -0.57) and tooth contact time at the outer surfaces (t89 = -3.026; p = 0.003; d = -0.64).",
+      "outcome": "Brushing time on the outer (cheek-side) surfaces"
+    },
+    {
+      "id": "time_occlusal_ns",
+      "kind": "finding",
+      "label": "No clear difference in time on chewing surfaces",
+      "value": "t89 = -1.070; p = 0.288; d = -0.22",
+      "quote": "No effects were found for occlusal (t89 = -1.070; p = 0.288; d = -0.22) or inner surfaces (exact p = 0.159).",
+      "outcome": "Brushing time on the chewing surfaces"
+    },
+    {
+      "id": "time_inner_ns",
+      "kind": "finding",
+      "label": "No clear difference in time on inner surfaces",
+      "value": "exact p = 0.159",
+      "quote": "No effects were found for occlusal (t89 = -1.070; p = 0.288; d = -0.22) or inner surfaces (exact p = 0.159).",
+      "outcome": "Brushing time on the inner (tongue-side) surfaces"
+    },
+    {
+      "id": "nearly_one_minute",
+      "kind": "finding",
+      "label": "Best-effort brushing lasted nearly a minute longer",
+      "value": "nearly one minute",
+      "quote": "Their brushing time exceeded that of the AU group by nearly one minute (see Fig. 1).",
+      "outcome": "Total brushing time"
+    },
+    {
+      "id": "extra_time_outer",
+      "kind": "finding",
+      "label": "The extra time went mostly to the outer surfaces",
+      "value": "had its main origin in an extended brushing of outer surfaces",
+      "quote": "Nevertheless, detailed analyses revealed that this difference had its main origin in an extended brushing of outer surfaces.",
+      "outcome": "Where the extra brushing time went"
+    },
+    {
+      "id": "shares_ns",
+      "kind": "finding",
+      "label": "No clear difference in how time was split between surfaces or movements",
+      "value": "No statistically significant between-group differences were found for any of these variables",
+      "quote": "No statistically significant between-group differences were found for any of these variables (see Table 2).",
+      "outcome": "Share of brushing time on each surface and each movement"
+    },
+    {
+      "id": "share_occlusal_au",
+      "kind": "estimate",
+      "label": "Share of brushing time on chewing surfaces, as usual group",
+      "value": "44.6",
+      "quote": "Occlusal surfaces | 44.60 (15.0) | 40.52 (12.3) | 1.421 | 0.16 | 0.30 |",
+      "estimate": {
+        "outcome": "Share of brushing time on chewing surfaces (as usual)",
+        "measure": "mean",
+        "point": 44.6,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "%",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 15.0
+      }
+    },
+    {
+      "id": "share_occlusal_bp",
+      "kind": "estimate",
+      "label": "Share of brushing time on chewing surfaces, best-effort group",
+      "value": "40.52",
+      "quote": "Occlusal surfaces | 44.60 (15.0) | 40.52 (12.3) | 1.421 | 0.16 | 0.30 |",
+      "estimate": {
+        "outcome": "Share of brushing time on chewing surfaces (best effort)",
+        "measure": "mean",
+        "point": 40.52,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "%",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 12.3
+      }
+    },
+    {
+      "id": "share_outer_au",
+      "kind": "estimate",
+      "label": "Share of brushing time on outer surfaces, as usual group",
+      "value": "40.63",
+      "quote": "Outer surfaces | 40.63 (11.7) | 42.70 (12.5) | -0.818 | 0.42 | 0.17 |",
+      "estimate": {
+        "outcome": "Share of brushing time on outer surfaces (as usual)",
+        "measure": "mean",
+        "point": 40.63,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "%",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 11.7
+      }
+    },
+    {
+      "id": "share_outer_bp",
+      "kind": "estimate",
+      "label": "Share of brushing time on outer surfaces, best-effort group",
+      "value": "42.7",
+      "quote": "Outer surfaces | 40.63 (11.7) | 42.70 (12.5) | -0.818 | 0.42 | 0.17 |",
+      "estimate": {
+        "outcome": "Share of brushing time on outer surfaces (best effort)",
+        "measure": "mean",
+        "point": 42.7,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "%",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 12.5
+      }
+    },
+    {
+      "id": "share_inner_au",
+      "kind": "estimate",
+      "label": "Share of brushing time on inner surfaces, as usual group",
+      "value": "14.77",
+      "quote": "Inner surfaces | 14.77 (10.5) | 16.78 (11.7) | -0.866 | 0.39 | 0.18 |",
+      "estimate": {
+        "outcome": "Share of brushing time on inner surfaces (as usual)",
+        "measure": "mean",
+        "point": 14.77,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "%",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 10.5
+      }
+    },
+    {
+      "id": "share_inner_bp",
+      "kind": "estimate",
+      "label": "Share of brushing time on inner surfaces, best-effort group",
+      "value": "16.78",
+      "quote": "Inner surfaces | 14.77 (10.5) | 16.78 (11.7) | -0.866 | 0.39 | 0.18 |",
+      "estimate": {
+        "outcome": "Share of brushing time on inner surfaces (best effort)",
+        "measure": "mean",
+        "point": 16.78,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "%",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 11.7
+      }
+    },
+    {
+      "id": "horizontal_outer_au",
+      "kind": "estimate",
+      "label": "Share of outer-surface time spent scrubbing side to side, as usual group",
+      "value": "33.89",
+      "quote": "Horizontal | 33.89 (31.7) | 32.41 (32.7) | 0.219 | 0.83 | 0.05 |",
+      "estimate": {
+        "outcome": "Side-to-side scrubbing on outer surfaces (as usual)",
+        "measure": "mean",
+        "point": 33.89,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "%",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 31.7
+      }
+    },
+    {
+      "id": "horizontal_outer_bp",
+      "kind": "estimate",
+      "label": "Share of outer-surface time spent scrubbing side to side, best-effort group",
+      "value": "32.41",
+      "quote": "Horizontal | 33.89 (31.7) | 32.41 (32.7) | 0.219 | 0.83 | 0.05 |",
+      "estimate": {
+        "outcome": "Side-to-side scrubbing on outer surfaces (best effort)",
+        "measure": "mean",
+        "point": 32.41,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "%",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 32.7
+      }
+    },
+    {
+      "id": "horizontal_inner_au",
+      "kind": "estimate",
+      "label": "Share of inner-surface time spent scrubbing side to side, as usual group",
+      "value": "55.36",
+      "quote": "Horizontal | 55.36 (33.0) | 61.24 (33.8) | -0.803 | 0.43 | 0.18 |",
+      "estimate": {
+        "outcome": "Side-to-side scrubbing on inner surfaces (as usual)",
+        "measure": "mean",
+        "point": 55.36,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "%",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 33.0
+      }
+    },
+    {
+      "id": "horizontal_inner_bp",
+      "kind": "estimate",
+      "label": "Share of inner-surface time spent scrubbing side to side, best-effort group",
+      "value": "61.24",
+      "quote": "Horizontal | 55.36 (33.0) | 61.24 (33.8) | -0.803 | 0.43 | 0.18 |",
+      "estimate": {
+        "outcome": "Side-to-side scrubbing on inner surfaces (best effort)",
+        "measure": "mean",
+        "point": 61.24,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "%",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 33.8
+      }
+    },
+    {
+      "id": "inner_never_brushed_n",
+      "kind": "finding",
+      "label": "Some people never brushed their inner surfaces",
+      "value": "n = 8 did not spend any time by brushing inner surfaces",
+      "quote": "3 Reported values refer to n = 41 vs. n = 42 within groups as usual vs. to the best of one’s abilities, respectively (n = 8 did not spend any time by brushing inner surfaces).",
+      "outcome": "Inner surfaces not brushed at all"
+    },
+    {
+      "id": "evenness_outer",
+      "kind": "finding",
+      "label": "Best effort spread time more evenly around the outer surfaces",
+      "value": "exact p = 0.009",
+      "quote": "With respect to the QIT-S (Fig. 3), statistical analyses revealed a significant effect for the overall distribution of the brushing time at outer surfaces (exact p = 0.009).",
+      "outcome": "How evenly brushing time covered the six sections of the outer surfaces"
+    },
+    {
+      "id": "evenness_inner_ns",
+      "kind": "finding",
+      "label": "No clear difference in evenness on the inner surfaces",
+      "value": "exact p = 0.471",
+      "quote": "No effects were found for the inner surfaces (exact p = 0.471).",
+      "outcome": "How evenly brushing time covered the six sections of the inner surfaces"
+    },
+    {
+      "id": "missed_a_sextant",
+      "kind": "finding",
+      "label": "About two-thirds in both groups skipped at least one section of the mouth",
+      "value": "approximately two-thirds of both groups missed at least one sextant",
+      "quote": "Instead, approximately two-thirds of both groups missed at least one sextant, and approximately 10% did not brush their inner surfaces at all.",
+      "outcome": "Sections of the mouth skipped"
+    },
+    {
+      "id": "inner_never_brushed",
+      "kind": "finding",
+      "label": "About one in ten never brushed their inner surfaces",
+      "value": "approximately 10% did not brush their inner surfaces at all",
+      "quote": "Instead, approximately two-thirds of both groups missed at least one sextant, and approximately 10% did not brush their inner surfaces at all.",
+      "outcome": "Inner surfaces not brushed at all"
+    },
+    {
+      "id": "horizontal_not_reduced",
+      "kind": "finding",
+      "label": "Best effort did not reduce side-to-side scrubbing",
+      "value": "did not reduce the application of horizontal brushing movements",
+      "quote": "The instruction to brush to the best of one’s abilities did not reduce the application of horizontal brushing movements, which are generally discouraged [].",
+      "outcome": "Side-to-side scrubbing"
+    },
+    {
+      "id": "interdental_use",
+      "kind": "finding",
+      "label": "More people in the best-effort group used floss or an interdental brush",
+      "value": "n = 31 vs. n = 12",
+      "quote": "In total, n = 43 used interdental hygiene devices, with significantly more persons in the BP group than in the AU group (n = 31 vs. n = 12; exact p < 0.001).",
+      "outcome": "Used floss or an interdental brush"
+    },
+    {
+      "id": "interdental_share",
+      "kind": "finding",
+      "label": "Two-thirds of the best-effort group cleaned between teeth, one-quarter of the as-usual group",
+      "value": "two-thirds of the BP group compared to only one-quarter of the AU-brushers",
+      "quote": "Interdental hygiene devices were used by two-thirds of the BP group compared to only one-quarter of the AU-brushers.",
+      "outcome": "Used floss or an interdental brush"
+    },
+    {
+      "id": "floss_mostly",
+      "kind": "finding",
+      "label": "Most who cleaned between teeth used floss",
+      "value": "n = 38",
+      "quote": "The majority of them (n = 38) applied dental floss, whereas only two of the AU group and three of the BP group applied interdental brushes.",
+      "outcome": "Which between-teeth tool was used"
+    },
+    {
+      "id": "spaces_ns",
+      "kind": "finding",
+      "label": "No clear difference in how many gaps were cleaned",
+      "value": "p = 0.627",
+      "quote": "There were no group differences in the mean number of processed interdental spaces (mean ± SD: 18.42 ± 5.9 vs. 17.42 ± 6.4, respectively; p = 0.627).",
+      "outcome": "Number of gaps between teeth cleaned"
+    },
+    {
+      "id": "floss_correct",
+      "kind": "finding",
+      "label": "Only four people in each group flossed correctly",
+      "value": "N = 4 in each group",
+      "quote": "N = 4 in each group applied dental floss correctly.",
+      "outcome": "Flossed correctly"
+    },
+    {
+      "id": "plaque_after_ns",
+      "kind": "finding",
+      "label": "No clear difference in gumline plaque after brushing",
+      "value": "overall MPI: t89 = 1.045; p = 0.149; d = 0.22",
+      "quote": "Groups did not differ significantly with respect to the primary (overall MPI: t89 = 1.045; p = 0.149; d = 0.22) or secondary (TQHI % 3–5 overall: t89 = 1.126; p = 0.132; d = 0.24) outcome variable.",
+      "outcome": "Plaque left along the gumline after brushing (marginal plaque index)"
+    },
+    {
+      "id": "tqhi_after_ns",
+      "kind": "finding",
+      "label": "No clear difference in heavy plaque cover after brushing",
+      "value": "TQHI % 3–5 overall: t89 = 1.126; p = 0.132; d = 0.24",
+      "quote": "Groups did not differ significantly with respect to the primary (overall MPI: t89 = 1.045; p = 0.149; d = 0.22) or secondary (TQHI % 3–5 overall: t89 = 1.126; p = 0.132; d = 0.24) outcome variable.",
+      "outcome": "Tooth surfaces with plaque over a third or more of the surface"
+    },
+    {
+      "id": "outer_effect_sizes",
+      "kind": "finding",
+      "label": "The biggest differences were on the outer surfaces",
+      "value": "the MPI (d = 0.37)",
+      "quote": "Additional analyses revealed that the largest effect sizes emerged for the outer surfaces both for the MPI (d = 0.37) and the TQHI % 3–5 (d = 0.46).",
+      "outcome": "Plaque on the outer surfaces after brushing"
+    },
+    {
+      "id": "interdental_no_benefit",
+      "kind": "finding",
+      "label": "Cleaning between teeth more often did not leave the between-teeth gumline cleaner",
+      "value": "did not improve their cleanliness in the proximal sections of the gum lines",
+      "quote": "Furthermore, the more frequent use of interdental devices in the BP group did not improve their cleanliness in the proximal sections of the gum lines.",
+      "outcome": "Plaque at the gumline between the teeth"
+    },
+    {
+      "id": "proximal_80",
+      "kind": "finding",
+      "label": "Plaque stayed on about 80% of the between-teeth gumline sections",
+      "value": "plaque persisted in 80% of these sections",
+      "quote": "Instead, plaque persisted in 80% of these sections.",
+      "outcome": "Plaque at the gumline between the teeth"
+    },
+    {
+      "id": "under_40_clean",
+      "kind": "finding",
+      "label": "Less than 40% of gumline sections were free of plaque after brushing",
+      "value": "less than 40% of the sections of the gingival margins were free from plaque",
+      "quote": "While objective plaque data indicate that less than 40% of the sections of the gingival margins were free from plaque, participants in the BP group thought it was 70%.",
+      "outcome": "Gumline sections left plaque-free"
+    },
+    {
+      "id": "bp_thought_70",
+      "kind": "finding",
+      "label": "The best-effort group thought 70% of their gumline was clean",
+      "value": "participants in the BP group thought it was 70%",
+      "quote": "While objective plaque data indicate that less than 40% of the sections of the gingival margins were free from plaque, participants in the BP group thought it was 70%.",
+      "outcome": "Gumline sections people believed were clean"
+    },
+    {
+      "id": "overestimate_twofold",
+      "kind": "finding",
+      "label": "Both groups thought their teeth were about twice as clean as they were",
+      "value": "approximately twofold",
+      "quote": "Both groups overestimated their actual oral cleanliness by approximately twofold.",
+      "outcome": "Believed versus measured cleanliness"
+    },
+    {
+      "id": "felt_cleaner",
+      "kind": "finding",
+      "label": "The best-effort group felt their teeth were cleaner",
+      "value": "the overall SPOCd (t88 = 2.548; p = 0.006; d = 0.54)",
+      "quote": "Analyses of subjectively perceived oral cleanliness (Fig. 5) revealed significant group differences for the primary outcome variable, the overall SPOCd (t88 = 2.548; p = 0.006; d = 0.54), as well as for the SPOCd subscales for outer (t88 = 3.138; p = 0.001; d = 0.66) and inner surfaces (t88 = 1.824; p = 0.036; d = 0.39).",
+      "outcome": "How clean people believed their teeth were after brushing"
+    },
+    {
+      "id": "felt_cleaner_higher",
+      "kind": "finding",
+      "label": "The best-effort group rated their cleanliness higher",
+      "value": "SPOC values in the BP group were higher than those in the AU group (p = 0.006; d = 0.54)",
+      "quote": "SPOC values in the BP group were higher than those in the AU group (p = 0.006; d = 0.54).",
+      "outcome": "How clean people believed their teeth were after brushing"
+    },
+    {
+      "id": "dmft_sensitivity",
+      "kind": "finding",
+      "label": "Leaving out five people with many treated teeth kept the results pointing the same way",
+      "value": "did not change the direction of the results",
+      "quote": "An additional analysis excluding those five participants in this group with DMFT values > 10 did not change the direction of the results.",
+      "outcome": "Results without the five as-usual participants with the most decayed, missing or filled teeth"
+    },
+    {
+      "id": "prevalence",
+      "kind": "statement",
+      "label": "How common gum disease is",
+      "value": "More than 50% of adults are affected",
+      "quote": "More than 50% of adults are affected by these chronic inflammatory disorders [], and the global prevalence of severe periodontitis is estimated to be eleven to thirteen percent [, ]."
+    },
+    {
+      "id": "marginal_plaque_cause",
+      "kind": "statement",
+      "label": "Plaque left at the gumline is a cause of gum disease",
+      "value": "persistent marginal plaque",
+      "quote": "One important etiological factor is persistent marginal plaque [, ]."
+    },
+    {
+      "id": "prior_cohorts",
+      "kind": "statement",
+      "label": "Earlier work compared two groups of 18-year-olds three years apart",
+      "value": "two cohorts of 18-year-olds examined three years apart",
+      "quote": "As a first approach to answering this question, Deinzer et al. [] compared the brushing behavior of two cohorts of 18-year-olds examined three years apart."
+    },
+    {
+      "id": "prior_horizontal",
+      "kind": "statement",
+      "label": "In that earlier work, side-to-side scrubbing was common",
+      "value": "40% of the brushing time of lateral surfaces",
+      "quote": "Furthermore, contrary to current advice, horizontal brushing was very common in both groups (40% of the brushing time of lateral surfaces)."
+    },
+    {
+      "id": "social_motive",
+      "kind": "statement",
+      "label": "Authors' explanation: people brush to remove plaque others can see",
+      "value": "removing visible plaque",
+      "quote": "This might be due to an important social motive of tooth brushing, i.e., removing visible plaque."
+    },
+    {
+      "id": "movement_evidence_missing",
+      "kind": "statement",
+      "label": "No strong evidence that any one brushing movement is better",
+      "value": "strong evidence proving the superiority of specific movements is missing",
+      "quote": "While strong evidence proving the superiority of specific movements is missing [], it is remarkable that the instruction to optimize one’s brushing did not change behavior toward more elaborate brushing movements."
+    },
+    {
+      "id": "quantity_not_quality",
+      "kind": "statement",
+      "label": "Authors' reading: 'better' meant more time, not better coverage",
+      "value": "refers mainly to the brushing quantity in terms of time but not to its quality",
+      "quote": "The participants’ concept of optimized tooth brushing apparently refers mainly to the brushing quantity in terms of time but not to its quality in terms of sufficient consideration of all surfaces or the application of more elaborate brushing movements."
+    },
+    {
+      "id": "brush_not_the_reason",
+      "kind": "statement",
+      "label": "The toothbrush design is unlikely to explain the leftover plaque",
+      "value": "cannot readily be attributed to an insufficient design of the toothbrush",
+      "quote": "Therefore, the high levels of remaining plaque cannot readily be attributed to an insufficient design of the toothbrush."
+    },
+    {
+      "id": "earlier_plaque_persists",
+      "kind": "statement",
+      "label": "Earlier studies: plaque stays at most of the gumline even after best-possible cleaning",
+      "value": "plaque would persist on most of the marginal areas",
+      "quote": "Furthermore, the data correspond to those of earlier studies showing that even after the best possible oral hygiene, plaque would persist on most of the marginal areas [, , , , ]."
+    },
+    {
+      "id": "aware_inner_less_clean",
+      "kind": "statement",
+      "label": "Both groups seemed to know their inner surfaces were less clean",
+      "value": "both groups seem to be aware that they brush their inner surfaces less clean than their outer surfaces",
+      "quote": "Interestingly, both groups seem to be aware that they brush their inner surfaces less clean than their outer surfaces."
+    },
+    {
+      "id": "professionals_clean",
+      "kind": "statement",
+      "label": "Dental professionals asked to brush their best reach almost perfect cleanliness",
+      "value": "almost perfect oral cleanliness",
+      "quote": "For dental professionals, this request leads to almost perfect oral cleanliness []."
+    },
+    {
+      "id": "not_aware",
+      "kind": "statement",
+      "label": "People are not aware of the gap",
+      "value": "they are not aware of this deficiency",
+      "quote": "However, they are not aware of this deficiency, as the current data show."
+    },
+    {
+      "id": "emphasize_quality",
+      "kind": "statement",
+      "label": "Authors' suggestion: teach what to clean, and show people what they miss",
+      "value": "raising awareness of hygiene deficits",
+      "quote": "Emphasizing the qualitative aspects of tooth brushing behavior and raising awareness of hygiene deficits could be a first step toward improving the effectiveness of oral hygiene."
+    },
+    {
+      "id": "differences_small",
+      "kind": "statement",
+      "label": "Clinically, the plaque differences were small",
+      "value": "the differences were still small",
+      "quote": "Nonetheless, from a clinical point of view, the differences were still small, and the overall oral cleanliness was far below what is achievable by appropriately trained people."
+    },
+    {
+      "id": "nonsig_far_below",
+      "kind": "statement",
+      "label": "The differences that were not clear were far smaller than the study could detect",
+      "value": "all nonsignificant effect sizes were far below the level that could have been significant",
+      "quote": "In addition, all nonsignificant effect sizes were far below the level that could have been significant with the targeted sample size."
+    },
+    {
+      "id": "limit_students",
+      "kind": "limitation",
+      "label": "Only university students were studied",
+      "value": "the participants were university students",
+      "quote": "First, the participants were university students, and thus the data might not transfer to other populations."
+    },
+    {
+      "id": "limit_one_event",
+      "kind": "limitation",
+      "label": "One brushing session only",
+      "value": "only one toothbrushing event",
+      "quote": "Second, the results focus on only one toothbrushing event."
+    },
+    {
+      "id": "limit_longer_period",
+      "kind": "limitation",
+      "label": "Unknown what longer-term extra effort would do",
+      "value": "No information is available on how oral hygiene would improve",
+      "quote": "No information is available on how oral hygiene would improve if people would increase their efforts for a longer period."
+    },
+    {
+      "id": "limit_au_norms",
+      "kind": "limitation",
+      "label": "The as-usual group may have tried harder than usual because they were watched",
+      "value": "might have increased their efforts to fulfill social norms and expectations",
+      "quote": "Third, the AU group might have increased their efforts to fulfill social norms and expectations, which might have reduced the observable differences between the two groups."
+    },
+    {
+      "id": "limit_au_longer",
+      "kind": "limitation",
+      "label": "The as-usual group may have brushed longer than at home",
+      "value": "The AU might have brushed longer than they would do at home",
+      "quote": "The AU might have brushed longer than they would do at home."
+    },
+    {
+      "id": "limit_recruitment",
+      "kind": "limitation",
+      "label": "Fewer people were analysed than planned",
+      "value": "the overrecruitment of study participants was still insufficient",
+      "quote": "Another limitation is that the overrecruitment of study participants was still insufficient."
+    },
+    {
+      "id": "limit_n91",
+      "kind": "limitation",
+      "label": "Only 91 were analysed",
+      "value": "only N = 91 available for inferential statistics",
+      "quote": "However, dropouts and outlying values resulted in only N = 91 available for inferential statistics."
+    },
+    {
+      "id": "limit_coronal",
+      "kind": "limitation",
+      "label": "Medium-sized differences in plaque higher up the tooth",
+      "value": "medium effect sizes were observable with regard to more coronal parts of the crown",
+      "quote": "Finally, even though plaque after oral hygiene did not differ statistically, medium effect sizes were observable with regard to more coronal parts of the crown."
+    },
+    {
+      "id": "funding",
+      "kind": "context",
+      "label": "Who paid for the study",
+      "value": "institutional budget of RD",
+      "quote": "The study was financed by the institutional budget of RD."
+    },
+    {
+      "id": "no_conflicts",
+      "kind": "context",
+      "label": "Conflicts of interest",
+      "value": "no conflicts of interest",
+      "quote": "All authors declare that they have no conflicts of interest."
+    }
+  ],
+  "coverage": {
+    "conditions": [
+      "no_hygiene_4h",
+      "standard_brush",
+      "devices_available",
+      "stain_hidden",
+      "camera_mirror",
+      "plaque_second_visit",
+      "study_dates",
+      "recruitment",
+      "inclusion_age",
+      "inclusion_manual_brush",
+      "exclusion_criteria",
+      "visits_two_weeks",
+      "devices_on_table"
+    ],
+    "dosing": [
+      "instruction_bp",
+      "instruction_au",
+      "limit_one_event"
+    ],
+    "confounds": [
+      "limit_au_norms",
+      "limit_au_longer",
+      "dmft_imbalance",
+      "dmft_sensitivity",
+      "excluded_15",
+      "stratification",
+      "registration_retrospective"
+    ],
+    "priorEvidence": [
+      "prior_cohorts",
+      "prior_horizontal",
+      "earlier_plaque_persists",
+      "professionals_clean",
+      "movement_evidence_missing",
+      "marginal_plaque_cause"
+    ],
+    "furtherInvestigation": [
+      "limit_longer_period",
+      "emphasize_quality"
+    ],
+    "funding": [
+      "funding",
+      "no_conflicts"
+    ]
+  }
+}

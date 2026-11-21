@@ -1914,6 +1914,89 @@
     }
   },
   "takeaways": {
+    "alternate-day-fasting-weight": [
+      [
+        {
+          "text": "Fasting every other day, adults without obesity weighed 5.2 kg less than a control group after 12 weeks.",
+          "refs": [
+            "weight_md"
+          ]
+        }
+      ],
+      [
+        {
+          "text": "Most of the difference was fat; lean mass showed no clear difference.",
+          "refs": [
+            "fat_md",
+            "lean_ns"
+          ]
+        }
+      ],
+      [
+        {
+          "text": "Small and short, and the authors merged the groups after the fact.",
+          "refs": [
+            "limit_small",
+            "limit_twelve",
+            "limit_post_hoc"
+          ]
+        }
+      ]
+    ],
+    "best-possible-toothbrushing": [
+      [
+        {
+          "text": "Told to brush their best, students brushed nearly a minute longer, mostly on the outer surfaces.",
+          "refs": [
+            "nearly_one_minute",
+            "extra_time_outer"
+          ]
+        }
+      ],
+      [
+        {
+          "text": "Plaque along the gumline afterwards showed no clear difference from brushing as usual.",
+          "refs": [
+            "plaque_after_ns"
+          ]
+        }
+      ],
+      [
+        {
+          "text": "The authors suggest teaching which surfaces to reach and showing people what they miss; the trial did not test that.",
+          "refs": [
+            "emphasize_quality"
+          ]
+        }
+      ]
+    ],
+    "ceramide-moisturizer-barrier": [
+      [
+        {
+          "text": "After 28 days, the eczema score showed no clear difference between a ceramide cream and cleanser and a placebo set.",
+          "refs": [
+            "easi_ns"
+          ]
+        }
+      ],
+      [
+        {
+          "text": "Water loss through the skin fell more with the ceramide set.",
+          "refs": [
+            "tewl_lower"
+          ]
+        }
+      ],
+      [
+        {
+          "text": "Run by the cream's maker, for 28 days only.",
+          "refs": [
+            "limit_sponsor",
+            "twenty_eight_days"
+          ]
+        }
+      ]
+    ],
     "daytime-caffeine-sleep": [
       [
         {
@@ -2020,6 +2103,37 @@
         }
       ]
     ],
+    "sleep-restriction-sweet-foods": [
+      [
+        {
+          "text": "After five nights of 6.5 hours in bed, teens rated sweets and desserts as more appealing than after 10-hour nights.",
+          "refs": [
+            "five_nights",
+            "sr_in_bed",
+            "hs_in_bed",
+            "sweets_more_appealing"
+          ]
+        }
+      ],
+      [
+        {
+          "text": "Hunger and the appeal of other foods showed no clear difference.",
+          "refs": [
+            "hunger_ns",
+            "nonsweets_ns"
+          ]
+        }
+      ],
+      [
+        {
+          "text": "The trial was small, and measured only after five short nights.",
+          "refs": [
+            "limit_small",
+            "limit_after_five"
+          ]
+        }
+      ]
+    ],
     "steps-days-per-week": [
       [
         {
@@ -2044,6 +2158,63 @@
           "refs": [
             "ard_1_2_65plus",
             "ard_1_2_under65"
+          ]
+        }
+      ]
+    ],
+    "sugar-inflammation-markers": [
+      [
+        {
+          "text": "Pooled trials found no clear difference in CRP between fructose and the same calories of glucose.",
+          "refs": [
+            "fru_glu_ns",
+            "six_matched"
+          ]
+        }
+      ],
+      [
+        {
+          "text": "Corn syrup against table sugar: no clear difference either.",
+          "refs": [
+            "hfcs_suc_ns"
+          ]
+        }
+      ],
+      [
+        {
+          "text": "Certainty is low, and the review could pool only CRP.",
+          "refs": [
+            "grade_fru_glu",
+            "limit_crp_only"
+          ]
+        }
+      ]
+    ],
+    "time-restricted-eating-healthy": [
+      [
+        {
+          "text": "Eating within 8 hours between 6:00 and 15:00, adults' insulin resistance fell more than with a mid-day window.",
+          "refs": [
+            "etrf_choose",
+            "homa_etrf_better"
+          ]
+        }
+      ],
+      [
+        {
+          "text": "Both windows cut food eaten by amounts that showed no clear difference.",
+          "refs": [
+            "ei_groups_differ",
+            "ei_tr_ns"
+          ]
+        }
+      ],
+      [
+        {
+          "text": "The trial was small and short, and participants knew their group.",
+          "refs": [
+            "limit_small",
+            "limit_unblinded"
           ]
         }
       ]

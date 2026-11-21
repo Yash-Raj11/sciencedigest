@@ -39,6 +39,8 @@ when it is kept (`npm run db:mutation` does this for the database).
 | A sketch with a number, on a concept the owner has not reviewed, or in orange; not dotted; no "Sketch, not data" tag | `lib/content/sketch.ts`, `lib/pipeline/lint.ts`, `scripts/visual-system.test.ts` |
 | A simulator draws a context fact that is not in the owner-approved fact library | `lib/content/fact-library.ts`, `content/library.json`, `lib/pipeline/lint.ts` |
 | A user cannot change their own tier; cannot read another user's ticks; cannot tick a derived step | `supabase/migrations/`, tested in `supabase/tests/database/` |
+| A deck out of order (hook, finding, why, who, receipts, cta), over 25 words in a slide's heading and body or 24 in its art, with a caveat on the hook or the why slide, a technical word not bracketed after its plain picture, a verdict its fact does not support, a who entry that cites nothing, or no limitation on the receipts; a slide that breaks a Satori rule, draws a glyph its font lacks, or draws a number its cited passages do not hold | `lib/pipeline/carousel.ts`, `lint.ts`, `lib/carousel/render.ts`, `scripts/verify-parity.mts` |
+| Common knowledge cited outside the deck, not owner-approved, or lending a number it does not hold; a deck resting on an unreviewed concept or common fact approved in the queue | `lib/pipeline/common.ts`, `lint.ts`, `app/api/admin/queue/route.ts` |
 | TypeScript scoring and SQL scoring return identical results | `scripts/gen-parity.mts` + `90_parity.generated.test.sql` |
 
 ## Rules that need your judgment
@@ -80,7 +82,9 @@ when it is kept (`npm run db:mutation` does this for the database).
   may come from a gated context study (never a background concept); the range rule still applies.
   A sketch is never a personal estimate: it holds no number, so no simulator reads from it.
 - **H7 (amended).** Every number shown to a reader traces to a gated fact, from the paper or
-  from a gated context source. The UI says which. A figure spec and its simulator may use a
+  from a gated context source. The UI says which. On the Instagram deck only, a number may also
+  come from an owner-approved common-knowledge fact (`content/common/`, cited `[common:<slug>]`;
+  owner, 2026-11-19), e.g. how much caffeine a cup of coffee holds. A figure spec and its simulator may use a
   fact of a gated context study (owner, 2026-11-14): the chart shows "From another study:
   <cite>, <grade>" and the audit lists the study. A background concept never feeds a number.
 - **Sketch rule (owner, 2026-11-15).** Where the paper measured something relevant, draw that data
@@ -94,6 +98,7 @@ when it is kept (`npm run db:mutation` does this for the database).
 - `science-content`: before editing `content/**`, `lib/pipeline/prompts.ts`, carousel text, or any wording a reader sees.
 - `db-change`: before editing `supabase/**`, `lib/score.ts`, `lib/evidence.ts`, or anything that calls the database.
 - `phase-handoff`: when the owner types `/phase-handoff`, and at the end of each phase.
+- `carousel-design`: before changing how an Instagram deck looks (`lib/carousel/**`) or drafting a new deck.
 - `unslop-ui`: before building or changing any UI, page, card, feed or protocol widget. Run its
   Section 7 checklist before calling UI work done. Where it touches a rule in this file, this file wins.
 

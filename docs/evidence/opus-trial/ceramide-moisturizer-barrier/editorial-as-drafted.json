@@ -1,0 +1,308 @@
+{
+  "slug": "ceramide-moisturizer-barrier",
+  "category": "Skin",
+  "accessTier": "free",
+  "publishedAt": null,
+  "title": "A ceramide cream and cleanser for eczema, against a placebo set for 28 days [placebo_set, twenty_eight_days]",
+  "teaser": "Adults with moderate eczema used a ceramide cream and cleanser, or a look-alike placebo set, for 28 days. [inclusion_moderate, placebo_set, twenty_eight_days] The eczema score showed no clear difference between them. [easi_ns] The ceramide set did keep more water in the skin. [hydration_up]",
+  "hook": "With a ceramide cream and cleanser, the eczema score fell to 8.25 by day 28. [easi_active_28] With a placebo set, it fell to 7.84. [easi_placebo_28]",
+  "populationTerms": [
+    "adults",
+    "patients",
+    "people",
+    "participants"
+  ],
+  "populationPanel": "Who this was tested in: 100 adults with moderate eczema, from one Sydney skin clinic. [itt_100, inclusion_moderate, recruited] They were aged 18 to 73, and about half were Asian. [age_mean, asian_row] Everyone stopped their usual creams and skin medicines; both groups had a steroid gel to use if needed. [washout, rescue_steroid] A random draw put 50 on each set, and 83 finished. [randomized_blocks, per_group_50, completed_83]",
+  "primaryEstimate": "easi_ns",
+  "card": {
+    "question": "Does a ceramide cream and cleanser calm eczema better than a placebo set? [easi_ns]",
+    "headline": "After 28 days, the eczema score showed no clear difference between the two sets. [easi_ns]",
+    "support": "Water loss through the skin fell more with the ceramide set. [tewl_lower]"
+  },
+  "source": {
+    "who": "100 adults with moderate eczema [itt_100, inclusion_moderate]",
+    "span": "28 days [twenty_eight_days]"
+  },
+  "glance": {
+    "figure": "eczema-scores",
+    "x": "Eczema score [-]",
+    "alt": "Two rows, one for each set: a line from the score at the start to the score at the end. [easi_active_0, easi_active_28] The two lines nearly match. [easi_ns]",
+    "note": "Drawn from the paper’s printed scores. [-]",
+    "tryIt": "compare the eczema score for both sets [-]"
+  },
+  "layers": {
+    "mechanism": {
+      "paragraphs": [
+        "Picture the outer layer of your skin as a brick wall. [-] The cells are the bricks, and a fatty mortar fills the gaps between them. [mortar] Part of that mortar is a family of fats called ceramides. [mortar]",
+        "In eczema, the mortar holds less ceramide. [ceramide_low] Water seeps out through the gaps, the skin dries, and irritants get in more easily. [leaky] The water escaping this way is called transepidermal water loss. [leaky]",
+        "The tested cream carries two ceramides, cholesterol and a fatty acid in a set ratio. [ratio_311] It also draws water into the skin, seals it in, and smooths the surface. [triple_system] The authors say ordinary moisturizers mostly sit on top, while skin fats like ceramides soak in. [conventional]",
+        "On the wall itself, the ceramide set did better than the placebo set. [-] Water loss through the skin fell more, and skin hydration rose more. [tewl_lower, hydration_up] Hydration stayed ahead of the placebo set at every weekly visit. [hydration_better]",
+        "The eczema itself is another matter. [-] The redness, swelling, itch and thickening the eczema score counts improved about as much with either set. [easi_scale, easi_ns]"
+      ],
+      "figure": {
+        "figure": "eczema-scores",
+        "caption": "Each line runs from a group's average eczema score at the start to its score at day 28. [easi_active_0, easi_active_28, easi_placebo_0, easi_placebo_28]",
+        "alt": "Two rows on one scale. [-] Ceramide set: from 14.70 to 8.25. [easi_active_0, easi_active_28] Placebo set: from 14.28 to 7.84. [easi_placebo_0, easi_placebo_28]",
+        "params": {
+          "title": "Eczema score, start and end",
+          "scaleWord": "Eczema score",
+          "startWord": "start",
+          "endWord": {
+            "text": "day 28",
+            "ref": "twenty_eight_days"
+          },
+          "rows": [
+            {
+              "label": "Ceramide set",
+              "start": {
+                "kind": "measured",
+                "fact": "fact:easi_active_0"
+              },
+              "end": {
+                "kind": "measured",
+                "fact": "fact:easi_active_28"
+              }
+            },
+            {
+              "label": "Placebo set",
+              "start": {
+                "kind": "measured",
+                "fact": "fact:easi_placebo_0"
+              },
+              "end": {
+                "kind": "measured",
+                "fact": "fact:easi_placebo_28"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "protocol": {
+      "paragraphs": [
+        "The tested routine ran for 28 days. [twenty_eight_days] Once a day, massage the cleanser into wet skin over the whole body, then rinse and pat dry. [cleanser_daily] Apply the cream liberally to the whole body twice a day, morning and night. [cream_twice] One of those goes on straight after the wash. [cream_after_wash]",
+        "Both groups stopped their usual moisturizers and had a steroid gel to use if needed. [washout, rescue_steroid] How much gel they used showed no clear difference. [rescue_ns]"
+      ],
+      "figure": null
+    },
+    "audit": {
+      "effect": "Eczema score at day 28: no clear difference between the two sets (p = .7804). [easi_ns] It went from 14.70 to 8.25 with the ceramide set, and from 14.28 to 7.84 with placebo. [easi_active_0, easi_active_28, easi_placebo_0, easi_placebo_28]",
+      "weakEnd": "The paper reports no confidence interval for the difference in eczema score. [easi_ns] Its ± figures are standard errors, which the read does not turn into a range. [sem] So how large a difference the trial could have missed stays unknown. [easi_ns]",
+      "limitations": [
+        "Run by the cream's maker, which employs six of the authors. [limit_sponsor]",
+        "Water loss and hydration were secondary outcomes; the main outcome showed no clear difference. [limit_secondary]",
+        "Only 28 days, with no follow-up afterwards. [limit_short, limit_no_followup]",
+        "83 of 100 finished. [limit_dropouts]"
+      ],
+      "missed": "The abstract ends by saying the set improves the signs and symptoms of eczema. [abstract_claim] The trial's own main outcome, the eczema score, showed no clear difference from placebo. [easi_ns] Itch relief was rated better at day 14, but not at day 28 (p = .7147). [itch_d14, itch_d28] The paper counts softness at day 28 as a win, at p = .0573. [softness]",
+      "more": [
+        "Water loss: better than placebo at every visit except day 21 (p = .0660). [tewl_day21]",
+        "Over the 28 days, water loss and hydration improved with the ceramide set, and stayed level or worsened with placebo. [trend]",
+        "Quality of life improved in both groups, with no clear difference between them. [dlqi_ns] The abstract gives that test as p = .5256, the results as p = .7804. [dlqi_abstract_p, dlqi_ns]",
+        "Dry-skin relief was rated better at days 14 and 28. [dry_skin] Redness, pleasantness, ease of use and overall satisfaction showed no clear difference. [sat_ns]",
+        "Side effects: 11 people with the ceramide set and 7 with placebo. [ae_groups] Stinging on application: 5 people, all with the ceramide set. [stinging]",
+        "No one left because of side effects, and none were serious. [no_serious]",
+        "Registered before it began; double-blind, with identical coded packs. [registered, double_blind, identical_packs]"
+      ],
+      "figure": null
+    }
+  },
+  "glossary": [
+    {
+      "term": "ceramides",
+      "plain": "Fats that make up part of the mortar between the cells of the outer skin.",
+      "refs": [
+        "mortar"
+      ]
+    },
+    {
+      "term": "transepidermal water loss",
+      "plain": "Water escaping from the body through the outer layer of the skin.",
+      "refs": [
+        "leaky"
+      ]
+    },
+    {
+      "term": "placebo",
+      "plain": "A look-alike cream and cleanser made without the active skin ingredients.",
+      "refs": [
+        "placebo_set"
+      ]
+    }
+  ],
+  "takeaways": [
+    "After 28 days, the eczema score showed no clear difference between a ceramide cream and cleanser and a placebo set. [easi_ns]",
+    "Water loss through the skin fell more with the ceramide set. [tewl_lower]",
+    "Run by the cream's maker, for 28 days only. [limit_sponsor, limit_short]"
+  ],
+  "choices": [],
+  "steps": [
+    {
+      "key": "ceramide-cream-twice",
+      "label": "Ceramide cream on the whole body, morning and night",
+      "detail": "As the trial did for 28 days. A tick records that you put it on, not any change in your skin.",
+      "kind": "action",
+      "refs": [
+        "cream_twice"
+      ],
+      "evidenceRef": "tewl_lower"
+    },
+    {
+      "key": "wash-then-cream",
+      "label": "Wash once a day, then cream straight after",
+      "detail": "Part of the tested routine, not tested on its own, so it carries no weight.",
+      "kind": "action",
+      "refs": [
+        "cleanser_daily",
+        "cream_after_wash"
+      ]
+    }
+  ],
+  "simulator": {
+    "kind": "estimate-explorer",
+    "params": {
+      "lowLabel": "Milder eczema",
+      "highLabel": "More severe eczema",
+      "rows": [
+        {
+          "label": "Ceramide set, at the start",
+          "fact": "fact:easi_active_0"
+        },
+        {
+          "label": "Ceramide set, at the end",
+          "fact": "fact:easi_active_28"
+        },
+        {
+          "label": "Placebo set, at the start",
+          "fact": "fact:easi_placebo_0"
+        },
+        {
+          "label": "Placebo set, at the end",
+          "fact": "fact:easi_placebo_28"
+        }
+      ]
+    }
+  },
+  "carousel": {
+    "slides": [
+      {
+        "kind": "hook",
+        "heading": "Does a ceramide cream beat a plain cream for eczema? [-]",
+        "body": "Adults with moderate eczema used one or the other twice a day, for 28 days. [inclusion_moderate, cream_twice, twenty_eight_days]",
+        "art": {
+          "motif": "pair",
+          "a": {
+            "value": {
+              "text": "8.25",
+              "ref": "easi_active_28"
+            },
+            "label": "eczema score, ceramide set [easi_active_28]"
+          },
+          "b": {
+            "value": {
+              "text": "7.84",
+              "ref": "easi_placebo_28"
+            },
+            "label": "eczema score, placebo set [easi_placebo_28]"
+          }
+        }
+      },
+      {
+        "kind": "finding",
+        "heading": "On the eczema score, no clear difference after 28 days. [easi_ns]",
+        "body": "But the ceramide set kept more water in the skin. [hydration_up]",
+        "art": {
+          "motif": "verdicts",
+          "rows": [
+            {
+              "label": "Eczema score [-]",
+              "verdict": "no-clear-difference",
+              "fact": "fact:easi_ns"
+            },
+            {
+              "label": "Water loss [-]",
+              "verdict": "lower",
+              "fact": "fact:tewl_lower"
+            },
+            {
+              "label": "Skin hydration [-]",
+              "verdict": "higher",
+              "fact": "fact:hydration_up"
+            },
+            {
+              "label": "Steroid gel used [-]",
+              "verdict": "no-clear-difference",
+              "fact": "fact:rescue_ns"
+            }
+          ]
+        }
+      },
+      {
+        "kind": "why",
+        "heading": "Ceramides are part of the mortar between skin cells. [mortar]",
+        "body": "Eczema skin holds less, so water escapes (transepidermal water loss). [ceramide_low, leaky]",
+        "art": null
+      },
+      {
+        "kind": "who",
+        "heading": "Tested in 100 adults with moderate eczema. [itt_100]",
+        "body": null,
+        "art": {
+          "motif": "who",
+          "tested": [
+            "50 on each set [per_group_50]",
+            "Aged 18 to 73 [age_mean]",
+            "One Sydney skin clinic [recruited]"
+          ],
+          "notTested": [
+            "Children [inclusion_adults]",
+            "Mild or severe eczema [inclusion_moderate]",
+            "Beyond 28 days [limit_short]"
+          ]
+        }
+      },
+      {
+        "kind": "receipts",
+        "heading": "How sure can we be? [-]",
+        "body": null,
+        "art": {
+          "motif": "checks",
+          "strong": "Double-blind, placebo set, registered first. [double_blind, registered]",
+          "weak": "Run by the cream's maker; 28 days only. [limit_sponsor, limit_short]",
+          "missing": "Any follow-up after the trial. [limit_no_followup]"
+        }
+      },
+      {
+        "kind": "cta",
+        "heading": "Is your moisturizer doing the mortar's job? [-]",
+        "body": "Compare the eczema scores for both sets, start to finish. [easi_active_28, easi_placebo_28]",
+        "art": null
+      }
+    ],
+    "altHooks": [
+      {
+        "name": "The mortar",
+        "kind": "hook",
+        "heading": "Can a cream patch the mortar between skin cells? [-]",
+        "body": "Adults with eczema tried a ceramide cream and cleanser. [inclusion_moderate, cream_twice]",
+        "art": {
+          "motif": "number",
+          "value": {
+            "text": "28",
+            "ref": "twenty_eight_days"
+          },
+          "unit": "days [-]",
+          "label": "twice a day, whole body [cream_twice]"
+        }
+      }
+    ],
+    "caption": "A randomized, double-blind trial in 100 adults with moderate eczema. [randomized_blocks, double_blind, itt_100] After 28 days, the eczema score showed no clear difference between a ceramide cream and cleanser and a placebo set. [easi_ns] Water loss through the skin fell more with the ceramide set. [tewl_lower] Run by the cream's maker. [limit_sponsor] Full read: link in bio. [-]",
+    "hashtags": [
+      "eczema",
+      "skincare",
+      "ceramides",
+      "dermatology",
+      "evidencebased"
+    ]
+  }
+}

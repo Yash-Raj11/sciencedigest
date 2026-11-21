@@ -28,6 +28,12 @@ import FiveReadings from "./turmeric-pepper-breakfast/figures/FiveReadings";
 import FirstHalfHour from "./turmeric-pepper-breakfast/figures/FirstHalfHour";
 import BreakfastSimulator from "./turmeric-pepper-breakfast/Simulator";
 import EnergyLedger from "./sleep-extension-energy-intake/figures/EnergyLedger";
+import CleanGap from "./best-possible-toothbrushing/figures/CleanGap";
+import EatingWindows from "./time-restricted-eating-healthy/figures/EatingWindows";
+import Bedtimes from "./sleep-restriction-sweet-foods/figures/Bedtimes";
+import CrpGaps from "./sugar-inflammation-markers/figures/CrpGaps";
+import FastDays from "./alternate-day-fasting-weight/figures/FastDays";
+import EczemaScores from "./ceramide-moisturizer-barrier/figures/EczemaScores";
 
 export interface WidgetProps { variant: "article" | "card" }
 export interface SimulatorProps {
@@ -86,6 +92,12 @@ const FIGURES: Record<FigureKey, ComponentType<FigureProps>> = {
   "turmeric-pepper-breakfast/five-readings": FiveReadings,
   "turmeric-pepper-breakfast/first-half-hour": FirstHalfHour,
   "sleep-extension-energy-intake/energy-ledger": EnergyLedger,
+  "best-possible-toothbrushing/clean-gap": CleanGap,
+  "time-restricted-eating-healthy/eating-windows": EatingWindows,
+  "sleep-restriction-sweet-foods/bedtimes": Bedtimes,
+  "sugar-inflammation-markers/crp-gaps": CrpGaps,
+  "alternate-day-fasting-weight/fast-days": FastDays,
+  "ceramide-moisturizer-barrier/eczema-scores": EczemaScores,
 };
 
 /** The drawing, and under it the key when the figure mixes measured and proposed. */

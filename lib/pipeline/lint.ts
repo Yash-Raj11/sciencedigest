@@ -10,6 +10,9 @@
  * approval queue shows the same report).
  */
 
+import { DECK_LIMITS, HOOK_HEDGES, VERDICTS, altHookProblems, deckShapeProblems, receiptInterval, slideEvidence, slideMarkup, slideNumbers, slideValues, type Verdict } from "./carousel";
+import type { CommonState } from "./common";
+import { DESIGN_LABEL } from "../content/source-line";
 import { Editorial, LAYERS, MIXED_SHAPE_MESSAGE, OLD_SHAPE_MESSAGE, editorialShape, type Layer } from "./editorial";
 import type { ConceptState } from "./concepts";
 import type { Validated, ValidatedFact } from "./gate";
@@ -47,6 +50,11 @@ export interface LintReport {
   layers?: Record<Layer, LayerStats>;
   /** The context sources the read cites, and which concepts the owner has not reviewed yet. */
   context?: { studies: string[]; concepts: string[]; unreviewed: string[] };
+  /**
+   * What only the deck uses and the owner has not reviewed yet ("concept:<slug>", "common:<slug>").
+   * Not an error (the read may be published), but the queue refuses to approve the deck until it is empty.
+   */
+  deckPending?: string[];
 }
 
 /** One folder of content/context/, after the gate (role "context") and the retraction check. */
@@ -62,6 +70,8 @@ export type ContextStudyState =
 export interface LintContext {
   studies: Record<string, ContextStudyState>;
   concepts: Record<string, ConceptState>;
+  /** Common knowledge the owner approves once (content/common/, lib/pipeline/common.ts). The deck only. */
+  common?: Record<string, CommonState>;
   /**
    * The fact library (content/library.json, lib/content/fact-library.ts): context facts the
    * owner approved for simulators, as "<study>/<fact>". A simulator may draw a context fact
@@ -169,9 +179,10 @@ export function statesDirection(fact: ValidatedFact): boolean {
 }
 
 // Carousel ---------------------------------------------------------------------
-export const CAROUSEL_LIMITS = { slides: 10, heading: 90, body: 280, caption: 2200, hashtags: 30 };
+/** Instagram's own limits on the caption. The slide limits live in ./carousel.ts (DECK_LIMITS). */
+export const CAROUSEL_LIMITS = { caption: 2200, hashtags: 30 };
 /** Conservative: basic Latin plus the punctuation the slide fonts are known to carry. */
-const SAFE_GLYPHS = /^[\x20-\x7e -ÿ–—‘’“”−×]*$/;
+export const SAFE_GLYPHS = /^[\x20-\x7e -ÿ–—‘’“”−×]*$/;
 
 export const MAX_SHARED_SHINGLES = 2;
 export const READ_WORDS = { min: 350, max: 1000 };
@@ -284,6 +295,7 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   const usedStudies = new Set<string>();
   const usedConcepts = new Set<string>();
   const unreviewed = new Set<string>();
+  const deckPending = new Set<string>();
   const complained = new Set<string>();
   const once = (rule: string, where: string, message: string) => {
     const key = `${rule}|${where}|${message}`;
@@ -323,6 +335,15 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
       } else usedStudies.add(parsedRef.source);
       return;
     }
+    const onDeck = where.startsWith("carousel.");
+    if (parsedRef.kind === "common") {
+      const common = context.common?.[parsedRef.slug];
+      if (!onDeck) once("context", where, `cites "${ref}": common knowledge may be cited on the deck only, not in the read`);
+      else if (!common) once("context", where, `cites "${ref}", but there is no content/common/${parsedRef.slug}.json`);
+      else if (!common.ok) once("context", where, `cites "${ref}", but that fact fails its own checks (${common.errors[0]})`);
+      else if (!common.reviewed) deckPending.add(ref);
+      return;
+    }
     const concept = context.concepts[parsedRef.slug];
     if (!concept) {
       once("context", where, `cites "${ref}", but there is no content/concepts/${parsedRef.slug}.json`);
@@ -330,7 +351,11 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
       once("context", where, `cites "${ref}", but that concept fails its own checks (${concept.errors[0]})`);
     } else {
       usedConcepts.add(parsedRef.slug);
-      if (!concept.reviewed) unreviewed.add(parsedRef.slug);
+      // Used on the deck alone, an unreviewed concept holds up the deck's approval, not the read.
+      if (!concept.reviewed) {
+        if (onDeck) deckPending.add(ref);
+        else unreviewed.add(parsedRef.slug);
+      }
     }
   }
 
@@ -426,15 +451,21 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   audit.more.forEach((p, i) => take(`layers.audit.more[${i}]`, p, { inRead: true, layer: "audit" }));
 
   ed.takeaways.forEach((t, i) => take(`takeaways[${i}]`, t));
-  ed.carousel.slides.forEach((slide, i) => {
-    take(`carousel.slides[${i}].heading`, slide.heading, { headline: true });
-    if (slide.body) take(`carousel.slides[${i}].body`, slide.body);
-  });
+  /** Each slide's sentences, kept per slide for the deck rules below; `art` marks the art's own words. */
+  // The deck's slides, then its alternate opening slides: every one held to the same slide rules.
+  const deckEntries = [
+    ...ed.carousel.slides.map((slide, i) => ({ slide, i, at: `carousel.slides[${i}]` })),
+    ...ed.carousel.altHooks.map((slide, i) => ({ slide: slide as typeof ed.carousel.slides[number], i, at: `carousel.altHooks[${i}]` })),
+  ];
+  const slideSentences = deckEntries.map(({ slide, i, at }) =>
+    slideMarkup(slide, i, at).flatMap(({ where, markup, art }) => take(where, markup, { headline: where.endsWith(".heading") }).map((s) => ({ ...s, where, art }))));
   take("carousel.caption", ed.carousel.caption);
 
   const allowedNumbers = (refs: string[]): number[] => {
     const out: number[] = [];
     for (const ref of refs) {
+      const common = parseRef(ref).kind === "common" ? context.common?.[ref.slice(7)] : undefined;
+      if (common?.ok) out.push(...numbersIn(common.common.statement));
       const fact = factOf(ref)?.fact;
       if (!fact) continue;
       out.push(...numbersIn(fact.quote));
@@ -874,20 +905,97 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   if (wordCount < READ_WORDS.min) warnings.push({ rule: "length", where: "read", message: `${wordCount} words: under a two-minute read` });
   if (wordCount > READ_WORDS.max) fail("length", "read", `${wordCount} words: over a five-minute read`);
 
-  // Carousel -------------------------------------------------------------------------
+  // Carousel (second shape, owner 2026-11-19: lib/pipeline/carousel.ts) -----------------------
   const slides = ed.carousel.slides;
-  if (slides.length > CAROUSEL_LIMITS.slides) fail("carousel", "carousel.slides", `Instagram allows ${CAROUSEL_LIMITS.slides} slides; this has ${slides.length}`);
-  if (slides[0]?.kind !== "hook") fail("carousel", "carousel.slides[0]", "the first slide is the hook");
-  if (slides[slides.length - 1]?.kind !== "cta") fail("carousel", "carousel.slides", "the last slide points to the interactive widget (kind: cta)");
-  if (!slides.some((s) => s.kind === "population")) fail("H3", "carousel.slides", "the studied population gets its own slide, not a footnote");
-  if (!slides.some((s) => s.kind === "limitation")) fail("H6", "carousel.slides", "at least one slide states a limitation");
-  slides.forEach((slide, i) => {
-    const strip = (m: string | null) => { try { return m ? parseMarkup(m).map((s) => s.text).join(" ") : ""; } catch { return ""; } };
-    const heading = strip(slide.heading);
-    const body = strip(slide.body);
-    if (heading.length > CAROUSEL_LIMITS.heading) fail("carousel", `carousel.slides[${i}].heading`, `${heading.length} characters; the limit is ${CAROUSEL_LIMITS.heading}`);
-    if (body.length > CAROUSEL_LIMITS.body) fail("carousel", `carousel.slides[${i}].body`, `${body.length} characters; the limit is ${CAROUSEL_LIMITS.body}`);
-    if (!SAFE_GLYPHS.test(heading + body)) fail("carousel", `carousel.slides[${i}]`, "contains a character the slide fonts may not carry (it would render as an empty box)");
+  for (const [where, message] of [...deckShapeProblems(slides), ...altHookProblems(ed.carousel.altHooks)]) fail("carousel", where, message);
+  // The receipts slide prints the range bar's numbers: they count as its art's words. Its small footer
+  // (the design and the source line's who, both already checked) does not, but its glyphs are checked.
+  const interval = receiptInterval(facts[ed.primaryEstimate]?.estimate);
+  const receiptWords = interval ? [interval.text.low, interval.text.point, interval.text.high, interval.unit ?? ""] : [];
+  const receiptFooter = [DESIGN_LABEL[validated.design] ?? validated.design, ...[ed.source.who].map((m) => { try { return parseMarkup(m).map((x) => x.text).join(" "); } catch { return ""; } })];
+  const quoteOf = (ref: string) => factOf(ref)?.fact.quote ?? null;
+  deckEntries.forEach(({ slide, i, at }, k) => {
+    const sentences = slideSentences[k];
+    const main = sentences.filter((x) => !x.art).map((x) => x.text);
+    const artText = sentences.filter((x) => x.art).map((x) => x.text);
+    const values = slideValues(slide, i, at);
+    for (const { where, value } of values) {
+      const quote = quoteOf(value.ref);
+      if (quote === null) fail("H7", where, `ref "${value.ref}" is not a gated fact`);
+      else if (!normalize(quote).includes(normalize(value.text))) fail("H7", where, `"${value.text}" does not appear in the passage for "${value.ref}"`);
+    }
+    for (const { where, num } of slideNumbers(slide, i, at)) {
+      const quote = quoteOf(num.ref);
+      if (quote === null) fail("H7", where, `ref "${num.ref}" is not a gated fact`);
+      else if (!numbersIn(quote).map(Math.abs).includes(Math.abs(num.n))) fail("H7", where, `${num.n} is not in the passage for "${num.ref}"`);
+    }
+    for (const { where, fact: id, kind } of slideEvidence(slide, i, at)) {
+      const cited = facts[id];
+      if (!cited) { fail("figure", where, `"fact:${id}" is not in the validated extraction`); continue; }
+      if (kind !== "verdict") {
+        const problem = evidenceKindProblem(kind, cited);
+        if (problem) fail("figure", where, `drawn as ${kind}, but ${problem}`);
+        continue;
+      }
+      const verdict = (slide.art as { rows: { verdict: Verdict }[] }).rows[Number(/\[(\d+)\]$/.exec(where)![1])].verdict;
+      const problem = verdictProblem(verdict, cited);
+      if (problem) fail("H5", where, `"${VERDICTS[verdict]}": ${problem}`);
+    }
+    // Words: heading and body together, then the art's own words, each label short.
+    const n = main.reduce((sum, t) => sum + countWords(t), 0);
+    if (n > DECK_LIMITS.wordsPerSlide) fail("carousel", at, `${n} words in the heading and body; the limit is ${DECK_LIMITS.wordsPerSlide} (one idea per slide)`);
+    const artShown = [...artText, ...values.map((v) => v.value.text), ...(slide.kind === "receipts" ? receiptWords : [])];
+    const m = artShown.reduce((sum, t) => sum + countWords(t), 0);
+    if (m > DECK_LIMITS.artWords) fail("carousel", `${at}.art`, `${m} words drawn in the art; the limit is ${DECK_LIMITS.artWords}`);
+    for (const x of sentences.filter((y) => y.art)) {
+      const k = countWords(x.text);
+      if (k > DECK_LIMITS.labelWords && !/\.(strong|weak|missing)$/.test(x.where)) fail("carousel", x.where, `${k} words; a label, row or list entry holds at most ${DECK_LIMITS.labelWords}`);
+    }
+    const strip = (mk: string | null) => { try { return mk ? parseMarkup(mk).map((x) => x.text).join(" ") : ""; } catch { return ""; } };
+    if (strip(slide.heading).length > DECK_LIMITS.heading) fail("carousel", `${at}.heading`, `${strip(slide.heading).length} characters; the limit is ${DECK_LIMITS.heading}`);
+    if (strip(slide.body).length > DECK_LIMITS.body) fail("carousel", `${at}.body`, `${strip(slide.body).length} characters; the limit is ${DECK_LIMITS.body}`);
+    const shown = [...main, ...artShown, ...(slide.kind === "receipts" ? receiptFooter : [])];
+    if (!SAFE_GLYPHS.test(shown.join(" "))) fail("carousel", at, "contains a character the slide fonts may not carry (it would render as an empty box)");
+    if (slide.kind === "hook") {
+      for (const [term, pattern] of [...CAVEAT_TERMS, ...HOOK_HEDGES]) {
+        const hit = shown.find((t) => pattern.test(t));
+        if (hit) fail("H2", at, `a caveat ("${term}") on the hook slide; open with the question and what the study did, and put the caveat on the receipts slide: "${hit}"`);
+      }
+    }
+    // H10: the why slide is the deck's mechanism layer. Same caveat words as the read's mechanism.
+    if (slide.kind === "why") {
+      for (const [term, pattern] of CAVEAT_TERMS) {
+        const hit = shown.find((t) => pattern.test(t));
+        if (hit) fail("H10", at, `a caveat ("${term}") on the why slide, the deck's mechanism; it belongs on the receipts slide: "${hit}"`);
+      }
+    }
+    // H9: a slide has no glossary, so a technical word comes after its plain picture, in brackets:
+    // "sleepiness locks (adenosine receptors)". Outside brackets, or in brackets that open the sentence, it fails.
+    for (const t of [...main, ...artText]) {
+      const bare = t.replace(/\([^()]*\)/g, " ");
+      const opener = /^\s*\(([^()]*)\)/.exec(t)?.[1] ?? "";
+      for (const term of new Set([...jargonIn(bare), ...jargonIn(opener)])) {
+        fail("H9", at, `"${term}" on a slide with no plain words before it; write the plain picture first and the term after it in brackets, e.g. "sleepiness locks (adenosine receptors)": "${t}"`);
+      }
+    }
+    const art = slide.art;
+    if (art && "labels" in art && art.labels) art.labels.forEach((mk, j) => {
+      const len = strip(mk).length;
+      if (len > DECK_LIMITS.pictureLabel) fail("carousel", `${at}.art.labels[${j}]`, `${len} characters; a label on the picture holds at most ${DECK_LIMITS.pictureLabel}`);
+    });
+    if (art?.motif === "sketch") {
+      // A sketch: a shape only, on a reviewed concept, no numbers (CLAUDE.md, sketch rule).
+      checkRef(`concept:${art.concept}`, `${at}.art.concept`);
+      for (const x of sentences.filter((y) => y.art)) if (/\d/.test(x.text)) fail("sketch", x.where, `a sketch holds no number: "${x.text}"`);
+    }
+    if (art?.motif === "who") {
+      for (const x of sentences.filter((y) => /\.art\.(tested|notTested)\[/.test(y.where))) {
+        if (!x.refs.some((r) => facts[r])) fail("H3", x.where, `who was or was not tested must cite the paper's own words: "${x.text}"`);
+      }
+    }
+    if (slide.kind === "receipts" && !sentences.some((x) => x.where.endsWith(".weak") && x.refs.some((r) => facts[r]?.kind === "limitation"))) {
+      fail("H6", at, "the receipts slide's weak point states a limitation and cites it (a limitation fact from the paper)");
+    }
   });
   try {
     const caption = parseMarkup(ed.carousel.caption).map((s) => s.text).join(" ");
@@ -897,5 +1005,29 @@ export function lint(validated: Validated, editorialInput: unknown, source: stri
   const cites = usedStudies.size + usedConcepts.size > 0
     ? { context: { studies: [...usedStudies].sort(), concepts: [...usedConcepts].sort(), unreviewed: [...unreviewed].sort() } }
     : {};
-  return { errors, warnings, wordCount, layers: layerStats, ...cites };
+  for (const ref of deckPending) warn("carousel", ref, `the deck uses ${ref}, which the owner has not reviewed; the queue will not approve the deck until it is`);
+  return { errors, warnings, wordCount, layers: layerStats, ...cites, ...(deckPending.size > 0 ? { deckPending: [...deckPending].sort() } : {}) };
+}
+
+/**
+ * Whether a finding row's verdict says what its fact says (H5). "No clear difference" needs an
+ * interval that holds "no difference", or the paper's own words that no difference was clear.
+ * "Lower" and "higher" need an interval wholly on that side, or the paper's own direction word.
+ */
+export function verdictProblem(verdict: Verdict, fact: ValidatedFact): string | null {
+  if (fact.kind !== "finding" && fact.kind !== "estimate") return `cites a ${fact.kind}; a verdict rests on a measured result (a finding or an estimate)`;
+  const est = fact.estimate;
+  if (est && est.ciLow !== null && est.ciHigh !== null) {
+    const none = ["RR", "HR", "OR"].includes(est.measure) ? 1 : 0;
+    const crosses = est.ciLow <= none && est.ciHigh >= none;
+    if (verdict === "no-clear-difference") return crosses ? null : "its 95% interval does not include no difference";
+    if (crosses) return "its 95% interval includes no difference; say \"no clear difference\"";
+    return (verdict === "lower") === (est.ciHigh < none) ? null : `its interval is on the other side of no difference`;
+  }
+  const q = fact.quote.toLowerCase();
+  if (verdict === "no-clear-difference") {
+    return /\b(no|not) (?:\w+ ){0,3}(significant|significantly|differ|different|difference|remarkable)|non.?significant|did not (reveal|differ|change|show)|>\s?0\.05|\bn\.?s\b/.test(q) ? null : "the cited passage does not say no difference was clear";
+  }
+  const word = verdict === "lower" ? /\b(lower|reduc|decreas|fell|less|fewer|declin)/ : /\b(higher|increas|rose|greater|more|elevat)/;
+  return word.test(q) ? null : `the cited passage does not say "${VERDICTS[verdict]}"`;
 }

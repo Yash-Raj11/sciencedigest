@@ -8,6 +8,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { Notice } from "@/components/protocol/primitives";
+import { LOOK_NAME, LOOKS, type Look } from "@/lib/carousel/tokens";
 import type { CarouselDeck } from "@/lib/content/types";
 import { CAROUSEL_LIMITS } from "@/lib/pipeline/lint";
 import type { ChecklistRow } from "@/lib/pipeline/coverage";
@@ -40,7 +41,7 @@ function CoverageChecklist({ card }: { card: CoverageCard }) {
   );
 }
 
-interface Item { deck: CarouselDeck; status: "waiting" | "approved" | "changed"; approvedAt: string | null }
+interface Item { deck: CarouselDeck; status: "waiting" | "approved" | "changed"; approvedAt: string | null; hook: string }
 
 const STATUS_TEXT = {
   waiting: "Waiting for your review",
@@ -48,22 +49,56 @@ const STATUS_TEXT = {
   changed: "Wording changed since you approved it. Review again.",
 };
 
-const KIND_NAME = { hook: "Opening", finding: "Finding", population: "Who it describes", limitation: "Limitation", nuance: "The catch", cta: "Invitation" };
+/** What each slide is for, as the reviewer reads it beside the image. */
+const KIND_NAME = { hook: "Hook", finding: "Finding", why: "Why", who: "Who it applies to", receipts: "Receipts", cta: "Invitation" };
 
 function fullCaption(deck: CarouselDeck): string {
   return `${deck.caption}\n\n${deck.credit}\n\n${deck.hashtags.map((tag) => `#${tag}`).join(" ")}`;
 }
 
-function DeckCard({ item, onAct }: { item: Item; onAct: (slug: string, action: "approve" | "withdraw") => void }) {
+const slideSrc = (slug: string, slide: number, look: Look, hook: string) =>
+  `/api/admin/carousel?slug=${encodeURIComponent(slug)}&slide=${slide}&look=${look}&hook=${hook}`;
+
+/** The openings to choose from: the deck's own hook (A) and its alternates. Each is the full first slide. */
+function OpeningPicker({ deck, look, hook, locked, onPick }: { deck: CarouselDeck; look: Look; hook: string; locked: boolean; onPick: (hook: string) => void }) {
+  const options = [{ letter: "a", name: "As drafted", slide: deck.slides[0] }, ...(deck.altHooks ?? [])];
+  return (
+    <fieldset className="mt-3">
+      <legend className="text-sm font-medium">Opening slide <span className="font-normal text-muted">· choose one; the rest of the deck stays the same</span></legend>
+      <ol className="-mx-4 mt-2 flex snap-x gap-3 overflow-x-auto px-4 pb-2">
+        {options.map((o) => (
+          <li key={o.letter} className="w-40 shrink-0 snap-start">
+            <button
+              type="button"
+              aria-pressed={hook === o.letter}
+              disabled={locked}
+              onClick={() => onPick(o.letter)}
+              className={`block w-full rounded-lg border-2 p-0.5 text-left disabled:cursor-not-allowed ${hook === o.letter ? "border-signal-evidence-text" : "border-transparent"}`}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element -- a local, uncached PNG; next/image would re-encode it */}
+              <img src={slideSrc(deck.slug, 1, look, o.letter)} alt={[o.slide.heading, o.slide.body].filter(Boolean).join(" ")} width={1080} height={1350} loading="lazy" className="aspect-[4/5] w-full rounded-md bg-black" />
+              <span className="mt-1 block text-xs leading-snug"><span className="num font-medium uppercase">{o.letter}</span> · {o.name}</span>
+            </button>
+          </li>
+        ))}
+      </ol>
+    </fieldset>
+  );
+}
+
+function DeckCard({ item, look, onAct }: { item: Item; look: Look; onAct: (slug: string, action: "approve" | "withdraw", hook: string) => void }) {
   const { deck } = item;
   const [copied, setCopied] = useState(false);
+  const [hook, setHook] = useState(item.hook);
+  const approved = item.status === "approved";
+  const shown = approved ? item.hook : hook;
   const caption = fullCaption(deck);
-  const kinds = new Set(deck.slides.map((s) => s.kind));
+  // The slide rules (order, kinds, words, receipts) are refused by the content build; only the
+  // full caption, with credit and hashtags added, is new here.
   const problems = [
-    !kinds.has("population") && "No slide says who was studied.",
-    !kinds.has("limitation") && "No slide gives a limitation.",
-    deck.slides.length > CAROUSEL_LIMITS.slides && `More than ${CAROUSEL_LIMITS.slides} slides.`,
     caption.length > CAROUSEL_LIMITS.caption && `Caption is over ${CAROUSEL_LIMITS.caption} characters.`,
+    // Background concepts and common facts only this deck uses must be reviewed first (npm run paper -- approve-concept / approve-common).
+    (deck.pending ?? []).length > 0 && `It uses ${(deck.pending ?? []).join(", ")}, which you have not reviewed yet: run npm run paper -- approve-concept or approve-common in a terminal.`,
   ].filter(Boolean) as string[];
 
   return (
@@ -71,22 +106,31 @@ function DeckCard({ item, onAct }: { item: Item; onAct: (slug: string, action: "
       <header className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h2 className="headline">{deck.slug}</h2>
-          <p className={`text-sm leading-snug ${item.status === "approved" ? "text-ink" : "text-muted"}`}>{STATUS_TEXT[item.status]}</p>
+          <p className={`text-sm leading-snug ${approved ? "text-ink" : "text-muted"}`}>
+            {STATUS_TEXT[item.status]}{approved && (deck.altHooks ?? []).length > 0 ? `, opening ${item.hook.toUpperCase()}` : ""}
+          </p>
         </div>
         <span className="num shrink-0 text-sm text-muted">{deck.slides.length} slides</span>
       </header>
 
+      {(deck.altHooks ?? []).length > 0 && <OpeningPicker deck={deck} look={look} hook={shown} locked={approved} onPick={setHook} />}
+
       <ol className="-mx-4 mt-3 flex snap-x gap-3 overflow-x-auto px-4 pb-2">
-        {deck.slides.map((slide, i) => (
-          <li key={i} className="flex aspect-[4/5] w-56 shrink-0 snap-start flex-col justify-between rounded-lg bg-black p-4 text-white">
-            <p className="text-xs font-medium text-signal-evidence-text">{KIND_NAME[slide.kind]}</p>
-            <div>
-              <p className="headline">{slide.heading}</p>
-              {slide.body && <p className="mt-2 text-[0.8125rem] leading-snug text-neutral-300">{slide.body}</p>}
-            </div>
-            <p className="num flex items-center justify-between text-xs text-neutral-400">
-              <span>{i + 1} / {deck.slides.length}</span>
-              <span aria-hidden className="h-1.5 w-8 rounded-sm bg-ink" />
+        {deck.slides.map((s, i) => (i === 0 ? (deck.altHooks ?? []).find((h) => h.letter === shown)?.slide ?? s : s)).map((slide, i) => (
+          <li key={i} className="w-64 shrink-0 snap-start">
+            {/* The exact PNG that would be posted, drawn by /api/admin/carousel (local only). */}
+            {/* eslint-disable-next-line @next/next/no-img-element -- a local, uncached PNG; next/image would re-encode it */}
+            <img
+              src={slideSrc(deck.slug, i + 1, look, shown)}
+              alt={[slide.heading, slide.body].filter(Boolean).join(" ")}
+              width={1080}
+              height={1350}
+              loading="lazy"
+              className="aspect-[4/5] w-full rounded-lg bg-black"
+            />
+            <p className="num mt-1.5 flex justify-between text-xs text-muted">
+              <span>{KIND_NAME[slide.kind]}</span>
+              <span>{i + 1} of {deck.slides.length}</span>
             </p>
           </li>
         ))}
@@ -106,9 +150,9 @@ function DeckCard({ item, onAct }: { item: Item; onAct: (slug: string, action: "
 
       <footer className="mt-3 flex gap-2">
         {item.status === "approved" ? (
-          <button type="button" onClick={() => onAct(deck.slug, "withdraw")} className="h-11 flex-1 rounded-lg border border-line font-medium">Withdraw approval</button>
+          <button type="button" onClick={() => onAct(deck.slug, "withdraw", hook)} className="h-11 flex-1 rounded-lg border border-line font-medium">Withdraw approval</button>
         ) : (
-          <button type="button" disabled={problems.length > 0} onClick={() => onAct(deck.slug, "approve")} className="h-11 flex-1 rounded-lg bg-ink font-medium text-bg disabled:opacity-40">
+          <button type="button" disabled={problems.length > 0} onClick={() => onAct(deck.slug, "approve", hook)} className="h-11 flex-1 rounded-lg bg-ink font-medium text-bg disabled:opacity-40">
             I have read every slide: approve
           </button>
         )}
@@ -128,6 +172,7 @@ export function QueueBoard() {
   const [items, setItems] = useState<Item[] | null>(null);
   const [coverage, setCoverage] = useState<CoverageCard[]>([]);
   const [unavailable, setUnavailable] = useState(false);
+  const [look, setLook] = useState<Look>("dark");
 
   const load = useCallback(async () => {
     const response = await fetch("/api/admin/queue", { cache: "no-store" });
@@ -151,8 +196,8 @@ export function QueueBoard() {
     return () => { cancelled = true; };
   }, []);
 
-  const act = async (slug: string, action: "approve" | "withdraw") => {
-    await fetch("/api/admin/queue", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ slug, action }) });
+  const act = async (slug: string, action: "approve" | "withdraw", hook: string) => {
+    await fetch("/api/admin/queue", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ slug, action, hook }) });
     await load();
   };
 
@@ -175,7 +220,16 @@ export function QueueBoard() {
         </section>
       )}
       {items?.length === 0 && <Notice>No decks yet. Publish a paper, then run <code>npm run content:build</code>.</Notice>}
-      {items?.map((item) => <DeckCard key={item.deck.slug} item={item} onAct={act} />)}
+      {items && items.length > 0 && (
+        // Every deck is exported in each look (docs/evidence/carousel/<slug>/<look>/); you post one.
+        <label className="flex items-center justify-between gap-3 text-sm font-medium">
+          Show the slides in
+          <select value={look} onChange={(e) => setLook(e.target.value as Look)} className="h-11 rounded-lg border border-line bg-surface px-3 font-normal">
+            {LOOKS.map((l) => <option key={l} value={l}>{LOOK_NAME[l]}</option>)}
+          </select>
+        </label>
+      )}
+      {items?.map((item) => <DeckCard key={item.deck.slug} item={item} look={look} onAct={act} />)}
       {items && items.length > 0 && (
         <p className="text-sm leading-snug text-muted">
           Approving writes a small file to content/queue/. Commit it: that is your record of what you signed off and when.

@@ -50,9 +50,9 @@ const CARDS = PAPERS.map((paper) => {
 
 describe("the still figure prints no number, and its shape is the study's", () => {
   it("every paper has a card view", () => {
-    expect(CARDS.map((c) => c.slug).sort()).toEqual(["daytime-caffeine-sleep", "hiit-body-composition", "sleep-extension-energy-intake", "steps-days-per-week", "turmeric-pepper-breakfast"]);
+    expect(CARDS.map((c) => c.slug).sort()).toEqual(["alternate-day-fasting-weight", "best-possible-toothbrushing", "ceramide-moisturizer-barrier", "daytime-caffeine-sleep", "hiit-body-composition", "sleep-extension-energy-intake", "sleep-restriction-sweet-foods", "steps-days-per-week", "sugar-inflammation-markers", "time-restricted-eating-healthy", "turmeric-pepper-breakfast"]);
   });
-  for (const card of ["daytime-caffeine-sleep", "turmeric-pepper-breakfast", "sleep-extension-energy-intake"]) {
+  for (const card of ["daytime-caffeine-sleep", "turmeric-pepper-breakfast", "sleep-extension-energy-intake", "best-possible-toothbrushing", "time-restricted-eating-healthy", "sleep-restriction-sweet-foods", "sugar-inflammation-markers", "alternate-day-fasting-weight", "ceramide-moisturizer-barrier"]) {
     it(`${card}: words only, drawn from gated facts`, () => {
       const { html, view } = CARDS.find((c) => c.slug === card)!;
       const text = drawnText(html);

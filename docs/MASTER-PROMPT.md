@@ -422,3 +422,15 @@ The prompt is saved here so a session with no chat history can continue from thi
   review. The owner reviews the new facts and ticked items before anything is merged. It calls the
   model with `AI_API_KEY`: say so before starting. Reason: BUILD-LOG 2026-11-19 (a full re-run
   gives new model ids that would have to be mapped by hand).
+
+### 2026-11-19: 4A, the carousel Studio files do not exist; build the renderer fresh
+
+- Asked at 4A where the 12 carousel Studio files are. **Owner: "i dont think i have them"**, then
+  chose **"Build it fresh"** over skipping Phase 11. "Copy them in; never recreate them" therefore
+  has nothing to apply to: 4B builds the renderer (`lib/carousel/`), the export route and
+  `verify-parity.mts` from the rules written in Step 4 and HANDOFF Phase 11. The owner's own
+  `generate-carousel.mjs` (outside the repo) was a reference for the idea only; nothing was copied.
+- `verify-parity.mts` had no definition outside the missing files. It is defined here as: every
+  number a slide draws is in a passage that slide cites; every word of the deck reaches the
+  drawing; the slide palette equals the site's dark theme; every slide passes the Satori rules and
+  the glyph check; the PNGs in `docs/evidence/carousel/` are the current decks, byte for byte.

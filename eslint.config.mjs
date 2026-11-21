@@ -71,7 +71,8 @@ const eslintConfig = defineConfig([
    * Tested by scripts/figure-guard.test.ts.
    */
   {
-    files: ["components/papers/**/figures/**/*.{ts,tsx}", "components/figures/kinds/**/*.{ts,tsx}"],
+    // The carousel art kit (lib/carousel/art/) is held to the same rule: slides are figures too.
+    files: ["components/papers/**/figures/**/*.{ts,tsx}", "components/figures/kinds/**/*.{ts,tsx}", "lib/carousel/art/**/*.{ts,tsx}"],
     rules: {
       "no-restricted-syntax": ["error",
         // Listed again here: this block replaces the one above for figure files.

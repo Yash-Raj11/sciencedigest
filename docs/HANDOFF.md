@@ -74,7 +74,13 @@ The interactive part is the product; the text is what justifies it.
 | Phase 9, 2E: caffeine, HIIT and steps rewritten into three layers with a glossary (words per layer 169/129/227, 133/116/246, 124/87/230); the old-shape allowlist deleted; the draft prompt asks for the layers and lists the context ids it may cite; `paper draft` refuses an old-shape reply. New schema fields `layers.protocol.figureSlot: "try"` and `layers.audit.figure.title` keep figures B, 4B and steps A in place | **Owner approved all three, 2026-11-19. Phase 9 done.** Live on `main`. The hosted seed was pushed 2026-11-19 (3B release), so HIIT's members' text is in three layers too | `docs/evidence/phase9-2e/` (before-after.md, rules-broken.txt, gates, screenshots), `scripts/legacy-shape.test.ts`, `scripts/draft-shape.test.ts` |
 | Phase 10, 3A: `npm run retractions` (67,951 records, none of the papers retracted); 3 candidates from Europe PMC, each licence checked with `checkLicense` | Done; the owner picked B, sleep, free | `docs/evidence/phase10-3a/` (retractions.txt, search-log.txt, search-results.csv, candidates.md) |
 | Phase 10, 3B: fifth paper `sleep-extension-energy-intake` (Tasali 2022, JAMA IM, RCT, 80, CC-BY, free), the first read through every stage with the model. The gate refused 3 quotes and the lint refused 15 + 10 + 1 + 1 items, each fixed in the JSON; 7 more errors fixed from reading it against the paper. Figure `energy-ledger` (mechanism layer and the feed card), with 10 tests | **Owner approved 2026-11-19; live, and on the hosted database.** Phase 10 gate met | `docs/evidence/phase10-3b/` (gate-fixes.md, lint-fixes.md, draft-for-review.md, figure/, figure-test-fail.txt), `phase10-3b-release/` (hosted counts, live-check.txt), `scripts/energy-ledger.test.ts` |
+| Phase 11, Instagram carousels (4B, 4C), 2026-11-19 to 2026-11-20. Each deck tells one story (hook → finding → why → who → receipts → cta) in the owner's Claude Design layout. Drawn with Satori (`next/og`) in 4 looks: black or white, each with the site's orange or a deck-only bright orange. Includes the plateau chart, alternate openings chosen in `/admin/queue`, and owner-approved common knowledge on the deck only. Gated by `npm run carousel:parity`: numbers, words, tokens, contrast, PNGs | Built and tested; **not committed, not approved**. The caffeine deck waits on `approve-concept caffeine-tolerance` and `approve-common coffee-cup-caffeine` | `docs/evidence/carousel/` (`<slug>/<look>/`, `sheet-*.png`, `openings-*.png`, `phase11/`), `lib/carousel/carousel.test.ts`, `scripts/carousel-route.test.ts`, `lib/pipeline/pipeline.test.ts`, BUILD-LOG 2026-11-19/20 |
 | Documents: `CLAUDE.md`, `docs/MANUAL.md`, `ARCHITECTURE.md`, `data-model.md`, `BUILD-LOG.md` | Written | — |
+
+Totals on 2026-11-20 (Phase 11 carousels, uncommitted): 826 unit, 16 HTTP and 108 browser tests;
+`npm run carousel:parity` passes on 5 decks, 148 slides across 4 looks
+(`docs/evidence/carousel/phase11/gates.txt`, `test-http.txt`, `test-browser.txt`); database not
+re-run (no SQL touched).
 
 Totals on 2026-11-19 (after the 3B release): 776 unit, 16 HTTP and 108 browser tests
 (`docs/evidence/phase10-3b-release/gates.txt`, `test-http.txt`, `test-browser.txt`, copied to
@@ -96,6 +102,15 @@ Totals on 2026-11-18 (after the draft-stage menu of figure kinds): 700 unit test
 (`browser-tests.txt`); 191 database assertions per pass and 16 of 16 mutations (unchanged and
 not re-run: no SQL touched since 2026-11-14).
 Outputs are in `docs/evidence/`.
+
+### Deployment state (2026-11-20, Phase 11 built, not committed)
+
+- `main` and Vercel are unchanged since the Phase 10 handoff (`37d240e`). All Phase 11 work is in the
+  working tree, uncommitted (git status lists it). Carousels never reach the site or the hosted
+  database: `/admin/queue` and `/api/admin/carousel` answer 404 outside `npm run dev`.
+- `app/globals.css` gained deck-only tokens (`--deck-vivid-*`), unused by the site, and the
+  editorial schema gained `carousel.altHooks`. The hosted seed is unaffected: decks are not
+  seeded.
 
 ### Deployment state (2026-11-19, after the 3B release; Phase 10 done)
 
@@ -180,7 +195,7 @@ Outputs are in `docs/evidence/`.
 ### Not built
 
 Home-screen widgets on phones; the native app wrapper; payments; a way for a user to delete
-their own data (the privacy page gives an address to write to); Instagram slide images (the 12 carousel Studio files are not in the repository); reads loaded on
+their own data (the privacy page gives an address to write to); reads loaded on
 demand; incremental sync. Phases below.
 
 ---
@@ -335,9 +350,8 @@ least one thing along the way that was then fixed in the JSON, not by loosening 
 Full instructions: `docs/MASTER-PROMPT.md`, Step 4 (a new deck shape of seven slide kinds and a
 poster-style art kit in `lib/carousel/art/`, on top of what follows).
 
-The owner has the 12 carousel Studio files (`lib/carousel/*`, `SlideRenderer.tsx`, export
-route, `verify-parity.mts`, etc.). Copy them in, then map `content/generated/carousels.json` to
-their deck format. Keep their rules: Satori needs `display: flex` on every element with children
+The 12 carousel Studio files turned out not to exist (owner, 2026-11-19); the renderer was built
+fresh in 4B (`lib/carousel/`, MASTER-PROMPT amendment 2026-11-19). Its rules: Satori needs `display: flex` on every element with children
 and inline styles only; fonts must be `.woff`, not `.woff2`; `≤` and `✓` render as boxes, so the
 linter fails closed on unverified characters; 1080×1350, at most 10 slides. Put the export
 route behind a check so it is not a free image-rendering service on the internet.
@@ -448,8 +462,13 @@ turmeric meal picker's default (BUILD-LOG 2026-11-19).
 3. What exactly does membership include? This decides what the server-side gated functions return.
 4. Should the companion picture follow the user across devices? That means uploading and
    hosting user images (Supabase Storage), which was deliberately avoided.
-5. ~~Relabel caffeine and turmeric as `crossover`?~~ Answered 2026-11-14: yes; done.
-6. ~~The round-2 screenshots verdict~~ Superseded 2026-11-14: judged live with /impeccable
+5. Phase 11 (2026-11-20): keep or drop `@fontsource/archivo` and `@fontsource/newsreader`
+   (slide fonts, added without asking); the art word cap (24); whether a deck should also use the
+   read's own captured figures (trial: `docs/evidence/carousel/figure-trial/`); whether to show
+   "10,000" where the paper prints "10 000" (needs a rule change); whether the light look's pale
+   range band (1.6:1 against the page) should be darker.
+6. ~~Relabel caffeine and turmeric as `crossover`?~~ Answered 2026-11-14: yes; done.
+7. ~~The round-2 screenshots verdict~~ Superseded 2026-11-14: judged live with /impeccable
    after the simulators.
 
 ---

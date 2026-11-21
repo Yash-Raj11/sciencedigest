@@ -67,6 +67,10 @@
   --on-signal-evidence-fill: #15120f;
   --signal-evidence-pale: #ffdcc6;
   --signal-evidence-soft: #fff4ec;
+  /* Instagram decks only (owner, 2026-11-20): the brighter orange of the carousel design. Never used on the site. */
+  --deck-vivid-text: #c2410c;
+  --deck-vivid-fill: #ea580c;
+  --on-deck-vivid-fill: #ffffff;
   color-scheme: light;
 }
 
@@ -84,6 +88,10 @@
   --on-signal-evidence-fill: #0a0a0a;
   --signal-evidence-pale: #4a2e1d;
   --signal-evidence-soft: #2a1a10;
+  /* Instagram decks only (owner, 2026-11-20): the brighter orange of the carousel design. Never used on the site. */
+  --deck-vivid-text: #ff7a1a;
+  --deck-vivid-fill: #ff7a1a;
+  --on-deck-vivid-fill: #0a0a0a;
   color-scheme: dark;
 }
 

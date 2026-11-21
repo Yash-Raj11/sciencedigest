@@ -1,0 +1,621 @@
+{
+  "identifiers": {
+    "doi": "10.1111/dth.14970",
+    "pmid": "33984185",
+    "pmcid": "PMC8459234",
+    "title": "A daily regimen of a ceramide-dominant moisturizing cream and cleanser restores the skin permeability barrier in adults with moderate eczema: A randomized trial",
+    "authors": "Spada F, Harrison IP, Barnes TM, Greive KA, Daniels D, Townley JP, Mostafa N, Fong AT, Tong PL, Shumack S",
+    "journal": "Dermatologic Therapy",
+    "year": 2021,
+    "citation": "Spada F, Harrison IP, Barnes TM, Greive KA, Daniels D, Townley JP, Mostafa N, Fong AT, Tong PL, Shumack S. A daily regimen of a ceramide-dominant moisturizing cream and cleanser restores the skin permeability barrier in adults with moderate eczema: A randomized trial. Dermatol Ther. 2021;34(4):e14970. doi:10.1111/dth.14970"
+  },
+  "license": "CC-BY",
+  "design": {
+    "value": "rct",
+    "quote": "The objective of this randomized, double‐blind, placebo‐controlled, single centre, comparative trial was to determine whether a two‐part system consisting of a ceramide‐dominant physiological lipid‐based moisturizing cream and cleanser, could safely ameliorate the signs and symptoms of moderate eczema in adult patients compared to placebo over 28 days."
+  },
+  "species": {
+    "value": "human",
+    "quote": "All patients gave their written informed consent prior to participation."
+  },
+  "population": {
+    "value": "adults with moderate eczema",
+    "quote": "A total of 100 patients were recruited from the outpatient clinic at St George Dermatology and Skin Cancer Centre (Kogarah, New South Wales, Australia) between September 2015 and October 2019. Inclusion criteria were: (a) males or females aged over 18 years, (b) clinically diagnosed eczema for at least 1 year according to the criteria of Hanifin & Raijka, with moderate severity (score of 10‐20) as evaluated by EASI, (c) free of any dermatological or systemic disorder which could interfere with results and (d) free of any acute or chronic disease that may interfere with or increase the risk of trial participation. The exclusion criteria were: (a) history of allergies or adverse reactions to moisturizers or components of the specific products being tested, (b) use of any medication (topical or systemic) that may mask or interfere with results, such as calcineurin inhibitors or corticosteroids, (c) excessive hair on test sites, (d) history of chronic allergies and (e) pregnant or nursing females."
+  },
+  "sampleSize": {
+    "value": "100",
+    "quote": "The demographics and baseline characteristics of the ITT population are described in Table 2 and consisted of 100 patients (53 female, 47 male; aged 18‐73 years; mean age 30.9 years) who received either ceramide cream and cleanser (n = 50) or placebo cream and cleanser (n = 50). Of these, 83 patients completed the study (n = 42 and n = 41, respectively)."
+  },
+  "facts": [
+    {
+      "id": "twenty_eight_days",
+      "kind": "context",
+      "label": "A 28-day trial against a placebo set",
+      "value": "over 28 days",
+      "quote": "The objective of this randomized, double‐blind, placebo‐controlled, single centre, comparative trial was to determine whether a two‐part system consisting of a ceramide‐dominant physiological lipid‐based moisturizing cream and cleanser, could safely ameliorate the signs and symptoms of moderate eczema in adult patients compared to placebo over 28 days."
+    },
+    {
+      "id": "double_blind",
+      "kind": "context",
+      "label": "Double-blind and placebo-controlled, at one clinic",
+      "value": "double‐blind, placebo‐controlled, single centre",
+      "quote": "The objective of this randomized, double‐blind, placebo‐controlled, single centre, comparative trial was to determine whether a two‐part system consisting of a ceramide‐dominant physiological lipid‐based moisturizing cream and cleanser, could safely ameliorate the signs and symptoms of moderate eczema in adult patients compared to placebo over 28 days."
+    },
+    {
+      "id": "randomized_blocks",
+      "kind": "context",
+      "label": "Assigned by a computer-made random schedule",
+      "value": "randomly assigned",
+      "quote": "Patients meeting the inclusion criteria were randomly assigned to receive either the ceramide cream and ceramide cleanser or placebo cream and placebo cleanser according to a randomization schedule generated using SAS statistical software (SAS Institute Inc.) blocked in groups of six (Figure 1)."
+    },
+    {
+      "id": "identical_packs",
+      "kind": "context",
+      "label": "Both sets came in identical pump packs, coded so neither patients nor doctors knew which",
+      "value": "identical 350 mL pump pack containers",
+      "quote": "The study products were filled into identical 350 mL pump pack containers and each assigned a randomization code to conceal their identity from participants and the physician allocating treatments and assessing outcomes."
+    },
+    {
+      "id": "analysts_blind",
+      "kind": "context",
+      "label": "The data analysts were blinded too",
+      "value": "Data analysts were also blinded",
+      "quote": "Data analysts were also blinded to the identification of each study group until the final efficacy analyses were complete."
+    },
+    {
+      "id": "placebo_set",
+      "kind": "context",
+      "label": "Placebo cream and cleanser: made without the active skin ingredients",
+      "value": "Placebo cream and placebo cleanser were formulated without the skin active ingredients",
+      "quote": "QV intensive with ceramides light moisturizing cream (ceramide cream) and QV intensive with ceramides hydrating body wash (ceramide cleanser) were obtained from Ego Pharmaceuticals Pty. Ltd. (Braeside, Victoria, Australia). Placebo cream and placebo cleanser were formulated without the skin active ingredients (Table 1)."
+    },
+    {
+      "id": "cleanser_daily",
+      "kind": "context",
+      "label": "Cleanser: massaged into wet skin over the whole body once a day, then rinsed",
+      "value": "once daily",
+      "quote": "Patients were instructed to massage the cleanser into wet skin across their whole body once daily, rinse with water and pat dry, for 28 days. Patients were also required to apply the cream liberally to their whole body, in particular eczema‐prone areas, twice daily, morning and night for 28 days. One application of cream was required after daily body cleansing. In addition, patients were supplied with mometasone furoate 0.1% w/w (Zatamil Hydrogel; Ego Pharmaceuticals Pty. Ltd., Braeside, Victoria, Australia) to be used as rescue medication for the duration of the study in place of their usual topical corticosteroids or calcineurin inhibitors."
+    },
+    {
+      "id": "cream_twice",
+      "kind": "context",
+      "label": "Cream: applied liberally to the whole body twice a day, morning and night",
+      "value": "twice daily, morning and night for 28 days",
+      "quote": "Patients were instructed to massage the cleanser into wet skin across their whole body once daily, rinse with water and pat dry, for 28 days. Patients were also required to apply the cream liberally to their whole body, in particular eczema‐prone areas, twice daily, morning and night for 28 days. One application of cream was required after daily body cleansing. In addition, patients were supplied with mometasone furoate 0.1% w/w (Zatamil Hydrogel; Ego Pharmaceuticals Pty. Ltd., Braeside, Victoria, Australia) to be used as rescue medication for the duration of the study in place of their usual topical corticosteroids or calcineurin inhibitors."
+    },
+    {
+      "id": "cream_after_wash",
+      "kind": "context",
+      "label": "One of the two cream applications came after the daily wash",
+      "value": "One application of cream was required after daily body cleansing",
+      "quote": "Patients were instructed to massage the cleanser into wet skin across their whole body once daily, rinse with water and pat dry, for 28 days. Patients were also required to apply the cream liberally to their whole body, in particular eczema‐prone areas, twice daily, morning and night for 28 days. One application of cream was required after daily body cleansing. In addition, patients were supplied with mometasone furoate 0.1% w/w (Zatamil Hydrogel; Ego Pharmaceuticals Pty. Ltd., Braeside, Victoria, Australia) to be used as rescue medication for the duration of the study in place of their usual topical corticosteroids or calcineurin inhibitors."
+    },
+    {
+      "id": "rescue_steroid",
+      "kind": "context",
+      "label": "Both groups had a steroid gel to use if needed (mometasone 0.1%)",
+      "value": "mometasone furoate 0.1% w/w",
+      "quote": "Patients were instructed to massage the cleanser into wet skin across their whole body once daily, rinse with water and pat dry, for 28 days. Patients were also required to apply the cream liberally to their whole body, in particular eczema‐prone areas, twice daily, morning and night for 28 days. One application of cream was required after daily body cleansing. In addition, patients were supplied with mometasone furoate 0.1% w/w (Zatamil Hydrogel; Ego Pharmaceuticals Pty. Ltd., Braeside, Victoria, Australia) to be used as rescue medication for the duration of the study in place of their usual topical corticosteroids or calcineurin inhibitors."
+    },
+    {
+      "id": "washout",
+      "kind": "context",
+      "label": "No usual moisturizers, cleansers or skin medicines for 1 week before or during the trial",
+      "value": "for 1 week prior to participation",
+      "quote": "Patients were instructed not to use their usual moisturizers, cleansers or topical medications for 1 week prior to participation (wash‐out) or during the study period."
+    },
+    {
+      "id": "easi_scale",
+      "kind": "context",
+      "label": "The eczema score (EASI) rates redness, swelling, itch and thickening over four body areas, from 0 to 72",
+      "value": "ranging from 0 to 72",
+      "quote": "The EASI combines the severity of four signs of eczema (redness, thickness/swelling, itching, lichenification) and the extent of skin involvement at four body regions (head/neck, upper limbs, trunk and lower limbs), with the composite score ranging from 0 to 72."
+    },
+    {
+      "id": "primary_outcome",
+      "kind": "context",
+      "label": "The planned main outcome: the eczema score at day 28 against the start",
+      "value": "The primary efficacy outcome was comparison of the treatments effects on symptom severity as assessed by EASI at day 28",
+      "quote": "The primary efficacy outcome was comparison of the treatments effects on symptom severity as assessed by EASI at day 28 compared to baseline."
+    },
+    {
+      "id": "forearm",
+      "kind": "context",
+      "label": "Water loss and hydration were measured on the forearm, in a room held at set temperature and humidity",
+      "value": "at five different points on the skin of the forearm",
+      "quote": "Prior to measurements of skin biophysical properties, participants were required to equilibrate in a closed environment with a constant temperature (20°C ± 2°C) and humidity (45 to 55% RH). Measurement of TEWL was performed using a tewameter (Model TM 210, Courage and Khazaka, Germany), while skin hydration was measured using a corneometer (Model CM 825, Courage and Khazaka, Germany) at five different points on the skin of the forearm and the mean value recorded."
+    },
+    {
+      "id": "power_42",
+      "kind": "context",
+      "label": "Planned to need about 42 people per group",
+      "value": "approximately 42 participants per treatment group",
+      "quote": "A power analysis was used to determine the number of participants required for the study. Assuming an alpha (α) of 0.05, power (1‐β) of 0.8, a difference between group means of 12% and a SD of 20, approximately 42 participants per treatment group was calculated to be required."
+    },
+    {
+      "id": "registered",
+      "kind": "context",
+      "label": "Registered before it began, in the Australian New Zealand trial registry",
+      "value": "entered in the Australian New Zealand Clinical Trial Registry on July 28, 2015",
+      "quote": "The study was entered in the Australian New Zealand Clinical Trial Registry on July 28, 2015 (registration number: ACTRN12615000782538)."
+    },
+    {
+      "id": "recruited",
+      "kind": "context",
+      "label": "100 patients from one skin clinic in New South Wales, 2015 to 2019",
+      "value": "between September 2015 and October 2019",
+      "quote": "A total of 100 patients were recruited from the outpatient clinic at St George Dermatology and Skin Cancer Centre (Kogarah, New South Wales, Australia) between September 2015 and October 2019. Inclusion criteria were: (a) males or females aged over 18 years, (b) clinically diagnosed eczema for at least 1 year according to the criteria of Hanifin & Raijka, with moderate severity (score of 10‐20) as evaluated by EASI, (c) free of any dermatological or systemic disorder which could interfere with results and (d) free of any acute or chronic disease that may interfere with or increase the risk of trial participation. The exclusion criteria were: (a) history of allergies or adverse reactions to moisturizers or components of the specific products being tested, (b) use of any medication (topical or systemic) that may mask or interfere with results, such as calcineurin inhibitors or corticosteroids, (c) excessive hair on test sites, (d) history of chronic allergies and (e) pregnant or nursing females."
+    },
+    {
+      "id": "inclusion_adults",
+      "kind": "context",
+      "label": "Who could join: adults over 18",
+      "value": "aged over 18 years",
+      "quote": "A total of 100 patients were recruited from the outpatient clinic at St George Dermatology and Skin Cancer Centre (Kogarah, New South Wales, Australia) between September 2015 and October 2019. Inclusion criteria were: (a) males or females aged over 18 years, (b) clinically diagnosed eczema for at least 1 year according to the criteria of Hanifin & Raijka, with moderate severity (score of 10‐20) as evaluated by EASI, (c) free of any dermatological or systemic disorder which could interfere with results and (d) free of any acute or chronic disease that may interfere with or increase the risk of trial participation. The exclusion criteria were: (a) history of allergies or adverse reactions to moisturizers or components of the specific products being tested, (b) use of any medication (topical or systemic) that may mask or interfere with results, such as calcineurin inhibitors or corticosteroids, (c) excessive hair on test sites, (d) history of chronic allergies and (e) pregnant or nursing females."
+    },
+    {
+      "id": "inclusion_moderate",
+      "kind": "context",
+      "label": "Who could join: eczema for at least a year, of moderate severity",
+      "value": "with moderate severity",
+      "quote": "A total of 100 patients were recruited from the outpatient clinic at St George Dermatology and Skin Cancer Centre (Kogarah, New South Wales, Australia) between September 2015 and October 2019. Inclusion criteria were: (a) males or females aged over 18 years, (b) clinically diagnosed eczema for at least 1 year according to the criteria of Hanifin & Raijka, with moderate severity (score of 10‐20) as evaluated by EASI, (c) free of any dermatological or systemic disorder which could interfere with results and (d) free of any acute or chronic disease that may interfere with or increase the risk of trial participation. The exclusion criteria were: (a) history of allergies or adverse reactions to moisturizers or components of the specific products being tested, (b) use of any medication (topical or systemic) that may mask or interfere with results, such as calcineurin inhibitors or corticosteroids, (c) excessive hair on test sites, (d) history of chronic allergies and (e) pregnant or nursing females."
+    },
+    {
+      "id": "exclusion_meds",
+      "kind": "context",
+      "label": "Not allowed: medicines that could mask the result, such as steroids",
+      "value": "such as calcineurin inhibitors or corticosteroids",
+      "quote": "A total of 100 patients were recruited from the outpatient clinic at St George Dermatology and Skin Cancer Centre (Kogarah, New South Wales, Australia) between September 2015 and October 2019. Inclusion criteria were: (a) males or females aged over 18 years, (b) clinically diagnosed eczema for at least 1 year according to the criteria of Hanifin & Raijka, with moderate severity (score of 10‐20) as evaluated by EASI, (c) free of any dermatological or systemic disorder which could interfere with results and (d) free of any acute or chronic disease that may interfere with or increase the risk of trial participation. The exclusion criteria were: (a) history of allergies or adverse reactions to moisturizers or components of the specific products being tested, (b) use of any medication (topical or systemic) that may mask or interfere with results, such as calcineurin inhibitors or corticosteroids, (c) excessive hair on test sites, (d) history of chronic allergies and (e) pregnant or nursing females."
+    },
+    {
+      "id": "itt_100",
+      "kind": "context",
+      "label": "100 patients analysed, 50 per group",
+      "value": "consisted of 100 patients",
+      "quote": "The demographics and baseline characteristics of the ITT population are described in Table 2 and consisted of 100 patients (53 female, 47 male; aged 18‐73 years; mean age 30.9 years) who received either ceramide cream and cleanser (n = 50) or placebo cream and cleanser (n = 50). Of these, 83 patients completed the study (n = 42 and n = 41, respectively)."
+    },
+    {
+      "id": "per_group_50",
+      "kind": "context",
+      "label": "50 per group",
+      "value": "(n = 50) or placebo cream and cleanser (n = 50)",
+      "quote": "The demographics and baseline characteristics of the ITT population are described in Table 2 and consisted of 100 patients (53 female, 47 male; aged 18‐73 years; mean age 30.9 years) who received either ceramide cream and cleanser (n = 50) or placebo cream and cleanser (n = 50). Of these, 83 patients completed the study (n = 42 and n = 41, respectively)."
+    },
+    {
+      "id": "completed_83",
+      "kind": "context",
+      "label": "83 finished: 42 and 41",
+      "value": "83 patients completed the study",
+      "quote": "The demographics and baseline characteristics of the ITT population are described in Table 2 and consisted of 100 patients (53 female, 47 male; aged 18‐73 years; mean age 30.9 years) who received either ceramide cream and cleanser (n = 50) or placebo cream and cleanser (n = 50). Of these, 83 patients completed the study (n = 42 and n = 41, respectively)."
+    },
+    {
+      "id": "sex_text",
+      "kind": "context",
+      "label": "53 women and 47 men",
+      "value": "53 female, 47 male",
+      "quote": "The demographics and baseline characteristics of the ITT population are described in Table 2 and consisted of 100 patients (53 female, 47 male; aged 18‐73 years; mean age 30.9 years) who received either ceramide cream and cleanser (n = 50) or placebo cream and cleanser (n = 50). Of these, 83 patients completed the study (n = 42 and n = 41, respectively)."
+    },
+    {
+      "id": "age_mean",
+      "kind": "context",
+      "label": "Aged 18 to 73, average 30.9",
+      "value": "mean age 30.9 years",
+      "quote": "The demographics and baseline characteristics of the ITT population are described in Table 2 and consisted of 100 patients (53 female, 47 male; aged 18‐73 years; mean age 30.9 years) who received either ceramide cream and cleanser (n = 50) or placebo cream and cleanser (n = 50). Of these, 83 patients completed the study (n = 42 and n = 41, respectively)."
+    },
+    {
+      "id": "asian_row",
+      "kind": "context",
+      "label": "About half were Asian",
+      "value": "Asian | 27 (54%) | 22 (44%) | 49 (49%) |",
+      "quote": "Asian | 27 (54%) | 22 (44%) | 49 (49%) |"
+    },
+    {
+      "id": "sem",
+      "kind": "context",
+      "label": "The paper gives the scores as mean ± standard error",
+      "value": "Mean ± SEM",
+      "quote": "Mean ± SEM (Range) | 14.70 ± 0.52 (10.0‐25.2) | 14.28 ± 0.43 (10.0‐19.8) | 14.49 ± 0.48 (10.0–25.2) |"
+    },
+    {
+      "id": "sponsor",
+      "kind": "context",
+      "label": "Six authors work for the cream's maker, which sponsored the trial",
+      "value": "employed by Ego Pharmaceuticals, the sponsor of the study and manufacturer of the ceramide cream and cleanser",
+      "quote": "Fabrizio Spada, Ian P. Harrison, Tanya M. Barnes, Kerryn A. Greive, Daisy Daniels and Joshua P. Townley are employed by Ego Pharmaceuticals, the sponsor of the study and manufacturer of the ceramide cream and cleanser."
+    },
+    {
+      "id": "easi_active_0",
+      "kind": "estimate",
+      "label": "Eczema score at the start, ceramide set",
+      "value": "14.70",
+      "quote": "For the primary efficacy outcome, both ceramide cream and cleanser (day 0:14.70 ± 0.52 vs day 28:8.25 ± 0.78, P < .0001) and placebo cream and cleanser (day 0:14.28 ± 0.43 vs day 28:7.84 ± 0.75, P < .0001) significantly decreased EASI score after 28 days, however, this change was not significantly different between groups (P = .7804).",
+      "estimate": {
+        "outcome": "EASI, day 0, ceramide set",
+        "measure": "mean",
+        "point": 14.7,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "score",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "easi_active_28",
+      "kind": "estimate",
+      "label": "Eczema score at day 28, ceramide set",
+      "value": "8.25",
+      "quote": "For the primary efficacy outcome, both ceramide cream and cleanser (day 0:14.70 ± 0.52 vs day 28:8.25 ± 0.78, P < .0001) and placebo cream and cleanser (day 0:14.28 ± 0.43 vs day 28:7.84 ± 0.75, P < .0001) significantly decreased EASI score after 28 days, however, this change was not significantly different between groups (P = .7804).",
+      "estimate": {
+        "outcome": "EASI, day 28, ceramide set",
+        "measure": "mean",
+        "point": 8.25,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "score",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "easi_placebo_0",
+      "kind": "estimate",
+      "label": "Eczema score at the start, placebo set",
+      "value": "14.28",
+      "quote": "For the primary efficacy outcome, both ceramide cream and cleanser (day 0:14.70 ± 0.52 vs day 28:8.25 ± 0.78, P < .0001) and placebo cream and cleanser (day 0:14.28 ± 0.43 vs day 28:7.84 ± 0.75, P < .0001) significantly decreased EASI score after 28 days, however, this change was not significantly different between groups (P = .7804).",
+      "estimate": {
+        "outcome": "EASI, day 0, placebo set",
+        "measure": "mean",
+        "point": 14.28,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "score",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "easi_placebo_28",
+      "kind": "estimate",
+      "label": "Eczema score at day 28, placebo set",
+      "value": "7.84",
+      "quote": "For the primary efficacy outcome, both ceramide cream and cleanser (day 0:14.70 ± 0.52 vs day 28:8.25 ± 0.78, P < .0001) and placebo cream and cleanser (day 0:14.28 ± 0.43 vs day 28:7.84 ± 0.75, P < .0001) significantly decreased EASI score after 28 days, however, this change was not significantly different between groups (P = .7804).",
+      "estimate": {
+        "outcome": "EASI, day 28, placebo set",
+        "measure": "mean",
+        "point": 7.84,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "score",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "easi_ns",
+      "kind": "finding",
+      "label": "Eczema score: no clear difference between the sets at day 28",
+      "value": "this change was not significantly different between groups (P = .7804)",
+      "quote": "For the primary efficacy outcome, both ceramide cream and cleanser (day 0:14.70 ± 0.52 vs day 28:8.25 ± 0.78, P < .0001) and placebo cream and cleanser (day 0:14.28 ± 0.43 vs day 28:7.84 ± 0.75, P < .0001) significantly decreased EASI score after 28 days, however, this change was not significantly different between groups (P = .7804).",
+      "outcome": "Change in eczema score (EASI), day 28"
+    },
+    {
+      "id": "easi_any_ns",
+      "kind": "finding",
+      "label": "Eczema score: no clear difference at any visit",
+      "value": "there were no differences in the change in EASI score between the active and placebo groups at any time point",
+      "quote": "For the secondary efficacy outcomes, EASI scores significantly improved across visits in both groups (P < .0001; Figure 2), however, there were no differences in the change in EASI score between the active and placebo groups at any time point (all P > .05).",
+      "outcome": "Change in eczema score at each weekly visit"
+    },
+    {
+      "id": "easi_45",
+      "kind": "finding",
+      "label": "The eczema score fell by about 45% with the ceramide set",
+      "value": "approximately 45%",
+      "quote": "In this study, mean EASI score significantly improved by approximately 45% in patients with moderate eczema following use of a ceramide‐dominant physiological lipid‐based moisturizing cream and cleanser for 4 weeks.",
+      "outcome": "Eczema score, ceramide set"
+    },
+    {
+      "id": "placebo_similar",
+      "kind": "finding",
+      "label": "The placebo set did about as well",
+      "value": "A similar outcome was also found for the placebo group",
+      "quote": "A similar outcome was also found for the placebo group",
+      "outcome": "Eczema score, placebo set"
+    },
+    {
+      "id": "tewl_start",
+      "kind": "finding",
+      "label": "Water loss was alike in both groups at the start",
+      "value": "TEWL was similar in both groups at baseline",
+      "quote": "TEWL was similar in both groups at baseline (P > .05; Table 2).",
+      "outcome": "Water loss through the skin, day 0"
+    },
+    {
+      "id": "tewl_better",
+      "kind": "finding",
+      "label": "Water loss through the skin improved more with the ceramide set",
+      "value": "The active group had significantly greater improvements in TEWL at all",
+      "quote": "The active group had significantly greater improvements in TEWL at all‐time points compared to the placebo group which showed little to no improvement over the study period (Figure 3).",
+      "outcome": "Water loss through the skin (TEWL)"
+    },
+    {
+      "id": "tewl_day21",
+      "kind": "finding",
+      "label": "Water loss by visit: a clear difference at every visit but day 21",
+      "value": "except for day 21, where it approached significance (P = .0660)",
+      "quote": "This improvement was statistically significant at all‐time points (P < .05) except for day 21, where it approached significance (P = .0660).",
+      "outcome": "Water loss through the skin, by visit"
+    },
+    {
+      "id": "hydration_better",
+      "kind": "finding",
+      "label": "Skin hydration was higher with the ceramide set at every visit",
+      "value": "with skin hydration consistently improving in the active group over time",
+      "quote": "The difference in skin hydration between the active and placebo groups was significant at all‐time points (P < .05; Figure 4), with skin hydration consistently improving in the active group over time.",
+      "outcome": "Skin hydration"
+    },
+    {
+      "id": "trend",
+      "kind": "finding",
+      "label": "Over the 28 days, water loss and hydration improved with the ceramide set and not with placebo",
+      "value": "both TEWL and skin hydration improved in the active group, while it either stayed the same or worsened in the placebo group",
+      "quote": "Corroborating evidence from the mixed models analysis found both TEWL and skin hydration improved in the active group, while it either stayed the same or worsened in the placebo group (P = .0342 and P < .0001, respectively).",
+      "outcome": "Water loss and hydration, trend over 28 days"
+    },
+    {
+      "id": "tewl_lower",
+      "kind": "finding",
+      "label": "Water loss through the skin fell more with the ceramide set than with placebo",
+      "value": "a decrease in TEWL",
+      "quote": "Strikingly though, use of the ceramide cream and cleanser resulted in significant improvements in barrier function compared to the placebo as measured by a decrease in TEWL and increased skin hydration.",
+      "outcome": "Water loss through the skin (TEWL)"
+    },
+    {
+      "id": "hydration_up",
+      "kind": "finding",
+      "label": "Skin hydration rose more with the ceramide set than with placebo",
+      "value": "increased skin hydration",
+      "quote": "Strikingly though, use of the ceramide cream and cleanser resulted in significant improvements in barrier function compared to the placebo as measured by a decrease in TEWL and increased skin hydration.",
+      "outcome": "Skin hydration"
+    },
+    {
+      "id": "rescue_ns",
+      "kind": "finding",
+      "label": "Steroid gel used: no clear difference",
+      "value": "There were no significant differences in the amount of mometasone furoate used as rescue medication",
+      "quote": "There were no significant differences in the amount of mometasone furoate used as rescue medication by either group at any time point (all P > .05; Figure 5).",
+      "outcome": "Steroid gel used"
+    },
+    {
+      "id": "amount_ns",
+      "kind": "finding",
+      "label": "Cream and cleanser used: no clear difference",
+      "value": "there were no significant differences in the quantity of cream or cleanser used",
+      "quote": "Furthermore, there were no significant differences in the quantity of cream or cleanser used between both groups at any time point (all P > .05; data not shown).",
+      "outcome": "Amount of cream and cleanser used"
+    },
+    {
+      "id": "dlqi_ns",
+      "kind": "finding",
+      "label": "Quality of life: improved in both, no clear difference between them",
+      "value": "with no significant difference observed between groups (P = .7804)",
+      "quote": "DLQI scores improved significantly over time in both groups (P < .0001; Figure 6), with no significant difference observed between groups (P = .7804).",
+      "outcome": "Quality of life (DLQI)"
+    },
+    {
+      "id": "dlqi_abstract_p",
+      "kind": "finding",
+      "label": "Quality of life: the abstract's between-group test",
+      "value": "with no difference between groups (P = .5256)",
+      "quote": "Dermatology life quality index scores improved significantly in both groups (P < .0001), with no difference between groups (P = .5256).",
+      "outcome": "Quality of life (DLQI), abstract"
+    },
+    {
+      "id": "itch_d14",
+      "kind": "finding",
+      "label": "Itch relief: rated better with the ceramide set at day 14",
+      "value": "relief of itch on day 14 (P = .0255)",
+      "quote": "However, analysis of the patient satisfaction survey by cumulative logistic regression (Table 3) found that several questions were answered more positively in the active compared to the placebo group, including relief of itch on day 14 (P = .0255), relief of dry skin at both day 14 (P < .0001) and day 28 (P = .0033) and effects on skin softness and smoothness at day 14 (P = .0001) and day 28 (P = .0573). The reduction of rash approached significance at day 14 (P = .0698).",
+      "outcome": "Patients' rating of itch relief, day 14"
+    },
+    {
+      "id": "itch_d28",
+      "kind": "finding",
+      "label": "Itch relief at day 28: the table's test result",
+      "value": "Day 28 | 0.8638 | 0.3461 | 0.3938 to 1.8944 | .7147 |",
+      "quote": "Day 28 | 0.8638 | 0.3461 | 0.3938 to 1.8944 | .7147 |",
+      "outcome": "Patients' rating of itch relief, day 28"
+    },
+    {
+      "id": "dry_skin",
+      "kind": "finding",
+      "label": "Dry-skin relief: rated better with the ceramide set at days 14 and 28",
+      "value": "relief of dry skin at both day 14 (P < .0001) and day 28 (P = .0033)",
+      "quote": "However, analysis of the patient satisfaction survey by cumulative logistic regression (Table 3) found that several questions were answered more positively in the active compared to the placebo group, including relief of itch on day 14 (P = .0255), relief of dry skin at both day 14 (P < .0001) and day 28 (P = .0033) and effects on skin softness and smoothness at day 14 (P = .0001) and day 28 (P = .0573). The reduction of rash approached significance at day 14 (P = .0698).",
+      "outcome": "Patients' rating of dry-skin relief"
+    },
+    {
+      "id": "softness",
+      "kind": "finding",
+      "label": "Softness and smoothness: rated better at day 14; the paper also counts day 28",
+      "value": "effects on skin softness and smoothness at day 14 (P = .0001) and day 28 (P = .0573)",
+      "quote": "However, analysis of the patient satisfaction survey by cumulative logistic regression (Table 3) found that several questions were answered more positively in the active compared to the placebo group, including relief of itch on day 14 (P = .0255), relief of dry skin at both day 14 (P < .0001) and day 28 (P = .0033) and effects on skin softness and smoothness at day 14 (P = .0001) and day 28 (P = .0573). The reduction of rash approached significance at day 14 (P = .0698).",
+      "outcome": "Patients' rating of softness and smoothness"
+    },
+    {
+      "id": "sat_ns",
+      "kind": "finding",
+      "label": "Redness, pleasantness, ease of use and overall satisfaction: no clear difference",
+      "value": "No differences were found between groups for the reduction of redness and inflammation",
+      "quote": "No differences were found between groups for the reduction of redness and inflammation, treatment pleasantness, maintenance of healthy skin, ease of use and overall satisfaction (all P > .05).",
+      "outcome": "Other satisfaction ratings"
+    },
+    {
+      "id": "ae_groups",
+      "kind": "finding",
+      "label": "Side effects: 11 people with the ceramide set, 7 with placebo",
+      "value": "with 11 (11%) of those patients in the active group and 7 (7%) in the placebo group",
+      "quote": "There were a small number of AEs (22) experienced by 18 patients (18%), with 11 (11%) of those patients in the active group and 7 (7%) in the placebo group. Of these, 8 patients (8%) were found to have 10 AEs that were remotely, possibly or probably related to the study products in the active group compared to 4 patients (4%) and 5 AEs in the placebo group. The most common treatment‐related AEs reported were pain (stinging on application) in five patients (5%) in the active group only, itch in three patients (3%) in the active group and one (1%) in the placebo group, and dry skin in the placebo group only by two patients (2%). Two patients (2%) in the active group reported both pain and itch. The majority of treatment‐related AEs experienced by patients were classified as mild with five in the active group and five in the placebo group experienced by four patients (4%) in each group. Two patients (2%) experienced moderate severity AEs while two (2%) experienced severe AEs, all of which were in the active group; one patient experienced both pain and itch while the other three experienced pain only. No subjects withdrew from the study due to AEs and there were no serious AEs.",
+      "outcome": "Side effects"
+    },
+    {
+      "id": "stinging",
+      "kind": "finding",
+      "label": "Stinging on application: 5 people, all with the ceramide set",
+      "value": "pain (stinging on application) in five patients (5%) in the active group only",
+      "quote": "There were a small number of AEs (22) experienced by 18 patients (18%), with 11 (11%) of those patients in the active group and 7 (7%) in the placebo group. Of these, 8 patients (8%) were found to have 10 AEs that were remotely, possibly or probably related to the study products in the active group compared to 4 patients (4%) and 5 AEs in the placebo group. The most common treatment‐related AEs reported were pain (stinging on application) in five patients (5%) in the active group only, itch in three patients (3%) in the active group and one (1%) in the placebo group, and dry skin in the placebo group only by two patients (2%). Two patients (2%) in the active group reported both pain and itch. The majority of treatment‐related AEs experienced by patients were classified as mild with five in the active group and five in the placebo group experienced by four patients (4%) in each group. Two patients (2%) experienced moderate severity AEs while two (2%) experienced severe AEs, all of which were in the active group; one patient experienced both pain and itch while the other three experienced pain only. No subjects withdrew from the study due to AEs and there were no serious AEs.",
+      "outcome": "Stinging"
+    },
+    {
+      "id": "severe_active",
+      "kind": "finding",
+      "label": "Two moderate and two severe side effects, all with the ceramide set",
+      "value": "two (2%) experienced severe AEs, all of which were in the active group",
+      "quote": "There were a small number of AEs (22) experienced by 18 patients (18%), with 11 (11%) of those patients in the active group and 7 (7%) in the placebo group. Of these, 8 patients (8%) were found to have 10 AEs that were remotely, possibly or probably related to the study products in the active group compared to 4 patients (4%) and 5 AEs in the placebo group. The most common treatment‐related AEs reported were pain (stinging on application) in five patients (5%) in the active group only, itch in three patients (3%) in the active group and one (1%) in the placebo group, and dry skin in the placebo group only by two patients (2%). Two patients (2%) in the active group reported both pain and itch. The majority of treatment‐related AEs experienced by patients were classified as mild with five in the active group and five in the placebo group experienced by four patients (4%) in each group. Two patients (2%) experienced moderate severity AEs while two (2%) experienced severe AEs, all of which were in the active group; one patient experienced both pain and itch while the other three experienced pain only. No subjects withdrew from the study due to AEs and there were no serious AEs.",
+      "outcome": "Side-effect severity"
+    },
+    {
+      "id": "no_serious",
+      "kind": "finding",
+      "label": "No one left because of side effects; none were serious",
+      "value": "No subjects withdrew from the study due to AEs and there were no serious AEs",
+      "quote": "There were a small number of AEs (22) experienced by 18 patients (18%), with 11 (11%) of those patients in the active group and 7 (7%) in the placebo group. Of these, 8 patients (8%) were found to have 10 AEs that were remotely, possibly or probably related to the study products in the active group compared to 4 patients (4%) and 5 AEs in the placebo group. The most common treatment‐related AEs reported were pain (stinging on application) in five patients (5%) in the active group only, itch in three patients (3%) in the active group and one (1%) in the placebo group, and dry skin in the placebo group only by two patients (2%). Two patients (2%) in the active group reported both pain and itch. The majority of treatment‐related AEs experienced by patients were classified as mild with five in the active group and five in the placebo group experienced by four patients (4%) in each group. Two patients (2%) experienced moderate severity AEs while two (2%) experienced severe AEs, all of which were in the active group; one patient experienced both pain and itch while the other three experienced pain only. No subjects withdrew from the study due to AEs and there were no serious AEs.",
+      "outcome": "Serious side effects"
+    },
+    {
+      "id": "ceramide_low",
+      "kind": "statement",
+      "label": "In eczema, the outer skin layer holds less ceramide",
+      "value": "decreased levels of ceramides in the stratum corneum",
+      "quote": "The compromised skin barrier is mainly attributable to significantly decreased levels of ceramides in the stratum corneum (SC) in lesional and non‐lesional skin."
+    },
+    {
+      "id": "mortar",
+      "kind": "statement",
+      "label": "Ceramides form layers with cholesterol and fatty acids between the cells of the outer skin",
+      "value": "between cells of the SC",
+      "quote": "Ceramides act as water modulators and an integral part of the skins permeability barrier by forming multi‐layered lamellar structures with cholesterol and free fatty acids between cells of the SC."
+    },
+    {
+      "id": "leaky",
+      "kind": "statement",
+      "label": "A weak barrier lets water out, which dries the skin and opens it to irritants",
+      "value": "results in increased transepidermal water loss (TEWL) leading to xerosis",
+      "quote": "The abnormal barrier function in eczema results in increased transepidermal water loss (TEWL) leading to xerosis, and predisposes the skin to inflammatory processes evoked by irritants and allergens."
+    },
+    {
+      "id": "conventional",
+      "kind": "statement",
+      "label": "Ordinary moisturizers sit on top; the authors say skin lipids such as ceramides soak in",
+      "value": "Conventional moisturizers form a more superficial occlusive barrier on the skin",
+      "quote": "Conventional moisturizers form a more superficial occlusive barrier on the skin whereas physiologic lipids, including ceramides, permeate the SC and are synthesized in the keratinocytes, processed in lamellar bodies, and secreted back into the SC to become a part of the dermal matrix."
+    },
+    {
+      "id": "triple_system",
+      "kind": "statement",
+      "label": "Authors: the cream draws water in, seals it, and smooths the surface",
+      "value": "glycerin and sodium PCA as humectants to attract and hold water",
+      "quote": "Comprising a “triple moisturizing system”, ceramide cream and cleanser contain glycerin and sodium PCA as humectants to attract and hold water in the SC and epidermis, dimethicone and petrolatum as occludents to maintain the increased water content in the skin, and paraffinum liquidum, hexanediol and caprylyl glycol as emollients to smooth rough skin created by improperly desquamating corneocytes."
+    },
+    {
+      "id": "ratio_311",
+      "kind": "statement",
+      "label": "Authors: the cream holds two ceramides, cholesterol and a fatty acid in a set ratio",
+      "value": "3:1:1 M ratio",
+      "quote": "Ceramide cream and cleanser also contain ceramide EOP and ceramide NP, cholesterol and linoleic acid from safflower oil in a 3:1:1 M ratio."
+    },
+    {
+      "id": "prior_trials",
+      "kind": "statement",
+      "label": "Earlier small trials of ceramide creams in eczema found similar results",
+      "value": "adults with AD treated with mometasone furoate in combination with a ceramide and linoleic acid moisturizer for 8 weeks",
+      "quote": "Similar outcomes to those observed in this study have been reported in the relatively few clinical studies examining the safety and efficacy of topical physiologic lipids in eczema. For example, adults with AD treated with mometasone furoate in combination with a ceramide and linoleic acid moisturizer for 8 weeks experienced accelerated reestablishment of the epidermal permeability barrier and amelioration of itch compared to treatment with mometasone furoate only."
+    },
+    {
+      "id": "abstract_claim",
+      "kind": "statement",
+      "label": "The abstract says the set improves the signs and symptoms of eczema",
+      "value": "safely restores skin permeability and improves the signs and symptoms of eczema in adults",
+      "quote": "The ceramide‐dominant moisturizing cream and cleanser safely restores skin permeability and improves the signs and symptoms of eczema in adults."
+    },
+    {
+      "id": "limit_no_followup",
+      "kind": "limitation",
+      "label": "No follow-up after the 28 days",
+      "value": "patients were not followed up after completion of the study",
+      "quote": "A limitation of the study is that patients were not followed up after completion of the study to determine whether the skin barrier continued to improve."
+    },
+    {
+      "id": "limit_short",
+      "kind": "limitation",
+      "label": "Only 28 days: a longer trial might have shown a change in the eczema score",
+      "value": "a change in EASI may have been observed if a longer study period was used",
+      "quote": "Furthermore, a change in EASI may have been observed if a longer study period was used."
+    },
+    {
+      "id": "limit_longer",
+      "kind": "limitation",
+      "label": "Trials of up to 8 weeks, with follow-up, are needed",
+      "value": "Similar studies of up to 8 weeks with a follow",
+      "quote": "Similar studies of up to 8 weeks with a follow‐up period may be useful in both adults and children with moderate eczema."
+    },
+    {
+      "id": "limit_sponsor",
+      "kind": "limitation",
+      "label": "Run by the cream's maker: six authors are its employees",
+      "value": "employed by Ego Pharmaceuticals, the sponsor of the study",
+      "quote": "Fabrizio Spada, Ian P. Harrison, Tanya M. Barnes, Kerryn A. Greive, Daisy Daniels and Joshua P. Townley are employed by Ego Pharmaceuticals, the sponsor of the study and manufacturer of the ceramide cream and cleanser."
+    },
+    {
+      "id": "limit_dropouts",
+      "kind": "limitation",
+      "label": "17 of 100 did not finish",
+      "value": "Of these, 83 patients completed the study",
+      "quote": "The demographics and baseline characteristics of the ITT population are described in Table 2 and consisted of 100 patients (53 female, 47 male; aged 18‐73 years; mean age 30.9 years) who received either ceramide cream and cleanser (n = 50) or placebo cream and cleanser (n = 50). Of these, 83 patients completed the study (n = 42 and n = 41, respectively)."
+    },
+    {
+      "id": "limit_secondary",
+      "kind": "limitation",
+      "label": "Water loss and hydration were secondary outcomes; the main one showed no clear difference",
+      "value": "Secondary efficacy outcomes were the comparison of the treatments based on EASI at days 7, 14, and 21 compared to baseline, as well as the change in TEWL, skin hydration",
+      "quote": "Secondary efficacy outcomes were the comparison of the treatments based on EASI at days 7, 14, and 21 compared to baseline, as well as the change in TEWL, skin hydration and the amount of mometasone furoate used as rescue medication at days 7, 14, 21, and 28 compared to baseline."
+    }
+  ],
+  "coverage": {
+    "conditions": [
+      "cleanser_daily",
+      "cream_twice",
+      "cream_after_wash",
+      "placebo_set",
+      "rescue_steroid",
+      "washout",
+      "identical_packs"
+    ],
+    "dosing": [
+      "twenty_eight_days",
+      "cream_twice",
+      "cleanser_daily",
+      "amount_ns"
+    ],
+    "confounds": [
+      "rescue_steroid",
+      "rescue_ns",
+      "limit_dropouts",
+      "limit_secondary",
+      "forearm",
+      "sponsor",
+      "dlqi_abstract_p",
+      "itch_d28"
+    ],
+    "priorEvidence": [
+      "prior_trials",
+      "ceramide_low",
+      "conventional"
+    ],
+    "furtherInvestigation": [
+      "limit_longer",
+      "limit_no_followup"
+    ],
+    "funding": [
+      "sponsor",
+      "limit_sponsor"
+    ]
+  }
+}

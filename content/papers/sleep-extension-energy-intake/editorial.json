@@ -192,32 +192,118 @@
     "slides": [
       {
         "kind": "hook",
-        "heading": "Adults who slept longer ate 270.4 kcal a day less [ei_diff_in_changes]"
+        "heading": "Can more sleep mean eating less? [-]",
+        "body": "No diet, no exercise plan: 80 short sleepers aimed for 8.5 hours in bed. [free_living_routine, overall_mean_age, sleep_extension_target]",
+        "art": {
+          "motif": "pair",
+          "a": {
+            "value": {
+              "text": "6.5",
+              "ref": "eligibility_age_bmi_sleep"
+            },
+            "unit": "hours [-]",
+            "label": "their usual sleep was under this [eligibility_age_bmi_sleep]"
+          },
+          "b": {
+            "value": {
+              "text": "8.5",
+              "ref": "sleep_extension_target"
+            },
+            "unit": "hours [-]",
+            "label": "their target time in bed [sleep_extension_target]"
+          }
+        }
       },
       {
         "kind": "finding",
-        "heading": "What changed in 2 weeks [baseline_and_intervention_periods]",
-        "body": "Compared with the control group, adults who slept longer ate 270.4 kcal a day less. [ei_diff_in_changes] The energy participants burned showed no clear difference. [tee_diff_in_changes, tee_p_value]"
+        "heading": "The longer sleepers ate 270.4 kcal a day less. [ei_diff_in_changes]",
+        "body": "Compared with the control group, over 2 weeks. [baseline_and_intervention_periods]",
+        "art": {
+          "motif": "verdicts",
+          "rows": [
+            {
+              "label": "Food eaten [-]",
+              "verdict": "lower",
+              "fact": "fact:ei_diff_in_changes"
+            },
+            {
+              "label": "Energy used [-]",
+              "verdict": "no-clear-difference",
+              "fact": "fact:tee_diff_in_changes"
+            },
+            {
+              "label": "Weight [-]",
+              "verdict": "lower",
+              "fact": "fact:wt_diff_in_changes"
+            }
+          ]
+        }
       },
       {
-        "kind": "population",
-        "heading": "Who took part [-]",
-        "body": "80 adults aged 21 to 40 with overweight, who usually slept under 6.5 hours a night. [overall_mean_age, eligibility_age_bmi_sleep] Chance decided who extended their sleep, at home, with no diet or exercise plan. [randomization_method, free_living_routine]"
+        "kind": "why",
+        "heading": "Weight is a ledger: food in, energy out. [energy_intake_method]",
+        "body": "Food in fell. [ei_ext_change] Energy out showed no clear change. [tee_diff_in_changes] So the balance tipped. [eb_diff_in_changes]",
+        "art": {
+          "motif": "ledger",
+          "kind": "measured",
+          "fact": "fact:ei_diff_in_changes",
+          "labels": [
+            "Food in [-]",
+            "Energy used [-]"
+          ]
+        }
       },
       {
-        "kind": "nuance",
-        "heading": "Both groups moved [-]",
-        "body": "Intake fell by 155.5 kcal a day in the sleep group and rose by 114.9 in the control group. [ei_ext_change, ei_ctrl_change] Of the 0.87 kg weight gap, 0.62 kg was fat-free mass. [wt_diff_in_changes, ffm_diff_in_changes]"
+        "kind": "who",
+        "heading": "Only if you look like the people tested. [-]",
+        "body": null,
+        "art": {
+          "motif": "who",
+          "tested": [
+            "80 adults aged 21 to 40 [overall_mean_age, eligibility_age_bmi_sleep]",
+            "Overweight, not obese [eligibility_age_bmi_sleep]",
+            "Usually slept under 6.5 hours [eligibility_age_bmi_sleep]"
+          ],
+          "notTested": [
+            "Sleep apnea or insomnia [exclusion_sleep_disorders_shift]",
+            "Shift workers [exclusion_sleep_disorders_shift]",
+            "Lean or obese adults [limit_generalizability]"
+          ]
+        }
       },
       {
-        "kind": "limitation",
-        "heading": "What this cannot show [-]",
-        "body": "The change lasted 2 weeks, so long-term habits are unknown. [baseline_and_intervention_periods, limit_short_duration_sustainability] Only adults with overweight took part. [limit_generalizability]"
+        "kind": "receipts",
+        "heading": "How sure can we be? [-]",
+        "body": null,
+        "art": {
+          "motif": "checks",
+          "strong": "Groups set by chance; energy measured, not self-reported. [randomization_method, dlw_method]",
+          "weak": "Only 2 weeks; staying power unknown. [baseline_and_intervention_periods, limit_short_duration_sustainability]",
+          "missing": "Why they ate less: not studied. [limit_mechanisms_unassessed]"
+        }
       },
       {
         "kind": "cta",
-        "heading": "Try it in the read [-]",
-        "body": "Compare every energy estimate, then add the 8.5-hour bedtime to your Life Game. [sleep_extension_target]"
+        "heading": "When do you go to bed? [-]",
+        "body": "See your own bedtime against the 8.5 hours they aimed for. [sleep_extension_target]",
+        "art": null
+      }
+    ],
+    "altHooks": [
+      {
+        "name": "The calories",
+        "kind": "hook",
+        "heading": "What happened when short sleepers slept longer? [sleep_extension_target]",
+        "body": "Against the control group, they ate this much less a day. [ei_diff_in_changes]",
+        "art": {
+          "motif": "number",
+          "value": {
+            "text": "270.4",
+            "ref": "ei_diff_in_changes"
+          },
+          "unit": "kcal [-]",
+          "label": "less food a day [ei_diff_in_changes]"
+        }
       }
     ],
     "caption": "A randomized trial of 80 adults with overweight who slept under 6.5 hours a night. [overall_mean_age, eligibility_age_bmi_sleep] Sleep advice gave the sleep group 1.2 hours more sleep a night than the control group. [sleep_duration_diff] Those adults ate 270.4 kcal a day less than the control group, with no diet. [ei_diff_in_changes, free_living_routine] The control group also ate 114.9 kcal a day more than before, and the change lasted 2 weeks. [ei_ctrl_change, baseline_and_intervention_periods] Full read and the estimate explorer: link in bio. [-]",

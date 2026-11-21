@@ -1,0 +1,321 @@
+{
+  "slug": "sleep-restriction-sweet-foods",
+  "category": "Sleep",
+  "accessTier": "free",
+  "publishedAt": null,
+  "title": "Five short nights: how appealing sweets looked to 31 teens [five_nights, final_31]",
+  "teaser": "Teens spent five nights with 6.5 hours in bed and five with 10, in random order. [five_nights, sr_in_bed, hs_in_bed, randomized_order] After the short nights, they rated photos of sweets and desserts as more appealing. [sweets_more_appealing] Their hunger showed no clear difference. [hunger_ns]",
+  "hook": "Five nights of 6.5 hours in bed, and teens rated photos of sweets and desserts as more appealing. [five_nights, sr_in_bed, sweets_more_appealing] Their hunger showed no clear difference. [hunger_ns]",
+  "populationTerms": [
+    "teens",
+    "adolescents",
+    "participants"
+  ],
+  "populationPanel": "Who this was tested in: 31 typically developing teens aged 14 to 17. [final_31, inclusion] 59% were girls; 52% were white and 41% African-American. [female_59, ethnicity] Teens with marked obesity were left out. [exclusion_obesity] Each teen slept at home on both schedules, in an order set by a random draw. [at_home, randomized_order] The result describes teens like these, after five short nights. [final_31, limit_after_five]",
+  "primaryEstimate": "sweets_more_appealing",
+  "card": {
+    "question": "Do short nights make sweets look better to teens? [sweets_more_appealing]",
+    "headline": "After five short nights, teens rated sweets and desserts as more appealing. [five_nights, sweets_more_appealing]",
+    "support": "Hunger and the appeal of other foods showed no clear difference. [hunger_ns, nonsweets_ns]"
+  },
+  "source": {
+    "who": "31 teens aged 14 to 17 [final_31, inclusion]",
+    "span": "five short and five long nights each [five_nights]"
+  },
+  "glance": {
+    "figure": "bedtimes",
+    "x": "Night [-]",
+    "alt": "Two bars across a night, one for each schedule. [-] On the short nights, sleep starts much later; both bars end at the same wake time. [later_onset, wake_same]",
+    "note": "Drawn from the paper’s own measurements. [-]",
+    "tryIt": "compare calories and sweets after each kind of night [-]"
+  },
+  "layers": {
+    "mechanism": {
+      "paragraphs": [
+        "Picture a scoreboard in your head that rates each food as it comes into view. [hedonic_shift] The score is how much pleasure the food seems to promise; psychologists call it hedonic value. [hedonic_shift] A higher score makes a food more likely to get eaten. [appeal_to_intake]",
+        "The authors' idea is that short sleep turns up the score for sweet things. [hedonic_shift, may_increase_appeal] Earlier work in adults points the same way. [-] Sleep-deprived adults crave calorie-dense food more. [adult_cravings] In brain scans, food photos set off reward areas more after short sleep. [adult_brain]",
+        "This trial checked the score in teens. [-] Each teen spent five nights with 6.5 hours in bed and five with 10. [five_nights, sr_in_bed, hs_in_bed] Only the bedtime moved; the wake time stayed the same, weekends included. [bedtime_moved, same_wake] They slept 6.7 hours a night on the short schedule and 9.1 on the long one. [sleep_sr, sleep_hs]",
+        "The morning after each block, they rated 84 food photos from “gross” to “delicious”. [photo_sets, rating_scale] Sweets and desserts looked more appealing after the short nights. [sweets_more_appealing] Meat, eggs, fruit and vegetables showed no clear difference. [nonsweets_ns] Neither did hunger. [hunger_ns]",
+        "So the change was in how sweets looked, not in how hungry the teens felt. [sweets_more_appealing, hunger_ns] The authors see this as one route from short sleep to eating more sweets. [may_increase_appeal]"
+      ],
+      "figure": {
+        "figure": "bedtimes",
+        "caption": "When the teens fell asleep and woke, on average, under each schedule. [onset_sr, onset_hs, wake_sr, wake_hs]",
+        "alt": "Two bars across a night. [-] On the short nights, sleep starts at 0:34 and ends at 7:12. [onset_sr, wake_sr] On the long nights, it starts at 22:06 and ends at 7:11. [onset_hs, wake_hs] The bars end together, because only the bedtime moved. [wake_same, bedtime_moved]",
+        "params": {
+          "title": "Same wake time, later bedtime",
+          "asleep": "Fell asleep",
+          "awake": "Woke",
+          "rows": [
+            {
+              "label": "Short nights",
+              "inBed": {
+                "n": 6.5,
+                "ref": "sr_in_bed"
+              },
+              "onset": {
+                "text": "0:34",
+                "ref": "onset_sr"
+              },
+              "wake": {
+                "text": "7:12",
+                "ref": "wake_sr"
+              },
+              "slept": {
+                "kind": "measured",
+                "fact": "fact:sleep_sr"
+              }
+            },
+            {
+              "label": "Long nights",
+              "inBed": {
+                "n": 10,
+                "ref": "hs_in_bed"
+              },
+              "onset": {
+                "text": "22:06",
+                "ref": "onset_hs"
+              },
+              "wake": {
+                "text": "7:11",
+                "ref": "wake_hs"
+              },
+              "slept": {
+                "kind": "measured",
+                "fact": "fact:sleep_hs"
+              }
+            }
+          ],
+          "inBedWords": "hours in bed allowed",
+          "sleptWords": "hours slept"
+        }
+      }
+    },
+    "protocol": {
+      "paragraphs": [
+        "The tested schedule: five nights in a row with 10 hours in bed, against five with 6.5 hours. [five_nights, hs_in_bed, sr_in_bed] The wake time stayed fixed every morning, weekends included, so only the bedtime moved. [same_wake, bedtime_moved]",
+        "On 10 hours in bed, the teens fell asleep around 22:06 and slept 9.1 hours. [onset_hs, sleep_hs] They took no naps and kept caffeine to 1 coffee or energy drink a day. [no_naps_caffeine] The trial measured how appealing food looked, not anyone's health. [primary_appeal]"
+      ],
+      "figure": null
+    },
+    "audit": {
+      "effect": "Sweet and dessert photos were rated more appealing after short sleep than after healthy sleep, by a standardized effect (Cohen’s d) of .41. [sweets_more_appealing, sweets_d] By convention, .20 is small and .50 medium. [d_convention]",
+      "weakEnd": "The paper reports no confidence interval for this effect. [sweets_more_appealing] Its test gives p = .045 in the abstract and p = .049 in the results. [sweets_p_abstract, sweets_p_results] Both sit just inside the usual line, so the weak end may be close to no effect. [-]",
+      "limitations": [
+        "Small: 31 teens, measured only after five short nights. [limit_small, final_31, limit_after_five]",
+        "Hunger was only self-rated, and physical activity was not measured. [limit_hunger_measure, limit_activity]",
+        "The menstrual cycle was not taken into account, and the wash-out between schedules was 2 days. [limit_menstrual, limit_washout]"
+      ],
+      "missed": "Food eaten was only an exploratory check, in 23 teens, with no test reported for this sample. [diet_exploratory, diet_23] Calories were 1860 after short nights against 1647 after long ones. [kcal_sr, kcal_hs] The 52% rise in sweets was 0.74 against 0.49 servings a day. [sweets_more_eaten, sweets_sr, sweets_hs]",
+      "more": [
+        "Pooled with the authors' earlier study, 68 teens ate 1934 kcal against 1764 (p = .039). [pooled_68, pooled_kcal_sr, pooled_kcal_hs, pooled_kcal_p] Sweets: 1.46 against 0.75 servings a day (p = .017). [pooled_sweets_sr, pooled_sweets_hs, pooled_sweets_p]",
+        "Sleep per night, by wrist sensor in 28 teens: 6.7 hours short, 9.1 hours long. [sleep_28, sleep_sr, sleep_hs]",
+        "Fell asleep at 0:34 against 22:06; woke at 7:12 against 7:11. [onset_sr, onset_hs, wake_sr, wake_hs]",
+        "No sign that the first schedule carried over into the second. [no_carryover]",
+        "38 teens were randomized; one dropped out and 6 did not keep to the schedule, leaving 31. [randomized_38, dropped_7, final_31]",
+        "Teens who strongly disliked a food type were left out of that rating. [dislikers_removed]",
+        "Funded by the US National Institutes of Health, which had no role in the study; no competing interests. [funding, funder_no_role, no_competing]"
+      ],
+      "figure": null
+    }
+  },
+  "glossary": [
+    {
+      "term": "hedonic value",
+      "plain": "How much pleasure a food seems to promise before you eat it.",
+      "refs": [
+        "hedonic_shift"
+      ]
+    },
+    {
+      "term": "Cohen’s d",
+      "plain": "The average difference between two conditions, divided by how much that difference varied from person to person.",
+      "refs": [
+        "d_meaning"
+      ]
+    },
+    {
+      "term": "randomized",
+      "plain": "Set by chance, here the order of the two sleep schedules.",
+      "refs": [
+        "randomized_order"
+      ]
+    },
+    {
+      "term": "kcal",
+      "plain": "Kilocalories, the unit of food energy that labels usually just call calories.",
+      "refs": [
+        "kcal_sr"
+      ]
+    }
+  ],
+  "takeaways": [
+    "After five nights of 6.5 hours in bed, teens rated sweets and desserts as more appealing than after 10-hour nights. [five_nights, sr_in_bed, hs_in_bed, sweets_more_appealing]",
+    "Hunger and the appeal of other foods showed no clear difference. [hunger_ns, nonsweets_ns]",
+    "The trial was small, and measured only after five short nights. [limit_small, limit_after_five]"
+  ],
+  "choices": [],
+  "steps": [
+    {
+      "key": "ten-hours-in-bed",
+      "label": "Give yourself 10 hours in bed",
+      "detail": "The healthy-sleep schedule the teens kept in this trial. A tick records the time you gave to sleep, not what you ate.",
+      "kind": "action",
+      "refs": [
+        "hs_in_bed"
+      ],
+      "evidenceRef": "sweets_more_appealing"
+    },
+    {
+      "key": "same-wake-time",
+      "label": "Wake at the same time every day, weekends too",
+      "detail": "Part of the trial's rules on both schedules, not tested on its own, so it carries no weight.",
+      "kind": "action",
+      "refs": [
+        "same_wake"
+      ]
+    }
+  ],
+  "simulator": {
+    "kind": "estimate-explorer",
+    "params": {
+      "lowLabel": "Less",
+      "highLabel": "More",
+      "rows": [
+        {
+          "label": "Calories, after short nights (kcal)",
+          "fact": "fact:pooled_kcal_sr"
+        },
+        {
+          "label": "Calories, after long nights (kcal)",
+          "fact": "fact:pooled_kcal_hs"
+        },
+        {
+          "label": "Sweets, after short nights (servings)",
+          "fact": "fact:pooled_sweets_sr"
+        },
+        {
+          "label": "Sweets, after long nights (servings)",
+          "fact": "fact:pooled_sweets_hs"
+        }
+      ]
+    }
+  },
+  "carousel": {
+    "slides": [
+      {
+        "kind": "hook",
+        "heading": "Do short nights give teens a sweet tooth? [-]",
+        "body": "Teens spent five nights with 6.5 hours in bed and five with 10, then rated food photos. [five_nights, sr_in_bed, hs_in_bed, photo_sets]",
+        "art": {
+          "motif": "pair",
+          "a": {
+            "value": {
+              "text": "6.5",
+              "ref": "sr_in_bed"
+            },
+            "label": "hours in bed, short nights [sr_in_bed]"
+          },
+          "b": {
+            "value": {
+              "text": "10",
+              "ref": "hs_in_bed"
+            },
+            "label": "hours in bed, long nights [hs_in_bed]"
+          }
+        }
+      },
+      {
+        "kind": "finding",
+        "heading": "After short nights, teens rated sweets as more appealing. [sweets_more_appealing]",
+        "body": "Hunger showed no clear difference. [hunger_ns]",
+        "art": {
+          "motif": "verdicts",
+          "rows": [
+            {
+              "label": "Sweets and desserts [-]",
+              "verdict": "higher",
+              "fact": "fact:sweets_more_appealing"
+            },
+            {
+              "label": "Meat, eggs, fruit, vegetables [-]",
+              "verdict": "no-clear-difference",
+              "fact": "fact:nonsweets_ns"
+            },
+            {
+              "label": "Hunger [-]",
+              "verdict": "no-clear-difference",
+              "fact": "fact:hunger_ns"
+            }
+          ]
+        }
+      },
+      {
+        "kind": "why",
+        "heading": "Short sleep may turn up how good sweets look. [may_increase_appeal]",
+        "body": "The authors' idea: sweets promise more pleasure (hedonic value) after short nights. [hedonic_shift]",
+        "art": null
+      },
+      {
+        "kind": "who",
+        "heading": "Tested in 31 teens, over five short nights. [final_31, five_nights]",
+        "body": null,
+        "art": {
+          "motif": "who",
+          "tested": [
+            "Teens aged 14 to 17 [inclusion]",
+            "Sleeping at home [at_home]",
+            "59% girls [female_59]"
+          ],
+          "notTested": [
+            "Adults [inclusion]",
+            "Marked obesity [exclusion_obesity]",
+            "More than five short nights [limit_after_five]"
+          ]
+        }
+      },
+      {
+        "kind": "receipts",
+        "heading": "How sure can we be? [-]",
+        "body": null,
+        "art": {
+          "motif": "checks",
+          "strong": "Each teen did both schedules, in random order. [randomized_order]",
+          "weak": "Small, and only five short nights. [limit_small, limit_after_five]",
+          "missing": "A body measure of hunger. [limit_hunger_measure]"
+        }
+      },
+      {
+        "kind": "cta",
+        "heading": "What time do you go to bed? [-]",
+        "body": "Compare calories and sweets after each kind of night. [pooled_kcal_sr, pooled_kcal_hs, pooled_sweets_sr, pooled_sweets_hs]",
+        "art": null
+      }
+    ],
+    "altHooks": [
+      {
+        "name": "The hours",
+        "kind": "hook",
+        "heading": "What do five short nights do to a sweet tooth? [-]",
+        "body": "31 teens rated food photos after short and long nights. [final_31, photo_sets]",
+        "art": {
+          "motif": "number",
+          "value": {
+            "text": "6.5",
+            "ref": "sr_in_bed"
+          },
+          "unit": "hours [-]",
+          "label": "in bed, five nights in a row [sr_in_bed, five_nights]"
+        }
+      }
+    ],
+    "caption": "A randomized crossover trial in 31 teens aged 14 to 17. [randomized_order, final_31, inclusion] Each spent five nights with 6.5 hours in bed and five with 10. [five_nights, sr_in_bed, hs_in_bed] After the short nights, they rated sweets and desserts as more appealing. [sweets_more_appealing] Hunger showed no clear difference. [hunger_ns] Small, and measured only after five short nights. [limit_small, limit_after_five] Full read and the calorie explorer: link in bio. [-]",
+    "hashtags": [
+      "sleep",
+      "teenhealth",
+      "nutrition",
+      "evidencebased",
+      "clinicaltrial"
+    ]
+  }
+}

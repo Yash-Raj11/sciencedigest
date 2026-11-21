@@ -524,37 +524,122 @@
     "slides": [
       {
         "kind": "hook",
-        "heading": "Intervals are sold on fat loss. Thirty-six trials, graded, tell it differently. [trials, grade_bf, grade_ffm]"
+        "heading": "Is interval training mostly about fat loss? [-]",
+        "body": "Ads say so. [-] Thirty-six trials, pooled and graded for how far each result can be trusted. [trials, grade_ffm, grade_bf]",
+        "art": {
+          "motif": "pair",
+          "a": {
+            "value": {
+              "text": "High",
+              "ref": "grade_ffm"
+            },
+            "label": "certainty: lean mass gained [grade_ffm]"
+          },
+          "b": {
+            "value": {
+              "text": "Low",
+              "ref": "grade_bf"
+            },
+            "label": "certainty: body fat lost [grade_bf]"
+          }
+        }
       },
       {
         "kind": "finding",
-        "heading": "What changed [-]",
-        "body": "In adults, interval training reduced body fat percentage by 1.53 points and raised fat-free mass by 0.51 kg, compared with no exercise. [bf_all, ffm_all]"
+        "heading": "Less fat mass. [fm_all] A little more lean mass. [ffm_all]",
+        "body": "Against no exercise, after 3 to 15 weeks. [trials]",
+        "art": {
+          "motif": "pair",
+          "a": {
+            "value": {
+              "text": "1.86 kg",
+              "ref": "fm_all"
+            },
+            "label": "less fat mass [fm_all]"
+          },
+          "b": {
+            "value": {
+              "text": "0.51 kg",
+              "ref": "ffm_all"
+            },
+            "label": "more lean mass [ffm_all]"
+          }
+        }
       },
       {
-        "kind": "nuance",
-        "heading": "The grades run backwards [-]",
-        "body": "Certainty for the lean-mass result: high. [grade_ffm] For body fat percentage: low. [grade_bf] The claim that gets the attention has the weaker evidence. [grade_bf, grade_ffm]"
+        "kind": "why",
+        "heading": "Your weight is two piles on one scale. [concept:fat-free-mass]",
+        "body": "One is fat. [concept:fat-free-mass] The other, lean mass, is muscle, bone, organs and water. [concept:fat-free-mass]",
+        "art": {
+          "motif": "two-piles",
+          "kind": "measured",
+          "fact": "fact:ffm_all",
+          "labels": [
+            "Fat [-]",
+            "Lean mass [-]"
+          ]
+        }
       },
       {
-        "kind": "nuance",
-        "heading": "And the strong one is fragile [-]",
-        "body": "Remove a single trial and the lean-mass gain becomes 0.46 kg lost, with an interval from 1.38 kg lost to 0.44 kg gained. [ffm_loo]"
+        "kind": "who",
+        "heading": "It describes inactive adults with extra weight best. [lim_population]",
+        "body": null,
+        "art": {
+          "motif": "who",
+          "tested": [
+            "1,130 adults [sample]",
+            "Mostly inactive [lim_population]",
+            "Mostly overweight or obese [lim_population]",
+            "Trained 3 to 15 weeks [trials]"
+          ],
+          "notTested": [
+            "Children and teenagers [excluded]",
+            "People with a disease [excluded]",
+            "Active, normal-weight adults [lim_population]"
+          ]
+        }
       },
       {
-        "kind": "population",
-        "heading": "Who this describes [-]",
-        "body": "1,130 adults in trials of 3 to 15 weeks, most of them inactive and overweight or obese. [sample, trials, lim_population]"
-      },
-      {
-        "kind": "limitation",
-        "heading": "What to hold loosely [-]",
-        "body": "The trials disagreed with each other on body fat, and measured it with different tools. [lim_heterogeneity, lim_methods]"
+        "kind": "receipts",
+        "heading": "How sure can we be? [-]",
+        "body": null,
+        "art": {
+          "motif": "checks",
+          "strong": "Thirty-six chance-assigned trials; lean mass graded high. [trials, grade_ffm]",
+          "weak": "Without one trial, the lean-mass gain is unclear. [lim_loo]",
+          "missing": "Best interval type: unsettled. [further_modality]"
+        }
       },
       {
         "kind": "cta",
-        "heading": "Build the programme, see the evidence [-]",
-        "body": "Pick a type of interval, burst length and rest in the simulator. Each choice shows its estimate and how far it can be trusted. [-]"
+        "heading": "Build your own interval plan [-]",
+        "body": "Pick an interval type and rest. [-] See the estimate for each choice. [-]",
+        "art": null
+      }
+    ],
+    "altHooks": [
+      {
+        "name": "Both results",
+        "kind": "hook",
+        "heading": "What did interval training do to fat and lean mass? [trials]",
+        "body": "Thirty-six trials against no exercise, 3 to 15 weeks each. [trials]",
+        "art": {
+          "motif": "pair",
+          "a": {
+            "value": {
+              "text": "1.86 kg",
+              "ref": "fm_all"
+            },
+            "label": "less fat mass [fm_all]"
+          },
+          "b": {
+            "value": {
+              "text": "0.51 kg",
+              "ref": "ffm_all"
+            },
+            "label": "more lean mass [ffm_all]"
+          }
+        }
       }
     ],
     "caption": "Thirty-six randomized trials of interval training in adults, pooled and graded. [trials] Body fat percentage fell by 1.53 points, at low certainty. [bf_all, grade_bf] Fat-free mass rose by 0.51 kg, at high certainty, though the result depends on one trial. [ffm_all, grade_ffm, ffm_loo] Full read and simulator at the link in bio. [-]",

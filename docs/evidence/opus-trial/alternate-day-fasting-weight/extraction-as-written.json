@@ -1,0 +1,716 @@
+{
+  "identifiers": {
+    "doi": "10.1186/1475-2891-12-146",
+    "pmid": "24215592",
+    "pmcid": "PMC3833266",
+    "title": "Alternate day fasting for weight loss in normal weight and overweight subjects: a randomized controlled trial",
+    "authors": "Varady KA, Bhutani S, Klempel MC, Kroeger CM, Trepanowski JF, Haus JM, Hoddy KK, Calvo Y",
+    "journal": "Nutrition Journal",
+    "year": 2013,
+    "citation": "Varady KA, Bhutani S, Klempel MC, Kroeger CM, Trepanowski JF, Haus JM, Hoddy KK, Calvo Y. Alternate day fasting for weight loss in normal weight and overweight subjects: a randomized controlled trial. Nutr J. 2013;12:146. doi:10.1186/1475-2891-12-146"
+  },
+  "license": "CC-BY",
+  "design": {
+    "value": "rct",
+    "quote": "A 12-week, randomized, controlled, parallel-arm feeding trial was implemented as a means of testing the study objectives. Subjects were randomized by KAV by way of a stratified random sample. Subjects were first divided into strata based on sex (M/F), age (35–50 y/51-65 y), and BMI (20–24.9 kg/m2/ 25–29.9 kg/m2), and then subjects from each stratum were randomized 1:1 into either the ADF or control group (Figure 1)."
+  },
+  "species": {
+    "value": "human",
+    "quote": "The experimental protocol was approved by the University of Illinois, Chicago, Office for the Protection of Research Subjects, and all research participants gave their written informed consent to participate in the trial."
+  },
+  "population": {
+    "value": "normal weight and overweight adults aged 35–65",
+    "quote": "Inclusion criteria were as follows: BMI between 20 and 29.9 kg/m2; age between 35 and 65 years; pre-menopausal or post-menopausal (absence of menses for more than 2 years); lightly active (< 3 h/week of light intensity exercise at 2.5 to 4.0 metabolic equivalents (METs) for 3 months prior to the study); weight stable for 3 months prior to the beginning of the study (< 4 kg weight loss or weight gain); non-diabetic; no history of cardiovascular disease; non-smoker; and not taking weight loss, lipid- or glucose-lowering medications."
+  },
+  "sampleSize": {
+    "value": "30",
+    "quote": "Thirty-two subjects commenced the study, with 30 completing the entire 12-week trial (Figure 1). After loss due to dropouts, the remaining subjects in each intervention group were as follows: ADF (n = 15) and control (n = 15)."
+  },
+  "facts": [
+    {
+      "id": "twelve_weeks",
+      "kind": "context",
+      "label": "A 12-week trial with a control group",
+      "value": "12-week, randomized, controlled, parallel-arm feeding trial",
+      "quote": "A 12-week, randomized, controlled, parallel-arm feeding trial was implemented as a means of testing the study objectives. Subjects were randomized by KAV by way of a stratified random sample. Subjects were first divided into strata based on sex (M/F), age (35–50 y/51-65 y), and BMI (20–24.9 kg/m2/ 25–29.9 kg/m2), and then subjects from each stratum were randomized 1:1 into either the ADF or control group (Figure 1)."
+    },
+    {
+      "id": "stratified",
+      "kind": "context",
+      "label": "Randomized within groups set by sex, age and BMI",
+      "value": "stratified random sample",
+      "quote": "A 12-week, randomized, controlled, parallel-arm feeding trial was implemented as a means of testing the study objectives. Subjects were randomized by KAV by way of a stratified random sample. Subjects were first divided into strata based on sex (M/F), age (35–50 y/51-65 y), and BMI (20–24.9 kg/m2/ 25–29.9 kg/m2), and then subjects from each stratum were randomized 1:1 into either the ADF or control group (Figure 1)."
+    },
+    {
+      "id": "fast_day_quarter",
+      "kind": "context",
+      "label": "Fast day: 25% of energy needs, for 24 hours",
+      "value": "consumed 25% of their baseline energy needs on the fast day (24 h)",
+      "quote": "During the dietary intervention period, ADF subjects consumed 25% of their baseline energy needs on the fast day (24 h), and then ate ad libitum on each alternating feed day (24 h)."
+    },
+    {
+      "id": "feed_day_free",
+      "kind": "context",
+      "label": "Feed day: ate freely",
+      "value": "ate ad libitum on each alternating feed day",
+      "quote": "During the dietary intervention period, ADF subjects consumed 25% of their baseline energy needs on the fast day (24 h), and then ate ad libitum on each alternating feed day (24 h)."
+    },
+    {
+      "id": "needs_equation",
+      "kind": "context",
+      "label": "Energy needs worked out with a standard equation (Mifflin)",
+      "value": "Mifflin equation",
+      "quote": "Energy needs for each subject were determined by the Mifflin equation []."
+    },
+    {
+      "id": "meal_window",
+      "kind": "context",
+      "label": "Fast-day meal eaten between 12:00 and 14:00",
+      "value": "between 12.00 pm and 2.00 pm",
+      "quote": "The feed and fast days began at midnight each day, and all fast day meals were consumed between 12.00 pm and 2.00 pm to ensure that each subject was undergoing the same duration of fasting. ADF subjects were provided with meals on each fast day (ranging from 400–600 kcal), and ate ad libitum at home on the feed day."
+    },
+    {
+      "id": "meal_kcal",
+      "kind": "context",
+      "label": "Fast-day meals of 400 to 600 kcal, provided",
+      "value": "ranging from 400–600 kcal",
+      "quote": "The feed and fast days began at midnight each day, and all fast day meals were consumed between 12.00 pm and 2.00 pm to ensure that each subject was undergoing the same duration of fasting. ADF subjects were provided with meals on each fast day (ranging from 400–600 kcal), and ate ad libitum at home on the feed day."
+    },
+    {
+      "id": "meal_menu",
+      "kind": "context",
+      "label": "Fast-day meals followed heart-association guidelines: 30% fat, 15% protein, 55% carbohydrate",
+      "value": "30% kcal from fat, 15% kcal from protein, 55% kcal from carbohydrate",
+      "quote": "Fast day meals were provided as a 3-day rotating menu, and were formulated based on the American Heart Association (AHA) guidelines (30% kcal from fat, 15% kcal from protein, 55% kcal from carbohydrate) []."
+    },
+    {
+      "id": "fast_drinks",
+      "kind": "context",
+      "label": "Allowed on fast days: energy-free drinks, tea, coffee, sugar-free gum, plenty of water",
+      "value": "energy-free beverages, tea, coffee, and sugar-free gum",
+      "quote": "ADF subjects were permitted to consume energy-free beverages, tea, coffee, and sugar-free gum, and were encouraged to drink plenty of water."
+    },
+    {
+      "id": "control_free",
+      "kind": "context",
+      "label": "Control group ate freely every day, with no meals provided",
+      "value": "Control subjects were permitted to eat ad libitum every day",
+      "quote": "Control subjects were permitted to eat ad libitum every day, and were not provided with meals from the research center."
+    },
+    {
+      "id": "weighed_weekly",
+      "kind": "context",
+      "label": "Weighed every week on a beam scale",
+      "value": "at the beginning of every week",
+      "quote": "Body weight was assessed to the nearest 0.25 kg at the beginning of every week without shoes and in light clothing using a balance beam scale at the HNRU (HealthOMeter, Sunbeam Products, Boca Raton, FL)."
+    },
+    {
+      "id": "dxa",
+      "kind": "context",
+      "label": "Fat and lean mass measured by a body scan (DXA)",
+      "value": "dual x-ray absorptiometry (DXA)",
+      "quote": "Body composition (fat mass and fat free mass) was measured using dual x-ray absorptiometry (DXA) (Hologic QDR 4500 W, Hologic Inc., Waltham, MA)."
+    },
+    {
+      "id": "food_records",
+      "kind": "context",
+      "label": "Food eaten on feed days came from 3-day food records",
+      "value": "complete a 3-day food record",
+      "quote": "To assess energy intake on the feed days, ADF and control subjects were asked to complete a 3-day food record on 2 feed days during the week, and on 1 feed day during the weekend, at week 1 and 12."
+    },
+    {
+      "id": "extra_food_log",
+      "kind": "context",
+      "label": "Extra fast-day food was self-reported in a log",
+      "value": "report any extra food items consumed",
+      "quote": "To assess energy intake on the fast days, ADF subjects were asked to report any extra food items consumed (i.e. those not provided) using an “Extra food log”."
+    },
+    {
+      "id": "sem",
+      "kind": "context",
+      "label": "Results are given as mean ± standard error, not standard deviation",
+      "value": "means ± standard error of the mean (SEM)",
+      "quote": "Results are presented as means ± standard error of the mean (SEM)."
+    },
+    {
+      "id": "power_ldl",
+      "kind": "context",
+      "label": "Sample size was planned to detect a 10% change in LDL cholesterol",
+      "value": "Sample size was calculated assuming a 10% change in LDL-cholesterol concentrations in the ADF group",
+      "quote": "Sample size was calculated assuming a 10% change in LDL-cholesterol concentrations in the ADF group, with a power of 80% and an alpha risk of 5%."
+    },
+    {
+      "id": "tests",
+      "kind": "context",
+      "label": "Between-group differences tested with t-tests",
+      "value": "Between-group differences were tested by an independent samples t-test",
+      "quote": "Between-group differences were tested by an independent samples t-test."
+    },
+    {
+      "id": "inclusion_bmi",
+      "kind": "context",
+      "label": "Who could join: BMI 20 to 29.9",
+      "value": "BMI between 20 and 29.9 kg/m2",
+      "quote": "Inclusion criteria were as follows: BMI between 20 and 29.9 kg/m2; age between 35 and 65 years; pre-menopausal or post-menopausal (absence of menses for more than 2 years); lightly active (< 3 h/week of light intensity exercise at 2.5 to 4.0 metabolic equivalents (METs) for 3 months prior to the study); weight stable for 3 months prior to the beginning of the study (< 4 kg weight loss or weight gain); non-diabetic; no history of cardiovascular disease; non-smoker; and not taking weight loss, lipid- or glucose-lowering medications."
+    },
+    {
+      "id": "inclusion_age",
+      "kind": "context",
+      "label": "Who could join: aged 35 to 65",
+      "value": "age between 35 and 65 years",
+      "quote": "Inclusion criteria were as follows: BMI between 20 and 29.9 kg/m2; age between 35 and 65 years; pre-menopausal or post-menopausal (absence of menses for more than 2 years); lightly active (< 3 h/week of light intensity exercise at 2.5 to 4.0 metabolic equivalents (METs) for 3 months prior to the study); weight stable for 3 months prior to the beginning of the study (< 4 kg weight loss or weight gain); non-diabetic; no history of cardiovascular disease; non-smoker; and not taking weight loss, lipid- or glucose-lowering medications."
+    },
+    {
+      "id": "inclusion_active",
+      "kind": "context",
+      "label": "Lightly active: under 3 hours a week of light exercise",
+      "value": "lightly active (< 3 h/week of light intensity exercise",
+      "quote": "Inclusion criteria were as follows: BMI between 20 and 29.9 kg/m2; age between 35 and 65 years; pre-menopausal or post-menopausal (absence of menses for more than 2 years); lightly active (< 3 h/week of light intensity exercise at 2.5 to 4.0 metabolic equivalents (METs) for 3 months prior to the study); weight stable for 3 months prior to the beginning of the study (< 4 kg weight loss or weight gain); non-diabetic; no history of cardiovascular disease; non-smoker; and not taking weight loss, lipid- or glucose-lowering medications."
+    },
+    {
+      "id": "inclusion_health",
+      "kind": "context",
+      "label": "No diabetes, heart disease, smoking or weight, cholesterol or glucose drugs",
+      "value": "non-diabetic; no history of cardiovascular disease; non-smoker",
+      "quote": "Inclusion criteria were as follows: BMI between 20 and 29.9 kg/m2; age between 35 and 65 years; pre-menopausal or post-menopausal (absence of menses for more than 2 years); lightly active (< 3 h/week of light intensity exercise at 2.5 to 4.0 metabolic equivalents (METs) for 3 months prior to the study); weight stable for 3 months prior to the beginning of the study (< 4 kg weight loss or weight gain); non-diabetic; no history of cardiovascular disease; non-smoker; and not taking weight loss, lipid- or glucose-lowering medications."
+    },
+    {
+      "id": "recruited",
+      "kind": "context",
+      "label": "Recruited by advertisements at a Chicago university; 107 interested, 32 enrolled",
+      "value": "A total of 107 individuals expressed interest in the study, but only 32 were recruited",
+      "quote": "Subjects were recruited from the Chicago area by means of advertisements placed around the University of Illinois, Chicago campus. A total of 107 individuals expressed interest in the study, but only 32 were recruited to participate after screening via a preliminary questionnaire and BMI assessment (Figure 1)."
+    },
+    {
+      "id": "ethics",
+      "kind": "context",
+      "label": "Approved by the university's ethics office; written consent",
+      "value": "all research participants gave their written informed consent",
+      "quote": "The experimental protocol was approved by the University of Illinois, Chicago, Office for the Protection of Research Subjects, and all research participants gave their written informed consent to participate in the trial."
+    },
+    {
+      "id": "funding",
+      "kind": "context",
+      "label": "Funded by a departmental grant at the University of Illinois, Chicago",
+      "value": "Departmental grant from Kinesiology and Nutrition at the University of Illinois, Chicago",
+      "quote": "Departmental grant from Kinesiology and Nutrition at the University of Illinois, Chicago."
+    },
+    {
+      "id": "no_competing",
+      "kind": "context",
+      "label": "No conflicts of interest",
+      "value": "no conflicts of interest",
+      "quote": "The authors have no conflicts of interest to report."
+    },
+    {
+      "id": "randomized_32",
+      "kind": "context",
+      "label": "32 adults randomized",
+      "value": "Thirty-two subjects (BMI 20–29.9 kg/m2) were randomized",
+      "quote": "Thirty-two subjects (BMI 20–29.9 kg/m2) were randomized to either an ADF group or a control group for 12 weeks."
+    },
+    {
+      "id": "completed_30",
+      "kind": "context",
+      "label": "30 finished: 15 per group",
+      "value": "with 30 completing the entire 12-week trial",
+      "quote": "Thirty-two subjects commenced the study, with 30 completing the entire 12-week trial (Figure 1). After loss due to dropouts, the remaining subjects in each intervention group were as follows: ADF (n = 15) and control (n = 15)."
+    },
+    {
+      "id": "per_group_15",
+      "kind": "context",
+      "label": "15 per group analysed",
+      "value": "ADF (n = 15) and control (n = 15)",
+      "quote": "Thirty-two subjects commenced the study, with 30 completing the entire 12-week trial (Figure 1). After loss due to dropouts, the remaining subjects in each intervention group were as follows: ADF (n = 15) and control (n = 15)."
+    },
+    {
+      "id": "baseline_same",
+      "kind": "finding",
+      "label": "Groups were alike at the start",
+      "value": "There were no significant differences at the beginning of the study between groups",
+      "quote": "There were no significant differences at the beginning of the study between groups for age, sex, ethnicity, body weight, body composition, height or BMI.",
+      "outcome": "Start-of-trial differences"
+    },
+    {
+      "id": "age_table",
+      "kind": "descriptive",
+      "label": "Mean age, fasting and control groups",
+      "value": "47 ± 3 | 48 ± 2",
+      "quote": "Age (y) | 47 ± 3 | 48 ± 2 | 0.18 |"
+    },
+    {
+      "id": "sex_table",
+      "kind": "descriptive",
+      "label": "Men/women, fasting and control groups",
+      "value": "5 / 10 | 3 / 12",
+      "quote": "Sex (M/F) | 5 / 10 | 3 / 12 | 0.44 |"
+    },
+    {
+      "id": "weight_table",
+      "kind": "descriptive",
+      "label": "Starting weight, both groups",
+      "value": "77 ± 3 | 77 ± 3",
+      "quote": "Body weight (kg) | 77 ± 3 | 77 ± 3 | 0.79 |"
+    },
+    {
+      "id": "bmi_table",
+      "kind": "descriptive",
+      "label": "Starting BMI, both groups",
+      "value": "26 ± 1 | 26 ± 1",
+      "quote": "BMI (kg/m2) | 26 ± 1 | 26 ± 1 | 0.75 |"
+    },
+    {
+      "id": "weight_md",
+      "kind": "estimate",
+      "label": "Weight change, fasting against control, week 12",
+      "value": "5.2 ± 0.9 kg",
+      "quote": "Body weight decreased (P < 0.001) by 5.2 ± 0.9 kg (6.5 ± 1.0%) in the ADF group, relative to the control group, by week 12.",
+      "estimate": {
+        "outcome": "Body weight at week 12, fasting against control",
+        "measure": "MD",
+        "point": -5.2,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "weight_down",
+      "kind": "finding",
+      "label": "Fasting group lost weight against the control group",
+      "value": "Body weight decreased (P < 0.001)",
+      "quote": "Body weight decreased (P < 0.001) by 5.2 ± 0.9 kg (6.5 ± 1.0%) in the ADF group, relative to the control group, by week 12.",
+      "outcome": "Body weight at week 12, fasting against control"
+    },
+    {
+      "id": "weight_pct",
+      "kind": "finding",
+      "label": "Weight change as a share of body weight",
+      "value": "6.5 ± 1.0%",
+      "quote": "Body weight decreased (P < 0.001) by 5.2 ± 0.9 kg (6.5 ± 1.0%) in the ADF group, relative to the control group, by week 12.",
+      "outcome": "Body weight at week 12, fasting against control, % of body weight"
+    },
+    {
+      "id": "fat_md",
+      "kind": "estimate",
+      "label": "Fat mass change, fasting against control",
+      "value": "3.6 ± 0.7 kg",
+      "quote": "Fat mass was reduced (P < 0.001) by 3.6 ± 0.7 kg, and fat free mass did not change, versus controls.",
+      "estimate": {
+        "outcome": "Fat mass at week 12, fasting against control",
+        "measure": "MD",
+        "point": -3.6,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "fat_down",
+      "kind": "finding",
+      "label": "Fat mass fell against the control group",
+      "value": "Fat mass was reduced (P < 0.001)",
+      "quote": "Fat mass was reduced (P < 0.001) by 3.6 ± 0.7 kg, and fat free mass did not change, versus controls.",
+      "outcome": "Fat mass at week 12, fasting against control"
+    },
+    {
+      "id": "lean_ns",
+      "kind": "finding",
+      "label": "Lean (fat-free) mass: no clear difference from controls",
+      "value": "No difference between groups for fat free mass at week 12",
+      "quote": "No difference between groups for fat free mass at week 12 (Independent samples t-test).",
+      "outcome": "Fat-free mass at week 12, fasting against control"
+    },
+    {
+      "id": "intake_constant",
+      "kind": "finding",
+      "label": "Food eaten stayed level on both kinds of day over 12 weeks",
+      "value": "energy intake remained constant on both feed and fast days in the ADF group",
+      "quote": "From week 1 to 12 of the study, energy intake remained constant on both feed and fast days in the ADF group.",
+      "outcome": "Food eaten on feed and fast days"
+    },
+    {
+      "id": "feed_w12",
+      "kind": "estimate",
+      "label": "Feed-day food eaten at week 12, fasting group (kcal, food records)",
+      "value": "1856 ± 229",
+      "quote": "Feed day energy intake (kcal/d) | ADF | 1874 ± 136 | 1856 ± 229 | 0.93 | 0.92 | -18 ± 186 | 0.50 |",
+      "estimate": {
+        "outcome": "Food eaten on a feed day at week 12 (fasting group)",
+        "measure": "mean",
+        "point": 1856,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kcal",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "feed_w1",
+      "kind": "estimate",
+      "label": "Feed-day food eaten at week 1, fasting group",
+      "value": "1874 ± 136",
+      "quote": "Feed day energy intake (kcal/d) | ADF | 1874 ± 136 | 1856 ± 229 | 0.93 | 0.92 | -18 ± 186 | 0.50 |",
+      "estimate": {
+        "outcome": "Food eaten on a feed day at week 1 (fasting group)",
+        "measure": "mean",
+        "point": 1874,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kcal",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ctrl_w12",
+      "kind": "estimate",
+      "label": "Daily food eaten at week 12, control group",
+      "value": "1790 ± 286",
+      "quote": "| Control | 1873 ± 243 | 1790 ± 286 | 0.71 | | -82 ± 75 | |",
+      "estimate": {
+        "outcome": "Food eaten per day at week 12 (control group)",
+        "measure": "mean",
+        "point": 1790,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kcal",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "fast_w12",
+      "kind": "estimate",
+      "label": "Fast-day food eaten at week 12, fasting group",
+      "value": "489 ± 20",
+      "quote": "Fast day energy intake (kcal/d) | ADF | 482 ± 19 | 489 ± 20 | 0.74 | | 7 ± 5 | |",
+      "estimate": {
+        "outcome": "Food eaten on a fast day at week 12 (fasting group)",
+        "measure": "mean",
+        "point": 489,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kcal",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "adherence",
+      "kind": "finding",
+      "label": "Kept to the fast-day plan: 98% (self-reported logs)",
+      "value": "98 ± 5%",
+      "quote": "Adherence to the fast day protocol was high in the ADF group (98 ± 5%).",
+      "outcome": "Keeping to the fast-day plan"
+    },
+    {
+      "id": "no_overeating",
+      "kind": "statement",
+      "label": "Authors' reading: little or no overeating on feed days after a fast day",
+      "value": "there was very little or no hyperphagic response on the feed day",
+      "quote": "Complementary to previous reports [,], there was very little or no hyperphagic response on the feed day in response to the lack of food on the fast day. This lack of hyperphagia allowed for overall energy restriction to remain high throughout the study, and undoubtedly contributed to the sizeable degree of weight loss observed here."
+    },
+    {
+      "id": "hunger_ns",
+      "kind": "finding",
+      "label": "Hunger stayed level, with no clear difference between groups",
+      "value": "did not change by week 12 in either group",
+      "quote": "Hunger levels were moderate as baseline, and did not change by week 12 in either group.",
+      "outcome": "Hunger"
+    },
+    {
+      "id": "fullness_up",
+      "kind": "finding",
+      "label": "Satisfaction and fullness rose in the fasting group",
+      "value": "Satisfaction and fullness increased (P < 0.01) from baseline to post-treatment in the ADF group",
+      "quote": "Satisfaction and fullness increased (P < 0.01) from baseline to post-treatment in the ADF group, with no change in the control group.",
+      "outcome": "Satisfaction and fullness (fasting group, within group)"
+    },
+    {
+      "id": "tg_down",
+      "kind": "finding",
+      "label": "Triglycerides were lower in the fasting group than controls at week 12",
+      "value": "Triacylglycerol concentrations decreased (P = 0.01)",
+      "quote": "Triacylglycerol concentrations decreased (P = 0.01) in the ADF group relative to controls at week 12.",
+      "outcome": "Triglycerides at week 12, fasting against control"
+    },
+    {
+      "id": "tg_row",
+      "kind": "finding",
+      "label": "Triglycerides: the week-12 comparison and the change comparison",
+      "value": "| 0.01 | -22 ± 11 | 0.22 |",
+      "quote": "Triacylglycols (mg/dl) | ADF | 109 ± 13 | 87 ± 9 | 0.06 | 0.01 | -22 ± 11 | 0.22 |",
+      "outcome": "Triglycerides: week-12 test p = 0.01, change test p = 0.22"
+    },
+    {
+      "id": "tg_change_p",
+      "kind": "finding",
+      "label": "Triglycerides: the test on the change from week 1 to 12",
+      "value": "0.22",
+      "quote": "Triacylglycols (mg/dl) | ADF | 109 ± 13 | 87 ± 9 | 0.06 | 0.01 | -22 ± 11 | 0.22 |",
+      "outcome": "Change in triglycerides, fasting against control"
+    },
+    {
+      "id": "ldl_size_up",
+      "kind": "finding",
+      "label": "LDL particles were larger in the fasting group than controls at week 12",
+      "value": "LDL particle size increased (P < 0.01)",
+      "quote": "LDL particle size increased (P < 0.01) in the ADF group relative to controls by the end of the study.",
+      "outcome": "LDL particle size at week 12, fasting against control"
+    },
+    {
+      "id": "ldl_size_change_p",
+      "kind": "finding",
+      "label": "LDL particle size: the test on the change from week 1 to 12",
+      "value": "0.13",
+      "quote": "LDL particle size (Å) | ADF | 254 ± 1 | 258 ± 2 | <0.01 | <0.01 | 4 ± 1 | 0.13 |",
+      "outcome": "Change in LDL particle size, fasting against control"
+    },
+    {
+      "id": "crp_down",
+      "kind": "finding",
+      "label": "CRP, an inflammation marker, was lower in the fasting group at week 12",
+      "value": "CRP decreased (P = 0.01)",
+      "quote": "CRP decreased (P = 0.01) in the ADF group relative to controls at week 12.",
+      "outcome": "CRP at week 12, fasting against control"
+    },
+    {
+      "id": "crp_change_p",
+      "kind": "finding",
+      "label": "CRP: the change test also gave p = 0.01",
+      "value": "| 0.01 | -1 ± 1 | 0.01 |",
+      "quote": "C-reactive protein (mg/L) | ADF | 2 ± 1 | 1 ± 1 | 0.29 | 0.01 | -1 ± 1 | 0.01 |",
+      "outcome": "Change in CRP, fasting against control"
+    },
+    {
+      "id": "adiponectin_up",
+      "kind": "finding",
+      "label": "Adiponectin, a fat-tissue hormone, rose in the fasting group against controls (change test)",
+      "value": "Plasma adiponectin increased (P < 0.01)",
+      "quote": "Plasma adiponectin increased (P < 0.01) while leptin decreased (P = 0.03) in the ADF group versus controls by the end of the study.",
+      "outcome": "Adiponectin, fasting against control"
+    },
+    {
+      "id": "adiponectin_w12_p",
+      "kind": "finding",
+      "label": "Adiponectin: the week-12 comparison",
+      "value": "0.15",
+      "quote": "Adiponectin (ng/ml) | ADF | 10728 ± 1251 | 11401 ± 1197 | 0.58 | 0.15 | 672 ± 1191 | <0.01 |",
+      "outcome": "Adiponectin at week 12, fasting against control"
+    },
+    {
+      "id": "leptin_down",
+      "kind": "finding",
+      "label": "Leptin, a fat-tissue hormone, fell in the fasting group against controls (change test)",
+      "value": "leptin decreased (P = 0.03)",
+      "quote": "Plasma adiponectin increased (P < 0.01) while leptin decreased (P = 0.03) in the ADF group versus controls by the end of the study.",
+      "outcome": "Leptin, fasting against control"
+    },
+    {
+      "id": "leptin_w12_p",
+      "kind": "finding",
+      "label": "Leptin: the week-12 comparison",
+      "value": "0.55",
+      "quote": "Leptin (ng/ml) | ADF | 25 ± 4 | 15 ± 3 | 0.04 | 0.55 | -10 ± 3 | 0.03 |",
+      "outcome": "Leptin at week 12, fasting against control"
+    },
+    {
+      "id": "ldl_ns",
+      "kind": "finding",
+      "label": "LDL cholesterol fell within the fasting group, but no clear difference from controls",
+      "value": "no significant between-group differences were noted",
+      "quote": "LDL cholesterol concentrations were reduced (P = 0.01) within the ADF group, but no significant between-group differences were noted.",
+      "outcome": "LDL cholesterol, fasting against control"
+    },
+    {
+      "id": "chol_ns",
+      "kind": "finding",
+      "label": "Total cholesterol: no clear difference from controls",
+      "value": "changes in total cholesterol levels were not significantly different from controls",
+      "quote": "However, changes in total cholesterol levels were not significantly different from controls at week 12.",
+      "outcome": "Total cholesterol, fasting against control"
+    },
+    {
+      "id": "hdl_ns",
+      "kind": "finding",
+      "label": "HDL cholesterol stayed level",
+      "value": "HDL cholesterol concentrations remained unchanged throughout the trial",
+      "quote": "HDL cholesterol concentrations remained unchanged throughout the trial.",
+      "outcome": "HDL cholesterol"
+    },
+    {
+      "id": "bp_ns",
+      "kind": "finding",
+      "label": "Blood pressure fell within the fasting group, but no clear difference from controls",
+      "value": "no significant between-group differences were noted",
+      "quote": "Systolic and diastolic blood pressure decreased (P < 0.05) within the ADF group, but no significant between-group differences were noted.",
+      "outcome": "Blood pressure, fasting against control"
+    },
+    {
+      "id": "others_ns",
+      "kind": "finding",
+      "label": "Homocysteine and resistin stayed level",
+      "value": "Plasma homocysteine and resistin concentrations remained unchanged",
+      "quote": "Plasma homocysteine and resistin concentrations remained unchanged after 12 weeks of treatment.",
+      "outcome": "Homocysteine and resistin"
+    },
+    {
+      "id": "side_effects",
+      "kind": "finding",
+      "label": "Side effects: two mild headaches and one case of constipation, early on",
+      "value": "Two subjects experienced mild headaches during week 1",
+      "quote": "A couple of adverse events were reported during the study. Two subjects experienced mild headaches during week 1 of the trial, which may or may not be related to dietary treatment. One other subject reported constipation during week 1 and 2 of the trial. The subject was advised to consume more fruits and vegetables on feed days, and the constipation subsided by week 3 of the dietary intervention period.",
+      "outcome": "Side effects"
+    },
+    {
+      "id": "one_dropout_diet",
+      "kind": "finding",
+      "label": "One person dropped out because they could not keep to the diet",
+      "value": "one normal weight subject dropped out of the trial due to an inability to adhere to the diet",
+      "quote": "It should be noted, however, that one normal weight subject dropped out of the trial due to an inability to adhere to the diet.",
+      "outcome": "Dropouts"
+    },
+    {
+      "id": "adf_definition",
+      "kind": "statement",
+      "label": "Alternate-day fasting: a fast day at 25% of energy needs, then a day of eating freely",
+      "value": "a “fast day” where individuals consume 25% of energy needs",
+      "quote": "Alternate day fasting involves a “fast day” where individuals consume 25% of energy needs, alternated with a “feed day” where subjects eat ad libitum []."
+    },
+    {
+      "id": "prior_obese",
+      "kind": "statement",
+      "label": "Earlier trials, almost all in people with obesity, found 5 to 6% weight loss in 8 to 12 weeks",
+      "value": "almost all of these studies have been undertaken in obese populations",
+      "quote": "Only a handful of studies have been performed to test the effects of ADF on body weight and coronary heart disease (CHD) risk reduction, and almost all of these studies have been undertaken in obese populations (BMI 30–39.9 kg/m2) [-]. Results from these initial trials indicate that ADF is effective for weight loss (5-6% reductions in body weight) and visceral fat mass loss (5–7 cm reductions in waist circumference) in 8–12 weeks of treatment [-]."
+    },
+    {
+      "id": "prior_nonobese",
+      "kind": "statement",
+      "label": "Two earlier, short trials in people without obesity disagreed, and had no control group",
+      "value": "they are limited by their short durations (2–3 weeks) and their lack of a control group",
+      "quote": "While these trials [,] lay some groundwork, they are limited by their short durations (2–3 weeks) and their lack of a control group."
+    },
+    {
+      "id": "half_kilo_week",
+      "kind": "statement",
+      "label": "Authors' estimate: about 0.5 kg a week, whatever the starting weight",
+      "value": "approximately 0.5 kg/week",
+      "quote": "Thus, ADF may produce a mean rate of weight loss of approximately 0.5 kg/week, independent of the starting weight or BMI class of the subject."
+    },
+    {
+      "id": "lean_kept",
+      "kind": "statement",
+      "label": "Lean mass was kept, as in earlier short trials",
+      "value": "Fat free mass was also retained after 12 weeks of ADF",
+      "quote": "Fat free mass was also retained after 12 weeks of ADF in non-obese individuals."
+    },
+    {
+      "id": "ten_percent",
+      "kind": "statement",
+      "label": "Authors: HDL, homocysteine and resistin usually only improve with more than 10% weight loss",
+      "value": "generally only improved with >10% weight loss",
+      "quote": "This lack of effect is not surprising as these CHD risk parameters are generally only improved with >10% weight loss [-]."
+    },
+    {
+      "id": "pilot",
+      "kind": "statement",
+      "label": "Authors: this is a pilot feasibility report",
+      "value": "the purpose of this paper is to report pilot feasibility findings",
+      "quote": "It should also be noted that the purpose of this paper is to report pilot feasibility findings."
+    },
+    {
+      "id": "moderate_loss",
+      "kind": "statement",
+      "label": "Authors' summary: a moderate 5 to 6 kg in 12 weeks",
+      "value": "wishing to lose a moderate amount of weight (5–6 kg) within a relatively short period of time (12 weeks)",
+      "quote": "In summary, these preliminary findings suggest that ADF is a viable weight loss strategy for normal weight and overweight individuals wishing to lose a moderate amount of weight (5–6 kg) within a relatively short period of time (12 weeks)."
+    },
+    {
+      "id": "limit_post_hoc",
+      "kind": "limitation",
+      "label": "Planned as normal weight against overweight; the groups were merged after the fact",
+      "value": "This post hoc change should be taken into consideration",
+      "quote": "First and foremost, it must be acknowledged that this pilot study was originally designed to compare the effects of ADF in normal weight versus overweight individuals on body weight and CHD risk. Due to a low recruitment rate, we were only able to recruit n = 8 subjects into the normal weight group and n = 8 subjects into the overweight group. In view of this, we decided to combine the normal weight and overweight groups into one group to increase sample size. This post hoc change should be taken into consideration when interpreting the findings of this paper."
+    },
+    {
+      "id": "limit_activity",
+      "kind": "limitation",
+      "label": "Physical activity was not measured",
+      "value": "physical activity was not assessed throughout the trial",
+      "quote": "Secondly, physical activity was not assessed throughout the trial, thus the degree of weight loss associated with increased energy expenditure from exercise is not known."
+    },
+    {
+      "id": "limit_small",
+      "kind": "limitation",
+      "label": "Small groups: 15 each",
+      "value": "the sample size of each group was small (n = 15)",
+      "quote": "Thirdly, the sample size of each group was small (n = 15). Thus, this study may not be adequately powered to detect changes in certain CHD risk parameters (e.g. resistin)."
+    },
+    {
+      "id": "limit_food_records",
+      "kind": "limitation",
+      "label": "Food records: people with overweight under-report by about 30%",
+      "value": "overweight subject underreport food intake by ~30%",
+      "quote": "Fourthly, this study employed food records to assess dietary intake/adherence. It is well known that overweight subject underreport food intake by ~30% [,]. Thus, our findings for the hyperphagic response on the feed day may be inaccurate."
+    },
+    {
+      "id": "limit_larger",
+      "kind": "limitation",
+      "label": "Larger trials are needed before firm conclusions",
+      "value": "further research implementing larger sample sizes is required before solid conclusion can be reached",
+      "quote": "These findings suggest that ADF is effective for weight loss and cardio-protection in normal weight and overweight adults, though further research implementing larger sample sizes is required before solid conclusion can be reached."
+    },
+    {
+      "id": "limit_twelve",
+      "kind": "limitation",
+      "label": "Only 12 weeks",
+      "value": "12 weeks",
+      "quote": "Thirty-two subjects (BMI 20–29.9 kg/m2) were randomized to either an ADF group or a control group for 12 weeks."
+    }
+  ],
+  "coverage": {
+    "conditions": [
+      "fast_day_quarter",
+      "feed_day_free",
+      "meal_window",
+      "meal_kcal",
+      "meal_menu",
+      "fast_drinks",
+      "control_free",
+      "needs_equation"
+    ],
+    "dosing": [
+      "twelve_weeks",
+      "limit_twelve",
+      "adherence",
+      "fast_w12",
+      "feed_w12"
+    ],
+    "confounds": [
+      "limit_activity",
+      "limit_food_records",
+      "limit_post_hoc",
+      "extra_food_log",
+      "food_records",
+      "tg_change_p",
+      "ldl_size_change_p",
+      "adiponectin_w12_p",
+      "leptin_w12_p"
+    ],
+    "priorEvidence": [
+      "prior_obese",
+      "prior_nonobese",
+      "lean_kept",
+      "ten_percent"
+    ],
+    "furtherInvestigation": [
+      "limit_larger",
+      "pilot"
+    ],
+    "funding": [
+      "funding",
+      "no_competing"
+    ]
+  }
+}

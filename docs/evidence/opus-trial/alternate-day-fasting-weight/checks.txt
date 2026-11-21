@@ -1,0 +1,20 @@
+## npm run lint
+> sciencedigest@0.1.0 lint
+> eslint
+
+exit 0
+
+## npm run typecheck
+> sciencedigest@0.1.0 typecheck
+> tsc --noEmit
+
+
+## npm test
+ Test Files  61 passed (61)
+      Tests  901 passed (901)
+
+## npm run build
+✓ Compiled successfully in 1472ms
+✓ Generating static pages using 7 workers (20/20) in 459ms
+
+## git diff --stat .claude/launch.json (empty = unchanged)

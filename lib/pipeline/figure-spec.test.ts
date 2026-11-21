@@ -9,7 +9,7 @@ import { describe, expect, it } from "vitest";
 import { FIGURE_KEYS } from "../content/figures";
 import { ESTIMATE_LABEL, FigureSpec, specProblems, type SpecFact } from "../content/figure-kinds";
 import { gate } from "./gate";
-import { HALF_LIFE_STUDY, REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
+import { HALF_LIFE_STUDY, REAL_COMMON, REAL_CONCEPTS, REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
 import { BANNED_TERMS, SENTENCE_WORDS, THROAT_CLEARING, lint, type LintContext } from "./lint";
 import { approved, checkConcept } from "./concepts";
 
@@ -83,7 +83,8 @@ describe("through the content lint, on the caffeine paper", () => {
     // The real half-life study and library: caffeine's simulator draws on them.
     studies: { ...REAL_STUDIES },
     library: REAL_LIBRARY,
-    concepts: {
+    common: REAL_COMMON,
+    concepts: { ...REAL_CONCEPTS,
       "non-rem-sleep": checkConcept(approved(fixture.concepts["non-rem-sleep"], "2026-11-13T00:00:00Z"),
         { banned: BANNED_TERMS, throatClearing: THROAT_CLEARING, maxSentenceWords: SENTENCE_WORDS.fail }),
     },

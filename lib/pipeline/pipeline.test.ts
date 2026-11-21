@@ -15,7 +15,9 @@ import { gate, locate, type Validated } from "./gate";
 import { deriveTier } from "./grade";
 import { canonicalLicense, checkLicense } from "./license";
 import { lint } from "./lint";
-import { REAL_CONCEPTS, REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
+import { ART_FOR, DECK_LIMITS, SKETCH_SHAPES, SLIDE_KINDS, VERDICTS } from "./carousel";
+import { EDITORIAL_SYSTEM } from "./prompts";
+import { REAL_COMMON, REAL_CONCEPTS, REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
 import { parseMarkup } from "./markup";
 import { findRetracted, parseRetractionWatch } from "./retractions";
 import { numbersIn, sharedShingles, wordNumbersIn } from "./text";
@@ -38,7 +40,7 @@ const clone = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
  */
 // The real papers each carry a figure now, so the lint needs the list of figures the app can draw.
 // The real context studies and library ride along: caffeine's simulator draws on the half-life study.
-const OPTIONS = { figures: FIGURE_KEYS, context: { studies: REAL_STUDIES, concepts: REAL_CONCEPTS, library: REAL_LIBRARY } };
+const OPTIONS = { figures: FIGURE_KEYS, context: { studies: REAL_STUDIES, concepts: REAL_CONCEPTS, library: REAL_LIBRARY, common: REAL_COMMON } };
 
 const steps = load("steps-days-per-week");
 const hiit = load("hiit-body-composition");
@@ -270,19 +272,177 @@ describe("lint (stage 4)", () => {
     expect(lintErrors(steps, (e) => { e.steps[1].countsKey = "no-such-step"; }))
       .toEqual([expect.stringContaining("steps steps.one-day: a weekly target needs")]);
   });
-  it("carousel: population slide, limitation slide, closing slide, slide count", () => {
-    const drop = (kind: string) => (e: any) => { e.carousel.slides = e.carousel.slides.filter((s: any) => s.kind !== kind); };
-    expect(lintErrors(steps, drop("population"))).toEqual([expect.stringContaining("H3 carousel.slides: the studied population gets its own slide")]);
-    expect(lintErrors(steps, drop("limitation"))).toEqual([expect.stringContaining("H6 carousel.slides")]);
-    expect(lintErrors(steps, drop("cta"))).toEqual([expect.stringContaining("the last slide points to the interactive widget")]);
-    expect(lintErrors(steps, (e) => {
-      const filler = { kind: "nuance", heading: "Filler [-]", body: null };
-      e.carousel.slides.splice(1, 0, ...Array.from({ length: 5 }, () => filler));
-    })).toEqual([expect.stringContaining("Instagram allows 10 slides; this has 12")]);
+  // The deck (second shape, owner 2026-11-19; lib/pipeline/carousel.ts). Steps' deck: 0 hook,
+  // 1 finding, 2 why, 3 who, 4 receipts, 5 cta. Each case breaks one rule and must be refused.
+  it("carousel: all six kinds, in order, the single ones once, at most 8 slides", () => {
+    for (const kind of ["hook", "finding", "why", "who", "receipts", "cta"]) {
+      expect(lintErrors(steps, (e) => { e.carousel.slides = e.carousel.slides.filter((s: any) => s.kind !== kind); }), kind)
+        .toContainEqual(expect.stringContaining(`carousel carousel.slides: no ${kind} slide`));
+    }
+    // The finding comes straight after the hook (owner, 2026-11-19).
+    expect(lintErrors(steps, (e) => { const s = e.carousel.slides; [s[1], s[2]] = [s[2], s[1]]; }))
+      .toContainEqual(expect.stringContaining("carousel carousel.slides[2]: a finding slide after a why slide"));
+    expect(lintErrors(steps, (e) => { e.carousel.slides.splice(1, 0, structuredClone(e.carousel.slides[0])); }))
+      .toContainEqual(expect.stringContaining("2 hook slides; a deck has one"));
+    expect(lintErrors(steps, (e) => { e.carousel.slides.splice(1, 0, ...Array.from({ length: 3 }, () => structuredClone(e.carousel.slides[1]))); }))
+      .toEqual([expect.stringContaining("at most 8 slides; this has 9")]);
+    // A finding may repeat in place, within 8 slides.
+    expect(lintErrors(steps, (e) => { e.carousel.slides.splice(1, 0, structuredClone(e.carousel.slides[1])); })).toEqual([]);
+  });
+  it("carousel: a caveat on the hook slide is refused (H2: open with the question)", () => {
+    expect(lintErrors(steps, (e) => { e.carousel.slides[0].heading = "A small study: 8,000 steps a day? [threshold]"; }))
+      .toEqual([expect.stringContaining('H2 carousel.slides[0]: a caveat ("small study") on the hook slide')]);
+    expect(lintErrors(steps, (e) => { e.carousel.slides[0].art.label = "but this is observational [cohort]"; }))
+      .toEqual([expect.stringContaining('H2 carousel.slides[0]: a caveat ("observational") on the hook slide')]);
+    // The same words are fine on the receipts slide, where caveats belong.
+    expect(lintErrors(steps, (e) => { e.carousel.slides[4].heading = "Observational: how sure? [cohort]"; })).toEqual([]);
+  });
+  it("carousel: a technical word on a slide comes after its plain picture, in brackets (H9)", () => {
+    expect(lintErrors(steps, (e) => { e.carousel.slides[2].heading = "Your cohort walked more. [-]"; }))
+      .toContainEqual(expect.stringContaining('H9 carousel.slides[2]: "cohort" on a slide with no plain words before it'));
+    expect(lintErrors(steps, (e) => { e.carousel.slides[2].heading = "(Cohort) people walked more. [-]"; }))
+      .toContainEqual(expect.stringContaining('H9 carousel.slides[2]: "cohort"'));
+    expect(lintErrors(steps, (e) => { e.carousel.slides[2].heading = "A group followed over years (a cohort). [-]"; })
+      .filter((x) => x.startsWith("H9"))).toEqual([]);
+  });
+  it("carousel: picture labels are markup, at most 3, short", () => {
+    const ramp = (labels: string[]) => ({ motif: "ramp", kind: "measured", fact: "fact:ard_1_2", labels });
+    expect(lintErrors(steps, (e) => { e.carousel.slides[2].art = ramp(["Then flat [-]"]); })).toEqual([]);
+    expect(lintErrors(steps, (e) => { e.carousel.slides[2].art = ramp(["a [-]", "b [-]", "c [-]", "d [-]"]); }).join("\n")).toMatch(/schema|labels/);
+    expect(lintErrors(steps, (e) => { e.carousel.slides[2].art = ramp(["Extraordinarily steep at the beginning [-]"]); }))
+      .toContainEqual(expect.stringContaining("a label on the picture holds at most 28"));
+    expect(lintErrors(steps, (e) => { e.carousel.slides[2].art = ramp(["The cohort [-]"]); }))
+      .toContainEqual(expect.stringContaining('H9 carousel.slides[2]: "cohort"'));
+  });
+  it("carousel: a caveat on the why slide is refused (H10: the why slide is the deck's mechanism)", () => {
+    expect(lintErrors(steps, (e) => { e.carousel.slides[2].body = "A limitation: it levelled off at 3 to 4 days a week. [plateau]"; }))
+      .toContainEqual(expect.stringContaining('H10 carousel.slides[2]: a caveat ("limitation") on the why slide'));
+  });
+  it("carousel: at most 25 words in the heading and body, 24 in the art, 6 in a label", () => {
+    expect(lintErrors(steps, (e) => { e.carousel.slides[0].body = "Most step goals are daily, every single day of the week. [-] This study counted how many days a week 3,101 adults reached 8,000. [threshold, sample]"; }))
+      .toEqual([expect.stringContaining("carousel carousel.slides[0]: 30 words in the heading and body; the limit is 25")]);
+    expect(lintErrors(steps, (e) => { e.carousel.slides[3].art.tested[0] = "3,101 US adults from all over the country [sample]"; }))
+      .toContainEqual(expect.stringContaining("carousel carousel.slides[3].art.tested[0]: 8 words; a label, row or list entry holds at most 6"));
+    // The receipts' strong, weak and missing are sentences, not labels; the art total still binds them,
+    // and the range bar's numbers count toward it.
+    expect(lintErrors(steps, (e) => { e.carousel.slides[4].art.strong = "3,101 adults, ten years of national death records, every one of them followed. [sample, followup]"; }))
+      .toEqual([expect.stringContaining("carousel carousel.slides[4].art: 31 words drawn in the art; the limit is 24")]);
+  });
+  it("carousel: the receipts slide's weak point cites a limitation (H6), and it has no body", () => {
+    expect(lintErrors(steps, (e) => { e.carousel.slides[4].art.weak = "The study ran for 10 years. [followup]"; }))
+      .toEqual([expect.stringContaining("H6 carousel.slides[4]: the receipts slide's weak point states a limitation")]);
+    expect(lintErrors(steps, (e) => { e.carousel.slides[4].body = "One week of steps. [one_week]"; }))
+      .toEqual([expect.stringContaining("carousel carousel.slides[4].body: the receipts slide says it in its art")]);
+  });
+  it("carousel: who was and was not tested cites the paper (H3)", () => {
+    expect(lintErrors(steps, (e) => { e.carousel.slides[3].art.notTested[0] = "Children [-]"; }))
+      .toEqual([expect.stringContaining('H3 carousel.slides[3].art.notTested[0]: who was or was not tested must cite the paper')]);
+  });
+  it("carousel: art values are the passage's own characters; art words are markup", () => {
+    expect(lintErrors(steps, (e) => { e.carousel.slides[1].art.a.value = { text: "15.9", ref: "ard_1_2" }; }))
+      .toEqual([expect.stringContaining('H7 carousel.slides[1].art.a.value: "15.9" does not appear in the passage for "ard_1_2"')]);
+    expect(lintErrors(steps, (e) => { e.carousel.slides[1].art.a.value = { text: "14.9", ref: "no_such_fact" }; }))
+      .toContainEqual(expect.stringContaining('ref "no_such_fact" is not a gated fact'));
+    expect(lintErrors(steps, (e) => { e.carousel.slides[1].art.a.label = "1 or 2 days, 9 in 10 [threshold]"; }).join("\n"))
+      .toMatch(/carousel\.slides\[1\]\.art\.a\.label/);
+  });
+  it("carousel: each kind draws its own art, and a picture is drawn as measured only on a result", () => {
+    expect(lintErrors(steps, (e) => { e.carousel.slides[2].art.fact = "fact:plateau"; }))
+      .toEqual([expect.stringContaining("figure carousel.slides[2].art: drawn as measured, but \"plateau\" is a statement")]);
+    expect(lintErrors(steps, (e) => { e.carousel.slides[3].art = { motif: "ramp", kind: "measured", fact: "fact:ard_1_2" }; }))
+      .toContainEqual(expect.stringContaining('a who slide draws who, not "ramp"'));
+    expect(lintErrors(steps, (e) => { e.carousel.slides[5].art = structuredClone(e.carousel.slides[0].art); }))
+      .toContainEqual(expect.stringContaining("a cta slide draws its own art"));
+    expect(lintErrors(steps, (e) => { e.carousel.slides[1].art = null; }))
+      .toEqual([expect.stringContaining("a finding slide needs its art")]);
+  });
+  it("carousel: a plateau's axis and levelling stretch are the paper's numbers, the stretch inside the axis (H7)", () => {
+    expect(lintErrors(steps, (e) => { e.carousel.slides[2].art.to.n = 6; }))
+      .toEqual([expect.stringContaining('H7 carousel.slides[2].art.to: 6 is not in the passage for "threshold"')]);
+    expect(lintErrors(steps, (e) => { e.carousel.slides[2].art.levels.from = { n: 0, ref: "threshold" }; }))
+      .toEqual([expect.stringContaining("carousel carousel.slides[2].art: the stretch where it levels off (0 to 4) must sit inside the axis (0 to 7)")]);
+    expect(lintErrors(steps, (e) => { e.carousel.slides[2].art.levels.label = "Levels off at 5 [plateau]"; }).join("\n"))
+      .toMatch(/carousel\.slides\[2\]\.art\.levels\.label/);
+  });
+  it("carousel: an alternate opening is held to every rule the hook is held to", () => {
+    expect(lintErrors(steps, () => {})).toEqual([]);
+    // H2: no caveat or hedge on an opening, whichever one the owner picks.
+    expect(lintErrors(steps, (e) => { e.carousel.altHooks[0].body = "An observational study of 3,101 adults. [sample, cohort]"; }))
+      .toContainEqual(expect.stringContaining('H2 carousel.altHooks[0]: a caveat ("observational") on the hook slide'));
+    // H7: its big number is the passage's own characters.
+    expect(lintErrors(steps, (e) => { e.carousel.altHooks[0].art.value = { text: "15.9", ref: "ard_1_2" }; }))
+      .toEqual([expect.stringContaining('H7 carousel.altHooks[0].art.value: "15.9" does not appear in the passage for "ard_1_2"')]);
+    // H7: the plateau opening's axis numbers come from their passages.
+    expect(lintErrors(steps, (e) => { e.carousel.altHooks[1].art.to.n = 6; }))
+      .toEqual([expect.stringContaining('H7 carousel.altHooks[1].art.to: 6 is not in the passage for "threshold"')]);
+    // Word limits, as on any slide.
+    expect(lintErrors(steps, (e) => { e.carousel.altHooks[2].body += " Every goal in that whole range, from the lowest to the highest one they tried. [thresholds]"; }).join("\n"))
+      .toMatch(/carousel carousel\.altHooks\[2\]: \d+ words in the heading and body/);
+  });
+  it("carousel: an alternate opening is a hook with a hook's art, at most three, each named once", () => {
+    expect(lintErrors(steps, (e) => { e.carousel.altHooks[0].kind = "finding"; }))
+      .toContainEqual(expect.stringContaining("carousel carousel.altHooks[0]: an alternate opening slide is a hook, not a finding slide"));
+    expect(lintErrors(steps, (e) => { e.carousel.altHooks[0].art = structuredClone(e.carousel.slides[3].art); }))
+      .toContainEqual(expect.stringContaining('carousel carousel.altHooks[0].art: a hook slide draws day or number or pair or plateau, not "who"'));
+    expect(lintErrors(steps, (e) => { e.carousel.altHooks[2].name = "the number"; }))
+      .toContainEqual(expect.stringContaining('carousel carousel.altHooks[2].name: "the number" names another alternate already'));
+    expect(lintErrors(steps, (e) => { e.carousel.altHooks.push(structuredClone({ ...e.carousel.altHooks[0], name: "A fourth" })); }))
+      .toContainEqual(expect.stringContaining("carousel carousel.altHooks: at most 3 alternate hooks; this has 4"));
   });
   it("carousel: a character the slide fonts may not carry", () => {
-    expect(lintErrors(steps, (e) => { e.carousel.slides[1].heading = "Risk ≤ before [-]"; }))
+    expect(lintErrors(steps, (e) => { e.carousel.slides[2].heading = "Risk ≤ before. [-]"; }))
       .toEqual([expect.stringContaining("contains a character the slide fonts may not carry")]);
+    expect(lintErrors(steps, (e) => { e.carousel.slides[1].art.b.label = "3 to 7 days ✓ [threshold]"; }))
+      .toEqual([expect.stringContaining("contains a character the slide fonts may not carry")]);
+  });
+  // Caffeine's deck: 0 hook (the day), 1 finding (verdict rows), 2 why (a sketch), 3 who, 4 receipts, 5 cta.
+  it("carousel: a verdict row says what its fact says (H5)", () => {
+    // sleep_same says no difference was clear: "lower" overstates it.
+    expect(lintErrors(caffeine, (e) => { e.carousel.slides[1].art.rows[0].verdict = "lower"; }))
+      .toEqual([expect.stringContaining('H5 carousel.slides[1].art.rows[0]: "lower": the cited passage does not say "lower"')]);
+    // A verdict rests on a measured result, not on the design.
+    expect(lintErrors(caffeine, (e) => { e.carousel.slides[1].art.rows[0].fact = "fact:blind"; }))
+      .toContainEqual(expect.stringContaining("a verdict rests on a measured result"));
+  });
+  it("carousel: every time on the day is a number in its cited passage (H7)", () => {
+    expect(lintErrors(caffeine, (e) => { e.carousel.slides[0].art.marks[2].at.n = 600; }))
+      .toEqual([expect.stringContaining('H7 carousel.slides[0].art.marks[2].at: 600 is not in the passage for "schedule"')]);
+    expect(lintErrors(caffeine, (e) => { e.carousel.slides[0].art.tail.length.n = 6; }))
+      .toContainEqual(expect.stringContaining('6 is not in the passage for "recording"'));
+  });
+  it("carousel: a sketch holds no number and rests on a concept file", () => {
+    expect(lintErrors(caffeine, (e) => { e.carousel.slides[2].art.b = "After 7 days [concept:caffeine-tolerance]"; }))
+      .toContainEqual(expect.stringContaining('sketch carousel.slides[2].art.b: a sketch holds no number'));
+    expect(lintErrors(caffeine, (e) => { e.carousel.slides[2].art.concept = "no-such-concept"; }))
+      .toContainEqual(expect.stringContaining('there is no content/concepts/no-such-concept.json'));
+  });
+  it("carousel: common knowledge is cited on the deck only, and supplies only its own numbers", () => {
+    expect(lintErrors(caffeine, (e) => { e.layers.audit.more.push("A cup of coffee holds roughly 100 mg of caffeine. [common:coffee-cup-caffeine]"); }))
+      .toContainEqual(expect.stringContaining("common knowledge may be cited on the deck only, not in the read"));
+    expect(lintErrors(caffeine, (e) => { e.carousel.slides[1].body = "Each dose was 150 mg, about 5 cups of coffee. [dose, common:coffee-cup-caffeine]"; }).join("\n"))
+      .toMatch(/carousel\.slides\[1\]\.body.*\b5\b/);
+    expect(lintErrors(caffeine, (e) => { e.carousel.slides[1].body = "Each dose was 150 mg, about a cup and a half. [dose, common:no-such-fact]"; }))
+      .toContainEqual(expect.stringContaining("there is no content/common/no-such-fact.json"));
+  });
+  it("carousel: the drafting prompt names every slide kind, motif, verdict and sketch shape the lint accepts", () => {
+    const motifs = new Set(Object.values(ART_FOR).flatMap((a) => a.motifs));
+    for (const word of [...SLIDE_KINDS, ...motifs, ...Object.keys(VERDICTS), ...SKETCH_SHAPES]) {
+      expect(EDITORIAL_SYSTEM, word).toContain(`"${word}"`.replace(/^"(hook|finding|why|who|receipts|cta)"$/, "$1"));
+    }
+    expect(EDITORIAL_SYSTEM).toContain(`At most ${DECK_LIMITS.wordsPerSlide} words in a slide's heading and body`);
+    expect(EDITORIAL_SYSTEM).toContain(`at most ${DECK_LIMITS.artWords} drawn`);
+  });
+  it("carousel: an unreviewed concept or common fact on the deck holds up the deck, not the read", () => {
+    const report = lint(validated(caffeine), caffeine.editorial, caffeine.source, OPTIONS);
+    expect(report.errors).toEqual([]);
+    expect(report.deckPending).toEqual(expect.arrayContaining(["common:coffee-cup-caffeine", "concept:caffeine-tolerance"]));
+    // Reviewed, they leave nothing pending.
+    const reviewedContext = {
+      ...OPTIONS.context,
+      concepts: Object.fromEntries(Object.entries(REAL_CONCEPTS).map(([k, v]) => [k, v.ok ? { ...v, reviewed: true } : v])),
+      common: Object.fromEntries(Object.entries(REAL_COMMON).map(([k, v]) => [k, v.ok ? { ...v, reviewed: true } : v])),
+    };
+    expect(lint(validated(caffeine), caffeine.editorial, caffeine.source, { ...OPTIONS, context: reviewedContext }).deckPending ?? []).toEqual([]);
   });
   it("copy: prose lifted from the paper", () => {
     const lifted = "Although our findings might suffer from residual confounding that should be addressed in future research, these findings suggest that people may receive substantial health benefits by walking just a couple of days a week";

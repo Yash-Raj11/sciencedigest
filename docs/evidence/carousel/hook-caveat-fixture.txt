@@ -1,0 +1,3 @@
+Hook slide as written ("8,000 steps on 1 or 2 days a week. What happened over 10 years? [threshold, followup]"): 0 errors
+Fixture: hook heading = "A small study: what happened over 10 years? [followup]"
+  - [H2] carousel.slides[0]: a caveat ("small study") on the hook slide; open with the number or the mechanism, and put the caveat on the receipts slide: "A small study: what happened over 10 years?"

@@ -8,12 +8,14 @@
  *   content/context/<slug>/withdrawn.json    written by `npm run retractions` on a hit
  *   content/context/<slug>/excluded.json     facts the owner ruled out of use: { "<fact_id>": "why" }
  *   content/concepts/<slug>.json             one background concept
+ *   content/common/<slug>.json               one common-knowledge fact (owner-approved; the deck only)
  *   content/library.json                     the fact library: context facts the owner approved for simulators
  */
 
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname } from "node:path";
 import { LibraryFile, approvedRefs, libraryProblems, type LibraryStudy } from "../lib/content/fact-library";
+import { COMMON_SLUG, checkCommon } from "../lib/pipeline/common";
 import { CONCEPT_SLUG, checkConcept } from "../lib/pipeline/concepts";
 import { gate } from "../lib/pipeline/gate";
 import { deriveTier } from "../lib/pipeline/grade";
@@ -89,8 +91,8 @@ export function loadLibrary(path: string, studies: LintContext["studies"]): { li
   };
 }
 
-export function loadContext(contextDir: string, conceptsDir: string, libraryPath = `${dirname(contextDir)}/library.json`): { context: LintContext; report: string[]; libraryErrors: string[] } {
-  const context: LintContext = { studies: {}, concepts: {} };
+export function loadContext(contextDir: string, conceptsDir: string, libraryPath = `${dirname(contextDir)}/library.json`, commonDir = `${dirname(contextDir)}/common`): { context: LintContext; report: string[]; libraryErrors: string[] } {
+  const context: LintContext = { studies: {}, concepts: {}, common: {} };
   const report: string[] = [];
 
   for (const slug of subfolders(contextDir)) {
@@ -127,10 +129,29 @@ export function loadContext(contextDir: string, conceptsDir: string, libraryPath
       conceptLines.push(`  ${slug}: FAILED (${state.errors.length}); no read may use it`);
       for (const error of state.errors) conceptLines.push(`    - ${error}`);
     } else {
-      conceptLines.push(`  ${slug}: ok, ${state.reviewed ? "reviewed by the owner" : "NOT REVIEWED (drafts only; npm run paper -- approve-concept " + slug + ")"}`);
+      conceptLines.push(`  ${slug}: ok, ${state.reviewed ? "reviewed by the owner" : "NOT REVIEWED (a draft read, or a deck held at the queue; npm run paper -- approve-concept " + slug + ")"}`);
     }
   }
   if (conceptLines.length > 0) report.push("\nbackground concepts (content/concepts/)", ...conceptLines);
+
+  const commonLines: string[] = [];
+  for (const file of existsSync(commonDir) ? readdirSync(commonDir).filter((name) => name.endsWith(".json")).sort() : []) {
+    const slug = file.slice(0, -5);
+    let state;
+    if (!COMMON_SLUG.test(slug)) state = { ok: false as const, errors: ["the file name must be lower-case-with-hyphens.json"] };
+    else {
+      try { state = checkCommon(JSON.parse(readFileSync(`${commonDir}/${file}`, "utf8")), CONCEPT_RULES); }
+      catch (error) { state = { ok: false as const, errors: [`not valid JSON: ${(error as Error).message}`] }; }
+    }
+    context.common![slug] = state;
+    if (!state.ok) {
+      commonLines.push(`  ${slug}: FAILED (${state.errors.length}); no deck may use it`);
+      for (const error of state.errors) commonLines.push(`    - ${error}`);
+    } else {
+      commonLines.push(`  ${slug}: ok, ${state.reviewed ? "reviewed by the owner" : "NOT REVIEWED (a deck that uses it cannot be approved; npm run paper -- approve-common " + slug + ")"}`);
+    }
+  }
+  if (commonLines.length > 0) report.push("\ncommon knowledge (content/common/)", ...commonLines);
 
   const library = loadLibrary(libraryPath, context.studies);
   context.library = library.library;

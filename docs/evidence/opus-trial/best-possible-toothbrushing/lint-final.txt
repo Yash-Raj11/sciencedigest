@@ -1,0 +1,13 @@
+best-possible-toothbrushing (draft, not in the app)
+  gate   ok: 116 facts verified against the source, licence CC-BY, design rct
+    warning: no estimate with a confidence interval was extracted; the read must say the paper reports none (H5)
+  lint   ok: 721 words
+    mechanism 232 words, 20 sentences, average 11.6, longest 16
+    protocol  115 words, 8 sentences, average 14.4, longest 20
+    audit     245 words, 18 sentences, average 13.6, longest 18
+    warning: [H5] primaryEstimate: the headline result has no confidence interval; check the read says what that leaves unknown
+    warning: [H11] populationPanel: possibly passive ("was studied"); say who did it if you can: "Who was studied: university students in Giessen aged 18 to 35."
+    warning: [H11] layers.mechanism[3]: possibly passive ("is generally discouraged"); say who did it if you can: "Side-to-side scrubbing, which is generally discouraged, showed no clear difference between the groups."
+    warning: [H11] layers.protocol[0]: possibly passive ("was scored"); say who did it if you can: "They brushed at both visits; plaque after brushing was scored at the second."
+  skipped: publishedAt is null (not approved yet)
+

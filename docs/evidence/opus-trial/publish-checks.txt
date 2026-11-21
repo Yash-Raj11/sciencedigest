@@ -1,0 +1,37 @@
+# Publishing papers 3 to 6 (2026-11-21)
+
+## npm run lint
+> eslint
+
+
+## npm run typecheck
+> tsc --noEmit
+
+
+## npm test
+(first run: 1 failure, scripts/glance.test.ts pinned the list of published papers to the old 7; the four were added to it and to the per-card check)
+ Test Files  62 passed (62)
+      Tests  915 passed (915)
+
+## npm run build
+  Generating static pages using 7 workers (12/24) 
+  Generating static pages using 7 workers (18/24) 
+✓ Generating static pages using 7 workers (24/24) in 490ms
+lint exit 0
+
+## npm run db:test:local
+ok 70 - scenario 35: streak matches lib/score.ts (1)
+ok 71 - scenario 36: adherence matches lib/score.ts (41%)
+ok 72 - scenario 36: streak matches lib/score.ts (2)
+ok 73 - scenario 37: adherence matches lib/score.ts (63%)
+ok 74 - scenario 37: streak matches lib/score.ts (7)
+ok 75 - scenario 38: adherence matches lib/score.ts (50%)
+ok 76 - scenario 38: streak matches lib/score.ts (14)
+ok 77 - scenario 39: adherence matches lib/score.ts (0%)
+ok 78 - scenario 39: streak matches lib/score.ts (0)
+ok 79 - scenario 40: adherence matches lib/score.ts (0%)
+ok 80 - scenario 40: streak matches lib/score.ts (1)
+
+# unseeded: 8 files, 191 assertions, 0 failed
+# seeded: 8 files, 191 assertions, 0 failed
+# Result: PASS (both passes)

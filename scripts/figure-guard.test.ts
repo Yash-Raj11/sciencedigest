@@ -29,6 +29,13 @@ describe("the figure guard", () => {
     expect((await check("bad-ambient-motion", KIND)).length).toBeGreaterThan(0);
   }, 60000);
 
+  it("covers the carousel art kit too (lib/carousel/art/)", async () => {
+    const ART = "lib/carousel/art/Fixture.tsx";
+    expect(await check("good", ART)).toEqual([]);
+    expect((await check("bad-number-literal", ART)).length).toBeGreaterThan(0);
+    expect((await check("bad-ambient-motion", ART)).length).toBeGreaterThan(0);
+  }, 60000);
+
   it("refuses hover-only information: an SVG <title> in a figure or primitive, a title attribute anywhere", async () => {
     for (const path of [FIGURE, "components/figures/primitives/Fixture.tsx", "components/figures/kinds/Fixture.tsx"]) {
       expect((await check("bad-hover-title", path)).join("\n"), path).toMatch(/no-restricted-syntax: No SVG <title> outside the figure frame/);

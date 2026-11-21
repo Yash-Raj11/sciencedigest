@@ -1,0 +1,918 @@
+{
+  "identifiers": {
+    "doi": "10.1371/journal.pone.0115434",
+    "pmid": "25706861",
+    "pmcid": "PMC4338308",
+    "title": "Sweet/dessert foods are more appealing to adolescents after sleep restriction",
+    "authors": "Simon SL, Field J, Miller LE, DiFrancesco M, Beebe DW",
+    "journal": "PLoS ONE",
+    "year": 2015,
+    "citation": "Simon SL, Field J, Miller LE, DiFrancesco M, Beebe DW. Sweet/dessert foods are more appealing to adolescents after sleep restriction. PLoS One. 2015;10(2):e0115434. doi:10.1371/journal.pone.0115434"
+  },
+  "license": "CC-BY",
+  "design": {
+    "value": "crossover",
+    "quote": "Randomized cross-over sleep restriction-extension paradigm."
+  },
+  "species": {
+    "value": "human",
+    "quote": "All participants and their parents provided written documentation of informed assent and consent following receipt of print and verbal information regarding the study."
+  },
+  "population": {
+    "value": "typically-developing adolescents aged 14–17",
+    "quote": "31 typically-developing adolescents aged 14–17 years."
+  },
+  "sampleSize": {
+    "value": "31",
+    "quote": "Of 38 teens randomized to the sleep manipulation, one dropped out and 6 were non-adherent to the sleep protocol (defined as <60 minutes difference in average sleep duration across the SR and HS conditions), leaving a final sample of 31 (59% female, 52% Caucasian, 41% African-American, mean age 15.7 ± 1.0 years)."
+  },
+  "facts": [
+    {
+      "id": "three_weeks",
+      "kind": "context",
+      "label": "Length of the whole protocol",
+      "value": "three-week protocol",
+      "quote": "The three-week protocol consisted of a baseline week, followed randomly by five consecutive nights of SR (6.5 hours in bed) versus healthy sleep duration (HS; 10 hours in bed), a 2-night wash-out period, and a 5-night cross-over."
+    },
+    {
+      "id": "sr_in_bed",
+      "kind": "context",
+      "label": "Short-sleep nights: 6.5 hours in bed",
+      "value": "6.5 hours in bed",
+      "quote": "The three-week protocol consisted of a baseline week, followed randomly by five consecutive nights of SR (6.5 hours in bed) versus healthy sleep duration (HS; 10 hours in bed), a 2-night wash-out period, and a 5-night cross-over."
+    },
+    {
+      "id": "hs_in_bed",
+      "kind": "context",
+      "label": "Healthy-sleep nights: 10 hours in bed",
+      "value": "10 hours in bed",
+      "quote": "The three-week protocol consisted of a baseline week, followed randomly by five consecutive nights of SR (6.5 hours in bed) versus healthy sleep duration (HS; 10 hours in bed), a 2-night wash-out period, and a 5-night cross-over."
+    },
+    {
+      "id": "five_nights",
+      "kind": "context",
+      "label": "Each condition lasted five nights in a row",
+      "value": "five consecutive nights",
+      "quote": "The three-week protocol consisted of a baseline week, followed randomly by five consecutive nights of SR (6.5 hours in bed) versus healthy sleep duration (HS; 10 hours in bed), a 2-night wash-out period, and a 5-night cross-over."
+    },
+    {
+      "id": "washout",
+      "kind": "context",
+      "label": "Two normal nights between the conditions",
+      "value": "2-night wash-out period",
+      "quote": "The three-week protocol consisted of a baseline week, followed randomly by five consecutive nights of SR (6.5 hours in bed) versus healthy sleep duration (HS; 10 hours in bed), a 2-night wash-out period, and a 5-night cross-over."
+    },
+    {
+      "id": "randomized_order",
+      "kind": "context",
+      "label": "A random draw set which condition came first",
+      "value": "randomized to an order of the experimental conditions",
+      "quote": "Adolescents who successfully completed the baseline week were randomized to an order of the experimental conditions (SR first vs. HS first) in a counterbalanced, within-subjects crossover design."
+    },
+    {
+      "id": "baseline_week",
+      "kind": "context",
+      "label": "A first week with bedtimes of their own choosing, to settle the body clock",
+      "value": "self-select their bedtimes",
+      "quote": "Teens’ circadian phase was first stabilized in a baseline week, during which they could self-select their bedtimes, but were asked to consistently awaken at a time that would allow them to come in to our office for an 8:30 AM appointment/visit."
+    },
+    {
+      "id": "same_wake",
+      "kind": "context",
+      "label": "Same wake time every morning, weekends included",
+      "value": "subjects were not allowed to “sleep in” any morning during the study",
+      "quote": "That wake time was maintained throughout the study (i.e., subjects were not allowed to “sleep in” any morning during the study, including the weekends) to minimize shifts in circadian rhythm."
+    },
+    {
+      "id": "bedtime_moved",
+      "kind": "context",
+      "label": "Only the bedtime moved to set the hours in bed",
+      "value": "bedtimes were adjusted to allow 6.5 hours in bed each night for 5 nights",
+      "quote": "When in the SR condition, teens’ bedtimes were adjusted to allow 6.5 hours in bed each night for 5 nights."
+    },
+    {
+      "id": "no_naps_caffeine",
+      "kind": "context",
+      "label": "No naps; caffeine capped at 1 coffee or energy drink a day",
+      "value": "no more than 1 coffee or energy drink per day",
+      "quote": "Teens were asked to refrain from napping and limit caffeine intake to no more than 1 coffee or energy drink per day or no more than 2 caffeinated sodas per day."
+    },
+    {
+      "id": "at_home",
+      "kind": "context",
+      "label": "All sleep happened at home",
+      "value": "All sleep occurred at home",
+      "quote": "All sleep occurred at home and was monitored via a daily sleep diary and actigraphy (MicroMotionlogger Sleep Watch, Ambulatory Monitoring, Inc.)."
+    },
+    {
+      "id": "actigraphy",
+      "kind": "context",
+      "label": "Sleep checked with a wrist motion sensor and a sleep diary",
+      "value": "a daily sleep diary and actigraphy",
+      "quote": "All sleep occurred at home and was monitored via a daily sleep diary and actigraphy (MicroMotionlogger Sleep Watch, Ambulatory Monitoring, Inc.)."
+    },
+    {
+      "id": "saturday_visits",
+      "kind": "context",
+      "label": "Tests on the Saturday morning after each condition",
+      "value": "Assessments were conducted on Saturday mornings after each experimental condition",
+      "quote": "Assessments were conducted on Saturday mornings after each experimental condition."
+    },
+    {
+      "id": "photo_sets",
+      "kind": "context",
+      "label": "84 food photos per visit: 42 sweets and desserts, 42 other foods",
+      "value": "84 photos of 42 sweets/desserts and 42 non-sweets",
+      "quote": "Two matched sets with 84 photos of 42 sweets/desserts and 42 non-sweets (fruits/vegetables, meat/eggs) were compiled. One set was viewed at each experimental week visit and teens were asked to rate how appetizing each picture looked on a 1–4 scale (“gross,” “OK,” “good,” “delicious”)."
+    },
+    {
+      "id": "rating_scale",
+      "kind": "context",
+      "label": "Each photo rated 1 to 4, from “gross” to “delicious”",
+      "value": "1–4 scale",
+      "quote": "Two matched sets with 84 photos of 42 sweets/desserts and 42 non-sweets (fruits/vegetables, meat/eggs) were compiled. One set was viewed at each experimental week visit and teens were asked to rate how appetizing each picture looked on a 1–4 scale (“gross,” “OK,” “good,” “delicious”)."
+    },
+    {
+      "id": "primary_appeal",
+      "kind": "context",
+      "label": "Main outcome: how appealing the food photos looked",
+      "value": "The primary outcomes for this study were obtained via a computerized food-appeal rating-system",
+      "quote": "The primary outcomes for this study were obtained via a computerized food-appeal rating-system."
+    },
+    {
+      "id": "reliability",
+      "kind": "context",
+      "label": "Ratings were consistent from one visit to the next",
+      "value": "high test-retest reliability (r = .79-.83)",
+      "quote": "Each teen’s mean rating was computed for each food type (sweets, non-sweets) within each condition (SR and HS), yielding composites with high test-retest reliability (r = .79-.83)."
+    },
+    {
+      "id": "hunger_scale",
+      "kind": "context",
+      "label": "Hunger rated on a 4-point scale",
+      "value": "4-point scale from “not hungry” to “very hungry”",
+      "quote": "Teens rated their hunger on a 4-point scale from “not hungry” to “very hungry” immediately after the food-appeal ratings."
+    },
+    {
+      "id": "diet_exploratory",
+      "kind": "context",
+      "label": "Food eaten was an exploratory check, in about three quarters of the teens",
+      "value": "roughly 3/4 of the sample also underwent a 24-hour diet recall",
+      "quote": "To allow for exploratory comparison against our prior dietary findings, roughly 3/4 of the sample also underwent a 24-hour diet recall at each experimental week assessment visit using the USDA Multiple Pass Method []."
+    },
+    {
+      "id": "recall_previous_day",
+      "kind": "context",
+      "label": "The diet interview asked about the day before (the last short or healthy night's day)",
+      "value": "asked about dietary intake the previous day",
+      "quote": "There was no apparent relationship between time of the interview and our dietary outcomes, probably because all interviews were conducted during a narrow time window, and asked about dietary intake the previous day (i.e., interviews conducted Saturday morning asked about food intake Friday)."
+    },
+    {
+      "id": "dislikers_removed",
+      "kind": "context",
+      "label": "Teens who strongly disliked a food type were left out of that analysis",
+      "value": "subjects who indicated a strong dislike (mean rating <2) of a particular food type were removed from that analysis",
+      "quote": "For the food appeal analyses, subjects who indicated a strong dislike (mean rating <2) of a particular food type were removed from that analysis."
+    },
+    {
+      "id": "no_carryover",
+      "kind": "finding",
+      "label": "No sign that the first condition carried over into the second",
+      "value": "No significant interaction was found across any of our outcome measures (all p > .05)",
+      "quote": "No significant interaction was found across any of our outcome measures (all p > .05), indicating that the effect of sleep manipulation did not vary based on the order in which HS or SR was presented.",
+      "outcome": "Carry-over between conditions"
+    },
+    {
+      "id": "inclusion",
+      "kind": "context",
+      "label": "Who could join: typically developing 14 to 17 year-olds",
+      "value": "typically-developing 14–17 year-olds without a current psychiatric diagnosis",
+      "quote": "Similar to our prior study [], we enrolled typically-developing 14–17 year-olds without a current psychiatric diagnosis or history of neurological illness/injury."
+    },
+    {
+      "id": "exclusion_obesity",
+      "kind": "context",
+      "label": "Excluded: marked obesity (BMI over 30) or intellectual disability",
+      "value": "BMI>30",
+      "quote": "In addition, we excluded for intellectual disability or marked obesity (IQ<70 or BMI>30, initially screened by parent and teen report, then confirmed objectively during a baseline visit)."
+    },
+    {
+      "id": "recruitment",
+      "kind": "context",
+      "label": "Recruited by flyers in a regional care network and a clinic for low-income families",
+      "value": "flyers posted throughout a regional care network",
+      "quote": "Participants were recruited from flyers posted throughout a regional care network and, to help ensure representation of underserved populations, research staff were available to answer questions in an adolescent health clinic that tends to serve low-income families."
+    },
+    {
+      "id": "ethics",
+      "kind": "context",
+      "label": "Approved by the hospital's ethics board; teens and parents agreed in writing",
+      "value": "approved by the Institutional Review Board",
+      "quote": "All procedures were approved by the Institutional Review Board at Cincinnati Children’s Hospital Medical Center."
+    },
+    {
+      "id": "funding",
+      "kind": "context",
+      "label": "Who paid for the study",
+      "value": "National Institutes of Health",
+      "quote": "This work was supported by the National Institutes of Health (R01 HL092149, UL1 RR026314)."
+    },
+    {
+      "id": "funder_no_role",
+      "kind": "context",
+      "label": "The funder had no role in the study",
+      "value": "The funders had no role",
+      "quote": "The funders had no role in study design, data collection and analysis, decision to publish, or preparation of the manuscript."
+    },
+    {
+      "id": "no_competing",
+      "kind": "context",
+      "label": "Competing interests",
+      "value": "no competing interests exist",
+      "quote": "Competing Interests: The authors have declared that no competing interests exist."
+    },
+    {
+      "id": "randomized_38",
+      "kind": "context",
+      "label": "38 teens randomized",
+      "value": "Of 38 teens randomized",
+      "quote": "Of 38 teens randomized to the sleep manipulation, one dropped out and 6 were non-adherent to the sleep protocol (defined as <60 minutes difference in average sleep duration across the SR and HS conditions), leaving a final sample of 31 (59% female, 52% Caucasian, 41% African-American, mean age 15.7 ± 1.0 years)."
+    },
+    {
+      "id": "dropped_7",
+      "kind": "context",
+      "label": "One dropped out and 6 did not keep to the sleep schedule",
+      "value": "one dropped out and 6 were non-adherent to the sleep protocol",
+      "quote": "Of 38 teens randomized to the sleep manipulation, one dropped out and 6 were non-adherent to the sleep protocol (defined as <60 minutes difference in average sleep duration across the SR and HS conditions), leaving a final sample of 31 (59% female, 52% Caucasian, 41% African-American, mean age 15.7 ± 1.0 years)."
+    },
+    {
+      "id": "nonadherent_def",
+      "kind": "context",
+      "label": "Not keeping to the schedule meant under 60 minutes' difference in sleep between conditions",
+      "value": "<60 minutes difference in average sleep duration across the SR and HS conditions",
+      "quote": "Of 38 teens randomized to the sleep manipulation, one dropped out and 6 were non-adherent to the sleep protocol (defined as <60 minutes difference in average sleep duration across the SR and HS conditions), leaving a final sample of 31 (59% female, 52% Caucasian, 41% African-American, mean age 15.7 ± 1.0 years)."
+    },
+    {
+      "id": "final_31",
+      "kind": "context",
+      "label": "31 teens in the final sample",
+      "value": "leaving a final sample of 31",
+      "quote": "Of 38 teens randomized to the sleep manipulation, one dropped out and 6 were non-adherent to the sleep protocol (defined as <60 minutes difference in average sleep duration across the SR and HS conditions), leaving a final sample of 31 (59% female, 52% Caucasian, 41% African-American, mean age 15.7 ± 1.0 years)."
+    },
+    {
+      "id": "actigraph_failed",
+      "kind": "context",
+      "label": "Wrist sensors failed for 3 teens; parents confirmed their sleep",
+      "value": "Actigraphs malfunctioned for 3 subjects",
+      "quote": "Actigraphs malfunctioned for 3 subjects, whose adherence to the sleep regimen was confirmed by parent report."
+    },
+    {
+      "id": "female_59",
+      "kind": "descriptive",
+      "label": "Share of girls",
+      "value": "59% female",
+      "quote": "Of 38 teens randomized to the sleep manipulation, one dropped out and 6 were non-adherent to the sleep protocol (defined as <60 minutes difference in average sleep duration across the SR and HS conditions), leaving a final sample of 31 (59% female, 52% Caucasian, 41% African-American, mean age 15.7 ± 1.0 years)."
+    },
+    {
+      "id": "ethnicity",
+      "kind": "descriptive",
+      "label": "Ethnic mix: 52% white, 41% African-American",
+      "value": "52% Caucasian, 41% African-American",
+      "quote": "Of 38 teens randomized to the sleep manipulation, one dropped out and 6 were non-adherent to the sleep protocol (defined as <60 minutes difference in average sleep duration across the SR and HS conditions), leaving a final sample of 31 (59% female, 52% Caucasian, 41% African-American, mean age 15.7 ± 1.0 years)."
+    },
+    {
+      "id": "age_mean",
+      "kind": "descriptive",
+      "label": "Average age, years",
+      "value": "mean age 15.7 ± 1.0 years",
+      "quote": "Of 38 teens randomized to the sleep manipulation, one dropped out and 6 were non-adherent to the sleep protocol (defined as <60 minutes difference in average sleep duration across the SR and HS conditions), leaving a final sample of 31 (59% female, 52% Caucasian, 41% African-American, mean age 15.7 ± 1.0 years)."
+    },
+    {
+      "id": "sleep_shorter",
+      "kind": "finding",
+      "label": "Teens slept far less on the short-sleep nights",
+      "value": "markedly shorter during SR",
+      "quote": "The nightly sleep for the other 28 was markedly shorter during SR (6.7 ± 0.6 hr) than HS (9.1 ± 0.7 hr) (p<.0001).",
+      "outcome": "Sleep per night (wrist sensor)"
+    },
+    {
+      "id": "sleep_28",
+      "kind": "finding",
+      "label": "Sleep measured by wrist sensor in 28 teens",
+      "value": "the other 28",
+      "quote": "The nightly sleep for the other 28 was markedly shorter during SR (6.7 ± 0.6 hr) than HS (9.1 ± 0.7 hr) (p<.0001).",
+      "outcome": "Sleep per night (wrist sensor)"
+    },
+    {
+      "id": "sleep_sr",
+      "kind": "estimate",
+      "label": "Sleep per night, short-sleep nights (hours)",
+      "value": "6.7 ± 0.6 hr",
+      "quote": "The nightly sleep for the other 28 was markedly shorter during SR (6.7 ± 0.6 hr) than HS (9.1 ± 0.7 hr) (p<.0001).",
+      "estimate": {
+        "outcome": "Sleep per night on the short-sleep nights",
+        "measure": "mean",
+        "point": 6.7,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "hours",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 0.6
+      }
+    },
+    {
+      "id": "sleep_hs",
+      "kind": "estimate",
+      "label": "Sleep per night, healthy-sleep nights (hours)",
+      "value": "9.1 ± 0.7 hr",
+      "quote": "The nightly sleep for the other 28 was markedly shorter during SR (6.7 ± 0.6 hr) than HS (9.1 ± 0.7 hr) (p<.0001).",
+      "estimate": {
+        "outcome": "Sleep per night on the healthy-sleep nights",
+        "measure": "mean",
+        "point": 9.1,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "hours",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 0.7
+      }
+    },
+    {
+      "id": "later_onset",
+      "kind": "finding",
+      "label": "The difference came from falling asleep later, not waking earlier",
+      "value": "later sleep onset during SR",
+      "quote": "As planned, this difference in sleep duration was due to later sleep onset during SR (after midnight: 0:34 ± 0:45) than HS (22:06 ± 0:57) (p<.0001), in the presence of highly similar wake times across conditions (SR: 7:12 ± 0:25 vs. HS: 7:11 ± 0:33) (p > .70).",
+      "outcome": "Time of falling asleep"
+    },
+    {
+      "id": "onset_sr",
+      "kind": "finding",
+      "label": "Average time of falling asleep, short-sleep nights",
+      "value": "0:34 ± 0:45",
+      "quote": "As planned, this difference in sleep duration was due to later sleep onset during SR (after midnight: 0:34 ± 0:45) than HS (22:06 ± 0:57) (p<.0001), in the presence of highly similar wake times across conditions (SR: 7:12 ± 0:25 vs. HS: 7:11 ± 0:33) (p > .70).",
+      "outcome": "Time of falling asleep, short-sleep nights"
+    },
+    {
+      "id": "onset_hs",
+      "kind": "finding",
+      "label": "Average time of falling asleep, healthy-sleep nights",
+      "value": "22:06 ± 0:57",
+      "quote": "As planned, this difference in sleep duration was due to later sleep onset during SR (after midnight: 0:34 ± 0:45) than HS (22:06 ± 0:57) (p<.0001), in the presence of highly similar wake times across conditions (SR: 7:12 ± 0:25 vs. HS: 7:11 ± 0:33) (p > .70).",
+      "outcome": "Time of falling asleep, healthy-sleep nights"
+    },
+    {
+      "id": "wake_same",
+      "kind": "finding",
+      "label": "Wake times were almost identical in both conditions",
+      "value": "highly similar wake times across conditions",
+      "quote": "As planned, this difference in sleep duration was due to later sleep onset during SR (after midnight: 0:34 ± 0:45) than HS (22:06 ± 0:57) (p<.0001), in the presence of highly similar wake times across conditions (SR: 7:12 ± 0:25 vs. HS: 7:11 ± 0:33) (p > .70).",
+      "outcome": "Wake time"
+    },
+    {
+      "id": "wake_sr",
+      "kind": "finding",
+      "label": "Average wake time, short-sleep nights",
+      "value": "7:12 ± 0:25",
+      "quote": "As planned, this difference in sleep duration was due to later sleep onset during SR (after midnight: 0:34 ± 0:45) than HS (22:06 ± 0:57) (p<.0001), in the presence of highly similar wake times across conditions (SR: 7:12 ± 0:25 vs. HS: 7:11 ± 0:33) (p > .70).",
+      "outcome": "Wake time, short-sleep nights"
+    },
+    {
+      "id": "wake_hs",
+      "kind": "finding",
+      "label": "Average wake time, healthy-sleep nights",
+      "value": "7:11 ± 0:33",
+      "quote": "As planned, this difference in sleep duration was due to later sleep onset during SR (after midnight: 0:34 ± 0:45) than HS (22:06 ± 0:57) (p<.0001), in the presence of highly similar wake times across conditions (SR: 7:12 ± 0:25 vs. HS: 7:11 ± 0:33) (p > .70).",
+      "outcome": "Wake time, healthy-sleep nights"
+    },
+    {
+      "id": "sweets_more_appealing",
+      "kind": "finding",
+      "label": "After short sleep, sweet and dessert photos were rated more appealing than after healthy sleep",
+      "value": "more appealing after SR than after HS",
+      "quote": "Teens rated pictures of sweet/dessert foods to be more appealing after SR than after HS (Cohen’s d = .41, t = 2.07, p = .045).",
+      "outcome": "How appealing sweet and dessert photos looked"
+    },
+    {
+      "id": "sweets_d",
+      "kind": "finding",
+      "label": "Size of the difference, as a standardized effect",
+      "value": "Cohen’s d = .41",
+      "quote": "Teens rated pictures of sweet/dessert foods to be more appealing after SR than after HS (Cohen’s d = .41, t = 2.07, p = .045).",
+      "outcome": "How appealing sweet and dessert photos looked"
+    },
+    {
+      "id": "sweets_p_abstract",
+      "kind": "finding",
+      "label": "Test result for the sweets finding, as the abstract gives it",
+      "value": "p = .045",
+      "quote": "Teens rated pictures of sweet/dessert foods to be more appealing after SR than after HS (Cohen’s d = .41, t = 2.07, p = .045).",
+      "outcome": "How appealing sweet and dessert photos looked"
+    },
+    {
+      "id": "sweets_p_results",
+      "kind": "finding",
+      "label": "Test result for the same finding, as the results section gives it",
+      "value": "t = 2.07, p = .049",
+      "quote": "Images of sweets/desserts were rated more appealing after SR than HS (t = 2.07, p = .049), but the effect of sleep manipulation was non-significant for self-reported hunger and the appeal of non-sweet foods (p >.10).",
+      "outcome": "How appealing sweet and dessert photos looked"
+    },
+    {
+      "id": "hunger_ns",
+      "kind": "finding",
+      "label": "Hunger: no clear difference between the conditions",
+      "value": "non-significant for self-reported hunger",
+      "quote": "the effect of sleep manipulation was non-significant for self-reported hunger and the appeal of non-sweet foods (p >.10).",
+      "outcome": "How hungry teens said they were"
+    },
+    {
+      "id": "nonsweets_ns",
+      "kind": "finding",
+      "label": "Other foods (meat, eggs, fruit, vegetables): no clear difference in appeal",
+      "value": "the appeal of non-sweet foods (p >.10)",
+      "quote": "the effect of sleep manipulation was non-significant for self-reported hunger and the appeal of non-sweet foods (p >.10).",
+      "outcome": "How appealing the other food photos looked"
+    },
+    {
+      "id": "split_ns",
+      "kind": "finding",
+      "label": "Meat and eggs, or fruit and vegetables, on their own: no clear difference either",
+      "value": "results were similarly non-significant when the non-sweets were split into meats/eggs versus fruits/vegetables",
+      "quote": "In exploratory analyses, results were similarly non-significant when the non-sweets were split into meats/eggs versus fruits/vegetables.",
+      "outcome": "Appeal of meat and eggs, and of fruit and vegetables"
+    },
+    {
+      "id": "diet_23",
+      "kind": "context",
+      "label": "Food eaten was recorded for 23 teens",
+      "value": "the 23 teens in this study with dietary data",
+      "quote": "Using the same criteria, the 23 teens in this study with dietary data ate 11% more calories (kcal) during SR (1860 ± 689 kcal) than HS (1647 ± 508 kcal) and 52% more servings of sweets/desserts during SR (0.74 ± 1.49 servings) than HS (0.49 ± 0.76 servings)."
+    },
+    {
+      "id": "outliers_removed",
+      "kind": "context",
+      "label": "Teens eating over 4000 calories a day were set aside, as in the earlier study",
+      "value": "after removing outliers who consumed >4000 calories/day",
+      "quote": "In our prior work, after removing outliers who consumed >4000 calories/day, SR increased caloric intake by 9% and intake of sweets/desserts by 130%."
+    },
+    {
+      "id": "kcal_more",
+      "kind": "finding",
+      "label": "Teens ate 11% more calories after short sleep (no test reported for this sample)",
+      "value": "11% more calories (kcal)",
+      "quote": "Using the same criteria, the 23 teens in this study with dietary data ate 11% more calories (kcal) during SR (1860 ± 689 kcal) than HS (1647 ± 508 kcal) and 52% more servings of sweets/desserts during SR (0.74 ± 1.49 servings) than HS (0.49 ± 0.76 servings).",
+      "outcome": "Calories eaten in a day"
+    },
+    {
+      "id": "kcal_sr",
+      "kind": "estimate",
+      "label": "Calories eaten in a day, short sleep",
+      "value": "1860 ± 689 kcal",
+      "quote": "Using the same criteria, the 23 teens in this study with dietary data ate 11% more calories (kcal) during SR (1860 ± 689 kcal) than HS (1647 ± 508 kcal) and 52% more servings of sweets/desserts during SR (0.74 ± 1.49 servings) than HS (0.49 ± 0.76 servings).",
+      "estimate": {
+        "outcome": "Calories eaten in a day after short-sleep nights",
+        "measure": "mean",
+        "point": 1860,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kcal",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 689
+      }
+    },
+    {
+      "id": "kcal_hs",
+      "kind": "estimate",
+      "label": "Calories eaten in a day, healthy sleep",
+      "value": "1647 ± 508 kcal",
+      "quote": "Using the same criteria, the 23 teens in this study with dietary data ate 11% more calories (kcal) during SR (1860 ± 689 kcal) than HS (1647 ± 508 kcal) and 52% more servings of sweets/desserts during SR (0.74 ± 1.49 servings) than HS (0.49 ± 0.76 servings).",
+      "estimate": {
+        "outcome": "Calories eaten in a day after healthy-sleep nights",
+        "measure": "mean",
+        "point": 1647,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kcal",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 508
+      }
+    },
+    {
+      "id": "sweets_more_eaten",
+      "kind": "finding",
+      "label": "Teens ate 52% more servings of sweets after short sleep (no test reported for this sample)",
+      "value": "52% more servings of sweets/desserts",
+      "quote": "Using the same criteria, the 23 teens in this study with dietary data ate 11% more calories (kcal) during SR (1860 ± 689 kcal) than HS (1647 ± 508 kcal) and 52% more servings of sweets/desserts during SR (0.74 ± 1.49 servings) than HS (0.49 ± 0.76 servings).",
+      "outcome": "Servings of sweets and desserts in a day"
+    },
+    {
+      "id": "sweets_sr",
+      "kind": "estimate",
+      "label": "Servings of sweets and desserts in a day, short sleep",
+      "value": "0.74 ± 1.49 servings",
+      "quote": "Using the same criteria, the 23 teens in this study with dietary data ate 11% more calories (kcal) during SR (1860 ± 689 kcal) than HS (1647 ± 508 kcal) and 52% more servings of sweets/desserts during SR (0.74 ± 1.49 servings) than HS (0.49 ± 0.76 servings).",
+      "estimate": {
+        "outcome": "Servings of sweets and desserts after short-sleep nights",
+        "measure": "mean",
+        "point": 0.74,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "servings",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 1.49
+      }
+    },
+    {
+      "id": "sweets_hs",
+      "kind": "estimate",
+      "label": "Servings of sweets and desserts in a day, healthy sleep",
+      "value": "0.49 ± 0.76 servings",
+      "quote": "Using the same criteria, the 23 teens in this study with dietary data ate 11% more calories (kcal) during SR (1860 ± 689 kcal) than HS (1647 ± 508 kcal) and 52% more servings of sweets/desserts during SR (0.74 ± 1.49 servings) than HS (0.49 ± 0.76 servings).",
+      "estimate": {
+        "outcome": "Servings of sweets and desserts after healthy-sleep nights",
+        "measure": "mean",
+        "point": 0.49,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "servings",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 0.76
+      }
+    },
+    {
+      "id": "with_outliers",
+      "kind": "finding",
+      "label": "Keeping in the heavy eaters gave larger relative increases (no amounts given)",
+      "value": "SR increased caloric intake by 23% and intake of sweets/desserts by 73%",
+      "quote": "Larger effects were observed without removing caloric outliers (SR increased caloric intake by 23% and intake of sweets/desserts by 73%), but it is difficult to compare these findings to our previous publication due to cross-sample differences in selection criteria.",
+      "outcome": "Calories and sweets eaten, heavy eaters kept in"
+    },
+    {
+      "id": "pooled_68",
+      "kind": "finding",
+      "label": "Pooled with the authors' earlier study: 68 teens",
+      "value": "n = 68",
+      "quote": "Applying our previously-published selection criteria to pool data from both studies (n = 68), teens consumed 10% more calories in a 24-hour period during SR (1934 ± 740 kcal) than HS (1764 ± 649 kcal), d = .25, t = 2.1 (p = .039), and 110% more servings of sweets/desserts during SR (1.46 ± 2.11 servings) than HS (0.75 ± 1.13 servings), d = .30, t = 2.4 (p = .017).",
+      "outcome": "Calories and sweets eaten, both studies pooled"
+    },
+    {
+      "id": "pooled_kcal_more",
+      "kind": "finding",
+      "label": "Pooled: teens ate more calories after short sleep",
+      "value": "teens consumed 10% more calories in a 24-hour period during SR",
+      "quote": "Applying our previously-published selection criteria to pool data from both studies (n = 68), teens consumed 10% more calories in a 24-hour period during SR (1934 ± 740 kcal) than HS (1764 ± 649 kcal), d = .25, t = 2.1 (p = .039), and 110% more servings of sweets/desserts during SR (1.46 ± 2.11 servings) than HS (0.75 ± 1.13 servings), d = .30, t = 2.4 (p = .017).",
+      "outcome": "Calories eaten in a day, both studies pooled"
+    },
+    {
+      "id": "pooled_kcal_p",
+      "kind": "finding",
+      "label": "Pooled calories: the test result",
+      "value": "d = .25, t = 2.1 (p = .039)",
+      "quote": "Applying our previously-published selection criteria to pool data from both studies (n = 68), teens consumed 10% more calories in a 24-hour period during SR (1934 ± 740 kcal) than HS (1764 ± 649 kcal), d = .25, t = 2.1 (p = .039), and 110% more servings of sweets/desserts during SR (1.46 ± 2.11 servings) than HS (0.75 ± 1.13 servings), d = .30, t = 2.4 (p = .017).",
+      "outcome": "Calories eaten in a day, both studies pooled"
+    },
+    {
+      "id": "pooled_kcal_sr",
+      "kind": "estimate",
+      "label": "Pooled calories in a day, short sleep",
+      "value": "1934 ± 740 kcal",
+      "quote": "Applying our previously-published selection criteria to pool data from both studies (n = 68), teens consumed 10% more calories in a 24-hour period during SR (1934 ± 740 kcal) than HS (1764 ± 649 kcal), d = .25, t = 2.1 (p = .039), and 110% more servings of sweets/desserts during SR (1.46 ± 2.11 servings) than HS (0.75 ± 1.13 servings), d = .30, t = 2.4 (p = .017).",
+      "estimate": {
+        "outcome": "Calories eaten in a day after short sleep, both studies pooled",
+        "measure": "mean",
+        "point": 1934,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kcal",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 740
+      }
+    },
+    {
+      "id": "pooled_kcal_hs",
+      "kind": "estimate",
+      "label": "Pooled calories in a day, healthy sleep",
+      "value": "1764 ± 649 kcal",
+      "quote": "Applying our previously-published selection criteria to pool data from both studies (n = 68), teens consumed 10% more calories in a 24-hour period during SR (1934 ± 740 kcal) than HS (1764 ± 649 kcal), d = .25, t = 2.1 (p = .039), and 110% more servings of sweets/desserts during SR (1.46 ± 2.11 servings) than HS (0.75 ± 1.13 servings), d = .30, t = 2.4 (p = .017).",
+      "estimate": {
+        "outcome": "Calories eaten in a day after healthy sleep, both studies pooled",
+        "measure": "mean",
+        "point": 1764,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kcal",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 649
+      }
+    },
+    {
+      "id": "pooled_sweets_more",
+      "kind": "finding",
+      "label": "Pooled: teens ate more servings of sweets after short sleep",
+      "value": "110% more servings of sweets/desserts during SR",
+      "quote": "Applying our previously-published selection criteria to pool data from both studies (n = 68), teens consumed 10% more calories in a 24-hour period during SR (1934 ± 740 kcal) than HS (1764 ± 649 kcal), d = .25, t = 2.1 (p = .039), and 110% more servings of sweets/desserts during SR (1.46 ± 2.11 servings) than HS (0.75 ± 1.13 servings), d = .30, t = 2.4 (p = .017).",
+      "outcome": "Servings of sweets and desserts, both studies pooled"
+    },
+    {
+      "id": "pooled_sweets_p",
+      "kind": "finding",
+      "label": "Pooled sweets: the test result",
+      "value": "d = .30, t = 2.4 (p = .017)",
+      "quote": "Applying our previously-published selection criteria to pool data from both studies (n = 68), teens consumed 10% more calories in a 24-hour period during SR (1934 ± 740 kcal) than HS (1764 ± 649 kcal), d = .25, t = 2.1 (p = .039), and 110% more servings of sweets/desserts during SR (1.46 ± 2.11 servings) than HS (0.75 ± 1.13 servings), d = .30, t = 2.4 (p = .017).",
+      "outcome": "Servings of sweets and desserts, both studies pooled"
+    },
+    {
+      "id": "pooled_sweets_sr",
+      "kind": "estimate",
+      "label": "Pooled servings of sweets in a day, short sleep",
+      "value": "1.46 ± 2.11 servings",
+      "quote": "Applying our previously-published selection criteria to pool data from both studies (n = 68), teens consumed 10% more calories in a 24-hour period during SR (1934 ± 740 kcal) than HS (1764 ± 649 kcal), d = .25, t = 2.1 (p = .039), and 110% more servings of sweets/desserts during SR (1.46 ± 2.11 servings) than HS (0.75 ± 1.13 servings), d = .30, t = 2.4 (p = .017).",
+      "estimate": {
+        "outcome": "Servings of sweets after short sleep, both studies pooled",
+        "measure": "mean",
+        "point": 1.46,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "servings",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 2.11
+      }
+    },
+    {
+      "id": "pooled_sweets_hs",
+      "kind": "estimate",
+      "label": "Pooled servings of sweets in a day, healthy sleep",
+      "value": "0.75 ± 1.13 servings",
+      "quote": "Applying our previously-published selection criteria to pool data from both studies (n = 68), teens consumed 10% more calories in a 24-hour period during SR (1934 ± 740 kcal) than HS (1764 ± 649 kcal), d = .25, t = 2.1 (p = .039), and 110% more servings of sweets/desserts during SR (1.46 ± 2.11 servings) than HS (0.75 ± 1.13 servings), d = .30, t = 2.4 (p = .017).",
+      "estimate": {
+        "outcome": "Servings of sweets after healthy sleep, both studies pooled",
+        "measure": "mean",
+        "point": 0.75,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "servings",
+        "gradeRef": null
+      },
+      "spread": {
+        "kind": "sd",
+        "value": 1.13
+      }
+    },
+    {
+      "id": "hedonic_shift",
+      "kind": "statement",
+      "label": "Authors' idea: short sleep may make sweet food more rewarding to the eye and the tongue",
+      "value": "One potential mechanism is a shift in hedonic value",
+      "quote": "One potential mechanism is a shift in hedonic value."
+    },
+    {
+      "id": "appeal_to_intake",
+      "kind": "statement",
+      "label": "Authors' reasoning: food that looks more appealing tends to get eaten more",
+      "value": "the intake of those foods would be expected to increase",
+      "quote": "Using behavioral economics theory, if SR causes teens to perceive sweet-tasting foods as more appealing, the intake of those foods would be expected to increase []."
+    },
+    {
+      "id": "may_increase_appeal",
+      "kind": "statement",
+      "label": "Authors' reading: short sleep may raise the appeal of sweets that already appeal",
+      "value": "SR may increase the subjective appeal of already attractive sweet/dessert foods",
+      "quote": "Finally, it took an important step in the construction of a mechanistic causal model by which SR might influence dietary choices, suggesting that SR may increase the subjective appeal of already attractive sweet/dessert foods."
+    },
+    {
+      "id": "adult_cravings",
+      "kind": "statement",
+      "label": "Earlier work: sleep-deprived adults crave calorie-dense food more",
+      "value": "Sleep-deprived adults experience an increase in subjective cravings for calorie-dense foods",
+      "quote": "Sleep-deprived adults experience an increase in subjective cravings for calorie-dense foods."
+    },
+    {
+      "id": "adult_brain",
+      "kind": "statement",
+      "label": "Earlier work in adults: food photos light up reward areas of the brain more after short sleep",
+      "value": "pictures of appealing foods trigger a greater response in reward-relevant brain regions after SR",
+      "quote": "Consistent with this, adult functional neuroimaging studies show that pictures of appealing foods trigger a greater response in reward-relevant brain regions after SR than after a period of full rest []."
+    },
+    {
+      "id": "adult_intake",
+      "kind": "statement",
+      "label": "Earlier work: short sleep makes adults eat more than staying awake costs",
+      "value": "increases adults’ caloric intake beyond the increased energy required to maintain wakefulness",
+      "quote": "Indeed, experimentally-induced acute sleep deprivation increases adults’ caloric intake beyond the increased energy required to maintain wakefulness [,]."
+    },
+    {
+      "id": "prior_teens",
+      "kind": "statement",
+      "label": "The authors' earlier study: sleep-restricted teens ate more sugary food",
+      "value": "ate significantly more foods high in simple sugars, especially sweets and desserts",
+      "quote": "We recently reported similar findings in adolescents (see S1 PDF), who ate significantly more foods high in simple sugars, especially sweets and desserts, when sleep-restricted (SR) than when well-rested []."
+    },
+    {
+      "id": "prior_effects",
+      "kind": "statement",
+      "label": "The earlier study's sizes: 9% more calories, 130% more sweets",
+      "value": "SR increased caloric intake by 9% and intake of sweets/desserts by 130%",
+      "quote": "In our prior work, after removing outliers who consumed >4000 calories/day, SR increased caloric intake by 9% and intake of sweets/desserts by 130%."
+    },
+    {
+      "id": "short_sleep_obesity",
+      "kind": "statement",
+      "label": "Short sleep goes with obesity, now and later",
+      "value": "Short sleep correlates with both concurrent and future obesity",
+      "quote": "Short sleep correlates with both concurrent and future obesity, leading to speculation that inadequate sleep may contribute to the obesity crisis [,]."
+    },
+    {
+      "id": "teens_short_sleep",
+      "kind": "statement",
+      "label": "Teens average 2 hours less sleep on school nights than recommended",
+      "value": "average 2-hours less sleep on school nights than recommended",
+      "quote": "As biological and social factors push bedtimes later, teens’ schools start earlier, leading them to average 2-hours less sleep on school nights than recommended []."
+    },
+    {
+      "id": "teen_habits",
+      "kind": "statement",
+      "label": "Teen years set eating habits that last",
+      "value": "form the foundation for enduring dietary patterns",
+      "quote": "While studying this phenomenon is important in any age range, we consider it particularly important during adolescence because this developmental period is uniquely characterized by increased exposure to SR [] at the same time that individuals’ dietary choices become more independent and form the foundation for enduring dietary patterns []."
+    },
+    {
+      "id": "hypothesis",
+      "kind": "statement",
+      "label": "They expected more hunger and more appeal for sweets only",
+      "value": "We hypothesized that teens would report greater hunger and rate sweets/desserts, but not non-sweets, as more appealing",
+      "quote": "We hypothesized that teens would report greater hunger and rate sweets/desserts, but not non-sweets, as more appealing after SR than after HS."
+    },
+    {
+      "id": "other_mechanisms",
+      "kind": "statement",
+      "label": "Other routes are possible: the body clock, or weaker self-control",
+      "value": "does not exclude other mechanisms by which SR might impact diet (e.g., circadian factors, disinhibition)",
+      "quote": "The proposed shift in hedonic value of sweets/desserts does not exclude other mechanisms by which SR might impact diet (e.g., circadian factors, disinhibition), an area ripe for additional work."
+    },
+    {
+      "id": "crossover_protects",
+      "kind": "statement",
+      "label": "Random order protects against the menstrual cycle and short wash-out skewing results",
+      "value": "helped ensure that neither menstrual cycle nor length of washout would confound results",
+      "quote": "Importantly, our use of a randomized cross-over design helped ensure that neither menstrual cycle nor length of washout would confound results, though both could affect error variance."
+    },
+    {
+      "id": "washout_adults",
+      "kind": "statement",
+      "label": "In adults, 2 days clears the effect of short sleep on eating",
+      "value": "2 days is sufficient to eliminate the effects of partial sleep restriction on dietary intake in adults",
+      "quote": "Our study also used a relatively short “washout” period (2 days), though it is reassuring to note that we found no evidence of carryover effects across conditions, and similar experimental work has found that 2 days is sufficient to eliminate the effects of partial sleep restriction on dietary intake in adults []."
+    },
+    {
+      "id": "d_meaning",
+      "kind": "statement",
+      "label": "What the standardized effect means: the average difference divided by its spread",
+      "value": "the average of subjects’ differences in ratings across the two experimental sleep conditions, divided by the standard deviation of those differences",
+      "quote": "Cohen’s d represents the average of subjects’ differences in ratings across the two experimental sleep conditions, divided by the standard deviation of those differences."
+    },
+    {
+      "id": "d_convention",
+      "kind": "statement",
+      "label": "By convention, 0.20 is a small effect and 0.50 a medium one",
+      "value": "d = .20 indicates a small effect and d = .50 indicates a medium-sized effect",
+      "quote": "By convention, d = .20 indicates a small effect and d = .50 indicates a medium-sized effect []."
+    },
+    {
+      "id": "limit_measures",
+      "kind": "limitation",
+      "label": "Few outcomes measured",
+      "value": "our limited outcome measures",
+      "quote": "We recommend future research also overcome several limitations of this study, including our limited outcome measures, measurement exclusively after 5 nights of SR (as opposed to examining change as sleep debt accumulates), small sample, and lack of assessment of participants’ activity level."
+    },
+    {
+      "id": "limit_after_five",
+      "kind": "limitation",
+      "label": "Measured only after five nights, not as the sleep debt built",
+      "value": "measurement exclusively after 5 nights of SR",
+      "quote": "We recommend future research also overcome several limitations of this study, including our limited outcome measures, measurement exclusively after 5 nights of SR (as opposed to examining change as sleep debt accumulates), small sample, and lack of assessment of participants’ activity level."
+    },
+    {
+      "id": "limit_small",
+      "kind": "limitation",
+      "label": "Small sample",
+      "value": "small sample",
+      "quote": "We recommend future research also overcome several limitations of this study, including our limited outcome measures, measurement exclusively after 5 nights of SR (as opposed to examining change as sleep debt accumulates), small sample, and lack of assessment of participants’ activity level."
+    },
+    {
+      "id": "limit_activity",
+      "kind": "limitation",
+      "label": "Physical activity was not measured",
+      "value": "lack of assessment of participants’ activity level",
+      "quote": "We recommend future research also overcome several limitations of this study, including our limited outcome measures, measurement exclusively after 5 nights of SR (as opposed to examining change as sleep debt accumulates), small sample, and lack of assessment of participants’ activity level."
+    },
+    {
+      "id": "limit_menstrual",
+      "kind": "limitation",
+      "label": "The menstrual cycle was not taken into account",
+      "value": "our study did not take into account female menstrual cycle",
+      "quote": "Additionally, our study did not take into account female menstrual cycle; while sleep timing and composition show relatively little fluctuation across the menstrual cycle in healthy women [], increases in caloric and macronutrient intake have been found during the midluteal phase []."
+    },
+    {
+      "id": "limit_washout",
+      "kind": "limitation",
+      "label": "Short two-day wash-out between conditions",
+      "value": "relatively short “washout” period (2 days)",
+      "quote": "Our study also used a relatively short “washout” period (2 days), though it is reassuring to note that we found no evidence of carryover effects across conditions, and similar experimental work has found that 2 days is sufficient to eliminate the effects of partial sleep restriction on dietary intake in adults []."
+    },
+    {
+      "id": "limit_hunger_measure",
+      "kind": "limitation",
+      "label": "Hunger was only self-rated",
+      "value": "more sensitive measurements of hunger integrating both subjective and physiological measures would be helpful",
+      "quote": "Lastly, more sensitive measurements of hunger integrating both subjective and physiological measures would be helpful."
+    },
+    {
+      "id": "limit_future",
+      "kind": "limitation",
+      "label": "The findings need repeating before acting on them",
+      "value": "If future research corroborates present findings",
+      "quote": "If future research corroborates present findings, the potential public health impact could be impressive."
+    }
+  ],
+  "coverage": {
+    "conditions": [
+      "sr_in_bed",
+      "hs_in_bed",
+      "bedtime_moved",
+      "same_wake",
+      "baseline_week",
+      "washout",
+      "no_naps_caffeine",
+      "at_home",
+      "saturday_visits",
+      "photo_sets",
+      "rating_scale",
+      "hunger_scale"
+    ],
+    "dosing": [
+      "five_nights",
+      "three_weeks",
+      "sleep_sr",
+      "sleep_hs",
+      "limit_after_five"
+    ],
+    "confounds": [
+      "limit_menstrual",
+      "limit_activity",
+      "limit_washout",
+      "no_carryover",
+      "crossover_protects",
+      "dislikers_removed",
+      "diet_exploratory",
+      "outliers_removed",
+      "dropped_7"
+    ],
+    "priorEvidence": [
+      "prior_teens",
+      "prior_effects",
+      "adult_cravings",
+      "adult_brain",
+      "adult_intake",
+      "short_sleep_obesity",
+      "washout_adults"
+    ],
+    "furtherInvestigation": [
+      "limit_future",
+      "limit_hunger_measure",
+      "other_mechanisms",
+      "limit_measures"
+    ],
+    "funding": [
+      "funding",
+      "funder_no_role",
+      "no_competing"
+    ]
+  }
+}

@@ -15,7 +15,7 @@ import { assemble, shortCite } from "./assemble";
 import { approved, checkConcept, conceptFingerprint, isReviewed, type Concept } from "./concepts";
 import { gate } from "./gate";
 import { BANNED_TERMS, SENTENCE_WORDS, THROAT_CLEARING, lint, type ContextStudyState, type LintContext } from "./lint";
-import { HALF_LIFE_STUDY, REAL_CONCEPTS, REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
+import { HALF_LIFE_STUDY, REAL_COMMON, REAL_CONCEPTS, REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
 import { FIGURE_KEYS } from "../content/figures";
 import { parseRef } from "./refs";
 import { parseRetractionWatch, screenSources } from "./retractions";
@@ -58,7 +58,7 @@ const reviewed = (concept: Concept) => checkConcept(approved(concept, "2026-11-1
 
 function contextWith(change: Partial<LintContext> = {}): LintContext {
   // The real half-life study and library ride along: the caffeine read's simulator draws on them.
-  return { studies: { [OTHER]: study() }, concepts: { ...REAL_CONCEPTS, "non-rem-sleep": reviewed(conceptFile) }, ...change };
+  return { studies: { [OTHER]: study() }, common: REAL_COMMON, concepts: { ...REAL_CONCEPTS, "non-rem-sleep": reviewed(conceptFile) }, ...change };
 }
 function layered(): any {
   const base = Object.fromEntries(Object.entries(clone(handBuilt)).filter(([key]) => !["sections", "limitations", "figure", "layers", "glossary", "sketches", "protocolFigure"].includes(key)));
@@ -112,7 +112,8 @@ describe("a read cites { source, fact }", () => {
   it("passes when the source is gated and the fact exists", () => {
     const { errors, report } = run(cite(GOOD));
     expect(errors).toEqual([]);
-    expect(report.context).toEqual({ studies: [OTHER], concepts: ["non-rem-sleep"], unreviewed: [] });
+    // caffeine-tolerance is the deck's sketch: unreviewed, it holds up the deck, not the read.
+    expect(report.context).toEqual({ studies: [OTHER], concepts: ["caffeine-tolerance", "non-rem-sleep"], unreviewed: [] });
   });
   it("GATE: fails on a missing fact", () => {
     expect(run(cite(`Another study counted steps. [${OTHER}/no_such_fact]`)).errors)
@@ -249,11 +250,11 @@ describe("what reaches the page", () => {
 });
 
 describe("a simulator drawn by kind (the caffeine read as it is built)", () => {
-  const real = assemble(validated, realEditorial, { studies: REAL_STUDIES, concepts: REAL_CONCEPTS, library: REAL_LIBRARY });
+  const real = assemble(validated, realEditorial, { studies: REAL_STUDIES, concepts: REAL_CONCEPTS, common: REAL_COMMON, library: REAL_LIBRARY });
   it("passes the lint with the real half-life study and library, and fails without the library", () => {
     const options = { figures: FIGURE_KEYS };
-    expect(lint(validated, realEditorial, source, { ...options, context: { studies: REAL_STUDIES, concepts: REAL_CONCEPTS, library: REAL_LIBRARY } }).errors).toEqual([]);
-    expect(lint(validated, realEditorial, source, { ...options, context: { studies: REAL_STUDIES, concepts: REAL_CONCEPTS } }).errors.map((e) => e.where))
+    expect(lint(validated, realEditorial, source, { ...options, context: { studies: REAL_STUDIES, concepts: REAL_CONCEPTS, common: REAL_COMMON, library: REAL_LIBRARY } }).errors).toEqual([]);
+    expect(lint(validated, realEditorial, source, { ...options, context: { studies: REAL_STUDIES, concepts: REAL_CONCEPTS, common: REAL_COMMON } }).errors.map((e) => e.where))
       .toEqual(["simulator.spec.simulator.halfLife"]);
   });
   it("resolves the spec to the gated fact, lists the study for the audit, and keeps the words with their refs", () => {
@@ -306,7 +307,7 @@ describe("background concepts", () => {
     expect(run((e) => { e.glossary[0].concept = "no-such-concept"; }).errors)
       .toEqual(expect.arrayContaining([expect.stringContaining('context glossary[0]: cites "concept:no-such-concept", but there is no content/concepts/no-such-concept.json')]));
     const failing = checkConcept({ ...conceptFile, plain: "Stages N1 to N3 of sleep." }, RULES);
-    expect(run(() => {}, contextWith({ concepts: { "non-rem-sleep": failing } })).errors)
+    expect(run(() => {}, contextWith({ concepts: { ...REAL_CONCEPTS, "non-rem-sleep": failing } })).errors)
       .toEqual(expect.arrayContaining([expect.stringContaining('context glossary[0]: cites "concept:non-rem-sleep", but that concept fails its own checks (plain: a concept carries no numbers')]));
   });
   it("GATE: a glossary entry written in the read must say which fact it rests on", () => {
@@ -323,7 +324,7 @@ describe("background concepts", () => {
   });
 
   describe("the owner's review", () => {
-    const unreviewed = contextWith({ concepts: { "non-rem-sleep": checkConcept(conceptFile, RULES) } });
+    const unreviewed = contextWith({ concepts: { ...REAL_CONCEPTS, "non-rem-sleep": checkConcept(conceptFile, RULES) } });
     it("BUILD: a published read that uses an unreviewed concept is refused", () => {
       const { errors } = run((e) => { e.publishedAt = "2026-11-13T00:00:00Z"; }, unreviewed);
       expect(errors).toEqual([expect.stringContaining('context concept:non-rem-sleep: the concept "non-rem-sleep" has not been reviewed by the owner (npm run paper -- approve-concept non-rem-sleep); a published read cannot use it')]);
@@ -346,7 +347,7 @@ describe("background concepts", () => {
       const reworded = { ...approved(conceptFile, "2026-11-13"), plain: "The dreamless stages of sleep." };
       expect(isReviewed(reworded)).toBe(false);
       expect(conceptFingerprint(reworded)).not.toBe(conceptFingerprint(conceptFile));
-      const { errors } = run((e) => { e.publishedAt = "2026-11-13T00:00:00Z"; }, contextWith({ concepts: { "non-rem-sleep": checkConcept(reworded, RULES) } }));
+      const { errors } = run((e) => { e.publishedAt = "2026-11-13T00:00:00Z"; }, contextWith({ concepts: { ...REAL_CONCEPTS, "non-rem-sleep": checkConcept(reworded, RULES) } }));
       expect(errors).toEqual([expect.stringContaining("has not been reviewed by the owner")]);
     });
   });

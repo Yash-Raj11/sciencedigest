@@ -30,14 +30,26 @@ Rules:
 9. Fact ids are lower_snake_case and unique.`;
 
 export function extractPrompt(input: { meta: unknown; source: string; exampleExtraction: string }): string {
-  return `EXAMPLE OUTPUT (a different paper; copy the shape, not the content):
+  const { stable, rest } = extractPromptParts(input);
+  return stable + rest;
+}
+
+/**
+ * The extract prompt in two pieces: `stable` (the worked example, the same for every paper, so a
+ * provider can cache it) and `rest`. `stable + rest` is the whole prompt, character for character.
+ */
+export function extractPromptParts(input: { meta: unknown; source: string; exampleExtraction: string }): { stable: string; rest: string } {
+  return {
+    stable: `EXAMPLE OUTPUT (a different paper; copy the shape, not the content):
 ${input.exampleExtraction}
 
-REPOSITORY METADATA FOR THE PAPER TO EXTRACT (use for identifiers and license):
+`,
+    rest: `REPOSITORY METADATA FOR THE PAPER TO EXTRACT (use for identifiers and license):
 ${JSON.stringify(input.meta, null, 2)}
 
 FULL TEXT OF THE PAPER TO EXTRACT:
-${input.source}`;
+${input.source}`,
+  };
 }
 
 /**
@@ -99,7 +111,17 @@ Rules (a program checks every one and rejects the draft if any is broken):
   - If no kind fits (none offers a simulator, or the only ones are ANOTHER STUDY ONLY and this read is about something else), use {"kind": "estimate-explorer", "params": {"lowLabel": "...", "highLabel": "...", "rows": [{"label": "...", "fact": "fact:<id>"}]}} with 2 to 8 estimate facts worth comparing. Never make up a personal estimate: a simulator exists only where a listed fact has a range.
   - glance.figure may be "simulator" only for a simulator drawn by kind.
   - words.alt describes in one sentence what the chart shows. Every word in "words" is markup and follows every rule above.
-- carousel: 5 to 8 slides for Instagram (kinds: hook, finding, population, limitation, nuance, cta). It must include a population slide and a limitation slide. The same markup and rules apply.
+- carousel: 6 to 8 slides for Instagram that tell one story: the common belief, what the study found, why, who it applies to, how sure we can be, then try it. The order is hook, finding, why, who, receipts, cta; each appears once except finding, which may repeat in place. At most 25 words in a slide's heading and body together, at most 24 drawn in its art, at most 6 in any label, row or list entry. The same markup and rules apply to every word, the art's words too.
+  - Write for someone who has never seen the paper. Say what a number means in daily life, not only the dose: "150 mg, about a cup and a half of coffee", never "150 mg three times a day" alone.
+  - hook: the question people actually ask, set against the common advice, and what the study did. No caveat, no hedge. art: {"motif": "day", "start": "<markup>", "end": "<markup>", "marks": [{"at": {"n": <number>, "ref": "<fact id>", "unit": "min" | "h"}, "label": "<markup>"}, up to 4], "tail": {"length": {"n", "ref", "unit"}, "label": "<markup>"}} for a schedule across a waking day (each time is a number in its cited passage), or {"motif": "number", "value": {"text": "<the exact characters of the passage>", "ref": "<fact id>"}, "unit": "<markup, optional>", "label": "<markup>"}, or {"motif": "pair", "a": {"value", "unit", "label"}, "b": {...}}.
+  - finding: the plain result as the heading, absolute numbers (H5). art: {"motif": "verdicts", "rows": [{"label": "<markup>", "verdict": "no-clear-difference" | "lower" | "higher", "fact": "fact:<id>"}, up to 4]}, or "number" or "pair" as above. A verdict must say what its fact says: "no clear difference" only where the interval includes no difference or the paper says no difference was clear; "lower" or "higher" only where the interval is wholly on that side or the paper uses that word. Never "same".
+  - why: the mechanism in one picture, and the deck's mechanism layer (H9, H10): the plain picture first, the technical name after it in brackets, and no caveat. art (optional): {"motif": "parking-spot" | "two-piles" | "ledger" | "ramp" | "doorbell", "kind": "measured" | "proposed", "fact": "fact:<id>", "labels": [up to 3 markup labels, 28 characters each]}: measured cites an estimate or a finding, proposed cites the authors' sentence. Labels go in the motif's order (parking-spot: the bay, the turned-away car, the blocked arrow; two-piles: the fat pile, the other pile, above between the arrows; ledger: food in, energy out, the page; ramp: the drop, the level stretch, the floor; doorbell: what presses, the bell, the ring). Where the paper reports a curve that falls and then levels off, a plateau chart on the paper's own axis: {"motif": "plateau", "kind": "measured" | "proposed", "fact": "fact:<id>", "y": "<markup: what the curve measures>", "axis": "<markup: what the axis counts>", "from": {"n": <axis start>, "ref": "<fact id>"}, "to": {"n": <axis end>, "ref": "<fact id>"}, "levels": {"from": {"n": ..., "ref": ...}, "to": {"n": ..., "ref": ...}, "label": "<markup>"}}: every number is in its cited passage, the axis runs in whole steps, and the levelling stretch sits inside it; the curve's height is shape only and the slide says so. Where the paper measured nothing to draw, a sketch: {"motif": "sketch", "shape": "shrink", "concept": "<concept slug>", "a": "<markup>", "b": "<markup>", "caption": "<markup>"}, a shape only, citing only the concept, with no digit anywhere in it.
+  - who: a heading on whether it applies to the reader; no body needed. art: {"motif": "who", "tested": ["<markup>", up to 4], "notTested": ["<markup>", up to 4]}; every entry cites a fact of this paper (H3).
+  - receipts: heading only, no body. art: {"motif": "checks", "strong": "<markup>", "weak": "<markup>", "missing": "<markup>" | null}. weak cites a limitation fact (H6). The design, who took part and the headline result's 95% range bar are printed from the gate; the bar's numbers count toward the art's 24 words.
+  - cta: points to the read's interactive part on the web app; no art (it redraws the hook's day when there is one).
+  - altHooks: 1 to 3 other opening slides, so the owner can choose the opening: [{"name": "<a short name for the owner, never drawn>", "kind": "hook", "heading": ..., "body": ..., "art": ...}]. Each opens from a genuinely different angle (the headline number, the shape of the result, a common question the paper answers), not a rewording of the hook, and follows every hook rule above. A plateau chart may open a deck too: the same "plateau" art as the why slide.
+  - On every slide (no glossary there, H9): a technical word comes after its plain picture, in brackets: "sleepiness locks (adenosine receptors)".
+  - Common knowledge: a fact any adult knows that makes a number mean something (how much caffeine a cup of coffee holds) may be cited on the deck only, as [common:<slug>], and only if content/common/<slug>.json exists. Its numbers are the only numbers it lets a sentence print. Never cite it in the read, and never write a common fact yourself: propose one for the owner to review.
 - publishedAt must be null. A person approves the draft.`;
 
 /**
@@ -128,10 +150,18 @@ ${Object.values(KIND_GUIDE).join("\n")}`;
  * from it, and the lint checks the spec it writes.
  */
 export function editorialPrompt(input: { slug: string; validated: unknown; exampleEditorial: string; kinds: string; context: string }): string {
-  return `EXAMPLE OUTPUT (a different paper; copy the shape, not the content):
+  const { stable, rest } = editorialPromptParts(input);
+  return stable + rest;
+}
+
+/** The draft prompt in two pieces, as extractPromptParts: the worked example, then the rest. */
+export function editorialPromptParts(input: { slug: string; validated: unknown; exampleEditorial: string; kinds: string; context: string }): { stable: string; rest: string } {
+  return {
+    stable: `EXAMPLE OUTPUT (a different paper; copy the shape, not the content):
 ${input.exampleEditorial}
 
-SLUG TO USE: ${input.slug}
+`,
+    rest: `SLUG TO USE: ${input.slug}
 
 VALIDATED FACTS FOR THE PAPER TO WRITE ABOUT:
 ${JSON.stringify(input.validated, null, 2)}
@@ -140,5 +170,6 @@ OTHER SOURCES YOU MAY CITE (by these ids only; from lib/pipeline/propose.ts cont
 ${input.context}
 
 FIGURE KINDS AVAILABLE (worked out from these facts; pick the simulator from this list only):
-${input.kinds}`;
+${input.kinds}`,
+  };
 }

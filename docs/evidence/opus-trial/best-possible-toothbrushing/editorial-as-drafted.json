@@ -1,0 +1,324 @@
+{
+  "slug": "best-possible-toothbrushing",
+  "category": "Teeth",
+  "accessTier": "free",
+  "publishedAt": null,
+  "title": "Brushing as well as you can, once: what a dentist found on 91 students [limit_one_event, limit_n91, limit_students]",
+  "teaser": "In a trial, 111 students were told either to brush as thoroughly as they could or to brush as usual. [randomized_111, instruction_bp, instruction_au] The best-effort group brushed for nearly a minute longer. [nearly_one_minute] Plaque left along the gumline showed no clear difference between the groups. [plaque_after_ns] Both groups thought their teeth were about twice as clean as they were. [overestimate_twofold]",
+  "hook": "After brushing as well as they could, students left plaque on most of their gumline. [under_40_clean] Less than 40% of it was free of plaque, but they thought 70% was. [under_40_clean, bp_thought_70]",
+  "populationTerms": [
+    "students",
+    "participants",
+    "people",
+    "brushers"
+  ],
+  "populationPanel": "Who was studied: university students in Giessen aged 18 to 35. [limit_students, inclusion_age] All mainly used a manual toothbrush. [inclusion_manual_brush] A drawn lot gave each of 111 students one of two instructions before brushing once. [randomization_lots, randomized_111, limit_one_event] People with braces, dentures, a recent professional cleaning or dental training could not take part. [exclusion_criteria]",
+  "primaryEstimate": "plaque_after_ns",
+  "card": {
+    "question": "Does brushing as well as you can leave your gumline cleaner? [instruction_bp, plaque_after_ns]",
+    "headline": "Plaque along the gumline showed no clear difference from brushing as usual. [plaque_after_ns]",
+    "support": "The best-effort group brushed nearly a minute longer, mostly on the outer surfaces. [nearly_one_minute, extra_time_outer]"
+  },
+  "source": {
+    "who": "91 students aged 18 to 35 [limit_n91, inclusion_age, limit_students]",
+    "span": "one filmed brushing session each [limit_one_event, camera_mirror]"
+  },
+  "glance": {
+    "figure": "clean-gap",
+    "x": "Share of the gumline free of plaque [-]",
+    "alt": "Two bars for the best-effort group: the gumline they believed was clean, and the much smaller part the dentists found clean. [bp_thought_70, under_40_clean]",
+    "note": "Drawn from the paper’s own measurements. [-]",
+    "tryIt": "compare where each group spent its brushing time [-]"
+  },
+  "layers": {
+    "mechanism": {
+      "paragraphs": [
+        "Plaque is a sticky film that builds up on teeth between brushings. [-] The film left along the gumline is one important cause of gum disease. [marginal_plaque_cause] More than half of adults have that disease. [prevalence]",
+        "So a dentist’s idea of clean is strict: every bit of film gone, gumline included. [spoc_dentist_standard] The authors think most people brush to remove the plaque others can see. [social_motive]",
+        "This trial asked what happens when you tell people to try harder. [instruction_bp] Students told to brush as thoroughly as they could brushed nearly a minute longer. [instruction_bp, nearly_one_minute] Most of the extra time went to the outer surfaces. [extra_time_outer]",
+        "How they brushed showed no clear difference. [shares_ns] About two-thirds in both groups skipped at least one section of the mouth. [missed_a_sextant] About one in ten never brushed their inner surfaces at all. [inner_never_brushed] Side-to-side scrubbing, which dentists discourage, was as common in the best-effort group. [horizontal_not_reduced]",
+        "Afterwards, plaque along the gumline showed no clear difference between the groups. [plaque_after_ns] Less than 40% of the gumline came out free of plaque. [under_40_clean] Between the teeth, plaque stayed on 80% of the gumline sections. [proximal_80]",
+        "The gap is one people cannot see. [not_aware] The best-effort group believed 70% of their gumline was clean. [bp_thought_70] Both groups rated their teeth about twice as clean as the dentists found. [overestimate_twofold] The authors read this as trying harder meaning more time, not reaching more of the teeth. [quantity_not_quality]"
+      ],
+      "figure": {
+        "figure": "clean-gap",
+        "caption": "The best-effort group, right after brushing, as the paper measured it. [under_40_clean, bp_thought_70]",
+        "alt": "Two bars on a scale of the whole gumline. [bp_thought_70, under_40_clean] The top bar, what the best-effort group believed was clean, reaches 70%. [bp_thought_70] The bottom bar, what the dentists found free of plaque, stops below 40%. [under_40_clean]",
+        "params": {
+          "title": "Believed clean, found clean",
+          "unit": "Share of the gumline free of plaque",
+          "none": "None",
+          "all": "All of it",
+          "believed": {
+            "label": "What they believed",
+            "kind": "measured",
+            "fact": "fact:bp_thought_70",
+            "value": {
+              "n": 70,
+              "ref": "bp_thought_70"
+            }
+          },
+          "found": {
+            "label": "What the dentists found",
+            "kind": "measured",
+            "fact": "fact:under_40_clean",
+            "value": {
+              "n": 40,
+              "ref": "under_40_clean"
+            },
+            "below": true
+          }
+        }
+      }
+    },
+    "protocol": {
+      "paragraphs": [
+        "Each student came twice, two weeks apart, and cleaned nothing for at least four hours before. [visits_two_weeks, no_hygiene_4h] At the second visit, a drawn lot gave the instruction. [plaque_second_visit, randomization_lots] It was either brush as thoroughly as you can so your teeth are completely clean, or brush as usual. [instruction_bp, instruction_au]",
+        "Everyone got the same manual toothbrush and toothpaste, with floss and small between-teeth brushes on the table. [standard_brush, devices_available] A tablet camera served as the mirror and filmed the brushing. [camera_mirror] A red film on its screen hid the plaque dye. [stain_hidden] Dentists who did not know the instruction scored plaque before and right after brushing. [blinding, plaque_twice]"
+      ],
+      "figure": null
+    },
+    "audit": {
+      "effect": "Gumline plaque after brushing, best effort against as usual: no clear difference (t89 = 1.045; p = 0.149; d = 0.22). [plaque_after_ns]",
+      "weakEnd": "The paper reports no confidence interval for this result, only the test above. [plaque_after_ns] The authors add that every unclear difference was far smaller than the study could have detected. [nonsig_far_below]",
+      "limitations": [
+        "Only university students took part, so the result may not hold for others. [limit_students]",
+        "It was one brushing session, so nobody knows what trying harder for weeks would do. [limit_one_event, limit_longer_period]",
+        "The as-usual group may have tried harder than at home to meet what they thought was expected. [limit_au_norms, limit_au_longer]",
+        "Only 91 could be analysed, short of the 102 the study planned for. [limit_n91, power_calculation]",
+        "The trial was registered only after the data were collected. [registration_retrospective]"
+      ],
+      "missed": "Two-thirds of the best-effort group cleaned between their teeth, against one-quarter of the as-usual group. [interdental_share] That showed no clear sign of a cleaner gumline between the teeth. [interdental_no_benefit] Only 4 people in each group flossed correctly. [floss_correct]",
+      "more": [
+        "The best-effort group felt cleaner: they rated their teeth cleaner than the as-usual group did (t88 = 2.548; p = 0.006; d = 0.54). [felt_cleaner]",
+        "Total brushing time differed (t89 = -2.700; p = 0.008; d = -0.57), mainly on the outer surfaces (p = 0.003). [time_total, time_outer]",
+        "On the outer surfaces the plaque differences were medium-sized, d = 0.37 and d = 0.46, but not clear. [outer_effect_sizes, limit_coronal]",
+        "Extreme values removed 15 of the 106 who finished. [excluded_15, finished_106]",
+        "The as-usual group had more decayed, missing or filled teeth; leaving out the five with the most did not change the direction of the results. [dmft_imbalance, dmft_sensitivity]",
+        "Paid for from an author’s institutional budget; no conflicts of interest declared. [funding, no_conflicts]"
+      ],
+      "figure": null
+    }
+  },
+  "glossary": [
+    {
+      "term": "plaque dye",
+      "plain": "A dye painted on the teeth that colours plaque, so the dentists could see and score it.",
+      "refs": [
+        "disclosing_agent"
+      ]
+    },
+    {
+      "term": "inner surfaces",
+      "plain": "The sides of the teeth that face the tongue.",
+      "refs": [
+        "time_inner_ns"
+      ]
+    }
+  ],
+  "takeaways": [
+    "Told to brush their best, students brushed nearly a minute longer, mostly on the outer surfaces. [nearly_one_minute, extra_time_outer]",
+    "Plaque along the gumline afterwards showed no clear difference from brushing as usual. [plaque_after_ns]",
+    "The authors suggest teaching which surfaces to reach and showing people what they miss; the trial did not test that. [emphasize_quality]"
+  ],
+  "choices": [],
+  "steps": [
+    {
+      "key": "brush-inner-surfaces",
+      "label": "Brush the inner surfaces too",
+      "detail": "About one in ten people in this trial never brushed the sides that face the tongue. The trial did not test this step, so it carries no weight. A tick records that you brushed them.",
+      "kind": "action",
+      "refs": [
+        "inner_never_brushed"
+      ]
+    },
+    {
+      "key": "reach-every-section",
+      "label": "Reach every section of your mouth",
+      "detail": "About two-thirds of both groups skipped at least one section. The trial did not test this step, so it carries no weight.",
+      "kind": "action",
+      "refs": [
+        "missed_a_sextant"
+      ]
+    },
+    {
+      "key": "floss-to-gumline",
+      "label": "Clean between your teeth",
+      "detail": "Only 4 people in each group flossed correctly. The trial did not test this step, so it carries no weight.",
+      "kind": "action",
+      "refs": [
+        "floss_correct"
+      ]
+    }
+  ],
+  "simulator": {
+    "kind": "estimate-explorer",
+    "params": {
+      "lowLabel": "Less of the brushing time",
+      "highLabel": "More of the brushing time",
+      "rows": [
+        {
+          "label": "Chewing surfaces, as usual (%)",
+          "fact": "fact:share_occlusal_au"
+        },
+        {
+          "label": "Chewing surfaces, best effort (%)",
+          "fact": "fact:share_occlusal_bp"
+        },
+        {
+          "label": "Outer surfaces, as usual (%)",
+          "fact": "fact:share_outer_au"
+        },
+        {
+          "label": "Outer surfaces, best effort (%)",
+          "fact": "fact:share_outer_bp"
+        },
+        {
+          "label": "Inner surfaces, as usual (%)",
+          "fact": "fact:share_inner_au"
+        },
+        {
+          "label": "Inner surfaces, best effort (%)",
+          "fact": "fact:share_inner_bp"
+        }
+      ]
+    }
+  },
+  "carousel": {
+    "slides": [
+      {
+        "kind": "hook",
+        "heading": "Does trying your best at the sink get teeth cleaner? [-]",
+        "body": "Students brushed as thoroughly as they could, or as usual, then dentists checked. [instruction_bp, instruction_au, plaque_twice]",
+        "art": {
+          "motif": "pair",
+          "a": {
+            "value": {
+              "text": "70%",
+              "ref": "bp_thought_70"
+            },
+            "label": "of the gumline they thought was clean [bp_thought_70]"
+          },
+          "b": {
+            "value": {
+              "text": "40%",
+              "ref": "under_40_clean"
+            },
+            "label": "less than this was free of plaque [under_40_clean]"
+          }
+        }
+      },
+      {
+        "kind": "finding",
+        "heading": "Longer brushing, no clearly cleaner gumline. [nearly_one_minute, plaque_after_ns]",
+        "body": "Trying hard added nearly a minute, mostly on the outer surfaces. [nearly_one_minute, extra_time_outer]",
+        "art": {
+          "motif": "verdicts",
+          "rows": [
+            {
+              "label": "Gumline plaque [-]",
+              "verdict": "no-clear-difference",
+              "fact": "fact:plaque_after_ns"
+            },
+            {
+              "label": "Brushing time [-]",
+              "verdict": "higher",
+              "fact": "fact:nearly_one_minute"
+            },
+            {
+              "label": "Cleaned between teeth [-]",
+              "verdict": "higher",
+              "fact": "fact:interdental_use"
+            },
+            {
+              "label": "Felt clean [-]",
+              "verdict": "higher",
+              "fact": "fact:felt_cleaner"
+            }
+          ]
+        }
+      },
+      {
+        "kind": "why",
+        "heading": "More time, same blind spots. [quantity_not_quality]",
+        "body": "Two-thirds skipped a section of the mouth (sextant). [missed_a_sextant] One in ten never brushed the tongue side. [inner_never_brushed]",
+        "art": null
+      },
+      {
+        "kind": "who",
+        "heading": "Tested on students, after one brushing. [limit_students, limit_one_event]",
+        "body": null,
+        "art": {
+          "motif": "who",
+          "tested": [
+            "91 students aged 18 to 35 [limit_n91, inclusion_age]",
+            "Mainly manual toothbrush users [inclusion_manual_brush]",
+            "One filmed brushing session [limit_one_event]"
+          ],
+          "notTested": [
+            "Braces or dentures [exclusion_criteria]",
+            "Dental or medical training [exclusion_criteria]",
+            "People who are not students [limit_students]",
+            "Weeks of extra effort [limit_longer_period]"
+          ]
+        }
+      },
+      {
+        "kind": "receipts",
+        "heading": "How sure can we be? [-]",
+        "body": null,
+        "art": {
+          "motif": "checks",
+          "strong": "Instruction set by lot; dentists did not know which. [randomization_lots, blinding]",
+          "weak": "One session, students only. [limit_one_event, limit_students]",
+          "missing": "Weeks of trying harder: not studied. [limit_longer_period]"
+        }
+      },
+      {
+        "kind": "cta",
+        "heading": "Where does your brushing time go? [-]",
+        "body": "Compare how each group split its time between surfaces. [shares_ns]",
+        "art": null
+      }
+    ],
+    "altHooks": [
+      {
+        "name": "The flossing",
+        "kind": "hook",
+        "heading": "How many people floss the way dentists mean? [-]",
+        "body": "In a filmed trial, this many in each group got it right. [floss_correct]",
+        "art": {
+          "motif": "number",
+          "value": {
+            "text": "4",
+            "ref": "floss_correct"
+          },
+          "unit": "people [-]",
+          "label": "flossed correctly, in each group [floss_correct]"
+        }
+      },
+      {
+        "name": "The gaps between teeth",
+        "kind": "hook",
+        "heading": "Does brushing your best clean between your teeth? [-]",
+        "body": "After students brushed as thoroughly as they could, plaque stayed on this share of the gumline between teeth. [instruction_bp, proximal_80]",
+        "art": {
+          "motif": "number",
+          "value": {
+            "text": "80%",
+            "ref": "proximal_80"
+          },
+          "label": "of between-teeth gumline sections kept plaque [proximal_80]"
+        }
+      }
+    ],
+    "caption": "A randomized trial of 111 university students told to brush as well as they could, or as usual. [randomized_111, limit_students, instruction_bp, instruction_au] The best-effort group brushed nearly a minute longer. [nearly_one_minute] Plaque along the gumline afterwards showed no clear difference. [plaque_after_ns] Both groups thought their teeth were about twice as clean as the dentists found. [overestimate_twofold] One brushing session, students only. [limit_one_event, limit_students] Full read and the brushing-time explorer: link in bio. [-]",
+    "hashtags": [
+      "oralhealth",
+      "dentalcare",
+      "toothbrushing",
+      "evidencebased",
+      "clinicaltrial"
+    ]
+  }
+}

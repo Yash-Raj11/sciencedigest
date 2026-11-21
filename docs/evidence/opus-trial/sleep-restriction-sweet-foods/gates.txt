@@ -1,0 +1,3 @@
+gate ok: 97 facts verified
+  warning: no estimate with a confidence interval was extracted; the read must say the paper reports none (H5)
+grade: undefined design: crossover

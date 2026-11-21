@@ -1,0 +1,10 @@
+{
+  "term": "caffeine tolerance",
+  "plain": "When someone takes caffeine every day, the body adjusts to it. The same dose then disturbs sleep less than it did in the first days.",
+  "model": "A loud neighbour you stop hearing after a week. The noise is still there; you have got used to it.",
+  "reference": {
+    "doi": "10.1038/s41598-021-84088-x",
+    "title": "The impact of daily caffeine intake on nighttime sleep in young adult men"
+  },
+  "reviewed_by_owner": false
+}

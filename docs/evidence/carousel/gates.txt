@@ -1,0 +1,35 @@
+# Gates for 4B, 2026-11-19 (raw output, trimmed to the result lines)
+
+## npm run lint && npm run typecheck && npm test && npm run build
+> sciencedigest@0.1.0 lint
+> eslint
+> sciencedigest@0.1.0 typecheck
+> tsc --noEmit
+> sciencedigest@0.1.0 test
+> vitest run
+ Test Files  54 passed (54)
+      Tests  798 passed (798)
+> sciencedigest@0.1.0 build
+> npm run content:check && next build
+> sciencedigest@0.1.0 content:check
+> tsx scripts/content-build.mts --check --quiet
+✓ Compiled successfully in 2.4s
+├ ○ /api/admin/carousel
+├ ƒ /api/admin/queue
+
+## npm run test:http
+ Test Files  2 passed (2)
+      Tests  16 passed (16)
+
+## npm run test:browser
+
+  108 passed (48.8s)
+exit 0
+
+## npm run carousel:export
+daytime-caffeine-sleep: 7 slides → docs/evidence/carousel/daytime-caffeine-sleep/
+hiit-body-composition: 7 slides → docs/evidence/carousel/hiit-body-composition/
+sleep-extension-energy-intake: 7 slides → docs/evidence/carousel/sleep-extension-energy-intake/
+steps-days-per-week: 7 slides → docs/evidence/carousel/steps-days-per-week/
+turmeric-pepper-breakfast: 7 slides → docs/evidence/carousel/turmeric-pepper-breakfast/
+5 deck(s), 0 missing glyphs, 0 Satori rule problems.

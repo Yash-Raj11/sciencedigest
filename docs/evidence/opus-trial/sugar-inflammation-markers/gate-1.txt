@@ -1,0 +1,5 @@
+GATE REJECTED (4)
+  - fact md_fru_glu: a ci95 spread repeats ciLow/ciHigh; give the interval once
+  - fact grade_fru_glu: grade must be high, moderate or low
+  - fact md_hfcs_suc: a ci95 spread repeats ciLow/ciHigh; give the interval once
+  - fact grade_hfcs_suc: grade must be high, moderate or low

@@ -1,0 +1,19 @@
+best-possible-toothbrushing (draft, not in the app)
+  gate   ok: 116 facts verified against the source, licence CC-BY, design rct
+    warning: no estimate with a confidence interval was extracted; the read must say the paper reports none (H5)
+  lint   ok: 721 words
+    mechanism 232 words, 20 sentences, average 11.6, longest 16
+    protocol  115 words, 8 sentences, average 14.4, longest 20
+
+> sciencedigest@0.1.0 lint
+> eslint
+
+> sciencedigest@0.1.0 typecheck
+> tsc --noEmit
+
+ Test Files  57 passed (57)
+      Tests  857 passed (857)
+○  (Static)             prerendered as static content
+◐  (Partial Prerender)  prerendered as static HTML with dynamic server-streamed content
+ƒ  (Dynamic)            server-rendered on demand
+

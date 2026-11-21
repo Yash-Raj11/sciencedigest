@@ -12,7 +12,7 @@ import { EVIDENCE_KEY, FIGURE_KEYS, assertEvidence, evidenceKindProblem, evidenc
 import { assemble } from "./assemble";
 import { approved, checkConcept } from "./concepts";
 import { gate } from "./gate";
-import { REAL_CONCEPTS, REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
+import { REAL_COMMON, REAL_CONCEPTS, REAL_LIBRARY, REAL_STUDIES } from "./fixtures/real-context";
 import { BANNED_TERMS, SENTENCE_WORDS, THROAT_CLEARING, lint, type LintContext } from "./lint";
 
 const dir = new URL("../../content/papers/daytime-caffeine-sleep/", import.meta.url);
@@ -29,6 +29,7 @@ const context: LintContext = {
   // The real half-life study and library: caffeine's simulator draws on them.
   studies: { ...REAL_STUDIES },
   library: REAL_LIBRARY,
+  common: REAL_COMMON,
   concepts: { ...REAL_CONCEPTS,
     "non-rem-sleep": checkConcept(approved(fixture.concepts["non-rem-sleep"], "2026-11-13T00:00:00Z"),
       { banned: BANNED_TERMS, throatClearing: THROAT_CLEARING, maxSentenceWords: SENTENCE_WORDS.fail }),

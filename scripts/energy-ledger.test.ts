@@ -17,7 +17,7 @@ import { ledgerScale } from "../components/figures/ledger-layout";
 import { FigureFor } from "../components/papers/registry";
 import type { FigureRef, ResolvedFact } from "../lib/content/types";
 import { assemble } from "../lib/pipeline/assemble";
-import { REAL_CONCEPTS, REAL_LIBRARY, REAL_STUDIES } from "../lib/pipeline/fixtures/real-context";
+import { REAL_COMMON, REAL_CONCEPTS, REAL_LIBRARY, REAL_STUDIES } from "../lib/pipeline/fixtures/real-context";
 import { gate } from "../lib/pipeline/gate";
 
 const SLUG = "sleep-extension-energy-intake";
@@ -25,7 +25,7 @@ const dir = `content/papers/${SLUG}`;
 const gated = gate(JSON.parse(readFileSync(`${dir}/extraction.json`, "utf8")), readFileSync(`${dir}/source.txt`, "utf8"));
 if (!gated.ok) throw new Error("the sleep extraction no longer passes the gate");
 const editorial = JSON.parse(readFileSync(`${dir}/editorial.json`, "utf8"));
-const paper = assemble(gated.validated, editorial, { studies: REAL_STUDIES, concepts: REAL_CONCEPTS, library: REAL_LIBRARY });
+const paper = assemble(gated.validated, editorial, { studies: REAL_STUDIES, concepts: REAL_CONCEPTS, common: REAL_COMMON, library: REAL_LIBRARY });
 const figure = paper.content.layers!.mechanism.figure!;
 const render = (params = figure.params, glance?: { x: string | null; y: string | null }) =>
   renderToStaticMarkup(createElement(FigureFor, { slug: SLUG, figure: { ...figure, params } as FigureRef, glance }));

@@ -1,0 +1,326 @@
+{
+  "slug": "time-restricted-eating-healthy",
+  "category": "Nutrition",
+  "accessTier": "free",
+  "publishedAt": "2026-11-21T08:49:44.642Z",
+  "title": "Same 8 hours, different clock: what changed in 82 adults over five weeks [etrf_window, mtrf_window, analysed_82, five_weeks]",
+  "teaser": "A trial gave healthy adults an 8-hour eating window early in the day, a window at mid-day, or no window. [etrf_window, mtrf_window, control_diet] Both window groups ate less than before. [ei_groups_differ] The amount they ate showed no clear difference between the two windows. [ei_tr_ns] Only the early group's insulin resistance fell more than the other groups'. [homa_etrf_better]",
+  "hook": "Two groups ate within the same 8 hours a day, and both ate less than before. [etrf_window, mtrf_window, ei_groups_differ] Only the group that ate between 6:00 and 15:00 saw its insulin resistance fall clearly. [etrf_choose, homa_etrf_better]",
+  "populationTerms": [
+    "adults",
+    "participants",
+    "people",
+    "volunteers"
+  ],
+  "populationPanel": "Who was studied: 82 healthy adults aged 18 to 64 in Beijing, none with obesity. [analysed_82, inclusion_age, recruitment, inclusion_bmi] Most were women. [limit_selfselected] All usually ate over more than 8 hours a day. [habit_over_8h] A computer's random numbers put each into one of three groups for five weeks. [randomization, five_weeks] People with diabetes, high blood pressure, night shifts or recent fasting could not take part. [exclusion_criteria, exclusion_nightshift]",
+  "primaryEstimate": "homa_etrf_better",
+  "card": {
+    "question": "Does an early eating window lower insulin resistance more than a mid-day one? [homa_etrf_better]",
+    "headline": "Insulin resistance fell more with an early window than with a mid-day window. [homa_etrf_better]",
+    "support": "Both windows lasted 8 hours, and food eaten showed no clear difference between them. [etrf_window, ei_tr_ns]"
+  },
+  "source": {
+    "who": "82 healthy adults aged 18 to 64 [analysed_82, inclusion_age]",
+    "span": "five weeks of eating windows [five_weeks]"
+  },
+  "glance": {
+    "figure": "eating-windows",
+    "x": "Time of day [-]",
+    "alt": "Three groups, each with a day strip showing when it could eat and a bar for its change in insulin resistance. [etrf_window, mtrf_window, homa_etrf, homa_mtrf, homa_ctrl]",
+    "note": "Drawn from the paper’s own measurements. [-]",
+    "tryIt": "compare each group's weight change [-]"
+  },
+  "layers": {
+    "mechanism": {
+      "paragraphs": [
+        "After you eat, sugar passes into the blood, and the body moves it into muscle and other cells. [concept:post-meal-blood-sugar] This trial scored how much insulin the body needs to hold morning blood sugar steady, a measure called insulin resistance (HOMA-IR). [primary_outcome] A higher score means the body works harder to do the same job. [primary_outcome]",
+        "Time-restricted eating fits all food into a set number of hours a day. [trf_definition] Here, two groups had the same 8 hours to eat. [etrf_window, mtrf_window] One picked its hours between 6:00 and 15:00, the other between 11:00 and 20:00. [etrf_choose, mtrf_choose] Neither got a diet. [eat_freely]",
+        "Both window groups ate less than before, by 240 and 159 kcal a day. [ei_etrf, ei_mtrf] The control group ate 64 kcal a day more. [ei_ctrl] Between the two windows, food eaten showed no clear difference. [ei_tr_ns]",
+        "Yet only the early window moved insulin resistance clearly. [homa_etrf_better] The score changed by −1.08 in the early group, +0.39 in the mid-day group and −0.05 in the control group. [homa_etrf, homa_mtrf, homa_ctrl]",
+        "The early group also lost weight: 1.6 kg on average, against a 0.3 kg gain in the control group. [mass_etrf_vs_ctrl, mass_etrf, mass_ctrl] Its fat mass fell by 0.76 kg. [fat_etrf_vs_ctrl, fatmass_etrf]",
+        "The authors read this as a timing effect, since food eaten showed no clear difference between the windows. [not_energy, ei_tr_ns] They suggest the body's daily rhythms may play a part. [rhythm_hypothesis]"
+      ],
+      "figure": {
+        "figure": "eating-windows",
+        "caption": "Each group's eating hours and its change in insulin resistance after five weeks, as the paper measured it. [etrf_window, mtrf_window, five_weeks]",
+        "alt": "Three rows, one per group, each with a day strip and a bar. [etrf_window, mtrf_window, control_diet] The early group's window sits between 6:00 and 15:00, and its bar falls by 1.08. [etrf_choose, homa_etrf] The mid-day group's window sits between 11:00 and 20:00, and its bar rises by 0.39. [mtrf_choose, homa_mtrf] The control group has no window, and its bar barely moves, at 0.05 below no change. [control_diet, homa_ctrl]",
+        "params": {
+          "title": "When they ate, and what happened to insulin resistance",
+          "day": "Time of day",
+          "change": "Change in insulin resistance (HOMA-IR)",
+          "less": "Lower",
+          "noChange": "No change",
+          "more": "Higher",
+          "anyTime": "No window: ate as usual",
+          "groups": [
+            {
+              "label": "Early window",
+              "from": {
+                "n": 6,
+                "ref": "etrf_choose"
+              },
+              "to": {
+                "n": 15,
+                "ref": "etrf_choose"
+              },
+              "change": {
+                "kind": "measured",
+                "fact": "fact:homa_etrf"
+              }
+            },
+            {
+              "label": "Mid-day window",
+              "from": {
+                "n": 11,
+                "ref": "mtrf_choose"
+              },
+              "to": {
+                "n": 20,
+                "ref": "mtrf_choose"
+              },
+              "change": {
+                "kind": "measured",
+                "fact": "fact:homa_mtrf"
+              }
+            },
+            {
+              "label": "Control",
+              "change": {
+                "kind": "measured",
+                "fact": "fact:homa_ctrl"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "protocol": {
+      "paragraphs": [
+        "For five weeks, the early group ate within any 8 hours between 6:00 and 15:00. [five_weeks, etrf_choose] The mid-day group did the same between 11:00 and 20:00. [mtrf_choose] The control group ate as usual, over more than 8 hours a day. [control_usual]",
+        "Outside the window, only water, flavoured sparkling water, unsweetened tea and coffee were allowed. [fasting_drinks] Nobody got a diet or food advice. [eat_freely] Everyone photographed each meal as they started and finished. [photo_compliance] Blood was taken in the morning after at least 8 hours without food. [fasting_blood]"
+      ],
+      "figure": null
+    },
+    "audit": {
+      "effect": "Change in insulin resistance (HOMA-IR) over five weeks: −1.08 early, against +0.39 mid-day (p < 0.001) and −0.05 control (p = 0.002). [homa_etrf_better, homa_etrf, homa_vs_mtrf_p, homa_vs_ctrl_p]",
+      "weakEnd": "The paper reports no confidence interval for these changes, and does not say what its ± figures are. [homa_etrf_better, homa_etrf] So the true difference's size is unknown. [-]",
+      "limitations": [
+        "Participants knew their group, as did the researchers who estimated food from photos. [limit_unblinded, photo_checkers_unblinded]",
+        "Volunteers may have been keen on this way of eating already, and most were women. [limit_selfselected]",
+        "The trial was small and lasted 5 weeks. [limit_small, limit_five_weeks]",
+        "Meal times varied within each group, and so may the fast before the blood tests. [limit_timing_varied, limit_fast_before_test]"
+      ],
+      "missed": "Mid-day eating showed no clear difference from usual eating on insulin resistance, fasting blood sugar, weight or fat. [homa_mtrf_ns, fpg_mtrf_ns, mass_others_ns, fat_mtrf_ns] Food came from meal photos; the eight who did not finish were excluded. [energy_from_photos, dropouts_excluded]",
+      "more": [
+        "Fasting blood sugar changed by −0.59 mmol/L early and +0.16 with usual eating (p = 0.005); fat mass by −0.76 and +0.41 kg (p = 0.001). [fpg_etrf_vs_ctrl, fpg_etrf, fpg_ctrl, fat_etrf_vs_ctrl, fatmass_etrf, fatmass_ctrl]",
+        "Two inflammation signals changed more with early eating than usual eating: TNF-α (p = 0.024) and IL-8 (p = 0.045). [tnf_etrf_vs_ctrl, il8_etrf_vs_ctrl] A third, hsCRP, showed no clear difference (p = 0.70). [hscrp_ns]",
+        "Blood pressure, blood fats, sleep and appetite showed no clear difference. [bp_ns, lipids_ns, sleep_ns, appetite_ns]",
+        "Exploratory, in 19 people, five of them early eaters: the hunger hormone ghrelin was higher at 23:00 with early eating. [rhythm_subset, ghrelin_23, ghrelin_hunger] One body-clock gene swung more each day in all five. [sirt1_amplitude, clock_exploratory]",
+        "82 finished (91.1%); self-reported days kept in the window: 96.8% and 98.2%. [analysed_82, completed_82, compliance, compliance_mtrf]",
+        "No serious side effects were reported. [no_serious_ae]",
+        "Funded by a CAMS innovation grant, which had no role; no competing interests. [funding, sponsor_no_role, no_competing]"
+      ],
+      "figure": null
+    }
+  },
+  "glossary": [
+    {
+      "term": "insulin resistance",
+      "plain": "How much insulin the body needs to hold fasting blood sugar steady. More insulin for the same sugar means more resistance.",
+      "refs": [
+        "primary_outcome"
+      ]
+    },
+    {
+      "term": "HOMA-IR",
+      "plain": "A score for insulin resistance worked out from a morning blood test of sugar and insulin.",
+      "refs": [
+        "primary_outcome"
+      ]
+    },
+    {
+      "term": "time-restricted eating",
+      "plain": "Eating all of the day's food inside a set number of hours.",
+      "refs": [
+        "trf_definition"
+      ]
+    },
+    {
+      "term": "kcal",
+      "plain": "Kilocalories, the unit of food energy that labels usually just call calories.",
+      "refs": [
+        "ei_etrf"
+      ]
+    }
+  ],
+  "takeaways": [
+    "Eating within 8 hours between 6:00 and 15:00, adults' insulin resistance fell more than with a mid-day window. [etrf_choose, homa_etrf_better]",
+    "Both windows cut food eaten by amounts that showed no clear difference. [ei_groups_differ, ei_tr_ns]",
+    "The trial was small and short, and participants knew their group. [limit_small, limit_unblinded]"
+  ],
+  "choices": [],
+  "steps": [
+    {
+      "key": "eat-6-to-15",
+      "label": "Eat only within 8 hours between 6:00 and 15:00",
+      "detail": "The early group's rule in this trial. A tick records that you kept the window, not any change in your blood.",
+      "kind": "action",
+      "refs": [
+        "etrf_choose"
+      ],
+      "evidenceRef": "homa_etrf_better"
+    },
+    {
+      "key": "plain-drinks-outside",
+      "label": "Outside the window: water, plain tea or coffee only",
+      "detail": "The trial allowed water, flavoured sparkling water, unsweetened tea and coffee outside the window. It was part of the rules, not tested on its own, so it carries no weight.",
+      "kind": "action",
+      "refs": [
+        "fasting_drinks"
+      ]
+    }
+  ],
+  "simulator": {
+    "kind": "estimate-explorer",
+    "params": {
+      "lowLabel": "Lost weight",
+      "highLabel": "Gained weight",
+      "rows": [
+        {
+          "label": "Early window (kg)",
+          "fact": "fact:mass_etrf"
+        },
+        {
+          "label": "Mid-day window (kg)",
+          "fact": "fact:mass_mtrf"
+        },
+        {
+          "label": "Control, usual eating (kg)",
+          "fact": "fact:mass_ctrl"
+        }
+      ]
+    }
+  },
+  "carousel": {
+    "slides": [
+      {
+        "kind": "hook",
+        "heading": "Does it matter when you eat, within the same 8 hours? [etrf_window, mtrf_window]",
+        "body": "Adults ate early, at mid-day, or as usual, for five weeks. [etrf_window, mtrf_window, control_diet, five_weeks]",
+        "art": {
+          "motif": "pair",
+          "a": {
+            "value": {
+              "text": "15:00",
+              "ref": "etrf_choose"
+            },
+            "label": "Early window: last bite by [etrf_choose]"
+          },
+          "b": {
+            "value": {
+              "text": "20:00",
+              "ref": "mtrf_choose"
+            },
+            "label": "Mid-day window: last bite by [mtrf_choose]"
+          }
+        }
+      },
+      {
+        "kind": "finding",
+        "heading": "In these adults, only the early window clearly lowered insulin resistance. [homa_etrf_better]",
+        "body": "Both window groups ate less, by amounts with no clear difference. [ei_tr_ns]",
+        "art": {
+          "motif": "verdicts",
+          "rows": [
+            {
+              "label": "Insulin resistance, early vs mid-day [-]",
+              "verdict": "lower",
+              "fact": "fact:homa_etrf_better"
+            },
+            {
+              "label": "Insulin resistance, mid-day vs usual [-]",
+              "verdict": "no-clear-difference",
+              "fact": "fact:homa_mtrf_ns"
+            },
+            {
+              "label": "Weight, early vs usual [-]",
+              "verdict": "lower",
+              "fact": "fact:mass_etrf_vs_ctrl"
+            },
+            {
+              "label": "Food eaten, early vs mid-day [-]",
+              "verdict": "no-clear-difference",
+              "fact": "fact:ei_tr_ns"
+            }
+          ]
+        }
+      },
+      {
+        "kind": "why",
+        "heading": "Same hours of eating, a different time of day. [etrf_window, mtrf_window]",
+        "body": "The authors suggest the body's daily rhythms (circadian clock) may play a part. [rhythm_hypothesis]",
+        "art": null
+      },
+      {
+        "kind": "who",
+        "heading": "Tested in healthy adults, for five weeks. [five_weeks]",
+        "body": null,
+        "art": {
+          "motif": "who",
+          "tested": [
+            "82 adults aged 18 to 64 [analysed_82, inclusion_age]",
+            "Without obesity [inclusion_bmi]",
+            "Mostly women [limit_selfselected]"
+          ],
+          "notTested": [
+            "Night-shift workers [exclusion_nightshift]",
+            "Diabetes or high blood pressure [exclusion_criteria]",
+            "Longer than five weeks [limit_five_weeks]"
+          ]
+        }
+      },
+      {
+        "kind": "receipts",
+        "heading": "How sure can we be? [-]",
+        "body": null,
+        "art": {
+          "motif": "checks",
+          "strong": "Groups set by chance; outcome measurers blinded. [randomization, assessors_blinded]",
+          "weak": "Small, short, and participants knew their group. [limit_small, limit_unblinded]",
+          "missing": "Why timing matters: not shown. [rhythm_hypothesis]"
+        }
+      },
+      {
+        "kind": "cta",
+        "heading": "When is your last bite of the day? [-]",
+        "body": "Compare each group's weight change after five weeks. [mass_etrf, mass_mtrf, mass_ctrl, five_weeks]",
+        "art": null
+      }
+    ],
+    "altHooks": [
+      {
+        "name": "The weight",
+        "kind": "hook",
+        "heading": "Can eating earlier in the day change your weight? [-]",
+        "body": "Healthy adults ate between 6:00 and 15:00 for five weeks. [etrf_choose, five_weeks]",
+        "art": {
+          "motif": "number",
+          "value": {
+            "text": "1.6",
+            "ref": "mass_etrf"
+          },
+          "unit": "kg [-]",
+          "label": "average weight lost, early window [mass_etrf]"
+        }
+      }
+    ],
+    "caption": "A randomized trial of 82 healthy adults over five weeks. [analysed_82, five_weeks] One group ate within 8 hours between 6:00 and 15:00, another between 11:00 and 20:00, a third as usual. [etrf_choose, mtrf_choose, control_usual] Only the early group's insulin resistance fell more than the other groups'. [homa_etrf_better] Both window groups ate less, with no clear difference between them. [ei_tr_ns] Small, short, and participants knew their group. [limit_small, limit_unblinded] Full read and the weight explorer: link in bio. [-]",
+    "hashtags": [
+      "nutrition",
+      "intermittentfasting",
+      "metabolism",
+      "evidencebased",
+      "clinicaltrial"
+    ]
+  }
+}

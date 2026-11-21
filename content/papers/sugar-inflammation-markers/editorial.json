@@ -1,0 +1,263 @@
+{
+  "slug": "sugar-inflammation-markers",
+  "category": "Nutrition",
+  "accessTier": "free",
+  "publishedAt": "2026-11-21T11:19:24.340Z",
+  "title": "Fructose or glucose: what pooled trials found for an inflammation marker [fru_glu_ns]",
+  "teaser": "Researchers have suggested fructose may fan inflammation more than other sugars. [hypothesis] A review pooled trials that gave people fructose or the same calories of glucose. [six_matched] CRP, a blood marker of inflammation, showed no clear difference. [fru_glu_ns] The certainty is low. [grade_fru_glu]",
+  "hook": "The liver has to handle fructose, and some of it can become fat. [fructose_liver, no_brake] Yet pooled trials found no clear difference in CRP, a blood marker of inflammation, between fructose and glucose. [fru_glu_ns]",
+  "populationTerms": [
+    "people",
+    "participants",
+    "adults",
+    "adolescents"
+  ],
+  "populationPanel": "Who was tested: 1141 people aged 11 to 72, across 13 controlled trials. [total_1141, ages, studies_13] They were healthy, overweight or obese, with or without diseases in which inflammation is not a main feature. [inclusion_people] The fructose-against-glucose result pooled 6 trials with 403 people. [fru_glu_n] The review left out people with major inflammatory diseases, such as arthritis. [excluded_inflammatory] Trials lasted 2 weeks to 3 months. [durations]",
+  "primaryEstimate": "md_fru_glu",
+  "card": {
+    "question": "Does fructose fan inflammation more than glucose? [hypothesis]",
+    "headline": "Pooled trials found no clear difference in CRP, a blood marker of inflammation. [md_fru_glu]",
+    "support": "The certainty is low: few trials, and wide ranges. [grade_fru_glu, grade_reasons]"
+  },
+  "source": {
+    "who": "1141 people in 13 trials [total_1141, studies_13]",
+    "span": "2 weeks to 3 months of sugar each [durations]"
+  },
+  "glance": {
+    "figure": "crp-gaps",
+    "x": "Difference in CRP [-]",
+    "alt": "Two bands, one for each pair of sugars; both cross the line for no difference. [md_fru_glu, md_hfcs_suc, md_zero]",
+    "note": "Drawn from the paper’s own pooled results. [-]",
+    "tryIt": "see how wide each pooled range is [-]"
+  },
+  "layers": {
+    "mechanism": {
+      "paragraphs": [
+        "Picture two fuels that look alike. [-] Any cell in the body can burn glucose. [fructose_liver] Fructose has to go to the liver first. [fructose_liver]",
+        "In the liver, nothing caps how much fructose comes in. [no_brake] Some of it becomes a building block for fat. [no_brake] Researchers call this making of new fat de novo lipogenesis. [liver_fat_making]",
+        "The theory goes one step further. [-] By-products of that new fat may set off inflammation, the body's alarm response. [lipotoxicity] One sign of it is CRP, a blood protein used as a marker of inflammation. [crp_protein]",
+        "So the review asked a sharp question. [-] Does fructose raise CRP more than the same calories of glucose? [six_matched] Pooled across trials, the answer was no clear difference. [fru_glu_ns] High-fructose corn syrup against table sugar showed no clear difference either. [hfcs_suc_ns]",
+        "The authors offer two reasons a gap may not show. [-] Fructose barely spikes blood sugar, which may spare it some inflammation. [low_gi] And very large sugar doses may inflame through sheer calories, hiding any difference between sugars. [overload]"
+      ],
+      "figure": null
+    },
+    "protocol": {
+      "paragraphs": [
+        "What the pooled trials tested: fructose against the same calories of glucose. [six_matched] Fructose doses ran from 17 to 217 g a day, for 2 weeks to 3 months. [fructose_doses, durations]",
+        "The review gives no advice on how much sugar to eat. [-] The limit the authors cite is the WHO's: at most 10% of daily energy from free sugars. [who_limit] This review did not test that limit. [-]"
+      ],
+      "figure": null
+    },
+    "audit": {
+      "effect": "CRP, fructose against glucose: a pooled difference of −0.03 mg/L (p = 0.90), from 6 trials and 403 people. [md_fru_glu, fru_glu_p, fru_glu_n]",
+      "weakEnd": "The 95% range runs from −0.52 to 0.46 mg/L. [md_fru_glu] So the true difference could sit on either side of zero. [md_fru_glu] The certainty is low: more trials will likely change the estimate. [grade_fru_glu, grade_meaning]",
+      "limitations": [
+        "Only CRP had enough trials to pool, and some comparisons had few trials. [limit_crp_only, limit_heterogeneity]",
+        "Trials lasted two weeks to three months, so they say nothing about years of eating. [limit_duration, limit_years]",
+        "The two largest trials did not say how they randomized, lost about a quarter of people, and had industry ties. [limit_two_largest, limit_industry]",
+        "Very large doses may hide differences between sugars. [limit_big_doses]"
+      ],
+      "missed": "The review took in controlled trials, not only randomized ones. [controlled_trials] Most trials did not account for weight change, a possible link between sugar and inflammation. [limit_weight, weight_mediator]",
+      "more": [
+        "Corn syrup against table sugar: 0.21 mg/L (range −0.11 to 0.53, p = 0.19), 3 trials, 677 people, certainty low. [md_hfcs_suc, hfcs_suc_p, hfcs_suc_n, grade_hfcs_suc]",
+        "Inconsistency between trials: 44% and 0%; above 50% counts as substantial. [fru_glu_i2, hfcs_suc_i2, i2_meaning]",
+        "Of the six matched trials, two reported a difference on one marker each; the overall picture was inconsistent. [two_of_six, inconsistent]",
+        "IL-6, MCP-1 and the other markers had too few trials to pool; no trial reported IL-18 or IL-1RA. [others_not_pooled, no_il18]",
+        "Studies that only watched people link sugary drinks with CRP; the authors cannot say if their result agrees. [observational_ssb, cannot_compare]",
+        "Funded by German ministries. [funding] One author sits on an ILSI Europe expert group and a carbohydrate consortium. [coi_buyken]"
+      ],
+      "figure": {
+        "figure": "crp-gaps",
+        "caption": "Each band is the 95% range of a pooled difference in CRP. [md_fru_glu, md_hfcs_suc] Both cross the line for no difference. [fru_glu_ns, hfcs_suc_ns]",
+        "alt": "Two rows. [-] Fructose against glucose: −0.03 mg/L, range −0.52 to 0.46. [md_fru_glu] Corn syrup against table sugar: 0.21 mg/L, range −0.11 to 0.53. [md_hfcs_suc] Both ranges cross zero, the line for no difference. [md_zero]",
+        "params": {
+          "title": "CRP: the first sugar minus the second",
+          "baseline": "No difference",
+          "unitWords": "Difference in CRP, mg/L",
+          "trialsWord": "trials",
+          "peopleWord": "people",
+          "rows": [
+            {
+              "lead": "Fructose against glucose",
+              "fact": "fact:md_fru_glu",
+              "trials": {
+                "n": 6,
+                "ref": "fru_glu_n"
+              },
+              "people": {
+                "n": 403,
+                "ref": "fru_glu_n"
+              }
+            },
+            {
+              "lead": "Corn syrup against table sugar",
+              "fact": "fact:md_hfcs_suc",
+              "trials": {
+                "n": 3,
+                "ref": "hfcs_suc_n"
+              },
+              "people": {
+                "n": 677,
+                "ref": "hfcs_suc_n"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "glossary": [
+    {
+      "term": "CRP",
+      "plain": "C-reactive protein: a blood protein used as a marker of inflammation.",
+      "refs": [
+        "crp_protein"
+      ]
+    },
+    {
+      "term": "de novo lipogenesis",
+      "plain": "The liver making new fat from sugar.",
+      "refs": [
+        "liver_fat_making"
+      ]
+    }
+  ],
+  "takeaways": [
+    "Pooled trials found no clear difference in CRP between fructose and the same calories of glucose. [fru_glu_ns, six_matched]",
+    "Corn syrup against table sugar: no clear difference either. [hfcs_suc_ns]",
+    "Certainty is low, and the review could pool only CRP. [grade_fru_glu, limit_crp_only]"
+  ],
+  "choices": [],
+  "steps": [
+    {
+      "key": "free-sugars-under-10",
+      "label": "Keep free sugars under 10% of the day's calories",
+      "detail": "The WHO limit the authors cite. This review did not test it, so it carries no weight.",
+      "kind": "action",
+      "refs": [
+        "who_limit"
+      ]
+    }
+  ],
+  "simulator": {
+    "kind": "estimate-explorer",
+    "params": {
+      "lowLabel": "Lower CRP with the first sugar",
+      "highLabel": "Higher CRP with the first sugar",
+      "rows": [
+        {
+          "label": "Fructose against glucose (mg/L)",
+          "fact": "fact:md_fru_glu"
+        },
+        {
+          "label": "Corn syrup against table sugar (mg/L)",
+          "fact": "fact:md_hfcs_suc"
+        }
+      ]
+    }
+  },
+  "carousel": {
+    "slides": [
+      {
+        "kind": "hook",
+        "heading": "Does fructose fan inflammation more than other sugars? [hypothesis]",
+        "body": "A review pooled trials that gave people fructose or the same calories of glucose. [six_matched]",
+        "art": {
+          "motif": "number",
+          "value": {
+            "text": "13",
+            "ref": "studies_13"
+          },
+          "unit": "trials [-]",
+          "label": "1141 people, pooled [total_1141]"
+        }
+      },
+      {
+        "kind": "finding",
+        "heading": "Fructose and glucose: no clear difference in CRP. [fru_glu_ns]",
+        "body": "CRP is a blood protein used as a marker of inflammation. [crp_protein]",
+        "art": {
+          "motif": "verdicts",
+          "rows": [
+            {
+              "label": "Fructose vs glucose [-]",
+              "verdict": "no-clear-difference",
+              "fact": "fact:fru_glu_ns"
+            },
+            {
+              "label": "Corn syrup vs table sugar [-]",
+              "verdict": "no-clear-difference",
+              "fact": "fact:hfcs_suc_ns"
+            }
+          ]
+        }
+      },
+      {
+        "kind": "why",
+        "heading": "Fructose goes to the liver, where some can become fat. [fructose_liver, no_brake]",
+        "body": "The theory: by-products of that fat may set off inflammation (lipotoxicity). [lipotoxicity]",
+        "art": null
+      },
+      {
+        "kind": "who",
+        "heading": "Tested in 13 controlled trials. [studies_13]",
+        "body": null,
+        "art": {
+          "motif": "who",
+          "tested": [
+            "1141 people aged 11 to 72 [total_1141, ages]",
+            "Healthy, overweight or obese [inclusion_people]",
+            "Often very large doses [limit_big_doses]"
+          ],
+          "notTested": [
+            "Major inflammatory diseases [excluded_inflammatory]",
+            "Years of sugar [limit_years]",
+            "Markers other than CRP [limit_crp_only]"
+          ]
+        }
+      },
+      {
+        "kind": "receipts",
+        "heading": "How sure can we be? [-]",
+        "body": null,
+        "art": {
+          "motif": "checks",
+          "strong": "Every trial had a control group; review registered first. [controlled_trials, registered]",
+          "weak": "Low certainty: few trials, wide ranges. [grade_fru_glu, limit_heterogeneity]",
+          "missing": "Long trials at everyday doses. [limit_future]"
+        }
+      },
+      {
+        "kind": "cta",
+        "heading": "Where does your sugar come from? [-]",
+        "body": "See how wide each pooled range is. [md_fru_glu, md_hfcs_suc]",
+        "art": null
+      }
+    ],
+    "altHooks": [
+      {
+        "name": "The liver",
+        "kind": "hook",
+        "heading": "Does fructose inflame more than glucose? [-]",
+        "body": "Any cell can burn glucose; fructose has to go to the liver. [fructose_liver]",
+        "art": {
+          "motif": "number",
+          "value": {
+            "text": "403",
+            "ref": "fru_glu_n"
+          },
+          "unit": "people [-]",
+          "label": "in the fructose-against-glucose trials [fru_glu_n]"
+        }
+      }
+    ],
+    "caption": "A review pooled 13 controlled trials with 1141 people. [studies_13, total_1141] CRP, a blood marker of inflammation, showed no clear difference between fructose and glucose. [fru_glu_ns] Corn syrup against table sugar: no clear difference either. [hfcs_suc_ns] Certainty is low: few trials, short ones, often at very large doses. [grade_fru_glu, limit_heterogeneity, limit_big_doses] Full read and the range explorer: link in bio. [-]",
+    "hashtags": [
+      "nutrition",
+      "sugar",
+      "inflammation",
+      "evidencebased",
+      "metaanalysis"
+    ]
+  }
+}

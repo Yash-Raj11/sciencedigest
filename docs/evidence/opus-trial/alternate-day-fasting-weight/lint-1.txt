@@ -1,0 +1,178 @@
+
+> sciencedigest@0.1.0 content:build
+> tsx scripts/content-build.mts
+
+
+context studies (content/context/)
+  caffeine-saliva-half-life: gate ok (role context): 87 facts (5 excluded from use), licence CC-BY, design crossover, grade low
+
+background concepts (content/concepts/)
+  adenosine: ok, reviewed by the owner
+  caffeine-tolerance: ok, NOT REVIEWED (a draft read, or a deck held at the queue; npm run paper -- approve-concept caffeine-tolerance)
+  fat-free-mass: ok, reviewed by the owner
+  glucagon-like-peptide: ok, reviewed by the owner
+  post-meal-blood-sugar: ok, reviewed by the owner
+
+common knowledge (content/common/)
+  coffee-cup-caffeine: ok, NOT REVIEWED (a deck that uses it cannot be approved; npm run paper -- approve-common coffee-cup-caffeine)
+
+fact library (content/library.json)
+  caffeine-half-life: caffeine-saliva-half-life/half_life_caffeine, approved by the owner on 2026-11-14
+
+alternate-day-fasting-weight (draft, not in the app)
+  gate   ok: 80 facts verified against the source, licence CC-BY, design rct
+    warning: no estimate with a confidence interval was extracted; the read must say the paper reports none (H5)
+  LINT FAILED (12): reported, not built
+    - [one-claim] teaser: one clause cites 2 results (feed_w12, ctrl_w12); give each its own clause and marker, so no claim joins two facts: "On free days, they ate about what the control group ate."
+    - [orphan] layers.mechanism[1]: 12 not found in the cited passage(s) [feed_w12, fast_w12]: "At week 12, a free day held 1856 kcal and a fast day 489."
+    - [orphan] layers.mechanism.figure.caption: 12 not found in the cited passage(s) [feed_w12, fast_w12, ctrl_w12]: "Each bar is the group's average food for that kind of day at week 12, from food records."
+    - [orphan] layers.protocol[0]: 0, 14, 0 not found in the cited passage(s) [twelve_weeks, meal_kcal, meal_window]: "The tested plan, for 12 weeks: on a fast day, one meal of 400 to 600 kcal, eaten between 12:00 and 14:00."
+    - [orphan] layers.audit.missed: 12 not found in the cited passage(s) [adiponectin_up, leptin_down, adiponectin_w12_p, leptin_w12_p]: "Adiponectin and leptin are the reverse (week 12: p = 0.15 and 0.55)."
+    - [orphan] layers.audit.more[4]: 32 not found in the cited passage(s) [randomized_32, completed_30, one_dropout_diet]: "32 randomized, 30 finished; one left because they could not keep to the diet."
+    - [orphan] carousel.altHooks[0].heading: a sentence with a number must cite a fact: "What do 12 weeks of every-other-day fasting do?"
+    - [plain] layers.audit.more[2]: "fell" says which way it went, but no cited fact states a direction; say "differed", or cite the fact that says it: "Total cholesterol and blood pressure fell within the fasting group, with no clear difference from controls."
+    - [plain] facts.crp_change_p.label: a p-value in a fact's label, which shows outside the Receipts: "CRP: the change test also gave p = 0.01"
+    - [H7] steps.fast-day-meal-midday: 0, 14, 0 not found in the cited passage(s)
+    - [figure] layers.mechanism.figure: unknown figure "alternate-day-fasting-weight/fast-days"; it is not listed in lib/content/figures.ts
+    - [H7] layers.mechanism.figure.params.title: "Food eaten per day, week 12" carries a number; in a figure use { n, ref } or { text, ref } so it traces to the paper
+
+best-possible-toothbrushing
+  gate   ok: 116 facts verified against the source, licence CC-BY, design rct
+    warning: no estimate with a confidence interval was extracted; the read must say the paper reports none (H5)
+  lint   ok: 721 words
+    mechanism 232 words, 20 sentences, average 11.6, longest 16
+    protocol  115 words, 8 sentences, average 14.4, longest 20
+    audit     245 words, 18 sentences, average 13.6, longest 18
+    warning: [H5] primaryEstimate: the headline result has no confidence interval; check the read says what that leaves unknown
+    warning: [H11] populationPanel: possibly passive ("was studied"); say who did it if you can: "Who was studied: university students in Giessen aged 18 to 35."
+    warning: [H11] layers.mechanism[3]: possibly passive ("is generally discouraged"); say who did it if you can: "Side-to-side scrubbing, which is generally discouraged, showed no clear difference between the groups."
+    warning: [H11] layers.protocol[0]: possibly passive ("was scored"); say who did it if you can: "They brushed at both visits; plaque after brushing was scored at the second."
+  steps  brush-inner-surfaces=none, reach-every-section=none, floss-to-gumline=none
+
+daytime-caffeine-sleep
+  gate   ok: 32 facts verified against the source, licence CC-BY, design crossover
+    warning: no estimate with a confidence interval was extracted; the read must say the paper reports none (H5)
+  lint   ok: 646 words
+    mechanism 169 words, 17 sentences, average 9.9, longest 21
+    protocol  129 words, 11 sentences, average 11.7, longest 20
+    audit     227 words, 18 sentences, average 12.6, longest 20
+    context   1 other study (caffeine-saliva-half-life), 2 background concepts (adenosine, caffeine-tolerance)
+    warning: [H5] primaryEstimate: the headline result has no confidence interval; check the read says what that leaves unknown
+    warning: [H11] populationPanel: a sentence of 24 words; aim for 22 or fewer: "Who was studied: twenty healthy men aged 18 to 35 who already had 300 to 600 mg of caffeine a day and slept well."
+    warning: [H11] populationPanel: possibly passive ("was studied"); say who did it if you can: "Who was studied: twenty healthy men aged 18 to 35 who already had 300 to 600 mg of caffeine a day and slept well."
+    warning: [H11] glance.alt: a sentence of 28 words; aim for 22 or fewer: "Two dotted lines from waking to bed: sleep pressure keeps rising, and how tired you feel runs below it after the first dose, a gap called hidden tiredness."
+    warning: [H11] glance.tryIt: possibly passive ("is left"); say who did it if you can: "how much is left at your bedtime"
+    warning: [H11] simulator.words.alt: possibly passive ("is left"); say who did it if you can: "A falling curve shows how much of a dose of caffeine is left in the hours after you take it."
+    warning: [H11] layers.mechanism.figure.alt: possibly passive ("are drawn"); say who did it if you can: "How many tokens are drawn means nothing; they are a sketch, not data."
+    warning: [H11] layers.protocol.figure.alt: possibly passive ("is drawn"); say who did it if you can: "Nothing is drawn after bed."
+    warning: [carousel] common:coffee-cup-caffeine: the deck uses common:coffee-cup-caffeine, which the owner has not reviewed; the queue will not approve the deck until it is
+    warning: [carousel] concept:caffeine-tolerance: the deck uses concept:caffeine-tolerance, which the owner has not reviewed; the queue will not approve the deck until it is
+  steps  last-caffeine-8h=low, regular-bedtime=none
+
+hiit-body-composition
+  gate   ok: 59 facts verified against the source, licence CC-BY, design meta_analysis_rct
+  lint   ok: 614 words
+    mechanism 133 words, 13 sentences, average 10.2, longest 21
+    protocol  116 words, 11 sentences, average 10.5, longest 21
+    audit     246 words, 18 sentences, average 13.7, longest 22
+    context   0 other studies, 1 background concept (fat-free-mass)
+    warning: [H11] teaser: possibly passive ("is graded"); say who did it if you can: "The fat result is graded low certainty."
+    warning: [H11] teaser: possibly passive ("is graded"); say who did it if you can: "The lean-mass result is graded high, and it hangs on a single trial."
+    warning: [H11] hook: possibly passive ("is sold"); say who did it if you can: "Interval training is sold on fat loss."
+    warning: [H11] hook: possibly passive ("be trusted"); say who did it if you can: "Pool the trials, rate how far each result can be trusted, and the order flips."
+    warning: [H11] populationPanel: possibly passive ("was studied"); say who did it if you can: "Who was studied: 1,130 adults with a mean age of 26.27 years, across thirty-six randomized trials lasting 3 to 15 weeks."
+    warning: [H11] populationPanel: possibly passive ("were left"); say who did it if you can: "Children, teenagers and people with a known disease were left out."
+    warning: [H11] glance.alt: possibly passive ("is usually sold"); say who did it if you can: "Beside them, the order it is usually sold in, fat loss first."
+    warning: [H11] layers.mechanism.figure.alt: a sentence of 25 words; aim for 22 or fewer: "Two panels, before and after 3 to 15 weeks of training, each with a standing outline beside two stacked blocks: fat below, everything else above."
+    warning: [H11] layers.mechanism.figure.alt: possibly passive ("is marked"); say who did it if you can: "After training, the fat block is marked less, on average, and the other block a little more, on average."
+    warning: [H11] layers.mechanism.figure.alt: possibly passive ("are drawn"); say who did it if you can: "The blocks are drawn the same size in both panels, because the paper gives no sizes."
+    warning: [H11] layers.mechanism.figure.alt: a sentence of 24 words; aim for 22 or fewer: "Below, two strips show two ways to build a session: short hard bursts with short easy rests, and long bursts with long still rests."
+    warning: [H11] takeaways[0]: a sentence of 24 words; aim for 22 or fewer: "If lean mass is the aim, the supported combination in these trials was cycling intervals, three sessions a week, for more than 8 weeks."
+    warning: [H11] takeaways[1]: a sentence of 28 words; aim for 22 or fewer: "Keep work bursts to 60 seconds or less: longer bursts showed no clear gain in fat-free mass, with an interval from 2.28 kg lost to 0.57 kg gained."
+    warning: [H11] carousel.slides[0].body: possibly passive ("be trusted"); say who did it if you can: "Thirty-six trials, pooled and graded for how far each result can be trusted."
+  steps  log-session=none, lean-three-sessions=high, lean-cycling=high, lean-eight-weeks=high, fat-three-sessions=low, fat-running=low, fat-eight-weeks=low
+
+sleep-extension-energy-intake
+  gate   ok: 202 facts verified against the source, licence CC-BY, design rct
+  lint   ok: 596 words
+    mechanism 141 words, 11 sentences, average 12.8, longest 22
+    protocol   85 words, 7 sentences, average 12.1, longest 18
+    audit     248 words, 14 sentences, average 17.7, longest 27
+    context   0 other studies, 1 background concept (fat-free-mass)
+    warning: [H11] populationPanel: possibly passive ("was studied"); say who did it if you can: "Who was studied: 80 adults aged 21 to 40 with overweight (a BMI of 25.0 to 29.9)."
+    warning: [H11] layers.audit.more[1]: a sentence of 27 words; aim for 22 or fewer: "At rest while fasting, participants in the sleep group burned 32.5 kcal a day less (P = .047); after a meal there was no clear difference (P = .41)."
+    warning: [H11] layers.audit.more[3]: a sentence of 27 words; aim for 22 or fewer: "A weight model predicts about 12 kg lost over 3 years if a drop of about 270 kcal a day lasted; the trial did not test that."
+  steps  aim-8-5-bed=moderate, devices-away-bed=none
+
+sleep-restriction-sweet-foods (draft, not in the app)
+  gate   ok: 97 facts verified against the source, licence CC-BY, design crossover
+    warning: no estimate with a confidence interval was extracted; the read must say the paper reports none (H5)
+  lint   ok: 647 words
+    mechanism 206 words, 18 sentences, average 11.4, longest 16
+    protocol   73 words, 5 sentences, average 14.6, longest 18
+    audit     244 words, 19 sentences, average 12.8, longest 22
+    warning: [H5] primaryEstimate: the headline result has no confidence interval; check the read says what that leaves unknown
+    warning: [H11] populationPanel: possibly passive ("was tested"); say who did it if you can: "Who this was tested in: 31 typically developing teens aged 14 to 17."
+  skipped: publishedAt is null (not approved yet)
+
+steps-days-per-week
+  gate   ok: 73 facts verified against the source, licence CC-BY, design cohort
+  lint   ok: 578 words
+    mechanism 124 words, 10 sentences, average 12.4, longest 19
+    protocol   87 words, 7 sentences, average 12.4, longest 22
+    audit     230 words, 18 sentences, average 12.8, longest 22
+    warning: [H11] teaser: a sentence of 30 words; aim for 22 or fewer: "Among 3,101 US adults, reaching 8,000 steps on only 1 to 2 days a week was associated with a 10-year risk of death 14.9 points lower than never reaching it."
+    warning: [H11] teaser: possibly passive ("was associated"); say who did it if you can: "Among 3,101 US adults, reaching 8,000 steps on only 1 to 2 days a week was associated with a 10-year risk of death 14.9 points lower than never reaching it."
+    warning: [H11] hook: possibly passive ("are usually sold"); say who did it if you can: "Step counts are usually sold as a daily target."
+    warning: [H11] populationPanel: possibly passive ("was studied"); say who did it if you can: "Who was studied: 3,101 US adults aged 20 or older who wore a step counter for 1 week in 2005-2006."
+    warning: [H11] populationPanel: possibly passive ("was assigned"); say who did it if you can: "Nobody was assigned to walk more or less, so this is an observational study."
+    warning: [H11] glance.alt: a sentence of 26 words; aim for 22 or fewer: "Two grids of dots, one for people who never reached the step goal and one for people who did on one or two days a week."
+    warning: [H11] simulator.words.who: a sentence of 25 words; aim for 22 or fewer: "3,101 US adults aged 20 or older wore a step counter for one week in 2005 and 2006, and national death records followed them afterwards."
+    warning: [H11] layers.audit.figure.caption: possibly passive ("were counted"); say who did it if you can: "Steps were counted for one week only."
+    warning: [H11] layers.audit.figure.alt: a sentence of 24 words; aim for 22 or fewer: "Three columns, one for each group: no days, 1 to 2 days and 3 to 7 days a week at 8,000 steps or more."
+    warning: [H11] takeaways[0]: a sentence of 26 words; aim for 22 or fewer: "If a daily target keeps failing, the study's lowest active group is a reasonable place to start: 8,000 steps on 1 to 2 days a week."
+    warning: [H11] carousel.caption: a sentence of 24 words; aim for 22 or fewer: "Reaching 8,000 steps on 1 to 2 days a week was associated with a risk of death 14.9 points lower than never reaching it."
+    warning: [H11] carousel.caption: possibly passive ("was associated"); say who did it if you can: "Reaching 8,000 steps on 1 to 2 days a week was associated with a risk of death 14.9 points lower than never reaching it."
+  steps  log-8000-day=none, one-day=low, three-days=low
+
+sugar-inflammation-markers (draft, not in the app)
+  gate   ok: 83 facts verified against the source, licence CC-BY, design meta_analysis_rct
+  lint   ok: 604 words
+    mechanism 159 words, 16 sentences, average 9.9, longest 15
+    protocol   63 words, 5 sentences, average 12.6, longest 17
+    audit     250 words, 19 sentences, average 13.2, longest 20
+    warning: [H11] populationPanel: possibly passive ("was tested"); say who did it if you can: "Who was tested: 1141 people aged 11 to 72, across 13 controlled trials."
+  skipped: publishedAt is null (not approved yet)
+
+time-restricted-eating-healthy
+  gate   ok: 124 facts verified against the source, licence CC-BY, design rct
+    warning: no estimate with a confidence interval was extracted; the read must say the paper reports none (H5)
+  lint   ok: 713 words
+    mechanism 227 words, 17 sentences, average 13.4, longest 21
+    protocol   81 words, 7 sentences, average 11.6, longest 15
+    audit     249 words, 18 sentences, average 13.8, longest 24
+    context   0 other studies, 1 background concept (post-meal-blood-sugar)
+    warning: [H5] primaryEstimate: the headline result has no confidence interval; check the read says what that leaves unknown
+    warning: [H11] populationPanel: possibly passive ("was studied"); say who did it if you can: "Who was studied: 82 healthy adults aged 18 to 64 in Beijing, none with obesity."
+    warning: [H11] layers.protocol[1]: possibly passive ("were allowed"); say who did it if you can: "Outside the window, only water, flavoured sparkling water, unsweetened tea and coffee were allowed."
+    warning: [H11] layers.protocol[1]: possibly passive ("was taken"); say who did it if you can: "Blood was taken in the morning after at least 8 hours without food."
+    warning: [H11] layers.audit.missed: possibly passive ("were excluded"); say who did it if you can: "Food came from meal photos; the eight who did not finish were excluded."
+    warning: [H11] layers.audit.more[0]: a sentence of 24 words; aim for 22 or fewer: "Fasting blood sugar changed by −0.59 mmol/L early and +0.16 with usual eating (p = 0.005); fat mass by −0.76 and +0.41 kg (p = 0.001)."
+    warning: [H11] layers.audit.more[5]: possibly passive ("were reported"); say who did it if you can: "No serious side effects were reported."
+  steps  eat-6-to-15=moderate, plain-drinks-outside=none
+
+turmeric-pepper-breakfast
+  gate   ok: 57 facts verified against the source, licence CC-BY, design crossover
+    warning: no estimate with a confidence interval was extracted; the read must say the paper reports none (H5)
+  lint   ok: 746 words
+    mechanism 199 words, 20 sentences, average 10, longest 20
+    protocol  135 words, 12 sentences, average 11.3, longest 17
+    audit     249 words, 22 sentences, average 11.3, longest 19
+    context   0 other studies, 2 background concepts (glucagon-like-peptide, post-meal-blood-sugar)
+    warning: [H5] primaryEstimate: the headline result has no confidence interval; check the read says what that leaves unknown
+    warning: [H11] populationPanel: possibly passive ("was tested"); say who did it if you can: "Who this was tested in: 20 healthy adults, 10 men and 10 women."
+    warning: [H11] layers.protocol.figure.caption: possibly passive ("was checked"); say who did it if you can: "The dots are when blood sugar was checked, and the shaded column is the one clear difference."
+    warning: [H11] layers.audit.figure.alt: possibly passive ("are marked"); say who did it if you can: "At 30 minutes, the pepper meal and the both-spices meal are marked as differing from the plain meal."
+  steps  pepper-in-breakfast=low, turmeric-with-pepper=none
+
+content build wrote 7 papers (6 free, 1 premium)

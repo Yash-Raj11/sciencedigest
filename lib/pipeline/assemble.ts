@@ -4,10 +4,11 @@
  */
 
 import { createHash } from "node:crypto";
-import type { BuiltPaper, ContentStep, ContextConcept, ContextStudy, FigureRef, GlossaryEntry, PaperContent, ResolvedFact, ResolvedSketch, Sentence } from "../content/types";
+import type { BuiltPaper, CarouselArt, CarouselDay, CarouselFigure, CarouselSlide, ContentStep, ContextConcept, ContextStudy, FigureRef, GlossaryEntry, PaperContent, ResolvedFact, ResolvedSketch, Sentence } from "../content/types";
 import type { EvidenceGrade } from "../evidence";
 import { WEIGHT_TENTHS } from "../evidence";
 import { FigureSpec } from "../content/figure-kinds";
+import { HOOK_LETTERS, VERDICTS, minutesOf, receiptInterval, slideEvidence, slideMarkup, slideNumbers, slideValues, type SlideArtDef, type SlideDefT } from "./carousel";
 import { Editorial, type FigureRef as FigureDef } from "./editorial";
 import { formatEstimate } from "./format";
 import type { Validated, ValidatedFact } from "./gate";
@@ -33,6 +34,13 @@ export function stableId(name: string): string {
 }
 
 const WORDS_PER_MINUTE = 200;
+
+/** "Inoue et al., JAMA Network Open": the slides' cite. No year, so the slide draws no number it cannot source. */
+export function deckCite(id: Validated["identifiers"]): string {
+  const authors = id.authors.split(",").map((a) => a.trim()).filter(Boolean);
+  const surname = (authors[0] ?? id.authors).replace(/\s+[A-Z]{1,3}$/, "");
+  return `${surname}${authors.length > 1 ? " et al." : ""}, ${id.journal}`;
+}
 
 /** "Inoue et al., JAMA Network Open 2023": enough to recognise a study in one line. */
 export function shortCite(id: Validated["identifiers"]): string {
@@ -280,6 +288,69 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
   const id = validated.identifiers;
   const strip = (markup: string | null) => (markup ? plain(parseMarkup(markup)) : null);
 
+  // The deck. Receipts print the design (from the gate), who (the source line) and the range bar.
+  const design = DESIGN_LABEL[validated.design] ?? validated.design;
+  const who = plain(parseMarkup(ed.source.who));
+  const lineOf = (art: { kind: "measured" | "proposed" }) => (art.kind === "measured" ? "solid" as const : "dashed" as const);
+  const dayOf = (a: Extract<SlideArtDef, { motif: "day" }>): CarouselDay => ({
+    start: strip(a.start)!, end: strip(a.end)!,
+    marks: a.marks.map((m) => ({ minutes: minutesOf({ n: m.at.n, unit: m.at.unit }), label: strip(m.label)! })),
+    tail: { minutes: minutesOf({ n: a.tail.length.n, unit: a.tail.length.unit }), label: strip(a.tail.label)! },
+  });
+  const hookArt = ed.carousel.slides.find((s) => s.kind === "hook")?.art;
+  const pending = new Set<string>();
+  const deckSlide = (s: SlideDefT, i: number, base = `carousel.slides[${i}]`): CarouselSlide => {
+    const refs = new Set<string>();
+    for (const { markup } of slideMarkup(s, i, base)) for (const sentence of parseMarkup(markup)) for (const ref of sentence.refs) refs.add(ref);
+    for (const { value } of slideValues(s, i, base)) refs.add(value.ref);
+    for (const { num } of slideNumbers(s, i, base)) refs.add(num.ref);
+    for (const { fact } of slideEvidence(s, i, base)) refs.add(fact);
+    const figure = (side: { value: { text: string; ref: string }; unit?: string; label: string }): CarouselFigure => ({
+      value: side.value.text, unit: side.unit ? strip(side.unit) : null, label: strip(side.label)!,
+      interval: receiptInterval(validated.facts[side.value.ref]?.estimate),
+    });
+    const a = s.art;
+    let art: CarouselArt;
+    // The hook's chip prints the source line's who and span: their refs ride along.
+    if (s.kind === "hook") for (const mk of [ed.source.who, ed.source.span]) for (const sentence of parseMarkup(mk)) for (const ref of sentence.refs) refs.add(ref);
+    if (s.kind === "cta") {
+      art = { motif: "cta", day: hookArt?.motif === "day" ? dayOf(hookArt) : null };
+      // The closing slide redraws the hook's day, so it rests on the same facts.
+      if (hookArt?.motif === "day") for (const m of [...hookArt.marks.map((k) => k.at), hookArt.tail.length]) refs.add(m.ref);
+    }
+    else if (!a) art = { motif: "cta", day: null };
+    else if (a.motif === "number") art = { motif: "number", figure: figure(a) };
+    else if (a.motif === "pair") art = { motif: "pair", a: figure(a.a), b: figure(a.b) };
+    else if (a.motif === "day") art = { motif: "day", ...dayOf(a) };
+    else if (a.motif === "verdicts") art = { motif: "verdicts", rows: a.rows.map((r) => ({ label: strip(r.label)!, verdict: VERDICTS[r.verdict] })) };
+    else if (a.motif === "plateau") {
+      art = {
+        motif: "plateau", line: lineOf(a), axis: strip(a.axis)!, y: strip(a.y)!, from: a.from.n, to: a.to.n,
+        levels: { from: a.levels.from.n, to: a.levels.to.n, label: strip(a.levels.label)! },
+      };
+    } else if (a.motif === "sketch") {
+      art = { motif: "sketch", shape: a.shape, a: strip(a.a)!, b: strip(a.b)!, caption: strip(a.caption)! };
+      refs.add(conceptRef(a.concept));
+    } else if (a.motif === "who") art = { motif: "who", tested: a.tested.map((m) => strip(m)!), notTested: a.notTested.map((m) => strip(m)!) };
+    else if (a.motif === "checks") {
+      const interval = receiptInterval(validated.facts[ed.primaryEstimate]?.estimate);
+      art = { motif: "receipt", strong: strip(a.strong)!, weak: strip(a.weak)!, missing: strip(a.missing), design, who, interval };
+      // The range bar rests on the headline estimate; the who line on the source line's own refs.
+      if (interval) refs.add(ed.primaryEstimate);
+      for (const sentence of parseMarkup(ed.source.who)) for (const ref of sentence.refs) refs.add(ref);
+    } else art = { motif: a.motif, line: lineOf(a), labels: (a.labels ?? []).map((m) => strip(m)!) };
+    for (const ref of refs) {
+      const r = parseRef(ref);
+      if (r.kind === "paper" && !validated.facts[ref]) throw new Error(`assemble: slide ${i} cites "${ref}", which is not a gated fact`);
+      if (r.kind === "concept" && !(context.concepts[r.slug]?.ok && (context.concepts[r.slug] as { reviewed: boolean }).reviewed)) pending.add(ref);
+      if (r.kind === "common" && !(context.common?.[r.slug]?.ok && (context.common[r.slug] as { reviewed: boolean }).reviewed)) pending.add(ref);
+    }
+    return { kind: s.kind, heading: strip(s.heading)!, body: strip(s.body), art, refs: [...refs].sort() };
+  };
+  const deckSlides = ed.carousel.slides.map((s, i) => deckSlide(s, i));
+  // Other openings for the owner to choose from: B, C, D. Built like the hook, so they trace the same way.
+  const altHooks = ed.carousel.altHooks.map((h, j) => ({ letter: HOOK_LETTERS[j + 1], name: h.name, slide: deckSlide(h, j, `carousel.altHooks[${j}]`) }));
+
   return {
     meta: {
       id: paperId,
@@ -313,10 +384,14 @@ export function assemble(validated: Validated, editorialInput: unknown, context:
     takeaways,
     carousel: {
       slug: ed.slug,
-      slides: ed.carousel.slides.map((s) => ({ kind: s.kind, heading: strip(s.heading)!, body: strip(s.body) })),
+      title: plain(parseMarkup(ed.title)),
+      slides: deckSlides,
+      altHooks,
       caption: strip(ed.carousel.caption)!,
       hashtags: ed.carousel.hashtags,
       credit: `${id.citation} doi:${id.doi}. Licence: ${validated.license}.`,
+      study: { design, who, span: plain(parseMarkup(ed.source.span)), cite: deckCite(id), licence: validated.license },
+      pending: [...pending].sort(),
     },
   };
 }

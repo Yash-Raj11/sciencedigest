@@ -29,6 +29,12 @@ export const FIGURE_KEYS = [
   "turmeric-pepper-breakfast/five-readings",
   "turmeric-pepper-breakfast/first-half-hour",
   "sleep-extension-energy-intake/energy-ledger",
+  "best-possible-toothbrushing/clean-gap",
+  "time-restricted-eating-healthy/eating-windows",
+  "sleep-restriction-sweet-foods/bedtimes",
+  "sugar-inflammation-markers/crp-gaps",
+  "alternate-day-fasting-weight/fast-days",
+  "ceramide-moisturizer-barrier/eczema-scores",
 ] as const;
 
 export type FigureKey = (typeof FIGURE_KEYS)[number];

@@ -18,6 +18,7 @@
  * approves one, and only at a keyboard:
  *
  *   npm run paper -- approve-concept adenosine
+ *   npm run paper -- approve-common coffee-cup-caffeine
  *
  * The conditions & confounds pass alone, on a paper whose facts were checked by hand
  * (owner, 2026-11-19). It runs only on a scratch copy, never on content/papers/:
@@ -39,17 +40,19 @@ import { existsSync, mkdirSync, readFileSync, realpathSync, writeFileSync } from
 import { relative, resolve } from "node:path";
 import { createInterface } from "node:readline/promises";
 import { fileURLToPath } from "node:url";
-import { completeJson, contextTokens, replyTokens, zodCheck } from "../lib/ai/provider";
+import { completeJson, contextTokens, describeUsage, jsonSchemaFor, replyTokens, resetUsage, usageSoFar, zodCheck } from "../lib/ai/provider";
 import { mergeExtractions, splitSource, tokensOf } from "../lib/pipeline/chunks";
 import { draftReplyProblem } from "../lib/pipeline/editorial";
 import { RawExtraction } from "../lib/pipeline/extraction";
+import { COMMON_SLUG, approvedCommon } from "../lib/pipeline/common";
 import { CONCEPT_SLUG, approved } from "../lib/pipeline/concepts";
 import { readSearchRecord, xmlToText } from "../lib/pipeline/europepmc";
+import { publicationTypes, screenPublicationType } from "../lib/pipeline/pubtype";
 import { FIGURE_KEYS } from "../lib/content/figures";
 import { gate } from "../lib/pipeline/gate";
 import { checkLicense } from "../lib/pipeline/license";
 import { lint } from "../lib/pipeline/lint";
-import { COVERAGE_SYSTEM, EDITORIAL_SYSTEM, EXTRACT_SYSTEM, coveragePrompt, editorialPrompt, extractPrompt } from "../lib/pipeline/prompts";
+import { COVERAGE_SYSTEM, EDITORIAL_SYSTEM, EXTRACT_SYSTEM, coveragePrompt, editorialPromptParts, extractPrompt, extractPromptParts } from "../lib/pipeline/prompts";
 import { COVERAGE_ITEMS, CoveragePass, mergeCoverage, reviewCoverage } from "../lib/pipeline/coverage";
 import type { Coverage, CoverageReview } from "../lib/pipeline/coverage";
 import { findRetracted, parseRetractionWatch } from "../lib/pipeline/retractions";
@@ -63,6 +66,7 @@ const PAPERS = process.env.SD_PAPERS_DIR ?? `${ROOT}content/papers`;
 const CONTEXT = `${ROOT}content/context`;
 // For tests only: SD_CONCEPTS_DIR points approve-concept at a scratch folder.
 const CONCEPTS = process.env.SD_CONCEPTS_DIR ?? `${ROOT}content/concepts`;
+const COMMON = `${ROOT}content/common`;
 const EXAMPLE = `${ROOT}content/papers/steps-days-per-week`;
 export const RETRACTIONS_CSV = `${ROOT}.cache/retraction-watch-data/retraction_watch.csv`;
 const EUROPE_PMC = "https://www.ebi.ac.uk/europepmc/webservices/rest";
@@ -128,6 +132,11 @@ async function fetchPaper(pmcid: string | undefined, slug: string | undefined) {
   const licence = checkLicense(meta.license);
   if (!licence.ok) die(`REJECTED on licence: ${licence.reason}.\nOnly CC-BY, CC-BY-SA and CC0 papers may be used.`);
 
+  // Before any model reads it: a narrative review or an editorial has no design the gate accepts.
+  // A context study is screened the same way: it goes through the same gate.
+  const kind = screenPublicationType(publicationTypes(record!));
+  if (!kind.ok) die(`REJECTED on publication type: ${kind.reason}.\nPublication types: ${publicationTypes(record!).join(", ") || "none listed"}.`);
+
   if (!existsSync(RETRACTIONS_CSV)) {
     console.log("warning: no retraction data on this machine. Run `npm run retractions` and fetch again before publishing.");
   } else if (meta.doi && findRetracted([meta.doi], parseRetractionWatch(readFileSync(RETRACTIONS_CSV, "utf8"))).length > 0) {
@@ -157,6 +166,19 @@ function partsOf(source: string, instructionTokens: number): string[] {
   return parts;
 }
 
+/**
+ * The schemas sent with the two extract requests (structured outputs, when the provider takes them).
+ * The first pass leaves out `coverage`: an open-ended map cannot be sent, and the coverage pass writes it.
+ * The zod check on each reply is unchanged.
+ */
+const EXTRACT_SCHEMA = jsonSchemaFor(RawExtraction.omit({ coverage: true })) ?? undefined;
+const COVERAGE_SCHEMA = jsonSchemaFor(CoveragePass) ?? undefined;
+
+/** A prompt split for caching, as completeJson takes it. */
+function promptFields(parts: { stable: string; rest: string }): { stable: string; prompt: string } {
+  return { stable: parts.stable, prompt: parts.rest };
+}
+
 /** The conditions & confounds pass: one narrower request per part (lib/pipeline/coverage.ts). */
 async function runCoveragePass(start: RawExtraction, parts: string[]) {
   let extraction = start as RawExtraction & { coverage?: Coverage };
@@ -164,7 +186,7 @@ async function runCoveragePass(start: RawExtraction, parts: string[]) {
   const answers: CoveragePass[] = [];
   const coverageCheck = zodCheck(CoveragePass);
   for (const part of parts) {
-    const result = await completeJson({ stage: "extract", system: COVERAGE_SYSTEM, prompt: coveragePrompt({ source: part, facts: extraction.facts }) }, coverageCheck);
+    const result = await completeJson({ stage: "extract", system: COVERAGE_SYSTEM, prompt: coveragePrompt({ source: part, facts: extraction.facts }), schema: COVERAGE_SCHEMA }, coverageCheck);
     retries += result.retries;
     const answer = CoveragePass.parse(result.value);
     answers.push(answer);
@@ -240,6 +262,7 @@ async function extractCoverageOnly(slugArg: string | undefined) {
 async function extract(slugArg: string | undefined) {
   const slug = needSlug(slugArg, "source.txt");
   const started = Date.now();
+  resetUsage();
   const meta = existsSync(`${dirOf(slug)}/meta.json`) ? readJson(`${dirOf(slug)}/meta.json`) : {};
   const source = readFileSync(`${dirOf(slug)}/source.txt`, "utf8");
   const exampleExtraction = readFileSync(`${EXAMPLE}/extraction.json`, "utf8");
@@ -253,7 +276,8 @@ async function extract(slugArg: string | undefined) {
     const note = parts.length > 1
       ? `\n\nNOTE: this is part ${i + 1} of ${parts.length} of the paper. Extract only facts whose quote is in this part. Fill identifiers, license, design, species, population and sampleSize from what this part and the metadata show.`
       : "";
-    const result = await completeJson({ stage: "extract", system: EXTRACT_SYSTEM, prompt: extractPrompt({ meta, source: part, exampleExtraction }) + note }, check);
+    const { stable, rest } = extractPromptParts({ meta, source: part, exampleExtraction });
+    const result = await completeJson({ stage: "extract", system: EXTRACT_SYSTEM, stable, prompt: rest + note, schema: EXTRACT_SCHEMA }, check);
     retries += result.retries;
     extractions.push(RawExtraction.parse(result.value));
   }
@@ -269,6 +293,7 @@ async function extract(slugArg: string | undefined) {
   // Saved as the model wrote it (parsed to the schema's shape); the gate judges it next.
   writeJson(`${dirOf(slug)}/extraction.json`, extraction);
   console.log(`saved ${folder()}/${slug}/extraction.json (parts: ${parts.length}, coverage pass added ${added} facts, JSON retries: ${retries}, ${((Date.now() - started) / 1000).toFixed(1)} s)`);
+  console.log(describeUsage(usageSoFar(), process.env.AI_MODEL_EXTRACT));
   if (!runGate(slug)) console.log("Fix extraction.json by hand against source.txt, or run extract again. The gate must pass before anything cites it.");
   else if (role === "context") console.log(`A context study stops here: no draft, no protocol. A read cites its facts as [${slug}/<fact_id>].`);
   else console.log(`next: npm run paper -- draft ${slug}`);
@@ -285,15 +310,17 @@ async function draft(slugArg: string | undefined) {
   const kinds = kindMenu(proposeKinds(validated!.facts, context));
   console.log(`figure kinds offered:\n${kinds}`);
   const started = Date.now();
+  resetUsage();
   // The JSON check: the three-layer shape, with an old-shape or mixed reply refused by name so the
   // retry says what to fix (draftReplyProblem). The lint judges the content afterwards.
   const { value, retries } = await completeJson({
     stage: "editorial",
     system: EDITORIAL_SYSTEM,
-    prompt: editorialPrompt({ slug, validated: validated!, exampleEditorial: readFileSync(`${EXAMPLE}/editorial.json`, "utf8"), kinds, context: contextMenu(context) }),
+    ...promptFields(editorialPromptParts({ slug, validated: validated!, exampleEditorial: readFileSync(`${EXAMPLE}/editorial.json`, "utf8"), kinds, context: contextMenu(context) })),
   }, (reply) => draftReplyProblem({ ...(reply as object), slug, publishedAt: null }));
   const editorial = value as Record<string, unknown>;
   console.log(`JSON retries: ${retries}, ${((Date.now() - started) / 1000).toFixed(1)} s`);
+  console.log(describeUsage(usageSoFar(), process.env.AI_MODEL_EDITORIAL));
   writeJson(`${dirOf(slug)}/editorial.json`, { ...editorial, slug, publishedAt: null });
   console.log(`saved content/papers/${slug}/editorial.json (a draft: not in the app)`);
   if (runLint(slug, validated!).ok) console.log(`next: read the draft, then npm run paper -- approve ${slug}`);
@@ -350,6 +377,28 @@ async function approveConcept(slug: string | undefined) {
   console.log("next: npm run content:build");
 }
 
+async function approveCommon(slug: string | undefined) {
+  if (!slug || !COMMON_SLUG.test(slug)) die("Give the fact's slug, e.g. npm run paper -- approve-common coffee-cup-caffeine");
+  const path = `${COMMON}/${slug}.json`;
+  if (!existsSync(path)) die(`content/common/${slug}.json does not exist.`);
+  if (!process.stdin.isTTY || !process.stdout.isTTY) {
+    die("approve-common is the owner's review and has to be run by a person in a terminal.\nIt cannot be run by a script, a pipe or an assistant session.");
+  }
+  const state = loadContext(CONTEXT, CONCEPTS).context.common?.[slug!];
+  if (!state || !state.ok) die(`Not approved: the fact fails its own checks.\n${(state && !state.ok ? state.errors : ["unreadable"]).map((e) => `  - ${e}`).join("\n")}`);
+  if (!state || !state.ok) return;
+  if (state.reviewed) { console.log(`${slug} is already reviewed in its present wording (${state.common.reviewed?.at}).`); return; }
+  console.log(`\nCommon knowledge: ${slug}\n\n  ${state.common.statement}\n`);
+  console.log("Approving says: this is everyday knowledge, it is correct, and slides may print its numbers without a paper.");
+  const ask = createInterface({ input: process.stdin, output: process.stdout });
+  const typed = (await ask.question(`Type the slug (${slug}) to approve, or anything else to cancel: `)).trim();
+  ask.close();
+  if (typed !== slug) { console.log("Cancelled. Nothing was changed."); return; }
+  writeJson(path, approvedCommon(state.common, new Date().toISOString()));
+  console.log(`approved ${slug}. If you change its wording later it will need approving again.`);
+  console.log("next: npm run content:build");
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   if ((role as string) === "invalid") die('--role is "paper" or "context".');
   switch (command) {
@@ -359,6 +408,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     case "approve": setPublished(args[0], true); break;
     case "unpublish": setPublished(args[0], false); break;
     case "approve-concept": await approveConcept(args[0]); break;
-    default: die("Usage: npm run paper -- <fetch|extract|draft|approve|unpublish|approve-concept> ...   (see the top of scripts/paper.mts)");
+    case "approve-common": await approveCommon(args[0]); break;
+    default: die("Usage: npm run paper -- <fetch|extract|draft|approve|unpublish|approve-concept|approve-common> ...   (see the top of scripts/paper.mts)");
   }
 }

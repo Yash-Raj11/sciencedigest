@@ -1,0 +1,1180 @@
+{
+  "identifiers": {
+    "doi": "10.1038/s41467-022-28662-5",
+    "pmid": "35194047",
+    "pmcid": "PMC8864028",
+    "title": "Randomized controlled trial for time-restricted eating in healthy volunteers without obesity",
+    "authors": "Xie Z, Sun Y, Ye Y, Hu D, Zhang H, He Z, Zhao H, Yang H, Mao Y",
+    "journal": "Nature Communications",
+    "year": 2022,
+    "citation": "Xie Z, Sun Y, Ye Y, Hu D, Zhang H, He Z, Zhao H, Yang H, Mao Y. Randomized controlled trial for time-restricted eating in healthy volunteers without obesity. Nat Commun. 2022;13. doi:10.1038/s41467-022-28662-5"
+  },
+  "license": "CC-BY",
+  "design": {
+    "value": "rct",
+    "quote": "Ninety participants were randomized to eTRF (n=30), mTRF (n=30), or control groups (n=30) using a computer-based random-number generator."
+  },
+  "species": {
+    "value": "human",
+    "quote": "Ninety participants were randomized to eTRF (n=30), mTRF (n=30), or control groups (n=30) using a computer-based random-number generator."
+  },
+  "population": {
+    "value": "healthy individuals without obesity",
+    "quote": "We conducted a five-week randomized trial to compare the effects of the two TRF regimens in healthy individuals without obesity (ChiCTR2000029797)."
+  },
+  "sampleSize": {
+    "value": "82",
+    "quote": "Remaining 82 participants completed the trial and were included in the present analysis."
+  },
+  "facts": [
+    {
+      "id": "etrf_window",
+      "kind": "context",
+      "label": "Early group: an 8-hour eating window between 6:00 and 15:00",
+      "value": "eating during no more than 8 h between 06:00 and 15:00",
+      "quote": "We conducted a randomized, controlled trial, in which participants were randomized to an eTRF group (eating during no more than 8 h between 06:00 and 15:00 and fasting for the rest of the day), an mTRF group (eating during no more than 8 h between 11:00 and 20:00 and fasting for the rest of the day), and a control group (eating ad libitum over 8 h each day)."
+    },
+    {
+      "id": "mtrf_window",
+      "kind": "context",
+      "label": "Mid-day group: an 8-hour eating window between 11:00 and 20:00",
+      "value": "eating during no more than 8 h between 11:00 and 20:00",
+      "quote": "We conducted a randomized, controlled trial, in which participants were randomized to an eTRF group (eating during no more than 8 h between 06:00 and 15:00 and fasting for the rest of the day), an mTRF group (eating during no more than 8 h between 11:00 and 20:00 and fasting for the rest of the day), and a control group (eating ad libitum over 8 h each day)."
+    },
+    {
+      "id": "control_diet",
+      "kind": "context",
+      "label": "Control group: ate as usual, over more than 8 hours a day",
+      "value": "eating ad libitum over 8 h each day",
+      "quote": "We conducted a randomized, controlled trial, in which participants were randomized to an eTRF group (eating during no more than 8 h between 06:00 and 15:00 and fasting for the rest of the day), an mTRF group (eating during no more than 8 h between 11:00 and 20:00 and fasting for the rest of the day), and a control group (eating ad libitum over 8 h each day)."
+    },
+    {
+      "id": "etrf_choose",
+      "kind": "context",
+      "label": "The early group picked its own 8 hours inside 6:00 to 15:00",
+      "value": "choose an 8 h eating period between 6:00 and 15:00",
+      "quote": "Participants in the eTRF group were instructed to choose an 8 h eating period between 6:00 and 15:00 and to fast for the rest of the day."
+    },
+    {
+      "id": "mtrf_choose",
+      "kind": "context",
+      "label": "The mid-day group picked its own 8 hours inside 11:00 to 20:00",
+      "value": "choose an 8 h eating period between 11:00 and 20:00",
+      "quote": "Those in mTRF group were instructed to choose an 8 h eating period between 11:00 and 20:00 and to fast for the rest of the day."
+    },
+    {
+      "id": "control_usual",
+      "kind": "context",
+      "label": "The control group kept its usual eating",
+      "value": "following their usual eating regimens",
+      "quote": "Participants in the control group could eat ad libitum, following their usual eating regimens, with food being consumed over more than 8 h per day."
+    },
+    {
+      "id": "fasting_drinks",
+      "kind": "context",
+      "label": "Allowed while fasting: water, sparkling water, unsweetened tea, coffee",
+      "value": "water, flavored carbonated water, unsweetened tea, and coffee",
+      "quote": "Participants in the eTRF and mTRF groups were only allowed to consume water, flavored carbonated water, unsweetened tea, and coffee during the fasting period."
+    },
+    {
+      "id": "eat_freely",
+      "kind": "context",
+      "label": "No diet: both eating-window groups ate what they liked within their hours",
+      "value": "no specific nutritional guidance was given to them",
+      "quote": "The participants in both TRF groups were instructed to eat ad libitum during their daily 8 h eating periods and no specific nutritional guidance was given to them, such that the trial conditions were similar to real-life situations."
+    },
+    {
+      "id": "five_weeks",
+      "kind": "context",
+      "label": "Length of the trial",
+      "value": "five-week",
+      "quote": "We conducted a five-week randomized trial to compare the effects of the two TRF regimens in healthy individuals without obesity (ChiCTR2000029797)."
+    },
+    {
+      "id": "randomization",
+      "kind": "context",
+      "label": "Groups set by a computer's random numbers",
+      "value": "computer-based random-number generator",
+      "quote": "Ninety participants were randomized to eTRF (n=30), mTRF (n=30), or control groups (n=30) using a computer-based random-number generator."
+    },
+    {
+      "id": "primary_outcome",
+      "kind": "context",
+      "label": "Main outcome: change in insulin resistance (HOMA-IR, from fasting glucose and insulin)",
+      "value": "the change in HOMA-IR",
+      "quote": "The primary outcome was the change in HOMA-IR, an index of insulin resistance that is calculated using the fasting glucose and insulin concentrations."
+    },
+    {
+      "id": "secondary_outcomes",
+      "kind": "context",
+      "label": "Other outcomes",
+      "value": "energy intake, fasting glucose, body mass, body composition",
+      "quote": "The secondary outcomes were changes in energy intake, fasting glucose, body mass, body composition, blood pressure, blood lipid concentrations, inflammatory markers, liver enzymes, immune cells, gut microbiota, sleep quality, and appetite."
+    },
+    {
+      "id": "rhythm_exploratory",
+      "kind": "context",
+      "label": "Daily-rhythm measures were exploratory",
+      "value": "exploratory analyses",
+      "quote": "Change in daily rhythms of plasma adipokine concentrations and PBMC clock gene expression were measured as exploratory analyses."
+    },
+    {
+      "id": "registration",
+      "kind": "context",
+      "label": "Registered before anyone enrolled",
+      "value": "Prior to enrolling participants",
+      "quote": "Prior to enrolling participants, the study was registered at chictr.org.cn (ChiCTR2000029797)."
+    },
+    {
+      "id": "recruitment",
+      "kind": "context",
+      "label": "Recruited in the Beijing area, February to March 2020",
+      "value": "Beijing area",
+      "quote": "Participants were recruited from the Beijing area from Feb. 16th, 2020, to Mar. 22nd, 2020, by means of posters, emails, flyers, social media, and website advertisements."
+    },
+    {
+      "id": "habit_over_8h",
+      "kind": "context",
+      "label": "Everyone usually ate over more than 8 hours a day and had not fasted recently",
+      "value": "in the habit of eating over more than 8 h per day",
+      "quote": "Ninety participants who were in the habit of eating over more than 8 h per day and who did not have recent experience of fasting were recruited into the trial after providing their written informed consent."
+    },
+    {
+      "id": "inclusion_age",
+      "kind": "context",
+      "label": "Who could join: aged 18 to 64",
+      "value": "18–64 years old",
+      "quote": "The inclusion criteria were: (1) 18–64 years old; (2) ability to attend the hospital at regular intervals; (3) ability to independently provide informed consent; (4) BMI between 17.5 and 30.0 kg/m2; (5) daily feeding period of more than 8 h; and (6) stable body mass (change < ±10% of current body mass during the 3 months prior to the study)."
+    },
+    {
+      "id": "inclusion_bmi",
+      "kind": "context",
+      "label": "Who could join: BMI 17.5 to 30.0",
+      "value": "BMI between 17.5 and 30.0 kg/m2",
+      "quote": "The inclusion criteria were: (1) 18–64 years old; (2) ability to attend the hospital at regular intervals; (3) ability to independently provide informed consent; (4) BMI between 17.5 and 30.0 kg/m2; (5) daily feeding period of more than 8 h; and (6) stable body mass (change < ±10% of current body mass during the 3 months prior to the study)."
+    },
+    {
+      "id": "exclusion_criteria",
+      "kind": "context",
+      "label": "Who was excluded: night shifts, recent fasting, diabetes, high blood pressure and more",
+      "value": "a diagnosis of hypertension, diabetes, or other metabolic disease",
+      "quote": "The exclusion criteria were: (1) night-shift work more than once a week; (2) fasting during the preceding 8 weeks; (3) alcohol consumption more than twice a week; (4) pregnancy, gastrointestinal abnormalities or eating disorders, history of gastrointestinal surgery or systemic disease; (5) use of corticosteroid drugs, β-receptor blockers, or other drugs that might affect the findings; (6) a diagnosis of hypertension, diabetes, or other metabolic disease; and (7) a diagnosis of insomnia."
+    },
+    {
+      "id": "exclusion_nightshift",
+      "kind": "context",
+      "label": "Excluded: night shifts more than once a week",
+      "value": "night-shift work more than once a week",
+      "quote": "The exclusion criteria were: (1) night-shift work more than once a week; (2) fasting during the preceding 8 weeks; (3) alcohol consumption more than twice a week; (4) pregnancy, gastrointestinal abnormalities or eating disorders, history of gastrointestinal surgery or systemic disease; (5) use of corticosteroid drugs, β-receptor blockers, or other drugs that might affect the findings; (6) a diagnosis of hypertension, diabetes, or other metabolic disease; and (7) a diagnosis of insomnia."
+    },
+    {
+      "id": "alcohol",
+      "kind": "context",
+      "label": "Alcohol kept at the usual level, no more than twice a week",
+      "value": "no more than twice a week",
+      "quote": "The participants maintained their habitual alcohol intake during the trial, which was no more than twice a week, as required in the eligibility criteria."
+    },
+    {
+      "id": "photo_compliance",
+      "kind": "context",
+      "label": "Everyone photographed each meal at its start and end",
+      "value": "take photos of their food as they began to eat and as they finished",
+      "quote": "To ensure compliance, participants were required to take photos of their food as they began to eat and as they finished and to send them privately to the investigators using a WeChat-supported web message-sending applet."
+    },
+    {
+      "id": "energy_from_photos",
+      "kind": "context",
+      "label": "Food energy was estimated from the meal photos",
+      "value": "Energy intake was estimated using pictures of the meals consumed",
+      "quote": "Energy intake was estimated using pictures of the meals consumed."
+    },
+    {
+      "id": "photo_checkers_unblinded",
+      "kind": "context",
+      "label": "The researchers who estimated food from photos knew each person's group",
+      "value": "were not blinded to the assignment of the group",
+      "quote": "Investigators who checked posted photos and estimated energy contents from photos were not blinded to the assignment of the group."
+    },
+    {
+      "id": "participants_unblinded",
+      "kind": "context",
+      "label": "Participants knew their group",
+      "value": "they were not blinded to the assignment of the groups",
+      "quote": "Because participants were instructed to take either TRF regimen or normal diet regimen, they were not blinded to the assignment of the groups."
+    },
+    {
+      "id": "assessors_blinded",
+      "kind": "context",
+      "label": "The researchers who measured outcomes did not know the groups",
+      "value": "Researchers who assessed the outcomes were blinded to group assignment",
+      "quote": "Researchers who assessed the outcomes were blinded to group assignment, but participants and care givers were not."
+    },
+    {
+      "id": "body_fat_method",
+      "kind": "context",
+      "label": "Body fat measured by a bioelectrical impedance scale",
+      "value": "Bioelectrical impedance analyzer",
+      "quote": "Body mass and percentage body fat were measured using an HBF-371 Bioelectrical impedance analyzer (Omron Healthcare Co., Kyoto, Japan)."
+    },
+    {
+      "id": "fasting_blood",
+      "kind": "context",
+      "label": "Blood taken in the morning after at least 8 hours' fast",
+      "value": "after an overnight fast of at least 8 h",
+      "quote": "Fasting blood sampled were collected during the morning (07:00–08:30) after an overnight fast of at least 8 h."
+    },
+    {
+      "id": "sample_size_calc",
+      "kind": "context",
+      "label": "Planned: 22 finishers a group needed, 30 recruited",
+      "value": "22 participants would have to complete the trial in each group",
+      "quote": "Therefore, to detect a 37.5% difference in HOMA-IR (1.91 × 0.375 = 0.7) between the TRF groups, the statistical power analysis indicated that 22 participants would have to complete the trial in each group in order to achieve 80% power (two-sided test, a = 0.05), assuming a within-participants standard deviation of 0.8."
+    },
+    {
+      "id": "recruited_30",
+      "kind": "context",
+      "label": "30 recruited per group",
+      "value": "30 participants were recruited for each group",
+      "quote": "Taking into consideration potential drop-outs during the trial, 30 participants were recruited for each group."
+    },
+    {
+      "id": "dropouts_excluded",
+      "kind": "context",
+      "label": "The eight who did not finish were left out of the analysis",
+      "value": "were excluded from the analyses",
+      "quote": "The energy that was consumed on non-compliant days was not included in the calculation of the mean daily energy consumption and the data for the eight participants who did not complete the trial were excluded from the analyses."
+    },
+    {
+      "id": "dropout_reasons",
+      "kind": "context",
+      "label": "Why eight dropped out",
+      "value": "dissatisfaction with the randomization result or for personal scheduling conflicts",
+      "quote": "During the 5-week intervention, eight participants (eTRF: n = 2; mTRF: n = 4; control: n = 2) dropped out due to dissatisfaction with the randomization result or for personal scheduling conflicts."
+    },
+    {
+      "id": "assessed_429",
+      "kind": "context",
+      "label": "429 people screened",
+      "value": "429 individuals",
+      "quote": "A total of 429 individuals were assessed for eligibility and 312 were excluded as they did not meet inclusion criteria, and 17 were excluded as they declined to participate."
+    },
+    {
+      "id": "analysed_82",
+      "kind": "context",
+      "label": "82 finished and were analysed",
+      "value": "82 participants",
+      "quote": "Remaining 82 participants completed the trial and were included in the present analysis."
+    },
+    {
+      "id": "rhythm_subset",
+      "kind": "context",
+      "label": "Daily-rhythm blood samples came from 19 people, at four times of day",
+      "value": "19 participants",
+      "quote": "Furthermore, blood samples were collected at four times of day (07:00, 12:00, 17:00, and 23:00) at both the beginning and end of the interventions from 19 participants (five, eight, and six from the eTRF, mTRF, and control groups, respectively)."
+    },
+    {
+      "id": "funding",
+      "kind": "context",
+      "label": "Who paid for the study",
+      "value": "CAMS Innovation Fund for Medical Sciences (CIFMS)",
+      "quote": "This work was supported by grants from the CAMS Innovation Fund for Medical Sciences (CIFMS) (No.2016-I2M-1-001) (Y.M. and H.Y.)."
+    },
+    {
+      "id": "sponsor_no_role",
+      "kind": "context",
+      "label": "The funder had no role in the study",
+      "value": "played no role",
+      "quote": "The study sponsors played no role in study design, conduct, data acquisition, analysis, manuscript preparation or the decision to submit the manuscript for publication."
+    },
+    {
+      "id": "no_competing",
+      "kind": "context",
+      "label": "Competing interests",
+      "value": "no competing interests",
+      "quote": "The authors declare no competing interests."
+    },
+    {
+      "id": "group_n",
+      "kind": "descriptive",
+      "label": "Analysed per group: early 28, mid-day 26, control 28",
+      "value": "No. | 28 | 26 | 28 |",
+      "quote": "No. | 28 | 26 | 28 |"
+    },
+    {
+      "id": "age_table",
+      "kind": "descriptive",
+      "label": "Mean age per group, years (early, mid-day, control)",
+      "value": "28.68 (9.707)",
+      "quote": "Age, mean (SD), years | 28.68 (9.707) | 31.08 (8.438) | 33.57 (11.6) | 0.16 |"
+    },
+    {
+      "id": "female_table",
+      "kind": "descriptive",
+      "label": "Women per group (early, mid-day, control)",
+      "value": "24 (85.7%)",
+      "quote": "Female | 24 (85.7%) | 19 (73.1%) | 21 (75.0%) |"
+    },
+    {
+      "id": "weight_table",
+      "kind": "descriptive",
+      "label": "Mean weight per group, kg (early, mid-day, control)",
+      "value": "61.1 (8.8)",
+      "quote": "Weight, mean (SD), kg | 61.1 (8.8) | 61.0 (11.7) | 61.2 (9.9) | 0.99 |"
+    },
+    {
+      "id": "bmi_table",
+      "kind": "descriptive",
+      "label": "Mean BMI per group (early, mid-day, control)",
+      "value": "22.7 (3.1)",
+      "quote": "BMI, mean (SD) | 22.7 (3.1) | 21.4 (2.2) | 21.5 (2.9) | 0.68 |"
+    },
+    {
+      "id": "completed_82",
+      "kind": "finding",
+      "label": "82 of 90 finished the five weeks",
+      "value": "Eighty-two participants (91.1%)",
+      "quote": "Eighty-two participants (91.1%) completed the entire five-week trial; two, four, and two participants in the eTRF, mTRF, and control groups did not.",
+      "outcome": "Finished the trial"
+    },
+    {
+      "id": "compliance",
+      "kind": "finding",
+      "label": "People said they kept to their window on almost every day",
+      "value": "949 out of 980 person-days (96.8%)",
+      "quote": "Self-reported compliance with the regimens was 949 out of 980 person-days (96.8%) in the eTRF group, and 894 out of 910 person-days (98.2%) in the mTRF group.",
+      "outcome": "Days kept to the eating window (self-reported)"
+    },
+    {
+      "id": "compliance_mtrf",
+      "kind": "finding",
+      "label": "Mid-day group kept to its window on 98.2% of days (self-reported)",
+      "value": "894 out of 910 person-days (98.2%)",
+      "quote": "Self-reported compliance with the regimens was 949 out of 980 person-days (96.8%) in the eTRF group, and 894 out of 910 person-days (98.2%) in the mTRF group.",
+      "outcome": "Days kept to the eating window (self-reported)"
+    },
+    {
+      "id": "no_serious_ae",
+      "kind": "finding",
+      "label": "No serious side effects were reported",
+      "value": "No serious adverse events were reported during the trial",
+      "quote": "No serious adverse events were reported during the trial.",
+      "outcome": "Serious adverse events"
+    },
+    {
+      "id": "ei_groups_differ",
+      "kind": "finding",
+      "label": "Both eating-window groups ate less than the control group",
+      "value": "p < 0.001",
+      "quote": "There was a significant difference in the change in energy intake among the eTRF, mTRF, and control groups (p < 0.001), with the eTRF (Δ = −240 ± 409 kcal/day) and mTRF (Δ = −159 ± 397 kcal/day) groups showing a reduction in energy intake, whereas the control group (Δ = 64 ± 286 kcal/day; p < 0.001 and p < 0.01, respectively) did not.",
+      "outcome": "Change in food energy eaten per day"
+    },
+    {
+      "id": "ei_etrf",
+      "kind": "estimate",
+      "label": "Change in food energy eaten, early group",
+      "value": "Δ = −240 ± 409 kcal/day",
+      "quote": "There was a significant difference in the change in energy intake among the eTRF, mTRF, and control groups (p < 0.001), with the eTRF (Δ = −240 ± 409 kcal/day) and mTRF (Δ = −159 ± 397 kcal/day) groups showing a reduction in energy intake, whereas the control group (Δ = 64 ± 286 kcal/day; p < 0.001 and p < 0.01, respectively) did not.",
+      "estimate": {
+        "outcome": "Change in food energy eaten per day (early group)",
+        "measure": "mean",
+        "point": -240,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kcal/day",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ei_mtrf",
+      "kind": "estimate",
+      "label": "Change in food energy eaten, mid-day group",
+      "value": "Δ = −159 ± 397 kcal/day",
+      "quote": "There was a significant difference in the change in energy intake among the eTRF, mTRF, and control groups (p < 0.001), with the eTRF (Δ = −240 ± 409 kcal/day) and mTRF (Δ = −159 ± 397 kcal/day) groups showing a reduction in energy intake, whereas the control group (Δ = 64 ± 286 kcal/day; p < 0.001 and p < 0.01, respectively) did not.",
+      "estimate": {
+        "outcome": "Change in food energy eaten per day (mid-day group)",
+        "measure": "mean",
+        "point": -159,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kcal/day",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ei_ctrl",
+      "kind": "estimate",
+      "label": "Change in food energy eaten, control group",
+      "value": "Δ = 64 ± 286 kcal/day",
+      "quote": "There was a significant difference in the change in energy intake among the eTRF, mTRF, and control groups (p < 0.001), with the eTRF (Δ = −240 ± 409 kcal/day) and mTRF (Δ = −159 ± 397 kcal/day) groups showing a reduction in energy intake, whereas the control group (Δ = 64 ± 286 kcal/day; p < 0.001 and p < 0.01, respectively) did not.",
+      "estimate": {
+        "outcome": "Change in food energy eaten per day (control group)",
+        "measure": "mean",
+        "point": 64,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kcal/day",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "ei_tr_ns",
+      "kind": "finding",
+      "label": "Food eaten: no clear difference between the two eating windows",
+      "value": "p = 0.30",
+      "quote": "However, there was no difference between the two TRF groups (p = 0.30, Fig. 2a).",
+      "outcome": "Change in food energy eaten per day, early against mid-day"
+    },
+    {
+      "id": "homa_anova",
+      "kind": "finding",
+      "label": "Insulin resistance changed differently across the groups",
+      "value": "ANOVA p < 0.001",
+      "quote": "There were significantly different changes in the Homeostatic Model Assessment of Insulin Resistance (HOMA-IR) among the groups (ANOVA p < 0.001, Fig. 2b).",
+      "outcome": "Change in insulin resistance (HOMA-IR)"
+    },
+    {
+      "id": "homa_etrf_better",
+      "kind": "finding",
+      "label": "Insulin resistance fell more with early eating than with mid-day eating or usual eating",
+      "value": "larger reduction in HOMA-IR",
+      "quote": "The eTRF group showed a larger reduction in HOMA-IR (Δ = −1.08 ± 1.59) than either the mTRF group (Δ = 0.39 ± 0.71, p < 0.001) or the control group (Δ = −0.05 ± 0.75, p = 0.002)",
+      "outcome": "Change in insulin resistance (HOMA-IR)"
+    },
+    {
+      "id": "homa_vs_mtrf_p",
+      "kind": "finding",
+      "label": "Insulin resistance: early against mid-day",
+      "value": "Δ = 0.39 ± 0.71, p < 0.001",
+      "quote": "The eTRF group showed a larger reduction in HOMA-IR (Δ = −1.08 ± 1.59) than either the mTRF group (Δ = 0.39 ± 0.71, p < 0.001) or the control group (Δ = −0.05 ± 0.75, p = 0.002), but there was no difference between the changes in the mTRF and control groups.",
+      "outcome": "Change in insulin resistance (HOMA-IR), early against mid-day"
+    },
+    {
+      "id": "homa_vs_ctrl_p",
+      "kind": "finding",
+      "label": "Insulin resistance: early against control",
+      "value": "Δ = −0.05 ± 0.75, p = 0.002",
+      "quote": "The eTRF group showed a larger reduction in HOMA-IR (Δ = −1.08 ± 1.59) than either the mTRF group (Δ = 0.39 ± 0.71, p < 0.001) or the control group (Δ = −0.05 ± 0.75, p = 0.002), but there was no difference between the changes in the mTRF and control groups.",
+      "outcome": "Change in insulin resistance (HOMA-IR), early against control"
+    },
+    {
+      "id": "homa_mtrf_ns",
+      "kind": "finding",
+      "label": "Mid-day eating: no clear difference from usual eating",
+      "value": "there was no difference between the changes in the mTRF and control groups",
+      "quote": "The eTRF group showed a larger reduction in HOMA-IR (Δ = −1.08 ± 1.59) than either the mTRF group (Δ = 0.39 ± 0.71, p < 0.001) or the control group (Δ = −0.05 ± 0.75, p = 0.002), but there was no difference between the changes in the mTRF and control groups.",
+      "outcome": "Change in insulin resistance (HOMA-IR), mid-day against control"
+    },
+    {
+      "id": "homa_etrf",
+      "kind": "estimate",
+      "label": "Change in insulin resistance, early group",
+      "value": "Δ = −1.08 ± 1.59",
+      "quote": "The eTRF group showed a larger reduction in HOMA-IR (Δ = −1.08 ± 1.59) than either the mTRF group (Δ = 0.39 ± 0.71, p < 0.001) or the control group (Δ = −0.05 ± 0.75, p = 0.002), but there was no difference between the changes in the mTRF and control groups.",
+      "estimate": {
+        "outcome": "Change in insulin resistance (early group)",
+        "measure": "mean",
+        "point": -1.08,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "HOMA-IR units",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "homa_mtrf",
+      "kind": "estimate",
+      "label": "Change in insulin resistance, mid-day group",
+      "value": "Δ = 0.39 ± 0.71",
+      "quote": "The eTRF group showed a larger reduction in HOMA-IR (Δ = −1.08 ± 1.59) than either the mTRF group (Δ = 0.39 ± 0.71, p < 0.001) or the control group (Δ = −0.05 ± 0.75, p = 0.002), but there was no difference between the changes in the mTRF and control groups.",
+      "estimate": {
+        "outcome": "Change in insulin resistance (mid-day group)",
+        "measure": "mean",
+        "point": 0.39,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "HOMA-IR units",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "homa_ctrl",
+      "kind": "estimate",
+      "label": "Change in insulin resistance, control group",
+      "value": "Δ = −0.05 ± 0.75",
+      "quote": "The eTRF group showed a larger reduction in HOMA-IR (Δ = −1.08 ± 1.59) than either the mTRF group (Δ = 0.39 ± 0.71, p < 0.001) or the control group (Δ = −0.05 ± 0.75, p = 0.002), but there was no difference between the changes in the mTRF and control groups.",
+      "estimate": {
+        "outcome": "Change in insulin resistance (control group)",
+        "measure": "mean",
+        "point": -0.05,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "HOMA-IR units",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "fpg_etrf_vs_ctrl",
+      "kind": "finding",
+      "label": "Fasting blood sugar fell more with early eating than with usual eating",
+      "value": "p = 0.005",
+      "quote": "The change in FPG significantly differed across the three groups (ANOVA p = 0.007, Fig. 2c), which reflected a significant difference between the eTRF group (Δ = −0.59 ± 0.84 mmol/L) and control group (Δ = 0.16 ± 0.38 mmol/L, p = 0.005).",
+      "outcome": "Change in fasting blood sugar, early against control"
+    },
+    {
+      "id": "fpg_etrf",
+      "kind": "estimate",
+      "label": "Change in fasting blood sugar, early group",
+      "value": "Δ = −0.59 ± 0.84 mmol/L",
+      "quote": "The change in FPG significantly differed across the three groups (ANOVA p = 0.007, Fig. 2c), which reflected a significant difference between the eTRF group (Δ = −0.59 ± 0.84 mmol/L) and control group (Δ = 0.16 ± 0.38 mmol/L, p = 0.005).",
+      "estimate": {
+        "outcome": "Change in fasting blood sugar (early group)",
+        "measure": "mean",
+        "point": -0.59,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "mmol/L",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "fpg_ctrl",
+      "kind": "estimate",
+      "label": "Change in fasting blood sugar, control group",
+      "value": "Δ = 0.16 ± 0.38 mmol/L",
+      "quote": "The change in FPG significantly differed across the three groups (ANOVA p = 0.007, Fig. 2c), which reflected a significant difference between the eTRF group (Δ = −0.59 ± 0.84 mmol/L) and control group (Δ = 0.16 ± 0.38 mmol/L, p = 0.005).",
+      "estimate": {
+        "outcome": "Change in fasting blood sugar (control group)",
+        "measure": "mean",
+        "point": 0.16,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "mmol/L",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "fpg_mtrf_ns",
+      "kind": "finding",
+      "label": "Fasting blood sugar: mid-day eating showed no clear difference from usual eating or early eating",
+      "value": "There were no differences in the change in FPG",
+      "quote": "There were no differences in the change in FPG between the mTRF (Δ = −0.18 ± 1.17 mmol/L) and control groups or between the TRF groups.",
+      "outcome": "Change in fasting blood sugar, mid-day against control and early"
+    },
+    {
+      "id": "fpg_mtrf",
+      "kind": "estimate",
+      "label": "Change in fasting blood sugar, mid-day group",
+      "value": "Δ = −0.18 ± 1.17 mmol/L",
+      "quote": "There were no differences in the change in FPG between the mTRF (Δ = −0.18 ± 1.17 mmol/L) and control groups or between the TRF groups.",
+      "estimate": {
+        "outcome": "Change in fasting blood sugar (mid-day group)",
+        "measure": "mean",
+        "point": -0.18,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "mmol/L",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "mass_etrf_vs_ctrl",
+      "kind": "finding",
+      "label": "Weight fell more with early eating than with usual eating",
+      "value": "greater reduction in body mass",
+      "quote": "Multiple comparisons following ANOVA showed that there was a greater reduction in body mass in the eTRF group (Δ = −1.6 ± 1.4 kg) than in the control group (Δ = 0.3 ± 1.2 kg, p = 0.009), but there were no differences in the changes in body mass between the mTRF (Δ = −0.2 ± 2.2 kg) and control groups, or between the TRF groups (Fig. 2d).",
+      "outcome": "Change in body weight, early against control"
+    },
+    {
+      "id": "mass_others_ns",
+      "kind": "finding",
+      "label": "Weight: mid-day eating showed no clear difference from usual eating or early eating",
+      "value": "there were no differences in the changes in body mass",
+      "quote": "Multiple comparisons following ANOVA showed that there was a greater reduction in body mass in the eTRF group (Δ = −1.6 ± 1.4 kg) than in the control group (Δ = 0.3 ± 1.2 kg, p = 0.009), but there were no differences in the changes in body mass between the mTRF (Δ = −0.2 ± 2.2 kg) and control groups, or between the TRF groups (Fig. 2d).",
+      "outcome": "Change in body weight, mid-day against control and early"
+    },
+    {
+      "id": "mass_etrf",
+      "kind": "estimate",
+      "label": "Change in weight, early group",
+      "value": "Δ = −1.6 ± 1.4 kg",
+      "quote": "Multiple comparisons following ANOVA showed that there was a greater reduction in body mass in the eTRF group (Δ = −1.6 ± 1.4 kg) than in the control group (Δ = 0.3 ± 1.2 kg, p = 0.009), but there were no differences in the changes in body mass between the mTRF (Δ = −0.2 ± 2.2 kg) and control groups, or between the TRF groups (Fig. 2d).",
+      "estimate": {
+        "outcome": "Change in body weight (early group)",
+        "measure": "mean",
+        "point": -1.6,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "mass_ctrl",
+      "kind": "estimate",
+      "label": "Change in weight, control group",
+      "value": "Δ = 0.3 ± 1.2 kg",
+      "quote": "Multiple comparisons following ANOVA showed that there was a greater reduction in body mass in the eTRF group (Δ = −1.6 ± 1.4 kg) than in the control group (Δ = 0.3 ± 1.2 kg, p = 0.009), but there were no differences in the changes in body mass between the mTRF (Δ = −0.2 ± 2.2 kg) and control groups, or between the TRF groups (Fig. 2d).",
+      "estimate": {
+        "outcome": "Change in body weight (control group)",
+        "measure": "mean",
+        "point": 0.3,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "mass_mtrf",
+      "kind": "estimate",
+      "label": "Change in weight, mid-day group",
+      "value": "Δ = −0.2 ± 2.2 kg",
+      "quote": "Multiple comparisons following ANOVA showed that there was a greater reduction in body mass in the eTRF group (Δ = −1.6 ± 1.4 kg) than in the control group (Δ = 0.3 ± 1.2 kg, p = 0.009), but there were no differences in the changes in body mass between the mTRF (Δ = −0.2 ± 2.2 kg) and control groups, or between the TRF groups (Fig. 2d).",
+      "estimate": {
+        "outcome": "Change in body weight (mid-day group)",
+        "measure": "mean",
+        "point": -0.2,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "fat_etrf_vs_ctrl",
+      "kind": "finding",
+      "label": "Body fat fell more with early eating than with usual eating",
+      "value": "significantly larger reductions in percentage body fat and body fat mass",
+      "quote": "In addition, the eTRF group showed significantly larger reductions in percentage body fat and body fat mass (Δ = −0.60 ± 1.22% and Δ = −0.76 ± 1.01 kg, respectively) than the control group (Δ = 0.42 ± 1.16% and Δ = 0.41 ± 0.89 kg, respectively; p = 0.042 and 0.001, respectively).",
+      "outcome": "Change in body fat, early against control"
+    },
+    {
+      "id": "fatmass_etrf",
+      "kind": "estimate",
+      "label": "Change in fat mass, early group",
+      "value": "Δ = −0.76 ± 1.01 kg",
+      "quote": "In addition, the eTRF group showed significantly larger reductions in percentage body fat and body fat mass (Δ = −0.60 ± 1.22% and Δ = −0.76 ± 1.01 kg, respectively) than the control group (Δ = 0.42 ± 1.16% and Δ = 0.41 ± 0.89 kg, respectively; p = 0.042 and 0.001, respectively).",
+      "estimate": {
+        "outcome": "Change in fat mass (early group)",
+        "measure": "mean",
+        "point": -0.76,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "fatmass_ctrl",
+      "kind": "estimate",
+      "label": "Change in fat mass, control group",
+      "value": "Δ = 0.41 ± 0.89 kg",
+      "quote": "In addition, the eTRF group showed significantly larger reductions in percentage body fat and body fat mass (Δ = −0.60 ± 1.22% and Δ = −0.76 ± 1.01 kg, respectively) than the control group (Δ = 0.42 ± 1.16% and Δ = 0.41 ± 0.89 kg, respectively; p = 0.042 and 0.001, respectively).",
+      "estimate": {
+        "outcome": "Change in fat mass (control group)",
+        "measure": "mean",
+        "point": 0.41,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "fatpct_etrf",
+      "kind": "estimate",
+      "label": "Change in body fat percentage, early group",
+      "value": "Δ = −0.60 ± 1.22%",
+      "quote": "In addition, the eTRF group showed significantly larger reductions in percentage body fat and body fat mass (Δ = −0.60 ± 1.22% and Δ = −0.76 ± 1.01 kg, respectively) than the control group (Δ = 0.42 ± 1.16% and Δ = 0.41 ± 0.89 kg, respectively; p = 0.042 and 0.001, respectively).",
+      "estimate": {
+        "outcome": "Change in body fat percentage (early group)",
+        "measure": "mean",
+        "point": -0.6,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "%",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "fatpct_ctrl",
+      "kind": "estimate",
+      "label": "Change in body fat percentage, control group",
+      "value": "Δ = 0.42 ± 1.16%",
+      "quote": "In addition, the eTRF group showed significantly larger reductions in percentage body fat and body fat mass (Δ = −0.60 ± 1.22% and Δ = −0.76 ± 1.01 kg, respectively) than the control group (Δ = 0.42 ± 1.16% and Δ = 0.41 ± 0.89 kg, respectively; p = 0.042 and 0.001, respectively).",
+      "estimate": {
+        "outcome": "Change in body fat percentage (control group)",
+        "measure": "mean",
+        "point": 0.42,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "%",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "fat_mtrf_ns",
+      "kind": "finding",
+      "label": "Body fat: mid-day eating showed no clear difference from usual eating or early eating",
+      "value": "No differences in these two parameters were found",
+      "quote": "No differences in these two parameters were found between the mTRF (Δ = −0.22  ± 1.70% and Δ = −0.30 ± 1.25 kg, respectively) and control groups or between the TRF groups (Fig. 2e, f).",
+      "outcome": "Change in body fat, mid-day against control and early"
+    },
+    {
+      "id": "fatmass_mtrf",
+      "kind": "estimate",
+      "label": "Change in fat mass, mid-day group",
+      "value": "Δ = −0.30 ± 1.25 kg",
+      "quote": "No differences in these two parameters were found between the mTRF (Δ = −0.22  ± 1.70% and Δ = −0.30 ± 1.25 kg, respectively) and control groups or between the TRF groups (Fig. 2e, f).",
+      "estimate": {
+        "outcome": "Change in fat mass (mid-day group)",
+        "measure": "mean",
+        "point": -0.3,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "kg",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "bp_ns",
+      "kind": "finding",
+      "label": "Blood pressure: no clear difference between the groups",
+      "value": "did not significantly differ",
+      "quote": "The changes in systolic blood pressure (SBP), diastolic blood pressure (DBP), and mean arterial pressure (MAP) did not significantly differ among the eTRF, mTRF, and control groups (p = 0.078, p = 0.099, and p = 0.088, respectively).",
+      "outcome": "Change in blood pressure"
+    },
+    {
+      "id": "lipids_ns",
+      "kind": "finding",
+      "label": "Blood fats (cholesterol, triglycerides): no clear difference between the groups",
+      "value": "There were also no differences found",
+      "quote": "There were also no differences found in the circulating high-density lipoprotein-cholesterol (HDL-C) (p = 0.28), low-density lipoprotein-cholesterol (LDL-C) (p = 0.68), total cholesterol (p = 0.94), and triglyceride (p = 0.71) concentrations (Table S1).",
+      "outcome": "Change in blood fats"
+    },
+    {
+      "id": "tnf_etrf_vs_ctrl",
+      "kind": "finding",
+      "label": "An inflammation signal (TNF-α) fell more with early eating than with usual eating",
+      "value": "p = 0.024",
+      "quote": "The change in TNF-α was larger in the eTRF group (Δ = −0.81 ± 1.98 pg/mL) than in the control group (Δ = 0.39 ± 1.35 pg/mL, p = 0.024), but there were no differences between the mTRF group (Δ = −0.06 ± 0.95 pg/mL) and the control group, or between the two TRF groups (Fig. 2g).",
+      "outcome": "Change in TNF-α, early against control"
+    },
+    {
+      "id": "tnf_etrf",
+      "kind": "estimate",
+      "label": "Change in TNF-α, early group",
+      "value": "Δ = −0.81 ± 1.98 pg/mL",
+      "quote": "The change in TNF-α was larger in the eTRF group (Δ = −0.81 ± 1.98 pg/mL) than in the control group (Δ = 0.39 ± 1.35 pg/mL, p = 0.024), but there were no differences between the mTRF group (Δ = −0.06 ± 0.95 pg/mL) and the control group, or between the two TRF groups (Fig. 2g).",
+      "estimate": {
+        "outcome": "Change in TNF-α (early group)",
+        "measure": "mean",
+        "point": -0.81,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "pg/mL",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "tnf_ctrl",
+      "kind": "estimate",
+      "label": "Change in TNF-α, control group",
+      "value": "Δ = 0.39 ± 1.35 pg/mL",
+      "quote": "The change in TNF-α was larger in the eTRF group (Δ = −0.81 ± 1.98 pg/mL) than in the control group (Δ = 0.39 ± 1.35 pg/mL, p = 0.024), but there were no differences between the mTRF group (Δ = −0.06 ± 0.95 pg/mL) and the control group, or between the two TRF groups (Fig. 2g).",
+      "estimate": {
+        "outcome": "Change in TNF-α (control group)",
+        "measure": "mean",
+        "point": 0.39,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "pg/mL",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "il8_etrf_vs_ctrl",
+      "kind": "finding",
+      "label": "Another inflammation signal (IL-8) fell more with early eating than with usual eating",
+      "value": "p = 0.045",
+      "quote": "Similarly, there was a larger reduction in the IL-8 concentration in the eTRF group (Δ = −1.9 ± 4.5 pg/mL) than in the control group (Δ = 1.1 ± 2.9 pg/mL, p = 0.045), but there were no differences between the mTRF group (Δ = −1.0 ± 5.5 pg/mL) and the control group, or between the TRF groups (Fig. 2h).",
+      "outcome": "Change in IL-8, early against control"
+    },
+    {
+      "id": "hscrp_ns",
+      "kind": "finding",
+      "label": "A third inflammation signal (hsCRP): no clear difference",
+      "value": "p = 0.70",
+      "quote": "However, the changes in hsCRP were similar in the three groups (p = 0.70, Table S1).",
+      "outcome": "Change in hsCRP"
+    },
+    {
+      "id": "ast_etrf_vs_ctrl",
+      "kind": "finding",
+      "label": "A liver enzyme (AST) fell more with early eating than with usual eating",
+      "value": "p = 0.041",
+      "quote": "The changes in plasma aspartate aminotransferase (AST) activity significantly differed among the three groups (eTRF: Δ = −3.0 ± 7.0 U/L, mTRF: Δ = −1.0 ± 4.2 U/L, control: Δ = 0.4 ± 2.8 U/L; p = 0.046, Fig. 2i), which reflected a larger decrease in the eTRF group than in the control group (p = 0.041).",
+      "outcome": "Change in AST, early against control"
+    },
+    {
+      "id": "other_liver_ns",
+      "kind": "finding",
+      "label": "Three other liver enzymes: no clear difference",
+      "value": "did not differ among the three groups",
+      "quote": "However, the activities of alanine aminotransferase (ALT), alkaline phosphatase (ALP), and gamma-glutamyltransferase (GGT) did not differ among the three groups (Table S1).",
+      "outcome": "Change in ALT, ALP and GGT"
+    },
+    {
+      "id": "tregs_etrf_vs_ctrl",
+      "kind": "finding",
+      "label": "A calming immune cell (T-regulatory cells) rose more with early eating than with usual eating",
+      "value": "p = 0.038",
+      "quote": "The eTRF group (Δ = 0.8 ± 1.6%) showed a larger increase in the percentage of peripheral T-regulatory cells (pTregs) than the control group (Δ = −0.2 ± 0.9%; p = 0.038), but there were no differences in this parameter between the mTRF (Δ = 0.7%, −0.5 to 1.4%) and control groups or between the two TRF groups (Fig. 2j).",
+      "outcome": "Change in T-regulatory cells, early against control"
+    },
+    {
+      "id": "wbc_ns",
+      "kind": "finding",
+      "label": "White blood cell count: no clear difference",
+      "value": "There were no differences in the changes in white blood cell (WBC) count",
+      "quote": "There were no differences in the changes in white blood cell (WBC) count among the three groups.",
+      "outcome": "Change in white blood cell count"
+    },
+    {
+      "id": "diversity_etrf_vs_ctrl",
+      "kind": "finding",
+      "label": "Gut bacteria became more varied with early eating than with usual eating",
+      "value": "p = 0.048",
+      "quote": "The changes in the gut microbial α-diversity significantly differed among the eTRF (Δ = 18.0 ± 44.0), mTRF (Δ = 11.2 ± 51.6), and control (Δ = −10.2 ± 35.0) groups (p = 0.049, Fig. 2k), with the eTRF group experiencing a larger increase in α-diversity than the control group (p = 0.048).",
+      "outcome": "Change in gut bacterial variety, early against control"
+    },
+    {
+      "id": "div_etrf",
+      "kind": "estimate",
+      "label": "Change in gut bacterial variety (chao1), early group",
+      "value": "Δ = 18.0 ± 44.0",
+      "quote": "The changes in the gut microbial α-diversity significantly differed among the eTRF (Δ = 18.0 ± 44.0), mTRF (Δ = 11.2 ± 51.6), and control (Δ = −10.2 ± 35.0) groups (p = 0.049, Fig. 2k), with the eTRF group experiencing a larger increase in α-diversity than the control group (p = 0.048).",
+      "estimate": {
+        "outcome": "Change in gut bacterial variety (early group)",
+        "measure": "mean",
+        "point": 18.0,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "chao1",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "div_mtrf",
+      "kind": "estimate",
+      "label": "Change in gut bacterial variety (chao1), mid-day group",
+      "value": "Δ = 11.2 ± 51.6",
+      "quote": "The changes in the gut microbial α-diversity significantly differed among the eTRF (Δ = 18.0 ± 44.0), mTRF (Δ = 11.2 ± 51.6), and control (Δ = −10.2 ± 35.0) groups (p = 0.049, Fig. 2k), with the eTRF group experiencing a larger increase in α-diversity than the control group (p = 0.048).",
+      "estimate": {
+        "outcome": "Change in gut bacterial variety (mid-day group)",
+        "measure": "mean",
+        "point": 11.2,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "chao1",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "div_ctrl",
+      "kind": "estimate",
+      "label": "Change in gut bacterial variety (chao1), control group",
+      "value": "Δ = −10.2 ± 35.0",
+      "quote": "The changes in the gut microbial α-diversity significantly differed among the eTRF (Δ = 18.0 ± 44.0), mTRF (Δ = 11.2 ± 51.6), and control (Δ = −10.2 ± 35.0) groups (p = 0.049, Fig. 2k), with the eTRF group experiencing a larger increase in α-diversity than the control group (p = 0.048).",
+      "estimate": {
+        "outcome": "Change in gut bacterial variety (control group)",
+        "measure": "mean",
+        "point": -10.2,
+        "ciLow": null,
+        "ciHigh": null,
+        "unit": "chao1",
+        "gradeRef": null
+      }
+    },
+    {
+      "id": "diversity_others_ns",
+      "kind": "finding",
+      "label": "Gut variety: mid-day eating showed no clear difference from usual eating or early eating",
+      "value": "p = 0.18",
+      "quote": "However, there were no significant differences between the mTRF and control groups (p = 0.18) or between the TRF groups (p = 0.84).",
+      "outcome": "Change in gut bacterial variety, mid-day against control and early"
+    },
+    {
+      "id": "sleep_ns",
+      "kind": "finding",
+      "label": "Sleep quality: no clear difference",
+      "value": "p = 0.24",
+      "quote": "The changes in PSQI did not significantly differ among the eTRF (Δ = −1.08 ± 1.78), mTRF (Δ = −0.22 ± 2.19), and control (Δ = −0.36 ± 1.73) groups (p = 0.24, Table S1).",
+      "outcome": "Change in sleep quality score"
+    },
+    {
+      "id": "appetite_ns",
+      "kind": "finding",
+      "label": "Appetite: no clear difference",
+      "value": "There were no significant differences in the CNAQ results",
+      "quote": "There were no significant differences in the CNAQ results among the three groups (eTRF: Δ = −0.24 ± 2.30, mTRF: Δ = −0.83 ± 2.50, control: Δ = 0.07 ± 1.82; p = 0.35).",
+      "outcome": "Change in appetite score"
+    },
+    {
+      "id": "fewer_meals",
+      "kind": "finding",
+      "label": "Both eating-window groups ate fewer times a day than the control group",
+      "value": "significantly lower meal frequency than the control group",
+      "quote": "However, there were differences in the changes in the frequency of food consumption, including of formal meals and snacks (p < 0.001, Fig. 2l) among the eTRF (Δ = −0.67 ± 0.76), mTRF (Δ = −0.72 ± 0.67), and control (Δ = 0.04 ± 0.59) groups, with both TRF groups showing significantly lower meal frequency than the control group (eTRF: p = 0.001, mTRF: p = 0.001).",
+      "outcome": "Change in how many times a day people ate"
+    },
+    {
+      "id": "adipokines_fasting_ns",
+      "kind": "finding",
+      "label": "Fasting levels of three appetite and fat hormones: no clear change",
+      "value": "no significant changes were found",
+      "quote": "The fasting plasma concentrations of resistin, leptin, and ghrelin were measured, and no significant changes were found in any of the three groups with respect to the concentrations of these substances.",
+      "outcome": "Change in fasting resistin, leptin and ghrelin"
+    },
+    {
+      "id": "ghrelin_23",
+      "kind": "finding",
+      "label": "With early eating, the hunger hormone ghrelin was higher at 23:00 (19-person subset)",
+      "value": "the plasma ghrelin concentration at 23:00 was significantly increased by eTRF",
+      "quote": "Two-way ANOVA showed that the plasma ghrelin concentration at 23:00 was significantly increased by eTRF (0.49 ± 0.17%, p = 0.037); and the resistin concentration increased at 12:00 (0.22% ± 0.085%, p = 0.048) and decreased at 17:00 (−0.24% ± 0.078%, p = 0.03) in the eTRF group.",
+      "outcome": "Ghrelin at 23:00 (early group, subset)"
+    },
+    {
+      "id": "sirt1_amplitude",
+      "kind": "finding",
+      "label": "With early eating, the daily swing of one body-clock gene (SIRT1) grew in everyone measured",
+      "value": "the SIRT1 mRNA expression of all the participants increased in amplitude",
+      "quote": "In the eTRF group, the SIRT1 mRNA expression of all the participants increased in amplitude during the trial (Fig. 4a).",
+      "outcome": "Daily swing of SIRT1 activity (early group, subset)"
+    },
+    {
+      "id": "trf_definition",
+      "kind": "statement",
+      "label": "Time-restricted eating limits eating to 4 to 10 hours a day",
+      "value": "restricted to a period of 4–10 h",
+      "quote": "Time-restricted feeding (TRF), in which the daily window for food consumption is restricted to a period of 4–10 h, is thought to be a feasible fasting regimen for most people."
+    },
+    {
+      "id": "prior_animal",
+      "kind": "statement",
+      "label": "Earlier work in animals found many benefits",
+      "value": "in animal models",
+      "quote": "It has previously been shown in animal models that TRF has many beneficial effects, including a reduction in body mass, the prevention of obesity, an improvement in insulin sensitivity, a reduction in hepatic fat content, the prevention of hepatosteatosis and hyperlipidemia, and the amelioration of hepatic ischemia-reperfusion injury and inflammation–."
+    },
+    {
+      "id": "prior_human",
+      "kind": "statement",
+      "label": "Earlier work in people found weight loss and better insulin response",
+      "value": "in humans",
+      "quote": "TRF has also been shown to induce weight loss, increase insulin sensitivity, and reduce blood pressure, and to have other metabolic benefits in humans,–."
+    },
+    {
+      "id": "timing_matters",
+      "kind": "statement",
+      "label": "Earlier work suggests the timing of the window matters",
+      "value": "might depend on the particular time window",
+      "quote": "Previous studies have shown that the effects of TRF might depend on the particular time window for food consumption, but the exact time periods used to date have not been well defined."
+    },
+    {
+      "id": "rhythm_hypothesis",
+      "kind": "statement",
+      "label": "Authors' suggestion: the mechanism may involve daily rhythms",
+      "value": "the mechanism may involve changes to daily rhythms",
+      "quote": "Taken together, these findings suggest that TRF with a window for food consumption early in the day is better for metabolic health than a window later in the day, and that the mechanism may involve changes to daily rhythms."
+    },
+    {
+      "id": "not_energy",
+      "kind": "statement",
+      "label": "Authors' reading: the two windows' different results were not from eating different amounts",
+      "value": "were not caused by differences in energy intake",
+      "quote": "Furthermore, the lack of a significant difference in the change in energy intake between the two TRF groups suggests that the differences in the improvements in metabolic health were not caused by differences in energy intake."
+    },
+    {
+      "id": "shorter_window_less_food",
+      "kind": "statement",
+      "label": "Authors' reading: shortening the eating day alone cut how much people ate",
+      "value": "energy intake can be limited just by shortening the daily duration of food consumption",
+      "quote": "However, there were reductions in energy intake in both of the TRF groups, which implies that energy intake can be limited just by shortening the daily duration of food consumption."
+    },
+    {
+      "id": "modest_weight",
+      "kind": "statement",
+      "label": "Weight loss was modest against earlier studies of people with overweight",
+      "value": "relatively modest",
+      "quote": "Besides, the weight loss in eTRF group was relatively modest compared with prior eTRF studies,, which may be the result of different inclusion criteria of participants, with normal weight humans included in this trial, while mostly overweight participants or individuals with obesity were included in prior eTRF studies,."
+    },
+    {
+      "id": "bp_prior",
+      "kind": "statement",
+      "label": "An earlier trial in people with higher blood pressure found it fell",
+      "value": "prehypertensive range",
+      "quote": "The baseline blood pressure levels might be the reason for the different effects of eTRF between these two trials, because the trial by Courtney Peterson et al. was carried on those with a mean blood pressure within prehypertensive range, while the present trial on healthy participants."
+    },
+    {
+      "id": "lipids_normal",
+      "kind": "statement",
+      "label": "Blood fats were already in the normal range for most",
+      "value": "within the normal range",
+      "quote": "In addition, there was no effect of either TRF regimen on circulating lipid concentrations, but this was not unexpected, because the blood concentrations of most of the participants were within the normal range."
+    },
+    {
+      "id": "ghrelin_explained",
+      "kind": "statement",
+      "label": "Authors' reading: higher ghrelin at 23:00 may simply reflect a longer fast by then",
+      "value": "a longer period of fasting in this group at that time point",
+      "quote": "Therefore, the higher concentration of ghrelin that was identified at 23:00 in the eTRF group might be at least in part the results of a longer period of fasting in this group at that time point."
+    },
+    {
+      "id": "ghrelin_hunger",
+      "kind": "statement",
+      "label": "Ghrelin plays a role in feeling hungry",
+      "value": "ghrelin has an important role in the feeling of hunger",
+      "quote": "The daily rhythm in circulating ghrelin concentration has been reported to synchronize with TRF in mice, with the concentration increasing before the feeding period, and it should be noted that ghrelin has an important role in the feeling of hunger."
+    },
+    {
+      "id": "clock_exploratory",
+      "kind": "statement",
+      "label": "The body-clock gene results were exploratory only",
+      "value": "just for exploratory purposes",
+      "quote": "Because not all the expression data for every participant fitted Cosinor curves, the parameters were calculated just for exploratory purposes, to provide clues for future investigations."
+    },
+    {
+      "id": "limit_unblinded",
+      "kind": "limitation",
+      "label": "Participants knew which group they were in",
+      "value": "the participants could not be blinded to the intervention",
+      "quote": "Firstly, although it was a randomized trial, the participants could not be blinded to the intervention."
+    },
+    {
+      "id": "limit_selfselected",
+      "kind": "limitation",
+      "label": "Volunteers may already have been keen on time-restricted eating, and most were women",
+      "value": "most were women",
+      "quote": "Secondly, the people who applied to join the trial might already have been interested in TRF or wished to improve their health through making a dietary change, and most were women."
+    },
+    {
+      "id": "limit_small",
+      "kind": "limitation",
+      "label": "Small trial, perhaps not representative",
+      "value": "the number of participants in the trial was relatively small",
+      "quote": "Thirdly, the number of participants in the trial was relatively small and they may not have been representative of the wider population."
+    },
+    {
+      "id": "limit_barriers",
+      "kind": "limitation",
+      "label": "Barriers to keeping the window were not studied",
+      "value": "the potential barriers to TRF were not analyzed",
+      "quote": "Fourthly, the potential barriers to TRF were not analyzed."
+    },
+    {
+      "id": "limit_timing_varied",
+      "kind": "limitation",
+      "label": "Meal timing and length varied within each group",
+      "value": "the specific timing and duration of their meals varied within each group",
+      "quote": "Fifthly, the participants in the TRF groups were required to consume their meals within an 8 h period, but the specific timing and duration of their meals varied within each group, which may have influenced the results."
+    },
+    {
+      "id": "limit_duration_further",
+      "kind": "limitation",
+      "label": "How the length of the window matters needs more study",
+      "value": "requires further investigation",
+      "quote": "The influence of the duration of food consumption on the effects of TRF requires further investigation."
+    },
+    {
+      "id": "limit_fast_before_test",
+      "kind": "limitation",
+      "label": "Fasting length before the blood tests may have differed between groups",
+      "value": "changes in the duration of fasting prior to testing",
+      "quote": "Sixthly, the changes in the eating periods that were made in the TRF groups may have caused changes in the duration of fasting prior to testing, which might have influenced the results."
+    },
+    {
+      "id": "limit_rhythm_few",
+      "kind": "limitation",
+      "label": "Daily-rhythm measures came from few people at few times",
+      "value": "measured in limited numbers of participants",
+      "quote": "Lastly, daily rhythm-related parameters were measured in limited numbers of participants and few time points were assessed."
+    },
+    {
+      "id": "limit_rhythm_further",
+      "kind": "limitation",
+      "label": "Larger rhythm studies are needed",
+      "value": "further, larger studies should be conducted",
+      "quote": "To better assess the effects of TRFs on daily rhythms, further, larger studies should be conducted that include shorter intervals between measurements and more than one diurnal cycle."
+    },
+    {
+      "id": "limit_visceral_further",
+      "kind": "limitation",
+      "label": "Belly fat needs measuring in future trials",
+      "value": "requires further visceral fat measuring parameters in future trials",
+      "quote": "These may indicate an improvement in fat deposition, which requires further visceral fat measuring parameters in future trials."
+    },
+    {
+      "id": "limit_test_day_timing",
+      "kind": "limitation",
+      "label": "Food timing on the test day may have affected the rhythm results",
+      "value": "the timing of food intake on the test day might influence the results",
+      "quote": "However, it is worth noting that the timing of food intake on the test day might influence the results of the analyses of daily rhythm-related parameters."
+    },
+    {
+      "id": "limit_five_weeks",
+      "kind": "limitation",
+      "label": "Five weeks only",
+      "value": "5 weeks",
+      "quote": "The present study has shown that 5 weeks of eTRF, but not mTRF, improves insulin sensitivity, reduces fasting plasma glucose, reduces body mass and adiposity, ameliorates inflammation, and increases gut microbial diversity."
+    }
+  ],
+  "coverage": {
+    "conditions": [
+      "etrf_window",
+      "mtrf_window",
+      "control_diet",
+      "etrf_choose",
+      "mtrf_choose",
+      "fasting_drinks",
+      "eat_freely",
+      "alcohol",
+      "fasting_blood",
+      "photo_compliance",
+      "habit_over_8h",
+      "recruitment"
+    ],
+    "dosing": [
+      "five_weeks",
+      "limit_five_weeks",
+      "compliance",
+      "compliance_mtrf"
+    ],
+    "confounds": [
+      "participants_unblinded",
+      "photo_checkers_unblinded",
+      "limit_timing_varied",
+      "limit_fast_before_test",
+      "limit_selfselected",
+      "dropouts_excluded",
+      "ei_groups_differ",
+      "limit_test_day_timing"
+    ],
+    "priorEvidence": [
+      "prior_animal",
+      "prior_human",
+      "timing_matters",
+      "bp_prior",
+      "modest_weight"
+    ],
+    "furtherInvestigation": [
+      "limit_duration_further",
+      "limit_rhythm_further",
+      "limit_visceral_further"
+    ],
+    "funding": [
+      "funding",
+      "sponsor_no_role",
+      "no_competing"
+    ]
+  }
+}

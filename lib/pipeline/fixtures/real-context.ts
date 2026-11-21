@@ -16,3 +16,5 @@ export const REAL_LIBRARY = loaded.context.library ?? [];
 export const HALF_LIFE_STUDY = "caffeine-saliva-half-life";
 /** The real concept files, for a test that lints or builds a real read whose sketch rests on one. */
 export const REAL_CONCEPTS = loaded.context.concepts;
+/** The real common-knowledge facts (content/common/), for a test that lints a real deck citing one. */
+export const REAL_COMMON = loaded.context.common ?? {};

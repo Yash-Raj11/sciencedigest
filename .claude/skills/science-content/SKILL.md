@@ -170,6 +170,30 @@ in `components/papers/registry.tsx`. A layer references one:
   it; every state obeys the rules above. Shapes are placed by calculation
   (`components/figures/scale.ts`). No timers, no loops: motion is for measured change only.
 
+## The Instagram deck (`carousel` in editorial.json; owner, 2026-11-19)
+
+One story for someone who has never seen the paper: **hook → finding → why → who → receipts → cta**.
+Schema and limits: `lib/pipeline/carousel.ts`; the prompt in `lib/pipeline/prompts.ts` spells out
+each slide's art.
+
+- **Hook:** the question people actually ask, set against the common advice, and what the study
+  did. No caveat or hedge (H2). A schedule is drawn as a `day`; every time cites its passage.
+- **Finding:** the plain result as the heading. Verdict rows say "no clear difference", "lower"
+  or "higher", and the lint checks each against its fact (H5). Never "same".
+- **Say what a number means.** "150 mg, about a cup and a half of coffee [dose, common:coffee-cup-caffeine]",
+  never the dose alone. A common-knowledge fact lives in `content/common/<slug>.json`, is cited on
+  the deck only, and lends only its own numbers. Write new ones with `"reviewed_by_owner": false`
+  and list them for the owner; **never run `approve-common`**.
+- **Why:** the mechanism as a picture (H9, H10: plain picture first, term in brackets, no caveat).
+  Where the paper measured nothing to draw, a sketch on a concept: no digit, dotted, tagged.
+- **Alternate openings** (`carousel.altHooks`, 1 to 3): other hooks for the owner to choose from,
+  each named and held to every hook rule (no caveat, numbers from their passages, word limits).
+- **Who:** tested and not tested, every entry citing the paper (H3).
+- **Receipts:** strong, weak (cites a limitation, H6), missing; the gate prints the rest.
+- 25 words in a slide's heading and body; 24 drawn in its art; 6 in a label. Fit the words, never
+  the limit. Then `npm run carousel:export`, `npm run carousel:sheet`, and **look at the sheets**:
+  a deck that passes the lint can still be unreadable. How a deck looks: the `carousel-design` skill.
+
 ## Workflow
 
 1. Edit the source JSON: `content/papers/<slug>/editorial.json` (or a file in `content/context/`

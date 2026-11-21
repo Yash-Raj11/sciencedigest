@@ -1,0 +1,704 @@
+{
+  "identifiers": {
+    "doi": "10.3390/nu10050606",
+    "pmid": "29757229",
+    "pmcid": "PMC5986486",
+    "title": "Effect of Dietary Sugar Intake on Biomarkers of Subclinical Inflammation: A Systematic Review and Meta-Analysis of Intervention Studies",
+    "authors": "Della Corte KW, Perrar I, Penczynski KJ, Schwingshackl L, Herder C, Buyken AE",
+    "journal": "Nutrients",
+    "year": 2018,
+    "citation": "Della Corte KW, Perrar I, Penczynski KJ, Schwingshackl L, Herder C, Buyken AE. Effect of Dietary Sugar Intake on Biomarkers of Subclinical Inflammation: A Systematic Review and Meta-Analysis of Intervention Studies. Nutrients. 2018;10(5):606. doi:10.3390/nu10050606"
+  },
+  "license": "CC-BY",
+  "design": {
+    "value": "meta_analysis_rct",
+    "quote": "NutriGrade comprises the following items for meta-analysis of randomized controlled trials: (0–10 points): (1) risk of bias (2) precision, (3) heterogeneity, (4) directness, (5) publication bias, (6) funding bias, (7) and study design. Based on this scoring system, four categories were recommended to judge the meta-evidence: high (≥8 points), moderate (6 to 7.99 points), low (4 to 5.99), and very low (0 to 3.99) []."
+  },
+  "species": {
+    "value": "human",
+    "quote": "Thirteen studies investigating 1141 participants were included in the meta-analysis."
+  },
+  "population": {
+    "value": "adults or adolescents in controlled sugar-feeding trials",
+    "quote": "Included studies were conducted on adults or adolescents with ≥20 participants and ≥2 weeks duration."
+  },
+  "sampleSize": {
+    "value": "1141",
+    "quote": "Thirteen studies investigating 1141 participants were included in the meta-analysis."
+  },
+  "facts": [
+    {
+      "id": "search",
+      "kind": "context",
+      "label": "Searched three medical databases, January 1990 to 18 April 2018",
+      "value": "from January 1990 through 18 April 2018",
+      "quote": "We conducted a systematic literature search of the MEDLINE (http://www.ncbi.nlm.nih.gov/pubmed/), EMBASE (https://www.elsevier.com/solutions/embase-biomedical-research), and Cochrane Library (Cochrane Central Register of Controlled Trials (CENTRAL)) (http://onlinelibrary.wiley.com/cochranelibrary/search/) databases from January 1990 through 18 April 2018."
+    },
+    {
+      "id": "registered",
+      "kind": "context",
+      "label": "Registered in advance (PROSPERO)",
+      "value": "This review was registered with PROSPERO",
+      "quote": "This review was registered with PROSPERO (registration number: CRD42017081171)."
+    },
+    {
+      "id": "controlled_trials",
+      "kind": "context",
+      "label": "Only controlled human trials, parallel or crossover; not all are described as randomized",
+      "value": "human intervention studies (controlled, parallel, or crossover design)",
+      "quote": "The search was restricted to human intervention studies (controlled, parallel, or crossover design)."
+    },
+    {
+      "id": "inclusion_people",
+      "kind": "context",
+      "label": "Who could be in the trials: healthy adults or teens aged 11 and up, including overweight or obese",
+      "value": "healthy, overweight, or obese adults or adolescents (age 11 and up)",
+      "quote": "Inclusion criteria limited search to either (1) healthy, overweight, or obese adults or adolescents (age 11 and up), (2) with or without diseases for which inflammation is not a major symptomatic factor."
+    },
+    {
+      "id": "excluded_inflammatory",
+      "kind": "context",
+      "label": "Trials in people with major inflammatory diseases were left out",
+      "value": "participants with major inflammatory diseases, such as arthritis, hepatitis, or irritable bowel syndrome",
+      "quote": "We additionally excluded intervention studies on participants with major inflammatory diseases, such as arthritis, hepatitis, or irritable bowel syndrome, i.e., diseases for which inflammation or oxidative stress with clinical symptoms are major symptomatic factors in their progression or development."
+    },
+    {
+      "id": "excluded_patterns",
+      "kind": "context",
+      "label": "Trials of whole diets, glycaemic index, treatment or pregnancy were left out",
+      "value": "we excluded studies that analyzed dietary patterns, effects of glycemic index (GI), treatment studies, or studies on pregnant women",
+      "quote": "Because we were interested in the specific effects of dietary fructose, sucrose, and glucose on low-grade inflammation, we excluded studies that analyzed dietary patterns, effects of glycemic index (GI), treatment studies, or studies on pregnant women"
+    },
+    {
+      "id": "min_two_weeks",
+      "kind": "context",
+      "label": "Trials had to last at least 2 weeks",
+      "value": "at least 2 weeks",
+      "quote": "Furthermore, because we were interested in investigating the potential impact of dietary sugars on chronic inflammation, rather than short-term responses to diet, we chose to include only studies with a duration of at least 2 weeks."
+    },
+    {
+      "id": "min_twenty",
+      "kind": "context",
+      "label": "Trials had to have at least 20 people and last at least 2 weeks",
+      "value": "≥20 participants and ≥2 weeks duration",
+      "quote": "It has been postulated that dietary sugar consumption contributes to increased inflammatory processes in humans, and that this may be specific to fructose (alone, in sucrose or in high-fructose corn syrup (HFCS)). Therefore, we conducted a meta-analysis and systematic literature review to evaluate the relevance of fructose, sucrose, HFCS, and glucose consumption for systemic levels of biomarkers of subclinical inflammation. MEDLINE, EMBASE, and Cochrane libraries were searched for controlled intervention studies that report the effects of dietary sugar intake on (hs)CRP, IL-6, IL-18, IL-1RA, TNF-α, MCP-1, sICAM-1, sE-selectin, or adiponectin. Included studies were conducted on adults or adolescents with ≥20 participants and ≥2 weeks duration. Thirteen studies investigating 1141 participants were included in the meta-analysis. Sufficient studies (≥3) to pool were only available for (hs)CRP. Using a random effects model, pooled effects of the interventions (investigated as mean difference (MD)) revealed no differences in (hs)CRP between fructose intervention and glucose control groups (MD: −0.03 mg/L (95% CI: −0.52, 0.46), I2 = 44%). Similarly, no differences were observed between HFCS and sucrose interventions (MD: 0.21 mg/L (−0.11, 0.53), I2 = 0%). The quality of evidence was evaluated using Nutrigrade, and was rated low for these two comparisons. The limited evidence available to date does not support the hypothesis that dietary fructose, as found alone or in HFCS, contributes more to subclinical inflammation than other dietary sugars."
+    },
+    {
+      "id": "markers",
+      "kind": "context",
+      "label": "Inflammation markers looked for: CRP and eight others",
+      "value": "(hs)CRP, IL-6, IL-18, IL-1RA, TNF-α, MCP-1, sICAM-1, sE-selectin, or adiponectin",
+      "quote": "It has been postulated that dietary sugar consumption contributes to increased inflammatory processes in humans, and that this may be specific to fructose (alone, in sucrose or in high-fructose corn syrup (HFCS)). Therefore, we conducted a meta-analysis and systematic literature review to evaluate the relevance of fructose, sucrose, HFCS, and glucose consumption for systemic levels of biomarkers of subclinical inflammation. MEDLINE, EMBASE, and Cochrane libraries were searched for controlled intervention studies that report the effects of dietary sugar intake on (hs)CRP, IL-6, IL-18, IL-1RA, TNF-α, MCP-1, sICAM-1, sE-selectin, or adiponectin. Included studies were conducted on adults or adolescents with ≥20 participants and ≥2 weeks duration. Thirteen studies investigating 1141 participants were included in the meta-analysis. Sufficient studies (≥3) to pool were only available for (hs)CRP. Using a random effects model, pooled effects of the interventions (investigated as mean difference (MD)) revealed no differences in (hs)CRP between fructose intervention and glucose control groups (MD: −0.03 mg/L (95% CI: −0.52, 0.46), I2 = 44%). Similarly, no differences were observed between HFCS and sucrose interventions (MD: 0.21 mg/L (−0.11, 0.53), I2 = 0%). The quality of evidence was evaluated using Nutrigrade, and was rated low for these two comparisons. The limited evidence available to date does not support the hypothesis that dietary fructose, as found alone or in HFCS, contributes more to subclinical inflammation than other dietary sugars."
+    },
+    {
+      "id": "two_reviewers",
+      "kind": "context",
+      "label": "Two researchers searched and extracted data independently",
+      "value": "independently reviewed and extracted relevant data",
+      "quote": "Two investigators (K.W.D.C. and I.P.) independently reviewed and extracted relevant data from each report."
+    },
+    {
+      "id": "bias_tool",
+      "kind": "context",
+      "label": "Each trial's risk of bias was rated with the Cochrane tool",
+      "value": "Cochrane Collaboration’s assessment tool",
+      "quote": "Data were also extracted for the purposes of conducting a bias assessment using the Cochrane Collaboration’s assessment tool to elucidate the risk of bias and attached either a low, unclear, or high risk of bias in eight areas to each study"
+    },
+    {
+      "id": "three_to_pool",
+      "kind": "context",
+      "label": "A comparison was pooled only if at least three trials reported it",
+      "value": "at least three studies",
+      "quote": "A comparator subgroup (e.g., free fructose vs free glucose) was only included in the meta-analysis if there were at least three studies available to report on."
+    },
+    {
+      "id": "random_effects",
+      "kind": "context",
+      "label": "Pooled with a random-effects model",
+      "value": "random effects model",
+      "quote": "Investigation of the effects of dietary sucrose, fructose, glucose, or HFCS on biomarkers of subclinical inflammation was done using a random effects model."
+    },
+    {
+      "id": "md_meaning",
+      "kind": "context",
+      "label": "The mean difference: the first sugar's average CRP minus the second's",
+      "value": "MD = mean of intervention group—mean of control group",
+      "quote": "MD = mean of intervention group—mean of control group. MD = 0: no difference between groups. MD > 0: greater value of respective outcome measured in intervention (first) groups. MD < 0: greater value of respective outcome measured in control (second) groups."
+    },
+    {
+      "id": "md_zero",
+      "kind": "context",
+      "label": "A mean difference of 0 means no difference between the groups",
+      "value": "MD = 0: no difference between groups",
+      "quote": "MD = mean of intervention group—mean of control group. MD = 0: no difference between groups. MD > 0: greater value of respective outcome measured in intervention (first) groups. MD < 0: greater value of respective outcome measured in control (second) groups."
+    },
+    {
+      "id": "i2_meaning",
+      "kind": "context",
+      "label": "Above 50% on the inconsistency score (I²) counts as substantial disagreement between trials",
+      "value": "An I2-value of greater than 50% was considered to indicate substantial heterogeneity",
+      "quote": "An I2-value of greater than 50% was considered to indicate substantial heterogeneity []."
+    },
+    {
+      "id": "nutrigrade",
+      "kind": "context",
+      "label": "Certainty rated with NutriGrade: bias, precision, consistency, directness, publication bias, funding, design",
+      "value": "risk of bias (2) precision, (3) heterogeneity, (4) directness, (5) publication bias, (6) funding bias",
+      "quote": "NutriGrade comprises the following items for meta-analysis of randomized controlled trials: (0–10 points): (1) risk of bias (2) precision, (3) heterogeneity, (4) directness, (5) publication bias, (6) funding bias, (7) and study design. Based on this scoring system, four categories were recommended to judge the meta-evidence: high (≥8 points), moderate (6 to 7.99 points), low (4 to 5.99), and very low (0 to 3.99) []."
+    },
+    {
+      "id": "nutrigrade_low",
+      "kind": "context",
+      "label": "NutriGrade 'low' is 4 to 5.99 points out of 10",
+      "value": "low (4 to 5.99)",
+      "quote": "NutriGrade comprises the following items for meta-analysis of randomized controlled trials: (0–10 points): (1) risk of bias (2) precision, (3) heterogeneity, (4) directness, (5) publication bias, (6) funding bias, (7) and study design. Based on this scoring system, four categories were recommended to judge the meta-evidence: high (≥8 points), moderate (6 to 7.99 points), low (4 to 5.99), and very low (0 to 3.99) []."
+    },
+    {
+      "id": "studies_13",
+      "kind": "finding",
+      "label": "13 trials were included",
+      "value": "13 studies were identified by the search as matches",
+      "quote": "Taken together, 13 studies were identified by the search as matches, and were included in the review (one study [] resulted in two publications: Cox et al. [] and Rezvani et al. [], each covering different outcomes).",
+      "outcome": "Trials included"
+    },
+    {
+      "id": "total_1141",
+      "kind": "finding",
+      "label": "1141 people across the 13 trials",
+      "value": "included a total of 1141 participants",
+      "quote": "The 13 intervention trials that addressed dietary fructose, sucrose, glucose, or HFCS intake as a nutritional exposure variable [,,,,,,,,,,,,,,] lasted between 2 weeks and 3 months, and included a total of 1141 participants (range: 20–355), aged 11–72 years, with a BMI ranging from 19 to 40 kg/m². Two studies were performed on men only [,], and one study included women only [].",
+      "outcome": "People across the trials"
+    },
+    {
+      "id": "trial_sizes",
+      "kind": "finding",
+      "label": "Trials had 20 to 355 people",
+      "value": "range: 20–355",
+      "quote": "The 13 intervention trials that addressed dietary fructose, sucrose, glucose, or HFCS intake as a nutritional exposure variable [,,,,,,,,,,,,,,] lasted between 2 weeks and 3 months, and included a total of 1141 participants (range: 20–355), aged 11–72 years, with a BMI ranging from 19 to 40 kg/m². Two studies were performed on men only [,], and one study included women only [].",
+      "outcome": "Size of each trial"
+    },
+    {
+      "id": "ages",
+      "kind": "descriptive",
+      "label": "Aged 11 to 72",
+      "value": "aged 11–72 years",
+      "quote": "The 13 intervention trials that addressed dietary fructose, sucrose, glucose, or HFCS intake as a nutritional exposure variable [,,,,,,,,,,,,,,] lasted between 2 weeks and 3 months, and included a total of 1141 participants (range: 20–355), aged 11–72 years, with a BMI ranging from 19 to 40 kg/m². Two studies were performed on men only [,], and one study included women only []."
+    },
+    {
+      "id": "bmi_range",
+      "kind": "descriptive",
+      "label": "BMI from 19 to 40",
+      "value": "BMI ranging from 19 to 40 kg/m²",
+      "quote": "The 13 intervention trials that addressed dietary fructose, sucrose, glucose, or HFCS intake as a nutritional exposure variable [,,,,,,,,,,,,,,] lasted between 2 weeks and 3 months, and included a total of 1141 participants (range: 20–355), aged 11–72 years, with a BMI ranging from 19 to 40 kg/m². Two studies were performed on men only [,], and one study included women only []."
+    },
+    {
+      "id": "durations",
+      "kind": "finding",
+      "label": "Trials lasted 2 weeks to 3 months",
+      "value": "lasted between 2 weeks and 3 months",
+      "quote": "The 13 intervention trials that addressed dietary fructose, sucrose, glucose, or HFCS intake as a nutritional exposure variable [,,,,,,,,,,,,,,] lasted between 2 weeks and 3 months, and included a total of 1141 participants (range: 20–355), aged 11–72 years, with a BMI ranging from 19 to 40 kg/m². Two studies were performed on men only [,], and one study included women only [].",
+      "outcome": "Length of each trial"
+    },
+    {
+      "id": "fructose_doses",
+      "kind": "finding",
+      "label": "Fructose given: 17 to 217 g a day",
+      "value": "from 17 grams daily to 217 grams daily",
+      "quote": "The dietary fructose intake ranged from 17 grams daily to 217 grams daily in the eight fructose intervention studies. Six of the 8 studies on fructose compared free fructose to free glucose isocalorically.",
+      "outcome": "Fructose given per day"
+    },
+    {
+      "id": "six_matched",
+      "kind": "finding",
+      "label": "Six fructose trials matched fructose against the same calories of glucose",
+      "value": "Six of the 8 studies on fructose compared free fructose to free glucose isocalorically",
+      "quote": "The dietary fructose intake ranged from 17 grams daily to 217 grams daily in the eight fructose intervention studies. Six of the 8 studies on fructose compared free fructose to free glucose isocalorically.",
+      "outcome": "Fructose trials with a calorie-matched glucose group"
+    },
+    {
+      "id": "sucrose_doses",
+      "kind": "finding",
+      "label": "Table sugar given: 50 to 203 g a day",
+      "value": "ranged from 50 to 203 g of daily intake",
+      "quote": "Dietary sucrose intake for the intervention groups in the seven sucrose studies ranged from 50 to 203 g of daily intake.",
+      "outcome": "Table sugar given per day"
+    },
+    {
+      "id": "crp_only_pooled",
+      "kind": "finding",
+      "label": "Only CRP had enough trials to pool",
+      "value": "Sufficient studies (≥3) to pool were only available for (hs)CRP",
+      "quote": "Sufficient studies (≥3) to pool were only available for (hs)CRP.",
+      "outcome": "Markers with enough trials to pool"
+    },
+    {
+      "id": "others_not_pooled",
+      "kind": "finding",
+      "label": "IL-6, MCP-1 and the other markers had too few trials to pool",
+      "value": "the outcomes of IL-6, MCP-1, sICAM1, sE-selectin, adiponectin, and TNFα were not included in the meta-analysis",
+      "quote": "The analyses of the comparators high-fructose vs low-fructose, fructose vs sucrose, and glucose vs sucrose could not be performed because these subgroups had two or less comparisons to report on. For the same reason, the outcomes of IL-6, MCP-1, sICAM1, sE-selectin, adiponectin, and TNFα were not included in the meta-analysis. No studies were found that reported effects of dietary sugar on IL-18 or IL-1RA.",
+      "outcome": "Markers with too few trials"
+    },
+    {
+      "id": "no_il18",
+      "kind": "finding",
+      "label": "No trial reported IL-18 or IL-1RA",
+      "value": "No studies were found that reported effects of dietary sugar on IL-18 or IL-1RA",
+      "quote": "No studies were found that reported effects of dietary sugar on IL-18 or IL-1RA.",
+      "outcome": "Trials reporting IL-18 or IL-1RA"
+    },
+    {
+      "id": "md_fru_glu",
+      "kind": "estimate",
+      "label": "CRP, fructose against glucose: pooled mean difference",
+      "value": "MD: −0.03 mg/L (95% CI: −0.52, 0.46)",
+      "quote": "Using a random effects model, pooled effects of the interventions (investigated as mean difference (MD)) revealed no differences in (hs)CRP between fructose intervention and glucose control groups (MD: −0.03 mg/L (95% CI: −0.52, 0.46), I2 = 44%).",
+      "estimate": {
+        "outcome": "CRP (an inflammation marker in blood), fructose against glucose",
+        "measure": "MD",
+        "point": -0.03,
+        "ciLow": -0.52,
+        "ciHigh": 0.46,
+        "unit": "mg/L",
+        "gradeRef": "grade_fru_glu"
+      }
+    },
+    {
+      "id": "fru_glu_ns",
+      "kind": "finding",
+      "label": "CRP: no clear difference between fructose and glucose",
+      "value": "revealed no differences in (hs)CRP between fructose intervention and glucose control groups",
+      "quote": "Using a random effects model, pooled effects of the interventions (investigated as mean difference (MD)) revealed no differences in (hs)CRP between fructose intervention and glucose control groups (MD: −0.03 mg/L (95% CI: −0.52, 0.46), I2 = 44%).",
+      "outcome": "CRP, fructose against glucose"
+    },
+    {
+      "id": "fru_glu_n",
+      "kind": "finding",
+      "label": "Fructose against glucose: 6 trials, 403 people",
+      "value": "Fructose vs glucose | 6 | 403",
+      "quote": "Fructose vs glucose | 6 | 403 | −0.03 | −0.52, 0.46 | (p = 0.90) | 44 (0, 75) | Low |",
+      "outcome": "CRP, fructose against glucose"
+    },
+    {
+      "id": "fru_glu_p",
+      "kind": "finding",
+      "label": "Fructose against glucose: the test result",
+      "value": "(p = 0.90)",
+      "quote": "Fructose vs glucose | 6 | 403 | −0.03 | −0.52, 0.46 | (p = 0.90) | 44 (0, 75) | Low |",
+      "outcome": "CRP, fructose against glucose"
+    },
+    {
+      "id": "fru_glu_i2",
+      "kind": "finding",
+      "label": "Fructose against glucose: inconsistency between trials, 44%",
+      "value": "44 (0, 75)",
+      "quote": "Fructose vs glucose | 6 | 403 | −0.03 | −0.52, 0.46 | (p = 0.90) | 44 (0, 75) | Low |",
+      "outcome": "CRP, fructose against glucose"
+    },
+    {
+      "id": "grade_fru_glu",
+      "kind": "grade",
+      "label": "NutriGrade certainty, fructose against glucose",
+      "value": "low",
+      "quote": "Overall, the quality of meta-evidence for the association between dietary fructose vs glucose, and comparing HFCS vs sucrose on CRP was rated as “low”, (i.e., confidence in the effect estimate is low). Further research will provide additional evidence, and will likely change the effect estimate. This judgement was mainly based on the low number of identified studies and study participants, the study limitations, and the imprecise effect estimates."
+    },
+    {
+      "id": "md_hfcs_suc",
+      "kind": "estimate",
+      "label": "CRP, high-fructose corn syrup against table sugar: pooled mean difference",
+      "value": "MD: 0.21 mg/L (−0.11, 0.53)",
+      "quote": "Similarly, no differences were observed between HFCS and sucrose interventions (MD: 0.21 mg/L (−0.11, 0.53), I2 = 0%).",
+      "estimate": {
+        "outcome": "CRP (an inflammation marker in blood), high-fructose corn syrup against table sugar",
+        "measure": "MD",
+        "point": 0.21,
+        "ciLow": -0.11,
+        "ciHigh": 0.53,
+        "unit": "mg/L",
+        "gradeRef": "grade_hfcs_suc"
+      }
+    },
+    {
+      "id": "hfcs_suc_ns",
+      "kind": "finding",
+      "label": "CRP: no clear difference between high-fructose corn syrup and table sugar",
+      "value": "no differences were observed between HFCS and sucrose interventions",
+      "quote": "Similarly, no differences were observed between HFCS and sucrose interventions (MD: 0.21 mg/L (−0.11, 0.53), I2 = 0%).",
+      "outcome": "CRP, high-fructose corn syrup against table sugar"
+    },
+    {
+      "id": "hfcs_suc_n",
+      "kind": "finding",
+      "label": "Corn syrup against table sugar: 3 trials, 677 people",
+      "value": "HFCS vs sucrose | 3 | 677",
+      "quote": "HFCS vs sucrose | 3 | 677 | 0.21 | −0.11, 0.53 | (p = 0.19) | 0 (0, 75) | Low |",
+      "outcome": "CRP, high-fructose corn syrup against table sugar"
+    },
+    {
+      "id": "hfcs_suc_p",
+      "kind": "finding",
+      "label": "Corn syrup against table sugar: the test result",
+      "value": "(p = 0.19)",
+      "quote": "HFCS vs sucrose | 3 | 677 | 0.21 | −0.11, 0.53 | (p = 0.19) | 0 (0, 75) | Low |",
+      "outcome": "CRP, high-fructose corn syrup against table sugar"
+    },
+    {
+      "id": "hfcs_suc_i2",
+      "kind": "finding",
+      "label": "Corn syrup against table sugar: inconsistency between trials, 0%",
+      "value": "0 (0, 75)",
+      "quote": "HFCS vs sucrose | 3 | 677 | 0.21 | −0.11, 0.53 | (p = 0.19) | 0 (0, 75) | Low |",
+      "outcome": "CRP, high-fructose corn syrup against table sugar"
+    },
+    {
+      "id": "grade_hfcs_suc",
+      "kind": "grade",
+      "label": "NutriGrade certainty, corn syrup against table sugar",
+      "value": "low",
+      "quote": "Overall, the quality of meta-evidence for the association between dietary fructose vs glucose, and comparing HFCS vs sucrose on CRP was rated as “low”, (i.e., confidence in the effect estimate is low). Further research will provide additional evidence, and will likely change the effect estimate. This judgement was mainly based on the low number of identified studies and study participants, the study limitations, and the imprecise effect estimates."
+    },
+    {
+      "id": "grade_meaning",
+      "kind": "finding",
+      "label": "Low certainty: more research will likely change the estimate",
+      "value": "will likely change the effect estimate",
+      "quote": "Overall, the quality of meta-evidence for the association between dietary fructose vs glucose, and comparing HFCS vs sucrose on CRP was rated as “low”, (i.e., confidence in the effect estimate is low). Further research will provide additional evidence, and will likely change the effect estimate. This judgement was mainly based on the low number of identified studies and study participants, the study limitations, and the imprecise effect estimates.",
+      "outcome": "Certainty of the pooled CRP results"
+    },
+    {
+      "id": "grade_reasons",
+      "kind": "finding",
+      "label": "Why low: few trials and people, trial weaknesses, wide ranges",
+      "value": "the low number of identified studies and study participants, the study limitations, and the imprecise effect estimates",
+      "quote": "Overall, the quality of meta-evidence for the association between dietary fructose vs glucose, and comparing HFCS vs sucrose on CRP was rated as “low”, (i.e., confidence in the effect estimate is low). Further research will provide additional evidence, and will likely change the effect estimate. This judgement was mainly based on the low number of identified studies and study participants, the study limitations, and the imprecise effect estimates.",
+      "outcome": "Certainty of the pooled CRP results"
+    },
+    {
+      "id": "two_of_six",
+      "kind": "finding",
+      "label": "Of the six matched trials, two reported a difference on one marker each",
+      "value": "Two of these studies reported significant effects on biomarkers of subclinical inflammation",
+      "quote": "Two of these studies reported significant effects on biomarkers of subclinical inflammation: Jin et al. [] found a difference between the fructose and glucose group in hsCRP (increase by 4% vs decrease by 23%, respectively).",
+      "outcome": "Single trials with a difference"
+    },
+    {
+      "id": "mcp1_one_trial",
+      "kind": "finding",
+      "label": "One trial saw MCP-1, another inflammation marker, rise with fructose and fall with glucose",
+      "value": "reported a treatment effect confined to MCP-1",
+      "quote": "Cox/Rezvani et al. (both reporting from the original study by Stanhope et al. []) reported a treatment effect confined to MCP-1, where values in the fructose group increased by 38%, while decreasing in the glucose group by 9%.",
+      "outcome": "MCP-1 in one trial"
+    },
+    {
+      "id": "inconsistent",
+      "kind": "finding",
+      "label": "Across trials, the picture is inconsistent and the sizes vary",
+      "value": "the overall picture is inconsistent, the effect sizes are variable",
+      "quote": "As summarized narratively, effects were observed in a small number of studies, but the overall picture is inconsistent, the effect sizes are variable, and the overall quality of meta-evidence is low.",
+      "outcome": "Single-trial results overall"
+    },
+    {
+      "id": "conclusion",
+      "kind": "finding",
+      "label": "Overall: no support for fructose being worse for inflammation than glucose or table sugar",
+      "value": "do not support the hypothesis that dietary fructose (alone or in HFCS) is more detrimental with respect to subclinical inflammation than dietary glucose or sucrose",
+      "quote": "In conclusion, the overall findings, as collectively analyzed by a meta-analysis, do not support the hypothesis that dietary fructose (alone or in HFCS) is more detrimental with respect to subclinical inflammation than dietary glucose or sucrose.",
+      "outcome": "Fructose against other sugars, inflammation"
+    },
+    {
+      "id": "hypothesis",
+      "kind": "statement",
+      "label": "The idea being tested: sugar, perhaps fructose above all, fans inflammation",
+      "value": "contributes to increased inflammatory processes in humans",
+      "quote": "It has been postulated that dietary sugar consumption contributes to increased inflammatory processes in humans, and that this may be specific to fructose (alone, in sucrose or in high-fructose corn syrup (HFCS))."
+    },
+    {
+      "id": "liver_fat_making",
+      "kind": "statement",
+      "label": "Sugar drives the liver to make new fat",
+      "value": "dietary sugar promotes de novo synthesis of free fatty acids (FFA) in the liver",
+      "quote": "Central to the potentially relevant mechanisms is the fact that dietary sugar promotes de novo synthesis of free fatty acids (FFA) in the liver [,,], which according to the lipotoxicity theory, would produce FFA metabolites that may trigger inflammatory processes and reactive oxygen species (ROS) formation [,]."
+    },
+    {
+      "id": "lipotoxicity",
+      "kind": "statement",
+      "label": "The theory: by-products of that fat may set off inflammation",
+      "value": "would produce FFA metabolites that may trigger inflammatory processes",
+      "quote": "Central to the potentially relevant mechanisms is the fact that dietary sugar promotes de novo synthesis of free fatty acids (FFA) in the liver [,,], which according to the lipotoxicity theory, would produce FFA metabolites that may trigger inflammatory processes and reactive oxygen species (ROS) formation [,]."
+    },
+    {
+      "id": "fructose_liver",
+      "kind": "statement",
+      "label": "Any cell can use glucose; fructose has to go to the liver",
+      "value": "fructose must be metabolized in the liver",
+      "quote": "In contrast to glucose, which can be metabolized by any cell in the body, fructose must be metabolized in the liver. Since there are no negative feedback mechanisms that control for and prevent excess substrate supply of fructose to liver mitochondria, fructose is independently partly converted to acetyl-CoA, which is a building block for fatty acid synthesis []."
+    },
+    {
+      "id": "no_brake",
+      "kind": "statement",
+      "label": "No brake limits how much fructose reaches the liver's energy units, and some becomes fat's building block",
+      "value": "there are no negative feedback mechanisms",
+      "quote": "In contrast to glucose, which can be metabolized by any cell in the body, fructose must be metabolized in the liver. Since there are no negative feedback mechanisms that control for and prevent excess substrate supply of fructose to liver mitochondria, fructose is independently partly converted to acetyl-CoA, which is a building block for fatty acid synthesis []."
+    },
+    {
+      "id": "open_question",
+      "kind": "statement",
+      "label": "Whether fructose matters more than glucose for inflammation in people was still open",
+      "value": "it remains to be established whether dietary fructose/sucrose is more important than dietary glucose for promoting inflammation in human studies",
+      "quote": "This metabolic pathway of fructose supports the lipotoxicity theory, however, it remains to be established whether dietary fructose/sucrose is more important than dietary glucose for promoting inflammation in human studies."
+    },
+    {
+      "id": "crp_protein",
+      "kind": "statement",
+      "label": "CRP is a protein whose blood level rises with inflammation",
+      "value": "the acute-phase protein high-sensitivity C-reactive protein (hsCRP)",
+      "quote": "We selected the acute-phase protein high-sensitivity C-reactive protein (hsCRP), proinflammatory cytokines (interleukin-6 (IL-6), interleukin-18 (IL-18), interleukin-1 receptor antagonist (IL-1RA), tumor necrosis factor-α (TNF-α)), the chemokine monocyte chemoattractant protein 1 (MCP-1), soluble adhesion molecules (soluble E-selection (sE-selectin), soluble intercellular adhesion molecule-1 (sICAM-1)), and the anti-inflammatory adipokine adiponectin as biomarkers of subclinical and vascular inflammation, because they are the most commonly measured inflammation-related biomarkers in clinical and epidemiologic studies, with established associations with cardiometabolic diseases [,,,,,]."
+    },
+    {
+      "id": "inflammation_heart",
+      "kind": "statement",
+      "label": "Long-running, low-level inflammation is a key factor in heart disease",
+      "value": "Chronic, low-grade inflammation is a key factor in the pathogenesis of cardiovascular disease",
+      "quote": "Chronic, low-grade inflammation is a key factor in the pathogenesis of cardiovascular disease [], and is associated with the risk of developing diabetes [,], dementia [], and depression []."
+    },
+    {
+      "id": "observational_ssb",
+      "kind": "statement",
+      "label": "Studies that only watched people link sugary drinks with higher CRP",
+      "value": "the relationship between SSB intake and the inflammatory biomarker CRP has been consistently reported in observational studies",
+      "quote": "One could argue that our data disagree with evidence from observational studies, since the relationship between SSB intake and the inflammatory biomarker CRP has been consistently reported in observational studies [,,]."
+    },
+    {
+      "id": "confounding",
+      "kind": "statement",
+      "label": "Sugary drinks may mark a poorer diet overall, which muddies those studies",
+      "value": "SSB intake could be a marker for an undesirable diet",
+      "quote": "Due to concerns that SSB intake could be a marker for an undesirable diet [,], there is dispute as to whether results from observational data linking SSB intake to adverse health outcomes are impacted by residual confounding, i.e., that failure to adjust for various (non-measured) lifestyle factors could lead to an overestimation of the strength of positive associations."
+    },
+    {
+      "id": "cannot_compare",
+      "kind": "statement",
+      "label": "The authors cannot say whether their trial result agrees with the watching studies",
+      "value": "it is not possible to state whether our results from intervention studies agree with observational data",
+      "quote": "Hence, it is not possible to state whether our results from intervention studies agree with observational data."
+    },
+    {
+      "id": "low_gi",
+      "kind": "statement",
+      "label": "Authors' idea: fructose barely spikes blood sugar, which may spare it some inflammation",
+      "value": "ingestion of fructose may contribute to a reduction of chronic inflammation, due to the avoidance of glycemic spikes",
+      "quote": "Fructose has a low glycemic index (GI), and there is evidence that suggests that consumption of foods with a lower dietary GL/GI is associated with anti-inflammatory effects. Accordingly, ingestion of fructose may contribute to a reduction of chronic inflammation, due to the avoidance of glycemic spikes []. This may be one potential explanation for the absence of consistent signals or harm in response to fructose intake."
+    },
+    {
+      "id": "overload",
+      "kind": "statement",
+      "label": "Authors' idea: very large sugar doses may inflame by sheer calories, hiding any difference between sugars",
+      "value": "may be due to post-prandial stress, that activates low-grade inflammation due to extremely high energy intake",
+      "quote": "The fact that there was often no difference observed between intervention and control groups in studies that administered supra-physiological doses [,,,,] may be due to post-prandial stress, that activates low-grade inflammation due to extremely high energy intake."
+    },
+    {
+      "id": "weight_mediator",
+      "kind": "statement",
+      "label": "Weight gain may be the link between sugar and inflammation",
+      "value": "weight gain is a potential mediator in the association between sugar intake and inflammation",
+      "quote": "Because obesity and sugar intake are closely linked (at least with respect to SSB) on the one hand, and obesity and inflammation are closely linked on the other, it is certainly possible that weight gain is a potential mediator in the association between sugar intake and inflammation."
+    },
+    {
+      "id": "energy_or_sugar",
+      "kind": "statement",
+      "label": "Whether extra calories or extra sugar does the harm needs more research",
+      "value": "whether it is excess energy intake or excess sugar intake that leads to adverse health outcomes requires further research",
+      "quote": "The question of whether it is excess energy intake or excess sugar intake that leads to adverse health outcomes requires further research."
+    },
+    {
+      "id": "who_limit",
+      "kind": "statement",
+      "label": "WHO recommends at most 10% of energy from free sugars (5% for more benefit)",
+      "value": "a maximum of 10% (5% for further health benefits)",
+      "quote": "Overall sugar energy intakes are, however, still much higher than the United Kingdom’s Scientific Advisory Committee on Nutrition (SACN) guidelines, which recommend a maximum free sugars intake of 5% daily energy intake [], and the World Health Organization (WHO), which recommends a maximum of 10% (5% for further health benefits) []."
+    },
+    {
+      "id": "average_intake",
+      "kind": "statement",
+      "label": "Average intake: 75 to 100 g of sugar a day; the recommended lower level: about 25 g",
+      "value": "average intake levels (75–100 grams/day)",
+      "quote": "In order to be able to draw firm conclusions for health care policy decisions, more large-scale, effective, longitudinal intervention studies that investigate sucrose or HFCS ingested at average intake levels (75–100 grams/day) compared to control groups, as well as studies which ingest sucrose or HFCS at the lower levels recommended by WHO or the UK’s SACN guidelines (5% of energy intake or about 25 grams/day), need to be conducted with low-grade inflammation as an outcome measure."
+    },
+    {
+      "id": "industry_bias",
+      "kind": "statement",
+      "label": "Industry-funded research tends to underestimate sugar's harms",
+      "value": "industry-funded research tends to underestimate the adverse effects of dietary sugar",
+      "quote": "Results from industry- and non-industry-funded research often differ, and a recent analysis suggests that industry-funded research tends to underestimate the adverse effects of dietary sugar []."
+    },
+    {
+      "id": "liver_fat_excess",
+      "kind": "statement",
+      "label": "Fructose doses with extra calories raise liver fat, but the extra calories confound it",
+      "value": "doses of fructose providing excess energy (+21–35% energy) raise liver fat",
+      "quote": "Evidence from human intervention studies suggests that doses of fructose providing excess energy (+21–35% energy) raise liver fat [,]. This effect, however, appears to be confounded by excessive energy intake [,]."
+    },
+    {
+      "id": "limit_heterogeneity",
+      "kind": "limitation",
+      "label": "Trials differed a lot, and some comparisons had few trials",
+      "value": "the data have substantial heterogeneity, and some of the comparisons had only a small number of studies",
+      "quote": "The limitations of this review lie in the fact that the data have substantial heterogeneity, and some of the comparisons had only a small number of studies. The studies range in duration from two weeks to three months. Most of the fructose studies compared glucose to fructose isocalorically (n = 6), but comparators in the rest (n = 7) vary. Intake amounts of the investigated sugars varied widely as well. Most of the studies are generally similar in design, exposures, interventions, and outcome measurements, but there are several that do not compare easily. Two of the studies measured the effects of artificial sugars, which may have unique metabolic effects. The study populations differed from each other in age, body weight and health status. The included interventions had generally shorter durations, and therefore, do not reflect the overconsumption of fructose over years in the general population, as is better depicted in observation studies."
+    },
+    {
+      "id": "limit_duration",
+      "kind": "limitation",
+      "label": "Trials lasted two weeks to three months",
+      "value": "The studies range in duration from two weeks to three months",
+      "quote": "The limitations of this review lie in the fact that the data have substantial heterogeneity, and some of the comparisons had only a small number of studies. The studies range in duration from two weeks to three months. Most of the fructose studies compared glucose to fructose isocalorically (n = 6), but comparators in the rest (n = 7) vary. Intake amounts of the investigated sugars varied widely as well. Most of the studies are generally similar in design, exposures, interventions, and outcome measurements, but there are several that do not compare easily. Two of the studies measured the effects of artificial sugars, which may have unique metabolic effects. The study populations differed from each other in age, body weight and health status. The included interventions had generally shorter durations, and therefore, do not reflect the overconsumption of fructose over years in the general population, as is better depicted in observation studies."
+    },
+    {
+      "id": "limit_doses",
+      "kind": "limitation",
+      "label": "Sugar amounts varied widely",
+      "value": "Intake amounts of the investigated sugars varied widely as well",
+      "quote": "The limitations of this review lie in the fact that the data have substantial heterogeneity, and some of the comparisons had only a small number of studies. The studies range in duration from two weeks to three months. Most of the fructose studies compared glucose to fructose isocalorically (n = 6), but comparators in the rest (n = 7) vary. Intake amounts of the investigated sugars varied widely as well. Most of the studies are generally similar in design, exposures, interventions, and outcome measurements, but there are several that do not compare easily. Two of the studies measured the effects of artificial sugars, which may have unique metabolic effects. The study populations differed from each other in age, body weight and health status. The included interventions had generally shorter durations, and therefore, do not reflect the overconsumption of fructose over years in the general population, as is better depicted in observation studies."
+    },
+    {
+      "id": "limit_populations",
+      "kind": "limitation",
+      "label": "People differed in age, weight and health",
+      "value": "The study populations differed from each other in age, body weight and health status",
+      "quote": "The limitations of this review lie in the fact that the data have substantial heterogeneity, and some of the comparisons had only a small number of studies. The studies range in duration from two weeks to three months. Most of the fructose studies compared glucose to fructose isocalorically (n = 6), but comparators in the rest (n = 7) vary. Intake amounts of the investigated sugars varied widely as well. Most of the studies are generally similar in design, exposures, interventions, and outcome measurements, but there are several that do not compare easily. Two of the studies measured the effects of artificial sugars, which may have unique metabolic effects. The study populations differed from each other in age, body weight and health status. The included interventions had generally shorter durations, and therefore, do not reflect the overconsumption of fructose over years in the general population, as is better depicted in observation studies."
+    },
+    {
+      "id": "limit_years",
+      "kind": "limitation",
+      "label": "Short trials do not show years of eating fructose",
+      "value": "do not reflect the overconsumption of fructose over years in the general population",
+      "quote": "The limitations of this review lie in the fact that the data have substantial heterogeneity, and some of the comparisons had only a small number of studies. The studies range in duration from two weeks to three months. Most of the fructose studies compared glucose to fructose isocalorically (n = 6), but comparators in the rest (n = 7) vary. Intake amounts of the investigated sugars varied widely as well. Most of the studies are generally similar in design, exposures, interventions, and outcome measurements, but there are several that do not compare easily. Two of the studies measured the effects of artificial sugars, which may have unique metabolic effects. The study populations differed from each other in age, body weight and health status. The included interventions had generally shorter durations, and therefore, do not reflect the overconsumption of fructose over years in the general population, as is better depicted in observation studies."
+    },
+    {
+      "id": "limit_artificial",
+      "kind": "limitation",
+      "label": "Two trials compared against artificial sweeteners or sugar-reduced products",
+      "value": "Two of the studies measured the effects of artificial sugars",
+      "quote": "The limitations of this review lie in the fact that the data have substantial heterogeneity, and some of the comparisons had only a small number of studies. The studies range in duration from two weeks to three months. Most of the fructose studies compared glucose to fructose isocalorically (n = 6), but comparators in the rest (n = 7) vary. Intake amounts of the investigated sugars varied widely as well. Most of the studies are generally similar in design, exposures, interventions, and outcome measurements, but there are several that do not compare easily. Two of the studies measured the effects of artificial sugars, which may have unique metabolic effects. The study populations differed from each other in age, body weight and health status. The included interventions had generally shorter durations, and therefore, do not reflect the overconsumption of fructose over years in the general population, as is better depicted in observation studies."
+    },
+    {
+      "id": "limit_crp_only",
+      "kind": "limitation",
+      "label": "Only CRP could be pooled",
+      "value": "Sufficient studies (≥3) to pool were only available for (hs)CRP",
+      "quote": "Sufficient studies (≥3) to pool were only available for (hs)CRP."
+    },
+    {
+      "id": "limit_big_doses",
+      "kind": "limitation",
+      "label": "Very large doses cannot show how fructose and glucose differ",
+      "value": "no conclusions can be drawn about the unique effects of fructose versus glucose metabolism from studies that administer supra-physiological doses",
+      "quote": "If this is the case, then no conclusions can be drawn about the unique effects of fructose versus glucose metabolism from studies that administer supra-physiological doses across comparative groups."
+    },
+    {
+      "id": "limit_two_largest",
+      "kind": "limitation",
+      "label": "The two largest trials did not say how they randomized, and lost about a quarter of people",
+      "value": "did not specify how randomization was done (risk of selection bias) and had relatively high drop-out rates of 27% and 26%",
+      "quote": "The methodological limitations of the two largest studies both lasting 10 weeks are worth mentioning. These two studies used HFCS- [] or sucrose-sweetened milk [] as intervention diets, and addressed the effect on CRP only. Both studies did not specify how randomization was done (risk of selection bias) and had relatively high drop-out rates of 27% and 26%, respectively. In view of the risk of bias, the absence of effects reported from these studies should be interpreted with caution, also because these studies were either funded by the sugar industry or the authors received consulting fees from organizations that market or utilize fructose, HFCS, or sucrose. Results from industry- and non-industry-funded research often differ, and a recent analysis suggests that industry-funded research tends to underestimate the adverse effects of dietary sugar []. On the other hand, personal views from non-industry researchers could present another source of bias. Such bias, however, is difficult to address, because there is no marker for this potential problem."
+    },
+    {
+      "id": "limit_industry",
+      "kind": "limitation",
+      "label": "The two largest trials were funded by the sugar industry or had paid industry ties",
+      "value": "funded by the sugar industry or the authors received consulting fees",
+      "quote": "The methodological limitations of the two largest studies both lasting 10 weeks are worth mentioning. These two studies used HFCS- [] or sucrose-sweetened milk [] as intervention diets, and addressed the effect on CRP only. Both studies did not specify how randomization was done (risk of selection bias) and had relatively high drop-out rates of 27% and 26%, respectively. In view of the risk of bias, the absence of effects reported from these studies should be interpreted with caution, also because these studies were either funded by the sugar industry or the authors received consulting fees from organizations that market or utilize fructose, HFCS, or sucrose. Results from industry- and non-industry-funded research often differ, and a recent analysis suggests that industry-funded research tends to underestimate the adverse effects of dietary sugar []. On the other hand, personal views from non-industry researchers could present another source of bias. Such bias, however, is difficult to address, because there is no marker for this potential problem."
+    },
+    {
+      "id": "limit_assays",
+      "kind": "limitation",
+      "label": "Labs measured the markers differently, and people vary widely",
+      "value": "the use of very different/non-standardized assays to the large inter-individual variation in inflammatory biomarkers",
+      "quote": "This is, however, hampered by methodological problems, ranging from the use of very different/non-standardized assays to the large inter-individual variation in inflammatory biomarkers."
+    },
+    {
+      "id": "limit_weight",
+      "kind": "limitation",
+      "label": "Most trials did not account for weight change",
+      "value": "The remainder of the studies did not take changes in weight into account",
+      "quote": "The remainder of the studies did not take changes in weight into account."
+    },
+    {
+      "id": "limit_future",
+      "kind": "limitation",
+      "label": "Larger, longer, better-controlled trials are needed",
+      "value": "further human intervention studies with larger sample sizes, longer follow-up periods, better controlled designs",
+      "quote": "In order to draw more confident conclusions about the proinflammatory effects of free fructose or fructose found in sucrose versus glucose, or other non-fructose containing carbohydrates (fructose vs glucose, sucrose, vs maltose, sucrose vs refined carbohydrates), further human intervention studies with larger sample sizes, longer follow-up periods, better controlled designs, and with subclinical inflammation as a priori planned outcome, are required."
+    },
+    {
+      "id": "funding",
+      "kind": "context",
+      "label": "Funding: German state and federal research ministries",
+      "value": "The DONALD study is supported by the Ministry of Culture and Science of the state of North Rhine Westphalia",
+      "quote": "The DONALD study is supported by the Ministry of Culture and Science of the state of North Rhine Westphalia, Germany. The German Diabetes Center is funded by the German Federal Ministry of Health (BMG), the Ministry of Culture and Science of the state of North-Rhine-Westphalia, and a grant from the German Federal Ministry of Education and Research (BMBF) to the German Center for Diabetes Research (DZD)."
+    },
+    {
+      "id": "coi_buyken",
+      "kind": "context",
+      "label": "One author sits on a carbohydrate consortium and an ILSI Europe expert group",
+      "value": "A.E. Buyken is a member of the International Carbohydrate Quality Consortium",
+      "quote": "A.E. Buyken is a member of the International Carbohydrate Quality Consortium and a member of an expert group convened by ILSI Europe which prepared a scientific review entitled “Dietary carbohydrates: A review of international recommendations and the methods used to derive them”[]. K. Della Corte, K.J. Penczynski, I. Perrar, C. Herder, and L. Schwingshackl have no conflicts of interest."
+    },
+    {
+      "id": "coi_others",
+      "kind": "context",
+      "label": "The other authors declare no conflicts",
+      "value": "have no conflicts of interest",
+      "quote": "A.E. Buyken is a member of the International Carbohydrate Quality Consortium and a member of an expert group convened by ILSI Europe which prepared a scientific review entitled “Dietary carbohydrates: A review of international recommendations and the methods used to derive them”[]. K. Della Corte, K.J. Penczynski, I. Perrar, C. Herder, and L. Schwingshackl have no conflicts of interest."
+    }
+  ],
+  "coverage": {
+    "conditions": [
+      "controlled_trials",
+      "inclusion_people",
+      "excluded_inflammatory",
+      "excluded_patterns",
+      "min_twenty",
+      "min_two_weeks",
+      "six_matched",
+      "three_to_pool"
+    ],
+    "dosing": [
+      "fructose_doses",
+      "sucrose_doses",
+      "durations",
+      "limit_doses",
+      "limit_big_doses",
+      "average_intake"
+    ],
+    "confounds": [
+      "limit_weight",
+      "weight_mediator",
+      "overload",
+      "limit_heterogeneity",
+      "limit_two_largest",
+      "limit_assays",
+      "confounding",
+      "liver_fat_excess"
+    ],
+    "priorEvidence": [
+      "observational_ssb",
+      "liver_fat_making",
+      "lipotoxicity",
+      "fructose_liver",
+      "open_question",
+      "inflammation_heart"
+    ],
+    "furtherInvestigation": [
+      "limit_future",
+      "energy_or_sugar",
+      "grade_meaning"
+    ],
+    "funding": [
+      "funding",
+      "coi_buyken",
+      "coi_others",
+      "limit_industry",
+      "industry_bias"
+    ]
+  }
+}

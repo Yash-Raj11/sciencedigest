@@ -1,0 +1,22 @@
+Each line: a rule from 2026-11-20 broken on purpose in a copy, and the test result (a failure means the test caught it). Files were restored after each run.
+1 temperature sent again: ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 37 passed (38)
+2 system prompt not cached: ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 37 passed (38)
+3 not streamed: ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 37 passed (38)
+4 pattern kept in the schema: ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  2 failed | 36 passed (38)
+5 schema refusal drops effort too: ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 37 passed (38)
+6 thinking counted as reply text:       Tests  38 passed (38)
+7 refusal not stopped: ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 37 passed (38)
+8 paper text in the cached part: ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  2 failed | 36 passed (38)
+9 narrative review let through: ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 37 passed (38)
+10 usage not added up: ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 37 passed (38)
+6 (redone: thinking deltas read into the reply; the first try only read delta.text, which a thinking delta does not have): ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+      Tests  1 failed | 27 passed (28)

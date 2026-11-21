@@ -1,0 +1,324 @@
+<!doctype html><meta charset="utf-8"><style>/* Fonts ship with the app (pinned npm packages): nothing is fetched from a CDN. */
+
+
+
+
+
+/*
+ * Motion tokens. One quiet transition for controls that change state (a toggle,
+ * a picked option, a sheet or an expander opening): 120 to 180 ms, ease-out,
+ * transform and opacity only, once, no bounce. It is feedback for a tap, never
+ * data: a figure moves only for measured change. Under prefers-reduced-motion
+ * the state changes at once (see the end of this file).
+ */
+:root {
+  --motion-fast: 120ms;
+  --motion: 160ms;
+  --motion-slow: 180ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/*
+ * THE THEMES (owner, 2026-11-15). Every colour in the app comes from the tokens below, named
+ * by what they MEAN, never by hue (no "orange" token in a component). Three themes:
+ *
+ *   dark     the main dark theme: a deep soft black, layered greys, pastel orange (owner, 2026-11-18)
+ *   light    the main light theme: warm paper page, white cards, warm ink, pastel orange (2026-11-18)
+ *   bedtime  warm, low-glare, for reading at night (the 2026-11-14 dark tokens)
+ *
+ * "System" in Me follows the device between dark and light. Bedtime is chosen by hand.
+ *
+ *   --bg          the page            --surface  a card     --raised  a card on a card
+ *   --line        hairlines and borders
+ *   --ink         text                --muted    secondary text   --meta  labels, source lines
+ *   --ink-routine plain ink in the Life Game. The Life Game, companion and /today also use the
+ *                 pastel orange (their original look); reads, figures and feed cards keep the budget
+ *
+ * Orange means "this paper's finding". It is never "good", and the words always say the
+ * direction. Three roles, in every theme:
+ *
+ *   --signal-evidence-text  small key text and numbers. Dark: the pastel itself. Light: the lightest
+ *                           shade of the pastel family that reaches 4.5:1 on white, card and tint
+ *   --signal-evidence-fill  pastel peach: bars, bands, highlights, the selected state in a read.
+ *                           Anything written on it uses --on-signal-evidence-fill
+ *   --signal-evidence-pale  a lighter peach (darker in dark themes): a soft band or range behind data
+ *   --signal-evidence-soft  a faint tint behind a block of text
+ *
+ * Budget: one focal orange item per feed card, at most ten per 390 px screen (raised from three by
+ * the owner, 2026-11-18; tests/browser/readability.spec.ts), for reads, figures and feed cards.
+ * Anything inside [data-life-game] is exempt, and so are the tap-a-dot source markers.
+ * Contrast (every text token on every surface it sits on, all three themes, at least 4.5:1) is
+ * checked by scripts/visual-system.test.ts, which reads this file; the table is
+ * docs/evidence/themes/contrast.md. The light orange text #AD5428 is the pastel #FFB38A darkened
+ * until it reaches 4.5:1 on white, on a card and on the soft tint (4.64 on the card).
+ */
+:root,
+[data-theme="light"] {
+  --bg: #f6f3ee;
+  --surface: #ffffff;
+  --raised: #faf8f4;
+  --line: #e2ddd4;
+  --ink: #15120f;
+  --muted: #5b554e;
+  --meta: #5b554e;
+  --ink-routine: #15120f;
+  --signal-evidence-text: #ad5428;
+  --signal-evidence-fill: #ffb38a;
+  --on-signal-evidence-fill: #15120f;
+  --signal-evidence-pale: #ffdcc6;
+  --signal-evidence-soft: #fff4ec;
+  /* Instagram decks only (owner, 2026-11-20): the brighter orange of the carousel design. Never used on the site. */
+  --deck-vivid-text: #c2410c;
+  --deck-vivid-fill: #ea580c;
+  --on-deck-vivid-fill: #ffffff;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #0a0a0a;
+  --surface: #161616;
+  --raised: #212121;
+  --line: #2e2e2e;
+  --ink: #f5f4f0;
+  --muted: #a6a39e;
+  --meta: #a6a39e;
+  --ink-routine: #f5f4f0;
+  --signal-evidence-text: #ffb38a;
+  --signal-evidence-fill: #ffb38a;
+  --on-signal-evidence-fill: #0a0a0a;
+  --signal-evidence-pale: #4a2e1d;
+  --signal-evidence-soft: #2a1a10;
+  /* Instagram decks only (owner, 2026-11-20): the brighter orange of the carousel design. Never used on the site. */
+  --deck-vivid-text: #ff7a1a;
+  --deck-vivid-fill: #ff7a1a;
+  --on-deck-vivid-fill: #0a0a0a;
+  color-scheme: dark;
+}
+
+[data-theme="bedtime"] {
+  --bg: #0d0d0c;
+  --surface: #171615;
+  --raised: #1f1e1c;
+  --line: #2a2826;
+  --ink: #edeae4;
+  --muted: #b3aea6;
+  --meta: #8f8a83;
+  --ink-routine: #edeae4;
+  --signal-evidence-text: #ff7a2f;
+  --signal-evidence-fill: #d49572;
+  --on-signal-evidence-fill: #0d0d0c;
+  --signal-evidence-pale: #3a2618;
+  --signal-evidence-soft: #241912;
+  color-scheme: dark;
+}
+
+/* Makes the tokens available as Tailwind classes: bg-surface, text-muted, border-line... */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-meta: var(--meta);
+  --color-ink-routine: var(--ink-routine);
+  --color-signal-evidence-text: var(--signal-evidence-text);
+  --color-signal-evidence-fill: var(--signal-evidence-fill);
+  --color-on-signal-evidence-fill: var(--on-signal-evidence-fill);
+  --color-signal-evidence-pale: var(--signal-evidence-pale);
+  --color-signal-evidence-soft: var(--signal-evidence-soft);
+  --font-sans: "Archivo Variable", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Newsreader Variable", Georgia, "Times New Roman", serif;
+  /* Body text. Headlines are serif; body and labels are Archivo. One token flips the body. */
+  --font-body: var(--font-sans);
+}
+
+html {
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/*
+ * Type (owner, 2026-11-14). Weights 400 and 500 only.
+ *   .headline  serif, 22 px / 1.3: every headline, from the read's hook to a card's finding
+ *   .read      body, 17 px / 1.6, at most about 65 characters a line
+ *   .label     Archivo 12 px, medium: section names, source lines, meta
+ *   .figure    big display type, for a single number only
+ */
+.headline,
+.read-title {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  font-size: 1.375rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  color: var(--meta);
+}
+
+.figure {
+  font-family: var(--font-sans);
+  font-stretch: 86%;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.read {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+input[type="range"] {
+  accent-color: var(--ink);
+}
+
+/*
+ * The time slider (owner, 2026-11-18). A pastel track that fills up to the thumb (--p, set by
+ * the component), a white thumb ringed in the finding's orange, 44 px of touch height. Unset
+ * ([data-unset]): a plain track and a muted ring, so nothing looks chosen before the reader acts.
+ */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  cursor: pointer;
+  --p: 0%;
+}
+.slider::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--signal-evidence-fill) var(--p), var(--line) var(--p));
+}
+.slider::-moz-range-track {
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--signal-evidence-fill) var(--p), var(--line) var(--p));
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  margin-top: -10px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 3px solid var(--signal-evidence-text);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.25);
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+.slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 3px solid var(--signal-evidence-text);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.25);
+}
+.slider:active::-webkit-slider-thumb { transform: scale(1.1); }
+.slider[data-unset]::-webkit-slider-thumb { border-color: var(--muted); }
+.slider[data-unset]::-moz-range-thumb { border-color: var(--muted); }
+.slider:focus-visible { outline: 2px solid var(--signal-evidence-text); outline-offset: 2px; border-radius: 999px; }
+
+@keyframes fill-in {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.fill-in {
+  transform-origin: left;
+  animation: fill-in 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* The companion. One slow tail sway when it is lively, one halo when the day is done. */
+@keyframes tail-sway { from { transform: rotate(-5deg); } to { transform: rotate(7deg); } }
+.companion-tail { transform-origin: 84px 100px; animation: tail-sway 1.6s ease-in-out infinite alternate; }
+
+@keyframes halo { from { opacity: 0.15; transform: scale(0.96); } to { opacity: 0.7; transform: scale(1.03); } }
+.companion-halo { transform-origin: center; transform-box: fill-box; animation: halo 1.8s ease-in-out infinite alternate; }
+
+@keyframes burst { from { transform: scale(0.4); opacity: 0.9; } to { transform: scale(1.5); opacity: 0; } }
+.day-burst::before {
+  content: ""; position: absolute; inset: -0.5rem; border-radius: 9999px;
+  border: 3px solid var(--ink); animation: burst 900ms cubic-bezier(0.2, 0.8, 0.2, 1) 2 both;
+}
+
+/* Bottom sheet: the maximised view of a widget. */
+@keyframes sheet-up { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }
+dialog.sheet[open] { animation: sheet-up var(--motion-slow) var(--ease-out); }
+
+@media (prefers-reduced-motion: reduce) {
+  .companion-tail, .companion-halo, .day-burst::before, dialog.sheet[open] { animation: none; }
+  .fill-in { animation: none; }
+  * {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/*
+ * State feedback for toggles (amendment C to step 2D). The newly chosen option,
+ * the opened expander and the panel a control reveals settle in once.
+ */
+@keyframes ui-settle { from { opacity: 0.55; transform: scale(0.97); } to { opacity: 1; transform: none; } }
+@keyframes ui-reveal { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+button[aria-pressed="true"],
+[role="switch"][aria-checked="true"],
+[role="tab"][aria-selected="true"],
+label:has(> input[type="radio"]:checked) { animation: ui-settle var(--motion-fast) var(--ease-out); }
+details[open] > .ui-reveal,
+.ui-reveal[data-shown] { animation: ui-reveal var(--motion) var(--ease-out); }
+@media (prefers-reduced-motion: reduce) {
+  button[aria-pressed="true"],
+  [role="switch"][aria-checked="true"],
+  [role="tab"][aria-selected="true"],
+  label:has(> input[type="radio"]:checked),
+  details[open] > .ui-reveal,
+  .ui-reveal[data-shown] { animation: none; }
+}
+
+/* Reading measure: about 65 characters a line where the screen allows it. */
+.read { max-width: 65ch; }
+
+/* A word with a plain-language entry: tap it. */
+.term {
+  text-decoration: underline dotted var(--signal-evidence-text);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+  cursor: pointer;
+}
+ body{margin:0;background:#888}</style><div class="light" data-theme="light" style="background:var(--bg);color:var(--ink);padding:16px;width:360px;display:inline-block;vertical-align:top;margin:8px"><div style="margin-bottom:24px"><div data-figure-key="sleep-restriction-sweet-foods/bedtimes"><svg viewBox="0 0 320 194" role="img" aria-labelledby="_R_1_-t _R_1_-d" class="mx-auto block w-full max-w-[360px]" data-figure="true"><title id="_R_1_-t">Same wake time, later bedtime</title><desc id="_R_1_-d">Two bars across a night. On the short nights, sleep starts at 0:34 and ends at 7:12. On the long nights, it starts at 22:06 and ends at 7:11. The bars end together, because only the bedtime moved.</desc><text x="0" y="14" text-anchor="start" fill="var(--ink)" font-size="10.5" font-weight="500" font-family="var(--font-sans)">Same wake time, later bedtime</text><text x="4" y="36" text-anchor="start" fill="var(--muted)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">Night</text><text x="82" y="36" text-anchor="middle" fill="var(--muted)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">Midnight</text><g data-row="0"><text x="0" y="58" text-anchor="start" fill="var(--ink)" font-size="10.5" font-weight="500" font-family="var(--font-sans)">Short nights</text><rect x="4" y="64" width="312" height="16" rx="2" fill="none" stroke="var(--line)" stroke-width="1" data-night="true"></rect><g data-evidence="measured" data-fact="sleep_sr"><rect x="96.73333333333333" y="64" width="172.46666666666664" height="16" rx="2" fill="var(--signal-evidence-fill)" stroke="var(--signal-evidence-text)" stroke-width="1" data-bar="true"></rect></g><line x1="82" x2="82" y1="61" y2="83" stroke="var(--muted)" stroke-width="1" data-midnight="true"></line><text x="96.73333333333333" y="92" text-anchor="start" fill="var(--muted)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">Fell asleep 0:34</text><text x="269.2" y="92" text-anchor="end" fill="var(--muted)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">Woke 7:12</text><text x="0" y="106" text-anchor="start" fill="var(--ink)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">6.7 hours slept · 6.5 hours in bed allowed</text></g><g data-row="1"><text x="0" y="132" text-anchor="start" fill="var(--ink)" font-size="10.5" font-weight="500" font-family="var(--font-sans)">Long nights</text><rect x="4" y="138" width="312" height="16" rx="2" fill="none" stroke="var(--line)" stroke-width="1" data-night="true"></rect><g data-evidence="measured" data-fact="sleep_hs"><rect x="32.60000000000004" y="138" width="236.16666666666663" height="16" rx="2" fill="var(--signal-evidence-fill)" stroke="var(--signal-evidence-text)" stroke-width="1" data-bar="true"></rect></g><line x1="82" x2="82" y1="135" y2="157" stroke="var(--muted)" stroke-width="1" data-midnight="true"></line><text x="32.60000000000004" y="166" text-anchor="start" fill="var(--muted)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">Fell asleep 22:06</text><text x="268.76666666666665" y="166" text-anchor="end" fill="var(--muted)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">Woke 7:11</text><text x="0" y="180" text-anchor="start" fill="var(--ink)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">9.1 hours slept · 10 hours in bed allowed</text></g></svg></div></div><div><div data-figure-key="sleep-restriction-sweet-foods/bedtimes"><svg viewBox="0 0 320 130" role="img" aria-labelledby="_R_1_-t _R_1_-d" class="mx-auto block w-full max-w-[360px]" data-figure="true"><title id="_R_1_-t">Same wake time, later bedtime</title><desc id="_R_1_-d">Two bars across a night. On the short nights, sleep starts at 0:34 and ends at 7:12. On the long nights, it starts at 22:06 and ends at 7:11. The bars end together, because only the bedtime moved.</desc><text x="0" y="14" text-anchor="start" fill="var(--ink)" font-size="10.5" font-weight="500" font-family="var(--font-sans)">Same wake time, later bedtime</text><text x="4" y="36" text-anchor="start" fill="var(--muted)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">Night</text><text x="82" y="36" text-anchor="middle" fill="var(--muted)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">Midnight</text><g data-row="0"><text x="0" y="58" text-anchor="start" fill="var(--ink)" font-size="10.5" font-weight="500" font-family="var(--font-sans)">Short nights</text><rect x="4" y="64" width="312" height="16" rx="2" fill="none" stroke="var(--line)" stroke-width="1" data-night="true"></rect><g data-evidence="measured" data-fact="sleep_sr"><rect x="96.73333333333333" y="64" width="172.46666666666664" height="16" rx="2" fill="var(--signal-evidence-fill)" stroke="var(--signal-evidence-text)" stroke-width="1" data-bar="true"></rect></g><line x1="82" x2="82" y1="61" y2="83" stroke="var(--muted)" stroke-width="1" data-midnight="true"></line></g><g data-row="1"><text x="0" y="98" text-anchor="start" fill="var(--ink)" font-size="10.5" font-weight="500" font-family="var(--font-sans)">Long nights</text><rect x="4" y="104" width="312" height="16" rx="2" fill="none" stroke="var(--line)" stroke-width="1" data-night="true"></rect><g data-evidence="measured" data-fact="sleep_hs"><rect x="32.60000000000004" y="104" width="236.16666666666663" height="16" rx="2" fill="var(--signal-evidence-fill)" stroke="var(--signal-evidence-text)" stroke-width="1" data-bar="true"></rect></g><line x1="82" x2="82" y1="101" y2="123" stroke="var(--muted)" stroke-width="1" data-midnight="true"></line></g></svg></div></div></div><div class="dark" data-theme="dark" style="background:var(--bg);color:var(--ink);padding:16px;width:360px;display:inline-block;vertical-align:top;margin:8px"><div style="margin-bottom:24px"><div data-figure-key="sleep-restriction-sweet-foods/bedtimes"><svg viewBox="0 0 320 194" role="img" aria-labelledby="_R_1_-t _R_1_-d" class="mx-auto block w-full max-w-[360px]" data-figure="true"><title id="_R_1_-t">Same wake time, later bedtime</title><desc id="_R_1_-d">Two bars across a night. On the short nights, sleep starts at 0:34 and ends at 7:12. On the long nights, it starts at 22:06 and ends at 7:11. The bars end together, because only the bedtime moved.</desc><text x="0" y="14" text-anchor="start" fill="var(--ink)" font-size="10.5" font-weight="500" font-family="var(--font-sans)">Same wake time, later bedtime</text><text x="4" y="36" text-anchor="start" fill="var(--muted)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">Night</text><text x="82" y="36" text-anchor="middle" fill="var(--muted)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">Midnight</text><g data-row="0"><text x="0" y="58" text-anchor="start" fill="var(--ink)" font-size="10.5" font-weight="500" font-family="var(--font-sans)">Short nights</text><rect x="4" y="64" width="312" height="16" rx="2" fill="none" stroke="var(--line)" stroke-width="1" data-night="true"></rect><g data-evidence="measured" data-fact="sleep_sr"><rect x="96.73333333333333" y="64" width="172.46666666666664" height="16" rx="2" fill="var(--signal-evidence-fill)" stroke="var(--signal-evidence-text)" stroke-width="1" data-bar="true"></rect></g><line x1="82" x2="82" y1="61" y2="83" stroke="var(--muted)" stroke-width="1" data-midnight="true"></line><text x="96.73333333333333" y="92" text-anchor="start" fill="var(--muted)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">Fell asleep 0:34</text><text x="269.2" y="92" text-anchor="end" fill="var(--muted)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">Woke 7:12</text><text x="0" y="106" text-anchor="start" fill="var(--ink)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">6.7 hours slept · 6.5 hours in bed allowed</text></g><g data-row="1"><text x="0" y="132" text-anchor="start" fill="var(--ink)" font-size="10.5" font-weight="500" font-family="var(--font-sans)">Long nights</text><rect x="4" y="138" width="312" height="16" rx="2" fill="none" stroke="var(--line)" stroke-width="1" data-night="true"></rect><g data-evidence="measured" data-fact="sleep_hs"><rect x="32.60000000000004" y="138" width="236.16666666666663" height="16" rx="2" fill="var(--signal-evidence-fill)" stroke="var(--signal-evidence-text)" stroke-width="1" data-bar="true"></rect></g><line x1="82" x2="82" y1="135" y2="157" stroke="var(--muted)" stroke-width="1" data-midnight="true"></line><text x="32.60000000000004" y="166" text-anchor="start" fill="var(--muted)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">Fell asleep 22:06</text><text x="268.76666666666665" y="166" text-anchor="end" fill="var(--muted)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">Woke 7:11</text><text x="0" y="180" text-anchor="start" fill="var(--ink)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">9.1 hours slept · 10 hours in bed allowed</text></g></svg></div></div><div><div data-figure-key="sleep-restriction-sweet-foods/bedtimes"><svg viewBox="0 0 320 130" role="img" aria-labelledby="_R_1_-t _R_1_-d" class="mx-auto block w-full max-w-[360px]" data-figure="true"><title id="_R_1_-t">Same wake time, later bedtime</title><desc id="_R_1_-d">Two bars across a night. On the short nights, sleep starts at 0:34 and ends at 7:12. On the long nights, it starts at 22:06 and ends at 7:11. The bars end together, because only the bedtime moved.</desc><text x="0" y="14" text-anchor="start" fill="var(--ink)" font-size="10.5" font-weight="500" font-family="var(--font-sans)">Same wake time, later bedtime</text><text x="4" y="36" text-anchor="start" fill="var(--muted)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">Night</text><text x="82" y="36" text-anchor="middle" fill="var(--muted)" font-size="9.5" font-weight="400" font-family="var(--font-sans)">Midnight</text><g data-row="0"><text x="0" y="58" text-anchor="start" fill="var(--ink)" font-size="10.5" font-weight="500" font-family="var(--font-sans)">Short nights</text><rect x="4" y="64" width="312" height="16" rx="2" fill="none" stroke="var(--line)" stroke-width="1" data-night="true"></rect><g data-evidence="measured" data-fact="sleep_sr"><rect x="96.73333333333333" y="64" width="172.46666666666664" height="16" rx="2" fill="var(--signal-evidence-fill)" stroke="var(--signal-evidence-text)" stroke-width="1" data-bar="true"></rect></g><line x1="82" x2="82" y1="61" y2="83" stroke="var(--muted)" stroke-width="1" data-midnight="true"></line></g><g data-row="1"><text x="0" y="98" text-anchor="start" fill="var(--ink)" font-size="10.5" font-weight="500" font-family="var(--font-sans)">Long nights</text><rect x="4" y="104" width="312" height="16" rx="2" fill="none" stroke="var(--line)" stroke-width="1" data-night="true"></rect><g data-evidence="measured" data-fact="sleep_hs"><rect x="32.60000000000004" y="104" width="236.16666666666663" height="16" rx="2" fill="var(--signal-evidence-fill)" stroke="var(--signal-evidence-text)" stroke-width="1" data-bar="true"></rect></g><line x1="82" x2="82" y1="101" y2="123" stroke="var(--muted)" stroke-width="1" data-midnight="true"></line></g></svg></div></div></div>

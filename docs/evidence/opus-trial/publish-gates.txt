@@ -1,0 +1,11 @@
+> eslint
+
+
+     × every paper has a card view 6ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  scripts/glance.test.ts > the still figure prints no number, and its shape is the study's > every paper has a card view
+ Test Files  1 failed | 57 passed (58)
+      Tests  1 failed | 867 passed (868)
+✓ Compiled successfully in 1510ms
+ Test Files  58 passed (58)
+      Tests  870 passed (870)

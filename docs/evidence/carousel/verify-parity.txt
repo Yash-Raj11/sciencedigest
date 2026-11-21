@@ -1,0 +1,12 @@
+
+> sciencedigest@0.1.0 carousel:parity
+> tsx scripts/verify-parity.mts
+
+tokens: the slide palette matches the dark theme of app/globals.css
+daytime-caffeine-sleep: 7 slides, ok
+hiit-body-composition: 7 slides, ok
+sleep-extension-energy-intake: 7 slides, ok
+steps-days-per-week: 7 slides, ok
+turmeric-pepper-breakfast: 7 slides, ok
+
+verify-parity passed: 5 published decks, 35 slides. Every drawn number is in a passage its slide cites; every deck word is drawn; tokens match; PNGs are current.
