@@ -1,13 +1,3 @@
-
-> sciencedigest@0.1.0 lint
-> eslint
-
-
-> sciencedigest@0.1.0 typecheck
-> tsc --noEmit
-
-
-> sciencedigest@0.1.0 test
 > vitest run
 
 
@@ -16,58 +6,10 @@
 
  Test Files  63 passed (63)
       Tests  918 passed (918)
-   Start at  18:43:34
-   Duration  5.72s (tests 75%, import 21%, transform 3%, worker 1%)
+   Start at  19:07:18
+   Duration  4.76s (tests 75%, import 22%, transform 2%, worker 1%)
 
-    Isolate  63 workers spawned · ~91ms startup each (spawn + environment, per file)
-             at least ~730ms faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  63 workers spawned · ~81ms startup each (spawn + environment, per file)
+             at least ~650ms faster with isolate: false — reuses workers across files instead of one per file
 
-
-> sciencedigest@0.1.0 build
-> npm run content:check && next build
-
-
-> sciencedigest@0.1.0 content:check
-> tsx scripts/content-build.mts --check --quiet
-
-▲ Next.js 16.4.6 (Turbopack)
-- Environments: .env.local
-✓ Running next.config.ts took 51ms
-- Cache Components enabled
-- Partial Prefetching enabled
-
-  Creating an optimized production build ...
-✓ Compiled successfully in 2.4s
-  Running TypeScript ...
-  Finished TypeScript in 1522ms ...
-  Collecting page data using 7 workers ...
-  Generating static pages using 7 workers (0/24) ...
-  Generating static pages using 7 workers (6/24) 
-  Generating static pages using 7 workers (12/24) 
-  Generating static pages using 7 workers (18/24) 
-✓ Generating static pages using 7 workers (24/24) in 644ms
-  Finalizing page optimization ...
-
-Route (app)
-┌ ○ /
-├ ○ /_not-found
-├ ○ /admin/queue
-├ ○ /api/admin/carousel
-├ ƒ /api/admin/queue
-├ ƒ /api/demo/gated/[slug]
-├ ○ /manifest.webmanifest
-├ ○ /me
-├   /papers/[slug]
-│ ├ ◐ /papers/[slug]
-│ ├ ○ /papers/turmeric-pepper-breakfast
-│ ├ ○ /papers/steps-days-per-week
-│ └ ◐ [+9 more paths]
-├ ○ /privacy
-├ ○ /today
-└ ○ /upgrade
-
-
-○  (Static)             prerendered as static content
-◐  (Partial Prerender)  prerendered as static HTML with dynamic server-streamed content
-ƒ  (Dynamic)            server-rendered on demand
 

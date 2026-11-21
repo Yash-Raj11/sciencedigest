@@ -5,6 +5,8 @@ Phase 8 close-out, skills, Phase 9 (9A–9E, the prompt's steps 2A–2E), Phase 
 stop. Phase 12 (the native app) is not to be started.
 Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklist.
 ⏸ = stop and wait for the owner. Continue from the first unchecked item.
+`[-]` = deferred by the owner (2026-11-21: "Defer, run Finish"), not done; not a next item.
+The deferred items are gathered in HANDOFF section 7, "Deferred from Phase 9".
 
 ## Step 0-pre (before Step 0)
 
@@ -86,24 +88,30 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       (new design type), grade low; arm D excluded. BUILD-LOG 2026-11-14.
 - [x] Note: AI_API_KEY is missing from .env.local, so the extract stage can't run.
       Added by the owner; Gemini 4 Hydrogen adopted for extract (BUILD-LOG 2026-11-14).
-- [ ] 2D round 3, in this order: (1) decay kind wired to caffeine once a half-life with a
+- [-] 2D round 3, in this order: (1) decay kind wired to caffeine once a half-life with a
       range is gated; (2) compare-bars (HIIT), association-curve (steps), grid (turmeric) moved
       onto kinds; (3) `docs/POST-RECIPE.md` + the sticky slot strip; (4) Life Game widgets made
       more interactive and visual; (5) pipeline `prompts.ts` proposing figure specs;
       (6) Related reads slot + `docs/IDEAS.md` (caffeine + L-theanine).
+      **Deferred 2026-11-21.** Done: (1) decay on caffeine; (2) steps only (association-curve);
+      (5) `lib/pipeline/propose.ts`. Not built: compare-bars and grid kinds, (3), (4), (6).
 - [x] Owner rulings 2026-11-14 (session 10): caffeine and turmeric relabelled `crossover`
       (audit says "Randomized crossover trial"; grade unchanged, low); turmeric taste values
       re-extracted as mean ± SD; SIMULATORS.md design notes refined (no caffeine presets,
       raw vs adjusted for steps, HIIT subgroup bars secondary, no p-values in turmeric's grid).
-- [ ] Simulators (owner, 2026-11-14; plan: `docs/SIMULATORS.md`). Caffeine first:
+- [-] Simulators (owner, 2026-11-14; plan: `docs/SIMULATORS.md`). Caffeine first:
+      **Deferred 2026-11-21** with its open sub-items below; decay and association-curve are live.
 - [x] Fact library: data shape for an approved context fact + lookup (paper facts → library).
       `content/library.json`, `lib/content/fact-library.ts`; lint refuses a non-library context
       fact in a simulator. BUILD-LOG 2026-11-14 (session 10).
-- [ ] Build check + fallback: no fact → publish with the card figure and queue an upgrade.
-- [ ] `/admin/queue` "simulator upgrade" item type (1–3 Europe PMC candidates) + weekly batch view.
-- [ ] Related reads slot under a simulator's result (published papers by tag).
-- [ ] Each kind's simulator: decay (caffeine), association-curve (steps), compare-bars (HIIT),
-      grid (turmeric), dose-response, step-through (none).
+- [-] Build check + fallback: no fact → publish with the card figure and queue an upgrade.
+      Deferred. The lint refuses a non-library context fact; no fallback or queue item exists.
+- [-] `/admin/queue` "simulator upgrade" item type (1–3 Europe PMC candidates) + weekly batch view.
+      Deferred. Not built.
+- [-] Related reads slot under a simulator's result (published papers by tag). Deferred. Not built.
+- [-] Each kind's simulator: decay (caffeine), association-curve (steps), compare-bars (HIIT),
+      grid (turmeric), dose-response, step-through (none). Deferred: compare-bars, grid and
+      dose-response kinds not built (HIIT and turmeric keep their own figures and simulators).
   - [x] decay (caffeine). Simulator drawn by kind (`simulator.spec` + `words`), library half-life,
         band at bedtime, the paper's sleep finding beside it. Screens:
         `docs/evidence/simulators/decay-{dark,light}.png`, `decay-used-{dark,light}.png`.
@@ -112,7 +120,8 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
         `docs/evidence/simulators/association-curve-{dark,light}.png`, `-used-{dark,light}.png`.
   - [x] ⏸ Stop after caffeine + steps are live (owner, session 10). Answered 2026-11-14:
         the owner's readability list (below) comes next.
-- [ ] Readability pass (owner, 2026-11-14: research understandable to everyone). Items 1–7:
+- [x] Readability pass (owner, 2026-11-14: research understandable to everyone). Items 1–7
+      (all seven ticked below; this line ticked at the Phase 11 handoff):
   - [x] 1. Visual system as tokens (palette, pastel bands, orange once, type, contrast table).
         `docs/evidence/readability/contrast.md`; tests `scripts/visual-system.test.ts`,
         `tests/browser/readability.spec.ts`.
@@ -149,7 +158,7 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
         Reported 2026-11-15. Was waiting on the owner: review the 4 headlines and the 3 concepts
         (`npm run paper -- approve-concept <slug>`, the owner's command); "go" for the hosted seed
         (the seed changed: `finding.question` in `paper_content`; hosted is one seed behind).
-- [ ] **Next (owner, 2026-11-15): build the figures from `docs/FIGURE-DESIGN.md`**, two per paper
+- [x] **Next (owner, 2026-11-15): build the figures from `docs/FIGURE-DESIGN.md`**, two per paper
       (A "why it happens", B "what happens to you"), ahead of the older open items above. Data
       figures first (steps 3A in the audit layer and 3B; HIIT 4B; turmeric 2A); the sketches
       (caffeine 1A/1B, turmeric 2B, HIIT 4A) only once their concept is approved. Feed cards draw
@@ -273,4 +282,13 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
 
 ## Finish
 
-- [ ] Run `/phase-handoff`; list what Phase 12 needs from the owner. Do not start Phase 12.
+- [x] Run `/phase-handoff`; list what Phase 12 needs from the owner. Do not start Phase 12.
+      Done 2026-11-21 (HANDOFF section 9, items 1, 2 and 8). Gates: lint, typecheck, 918 unit,
+      build and 126 browser pass; **HTTP 21 of 22, one failure** (next item).
+      `docs/evidence/phase11-handoff/`.
+- [ ] ⏸ The search-the-build check fails (`tests/http/members-content.test.ts`, found at the
+      Phase 11 handoff; first run since the Opus trial). Nine matches, four free papers:
+      each members-only implementation note (`takeaways[1]`) repeats a phrase that is also in the
+      free read (card support, mechanism or audit). No gated information is in the build. Owner
+      to choose: rewrite the four notes so they add what the free read does not (content edit,
+      then a hosted seed push), or change the check.

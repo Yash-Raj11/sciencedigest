@@ -74,7 +74,9 @@ The interactive part is the product; the text is what justifies it.
 | Phase 9, 2E: caffeine, HIIT and steps rewritten into three layers with a glossary (words per layer 169/129/227, 133/116/246, 124/87/230); the old-shape allowlist deleted; the draft prompt asks for the layers and lists the context ids it may cite; `paper draft` refuses an old-shape reply. New schema fields `layers.protocol.figureSlot: "try"` and `layers.audit.figure.title` keep figures B, 4B and steps A in place | **Owner approved all three, 2026-11-19. Phase 9 done.** Live on `main`. The hosted seed was pushed 2026-11-19 (3B release), so HIIT's members' text is in three layers too | `docs/evidence/phase9-2e/` (before-after.md, rules-broken.txt, gates, screenshots), `scripts/legacy-shape.test.ts`, `scripts/draft-shape.test.ts` |
 | Phase 10, 3A: `npm run retractions` (67,951 records, none of the papers retracted); 3 candidates from Europe PMC, each licence checked with `checkLicense` | Done; the owner picked B, sleep, free | `docs/evidence/phase10-3a/` (retractions.txt, search-log.txt, search-results.csv, candidates.md) |
 | Phase 10, 3B: fifth paper `sleep-extension-energy-intake` (Tasali 2022, JAMA IM, RCT, 80, CC-BY, free), the first read through every stage with the model. The gate refused 3 quotes and the lint refused 15 + 10 + 1 + 1 items, each fixed in the JSON; 7 more errors fixed from reading it against the paper. Figure `energy-ledger` (mechanism layer and the feed card), with 10 tests | **Owner approved 2026-11-19; live, and on the hosted database.** Phase 10 gate met | `docs/evidence/phase10-3b/` (gate-fixes.md, lint-fixes.md, draft-for-review.md, figure/, figure-test-fail.txt), `phase10-3b-release/` (hosted counts, live-check.txt), `scripts/energy-ledger.test.ts` |
-| Phase 11, Instagram carousels (4B, 4C), 2026-11-19 to 2026-11-20. Each deck tells one story (hook → finding → why → who → receipts → cta) in the owner's Claude Design layout. Drawn with Satori (`next/og`) in 4 looks: black or white, each with the site's orange or a deck-only bright orange. Includes the plateau chart, alternate openings chosen in `/admin/queue`, and owner-approved common knowledge on the deck only. Gated by `npm run carousel:parity`: numbers, words, tokens, contrast, PNGs | Built and tested; **not committed, not approved**. The caffeine deck waits on `approve-concept caffeine-tolerance` and `approve-common coffee-cup-caffeine` | `docs/evidence/carousel/` (`<slug>/<look>/`, `sheet-*.png`, `openings-*.png`, `phase11/`), `lib/carousel/carousel.test.ts`, `scripts/carousel-route.test.ts`, `lib/pipeline/pipeline.test.ts`, BUILD-LOG 2026-11-19/20 |
+| Phase 11, Instagram carousels (4B, 4C), 2026-11-19 to 2026-11-20. Each deck tells one story (hook → finding → why → who → receipts → cta) in the owner's Claude Design layout. Drawn with Satori (`next/og`) in 4 looks: black or white, each with the site's orange or a deck-only bright orange. Includes the plateau chart, alternate openings chosen in `/admin/queue`, and owner-approved common knowledge on the deck only. Gated by `npm run carousel:parity`: numbers, words, tokens, contrast, PNGs | Committed (`de4990e`). **Owner approved all 11 decks 2026-11-21**, each with its look and opening (`content/queue/`, `3acec7d`), after approving caffeine-tolerance and coffee-cup-caffeine (`d714d80`). Nothing posts by itself | `docs/evidence/carousel/` (`<slug>/<look>/`, `sheet-*.png`, `openings-*.png`, `phase11/`), `lib/carousel/carousel.test.ts`, `scripts/carousel-route.test.ts`, `lib/pipeline/pipeline.test.ts`, BUILD-LOG 2026-11-19/20 |
+| The Opus trial (2026-11-21): six CC-BY papers extracted and written by hand by Claude Opus 5.5 with no API key, each through the real gate and lint, with a figure, a deck and a review sheet; 11 published papers. Owner's review-sheet decisions: ceramide cream step and alternate-day fasting step at weight 0, "10 hours in bed" labelled as tested in teens | Live on Vercel and the hosted database (`de4990e`). **The weight changes (`3acec7d`) are in `main` but not in the hosted seed** | `docs/evidence/opus-trial/`, BUILD-LOG 2026-11-21 |
+| Master prompt (Phases 8–11) | **Complete 2026-11-21.** The open Step 2 items were deferred by the owner (section 7, "Deferred from Phase 9"). Phase 12 not started | `docs/PROGRESS.md`, `docs/evidence/phase11-handoff/` |
 | Documents: `CLAUDE.md`, `docs/MANUAL.md`, `ARCHITECTURE.md`, `data-model.md`, `BUILD-LOG.md` | Written | — |
 
 Totals on 2026-11-20 (Phase 11 carousels, uncommitted): 826 unit, 16 HTTP and 108 browser tests;
@@ -102,6 +104,21 @@ Totals on 2026-11-18 (after the draft-stage menu of figure kinds): 700 unit test
 (`browser-tests.txt`); 191 database assertions per pass and 16 of 16 mutations (unchanged and
 not re-run: no SQL touched since 2026-11-14).
 Outputs are in `docs/evidence/`.
+
+### Deployment state (2026-11-21, Phase 11 handoff; master prompt complete)
+
+- `main` is the Phase 11 handoff commit, level with `origin/main`; Vercel builds from it.
+- **The hosted seed is one behind `main`.** `3acec7d` set `evidence_grade` to `none` on two
+  hosted `protocol_steps` rows (alternate-day fasting fast day, was `low`; ceramide cream, was
+  `moderate`) and changed their detail text and the "10 hours in bed" label. Until the push,
+  `compute_adherence()` on the server still weights those two steps while the app's bundle does
+  not. Step ids are unchanged, so no tick is affected. The push waits on the owner's "go"
+  (MANUAL 3.3: dry run, then the real push; published count stays 11).
+- Decks approved, all 11 (`content/queue/`); they never reach the site or the hosted database.
+- Totals on 2026-11-21 (handoff): 918 unit, browser 126 of 126, **HTTP 21 of 22**: the
+  search-the-build check fails on four free papers whose members' notes repeat public phrases (no
+  gated information in the build; PROGRESS, next item; BUILD-LOG 2026-11-21). Database 191
+  assertions per pass, not re-run (no SQL touched). `docs/evidence/phase11-handoff/`.
 
 ### Deployment state (2026-11-21, Phase 11 committed, Opus trial live)
 
@@ -375,6 +392,19 @@ route behind a check so it is not a free image-rendering service on the internet
 **Gate:** `verify-parity.mts` passes; one deck per published paper exports to PNGs with no missing
 glyphs, saved in `docs/evidence/carousel/`. The owner approves decks in `/admin/queue`.
 
+### Deferred from Phase 9 (owner, 2026-11-21: "Defer, run Finish")
+
+Open when the master prompt finished; marked `[-]` in `docs/PROGRESS.md`. Not scheduled. Ask the
+owner before picking any of them up.
+
+- Figure kinds not built: compare-bars (HIIT), grid (turmeric), dose-response. HIIT and turmeric
+  keep their own figures and simulators.
+- `docs/POST-RECIPE.md` and the sticky slot strip.
+- Life Game widgets made more interactive and visual.
+- Related reads slot under a simulator's result, and `docs/IDEAS.md` (caffeine + L-theanine).
+- Simulator fallback (no fact → publish with the card figure and queue an upgrade) and the
+  `/admin/queue` "simulator upgrade" item with a weekly batch view.
+
 ### Phase 12: native app and home-screen widgets
 
 The owner wants Today's widgets on the Android and iPhone home screen, small and opening into
@@ -460,13 +490,17 @@ git log --oneline -5. If the tree is not clean, tell me what is uncommitted befo
 anything. Then continue the master prompt from the first unchecked item in
 docs/PROGRESS.md, with the same working rules and the same ⏸ stops.
 
-Next unchecked item: 2E. Rewrite the three `editorial.json` files; concept files listed;
-`prompts.ts` updated with an old-shape refusal test; allowlist deleted; before/after table per
-paper. (The coverage pass is done and merged, 2026-11-19; the three reads still on the
-allowlist are daytime-caffeine-sleep, hiit-body-composition and steps-days-per-week.)
-Waiting on the owner: second "go" for the hosted seed push; wip/colour-figures; five-readings
-in the turmeric receipts; the five FIGURE-DESIGN departures; the clear-control labels and the
-turmeric meal picker's default (BUILD-LOG 2026-11-19).
+Next unchecked item: ⏸ The search-the-build check fails (`tests/http/members-content.test.ts`,
+found at the Phase 11 handoff; first run since the Opus trial). Nine matches, four free papers:
+each members-only implementation note (`takeaways[1]`) repeats a phrase that is also in the
+free read (card support, mechanism or audit). No gated information is in the build. Owner
+to choose: rewrite the four notes so they add what the free read does not (content edit,
+then a hosted seed push), or change the check.
+The master prompt (Phases 8–11) is otherwise complete; do not start Phase 12. Items marked
+[-] were deferred by the owner.
+Waiting on the owner: the choice above; "go" for the hosted seed push (3acec7d changed step weights); the
+Phase 12 answers in HANDOFF section 9 (live site or bundled copy, whether widget taps wait
+for the app, Apple and Google developer accounts); what to do next.
 ```
 
 ---
@@ -478,14 +512,23 @@ turmeric meal picker's default (BUILD-LOG 2026-11-19).
 3. What exactly does membership include? This decides what the server-side gated functions return.
 4. Should the companion picture follow the user across devices? That means uploading and
    hosting user images (Supabase Storage), which was deliberately avoided.
-5. Phase 11 (2026-11-20): keep or drop `@fontsource/archivo` and `@fontsource/newsreader`
-   (slide fonts, added without asking); the art word cap (24); whether a deck should also use the
+5. Phase 11 (2026-11-20): ~~keep or drop the two font packages~~ (kept, 2026-11-21); the art
+   word cap (24); whether a deck should also use the
    read's own captured figures (trial: `docs/evidence/carousel/figure-trial/`); whether to show
    "10,000" where the paper prints "10 000" (needs a rule change); whether the light look's pale
    range band (1.6:1 against the page) should be darker.
 6. ~~Relabel caffeine and turmeric as `crossover`?~~ Answered 2026-11-14: yes; done.
 7. ~~The round-2 screenshots verdict~~ Superseded 2026-11-14: judged live with /impeccable
    after the simulators.
+8. Phase 12: Apple and Google developer accounts. A paid Apple Developer Program membership is
+   needed for anything beyond the owner's own iPhone (TestFlight, the App Store); a Google Play
+   developer account for the Play Store. Xcode and Android Studio on the Mac for the native
+   builds (section 7, Phase 12 step 5).
+9. Hosted seed: "go" to push the seed from `3acec7d` (step weights: ceramide and alternate-day
+   fasting to 0; the "10 hours in bed" label). Dry run first (MANUAL 3.3).
+10. Unanswered since 2026-11-19 (BUILD-LOG 2026-11-18/19): the unmerged rest of
+    `wip/colour-figures`; five-readings in the turmeric receipts; the five FIGURE-DESIGN
+    departures; the clear-control labels; the turmeric meal picker's default.
 
 ---
 

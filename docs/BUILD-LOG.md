@@ -2528,3 +2528,46 @@ The owner took the recommended answer on each:
   Teeth and Skin categories).
 - All 11 decks approved in `/admin/queue`; the records are in `content/queue/`. Step keys and ids are
   unchanged, so existing ticks still point at the same steps; only their weights changed.
+
+## 2026-11-21: Phase 11 handoff; the master prompt finished, open Step 2 items deferred
+
+**Found at the resume.** The Phase 11 ⏸ (owner approves decks) had been answered in `3acec7d`,
+so it was ticked (`ce86ef6`). That left Step 2 items unchecked above it: the rest of 2D round 3
+(compare-bars and grid kinds, POST-RECIPE.md and the sticky slot strip, livelier Life Game
+widgets, Related reads and IDEAS.md) and the simulator items (fallback, the queue's "simulator
+upgrade" item, the dose-response kind). The owner moved the figures ahead of them on 2026-11-15
+and Phase 9 was declared done, but they were never closed. Read top to bottom they were the next
+item; read by phase, Finish was. Asked rather than guessed.
+
+**Owner: "Defer, run Finish".** They are marked `[-]` in PROGRESS (deferred, not done) and listed in
+HANDOFF section 7, "Deferred from Phase 9". Reason: the master prompt's order is Phases 8–11,
+then stop; these were sidelined amendments, not phase gates. The two parent items whose children
+were all ticked (readability pass, the FIGURE-DESIGN figures) were ticked.
+
+**Finish.** Gates re-run, HTTP and browser suites included (not run since the Phase 10 release):
+lint, typecheck, 918 unit tests and the build pass; browser 126 of 126; **HTTP 21 of 22**
+(`docs/evidence/phase11-handoff/`). Database tests not re-run: no SQL touched since the last run
+(`docs/evidence/database-tests.txt`, 2026-11-21).
+
+**The HTTP failure: the search-the-build check** (`tests/http/members-content.test.ts`, rule 7).
+Nine matches across four free Opus-trial papers (alternate-day fasting, ceramide,
+sleep-restriction, sugar). Each paper's members-only implementation note `takeaways[1]` repeats a
+phrase the free read already shows: for ceramide and sleep-restriction it is the card's support
+line word for word; for alternate-day fasting the end of the support line; for sugar the audit's
+row label. No gated information is in the build: every matched phrase is public text of a free
+read. It went unseen because the HTTP suite was not run when the six papers were published
+(`de4990e`). Not fixed here: both fixes are the owner's (rewrite the four notes so a member gets
+something the free read does not give, which changes approved reader-facing text and the hosted
+seed; or teach the check to ignore phrases a free read publishes, which changes a rule). The
+first is recommended: a note that repeats the card is worth nothing to a member, and the check
+stays as strict as it is.
+
+**Still for the owner:**
+- "Go" for the hosted seed push. `3acec7d` changed two steps' `evidence_grade` to `none`; until the
+  push, the server's `compute_adherence()` weights them and the app does not.
+- Phase 12 (not started): live site or bundled copy; whether a widget tap may wait for the app to
+  open before reaching the server; Apple and Google developer accounts (HANDOFF section 9).
+- Earlier questions with no answer in this log since 2026-11-19: `wip/colour-figures` (unmerged
+  remainder), five-readings in the turmeric receipts, the five FIGURE-DESIGN departures, the
+  clear-control labels, the turmeric meal picker's default; and HANDOFF section 9, item 5 (the
+  deck questions other than the fonts).

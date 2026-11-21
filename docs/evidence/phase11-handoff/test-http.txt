@@ -1,0 +1,52 @@
+
+> sciencedigest@0.1.0 test:http
+> vitest run --config vitest.http.config.mts
+
+
+ RUN  v5.1.0 /Users/yash/Game/sciencedigest
+
+stdout | tests/http/members-content.test.ts > the search-the-build check > finds no sentence of a members' read or of the implementation notes: zero matches
+search-the-build: 64 members-only sentences, 128 public files, 9 matches
+
+ ❯ tests/http/members-content.test.ts (8 tests | 1 failed) 50ms
+   ❯ the search-the-build check (8)
+     × finds no sentence of a members' read or of the implementation notes: zero matches 23ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/http/members-content.test.ts > the search-the-build check > finds no sentence of a members' read or of the implementation notes: zero matches
+AssertionError: expected [ …(9) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "alternate-day-fasting-weight implementation notes: \"lean mass showed no clear difference\" in .next/static/chunks/2ukaj4lb1mofq.js",
++   "alternate-day-fasting-weight implementation notes: \"lean mass showed no clear difference\" in .next/server/app/index.html",
++   "ceramide-moisturizer-barrier implementation notes: \"Water loss through the skin fell more with the ceramide set\" in .next/static/chunks/2ukaj4lb1mofq.js",
++   "ceramide-moisturizer-barrier implementation notes: \"Water loss through the skin fell more with the ceramide set\" in .next/server/app/index.html",
++   "sleep-restriction-sweet-foods implementation notes: \"Hunger and the appeal of other foods showed no clear difference\" in .next/static/chunks/2ukaj4lb1mofq.js",
++   "sleep-restriction-sweet-foods implementation notes: \"Hunger and the appeal of other foods showed no clear difference\" in .next/server/app/index.html",
++   "sugar-inflammation-markers implementation notes: \"Corn syrup against table sugar\" in .next/static/chunks/2ukaj4lb1mofq.js",
++   "sugar-inflammation-markers implementation notes: \"Corn syrup against table sugar\" in .next/server/app/index.html",
++   "sugar-inflammation-markers implementation notes: \"Corn syrup against table sugar\" in .next/server/app/papers/sugar-inflammation-markers.html",
++ ]
+
+ ❯ tests/http/members-content.test.ts:122:21
+    120|     const matches = membersOnly().flatMap((item) => haystack.filter((f…
+    121|     console.log(`search-the-build: ${membersOnly().length} members-onl…
+    122|     expect(matches).toEqual([]);
+       |                     ^
+    123|   });
+    124|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 21 passed (22)
+   Start at  19:07:33
+   Duration  753ms (tests 76%, transform 14%, import 10%, worker 1%)
+
+http exit 1
