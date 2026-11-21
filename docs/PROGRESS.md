@@ -258,7 +258,10 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
       newest pages 200. Proof: `docs/evidence/opus-trial/` (per paper: fixes.md,
       draft-for-review.md, gate and lint runs, deck sheets, figure preview, checks.txt;
       publish-checks.txt, hosted-push.txt). BUILD-LOG 2026-11-21.
-- [ ] ⏸ Stop. Owner approves decks in `/admin/queue`.
+- [x] ⏸ Stop. Owner approves decks in `/admin/queue`. Answered 2026-11-21: caffeine-tolerance and
+      coffee-cup-caffeine approved (`d714d80`); review-sheet decisions A–D taken and all 11 decks
+      approved, each with its opening, in `content/queue/` (`3acec7d`). That commit changed
+      `supabase/seed.sql` (step weights); the hosted seed is not pushed.
       Before that, the owner must:
       - Review the caffeine deck's two new entries (`npm run paper -- approve-concept caffeine-tolerance`,
         `npm run paper -- approve-common coffee-cup-caffeine`); the queue refuses that deck until then.
