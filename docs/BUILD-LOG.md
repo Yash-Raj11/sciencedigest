@@ -2594,3 +2594,14 @@ Already true for sleep-extension and toothbrushing. The check allows it for free
 the owner (HANDOFF section 9, item 11): keep, or bundle only the facts the free read itself cites.
 
 **Hosted seed** now two commits behind (step weights, these notes); push on the owner's "go".
+
+## 2026-11-21: hosted seed pushed (step weights, rewritten members' notes)
+
+On the owner's "Yes, dry run" and then "Yes, push it". Dry run: no migrations, `seed.sql` hash
+update only. Push: `supabase db push --remote --include-seed --yes` (recorded the seed hash, wrote
+no rows), then `supabase db query --remote --yes -f supabase/seed.sql`. Read-only check, no ids:
+11 published; the fast-day and ceramide steps at grade `none`; "Give yourself 10 hours in bed
+(tested in teens)" present; 4 rewritten notes, 0 old ones. The server's `compute_adherence()` now
+weights those two steps as the app does. Step ids unchanged; no tick touched. The hosted database
+is level with `main`. Evidence: `docs/evidence/phase11-handoff/hosted-seed-dry-run.txt`,
+`hosted-push.txt`.

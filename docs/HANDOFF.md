@@ -108,7 +108,7 @@ Outputs are in `docs/evidence/`.
 ### Deployment state (2026-11-21, Phase 11 handoff; master prompt complete)
 
 - `main` is the Phase 11 handoff commit, level with `origin/main`; Vercel builds from it.
-- **The hosted seed is one behind `main`.** `3acec7d` set `evidence_grade` to `none` on two
+- ~~The hosted seed is one behind `main`.~~ (Pushed; see below.) `3acec7d` set `evidence_grade` to `none` on two
   hosted `protocol_steps` rows (alternate-day fasting fast day, was `low`; ceramide cream, was
   `moderate`) and changed their detail text and the "10 hours in bed" label. Until the push,
   `compute_adherence()` on the server still weights those two steps while the app's bundle does
@@ -118,8 +118,10 @@ Outputs are in `docs/evidence/`.
 - Totals on 2026-11-21 (after the members' notes rewrite): 918 unit, 22 of 22 HTTP, 126 of 126
   browser. Database 191 assertions per pass, not re-run (no SQL touched).
   `docs/evidence/phase11-handoff/` (`notes-*.txt`; `test-http.txt` is the failing run before).
-- **The hosted seed is now two commits behind**: also the four rewritten members' notes
-  (`paper_feature_content`, `key_takeaways`). Members on the live site see the old notes until the push.
+- **Hosted seed pushed 2026-11-21 on the owner's go** (dry run, then `db push --remote
+  --include-seed`, then `db query --remote -f supabase/seed.sql`). Read-only check: 11 published,
+  both steps at grade `none`, the teen label present, 4 rewritten notes and 0 old ones. The hosted
+  database is level with `main` (`docs/evidence/phase11-handoff/hosted-seed-dry-run.txt`, `hosted-push.txt`).
 
 ### Deployment state (2026-11-21, Phase 11 committed, Opus trial live)
 
@@ -493,8 +495,7 @@ docs/PROGRESS.md, with the same working rules and the same ⏸ stops.
 
 Next unchecked item: none. The master prompt (Phases 8–11) is complete; do not start
 Phase 12. Items marked [-] were deferred by the owner.
-Waiting on the owner: "go" for the hosted seed push (step weights from 3acec7d and the four
-rewritten members' notes); the
+Waiting on the owner: the
 Phase 12 answers in HANDOFF section 9 (live site or bundled copy, whether widget taps wait
 for the app, Apple and Google developer accounts); what to do next.
 ```
@@ -520,7 +521,7 @@ for the app, Apple and Google developer accounts); what to do next.
    needed for anything beyond the owner's own iPhone (TestFlight, the App Store); a Google Play
    developer account for the Play Store. Xcode and Android Studio on the Mac for the native
    builds (section 7, Phase 12 step 5).
-9. Hosted seed: "go" to push the seed (step weights from `3acec7d`: ceramide and alternate-day
+9. ~~Hosted seed~~ Pushed 2026-11-21 on the owner's go. Was: push the seed (step weights from `3acec7d`: ceramide and alternate-day
    fasting to 0, the "10 hours in bed" label; and the four rewritten members' notes). Dry run
    first (MANUAL 3.3).
 11. A free read's bundle carries the facts its members' notes cite (label and passage, not the

@@ -295,4 +295,5 @@ The deferred items are gathered in HANDOFF section 7, "Deferred from Phase 9".
       Owner: "Rewrite the four notes" (2026-11-21). Each `takeaways[1]` now gives a detail from a
       gated fact the free read does not cite (provided fast-day meals; cream amount and side-effect
       severity; the settling week; table-sugar doses). The check failed before (`test-http.txt`) and
-      passes after: HTTP 22 of 22, 918 unit, browser 126 of 126 (`notes-*.txt`). Hosted seed not pushed.
+      passes after: HTTP 22 of 22, 918 unit, browser 126 of 126 (`notes-*.txt`). Hosted seed pushed on
+      the owner's go, with the step weights of `3acec7d`; read-only check passed (`hosted-push.txt`).
