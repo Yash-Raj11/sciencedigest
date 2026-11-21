@@ -807,10 +807,7 @@
         "cite": "Weibel et al., Scientific Reports",
         "licence": "CC-BY"
       },
-      "pending": [
-        "common:coffee-cup-caffeine",
-        "concept:caffeine-tolerance"
-      ]
+      "pending": []
     },
     {
       "slug": "hiit-body-composition",

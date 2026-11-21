@@ -61,16 +61,31 @@ describe("the approval queue", () => {
     const after = existsSync("content/queue/hiit-body-composition.json") ? readFileSync("content/queue/hiit-body-composition.json", "utf8") : null;
     expect(after).toBe(before);
   });
-  // Runs while some deck waits on a review (today: caffeine, on caffeine-tolerance and coffee-cup-caffeine).
-  // Once the owner has reviewed everything it shows as skipped, not passed.
-  const { decks } = JSON.parse(readFileSync("content/generated/carousels.json", "utf8")) as { decks: { slug: string; pending: string[] }[] };
-  const held = decks.find((d) => d.pending.length > 0);
-  it.runIf(held)("will not approve a deck that rests on a concept or common fact the owner has not reviewed", async () => {
-    const { queue } = await routes("development");
-    const before = existsSync(`content/queue/${held!.slug}.json`);
-    const res = await queue.POST(new Request("http://localhost/api/admin/queue", { method: "POST", body: JSON.stringify({ slug: held!.slug, action: "approve" }) }));
-    expect(res.status).toBe(409);
-    expect((await res.json()).error).toContain(held!.pending[0]);
-    expect(existsSync(`content/queue/${held!.slug}.json`)).toBe(before);
+  // The owner has reviewed every entry today, so the route is handed a copy of the decks in which
+  // one deck still waits on a review. The rule is tested whatever the real files say.
+  it("will not approve a deck that rests on a concept or common fact the owner has not reviewed", async () => {
+    const slug = (JSON.parse(readFileSync("content/generated/carousels.json", "utf8")) as { decks: { slug: string }[] }).decks[0].slug;
+    const pending = ["caffeine-tolerance"];
+    vi.doMock("node:fs", async (importOriginal) => {
+      const fs = await importOriginal<typeof import("node:fs")>();
+      const readFileSync = ((file: string, ...rest: unknown[]) => {
+        const text = (fs.readFileSync as (...a: unknown[]) => string | Buffer)(file, ...rest);
+        if (!String(file).endsWith("carousels.json")) return text;
+        const data = JSON.parse(String(text)) as { decks: { slug: string; pending: string[] }[] };
+        data.decks = data.decks.map((d) => (d.slug === slug ? { ...d, pending } : d));
+        return JSON.stringify(data);
+      }) as typeof fs.readFileSync;
+      return { ...fs, default: { ...fs, readFileSync }, readFileSync };
+    });
+    try {
+      const { queue } = await routes("development");
+      const before = existsSync(`content/queue/${slug}.json`) ? readFileSync(`content/queue/${slug}.json`, "utf8") : null;
+      const res = await queue.POST(new Request("http://localhost/api/admin/queue", { method: "POST", body: JSON.stringify({ slug, action: "approve" }) }));
+      expect(res.status).toBe(409);
+      expect((await res.json()).error).toContain(pending[0]);
+      expect(existsSync(`content/queue/${slug}.json`) ? readFileSync(`content/queue/${slug}.json`, "utf8") : null).toBe(before);
+    } finally {
+      vi.doUnmock("node:fs");
+    }
   });
 });

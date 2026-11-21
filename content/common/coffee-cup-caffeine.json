@@ -1,4 +1,8 @@
 {
   "statement": "A regular cup of brewed coffee holds roughly 100 mg of caffeine.",
-  "reviewed_by_owner": false
+  "reviewed_by_owner": true,
+  "reviewed": {
+    "at": "2026-11-21T13:01:06.506Z",
+    "fingerprint": "098bb3a2c12d"
+  }
 }

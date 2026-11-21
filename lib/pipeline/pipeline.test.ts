@@ -433,15 +433,19 @@ describe("lint (stage 4)", () => {
     expect(EDITORIAL_SYSTEM).toContain(`at most ${DECK_LIMITS.artWords} drawn`);
   });
   it("carousel: an unreviewed concept or common fact on the deck holds up the deck, not the read", () => {
-    const report = lint(validated(caffeine), caffeine.editorial, caffeine.source, OPTIONS);
+    // The owner's review is set either way here, so the test holds whatever the files say today.
+    // Only the deck's two entries change; the read's own concepts stay as they are.
+    const DECK_ONLY = new Set(["caffeine-tolerance", "coffee-cup-caffeine"]);
+    const contextWith = (reviewed: boolean) => ({
+      ...OPTIONS.context,
+      concepts: Object.fromEntries(Object.entries(REAL_CONCEPTS).map(([k, v]) => [k, v.ok && DECK_ONLY.has(k) ? { ...v, reviewed } : v])),
+      common: Object.fromEntries(Object.entries(REAL_COMMON).map(([k, v]) => [k, v.ok && DECK_ONLY.has(k) ? { ...v, reviewed } : v])),
+    });
+    const report = lint(validated(caffeine), caffeine.editorial, caffeine.source, { ...OPTIONS, context: contextWith(false) });
     expect(report.errors).toEqual([]);
     expect(report.deckPending).toEqual(expect.arrayContaining(["common:coffee-cup-caffeine", "concept:caffeine-tolerance"]));
     // Reviewed, they leave nothing pending.
-    const reviewedContext = {
-      ...OPTIONS.context,
-      concepts: Object.fromEntries(Object.entries(REAL_CONCEPTS).map(([k, v]) => [k, v.ok ? { ...v, reviewed: true } : v])),
-      common: Object.fromEntries(Object.entries(REAL_COMMON).map(([k, v]) => [k, v.ok ? { ...v, reviewed: true } : v])),
-    };
+    const reviewedContext = contextWith(true);
     expect(lint(validated(caffeine), caffeine.editorial, caffeine.source, { ...OPTIONS, context: reviewedContext }).deckPending ?? []).toEqual([]);
   });
   it("copy: prose lifted from the paper", () => {

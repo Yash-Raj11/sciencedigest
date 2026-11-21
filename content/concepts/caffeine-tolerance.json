@@ -6,5 +6,9 @@
     "doi": "10.1038/s41598-021-84088-x",
     "title": "The impact of daily caffeine intake on nighttime sleep in young adult men"
   },
-  "reviewed_by_owner": false
+  "reviewed_by_owner": true,
+  "reviewed": {
+    "at": "2026-11-21T13:00:47.635Z",
+    "fingerprint": "240d250cb300"
+  }
 }
