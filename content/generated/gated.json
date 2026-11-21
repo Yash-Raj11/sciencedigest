@@ -1925,11 +1925,15 @@
       ],
       [
         {
-          "text": "Most of the difference was fat; lean mass showed no clear difference.",
+          "text": "The trial handed out every fast-day meal; the control group got no meals.",
           "refs": [
-            "fat_md",
-            "lean_ns"
+            "meal_kcal",
+            "control_free"
           ]
+        },
+        {
+          "text": "The trial did not test fast days on meals you plan yourself.",
+          "refs": []
         }
       ],
       [
@@ -1981,9 +1985,15 @@
       ],
       [
         {
-          "text": "Water loss through the skin fell more with the ceramide set.",
+          "text": "Both groups used about the same amount of cream and cleanser.",
           "refs": [
-            "tewl_lower"
+            "amount_ns"
+          ]
+        },
+        {
+          "text": "Two moderate and two severe side effects, each with pain, all came with the ceramide set.",
+          "refs": [
+            "severe_active"
           ]
         }
       ],
@@ -2117,10 +2127,9 @@
       ],
       [
         {
-          "text": "Hunger and the appeal of other foods showed no clear difference.",
+          "text": "First, the teens spent a week picking their own bedtimes but waking at a set time, to settle the body clock.",
           "refs": [
-            "hunger_ns",
-            "nonsweets_ns"
+            "baseline_week"
           ]
         }
       ],
@@ -2174,10 +2183,14 @@
       ],
       [
         {
-          "text": "Corn syrup against table sugar: no clear difference either.",
+          "text": "Table sugar in the trials ran from 50 to 203 g a day.",
           "refs": [
-            "hfcs_suc_ns"
+            "sucrose_doses"
           ]
+        },
+        {
+          "text": "The review compared one sugar with another, so it says nothing about eating less sugar.",
+          "refs": []
         }
       ],
       [

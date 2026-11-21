@@ -117,7 +117,7 @@
   ],
   "takeaways": [
     "Fasting every other day, adults without obesity weighed 5.2 kg less than a control group after 12 weeks. [weight_md]",
-    "Most of the difference was fat; lean mass showed no clear difference. [fat_md, lean_ns]",
+    "The trial handed out every fast-day meal; the control group got no meals. [meal_kcal, control_free] The trial did not test fast days on meals you plan yourself. [-]",
     "Small and short, and the authors merged the groups after the fact. [limit_small, limit_twelve, limit_post_hoc]"
   ],
   "choices": [],

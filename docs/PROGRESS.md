@@ -286,9 +286,13 @@ The deferred items are gathered in HANDOFF section 7, "Deferred from Phase 9".
       Done 2026-11-21 (HANDOFF section 9, items 1, 2 and 8). Gates: lint, typecheck, 918 unit,
       build and 126 browser pass; **HTTP 21 of 22, one failure** (next item).
       `docs/evidence/phase11-handoff/`.
-- [ ] ⏸ The search-the-build check fails (`tests/http/members-content.test.ts`, found at the
+- [x] ⏸ The search-the-build check fails (`tests/http/members-content.test.ts`, found at the
       Phase 11 handoff; first run since the Opus trial). Nine matches, four free papers:
       each members-only implementation note (`takeaways[1]`) repeats a phrase that is also in the
       free read (card support, mechanism or audit). No gated information is in the build. Owner
       to choose: rewrite the four notes so they add what the free read does not (content edit,
       then a hosted seed push), or change the check.
+      Owner: "Rewrite the four notes" (2026-11-21). Each `takeaways[1]` now gives a detail from a
+      gated fact the free read does not cite (provided fast-day meals; cream amount and side-effect
+      severity; the settling week; table-sugar doses). The check failed before (`test-http.txt`) and
+      passes after: HTTP 22 of 22, 918 unit, browser 126 of 126 (`notes-*.txt`). Hosted seed not pushed.

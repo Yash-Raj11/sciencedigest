@@ -115,10 +115,11 @@ Outputs are in `docs/evidence/`.
   not. Step ids are unchanged, so no tick is affected. The push waits on the owner's "go"
   (MANUAL 3.3: dry run, then the real push; published count stays 11).
 - Decks approved, all 11 (`content/queue/`); they never reach the site or the hosted database.
-- Totals on 2026-11-21 (handoff): 918 unit, browser 126 of 126, **HTTP 21 of 22**: the
-  search-the-build check fails on four free papers whose members' notes repeat public phrases (no
-  gated information in the build; PROGRESS, next item; BUILD-LOG 2026-11-21). Database 191
-  assertions per pass, not re-run (no SQL touched). `docs/evidence/phase11-handoff/`.
+- Totals on 2026-11-21 (after the members' notes rewrite): 918 unit, 22 of 22 HTTP, 126 of 126
+  browser. Database 191 assertions per pass, not re-run (no SQL touched).
+  `docs/evidence/phase11-handoff/` (`notes-*.txt`; `test-http.txt` is the failing run before).
+- **The hosted seed is now two commits behind**: also the four rewritten members' notes
+  (`paper_feature_content`, `key_takeaways`). Members on the live site see the old notes until the push.
 
 ### Deployment state (2026-11-21, Phase 11 committed, Opus trial live)
 
@@ -490,15 +491,10 @@ git log --oneline -5. If the tree is not clean, tell me what is uncommitted befo
 anything. Then continue the master prompt from the first unchecked item in
 docs/PROGRESS.md, with the same working rules and the same ⏸ stops.
 
-Next unchecked item: ⏸ The search-the-build check fails (`tests/http/members-content.test.ts`,
-found at the Phase 11 handoff; first run since the Opus trial). Nine matches, four free papers:
-each members-only implementation note (`takeaways[1]`) repeats a phrase that is also in the
-free read (card support, mechanism or audit). No gated information is in the build. Owner
-to choose: rewrite the four notes so they add what the free read does not (content edit,
-then a hosted seed push), or change the check.
-The master prompt (Phases 8–11) is otherwise complete; do not start Phase 12. Items marked
-[-] were deferred by the owner.
-Waiting on the owner: the choice above; "go" for the hosted seed push (3acec7d changed step weights); the
+Next unchecked item: none. The master prompt (Phases 8–11) is complete; do not start
+Phase 12. Items marked [-] were deferred by the owner.
+Waiting on the owner: "go" for the hosted seed push (step weights from 3acec7d and the four
+rewritten members' notes); the
 Phase 12 answers in HANDOFF section 9 (live site or bundled copy, whether widget taps wait
 for the app, Apple and Google developer accounts); what to do next.
 ```
@@ -524,8 +520,13 @@ for the app, Apple and Google developer accounts); what to do next.
    needed for anything beyond the owner's own iPhone (TestFlight, the App Store); a Google Play
    developer account for the Play Store. Xcode and Android Studio on the Mac for the native
    builds (section 7, Phase 12 step 5).
-9. Hosted seed: "go" to push the seed from `3acec7d` (step weights: ceramide and alternate-day
-   fasting to 0; the "10 hours in bed" label). Dry run first (MANUAL 3.3).
+9. Hosted seed: "go" to push the seed (step weights from `3acec7d`: ceramide and alternate-day
+   fasting to 0, the "10 hours in bed" label; and the four rewritten members' notes). Dry run
+   first (MANUAL 3.3).
+11. A free read's bundle carries the facts its members' notes cite (label and passage, not the
+    note), because the build bundles every cited fact. Already so for sleep-extension and
+    toothbrushing; now also for the four rewritten notes. The search-the-build check allows it
+    for free papers. Keep, or bundle only facts the free read itself cites (a build change)?
 10. Unanswered since 2026-11-19 (BUILD-LOG 2026-11-18/19): the unmerged rest of
     `wip/colour-figures`; five-readings in the turmeric receipts; the five FIGURE-DESIGN
     departures; the clear-control labels; the turmeric meal picker's default.

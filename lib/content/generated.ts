@@ -1741,6 +1741,12 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "label": "30 finished: 15 per group",
         "quote": "Thirty-two subjects commenced the study, with 30 completing the entire 12-week trial (Figure 1). After loss due to dropouts, the remaining subjects in each intervention group were as follows: ADF (n = 15) and control (n = 15)."
       },
+      "control_free": {
+        "id": "control_free",
+        "kind": "context",
+        "label": "Control group ate freely every day, with no meals provided",
+        "quote": "Control subjects were permitted to eat ad libitum every day, and were not provided with meals from the research center."
+      },
       "crp_change_p": {
         "id": "crp_change_p",
         "kind": "finding",
@@ -4174,6 +4180,17 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "label": "Aged 18 to 73, average 30.9",
         "quote": "The demographics and baseline characteristics of the ITT population are described in Table 2 and consisted of 100 patients (53 female, 47 male; aged 18‐73 years; mean age 30.9 years) who received either ceramide cream and cleanser (n = 50) or placebo cream and cleanser (n = 50). Of these, 83 patients completed the study (n = 42 and n = 41, respectively)."
       },
+      "amount_ns": {
+        "id": "amount_ns",
+        "kind": "finding",
+        "label": "Cream and cleanser used: no clear difference",
+        "quote": "Furthermore, there were no significant differences in the quantity of cream or cleanser used between both groups at any time point (all P > .05; data not shown).",
+        "why": "People were assigned at random, which rules out most other explanations, in one study.",
+        "finding": {
+          "outcome": "Amount of cream and cleanser used",
+          "tier": "moderate"
+        }
+      },
       "asian_row": {
         "id": "asian_row",
         "kind": "context",
@@ -4506,6 +4523,17 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "kind": "context",
         "label": "The paper gives the scores as mean ± standard error",
         "quote": "Mean ± SEM (Range) | 14.70 ± 0.52 (10.0‐25.2) | 14.28 ± 0.43 (10.0‐19.8) | 14.49 ± 0.48 (10.0–25.2) |"
+      },
+      "severe_active": {
+        "id": "severe_active",
+        "kind": "finding",
+        "label": "Two moderate and two severe side effects, all with the ceramide set",
+        "quote": "There were a small number of AEs (22) experienced by 18 patients (18%), with 11 (11%) of those patients in the active group and 7 (7%) in the placebo group. Of these, 8 patients (8%) were found to have 10 AEs that were remotely, possibly or probably related to the study products in the active group compared to 4 patients (4%) and 5 AEs in the placebo group. The most common treatment‐related AEs reported were pain (stinging on application) in five patients (5%) in the active group only, itch in three patients (3%) in the active group and one (1%) in the placebo group, and dry skin in the placebo group only by two patients (2%). Two patients (2%) in the active group reported both pain and itch. The majority of treatment‐related AEs experienced by patients were classified as mild with five in the active group and five in the placebo group experienced by four patients (4%) in each group. Two patients (2%) experienced moderate severity AEs while two (2%) experienced severe AEs, all of which were in the active group; one patient experienced both pain and itch while the other three experienced pain only. No subjects withdrew from the study due to AEs and there were no serious AEs.",
+        "why": "People were assigned at random, which rules out most other explanations, in one study.",
+        "finding": {
+          "outcome": "Side-effect severity",
+          "tier": "moderate"
+        }
       },
       "softness": {
         "id": "softness",
@@ -7670,6 +7698,12 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "label": "All sleep happened at home",
         "quote": "All sleep occurred at home and was monitored via a daily sleep diary and actigraphy (MicroMotionlogger Sleep Watch, Ambulatory Monitoring, Inc.)."
       },
+      "baseline_week": {
+        "id": "baseline_week",
+        "kind": "context",
+        "label": "A first week with bedtimes of their own choosing, to settle the body clock",
+        "quote": "Teens’ circadian phase was first stabilized in a baseline week, during which they could self-select their bedtimes, but were asked to consistently awaken at a time that would allow them to come in to our office for an 8:30 AM appointment/visit."
+      },
       "bedtime_moved": {
         "id": "bedtime_moved",
         "kind": "context",
@@ -10401,6 +10435,17 @@ export const FREE_CONTENT: Record<string, PaperContent> = {
         "why": "It pools trials that assigned people at random, which rules out most other explanations.",
         "finding": {
           "outcome": "Trials included",
+          "tier": "moderate"
+        }
+      },
+      "sucrose_doses": {
+        "id": "sucrose_doses",
+        "kind": "finding",
+        "label": "Table sugar given: 50 to 203 g a day",
+        "quote": "Dietary sucrose intake for the intervention groups in the seven sucrose studies ranged from 50 to 203 g of daily intake.",
+        "why": "It pools trials that assigned people at random, which rules out most other explanations.",
+        "finding": {
+          "outcome": "Table sugar given per day",
           "tier": "moderate"
         }
       },

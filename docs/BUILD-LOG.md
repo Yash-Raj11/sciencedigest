@@ -2571,3 +2571,26 @@ stays as strict as it is.
   remainder), five-readings in the turmeric receipts, the five FIGURE-DESIGN departures, the
   clear-control labels, the turmeric meal picker's default; and HANDOFF section 9, item 5 (the
   deck questions other than the fonts).
+
+## 2026-11-21: four members' notes rewritten; the search-the-build check passes
+
+**Owner: "Rewrite the four notes"** (over changing the check). Each paper's `takeaways[1]` now gives
+a member something the free read does not, from a gated fact the free read never cites:
+
+| Paper | Was (repeated the free read) | Now |
+|---|---|---|
+| alternate-day-fasting-weight | fat, lean mass no clear difference | fast-day meals were handed out, the control group got none; self-planned fast days not tested [meal_kcal, control_free] |
+| ceramide-moisturizer-barrier | water loss fell more (the card line) | same amount of cream used in both groups; two moderate and two severe side effects, all with the ceramide set [amount_ns, severe_active] |
+| sleep-restriction-sweet-foods | hunger and other foods (the card line) | a settling week of self-chosen bedtimes and a set wake time came first [baseline_week] |
+| sugar-inflammation-markers | corn syrup against table sugar | table sugar ran from 50 to 203 g a day; the review compared sugars, not eating less [sucrose_doses] |
+
+Two lint warnings on the first drafts (a passive, a 24-word sentence) were fixed in the text.
+Proof: the check failed before (`docs/evidence/phase11-handoff/test-http.txt`, 9 matches) and
+passes after; 918 unit, 22 of 22 HTTP, 126 of 126 browser (`notes-*.txt`).
+
+**Found while doing it:** the build bundles every fact a read cites, the members' notes included,
+so a free read's public data carries the label and passage behind each note (not the note itself).
+Already true for sleep-extension and toothbrushing. The check allows it for free papers. Left for
+the owner (HANDOFF section 9, item 11): keep, or bundle only the facts the free read itself cites.
+
+**Hosted seed** now two commits behind (step weights, these notes); push on the owner's "go".
