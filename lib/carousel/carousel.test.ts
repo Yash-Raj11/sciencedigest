@@ -15,7 +15,11 @@ import { inspectTree } from "./satori-rules";
 import { contrast, contrastProblems } from "./contrast";
 import { altHookFileName, hookChoices, withHook } from "./hooks";
 import { slideElement } from "./Slide";
-import { COLOR, COLOR_LIGHT, LOOKS, PALETTES, paletteOf, SANS, SERIF, VIVID_TOKENS } from "./tokens";
+import { palettes, paletteOf } from "./palettes";
+import { LOOKS, SANS, SERIF, VIVID_TOKENS } from "./tokens";
+const COLOR = paletteOf("dark");
+const COLOR_LIGHT = paletteOf("light");
+const PALETTES = palettes();
 import { receiptInterval } from "../pipeline/carousel";
 import { intervalLayout, plateauLayout } from "./art-geometry";
 

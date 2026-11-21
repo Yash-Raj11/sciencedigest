@@ -103,6 +103,22 @@ Totals on 2026-11-18 (after the draft-stage menu of figure kinds): 700 unit test
 not re-run: no SQL touched since 2026-11-14).
 Outputs are in `docs/evidence/`.
 
+### Deployment state (2026-11-21, Phase 11 committed, Opus trial live)
+
+- `main` is `de4990e` plus this handoff commit, level with `origin/main`; Vercel rebuilt from it.
+  11 published papers on the live site and in the hosted database (10 free, 1 premium); the four
+  newest pages answer 200 on `sciencedigest-a4ms.vercel.app`.
+- Hosted seed pushed 2026-11-21 on the owner's go: `supabase db push --remote --include-seed`
+  (no migrations pending), then `supabase db query --remote -f supabase/seed.sql`; checked: 11
+  published, each new paper's read and steps present (`docs/evidence/opus-trial/hosted-push.txt`).
+- Decks still never reach the site or the hosted database (`/admin/queue` is local-only).
+- Slide colours now come from `app/globals.css` at render time (`lib/carousel/palettes.ts`); the
+  copy in `tokens.ts` is gone (BUILD-LOG 2026-11-21). Deck parity: 11 decks, 320 slides, passed.
+- Totals on 2026-11-21: 918 unit tests; database 191 assertions per pass, 0 failed, unseeded and
+  seeded (`db:test:local`; Docker was down); mutations not re-run (no SQL touched). HTTP and
+  browser suites not re-run this phase; the four reads were checked by hand in dev and on Vercel.
+  Outputs: `docs/evidence/opus-trial/publish-checks.txt`, `docs/evidence/unit-tests.txt`.
+
 ### Deployment state (2026-11-20, Phase 11 built, not committed)
 
 - `main` and Vercel are unchanged since the Phase 10 handoff (`37d240e`). All Phase 11 work is in the

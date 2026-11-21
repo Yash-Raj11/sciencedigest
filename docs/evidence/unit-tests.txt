@@ -1,12 +1,4 @@
 
-> sciencedigest@0.1.0 lint
-> eslint
-
-
-> sciencedigest@0.1.0 typecheck
-> tsc --noEmit
-
-
 > sciencedigest@0.1.0 test
 > vitest run
 
@@ -14,74 +6,11 @@
  RUN  v5.1.0 /Users/yash/Game/sciencedigest
 
 
- Test Files  54 passed (54)
-      Tests  826 passed (826)
-   Start at  22:11:59
-   Duration  5.51s (tests 81%, import 16%, transform 2%, worker 1%)
+ Test Files  63 passed (63)
+      Tests  918 passed (918)
+   Start at  18:24:44
+   Duration  5.61s (tests 74%, import 23%, transform 3%, worker 1%)
 
-    Isolate  54 workers spawned · ~100ms startup each (spawn + environment, per file)
-             at least ~670ms faster with isolate: false — reuses workers across files instead of one per file
+    Isolate  63 workers spawned · ~91ms startup each (spawn + environment, per file)
+             at least ~728ms faster with isolate: false — reuses workers across files instead of one per file
 
-
-> sciencedigest@0.1.0 build
-> npm run content:check && next build
-
-
-> sciencedigest@0.1.0 content:check
-> tsx scripts/content-build.mts --check --quiet
-
-▲ Next.js 16.4.6 (Turbopack)
-- Environments: .env.local
-✓ Running next.config.ts took 53ms
-- Cache Components enabled
-- Partial Prefetching enabled
-
-  Creating an optimized production build ...
-✓ Compiled successfully in 1492ms
-  Running TypeScript ...
-  Finished TypeScript in 1141ms ...
-  Collecting page data using 7 workers ...
-  Generating static pages using 7 workers (0/18) ...
-  Generating static pages using 7 workers (4/18) 
-  Generating static pages using 7 workers (8/18) 
-  Generating static pages using 7 workers (13/18) 
-✓ Generating static pages using 7 workers (18/18) in 438ms
-  Finalizing page optimization ...
-
-Route (app)
-┌ ○ /
-├ ○ /_not-found
-├ ○ /admin/queue
-├ ○ /api/admin/carousel
-├ ƒ /api/admin/queue
-├ ƒ /api/demo/gated/[slug]
-├ ○ /manifest.webmanifest
-├ ○ /me
-├   /papers/[slug]
-│ ├ ◐ /papers/[slug]
-│ ├ ○ /papers/turmeric-pepper-breakfast
-│ ├ ○ /papers/steps-days-per-week
-│ └ ◐ [+3 more paths]
-├ ○ /privacy
-├ ○ /today
-└ ○ /upgrade
-
-
-○  (Static)             prerendered as static content
-◐  (Partial Prerender)  prerendered as static HTML with dynamic server-streamed content
-ƒ  (Dynamic)            server-rendered on demand
-
-
-> sciencedigest@0.1.0 carousel:parity
-> tsx scripts/verify-parity.mts
-
-tokens: the 4 slide palettes match their themes in app/globals.css
-contrast: every look's text reaches 4.5:1 on its ground, the button label 3:1 on the orange
-daytime-caffeine-sleep: 6 slides + 1 alternate openings × 4 looks, ok
-hiit-body-composition: 6 slides + 1 alternate openings × 4 looks, ok
-sleep-extension-energy-intake: 6 slides + 1 alternate openings × 4 looks, ok
-steps-days-per-week: 6 slides + 3 alternate openings × 4 looks, ok
-turmeric-pepper-breakfast: 6 slides + 1 alternate openings × 4 looks, ok
-
-verify-parity passed: 5 published decks, 148 slides across 4 looks. Every drawn number is in a passage its slide cites; every deck word is drawn; tokens match; text contrast holds; PNGs are current.
-exit 0

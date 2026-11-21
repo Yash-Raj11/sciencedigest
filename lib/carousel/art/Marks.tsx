@@ -1,9 +1,10 @@
 /** The small marks beside a finding row: "=" for no clear difference, an arrow for lower or higher. */
 
 import { VERDICT_MARK } from "../art-geometry";
-import { COLOR, STROKE, type Palette } from "../tokens";
+import { paletteOf } from "../palettes";
+import { STROKE, type Palette } from "../tokens";
 
-export function VerdictMark({ verdict, size, pal = COLOR }: { verdict: string; size: number; pal?: Palette }) {
+export function VerdictMark({ verdict, size, pal = paletteOf("dark") }: { verdict: string; size: number; pal?: Palette }) {
   const ink = pal["signal-evidence-text"];
   const path = verdict === "lower" ? VERDICT_MARK.lower : verdict === "higher" ? VERDICT_MARK.higher : VERDICT_MARK.same;
   const box = VERDICT_MARK.box;

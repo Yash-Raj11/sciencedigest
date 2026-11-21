@@ -14,19 +14,14 @@
 import type { CarouselDeck } from "../content/types";
 import { numbersIn } from "../pipeline/text";
 import { inspectTree } from "./satori-rules";
-import { COLOR, COLOR_THEME, SANS } from "./tokens";
+import { themeTokens } from "./css-tokens";
+import { COLOR_THEME, paletteOf } from "./palettes";
+import { SANS } from "./tokens";
 
-/** The colour tokens of one theme block of globals.css, e.g. [data-theme="dark"] { --bg: #0a0a0a; }. */
-export function themeTokens(css: string, theme: string): Record<string, string> {
-  const block = new RegExp(`\\[data-theme="${theme}"\\]\\s*\\{([^}]*)\\}`).exec(css);
-  if (!block) return {};
-  const out: Record<string, string> = {};
-  for (const m of block[1].matchAll(/--([a-z-]+):\s*([^;]+);/g)) out[m[1]] = m[2].trim().toLowerCase();
-  return out;
-}
+export { themeTokens } from "./css-tokens";
 
 /** `names` maps a palette key to the token it reads when that differs (the deck's bright orange). */
-export function tokenProblems(css: string, palette: Record<string, string> = COLOR, theme = COLOR_THEME, names: Record<string, string> = {}): string[] {
+export function tokenProblems(css: string, palette: Record<string, string> = paletteOf("dark"), theme = COLOR_THEME, names: Record<string, string> = {}): string[] {
   const site = themeTokens(css, theme);
   if (Object.keys(site).length === 0) return [`app/globals.css has no [data-theme="${theme}"] block`];
   return Object.entries(palette).map(([key, value]) => [names[key] ?? key, value] as const).flatMap(([name, value]) =>

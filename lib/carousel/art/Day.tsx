@@ -5,7 +5,8 @@
  */
 
 import type { dayLayout } from "../art-geometry";
-import { COLOR, STROKE, type Palette } from "../tokens";
+import { paletteOf } from "../palettes";
+import { STROKE, type Palette } from "../tokens";
 
 function Cup({ cx, pal }: { cx: number; pal: Palette }) {
   return (
@@ -17,7 +18,7 @@ function Cup({ cx, pal }: { cx: number; pal: Palette }) {
   );
 }
 
-export function Day({ at, width, height, pal = COLOR }: { at: ReturnType<typeof dayLayout>; width: number; height: number; pal?: Palette }) {
+export function Day({ at, width, height, pal = paletteOf("dark") }: { at: ReturnType<typeof dayLayout>; width: number; height: number; pal?: Palette }) {
   return (
     <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
       <path d={`M ${at.start} 140 L ${at.end} 140`} stroke={pal.line} strokeWidth={STROKE.thin + 2} strokeLinecap="round" />

@@ -5,10 +5,11 @@
  * direction only, never an amount.
  */
 
-import { ART, COLOR, type Palette } from "../tokens";
+import { paletteOf } from "../palettes";
+import { ART, type Palette } from "../tokens";
 import { claim, scenery, solidInk, type Line } from "./line";
 
-export function TwoPiles({ line, width = ART.width, pal = COLOR }: { line: Line; width?: number; pal?: Palette }) {
+export function TwoPiles({ line, width = ART.width, pal = paletteOf("dark") }: { line: Line; width?: number; pal?: Palette }) {
   return (
     <svg width={width} height={Math.round((width * ART.height) / ART.width)} viewBox={`0 0 ${ART.width} ${ART.height}`}>
       <rect x={92} y={470} width={720} height={64} rx={22} {...solidInk(pal)} />

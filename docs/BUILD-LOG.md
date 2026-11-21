@@ -2451,3 +2451,63 @@ tests; 10 of 10 breaks caught (`docs/evidence/opus-trial/rules-broken.txt`, brea
 the first break was ineffective); gates in `docs/evidence/opus-trial/gates.txt`. No Opus run yet:
 it needs the owner's Anthropic key.
 
+## 2026-11-21: the Opus trial, six papers by hand, published
+
+**What.** The owner asked for papers extracted with no API key "so i can evaluate them". Claude
+Opus 5.5 wrote each extraction (with coverage) and editorial by hand, one paper at a time, stopping
+for review after each. The project's real gate and lint judged every file; no rule, word list or
+budget was loosened. Treat the results as an **upper bound** on a one-shot API run (the writer
+reread the paper and reran the checks before the owner saw anything). Every refusal and its fix is
+in `docs/evidence/opus-trial/<slug>/fixes.md`.
+
+**What the checks caught, across six papers.** Numbers written differently from the paper
+("12:00" for "12.00 pm", "32" for "Thirty-two", "2 weeks" for "two weeks"); direction words
+resting on a passage that also says "no difference"; p-values in fact labels; one-claim
+clauses; causal verbs without the population; audits over 250 words; one 7-word copy of an
+abstract. **What only reading caught:** a population panel that said 15 per group were randomized
+(15 finished); a limitation that undercut the mechanism left unsaid; "Sydney" from the
+affiliations, not the text; an ingredient's role stated as fact when it was the authors' account.
+
+**Figures.** Four new, each a layout file plus a test that fails when its rule is broken:
+`bedtimes`, `crp-gaps`, `fast-days`, `eczema-scores` (the earlier two: `clean-gap`,
+`eating-windows`). Previews found faults the tests could not: a midnight line across labels,
+near-invisible control bars (contrast about 1.4 to 1), start dots that read as outlines
+("proposed"), and a line with no sign of which end was the start.
+
+**Owner decisions taken.** Paper 4's design label `meta_analysis_rct` kept ("Leave it"), though
+two of its pooled trials are not described as randomized. All six approved ("start publishing
+them"), the hosted seed pushed ("Yes, push it"), committed ("commit them"), pushed ("Yes, push").
+The two font packages (`@fontsource/archivo`, `@fontsource/newsreader`) were kept in that commit,
+with their reason in its body (the deck renderer needs the font files on disk).
+
+**Still for the owner** (each review sheet's top lists its own):
+- Weighted steps resting on weak ground: toothbrushing weight 0; 10 hours in bed (low); the
+  fast-day meal on alternate days in a daily tracker (low); the ceramide cream (moderate) resting
+  on a secondary outcome while the main one showed no clear difference. The ceramide read's top
+  evidence line shows that secondary outcome, under a null headline.
+- Paper 4's WHO step at weight 0 and its figure in the audit layer; TRE's unlabelled ±.
+- No picture on any deck's "why" slide.
+- Papers that print only SEM (alternate-day fasting, ceramide): no range can be drawn; the gate
+  forbids converting SEM.
+
+## 2026-11-21: slide colours read from app/globals.css, not copied
+
+**Found at the handoff.** After `de4990e`, `scripts/visual-system.test.ts` failed: "no hex colour in
+app/, components/ or lib/ outside the theme" named `lib/carousel/tokens.ts` and `parity.ts`. The test
+lists files with `git ls-files`, so the Phase 11 carousel code escaped it while it was untracked; the
+commit exposed it, and `main` was red on GitHub until this fix. The rule was not loosened (adding
+`tokens.ts` to the test's allow-list would have been).
+
+**Fix.** Satori has no CSS variables, so Phase 11 had copied each theme colour into `tokens.ts` as
+hex, guarded by verify-parity. Now `lib/carousel/palettes.ts` (node only) reads every slide colour
+from its theme block of `app/globals.css` at render time (`lib/carousel/css-tokens.ts` parses it);
+a token missing from its block stops the render. `tokens.ts` keeps only browser-safe things
+(looks, sizes, type, token names), because the queue's `QueueBoard.tsx` imports it in the browser.
+New test `lib/carousel/palettes.test.ts` (3): value for value against the stylesheet, every look,
+and a removed token throws.
+
+**Proof the slides did not change.** verify-parity checks exported PNGs byte for byte: the five
+decks exported before the change still match. The six newer decks were then exported to
+`docs/evidence/carousel/` (they had only been drawn into the trial evidence); parity passes on all
+11 decks, 320 slides across 4 looks (`docs/evidence/carousel/parity.txt`).
+

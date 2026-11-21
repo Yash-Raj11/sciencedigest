@@ -5,9 +5,10 @@
  */
 
 import { SHRINK } from "../art-geometry";
-import { COLOR, DOTS, STROKE, type Palette } from "../tokens";
+import { paletteOf } from "../palettes";
+import { DOTS, STROKE, type Palette } from "../tokens";
 
-export function Shrink({ second, pal = COLOR }: { second: boolean; pal?: Palette }) {
+export function Shrink({ second, pal = paletteOf("dark") }: { second: boolean; pal?: Palette }) {
   const h = second ? SHRINK.small : SHRINK.big;
   return (
     <svg width={SHRINK.width} height={SHRINK.height} viewBox={`0 0 ${SHRINK.width} ${SHRINK.height}`}>

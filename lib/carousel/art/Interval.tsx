@@ -6,10 +6,11 @@
  */
 
 import type { intervalLayout } from "../art-geometry";
-import { COLOR, STROKE, type Palette } from "../tokens";
+import { paletteOf } from "../palettes";
+import { STROKE, type Palette } from "../tokens";
 import { scenery } from "./line";
 
-export function Interval({ at, width, height, pal = COLOR }: { at: ReturnType<typeof intervalLayout>; width: number; height: number; pal?: Palette }) {
+export function Interval({ at, width, height, pal = paletteOf("dark") }: { at: ReturnType<typeof intervalLayout>; width: number; height: number; pal?: Palette }) {
   return (
     <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
       <path d={`M ${at.track.from} ${height / 2} L ${at.track.to} ${height / 2}`} stroke={pal.line} strokeWidth={STROKE.thin} />

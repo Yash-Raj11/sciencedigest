@@ -5,11 +5,12 @@
  * Entries are all one size: the art shows which column moved, never by how much.
  */
 
-import { ART, COLOR, type Palette } from "../tokens";
+import { paletteOf } from "../palettes";
+import { ART, type Palette } from "../tokens";
 import { LEDGER_ROWS } from "../art-geometry";
 import { claim, scenery, solidInk, type Line } from "./line";
 
-export function Ledger({ line, width = ART.width, pal = COLOR }: { line: Line; width?: number; pal?: Palette }) {
+export function Ledger({ line, width = ART.width, pal = paletteOf("dark") }: { line: Line; width?: number; pal?: Palette }) {
   return (
     <svg width={width} height={Math.round((width * ART.height) / ART.width)} viewBox={`0 0 ${ART.width} ${ART.height}`}>
       <rect x={72} y={30} width={760} height={560} rx={28} {...solidInk(pal)} fill={pal.surface} />

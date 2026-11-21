@@ -5,11 +5,12 @@
  * Solid orange when measured, dashed ink when proposed. No dots: a dot on a curve reads as data.
  */
 
-import { COLOR, STROKE, type Palette } from "../tokens";
+import { paletteOf } from "../palettes";
+import { STROKE, type Palette } from "../tokens";
 import { PLATEAU, type plateauLayout } from "../art-geometry";
 import { claim, scenery, type Line } from "./line";
 
-export function Plateau({ at, line, width, pal = COLOR }: { at: ReturnType<typeof plateauLayout>; line: Line; width: number; pal?: Palette }) {
+export function Plateau({ at, line, width, pal = paletteOf("dark") }: { at: ReturnType<typeof plateauLayout>; line: Line; width: number; pal?: Palette }) {
   return (
     <svg width={width} height={at.y.height} viewBox={`0 0 ${width} ${at.y.height}`}>
       <rect x={at.band.from} y={at.band.top} width={Math.max(at.band.to - at.band.from, STROKE.main)} height={at.axis - at.band.top} fill={pal["signal-evidence-pale"]} />

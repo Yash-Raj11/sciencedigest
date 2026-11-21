@@ -15,7 +15,8 @@ import type { CarouselArt, CarouselDay, CarouselDeck, CarouselFigure, CarouselSl
 import { Day, Interval, PICTURES, Plateau, Shrink, VerdictMark } from "./art";
 import { claim } from "./art/line";
 import { dayLayout, intervalLayout, PICTURE_LABEL_SLOTS, PLATEAU, plateauLayout } from "./art-geometry";
-import { ART, HEADING, paletteOf, SANS, SERIF, SLIDE, TYPE, type Look, type Palette } from "./tokens";
+import { paletteOf } from "./palettes";
+import { ART, HEADING, SANS, SERIF, SLIDE, TYPE, type Look, type Palette } from "./tokens";
 
 type Style = Record<string, string | number>;
 const box = (style: Style = {}): Style => ({ display: "flex", ...style });

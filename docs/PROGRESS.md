@@ -247,13 +247,26 @@ Decisions and their reasons go in `BUILD-LOG.md`; this file is only the checklis
         queue and saved in the approval record.
       Proof: 826 unit tests; parity 5 decks, 148 slides × 4 looks;
       `docs/evidence/carousel/` (sheet-*.png, openings-*.png, phase11/).
+- [x] Off-list (owner, 2026-11-20 to 2026-11-21): the Opus trial. Claude Opus 5.5 extracted six
+      CC-BY papers by hand, with no API key, so the owner could evaluate an upper bound on a
+      one-shot API run: best-possible-toothbrushing, time-restricted-eating-healthy,
+      sleep-restriction-sweet-foods, sugar-inflammation-markers, alternate-day-fasting-weight,
+      ceramide-moisturizer-barrier. Each passed the real gate and lint, got one figure with a
+      failing-rule test, a deck and a review sheet. All six approved (owner: "start publishing
+      them"); 11 published papers; hosted seed pushed on the owner's go and verified (11 published,
+      each new read and its steps present); committed `de4990e`, pushed; Vercel live, the four
+      newest pages 200. Proof: `docs/evidence/opus-trial/` (per paper: fixes.md,
+      draft-for-review.md, gate and lint runs, deck sheets, figure preview, checks.txt;
+      publish-checks.txt, hosted-push.txt). BUILD-LOG 2026-11-21.
 - [ ] ⏸ Stop. Owner approves decks in `/admin/queue`.
       Before that, the owner must:
       - Review the caffeine deck's two new entries (`npm run paper -- approve-concept caffeine-tolerance`,
         `npm run paper -- approve-common coffee-cup-caffeine`); the queue refuses that deck until then.
-      - Say keep or drop the two font packages.
-      - Say whether to commit the Phase 11 work.
+      - Settle the open decisions in the six Opus-trial review sheets
+        (`docs/evidence/opus-trial/<slug>/draft-for-review.md`, top of each), BUILD-LOG 2026-11-21.
       Then pick each deck's look and opening, and approve.
+      Done 2026-11-21: the Phase 11 work is committed (`de4990e`, owner: "commit them"), the two
+      font packages kept in it with their reason in the commit body.
 
 ## Finish
 

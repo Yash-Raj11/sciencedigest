@@ -4,10 +4,11 @@
  * so the press and the ring are drawn as the claim's line (dashed when proposed).
  */
 
-import { ART, COLOR, type Palette } from "../tokens";
+import { paletteOf } from "../palettes";
+import { ART, type Palette } from "../tokens";
 import { claim, scenery, solidInk, type Line } from "./line";
 
-export function Doorbell({ line, width = ART.width, pal = COLOR }: { line: Line; width?: number; pal?: Palette }) {
+export function Doorbell({ line, width = ART.width, pal = paletteOf("dark") }: { line: Line; width?: number; pal?: Palette }) {
   return (
     <svg width={width} height={Math.round((width * ART.height) / ART.width)} viewBox={`0 0 ${ART.width} ${ART.height}`}>
       <rect x={300} y={70} width={240} height={480} rx={60} {...solidInk(pal)} fill={pal.surface} />

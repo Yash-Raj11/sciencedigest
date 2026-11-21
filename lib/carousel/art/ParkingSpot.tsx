@@ -6,7 +6,8 @@
  */
 
 import { PARKING } from "../art-geometry";
-import { ART, COLOR, type Palette } from "../tokens";
+import { paletteOf } from "../palettes";
+import { ART, type Palette } from "../tokens";
 import { claim, scenery, solidInk, type Line } from "./line";
 
 function Car({ x, y, look, glass }: { x: number; y: number; look: React.SVGProps<SVGRectElement>; glass: string }) {
@@ -19,7 +20,7 @@ function Car({ x, y, look, glass }: { x: number; y: number; look: React.SVGProps
   );
 }
 
-export function ParkingSpot({ line, width = ART.width, pal = COLOR }: { line: Line; width?: number; pal?: Palette }) {
+export function ParkingSpot({ line, width = ART.width, pal = paletteOf("dark") }: { line: Line; width?: number; pal?: Palette }) {
   const signal = claim(line, pal);
   return (
     <svg width={width} height={Math.round((width * ART.height) / ART.width)} viewBox={`0 0 ${ART.width} ${ART.height}`}>

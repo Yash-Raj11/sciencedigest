@@ -1,0 +1,19 @@
+
+> sciencedigest@0.1.0 carousel:parity
+> tsx scripts/verify-parity.mts
+
+tokens: the 4 slide palettes match their themes in app/globals.css
+contrast: every look's text reaches 4.5:1 on its ground, the button label 3:1 on the orange
+alternate-day-fasting-weight: 6 slides + 1 alternate openings × 4 looks, ok
+best-possible-toothbrushing: 6 slides + 2 alternate openings × 4 looks, ok
+ceramide-moisturizer-barrier: 6 slides + 1 alternate openings × 4 looks, ok
+daytime-caffeine-sleep: 6 slides + 1 alternate openings × 4 looks, ok
+hiit-body-composition: 6 slides + 1 alternate openings × 4 looks, ok
+sleep-extension-energy-intake: 6 slides + 1 alternate openings × 4 looks, ok
+sleep-restriction-sweet-foods: 6 slides + 1 alternate openings × 4 looks, ok
+steps-days-per-week: 6 slides + 3 alternate openings × 4 looks, ok
+sugar-inflammation-markers: 6 slides + 1 alternate openings × 4 looks, ok
+time-restricted-eating-healthy: 6 slides + 1 alternate openings × 4 looks, ok
+turmeric-pepper-breakfast: 6 slides + 1 alternate openings × 4 looks, ok
+
+verify-parity passed: 11 published decks, 320 slides across 4 looks. Every drawn number is in a passage its slide cites; every deck word is drawn; tokens match; text contrast holds; PNGs are current.

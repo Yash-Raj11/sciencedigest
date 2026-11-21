@@ -4,10 +4,11 @@
  * curve reads as a data point).
  */
 
-import { ART, COLOR, type Palette } from "../tokens";
+import { paletteOf } from "../palettes";
+import { ART, type Palette } from "../tokens";
 import { claim, scenery, type Line } from "./line";
 
-export function Ramp({ line, width = ART.width, pal = COLOR }: { line: Line; width?: number; pal?: Palette }) {
+export function Ramp({ line, width = ART.width, pal = paletteOf("dark") }: { line: Line; width?: number; pal?: Palette }) {
   return (
     <svg width={width} height={Math.round((width * ART.height) / ART.width)} viewBox={`0 0 ${ART.width} ${ART.height}`}>
       <path d="M 80 560 L 830 560" {...scenery(pal)} />
